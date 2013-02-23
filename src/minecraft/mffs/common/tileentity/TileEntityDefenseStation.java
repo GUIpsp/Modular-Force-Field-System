@@ -30,7 +30,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine implements ISidedInventory
+public class TileEntityDefenseStation extends TileEntityFEPoweredMachine implements ISidedInventory
 {
 	private ItemStack[] Inventory;
 	private int capacity;
@@ -43,7 +43,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine imp
 	protected List NPClist = new ArrayList();
 	private ArrayList ContraList = new ArrayList();
 
-	public TileEntityAreaDefenseStation()
+	public TileEntityDefenseStation()
 	{
 		Random random = new Random();
 
@@ -303,7 +303,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine imp
 		{
 			count = 1;
 		}
-		if ((inventory instanceof TileEntityAreaDefenseStation))
+		if ((inventory instanceof TileEntityDefenseStation))
 		{
 			count = 15;
 		}

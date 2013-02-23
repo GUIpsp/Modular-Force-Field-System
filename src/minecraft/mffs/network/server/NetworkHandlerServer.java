@@ -9,7 +9,7 @@ import mffs.common.ForceFieldBlockStack;
 import mffs.common.Linkgrid;
 import mffs.common.WorldMap;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
@@ -105,7 +105,7 @@ public class NetworkHandlerServer implements IPacketHandler
 								{
 									if (!ffworldmap.isEmpty())
 									{
-										TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(worldserver).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+										TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(worldserver).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 										if (projector != null)
 										{
@@ -219,11 +219,11 @@ public class NetworkHandlerServer implements IPacketHandler
 
 			}
 
-			if ((tileEntity instanceof TileEntityAreaDefenseStation))
+			if ((tileEntity instanceof TileEntityDefenseStation))
 			{
 				try
 				{
-					Field f = ReflectionHelper.findField(TileEntityAreaDefenseStation.class, new String[] { varname });
+					Field f = ReflectionHelper.findField(TileEntityDefenseStation.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
 				}

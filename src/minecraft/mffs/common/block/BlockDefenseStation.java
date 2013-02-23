@@ -1,7 +1,7 @@
 package mffs.common.block;
 
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -16,6 +16,6 @@ public class BlockDefenseStation extends BlockMFFS
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TileEntityAreaDefenseStation();
+		return new TileEntityDefenseStation();
 	}
 }

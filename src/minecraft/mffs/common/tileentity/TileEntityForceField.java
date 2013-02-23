@@ -149,7 +149,7 @@ public class TileEntityForceField extends TileEntity
 			{
 				if (!ffworldmap.isEmpty())
 				{
-					TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(this.worldObj).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+					TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 					if (projector != null)
 					{

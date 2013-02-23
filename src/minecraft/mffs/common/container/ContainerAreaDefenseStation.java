@@ -1,7 +1,7 @@
 package mffs.common.container;
 
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerAreaDefenseStation extends Container
 {
-	private TileEntityAreaDefenseStation defstation;
+	private TileEntityDefenseStation defstation;
 	private int capacity;
 	private int SwitchTyp;
 	private int contratyp;
@@ -18,7 +18,7 @@ public class ContainerAreaDefenseStation extends Container
 	private int scanmode;
 	private EntityPlayer player;
 
-	public ContainerAreaDefenseStation(EntityPlayer player, TileEntityAreaDefenseStation tileentity)
+	public ContainerAreaDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
 	{
 		this.capacity = -1;
 		this.SwitchTyp = -1;

@@ -49,7 +49,7 @@ public class ItemProjectorOptionFieldFusion extends ItemProjectorOptionBase impl
 		{
 			if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
 			{
-				TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 				if (Projector != null)
 				{

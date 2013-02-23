@@ -2,7 +2,7 @@ package mffs.common.upgrade;
 
 import java.util.List;
 
-import mffs.common.MFFSMachines;
+import mffs.common.MFFSMachine;
 import mffs.common.item.ItemMFFSBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class ItemCapacitorUpgradeRange extends ItemMFFSBase
 		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
 		{
 			info.add("compatible with:");
-			info.add("MFFS " + MFFSMachines.Capacitor.displayName);
+			info.add("MFFS " + MFFSMachine.Capacitor.getName());
 		}
 		else
 		{

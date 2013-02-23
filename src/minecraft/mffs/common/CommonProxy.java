@@ -32,11 +32,11 @@ public class CommonProxy implements IGuiHandler
 			return null;
 		}
 
-		MFFSMachines machType = MFFSMachines.fromTE(te);
+		MFFSMachine machType = MFFSMachine.fromTE(te);
 		try
 		{
-			Constructor mkGui = Class.forName("mffs.client.gui." + machType.Gui).getConstructor(new Class[] { EntityPlayer.class, machType.clazz });
-			return mkGui.newInstance(new Object[] { player, machType.clazz.cast(te) });
+			Constructor mkGui = machType.gui.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
+			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(te) });
 		}
 		catch (Exception ex)
 		{
@@ -54,11 +54,11 @@ public class CommonProxy implements IGuiHandler
 			return null;
 		}
 
-		MFFSMachines machType = MFFSMachines.fromTE(te);
+		MFFSMachine machType = MFFSMachine.fromTE(te);
 		try
 		{
-			Constructor mkGui = machType.Container.getConstructor(new Class[] { EntityPlayer.class, machType.clazz });
-			return mkGui.newInstance(new Object[] { player, machType.clazz.cast(te) });
+			Constructor mkGui = machType.container.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
+			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(te) });
 		}
 		catch (Exception ex)
 		{

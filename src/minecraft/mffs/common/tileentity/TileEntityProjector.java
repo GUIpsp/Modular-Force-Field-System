@@ -780,7 +780,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public void invalidate()
 	{
-		Linkgrid.getWorldMap(this.worldObj).getProjektor().remove(Integer.valueOf(getDeviceID()));
+		Linkgrid.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
 		destroyField();
 		super.invalidate();
 	}

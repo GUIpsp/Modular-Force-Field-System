@@ -42,7 +42,7 @@ public class ItemFieldtransporter extends ItemMultitool
 			int First_Pro_ID = ffworldmap.getProjectorID();
 
 			TileEntityCapacitor generator = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(First_Gen_ID));
-			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjektor().get(Integer.valueOf(First_Pro_ID));
+			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(First_Pro_ID));
 
 			if ((projector != null) && (generator != null))
 			{

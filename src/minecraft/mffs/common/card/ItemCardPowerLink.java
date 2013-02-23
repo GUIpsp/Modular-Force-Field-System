@@ -8,7 +8,7 @@ import mffs.common.Linkgrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityExtractor;
@@ -91,7 +91,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 				return false;
 			}
 
-			if (((tileEntity instanceof TileEntityAreaDefenseStation)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
+			if (((tileEntity instanceof TileEntityDefenseStation)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 0, "<Power-Link>");
 			}

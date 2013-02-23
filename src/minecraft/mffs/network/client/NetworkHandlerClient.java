@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
@@ -154,11 +154,11 @@ public class NetworkHandlerClient implements IPacketHandler
 
 				}
 
-				if ((tileEntity instanceof TileEntityAreaDefenseStation))
+				if ((tileEntity instanceof TileEntityDefenseStation))
 				{
 					try
 					{
-						Field f = ReflectionHelper.findField(TileEntityAreaDefenseStation.class, new String[] { fieldname });
+						Field f = ReflectionHelper.findField(TileEntityDefenseStation.class, new String[] { fieldname });
 						reflectionsetvalue(f, tileEntity, dat, fieldname);
 					}
 					catch (Exception e)

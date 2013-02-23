@@ -7,7 +7,7 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityProjector;
@@ -127,7 +127,7 @@ public class ItemCardSecurityLink extends ItemCard
 
 			}
 
-			if (((tileEntity instanceof TileEntityAreaDefenseStation)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
+			if (((tileEntity instanceof TileEntityDefenseStation)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 1, "<Security Station Link>");
 			}

@@ -1,0 +1,111 @@
+package mffs.common;
+
+import ic2.api.ExplosionWhitelist;
+import mffs.client.gui.GuiAreaDefenseStation;
+import mffs.client.gui.GuiCapacitor;
+import mffs.client.gui.GuiControlSystem;
+import mffs.client.gui.GuiConverter;
+import mffs.client.gui.GuiExtractor;
+import mffs.client.gui.GuiProjector;
+import mffs.client.gui.GuiSecStorage;
+import mffs.client.gui.GuiSecurityStation;
+import mffs.common.container.ContainerAreaDefenseStation;
+import mffs.common.container.ContainerCapacitor;
+import mffs.common.container.ContainerControlSystem;
+import mffs.common.container.ContainerConverter;
+import mffs.common.container.ContainerForceEnergyExtractor;
+import mffs.common.container.ContainerProjector;
+import mffs.common.container.ContainerSecStorage;
+import mffs.common.container.ContainerSecurityStation;
+import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TileEntityConverter;
+import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TileEntitySecStorage;
+import mffs.common.tileentity.TileEntitySecurityStation;
+import net.minecraft.block.Block;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import universalelectricity.prefab.TranslationHelper;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
+public enum MFFSMachine
+{
+	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.MFFSProjector, "KyKyFyKJK", "ByByKyBaB"),
+	Extractor(TileEntityExtractor.class, GuiExtractor.class, ContainerForceEnergyExtractor.class, ModularForceFieldSystem.MFFSExtractor, " C xFx G ", " E xKx J "),
+	Capacitor(TileEntityCapacitor.class, GuiCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.MFFSCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.MFFSForceEnergyConverter, "ANAJOMAPA", "AKAaJIAMA"),
+	DefenceStation(TileEntityDefenseStation.class, GuiAreaDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.MFFSDefenceStation, " J aFa E ", " a EKE C "),
+	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ModularForceFieldSystem.MFFSSecurtyStation, "KCKCFCKJK", "CECEKECaC"),
+	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ModularForceFieldSystem.MFFSSecurtyStorage, "AAAACAAAA", "AAAAEAAAA"),
+	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ModularForceFieldSystem.MFFSControlSystem, "aCaAFAACA", "aEaAKAAEA");
+
+	public Class<? extends TileEntity> tileEntity;
+	public Class<? extends GuiScreen> gui;
+	public Class<? extends Container> container;
+	public Block block;
+	public String recipe_ic;
+	public String recipe_ue;
+
+	private MFFSMachine(Class<? extends TileEntity> tileEntity, Class<? extends GuiScreen> gui, Class<? extends Container> container, Block block, String recipeic, String recipeue)
+	{
+		this.tileEntity = tileEntity;
+		this.gui = gui;
+		this.container = container;
+
+		this.recipe_ic = recipeic;
+		this.recipe_ue = recipeue;
+		this.block = block;
+	}
+
+	public String getName()
+	{
+		return TranslationHelper.getLocal(this.block.getBlockName() + ".name");
+	}
+
+	public static MFFSMachine get(String name)
+	{
+		for (MFFSMachine machine : values())
+		{
+			if (machine.block.getBlockName().equals(name))
+			{
+				return machine;
+			}
+		}
+
+		return null;
+	}
+
+	public static MFFSMachine fromTE(TileEntity tem)
+	{
+		for (MFFSMachine mach : values())
+		{
+			if (mach.tileEntity.isInstance(tem))
+			{
+				return mach;
+			}
+		}
+		return null;
+	}
+
+	public static void initialize()
+	{
+		for (MFFSMachine mach : values())
+		{
+			GameRegistry.registerBlock(mach.block, mach.block.getBlockName());
+			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getBlockName());
+
+			if (ModularForceFieldSystem.ic2found.booleanValue())
+				RecipesFactory.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);
+			if (ModularForceFieldSystem.uefound.booleanValue())
+				RecipesFactory.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
+
+			LanguageRegistry.instance().addNameForObject(mach.block, "en_US", "MFFS " + mach.getName());
+			ExplosionWhitelist.addWhitelistedBlock(mach.block);
+		}
+	}
+}

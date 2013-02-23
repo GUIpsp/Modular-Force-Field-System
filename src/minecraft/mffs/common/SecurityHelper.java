@@ -1,7 +1,7 @@
 package mffs.common;
 
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
@@ -136,9 +136,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntityAreaDefenseStation))
+		if ((tileEntity instanceof TileEntityDefenseStation))
 		{
-			TileEntitySecurityStation sec = ((TileEntityAreaDefenseStation) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityDefenseStation) tileEntity).getLinkedSecurityStation();
 
 			if (sec != null)
 			{

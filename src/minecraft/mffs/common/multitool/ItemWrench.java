@@ -4,7 +4,7 @@ import ic2.api.IWrenchable;
 import mffs.api.IMFFS_Wrench;
 import mffs.common.Functions;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.item.EntityItem;
@@ -106,9 +106,9 @@ public class ItemWrench extends ItemMultitool implements IToolWrench, ICrowbar
 								return false;
 							}
 						}
-						if ((tileentity instanceof TileEntityAreaDefenseStation))
+						if ((tileentity instanceof TileEntityDefenseStation))
 						{
-							if (((TileEntityAreaDefenseStation) tileentity).isActive())
+							if (((TileEntityDefenseStation) tileentity).isActive())
 							{
 								return false;
 							}

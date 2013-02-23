@@ -3,7 +3,7 @@ package mffs.client.gui;
 import mffs.client.GraphicButton;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerAreaDefenseStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -13,10 +13,10 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiAreaDefenseStation extends GuiContainer
 {
-	private TileEntityAreaDefenseStation DefenceStation;
+	private TileEntityDefenseStation DefenceStation;
 	private boolean editMode = false;
 
-	public GuiAreaDefenseStation(EntityPlayer player, TileEntityAreaDefenseStation tileentity)
+	public GuiAreaDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
 	{
 		super(new ContainerAreaDefenseStation(player, tileentity));
 		this.DefenceStation = tileentity;

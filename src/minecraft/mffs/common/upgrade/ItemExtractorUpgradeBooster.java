@@ -2,7 +2,7 @@ package mffs.common.upgrade;
 
 import java.util.List;
 
-import mffs.common.MFFSMachines;
+import mffs.common.MFFSMachine;
 import mffs.common.item.ItemMFFSBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class ItemExtractorUpgradeBooster extends ItemMFFSBase
 		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
 		{
 			info.add("Compatible with:");
-			info.add("MFFS " + MFFSMachines.Extractor.displayName);
+			info.add("MFFS " + MFFSMachine.Extractor.getName());
 		}
 		else
 		{

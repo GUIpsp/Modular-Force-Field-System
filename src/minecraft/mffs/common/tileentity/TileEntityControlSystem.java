@@ -5,7 +5,7 @@ import java.util.List;
 
 import mffs.api.PointXYZ;
 import mffs.common.Linkgrid;
-import mffs.common.MFFSMachines;
+import mffs.common.MFFSMachine;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.card.ItemCardDataLink;
@@ -285,9 +285,9 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 			{
 				setRemotePowerleft(this.remote.getPercentageCapacity());
 			}
-			if (!MFFSMachines.fromTE(this.remote).displayName.equalsIgnoreCase(getRemoteDeviceTyp()))
+			if (!MFFSMachine.fromTE(this.remote).getName().equalsIgnoreCase(getRemoteDeviceTyp()))
 			{
-				setRemoteDeviceTyp(MFFSMachines.fromTE(this.remote).displayName);
+				setRemoteDeviceTyp(MFFSMachine.fromTE(this.remote).getName());
 			}
 
 			if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) > 61.0D) && (getRemoteGUIinRange()))

@@ -114,7 +114,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
-			TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (Projector != null)
 				if (!Projector.isActive())
 				{
@@ -144,7 +144,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!ModularForceFieldSystem.adventuremap.booleanValue()))
 		{
-			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(par1World).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (projector != null)
 			{
 				switch (projector.getaccesstyp())
@@ -206,7 +206,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 			if (ffworldmap != null)
 			{
-				TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 				if (projector != null)
 				{
@@ -317,7 +317,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
-			TileEntity tileEntity = (TileEntity) Linkgrid.getWorldMap(world).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			TileEntity tileEntity = (TileEntity) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 			if (((tileEntity instanceof TileEntityProjector)) && (tileEntity != null))
 			{
@@ -354,7 +354,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		{
 			if (!ffworldmap.isEmpty())
 			{
-				TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjektor().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 				if ((Projector != null) && (!Projector.isActive()))
 				{
 					ffworldmap.removebyProjector(ffworldmap.getProjectorID());

@@ -6,7 +6,7 @@ import java.util.Random;
 
 import mffs.api.PointXYZ;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.common.tileentity.TileEntityAreaDefenseStation;
+import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
@@ -41,7 +41,7 @@ public final class Linkgrid
 		private Map<Integer, TileEntityProjector> Projector = new Hashtable();
 		private Map<Integer, TileEntityCapacitor> Capacitors = new Hashtable();
 		private Map<Integer, TileEntitySecurityStation> SecStation = new Hashtable();
-		private Map<Integer, TileEntityAreaDefenseStation> DefStation = new Hashtable();
+		private Map<Integer, TileEntityDefenseStation> DefStation = new Hashtable();
 		private Map<Integer, TileEntityExtractor> Extractor = new Hashtable();
 		private Map<Integer, TileEntityConverter> Converter = new Hashtable();
 		private Map Jammer = new Hashtable();
@@ -69,7 +69,7 @@ public final class Linkgrid
 			return this.Extractor;
 		}
 
-		public Map getProjektor()
+		public Map getProjector()
 		{
 			return this.Projector;
 		}
@@ -136,7 +136,7 @@ public final class Linkgrid
 				this.SecStation.put(Integer.valueOf(DeviceID), (TileEntitySecurityStation) tileEntity);
 				return DeviceID;
 			}
-			if ((tileEntity instanceof TileEntityAreaDefenseStation))
+			if ((tileEntity instanceof TileEntityDefenseStation))
 			{
 				if (remDeviceID == 0)
 				{
@@ -144,7 +144,7 @@ public final class Linkgrid
 						DeviceID = random.nextInt();
 				}
 				DeviceID = remDeviceID;
-				this.DefStation.put(Integer.valueOf(DeviceID), (TileEntityAreaDefenseStation) tileEntity);
+				this.DefStation.put(Integer.valueOf(DeviceID), (TileEntityDefenseStation) tileEntity);
 				return DeviceID;
 			}
 			if ((tileEntity instanceof TileEntityCapacitor))
@@ -215,7 +215,7 @@ public final class Linkgrid
 
 			}
 
-			for (TileEntityAreaDefenseStation tileentity : this.DefStation.values())
+			for (TileEntityDefenseStation tileentity : this.DefStation.values())
 			{
 				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMaschinePoint(), Cap.getMaschinePoint())))
 				{
@@ -247,14 +247,14 @@ public final class Linkgrid
 
 		public TileEntityMFFS getTileEntityMachines(String displayname, int key)
 		{
-			MFFSMachines tem = MFFSMachines.fromdisplayName(displayname);
+			MFFSMachine tem = MFFSMachine.get(displayname);
 
 			if (tem != null)
 			{
-				switch (tem.index)
+				switch (tem.ordinal())
 				{
 					case 1:
-						return (TileEntityMFFS) getProjektor().get(Integer.valueOf(key));
+						return (TileEntityMFFS) getProjector().get(Integer.valueOf(key));
 					case 2:
 						return (TileEntityMFFS) getExtractor().get(Integer.valueOf(key));
 					case 3:
@@ -271,6 +271,7 @@ public final class Linkgrid
 						return (TileEntityMFFS) getControlSystem().get(Integer.valueOf(key));
 				}
 			}
+
 			return null;
 		}
 	}
