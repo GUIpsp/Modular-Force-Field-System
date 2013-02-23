@@ -16,16 +16,7 @@ public class ItemProjectorFocusMatrix extends ItemMFFSBase
 		super(i);
 		setIconIndex(66);
 		setMaxStackSize(64);
-	}
-
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
+		this.setNoRepair();
 	}
 
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)

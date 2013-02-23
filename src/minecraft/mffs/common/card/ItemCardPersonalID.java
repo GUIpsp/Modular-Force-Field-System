@@ -20,11 +20,6 @@ public class ItemCardPersonalID extends Item
 		setMaxStackSize(1);
 	}
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
 	public boolean isRepairable()
 	{
 		return false;

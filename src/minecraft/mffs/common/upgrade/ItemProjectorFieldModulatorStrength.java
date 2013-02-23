@@ -16,16 +16,8 @@ public class ItemProjectorFieldModulatorStrength extends ItemMFFSBase
 		super(i);
 		setIconIndex(65);
 		setMaxStackSize(64);
-	}
+		this.setNoRepair();
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)

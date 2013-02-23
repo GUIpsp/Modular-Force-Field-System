@@ -19,24 +19,14 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements IPowerLinkIte
 	public ItemForcePowerCrystal(int i)
 	{
 		super(i);
-		setIconIndex(96);
-		setMaxStackSize(1);
-		setMaxDamage(100);
-	}
-
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
+		this.setIconIndex(96);
+		this.setMaxStackSize(1);
+		this.setMaxDamage(100);
 	}
 
 	public boolean isRepairable()
 	{
 		return false;
-	}
-
-	public boolean isDamageable()
-	{
-		return true;
 	}
 
 	public int getPowerTransferrate()

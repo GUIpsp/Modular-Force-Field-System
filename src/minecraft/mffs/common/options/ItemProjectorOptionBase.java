@@ -3,8 +3,8 @@ package mffs.common.options;
 import java.util.ArrayList;
 import java.util.List;
 
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTyp;
+import mffs.common.item.ItemMFFSBase;
 import mffs.common.modules.ItemProjectorModuleAdvCube;
 import mffs.common.modules.ItemProjectorModuleContainment;
 import mffs.common.modules.ItemProjectorModuleCube;
@@ -14,12 +14,11 @@ import mffs.common.modules.ItemProjectorModuleTube;
 import mffs.common.modules.ItemProjectorModuleWall;
 import mffs.common.modules.ItemProjectorModulediagonallyWall;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public abstract class ItemProjectorOptionBase extends Item
+public abstract class ItemProjectorOptionBase extends ItemMFFSBase
 {
 	private static List instances = new ArrayList();
 
@@ -27,18 +26,12 @@ public abstract class ItemProjectorOptionBase extends Item
 	{
 		super(i);
 		setMaxStackSize(8);
-		setCreativeTab(ModularForceFieldSystem.TAB);
 		instances.add(this);
 	}
 
 	public static List<ItemProjectorOptionBase> get_instances()
 	{
 		return instances;
-	}
-
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
 	}
 
 	public boolean isRepairable()

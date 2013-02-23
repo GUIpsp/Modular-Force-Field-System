@@ -19,11 +19,6 @@ public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem, IForc
 		setIconIndex(21);
 	}
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
 	public boolean isRepairable()
 	{
 		return false;

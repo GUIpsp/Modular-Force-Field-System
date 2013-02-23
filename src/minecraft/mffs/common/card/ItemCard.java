@@ -21,6 +21,7 @@ public class ItemCard extends ItemMFFSBase
 		this.setMaxStackSize(1);
 	}
 
+	@Override
 	public boolean isRepairable()
 	{
 		return false;

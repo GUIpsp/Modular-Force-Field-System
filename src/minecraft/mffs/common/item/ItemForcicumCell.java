@@ -21,24 +21,14 @@ public class ItemForcicumCell extends ItemMFFSBase
 	public ItemForcicumCell(int id)
 	{
 		super(id);
-		setIconIndex(98);
-		setMaxStackSize(1);
-		setMaxDamage(100);
+		this.setIconIndex(98);
+		this.setMaxStackSize(1);
+		this.setMaxDamage(100);
 	}
 
 	public boolean isRepairable()
 	{
 		return false;
-	}
-
-	public boolean isDamageable()
-	{
-		return true;
-	}
-
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
 	}
 
 	public int getItemDamage(ItemStack itemStack)

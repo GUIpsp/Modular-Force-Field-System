@@ -16,16 +16,8 @@ public class ItemCapacitorUpgradeRange extends ItemMFFSBase
 		super(i);
 		setIconIndex(33);
 		setMaxStackSize(9);
-	}
+		this.setNoRepair();
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)

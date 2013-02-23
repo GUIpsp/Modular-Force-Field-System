@@ -5,13 +5,8 @@ public class ItemForcicium extends ItemMFFSBase
 	public ItemForcicium(int i)
 	{
 		super(i);
-		setIconIndex(97);
-		setMaxStackSize(64);
-	}
-
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
+		this.setIconIndex(97);
+		this.setMaxStackSize(64);
 	}
 
 	public boolean isRepairable()

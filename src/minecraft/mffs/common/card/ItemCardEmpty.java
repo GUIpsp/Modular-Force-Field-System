@@ -13,23 +13,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemCardEmpty extends ItemMFFSBase
+public class ItemCardEmpty extends ItemCard
 {
 	public ItemCardEmpty(int i)
 	{
 		super(i);
 		setIconIndex(16);
 		setMaxStackSize(16);
-	}
-
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float par8, float par9, float par10)

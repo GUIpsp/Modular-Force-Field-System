@@ -16,11 +16,7 @@ public class ItemCapacitorUpgradeCapacity extends ItemMFFSBase
 		super(i);
 		setIconIndex(32);
 		setMaxStackSize(9);
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
+		this.setNoRepair();
 	}
 
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)

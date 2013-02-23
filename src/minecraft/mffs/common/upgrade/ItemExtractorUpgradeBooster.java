@@ -16,28 +16,20 @@ public class ItemExtractorUpgradeBooster extends ItemMFFSBase
 		super(i);
 		setIconIndex(37);
 		setMaxStackSize(19);
-	}
+		this.setNoRepair();
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
 		{
-			info.add("compatible with:");
+			info.add("Compatible with:");
 			info.add("MFFS " + MFFSMachines.Extractor.displayName);
 		}
 		else
 		{
-			info.add("compatible with: (Hold Shift)");
+			info.add("Compatible with: (Hold Shift)");
 		}
 	}
 }
