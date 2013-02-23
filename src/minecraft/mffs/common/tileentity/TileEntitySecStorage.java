@@ -1,8 +1,8 @@
 package mffs.common.tileentity;
 
 import mffs.common.Linkgrid;
+import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecStorage;
-import mffs.common.item.ItemCardSecurityLink;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntitySecStorage extends TileEntityMachines implements ISidedInventory, IInventory
+public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInventory, IInventory
 {
 	private ItemStack[] inventory;
 
@@ -27,7 +27,7 @@ public class TileEntitySecStorage extends TileEntityMachines implements ISidedIn
 			dropplugins(a, this);
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}
@@ -40,7 +40,7 @@ public class TileEntitySecStorage extends TileEntityMachines implements ISidedIn
 
 	public int getSecStation_ID()
 	{
-		TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
+		TileEntitySecurityStation sec = getLinkedSecurityStation();
 		if (sec != null)
 			return sec.getDeviceID();
 		return 0;

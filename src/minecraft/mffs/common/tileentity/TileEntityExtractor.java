@@ -13,10 +13,10 @@ import mffs.api.IPowerLinkItem;
 import mffs.common.Linkgrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
-import mffs.common.item.ItemCapacitorUpgradeCapacity;
-import mffs.common.item.ItemExtractorUpgradeBooster;
 import mffs.common.item.ItemForcicium;
 import mffs.common.item.ItemForcicumCell;
+import mffs.common.upgrade.ItemCapacitorUpgradeCapacity;
+import mffs.common.upgrade.ItemExtractorUpgradeBooster;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -731,12 +731,12 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 		return 2048;
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
 		if (cap != null)
 		{
-			TileEntityAdvSecurityStation sec = cap.getLinkedSecurityStation();
+			TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
 			if (sec != null)
 			{
 				return sec;

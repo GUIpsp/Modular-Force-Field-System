@@ -4,7 +4,7 @@ import mffs.common.tileentity.TileEntityAreaDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
-import mffs.common.tileentity.TileEntityMachines;
+import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -31,9 +31,9 @@ public class GraphicButton extends GuiButton
 			GL11.glBindTexture(3553, par1Minecraft.renderEngine.getTexture("/chb/mods/mffs/sprites/items.png"));
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-			if (((this.tileEntity instanceof TileEntityMachines)) && (this.typ == 0))
+			if (((this.tileEntity instanceof TileEntityMFFS)) && (this.typ == 0))
 			{
-				drawTexturedModalRect(this.xPosition, this.yPosition, 80 + ((TileEntityMachines) this.tileEntity).getSwitchModi() * 16, 112, this.width, this.height);
+				drawTexturedModalRect(this.xPosition, this.yPosition, 80 + ((TileEntityMFFS) this.tileEntity).getSwitchModi() * 16, 112, this.width, this.height);
 			}
 
 			if ((this.tileEntity instanceof TileEntityConverter))

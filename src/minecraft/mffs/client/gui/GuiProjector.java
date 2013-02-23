@@ -71,7 +71,7 @@ public class GuiProjector extends GuiContainer
 
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		int textur = this.mc.renderEngine.getTexture("/chb/mods/mffs/sprites/GuiProjector.png");
+		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiProjector.png");
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(textur);

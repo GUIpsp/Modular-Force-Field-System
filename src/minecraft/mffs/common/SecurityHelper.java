@@ -1,6 +1,6 @@
 package mffs.common;
 
-import mffs.common.tileentity.TileEntityAdvSecurityStation;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityAreaDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
@@ -23,7 +23,7 @@ public class SecurityHelper
 	{
 		if ((tileEntity instanceof TileEntitySecStorage))
 		{
-			TileEntityAdvSecurityStation sec = ((TileEntitySecStorage) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntitySecStorage) tileEntity).getLinkedSecurityStation();
 
 			if (sec != null)
 			{
@@ -46,7 +46,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityControlSystem))
 		{
-			TileEntityAdvSecurityStation sec = ((TileEntityControlSystem) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityControlSystem) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -66,9 +66,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntityAdvSecurityStation))
+		if ((tileEntity instanceof TileEntitySecurityStation))
 		{
-			if (!((TileEntityAdvSecurityStation) tileEntity).isAccessGranted(entityplayer.username, right))
+			if (!((TileEntitySecurityStation) tileEntity).isAccessGranted(entityplayer.username, right))
 			{
 				if (!suppresswarning)
 				{
@@ -81,7 +81,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityConverter))
 		{
-			TileEntityAdvSecurityStation sec = ((TileEntityConverter) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityConverter) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -100,7 +100,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityCapacitor))
 		{
-			TileEntityAdvSecurityStation sec = ((TileEntityCapacitor) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityCapacitor) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -119,7 +119,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityExtractor))
 		{
-			TileEntityAdvSecurityStation sec = ((TileEntityExtractor) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityExtractor) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -138,7 +138,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityAreaDefenseStation))
 		{
-			TileEntityAdvSecurityStation sec = ((TileEntityAreaDefenseStation) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityAreaDefenseStation) tileEntity).getLinkedSecurityStation();
 
 			if (sec != null)
 			{
@@ -164,7 +164,7 @@ public class SecurityHelper
 					TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));
 					if (cap != null)
 					{
-						TileEntityAdvSecurityStation sec = cap.getLinkedSecurityStation();
+						TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
 						if (sec != null)
 						{
 							if (sec.isAccessGranted(entityplayer.username, right))
@@ -181,7 +181,7 @@ public class SecurityHelper
 
 					break;
 				case 3:
-					TileEntityAdvSecurityStation sec = ((TileEntityProjector) tileEntity).getLinkedSecurityStation();
+					TileEntitySecurityStation sec = ((TileEntityProjector) tileEntity).getLinkedSecurityStation();
 					if (sec != null)
 					{
 						if (sec.isAccessGranted(entityplayer.username, right))

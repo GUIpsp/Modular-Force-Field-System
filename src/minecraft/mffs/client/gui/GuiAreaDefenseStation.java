@@ -1,6 +1,7 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.tileentity.TileEntityAreaDefenseStation;
 import mffs.network.client.NetworkHandlerClient;
@@ -71,7 +72,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 	{
 		int xSize = 256;
 		int ySize = 216;
-		int textur = this.mc.renderEngine.getTexture("/chb/mods/mffs/sprites/GuiDefStation.png");
+		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiDefStation.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(textur);
 		int w = (this.width - xSize) / 2;

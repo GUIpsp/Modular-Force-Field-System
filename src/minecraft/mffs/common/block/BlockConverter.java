@@ -5,22 +5,16 @@ import mffs.common.tileentity.TileEntityConverter;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockConverter extends BlockMFFSBase
+public class BlockConverter extends BlockMFFS
 {
 	public BlockConverter(int i)
 	{
-		super(i);
+		super(i, "mffsConverter");
+		this.blockIndexInTexture = 4 * 16;
+
 	}
 
-	public String getTextureFile()
-	{
-		if (ModularForceFieldSystem.graphicstyle == 1)
-		{
-			return "/chb/mods/mffs/sprites/Converter_ue.png";
-		}
-		return "/chb/mods/mffs/sprites/Converter.png";
-	}
-
+	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
 		return new TileEntityConverter();

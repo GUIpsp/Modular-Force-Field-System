@@ -20,13 +20,10 @@ import mffs.common.Linkgrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTyp;
 import mffs.common.WorldMap;
+import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerProjector;
-import mffs.common.item.ItemCardSecurityLink;
-import mffs.common.item.ItemProjectorFieldModulatorDistance;
-import mffs.common.item.ItemProjectorFieldModulatorStrength;
-import mffs.common.item.ItemProjectorFocusMatrix;
-import mffs.common.modules.Module3DBase;
-import mffs.common.modules.ModuleBase;
+import mffs.common.modules.ItemModule3DBase;
+import mffs.common.modules.ItemModuleBase;
 import mffs.common.options.IChecksOnAll;
 import mffs.common.options.IInteriorCheck;
 import mffs.common.options.ItemProjectorOptionBase;
@@ -36,6 +33,9 @@ import mffs.common.options.ItemProjectorOptionFieldFusion;
 import mffs.common.options.ItemProjectorOptionForceFieldJammer;
 import mffs.common.options.ItemProjectorOptionMobDefence;
 import mffs.common.options.ItemProjectorOptionTouchDamage;
+import mffs.common.upgrade.ItemProjectorFieldModulatorDistance;
+import mffs.common.upgrade.ItemProjectorFieldModulatorStrength;
+import mffs.common.upgrade.ItemProjectorFocusMatrix;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -403,7 +403,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		if (hasValidTypeMod())
 		{
-			ModuleBase modTyp = get_type();
+			ItemModuleBase modTyp = get_type();
 
 			if (!modTyp.supportsStrength())
 				dropplugins(6, this);
@@ -571,8 +571,8 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			Set<PointXYZ> tField = new HashSet();
 			Set<PointXYZ> tFieldInt = new HashSet();
 
-			if ((get_type() instanceof Module3DBase))
-				((Module3DBase) get_type()).calculateField(this, tField, tFieldInt);
+			if ((get_type() instanceof ItemModule3DBase))
+				((ItemModule3DBase) get_type()).calculateField(this, tField, tFieldInt);
 			else
 			{
 				get_type().calculateField(this, tField);
@@ -934,7 +934,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
-		if ((Slot == 1) && ((par1ItemStack.getItem() instanceof ModuleBase)))
+		if ((Slot == 1) && ((par1ItemStack.getItem() instanceof ItemModuleBase)))
 			return true;
 		if ((Slot == 0) && ((par1ItemStack.getItem() instanceof IPowerLinkItem)))
 			return true;
@@ -943,7 +943,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		if (hasValidTypeMod())
 		{
-			ModuleBase modTyp = get_type();
+			ItemModuleBase modTyp = get_type();
 
 			switch (Slot)
 			{
@@ -1055,16 +1055,16 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public boolean hasValidTypeMod()
 	{
-		if ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ModuleBase)))
+		if ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemModuleBase)))
 			return true;
 		return false;
 	}
 
-	public ModuleBase get_type()
+	public ItemModuleBase get_type()
 	{
 		if (hasValidTypeMod())
 		{
-			return (ModuleBase) getStackInSlot(1).getItem();
+			return (ItemModuleBase) getStackInSlot(1).getItem();
 		}
 		return null;
 	}
@@ -1079,9 +1079,9 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 		return this.field_def;
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
-		TileEntityAdvSecurityStation sec = ItemCardSecurityLink.getLinkedSecurityStation(this, 12, this.worldObj);
+		TileEntitySecurityStation sec = ItemCardSecurityLink.getLinkedSecurityStation(this, 12, this.worldObj);
 		if (sec != null)
 		{
 			if ((getaccesstyp() != 3) && (!isPowersourceItem()))
@@ -1096,7 +1096,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public int getSecStation_ID()
 	{
-		TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
+		TileEntitySecurityStation sec = getLinkedSecurityStation();
 		if (sec != null)
 			return sec.getDeviceID();
 		return 0;

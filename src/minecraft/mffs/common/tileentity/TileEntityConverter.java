@@ -586,12 +586,12 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 		}
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
 		if (cap != null)
 		{
-			TileEntityAdvSecurityStation sec = cap.getLinkedSecurityStation();
+			TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
 			if (sec != null)
 			{
 				return sec;

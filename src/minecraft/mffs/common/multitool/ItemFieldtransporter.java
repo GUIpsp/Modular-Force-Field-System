@@ -10,7 +10,7 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.WorldMap;
-import mffs.common.item.ItemCardPowerLink;
+import mffs.common.card.ItemCardPowerLink;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;

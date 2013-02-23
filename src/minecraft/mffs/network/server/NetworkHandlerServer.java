@@ -8,14 +8,14 @@ import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.Linkgrid;
 import mffs.common.WorldMap;
-import mffs.common.tileentity.TileEntityAdvSecurityStation;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityAreaDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityExtractor;
 import mffs.common.tileentity.TileEntityForceField;
-import mffs.common.tileentity.TileEntityMachines;
+import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.network.INetworkHandlerEventListener;
@@ -152,11 +152,11 @@ public class NetworkHandlerServer implements IPacketHandler
 			{
 			}
 
-			if ((tileEntity instanceof TileEntityMachines))
+			if ((tileEntity instanceof TileEntityMFFS))
 			{
 				try
 				{
-					Field f = ReflectionHelper.findField(TileEntityMachines.class, new String[] { varname });
+					Field f = ReflectionHelper.findField(TileEntityMFFS.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
 				}
@@ -232,11 +232,11 @@ public class NetworkHandlerServer implements IPacketHandler
 				}
 			}
 
-			if ((tileEntity instanceof TileEntityAdvSecurityStation))
+			if ((tileEntity instanceof TileEntitySecurityStation))
 			{
 				try
 				{
-					Field f = ReflectionHelper.findField(TileEntityAdvSecurityStation.class, new String[] { varname });
+					Field f = ReflectionHelper.findField(TileEntitySecurityStation.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
 				}

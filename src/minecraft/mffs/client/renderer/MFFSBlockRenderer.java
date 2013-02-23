@@ -65,7 +65,7 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 
 	public int getRenderId()
 	{
-		return ModularForceFieldSystem.MFFSRENDER_ID;
+		return ModularForceFieldSystem.RENDER_ID;
 	}
 
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)

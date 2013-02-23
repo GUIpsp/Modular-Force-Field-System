@@ -1,7 +1,6 @@
 package mffs.nei;
 
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.Versioninfo;
 import codechicken.nei.MultiItemRange;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -78,11 +77,11 @@ public class NEI_MFFS_Config implements IConfigureNEI
 
 	public String getName()
 	{
-		return "MFFS";
+		return ModularForceFieldSystem.NAME;
 	}
 
 	public String getVersion()
 	{
-		return Versioninfo.curentversion();
+		return ModularForceFieldSystem.VERSION;
 	}
 }

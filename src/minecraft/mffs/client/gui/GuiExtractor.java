@@ -81,7 +81,7 @@ public class GuiExtractor extends GuiContainer
 
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		int textur = this.mc.renderEngine.getTexture("/chb/mods/mffs/sprites/GuiExtractor.png");
+		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiExtractor.png");
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(textur);

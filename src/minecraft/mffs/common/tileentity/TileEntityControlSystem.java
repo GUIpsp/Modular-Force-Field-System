@@ -8,9 +8,9 @@ import mffs.common.Linkgrid;
 import mffs.common.MFFSMachines;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
+import mffs.common.card.ItemCardDataLink;
+import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerControlSystem;
-import mffs.common.item.ItemCardDataLink;
-import mffs.common.item.ItemCardSecurityLink;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -21,9 +21,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityControlSystem extends TileEntityMachines implements ISidedInventory
+public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInventory
 {
-	private TileEntityMachines remote = null;
+	private TileEntityMFFS remote = null;
 	protected String RemoteDeviceName = "";
 	protected String RemoteDeviceTyp = "";
 	protected boolean RemoteActive = false;
@@ -93,7 +93,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements ISide
 		super.updateEntity();
 	}
 
-	public TileEntityMachines getRemote()
+	public TileEntityMFFS getRemote()
 	{
 		return this.remote;
 	}
@@ -103,7 +103,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements ISide
 		return new ContainerControlSystem(inventoryplayer.player, this);
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}
@@ -320,7 +320,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements ISide
 		}
 	}
 
-	private TileEntityMachines getTargetMaschine(int slot)
+	private TileEntityMFFS getTargetMaschine(int slot)
 	{
 		if ((getStackInSlot(slot) != null) && ((getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
 		{
@@ -332,7 +332,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements ISide
 			}
 			if (DeviceID != 0)
 			{
-				TileEntityMachines device = Linkgrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
+				TileEntityMFFS device = Linkgrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
 				if (device != null)
 					return device;
 			}

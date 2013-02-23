@@ -43,11 +43,6 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		setTickRandomly(true);
 	}
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/blocks.png";
-	}
-
 	public void onBlockAdded(World world, int i, int j, int k)
 	{
 		this.posx = i;
@@ -78,7 +73,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public int getRenderType()
 	{
-		return ModularForceFieldSystem.MFFSRENDER_ID;
+		return ModularForceFieldSystem.RENDER_ID;
 	}
 
 	public boolean isOpaqueCube()

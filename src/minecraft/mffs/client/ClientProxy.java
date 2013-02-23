@@ -4,6 +4,7 @@ import mffs.client.renderer.MFFSBlockRenderer;
 import mffs.client.renderer.TECapacitorRenderer;
 import mffs.client.renderer.TEExtractorRenderer;
 import mffs.common.CommonProxy;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityExtractor;
 import net.minecraft.world.World;
@@ -16,27 +17,8 @@ public class ClientProxy extends CommonProxy
 {
 	public void registerRenderInformation()
 	{
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/items.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/blocks.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/forciciumore.png");
-
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/DefenceStation.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/projector.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/Capacitor.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/Extractor.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/Converter.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/SecStorage.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/AdvSecurtyStation.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/ControlSystem.png");
-
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/DefenceStation_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/projector_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/Capacitor_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/Extractor_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/Converter_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/SecStorage_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/AdvSecurtyStation_ue.png");
-		MinecraftForgeClient.preloadTexture("/chb/mods/mffs/sprites/ControlSystem_ue.png");
+		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
 	}
 
 	public void registerTileEntitySpecialRenderer()

@@ -5,14 +5,14 @@ import java.io.DataOutputStream;
 import java.lang.reflect.Field;
 
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.tileentity.TileEntityAdvSecurityStation;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityAreaDefenseStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityExtractor;
 import mffs.common.tileentity.TileEntityForceField;
-import mffs.common.tileentity.TileEntityMachines;
+import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.network.INetworkHandlerEventListener;
@@ -89,11 +89,11 @@ public class NetworkHandlerClient implements IPacketHandler
 
 				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				if ((tileEntity instanceof TileEntityMachines))
+				if ((tileEntity instanceof TileEntityMFFS))
 				{
 					try
 					{
-						Field f = ReflectionHelper.findField(TileEntityMachines.class, new String[] { fieldname });
+						Field f = ReflectionHelper.findField(TileEntityMFFS.class, new String[] { fieldname });
 						reflectionsetvalue(f, tileEntity, dat, fieldname);
 					}
 					catch (Exception e)
@@ -167,11 +167,11 @@ public class NetworkHandlerClient implements IPacketHandler
 
 				}
 
-				if ((tileEntity instanceof TileEntityAdvSecurityStation))
+				if ((tileEntity instanceof TileEntitySecurityStation))
 				{
 					try
 					{
-						Field f = ReflectionHelper.findField(TileEntityAdvSecurityStation.class, new String[] { fieldname });
+						Field f = ReflectionHelper.findField(TileEntitySecurityStation.class, new String[] { fieldname });
 						reflectionsetvalue(f, tileEntity, dat, fieldname);
 					}
 					catch (Exception e)

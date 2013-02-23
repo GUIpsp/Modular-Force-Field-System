@@ -11,9 +11,9 @@ import mffs.common.Linkgrid;
 import mffs.common.MFFSDamageSource;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
+import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerAreaDefenseStation;
-import mffs.common.item.ItemCardSecurityLink;
-import mffs.common.item.ItemProjectorFieldModulatorDistance;
+import mffs.common.upgrade.ItemProjectorFieldModulatorDistance;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
@@ -124,7 +124,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine imp
 		return false;
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 1, this.worldObj);
 	}
@@ -184,7 +184,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine imp
 	{
 		try
 		{
-			TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
+			TileEntitySecurityStation sec = getLinkedSecurityStation();
 
 			if (sec != null)
 			{
@@ -351,7 +351,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine imp
 		{
 			return;
 		}
-		TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
+		TileEntitySecurityStation sec = getLinkedSecurityStation();
 
 		if (hasPowerSource())
 		{
@@ -389,7 +389,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine imp
 
 	public void DefenceAction(EntityPlayer player)
 	{
-		TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
+		TileEntitySecurityStation sec = getLinkedSecurityStation();
 
 		if (hasPowerSource())
 		{

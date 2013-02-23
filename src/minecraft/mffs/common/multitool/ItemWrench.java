@@ -3,9 +3,9 @@ package mffs.common.multitool;
 import ic2.api.IWrenchable;
 import mffs.api.IMFFS_Wrench;
 import mffs.common.Functions;
-import mffs.common.tileentity.TileEntityAdvSecurityStation;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityAreaDefenseStation;
-import mffs.common.tileentity.TileEntityMachines;
+import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -89,7 +89,7 @@ public class ItemWrench extends ItemMultitool implements IToolWrench, ICrowbar
 			{
 				if (((IMFFS_Wrench) tileentity).wrenchCanManipulate(player, side))
 				{
-					if ((tileentity instanceof TileEntityMachines))
+					if ((tileentity instanceof TileEntityMFFS))
 					{
 						if ((tileentity instanceof TileEntityProjector))
 						{
@@ -99,9 +99,9 @@ public class ItemWrench extends ItemMultitool implements IToolWrench, ICrowbar
 							}
 						}
 
-						if ((tileentity instanceof TileEntityAdvSecurityStation))
+						if ((tileentity instanceof TileEntitySecurityStation))
 						{
-							if (((TileEntityAdvSecurityStation) tileentity).isActive())
+							if (((TileEntitySecurityStation) tileentity).isActive())
 							{
 								return false;
 							}

@@ -15,7 +15,7 @@ import mffs.common.options.ItemProjectorOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
-public class ItemProjectorModuleContainment extends Module3DBase
+public class ItemProjectorModuleContainment extends ItemModule3DBase
 {
 	public ItemProjectorModuleContainment(int i)
 	{

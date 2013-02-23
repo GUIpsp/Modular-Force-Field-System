@@ -10,7 +10,7 @@ import mffs.common.options.ItemProjectorOptionCamoflage;
 import mffs.common.options.ItemProjectorOptionTouchDamage;
 import net.minecraft.item.Item;
 
-public class ItemProjectorModuleDeflector extends ModuleBase
+public class ItemProjectorModuleDeflector extends ItemModuleBase
 {
 	public ItemProjectorModuleDeflector(int i)
 	{

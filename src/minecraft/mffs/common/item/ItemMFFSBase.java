@@ -8,6 +8,7 @@ public class ItemMFFSBase extends Item
 	public ItemMFFSBase(int i)
 	{
 		super(i);
-		setCreativeTab(ModularForceFieldSystem.MFFSTab);
+		this.setCreativeTab(ModularForceFieldSystem.TAB);
+		this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
 	}
 }

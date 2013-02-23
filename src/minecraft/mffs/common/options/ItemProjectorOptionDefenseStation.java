@@ -8,7 +8,7 @@ import mffs.common.Linkgrid;
 import mffs.common.MFFSDamageSource;
 import mffs.common.SecurityRight;
 import mffs.common.modules.ItemProjectorModuleSphere;
-import mffs.common.tileentity.TileEntityAdvSecurityStation;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.EntityLiving;
@@ -68,7 +68,7 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase
 								TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(projector.getPowerSourceID()));
 								if (cap != null)
 								{
-									TileEntityAdvSecurityStation SecurityStation = cap.getLinkedSecurityStation();
+									TileEntitySecurityStation SecurityStation = cap.getLinkedSecurityStation();
 
 									if (SecurityStation != null)
 									{
@@ -78,7 +78,7 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase
 							}
 							if (projector.getaccesstyp() == 3)
 							{
-								TileEntityAdvSecurityStation SecurityStation = projector.getLinkedSecurityStation();
+								TileEntitySecurityStation SecurityStation = projector.getLinkedSecurityStation();
 								if (SecurityStation != null)
 								{
 									killswitch = !SecurityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityRight.SR);

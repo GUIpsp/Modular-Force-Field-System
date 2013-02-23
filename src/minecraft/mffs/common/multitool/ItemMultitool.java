@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mffs.api.IForceEnergyItems;
-import mffs.common.ForceEnergyItems;
+import mffs.common.ItemMFFSElectric;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemMultitool extends ForceEnergyItems implements IForceEnergyItems
+public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEnergyItems
 {
 	private int typ;
 	private static List MTTypes = new ArrayList();
@@ -35,10 +35,6 @@ public abstract class ItemMultitool extends ForceEnergyItems implements IForceEn
 		this(id, typ, true);
 	}
 
-	public String getTextureFile()
-	{
-		return "/chb/mods/mffs/sprites/items.png";
-	}
 
 	public boolean isRepairable()
 	{

@@ -1,6 +1,6 @@
 package mffs.common.multitool;
 
-import mffs.common.tileentity.TileEntityMachines;
+import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -21,15 +21,15 @@ public class ItemDebugger extends ItemMultitool
 
 		if (world.isRemote)
 		{
-			if ((tileEntity instanceof TileEntityMachines))
+			if ((tileEntity instanceof TileEntityMFFS))
 			{
-				System.out.println("client" + ((TileEntityMachines) tileEntity).isActive());
+				System.out.println("client" + ((TileEntityMFFS) tileEntity).isActive());
 			}
 
 		}
-		else if ((tileEntity instanceof TileEntityMachines))
+		else if ((tileEntity instanceof TileEntityMFFS))
 		{
-			System.out.println("server" + ((TileEntityMachines) tileEntity).isActive());
+			System.out.println("server" + ((TileEntityMFFS) tileEntity).isActive());
 		}
 
 		return false;

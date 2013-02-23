@@ -26,7 +26,7 @@ public class GuiConverter extends GuiContainer
 
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		int textur = this.mc.renderEngine.getTexture("/chb/mods/mffs/sprites/GuiConvertor.png");
+		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiConvertor.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(textur);
 		int w = (this.width - this.xSize) / 2;

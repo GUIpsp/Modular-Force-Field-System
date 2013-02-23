@@ -5,22 +5,15 @@ import mffs.common.tileentity.TileEntityExtractor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockExtractor extends BlockMFFSBase
+public class BlockExtractor extends BlockMFFS
 {
 	public BlockExtractor(int i)
 	{
-		super(i);
+		super(i, "forciciumExtractor");
+		this.blockIndexInTexture = 6 * 16;
 	}
 
-	public String getTextureFile()
-	{
-		if (ModularForceFieldSystem.graphicstyle == 1)
-		{
-			return "/chb/mods/mffs/sprites/Extractor_ue.png";
-		}
-		return "/chb/mods/mffs/sprites/Extractor.png";
-	}
-
+	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
 		return new TileEntityExtractor();

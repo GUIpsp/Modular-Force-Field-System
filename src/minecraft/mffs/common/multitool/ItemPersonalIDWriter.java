@@ -7,9 +7,9 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.item.ItemCardDataLink;
-import mffs.common.item.ItemCardPersonalID;
-import mffs.common.tileentity.TileEntityMachines;
+import mffs.common.card.ItemCardDataLink;
+import mffs.common.card.ItemCardPersonalID;
+import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -111,7 +111,7 @@ public class ItemPersonalIDWriter extends ItemMultitool
 			return true;
 		}
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (((tileEntity instanceof TileEntityMachines)) && (SecurityHelper.isAccessGranted(tileEntity, player, world, SecurityRight.UCS)))
+		if (((tileEntity instanceof TileEntityMFFS)) && (SecurityHelper.isAccessGranted(tileEntity, player, world, SecurityRight.UCS)))
 		{
 			List<Slot> slots = player.inventoryContainer.inventorySlots;
 			for (Slot slot : slots)
@@ -124,8 +124,8 @@ public class ItemPersonalIDWriter extends ItemMultitool
 						consumePower(stack, 1000, false);
 						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.MFFSitemDataLinkCard);
 
-						ItemCardDataLink.setforArea(IDCard, ((TileEntityMachines) tileEntity).getDeviceName());
-						((ItemCardDataLink) IDCard.getItem()).setInformation(IDCard, new PointXYZ(x, y, z, world), "DeviceID", ((TileEntityMachines) tileEntity).getDeviceID(), tileEntity);
+						ItemCardDataLink.setforArea(IDCard, ((TileEntityMFFS) tileEntity).getDeviceName());
+						((ItemCardDataLink) IDCard.getItem()).setInformation(IDCard, new PointXYZ(x, y, z, world), "DeviceID", ((TileEntityMFFS) tileEntity).getDeviceID(), tileEntity);
 
 						if (--playerstack.stackSize <= 0)
 							slot.putStack(IDCard);

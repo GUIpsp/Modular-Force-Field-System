@@ -13,7 +13,7 @@ public enum MFFSMachines
 	Capacitor(3, "MFFSCapacitor", "Capacitor", "TileEntityCapacitor", "GuiCapacitor", "ContainerCapacitor", ModularForceFieldSystem.MFFSCapacitor, 0, "xJxCFCxJx", "xaxEKExax"),
 	Converter(4, "MFFSForceEnergyConverter", "Converter", "TileEntityConverter", "GuiConverter", "ContainerConverter", ModularForceFieldSystem.MFFSForceEnergyConverter, 0, "ANAJOMAPA", "AKAaJIAMA"),
 	DefenceStation(5, "MFFSDefenceStation", "Defence Station", "TileEntityAreaDefenseStation", "GuiAreaDefenseStation", "ContainerAreaDefenseStation", ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ", " a EKE C "),
-	SecurityStation(6, "MFFSSecurtyStation", "Security Station", "TileEntityAdvSecurityStation", "GuiAdvSecurityStation", "ContainerAdvSecurityStation", ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", "CECEKECaC"),
+	SecurityStation(6, "MFFSSecurtyStation", "Security Station", "TileEntitySecurityStation", "GuiSecurityStation", "ContainerSecurityStation", ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", "CECEKECaC"),
 	SecurityStorage(7, "MFFSSecurtyStorage", "Security Storage", "TileEntitySecStorage", "GuiSecStorage", "ContainerSecStorage", ModularForceFieldSystem.MFFSSecurtyStorage, 0, "AAAACAAAA", "AAAAEAAAA"),
 	ControlSystem(8, "MFFSControlSystem", "Control System", "TileEntityControlSystem", "GuiControlSystem", "ContainerControlSystem", ModularForceFieldSystem.MFFSControlSystem, 0, "aCaAFAACA", "aEaAKAAEA");
 

@@ -5,22 +5,15 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockCapacitor extends BlockMFFSBase
+public class BlockCapacitor extends BlockMFFS
 {
 	public BlockCapacitor(int i)
 	{
-		super(i);
+		super(i, "mffsCapacitor");
+		this.blockIndexInTexture = 2 * 16;
 	}
 
-	public String getTextureFile()
-	{
-		if (ModularForceFieldSystem.graphicstyle == 1)
-		{
-			return "/chb/mods/mffs/sprites/Capacitor_ue.png";
-		}
-		return "/chb/mods/mffs/sprites/Capacitor.png";
-	}
-
+	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
 		return new TileEntityCapacitor();

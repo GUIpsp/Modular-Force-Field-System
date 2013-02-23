@@ -8,10 +8,10 @@ import mffs.api.IForceEnergyStorageBlock;
 import mffs.api.IPowerLinkItem;
 import mffs.common.Linkgrid;
 import mffs.common.ModularForceFieldSystem;
+import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;
-import mffs.common.item.ItemCapacitorUpgradeCapacity;
-import mffs.common.item.ItemCapacitorUpgradeRange;
-import mffs.common.item.ItemCardSecurityLink;
+import mffs.common.upgrade.ItemCapacitorUpgradeCapacity;
+import mffs.common.upgrade.ItemCapacitorUpgradeRange;
 import mffs.network.INetworkHandlerEventListener;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -114,14 +114,14 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 		return this.inventory.length;
 	}
 
-	public TileEntityAdvSecurityStation getLinkedSecurityStation()
+	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 4, this.worldObj);
 	}
 
 	public int getSecStation_ID()
 	{
-		TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
+		TileEntitySecurityStation sec = getLinkedSecurityStation();
 		if (sec != null)
 			return sec.getDeviceID();
 		return 0;

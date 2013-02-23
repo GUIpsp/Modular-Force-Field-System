@@ -1,6 +1,7 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.network.client.NetworkHandlerClient;
@@ -69,7 +70,7 @@ public class GuiCapacitor extends GuiContainer
 
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		int textur = this.mc.renderEngine.getTexture("/chb/mods/mffs/sprites/GuiCapacitor.png");
+		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiCapacitor.png");
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(textur);

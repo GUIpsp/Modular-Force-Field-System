@@ -3,7 +3,7 @@ package mffs.common.tileentity;
 import mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 
-public abstract class TileEntityFEPoweredMachine extends TileEntityMachines
+public abstract class TileEntityFEPoweredMachine extends TileEntityMFFS
 {
 	public abstract ItemStack getPowerLinkStack();
 

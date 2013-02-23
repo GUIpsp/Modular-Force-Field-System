@@ -27,7 +27,7 @@ public abstract class ItemProjectorOptionBase extends Item
 	{
 		super(i);
 		setMaxStackSize(8);
-		setCreativeTab(ModularForceFieldSystem.MFFSTab);
+		setCreativeTab(ModularForceFieldSystem.TAB);
 		instances.add(this);
 	}
 
