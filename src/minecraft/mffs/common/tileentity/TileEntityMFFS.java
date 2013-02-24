@@ -11,6 +11,7 @@ import mffs.api.ISwitchabel;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.Linkgrid;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -131,7 +132,7 @@ public abstract class TileEntityMFFS extends TileEntity implements INetworkHandl
 	public void init()
 	{
 		this.DeviceID = Linkgrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
-		if (ModularForceFieldSystem.chunckloader)
+		if (MFFSProperties.chunckloader)
 			registerChunkLoading();
 		this.init = false;
 	}

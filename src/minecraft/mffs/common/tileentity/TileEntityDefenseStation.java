@@ -9,6 +9,7 @@ import mffs.api.PointXYZ;
 import mffs.common.InventoryHelper;
 import mffs.common.Linkgrid;
 import mffs.common.MFFSDamageSource;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.card.ItemCardSecurityLink;
@@ -219,7 +220,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 								this.warnlist.add(player);
 								if (!sec.isAccessGranted(player.username, SecurityRight.SR))
 								{
-									if ((!ModularForceFieldSystem.DefenceStationNPCScannsuppressnotification) || (getActionmode() < 3))
+									if ((!MFFSProperties.defenseStationNPCNotification) || (getActionmode() < 3))
 									{
 										player.addChatMessage("!!! [Security Station][" + sec.getDeviceName() + "] Warning you now in me Scanning range!!!");
 										player.attackEntityFrom(MFFSDamageSource.areaDefense, 1);

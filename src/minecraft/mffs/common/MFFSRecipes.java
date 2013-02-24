@@ -37,7 +37,7 @@ public class MFFSRecipes
 			Ic2Recipes.addMaceratorRecipe(new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcicium, 8));
 			Ic2Recipes.addMatterAmplifier(new ItemStack(ModularForceFieldSystem.itemForcicium, 1), 5000);
 
-			if (ModularForceFieldSystem.uumatterForcicium)
+			if (MFFSProperties.uumatterForcicium)
 			{
 				Ic2Recipes.addCraftingRecipe(new ItemStack(ModularForceFieldSystem.itemForcicium, 8), new Object[] { " RR", "R  ", " R ", Character.valueOf('R'), Items.getItem("matter") });
 			}

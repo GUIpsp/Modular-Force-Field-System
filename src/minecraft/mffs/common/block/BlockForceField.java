@@ -9,6 +9,7 @@ import mffs.common.ForceFieldTyps;
 import mffs.common.Functions;
 import mffs.common.Linkgrid;
 import mffs.common.MFFSDamageSource;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -331,7 +332,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if ((ModularForceFieldSystem.showZapperParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal()))
+		if ((MFFSProperties.showZapperParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal()))
 		{
 			double d = i + Math.random() + 0.2D;
 			double d1 = j + Math.random() + 0.2D;

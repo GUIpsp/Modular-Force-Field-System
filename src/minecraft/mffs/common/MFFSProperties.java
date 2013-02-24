@@ -1,6 +1,6 @@
 package mffs.common;
 
-public class DefaultProps
+public class MFFSProperties
 {
 	public static int block_ControlSystem = 690;
 	public static int block_Converter_ID = 687;
@@ -57,4 +57,9 @@ public class DefaultProps
 	public static int item_upgradeBoost_ID = 11118;
 	public static int item_upgradeRange_ID = 11119;
 	public static int item_upgradeCap_ID = 11120;
+	public static boolean chunckloader = true;
+	public static int graphicstyle;
+	public static boolean defenseStationNPCNotification;
+	public static boolean showZapperParticles;
+	public static boolean uumatterForcicium;
 }
