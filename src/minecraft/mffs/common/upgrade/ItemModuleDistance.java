@@ -3,18 +3,18 @@ package mffs.common.upgrade;
 import java.util.List;
 
 import mffs.common.MFFSMachine;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemProjectorFieldModulatorStrength extends ItemMFFSBase
+public class ItemModuleDistance extends ItemMFFS
 {
-	public ItemProjectorFieldModulatorStrength(int i)
+	public ItemModuleDistance(int i)
 	{
-		super(i);
-		setIconIndex(65);
+		super(i, "moduleDistance");
+		setIconIndex(64);
 		setMaxStackSize(64);
 		this.setNoRepair();
 

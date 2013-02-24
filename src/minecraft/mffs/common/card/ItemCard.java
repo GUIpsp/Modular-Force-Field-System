@@ -4,20 +4,20 @@ import java.util.List;
 
 import mffs.api.PointXYZ;
 import mffs.common.NBTTagCompoundHelper;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 
-public class ItemCard extends ItemMFFSBase
+public class ItemCard extends ItemMFFS
 {
 	private StringBuffer info = new StringBuffer();
 	protected int tick = 0;
 
 	public ItemCard(int id)
 	{
-		super(id);
+		super(id, "card");
 		this.setMaxStackSize(1);
 	}
 

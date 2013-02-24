@@ -1,15 +1,15 @@
 package mffs.common;
 
 import mffs.api.IForceEnergyItems;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class ItemMFFSElectric extends ItemMFFSBase implements IForceEnergyItems
+public abstract class ItemMFFSElectric extends ItemMFFS implements IForceEnergyItems
 {
-	public ItemMFFSElectric(int i)
+	public ItemMFFSElectric(int i, String name)
 	{
-		super(i);
+		super(i, name);
 	}
 
 	public boolean consumePower(ItemStack itemStack, int amount, boolean simulation)

@@ -5,11 +5,11 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 
-public class ItemProjectorOptionSponge extends ItemProjectorOptionBase implements IInteriorCheck
+public class ItemOptionSponge extends ItemOptionBase implements IInteriorCheck
 {
-	public ItemProjectorOptionSponge(int i)
+	public ItemOptionSponge(int i)
 	{
-		super(i);
+		super(i, "optionSponge");
 		setIconIndex(35);
 	}
 

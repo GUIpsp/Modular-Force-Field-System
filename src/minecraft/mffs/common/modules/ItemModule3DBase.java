@@ -7,9 +7,9 @@ import mffs.common.IModularProjector;
 
 public abstract class ItemModule3DBase extends ItemModuleBase
 {
-	public ItemModule3DBase(int i)
+	public ItemModule3DBase(int i, String name)
 	{
-		super(i);
+		super(i, name);
 	}
 
 	public void calculateField(IModularProjector projector, Set points)

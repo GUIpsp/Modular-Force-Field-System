@@ -9,7 +9,7 @@ public class ItemManuelBook extends ItemMultitool
 {
 	public ItemManuelBook(int par1)
 	{
-		super(par1, 5);
+		super(par1, 5, "multitoolManual");
 	}
 
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)

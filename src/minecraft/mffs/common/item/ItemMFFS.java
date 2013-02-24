@@ -3,11 +3,12 @@ package mffs.common.item;
 import mffs.common.ModularForceFieldSystem;
 import net.minecraft.item.Item;
 
-public class ItemMFFSBase extends Item
+public class ItemMFFS extends Item
 {
-	public ItemMFFSBase(int i)
+	public ItemMFFS(int id, String name)
 	{
-		super(i);
+		super(ModularForceFieldSystem.CONFIGURATION.getItem(name, id).getInt(id));
+		this.setTextureFile(name);
 		this.setCreativeTab(ModularForceFieldSystem.TAB);
 		this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
 	}

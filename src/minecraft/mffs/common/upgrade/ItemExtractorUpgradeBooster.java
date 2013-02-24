@@ -3,17 +3,17 @@ package mffs.common.upgrade;
 import java.util.List;
 
 import mffs.common.MFFSMachine;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemExtractorUpgradeBooster extends ItemMFFSBase
+public class ItemExtractorUpgradeBooster extends ItemMFFS
 {
 	public ItemExtractorUpgradeBooster(int i)
 	{
-		super(i);
+		super(i, "upgradeBooster");
 		setIconIndex(37);
 		setMaxStackSize(19);
 		this.setNoRepair();

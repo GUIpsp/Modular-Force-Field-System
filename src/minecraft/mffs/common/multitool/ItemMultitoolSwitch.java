@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemSwitch extends ItemMultitool
+public class ItemMultitoolSwitch extends ItemMultitool
 {
-	public ItemSwitch(int id)
+	public ItemMultitoolSwitch(int id)
 	{
-		super(id, 1);
+		super(id, 1, "multitoolSwitch");
 	}
 
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)

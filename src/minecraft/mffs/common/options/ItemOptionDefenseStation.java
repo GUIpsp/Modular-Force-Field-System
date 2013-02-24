@@ -16,11 +16,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase
+public class ItemOptionDefenseStation extends ItemOptionBase
 {
-	public ItemProjectorOptionDefenseStation(int i)
+	public ItemOptionDefenseStation(int i)
 	{
-		super(i);
+		super(i, "optionDefenseStation");
 		setIconIndex(39);
 	}
 

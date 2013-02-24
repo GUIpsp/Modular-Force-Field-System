@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mffs.common.ProjectorTyp;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import mffs.common.modules.ItemModuleAdvancedCube;
 import mffs.common.modules.ItemModuleContainment;
 import mffs.common.modules.ItemModuleCube;
@@ -18,25 +18,21 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public abstract class ItemProjectorOptionBase extends ItemMFFSBase
+public abstract class ItemOptionBase extends ItemMFFS
 {
 	private static List instances = new ArrayList();
 
-	public ItemProjectorOptionBase(int i)
+	public ItemOptionBase(int i, String name)
 	{
-		super(i);
+		super(i, name);
 		setMaxStackSize(8);
 		instances.add(this);
+		this.setNoRepair();
 	}
 
-	public static List<ItemProjectorOptionBase> get_instances()
+	public static List<ItemOptionBase> get_instances()
 	{
 		return instances;
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)

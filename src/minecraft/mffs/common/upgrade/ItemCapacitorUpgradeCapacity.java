@@ -3,17 +3,17 @@ package mffs.common.upgrade;
 import java.util.List;
 
 import mffs.common.MFFSMachine;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemCapacitorUpgradeCapacity extends ItemMFFSBase
+public class ItemCapacitorUpgradeCapacity extends ItemMFFS
 {
 	public ItemCapacitorUpgradeCapacity(int i)
 	{
-		super(i);
+		super(i, "upgradeCapacity");
 		setIconIndex(32);
 		setMaxStackSize(9);
 		this.setNoRepair();

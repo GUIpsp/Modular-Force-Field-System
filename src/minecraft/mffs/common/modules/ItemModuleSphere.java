@@ -5,15 +5,15 @@ import java.util.Set;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.options.ItemProjectorOptionBase;
-import mffs.common.options.ItemProjectorOptionBlockBreaker;
-import mffs.common.options.ItemProjectorOptionCamoflage;
-import mffs.common.options.ItemProjectorOptionDefenseStation;
-import mffs.common.options.ItemProjectorOptionFieldFusion;
-import mffs.common.options.ItemProjectorOptionFieldManipulator;
-import mffs.common.options.ItemProjectorOptionForceFieldJammer;
-import mffs.common.options.ItemProjectorOptionMobDefence;
-import mffs.common.options.ItemProjectorOptionSponge;
+import mffs.common.options.ItemOptionBase;
+import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCamoflage;
+import mffs.common.options.ItemOptionDefenseStation;
+import mffs.common.options.ItemOptionFieldFusion;
+import mffs.common.options.ItemOptionFieldManipulator;
+import mffs.common.options.ItemOptionJammer;
+import mffs.common.options.ItemOptionAntibiotic;
+import mffs.common.options.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
@@ -21,7 +21,7 @@ public class ItemModuleSphere extends ItemModule3DBase
 {
 	public ItemModuleSphere(int i)
 	{
-		super(i);
+		super(i, "moduleSphere");
 		setIconIndex(52);
 	}
 
@@ -68,23 +68,23 @@ public class ItemModuleSphere extends ItemModule3DBase
 				}
 	}
 
-	public static boolean supportsOption(ItemProjectorOptionBase item)
+	public static boolean supportsOption(ItemOptionBase item)
 	{
-		if ((item instanceof ItemProjectorOptionCamoflage))
+		if ((item instanceof ItemOptionCamoflage))
 			return true;
-		if ((item instanceof ItemProjectorOptionDefenseStation))
+		if ((item instanceof ItemOptionDefenseStation))
 			return true;
-		if ((item instanceof ItemProjectorOptionFieldFusion))
+		if ((item instanceof ItemOptionFieldFusion))
 			return true;
-		if ((item instanceof ItemProjectorOptionFieldManipulator))
+		if ((item instanceof ItemOptionFieldManipulator))
 			return true;
-		if ((item instanceof ItemProjectorOptionForceFieldJammer))
+		if ((item instanceof ItemOptionJammer))
 			return true;
-		if ((item instanceof ItemProjectorOptionMobDefence))
+		if ((item instanceof ItemOptionAntibiotic))
 			return true;
-		if ((item instanceof ItemProjectorOptionSponge))
+		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemProjectorOptionBlockBreaker))
+		if ((item instanceof ItemOptionBlockBreaker))
 			return true;
 
 		return false;
@@ -92,21 +92,21 @@ public class ItemModuleSphere extends ItemModule3DBase
 
 	public boolean supportsOption(Item item)
 	{
-		if ((item instanceof ItemProjectorOptionCamoflage))
+		if ((item instanceof ItemOptionCamoflage))
 			return true;
-		if ((item instanceof ItemProjectorOptionDefenseStation))
+		if ((item instanceof ItemOptionDefenseStation))
 			return true;
-		if ((item instanceof ItemProjectorOptionFieldFusion))
+		if ((item instanceof ItemOptionFieldFusion))
 			return true;
-		if ((item instanceof ItemProjectorOptionFieldManipulator))
+		if ((item instanceof ItemOptionFieldManipulator))
 			return true;
-		if ((item instanceof ItemProjectorOptionForceFieldJammer))
+		if ((item instanceof ItemOptionJammer))
 			return true;
-		if ((item instanceof ItemProjectorOptionMobDefence))
+		if ((item instanceof ItemOptionAntibiotic))
 			return true;
-		if ((item instanceof ItemProjectorOptionSponge))
+		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemProjectorOptionBlockBreaker))
+		if ((item instanceof ItemOptionBlockBreaker))
 			return true;
 
 		return false;

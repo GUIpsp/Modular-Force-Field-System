@@ -13,7 +13,6 @@ import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecurityStation;
-import mffs.common.multitool.ItemDebugger;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -290,11 +289,6 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 							slot.putStack(Card);
 							NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, Card);
 						}
-					}
-
-					if ((stack.getItem() instanceof ItemDebugger))
-					{
-						return true;
 					}
 				}
 			}

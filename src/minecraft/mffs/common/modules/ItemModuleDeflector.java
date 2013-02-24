@@ -4,17 +4,17 @@ import java.util.Set;
 
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
-import mffs.common.options.ItemProjectorOptionBase;
-import mffs.common.options.ItemProjectorOptionBlockBreaker;
-import mffs.common.options.ItemProjectorOptionCamoflage;
-import mffs.common.options.ItemProjectorOptionTouchDamage;
+import mffs.common.options.ItemOptionBase;
+import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCamoflage;
+import mffs.common.options.ItemOptionShock;
 import net.minecraft.item.Item;
 
 public class ItemModuleDeflector extends ItemModuleBase
 {
 	public ItemModuleDeflector(int i)
 	{
-		super(i);
+		super(i, "moduleDeflector");
 		setIconIndex(50);
 	}
 
@@ -87,13 +87,13 @@ public class ItemModuleDeflector extends ItemModuleBase
 			}
 	}
 
-	public static boolean supportsOption(ItemProjectorOptionBase item)
+	public static boolean supportsOption(ItemOptionBase item)
 	{
-		if ((item instanceof ItemProjectorOptionBlockBreaker))
+		if ((item instanceof ItemOptionBlockBreaker))
 			return true;
-		if ((item instanceof ItemProjectorOptionCamoflage))
+		if ((item instanceof ItemOptionCamoflage))
 			return true;
-		if ((item instanceof ItemProjectorOptionTouchDamage))
+		if ((item instanceof ItemOptionShock))
 			return true;
 
 		return false;
@@ -101,11 +101,11 @@ public class ItemModuleDeflector extends ItemModuleBase
 
 	public boolean supportsOption(Item item)
 	{
-		if ((item instanceof ItemProjectorOptionBlockBreaker))
+		if ((item instanceof ItemOptionBlockBreaker))
 			return true;
-		if ((item instanceof ItemProjectorOptionCamoflage))
+		if ((item instanceof ItemOptionCamoflage))
 			return true;
-		if ((item instanceof ItemProjectorOptionTouchDamage))
+		if ((item instanceof ItemOptionShock))
 			return true;
 
 		return false;

@@ -7,11 +7,11 @@ import mffs.common.Linkgrid;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 
-public class ItemProjectorOptionForceFieldJammer extends ItemProjectorOptionBase implements IChecksOnAll
+public class ItemOptionJammer extends ItemOptionBase implements IChecksOnAll
 {
-	public ItemProjectorOptionForceFieldJammer(int i)
+	public ItemOptionJammer(int i)
 	{
-		super(i);
+		super(i,"optionJammer");
 		setIconIndex(41);
 	}
 

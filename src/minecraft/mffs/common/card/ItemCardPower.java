@@ -4,24 +4,19 @@ import java.util.List;
 
 import mffs.api.IForceEnergyItems;
 import mffs.api.IPowerLinkItem;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem, IForceEnergyItems
+public class ItemCardPower extends ItemMFFS implements IPowerLinkItem, IForceEnergyItems
 {
 	public ItemCardPower(int id)
 	{
-		super(id);
+		super(id, "cardPower");
 		setMaxStackSize(1);
 		setIconIndex(21);
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public int getPercentageCapacity(ItemStack itemStack, TileEntityMFFS tem, World world)

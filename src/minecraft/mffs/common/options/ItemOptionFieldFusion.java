@@ -10,11 +10,11 @@ import mffs.common.WorldMap;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 
-public class ItemProjectorOptionFieldFusion extends ItemProjectorOptionBase implements IInteriorCheck
+public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCheck
 {
-	public ItemProjectorOptionFieldFusion(int i)
+	public ItemOptionFieldFusion(int i)
 	{
-		super(i);
+		super(i, "optionFieldFusion");
 		setIconIndex(43);
 	}
 

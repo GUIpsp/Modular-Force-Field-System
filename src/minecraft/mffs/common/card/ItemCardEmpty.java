@@ -5,7 +5,7 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.entity.player.EntityPlayer;

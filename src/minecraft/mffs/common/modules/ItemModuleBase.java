@@ -10,7 +10,7 @@ import mffs.common.IModularProjector;
 import mffs.common.ProjectorTyp;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.item.ItemMFFSBase;
+import mffs.common.item.ItemMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public abstract class ItemModuleBase extends ItemMFFSBase
+public abstract class ItemModuleBase extends ItemMFFS
 {
 	private static List instances = new ArrayList();
 
@@ -27,9 +27,9 @@ public abstract class ItemModuleBase extends ItemMFFSBase
 		return instances;
 	}
 
-	public ItemModuleBase(int i)
+	public ItemModuleBase(int i, String name)
 	{
-		super(i);
+		super(i, name);
 		this.setMaxStackSize(8);
 		this.instances.add(this);
 		this.setNoRepair();

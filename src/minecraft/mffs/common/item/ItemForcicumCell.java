@@ -14,13 +14,13 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemForcicumCell extends ItemMFFSBase
+public class ItemForcicumCell extends ItemMFFS
 {
 	private boolean aktiv = false;
 
 	public ItemForcicumCell(int id)
 	{
-		super(id);
+		super(id, "forciciumCell");
 		this.setIconIndex(98);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);

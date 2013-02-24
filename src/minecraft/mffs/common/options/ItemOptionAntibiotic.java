@@ -14,11 +14,11 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class ItemProjectorOptionMobDefence extends ItemProjectorOptionBase
+public class ItemOptionAntibiotic extends ItemOptionBase
 {
-	public ItemProjectorOptionMobDefence(int i)
+	public ItemOptionAntibiotic(int i)
 	{
-		super(i);
+		super(i, "optionAntibiotic");
 		setIconIndex(40);
 	}
 

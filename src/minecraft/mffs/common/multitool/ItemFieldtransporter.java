@@ -19,11 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemFieldtransporter extends ItemMultitool
+public class ItemFieldTransporter extends ItemMultitool
 {
-	public ItemFieldtransporter(int id)
+	public ItemFieldTransporter(int id)
 	{
-		super(id, 4);
+		super(id, 4, "multitoolTransporter");
 	}
 
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
@@ -48,45 +48,33 @@ public class ItemFieldtransporter extends ItemMultitool
 			{
 				if (projector.isActive())
 				{
-					boolean passtrue = false;
+					boolean passTrue = false;
 
 					switch (projector.getaccesstyp())
 					{
 						case 0:
-							passtrue = false;
+							passTrue = false;
 
 							String[] ops = ModularForceFieldSystem.Admin.split(";");
 							for (int i = 0; i <= ops.length - 1; i++)
 							{
 								if (entityplayer.username.equalsIgnoreCase(ops[i]))
 								{
-									passtrue = true;
+									passTrue = true;
 								}
 							}
-							List<Slot> slots = entityplayer.inventoryContainer.inventorySlots;
-							for (Slot slot : slots)
-							{
-								ItemStack playerstack = slot.getStack();
-								if ((playerstack != null) && ((playerstack.getItem() instanceof ItemDebugger)))
-								{
-									passtrue = true;
-									break;
-								}
-
-							}
-
 							break;
 						case 1:
-							passtrue = true;
+							passTrue = true;
 							break;
 						case 2:
-							passtrue = SecurityHelper.isAccessGranted(generator, entityplayer, world, SecurityRight.FFB);
+							passTrue = SecurityHelper.isAccessGranted(generator, entityplayer, world, SecurityRight.FFB);
 							break;
 						case 3:
-							passtrue = SecurityHelper.isAccessGranted(projector, entityplayer, world, SecurityRight.FFB);
+							passTrue = SecurityHelper.isAccessGranted(projector, entityplayer, world, SecurityRight.FFB);
 					}
 
-					if (passtrue)
+					if (passTrue)
 					{
 						int typ = 99;
 						int ymodi = 0;

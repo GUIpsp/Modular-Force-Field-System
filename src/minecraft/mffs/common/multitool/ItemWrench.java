@@ -3,23 +3,24 @@ package mffs.common.multitool;
 import ic2.api.IWrenchable;
 import mffs.api.IMFFS_Wrench;
 import mffs.common.Functions;
-import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import railcraft.common.api.core.items.ICrowbar;
+import universalelectricity.prefab.implement.IToolConfigurator;
 import buildcraft.api.tools.IToolWrench;
 
-public class ItemWrench extends ItemMultitool implements IToolWrench, ICrowbar
+public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToolWrench, ICrowbar
 {
 	public ItemWrench(int id)
 	{
-		super(id, 0);
+		super(id, 0, "multitoolWrench");
 	}
 
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)

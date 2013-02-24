@@ -26,15 +26,15 @@ import mffs.common.modules.ItemModule3DBase;
 import mffs.common.modules.ItemModuleBase;
 import mffs.common.options.IChecksOnAll;
 import mffs.common.options.IInteriorCheck;
-import mffs.common.options.ItemProjectorOptionBase;
-import mffs.common.options.ItemProjectorOptionCamoflage;
-import mffs.common.options.ItemProjectorOptionDefenseStation;
-import mffs.common.options.ItemProjectorOptionFieldFusion;
-import mffs.common.options.ItemProjectorOptionForceFieldJammer;
-import mffs.common.options.ItemProjectorOptionMobDefence;
-import mffs.common.options.ItemProjectorOptionTouchDamage;
-import mffs.common.upgrade.ItemProjectorFieldModulatorDistance;
-import mffs.common.upgrade.ItemProjectorFieldModulatorStrength;
+import mffs.common.options.ItemOptionBase;
+import mffs.common.options.ItemOptionCamoflage;
+import mffs.common.options.ItemOptionDefenseStation;
+import mffs.common.options.ItemOptionFieldFusion;
+import mffs.common.options.ItemOptionJammer;
+import mffs.common.options.ItemOptionAntibiotic;
+import mffs.common.options.ItemOptionShock;
+import mffs.common.upgrade.ItemModuleDistance;
+import mffs.common.upgrade.ItemModuleStrength;
 import mffs.common.upgrade.ItemProjectorFocusMatrix;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.block.Block;
@@ -426,17 +426,17 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 					dropplugins(spot, this);
 				}
 
-				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemProjectorOptionForceFieldJammer)) && (isPowersourceItem()))
+				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionJammer)) && (isPowersourceItem()))
 				{
 					dropplugins(spot, this);
 				}
 
-				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemProjectorOptionFieldFusion)) && (isPowersourceItem()))
+				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionFieldFusion)) && (isPowersourceItem()))
 				{
 					dropplugins(spot, this);
 				}
 
-				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemProjectorOptionDefenseStation)) && (isPowersourceItem()))
+				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
 				{
 					dropplugins(spot, this);
 				}
@@ -543,12 +543,12 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 					if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionMoobEx, true))
 					{
-						ItemProjectorOptionMobDefence.ProjectorNPCDefence(this, this.worldObj);
+						ItemOptionAntibiotic.ProjectorNPCDefence(this, this.worldObj);
 					}
 
 					if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionDefenceStation, true))
 					{
-						ItemProjectorOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj);
+						ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj);
 					}
 
 				}
@@ -613,7 +613,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public boolean calculateBlock(PointXYZ pnt)
 	{
-		for (ItemProjectorOptionBase opt : getOptions(true))
+		for (ItemOptionBase opt : getOptions(true))
 		{
 			if ((opt instanceof IInteriorCheck))
 			{
@@ -625,14 +625,14 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public boolean Forcefielddefine(PointXYZ png, boolean addtoMap)
 	{
-		for (ItemProjectorOptionBase opt : getOptions(true))
+		for (ItemOptionBase opt : getOptions(true))
 		{
-			if (((opt instanceof ItemProjectorOptionForceFieldJammer)) && (((ItemProjectorOptionForceFieldJammer) opt).CheckJammerinfluence(png, this.worldObj, this)))
+			if (((opt instanceof ItemOptionJammer)) && (((ItemOptionJammer) opt).CheckJammerinfluence(png, this.worldObj, this)))
 			{
 				return false;
 			}
 
-			if (((opt instanceof ItemProjectorOptionFieldFusion)) && (((ItemProjectorOptionFieldFusion) opt).checkFieldFusioninfluence(png, this.worldObj, this)))
+			if (((opt instanceof ItemOptionFieldFusion)) && (((ItemOptionFieldFusion) opt).checkFieldFusioninfluence(png, this.worldObj, this)))
 			{
 				return true;
 			}
@@ -948,7 +948,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			switch (Slot)
 			{
 				case 12:
-					if (((par1ItemStack.getItem() instanceof ItemProjectorOptionDefenseStation)) && (isPowersourceItem()))
+					if (((par1ItemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
 					{
 						return false;
 					}
@@ -963,11 +963,11 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 					break;
 				case 5:
-					if ((par1ItemStack.getItem() instanceof ItemProjectorFieldModulatorDistance))
+					if ((par1ItemStack.getItem() instanceof ItemModuleDistance))
 						return modTyp.supportsDistance();
 					break;
 				case 6:
-					if ((par1ItemStack.getItem() instanceof ItemProjectorFieldModulatorStrength))
+					if ((par1ItemStack.getItem() instanceof ItemModuleStrength))
 						return modTyp.supportsStrength();
 
 					break;
@@ -985,22 +985,22 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 					if (isActive())
 						return false;
 
-					if ((par1ItemStack.getItem() instanceof ItemProjectorOptionTouchDamage))
+					if ((par1ItemStack.getItem() instanceof ItemOptionShock))
 					{
 						for (int spot = 2; spot <= 4; spot++)
 						{
-							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemProjectorOptionCamoflage)))
+							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionCamoflage)))
 							{
 								return false;
 							}
 						}
 					}
 
-					if ((par1ItemStack.getItem() instanceof ItemProjectorOptionCamoflage))
+					if ((par1ItemStack.getItem() instanceof ItemOptionCamoflage))
 					{
 						for (int spot = 2; spot <= 4; spot++)
 						{
-							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemProjectorOptionTouchDamage)))
+							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionShock)))
 							{
 								return false;
 							}
@@ -1012,19 +1012,19 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 					{
 						return false;
 					}
-					if (((par1ItemStack.getItem() instanceof ItemProjectorOptionDefenseStation)) && (isPowersourceItem()))
+					if (((par1ItemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
 					{
 						return false;
 					}
-					if (((par1ItemStack.getItem() instanceof ItemProjectorOptionFieldFusion)) && (isPowersourceItem()))
+					if (((par1ItemStack.getItem() instanceof ItemOptionFieldFusion)) && (isPowersourceItem()))
 					{
 						return false;
 					}
-					if (((par1ItemStack.getItem() instanceof ItemProjectorOptionForceFieldJammer)) && (isPowersourceItem()))
+					if (((par1ItemStack.getItem() instanceof ItemOptionJammer)) && (isPowersourceItem()))
 					{
 						return false;
 					}
-					if ((par1ItemStack.getItem() instanceof ItemProjectorOptionBase))
+					if ((par1ItemStack.getItem() instanceof ItemOptionBase))
 					{
 						return modTyp.supportsOption(par1ItemStack.getItem());
 					}
@@ -1104,7 +1104,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public boolean hasOption(Item item, boolean includecheckall)
 	{
-		for (ItemProjectorOptionBase opt : getOptions(includecheckall))
+		for (ItemOptionBase opt : getOptions(includecheckall))
 		{
 			if (opt == item)
 				return true;
@@ -1112,19 +1112,19 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 		return false;
 	}
 
-	public List<ItemProjectorOptionBase> getOptions(boolean includecheckall)
+	public List<ItemOptionBase> getOptions(boolean includecheckall)
 	{
 		List ret = new ArrayList();
 		for (int place = 2; place < 5; place++)
 		{
-			if ((getStackInSlot(place) != null) && ((getStackInSlot(place).getItem() instanceof ItemProjectorOptionBase)))
+			if ((getStackInSlot(place) != null) && ((getStackInSlot(place).getItem() instanceof ItemOptionBase)))
 			{
-				ret.add((ItemProjectorOptionBase) getStackInSlot(place).getItem());
+				ret.add((ItemOptionBase) getStackInSlot(place).getItem());
 			}
 
 			if (includecheckall)
 			{
-				for (ItemProjectorOptionBase opt : ItemProjectorOptionBase.get_instances())
+				for (ItemOptionBase opt : ItemOptionBase.get_instances())
 				{
 					if (((opt instanceof IChecksOnAll)) && (!ret.contains(opt)))
 					{

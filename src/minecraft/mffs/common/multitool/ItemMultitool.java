@@ -19,9 +19,9 @@ public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEn
 	private int typ;
 	private static List MTTypes = new ArrayList();
 
-	protected ItemMultitool(int id, int typ, boolean addToList)
+	protected ItemMultitool(int id, int typ, boolean addToList, String name)
 	{
-		super(id);
+		super(id, name);
 		this.typ = typ;
 		setIconIndex(typ);
 		setMaxStackSize(1);
@@ -30,20 +30,9 @@ public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEn
 			MTTypes.add(this);
 	}
 
-	protected ItemMultitool(int id, int typ)
+	protected ItemMultitool(int id, int typ, String name)
 	{
-		this(id, typ, true);
-	}
-
-
-	public boolean isRepairable()
-	{
-		return false;
-	}
-
-	public boolean isDamageable()
-	{
-		return true;
+		this(id, typ, true, name);
 	}
 
 	public abstract boolean onItemUseFirst(ItemStack paramItemStack, EntityPlayer paramEntityPlayer, World paramWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4, float paramFloat1, float paramFloat2, float paramFloat3);

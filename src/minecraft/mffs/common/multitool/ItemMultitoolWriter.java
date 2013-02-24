@@ -17,11 +17,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemPersonalIDWriter extends ItemMultitool
+public class ItemMultitoolWriter extends ItemMultitool
 {
-	public ItemPersonalIDWriter(int i)
+	public ItemMultitoolWriter(int i)
 	{
-		super(i, 2);
+		super(i, 2, "multitoolWriter");
 	}
 
 	public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity)
