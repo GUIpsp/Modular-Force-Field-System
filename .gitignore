@@ -1,8 +1,7 @@
 *.bat
 *.sh
+*.txt
 /*/
-LICENSE.txt
-CHANGELOG
 
 !/src/
 /src/minecraft/*
@@ -10,9 +9,11 @@ CHANGELOG
 !/src/minecraft/mffs/
 !/src/minecraft/buildcraft/
 !/src/minecraft/com/
+!/src/minecraft/org/
 !/src/minecraft/ic2/
 !/src/minecraft/buildcraft/
 !/src/minecraft/railcraft/
+!/src/minecraft/thermalexpansion/
 !/src/minecraft/universalelectricity/
 !/resources/
 !info.txt

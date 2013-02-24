@@ -7,7 +7,7 @@ import mffs.common.IModularProjector;
 import mffs.common.Linkgrid;
 import mffs.common.MFFSDamageSource;
 import mffs.common.SecurityRight;
-import mffs.common.modules.ItemProjectorModuleSphere;
+import mffs.common.modules.ItemModuleSphere;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
@@ -53,7 +53,7 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase
 
 				if ((entityLiving instanceof EntityPlayer))
 				{
-					if ((!(projector.get_type() instanceof ItemProjectorModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMaschinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
+					if ((!(projector.get_type() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMaschinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{

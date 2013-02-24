@@ -10,9 +10,9 @@ import mffs.common.options.ItemProjectorOptionCamoflage;
 import mffs.common.options.ItemProjectorOptionTouchDamage;
 import net.minecraft.item.Item;
 
-public class ItemProjectorModuleDeflector extends ItemModuleBase
+public class ItemModuleDeflector extends ItemModuleBase
 {
-	public ItemProjectorModuleDeflector(int i)
+	public ItemModuleDeflector(int i)
 	{
 		super(i);
 		setIconIndex(50);

@@ -5,14 +5,14 @@ import java.util.List;
 
 import mffs.common.ProjectorTyp;
 import mffs.common.item.ItemMFFSBase;
-import mffs.common.modules.ItemProjectorModuleAdvCube;
-import mffs.common.modules.ItemProjectorModuleContainment;
-import mffs.common.modules.ItemProjectorModuleCube;
-import mffs.common.modules.ItemProjectorModuleDeflector;
-import mffs.common.modules.ItemProjectorModuleSphere;
-import mffs.common.modules.ItemProjectorModuleTube;
-import mffs.common.modules.ItemProjectorModuleWall;
-import mffs.common.modules.ItemProjectorModulediagonallyWall;
+import mffs.common.modules.ItemModuleAdvancedCube;
+import mffs.common.modules.ItemModuleContainment;
+import mffs.common.modules.ItemModuleCube;
+import mffs.common.modules.ItemModuleDeflector;
+import mffs.common.modules.ItemModuleSphere;
+import mffs.common.modules.ItemModuleTube;
+import mffs.common.modules.ItemModuleWall;
+import mffs.common.modules.ItemModuleDiagonalWall;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -45,21 +45,21 @@ public abstract class ItemProjectorOptionBase extends ItemMFFSBase
 		{
 			info.add("compatible with:");
 
-			if (ItemProjectorModuleWall.supportsOption(this))
+			if (ItemModuleWall.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.wall));
-			if (ItemProjectorModulediagonallyWall.supportsOption(this))
+			if (ItemModuleDiagonalWall.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.diagonallywall));
-			if (ItemProjectorModuleDeflector.supportsOption(this))
+			if (ItemModuleDeflector.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.deflector));
-			if (ItemProjectorModuleTube.supportsOption(this))
+			if (ItemModuleTube.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.tube));
-			if (ItemProjectorModuleSphere.supportsOption(this))
+			if (ItemModuleSphere.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.sphere));
-			if (ItemProjectorModuleCube.supportsOption(this))
+			if (ItemModuleCube.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.cube));
-			if (ItemProjectorModuleAdvCube.supportsOption(this))
+			if (ItemModuleAdvancedCube.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.AdvCube));
-			if (ItemProjectorModuleContainment.supportsOption(this))
+			if (ItemModuleContainment.supportsOption(this))
 				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.containment));
 		}
 		else

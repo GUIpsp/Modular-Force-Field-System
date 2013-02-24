@@ -5,9 +5,9 @@ import java.util.Set;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 
-public class ItemProjectorModulediagonallyWall extends ItemProjectorModuleWall
+public class ItemModuleDiagonalWall extends ItemModuleWall
 {
-	public ItemProjectorModulediagonallyWall(int i)
+	public ItemModuleDiagonalWall(int i)
 	{
 		super(i);
 		setIconIndex(56);

@@ -20,7 +20,7 @@ public abstract class ItemModule3DBase extends ItemModuleBase
 
 	public ForceFieldTyps getForceFieldTyps()
 	{
-		if ((this instanceof ItemProjectorModuleContainment))
+		if ((this instanceof ItemModuleContainment))
 		{
 			return ForceFieldTyps.Containment;
 		}

@@ -27,14 +27,14 @@ import mffs.common.event.EE3Event;
 import mffs.common.item.ItemForcePowerCrystal;
 import mffs.common.item.ItemForcicium;
 import mffs.common.item.ItemForcicumCell;
-import mffs.common.modules.ItemProjectorModuleAdvCube;
-import mffs.common.modules.ItemProjectorModuleContainment;
-import mffs.common.modules.ItemProjectorModuleCube;
-import mffs.common.modules.ItemProjectorModuleDeflector;
-import mffs.common.modules.ItemProjectorModuleSphere;
-import mffs.common.modules.ItemProjectorModuleTube;
-import mffs.common.modules.ItemProjectorModuleWall;
-import mffs.common.modules.ItemProjectorModulediagonallyWall;
+import mffs.common.modules.ItemModuleAdvancedCube;
+import mffs.common.modules.ItemModuleContainment;
+import mffs.common.modules.ItemModuleCube;
+import mffs.common.modules.ItemModuleDeflector;
+import mffs.common.modules.ItemModuleSphere;
+import mffs.common.modules.ItemModuleTube;
+import mffs.common.modules.ItemModuleWall;
+import mffs.common.modules.ItemModuleDiagonalWall;
 import mffs.common.multitool.ItemDebugger;
 import mffs.common.multitool.ItemFieldtransporter;
 import mffs.common.multitool.ItemManuelBook;
@@ -236,102 +236,102 @@ public class ModularForceFieldSystem
 			CONFIGURATION.load();
 			TAB = new MFFSCreativeTab(CreativeTabs.getNextID(), "MFFS");
 
-			Property prop_graphicstyle = CONFIGURATION.get("general", "GraphicStyle", 1);
+			Property prop_graphicstyle = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "GraphicStyle", 1);
 			prop_graphicstyle.comment = "Graphical style. 1 for UE Style, 2 for IC2 Style.";
 			MFFSProperties.graphicstyle = prop_graphicstyle.getInt(1);
 
-			Property chunckloader_prop = CONFIGURATION.get("general", "Chunkloader", true);
+			Property chunckloader_prop = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "Chunkloader", true);
 			chunckloader_prop.comment = "Set this to false to turn off the MFFS Chuncloader ability";
 			MFFSProperties.chunckloader = chunckloader_prop.getBoolean(true);
 
-			Property DefSationNPCScannoti = CONFIGURATION.get("general", "DefenceStationNPCScannnotification", false);
+			Property DefSationNPCScannoti = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "DefenceStationNPCScannnotification", false);
 			DefSationNPCScannoti.comment = "Set this to true to turn off the DefenceStation notification is in NPC Mode";
 			MFFSProperties.defenseStationNPCNotification = DefSationNPCScannoti.getBoolean(false);
 
-			Property zapperParticles = CONFIGURATION.get("general", "renderZapperParticles", true);
+			Property zapperParticles = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "renderZapperParticles", true);
 			zapperParticles.comment = "Set this to false to turn off the small smoke particles present around TouchDamage enabled ForceFields.";
 			MFFSProperties.showZapperParticles = zapperParticles.getBoolean(true);
 
-			Property uumatterForciciumprop = CONFIGURATION.get("general", "uumatterForcicium", true);
+			Property uumatterForciciumprop = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "uumatterForcicium", true);
 			uumatterForciciumprop.comment = "Add IC2 UU-Matter Recipes for Forcicium";
 			MFFSProperties.uumatterForcicium = uumatterForciciumprop.getBoolean(true);
 
-			Property monazitWorldAmount = CONFIGURATION.get("general", "MonazitOreWorldGen", 4);
+			Property monazitWorldAmount = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "MonazitOreWorldGen", 4);
 			monazitWorldAmount.comment = "Controls the size of the ore node that Monazit Ore will generate in";
 			MonazitOreworldamount = monazitWorldAmount.getInt(4);
 
-			Property adminList = CONFIGURATION.get("general", "ForceFieldMaster", "nobody");
+			Property adminList = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "ForceFieldMaster", "nobody");
 			adminList.comment = "Add users to this list to give them admin permissions split by ;";
 			Admin = adminList.value;
 
-			Property influencedByOther = CONFIGURATION.get("general", "influencedbyothermods", true);
+			Property influencedByOther = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "influencedbyothermods", true);
 			influencedByOther.comment = "Should MFFS be influenced by other mods. e.g. ICBM's EMP";
 			influencedbyothermods = Boolean.valueOf(influencedByOther.getBoolean(true));
 
-			Property ffRemoveWaterLavaOnly = CONFIGURATION.get("general", "forcefieldremoveonlywaterandlava", false);
+			Property ffRemoveWaterLavaOnly = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldremoveonlywaterandlava", false);
 			ffRemoveWaterLavaOnly.comment = "Should forcefields only remove water and lava when sponge is enabled?";
 			forcefieldremoveonlywaterandlava = Boolean.valueOf(ffRemoveWaterLavaOnly.getBoolean(false));
 
-			Property feTransportCost = CONFIGURATION.get("general", "forcefieldtransportcost", 10000);
+			Property feTransportCost = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldtransportcost", 10000);
 			feTransportCost.comment = "How much FE should it cost to transport through a field?";
 			forcefieldtransportcost = feTransportCost.getInt(10000);
 
-			Property feFieldBlockCost = CONFIGURATION.get("general", "forcefieldblockcost", 1);
+			Property feFieldBlockCost = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldblockcost", 1);
 			feFieldBlockCost.comment = "How much upkeep FE cost a default ForceFieldblock per second";
 			forcefieldblockcost = feFieldBlockCost.getInt(1);
 
-			Property BlockCreateMod = CONFIGURATION.get("general", "forcefieldblockcreatemodifier", 10);
+			Property BlockCreateMod = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldblockcreatemodifier", 10);
 			BlockCreateMod.comment = "Energy need for create a ForceFieldblock (forcefieldblockcost*forcefieldblockcreatemodifier)";
 			forcefieldblockcreatemodifier = BlockCreateMod.getInt(10);
 
-			Property ffZapperMod = CONFIGURATION.get("general", "forcefieldblockzappermodifier", 2);
+			Property ffZapperMod = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldblockzappermodifier", 2);
 			ffZapperMod.comment = "Energy need multiplier used when the zapper option is installed";
 			forcefieldblockzappermodifier = ffZapperMod.getInt(2);
 
-			Property maxFFGenPerTick = CONFIGURATION.get("general", "forcefieldmaxblockpeerTick", 5000);
+			Property maxFFGenPerTick = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldmaxblockpeerTick", 5000);
 			maxFFGenPerTick.comment = "How many field blocks can be generated per tick?";
 			forcefieldmaxblockpeerTick = maxFFGenPerTick.getInt(5000);
 
-			Property fcWorkCycle = CONFIGURATION.get("general", "ForceciumWorkCylce", 250);
+			Property fcWorkCycle = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "ForceciumWorkCylce", 250);
 			fcWorkCycle.comment = "WorkCycle amount of Forcecium inside a Extractor";
 			ForceciumWorkCylce = fcWorkCycle.getInt(250);
 
-			Property fcCellWorkCycle = CONFIGURATION.get("general", "ForceciumCellWorkCylce", 230);
+			Property fcCellWorkCycle = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "ForceciumCellWorkCylce", 230);
 			fcCellWorkCycle.comment = "WorkCycle amount of Forcecium Cell inside a Extractor";
 			ForceciumCellWorkCylce = fcCellWorkCycle.getInt(230);
 
-			Property extractorPassFEGen = CONFIGURATION.get("general", "ExtractorPassForceEnergyGenerate", 12000);
+			Property extractorPassFEGen = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "ExtractorPassForceEnergyGenerate", 12000);
 			extractorPassFEGen.comment = "How many ForceEnergy generate per WorkCycle";
 			ExtractorPassForceEnergyGenerate = extractorPassFEGen.getInt(12000);
 
 			ExtractorPassForceEnergyGenerate = ExtractorPassForceEnergyGenerate / 4000 * 4000;
 
-			Property defStationKillCost = CONFIGURATION.get("general", "DefenceStationKillForceEnergy", 10000);
+			Property defStationKillCost = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "DefenceStationKillForceEnergy", 10000);
 			defStationKillCost.comment = "How much FE does the AreaDefenseStation when killing someone";
 			DefenceStationKillForceEnergy = defStationKillCost.getInt(10000);
 
-			Property defStationSearchCost = CONFIGURATION.get("general", "DefenceStationSearchForceEnergy", 1000);
+			Property defStationSearchCost = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "DefenceStationSearchForceEnergy", 1000);
 			defStationSearchCost.comment = "How much FE does the AreaDefenseStation when searching someone for contraband";
 			DefenceStationSearchForceEnergy = defStationSearchCost.getInt(1000);
 
-			Property defStationScannCost = CONFIGURATION.get("general", "DefenceStationScannForceEnergy", 10);
+			Property defStationScannCost = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "DefenceStationScannForceEnergy", 10);
 			defStationScannCost.comment = "How much FE does the AreaDefenseStation when Scann for Targets (amount * range / tick)";
 			DefenceStationScannForceEnergy = defStationScannCost.getInt(10);
 
-			Property Adventuremap = CONFIGURATION.get("general", "adventuremap", false);
+			Property Adventuremap = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "adventuremap", false);
 			Adventuremap.comment = "Set MFFS to AdventureMap Mode Extractor need no Forcecium and ForceField have no click damage";
 			adventuremap = Boolean.valueOf(Adventuremap.getBoolean(false));
 
-			blockConverter = new BlockConverter(CONFIGURATION.getBlock("MFFSForceEnergyConverter", MFFSProperties.block_Converter_ID).getInt(MFFSProperties.block_Converter_ID)).setBlockName("MFFSForceEnergyConverter");
-			blockExtractor = new BlockExtractor(CONFIGURATION.getBlock("MFFSExtractor", MFFSProperties.block_Extractor_ID).getInt(MFFSProperties.block_Extractor_ID)).setBlockName("MFFSExtractor");
-			blockMonaziteOre = new BlockMonaziteOre(CONFIGURATION.getBlock("MFFSMonazitOre", MFFSProperties.block_MonazitOre_ID).getInt(MFFSProperties.block_MonazitOre_ID)).setBlockName("MFFSMonazitOre");
-			blockDefenceStation = new BlockDefenseStation(CONFIGURATION.getBlock("MFFSDefenceStation", MFFSProperties.block_DefenseStation_ID).getInt(MFFSProperties.block_DefenseStation_ID)).setBlockName("MFFSDefenceStation");
-			blockCapacitor = new BlockCapacitor(CONFIGURATION.getBlock("MFFSCapacitor", MFFSProperties.block_Capacitor_ID).getInt(MFFSProperties.block_Capacitor_ID)).setBlockName("MFFSCapacitor");
-			blockProjector = new BlockProjector(CONFIGURATION.getBlock("MFFSProjector", MFFSProperties.block_Projector_ID).getInt(MFFSProperties.block_Projector_ID)).setBlockName("MFFSProjector");
-			blockForceField = new BlockForceField(CONFIGURATION.getBlock("MFFSFieldblock", MFFSProperties.block_Field_ID).getInt(MFFSProperties.block_Field_ID));
-			blockSecurityStorage = new BlockSecurityStorage(CONFIGURATION.getBlock("MFFSSecurtyStorage", MFFSProperties.block_SecureStorage_ID).getInt(MFFSProperties.block_SecureStorage_ID)).setBlockName("MFFSSecurtyStorage");
+			blockConverter = new BlockConverter(MFFSProperties.block_Converter_ID);
+			blockExtractor = new BlockExtractor(MFFSProperties.block_Extractor_ID);
+			blockMonaziteOre = new BlockMonaziteOre(MFFSProperties.block_MonazitOre_ID);
+			blockDefenceStation = new BlockDefenseStation(MFFSProperties.block_DefenseStation_ID);
+			blockCapacitor = new BlockCapacitor(MFFSProperties.block_Capacitor_ID);
+			blockProjector = new BlockProjector(MFFSProperties.block_Projector_ID);
+			blockForceField = new BlockForceField(MFFSProperties.block_Field_ID);
+			blockSecurityStorage = new BlockSecurityStorage(MFFSProperties.block_SecureStorage_ID);
 			blockSecurityStation = new BlockSecurityStation(MFFSProperties.block_SecurityStation_ID, 16);
-			blockControlSystem = new BlockControlSystem(CONFIGURATION.getBlock("MFFSControlSystem", MFFSProperties.block_ControlSystem).getInt(MFFSProperties.block_ControlSystem)).setBlockName("MFFSControlSystem");
+			blockControlSystem = new BlockControlSystem(MFFSProperties.block_ControlSystem);
 
 			MFFSProjectorFFDistance = new ItemProjectorFieldModulatorDistance(CONFIGURATION.getItem("item", "itemProjectorFFDistance", MFFSProperties.item_AltDistance_ID).getInt(MFFSProperties.item_AltDistance_ID)).setItemName("itemProjectorFFDistance");
 			MFFSProjectorFFStrenght = new ItemProjectorFieldModulatorStrength(CONFIGURATION.getItem("item", "itemProjectorFFStrength", MFFSProperties.item_AltStrength_ID).getInt(MFFSProperties.item_AltStrength_ID)).setItemName("itemProjectorFFStrength");
@@ -340,14 +340,14 @@ public class ModularForceFieldSystem
 			itemForcicium = new ItemForcicium(CONFIGURATION.getItem("item", "itemForcicium", MFFSProperties.item_Forcicium_ID).getInt(MFFSProperties.item_Forcicium_ID)).setItemName("itemForcicium");
 			itemForcicumCell = new ItemForcicumCell(CONFIGURATION.getItem("item", "itemForcicumCell", MFFSProperties.item_ForciciumCell_ID).getInt(MFFSProperties.item_ForciciumCell_ID)).setItemName("itemForcicumCell");
 
-			MFFSProjectorTypdiagowall = new ItemProjectorModulediagonallyWall(CONFIGURATION.getItem("item", "itemProjectorModulediagonallyWall", MFFSProperties.item_ModDiag_ID).getInt(MFFSProperties.item_ModDiag_ID)).setItemName("itemProjectorModulediagonallyWall");
-			MFFSProjectorTypsphere = new ItemProjectorModuleSphere(CONFIGURATION.getItem("item", "itemProjectorTypsphere", MFFSProperties.item_ModSphere_ID).getInt(MFFSProperties.item_ModSphere_ID)).setItemName("itemProjectorTypsphere");
-			MFFSProjectorTypkube = new ItemProjectorModuleCube(CONFIGURATION.getItem("item", "itemProjectorTypkube", MFFSProperties.item_ModCube_ID).getInt(MFFSProperties.item_ModCube_ID)).setItemName("itemProjectorTypkube");
-			MFFSProjectorTypwall = new ItemProjectorModuleWall(CONFIGURATION.getItem("item", "itemProjectorTypwall", MFFSProperties.item_ModWall_ID).getInt(MFFSProperties.item_ModWall_ID)).setItemName("itemProjectorTypwall");
-			MFFSProjectorTypdeflector = new ItemProjectorModuleDeflector(CONFIGURATION.getItem("item", "itemProjectorTypdeflector", MFFSProperties.item_ModDeflector_ID).getInt(MFFSProperties.item_ModDeflector_ID)).setItemName("itemProjectorTypdeflector");
-			MFFSProjectorTyptube = new ItemProjectorModuleTube(CONFIGURATION.getItem("item", "itemProjectorTyptube", MFFSProperties.item_ModTube_ID).getInt(MFFSProperties.item_ModTube_ID)).setItemName("itemProjectorTyptube");
-			MFFSProjectorTypcontainment = new ItemProjectorModuleContainment(CONFIGURATION.getItem("item", "itemProjectorModuleContainment", MFFSProperties.item_ModContainment_ID).getInt(MFFSProperties.item_ModContainment_ID)).setItemName("itemProjectorModuleContainment");
-			MFFSProjectorTypAdvCube = new ItemProjectorModuleAdvCube(CONFIGURATION.getItem("item", "itemProjectorModuleAdvCube", MFFSProperties.item_ModAdvCube_ID).getInt(MFFSProperties.item_ModAdvCube_ID)).setItemName("itemProjectorModuleAdvCube");
+			MFFSProjectorTypdiagowall = new ItemModuleDiagonalWall(CONFIGURATION.getItem("item", "itemProjectorModulediagonallyWall", MFFSProperties.item_ModDiag_ID).getInt(MFFSProperties.item_ModDiag_ID)).setItemName("itemProjectorModulediagonallyWall");
+			MFFSProjectorTypsphere = new ItemModuleSphere(CONFIGURATION.getItem("item", "itemProjectorTypsphere", MFFSProperties.item_ModSphere_ID).getInt(MFFSProperties.item_ModSphere_ID)).setItemName("itemProjectorTypsphere");
+			MFFSProjectorTypkube = new ItemModuleCube(CONFIGURATION.getItem("item", "itemProjectorTypkube", MFFSProperties.item_ModCube_ID).getInt(MFFSProperties.item_ModCube_ID)).setItemName("itemProjectorTypkube");
+			MFFSProjectorTypwall = new ItemModuleWall(CONFIGURATION.getItem("item", "itemProjectorTypwall", MFFSProperties.item_ModWall_ID).getInt(MFFSProperties.item_ModWall_ID)).setItemName("itemProjectorTypwall");
+			MFFSProjectorTypdeflector = new ItemModuleDeflector(CONFIGURATION.getItem("item", "itemProjectorTypdeflector", MFFSProperties.item_ModDeflector_ID).getInt(MFFSProperties.item_ModDeflector_ID)).setItemName("itemProjectorTypdeflector");
+			MFFSProjectorTyptube = new ItemModuleTube(CONFIGURATION.getItem("item", "itemProjectorTyptube", MFFSProperties.item_ModTube_ID).getInt(MFFSProperties.item_ModTube_ID)).setItemName("itemProjectorTyptube");
+			MFFSProjectorTypcontainment = new ItemModuleContainment(CONFIGURATION.getItem("item", "itemProjectorModuleContainment", MFFSProperties.item_ModContainment_ID).getInt(MFFSProperties.item_ModContainment_ID)).setItemName("itemProjectorModuleContainment");
+			MFFSProjectorTypAdvCube = new ItemModuleAdvancedCube(CONFIGURATION.getItem("item", "itemProjectorModuleAdvCube", MFFSProperties.item_ModAdvCube_ID).getInt(MFFSProperties.item_ModAdvCube_ID)).setItemName("itemProjectorModuleAdvCube");
 
 			MFFSProjectorOptionZapper = new ItemProjectorOptionTouchDamage(CONFIGURATION.getItem("item", "itemupgradeprozapper", MFFSProperties.item_OptTouchHurt_ID).getInt(MFFSProperties.item_OptTouchHurt_ID)).setItemName("itemupgradeprozapper");
 			MFFSProjectorOptionSubwater = new ItemProjectorOptionSponge(CONFIGURATION.getItem("item", "itemupgradeprosubwater", MFFSProperties.item_OptSponge_ID).getInt(MFFSProperties.item_OptSponge_ID)).setItemName("itemupgradeprosubwater");

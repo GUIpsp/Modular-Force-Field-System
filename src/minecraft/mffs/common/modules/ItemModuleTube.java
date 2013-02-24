@@ -16,9 +16,9 @@ import mffs.common.options.ItemProjectorOptionTouchDamage;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
-public class ItemProjectorModuleTube extends ItemModule3DBase
+public class ItemModuleTube extends ItemModule3DBase
 {
-	public ItemProjectorModuleTube(int i)
+	public ItemModuleTube(int i)
 	{
 		super(i);
 		setIconIndex(51);

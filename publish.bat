@@ -35,10 +35,10 @@ cd reobf\minecraft\
 cd ..\..\
 cd resources\
 7z a "..\builds\%FILE_NAME%" "*"
-7z a "..\builds\%BACKUP_NAME%" "*" -phenry
+7z a "..\builds\%BACKUP_NAME%" "*" -pthunderdark
 cd ..\
 cd src\
-7z a "..\builds\%BACKUP_NAME%" "*\mffs\" -phenry
+7z a "..\builds\%BACKUP_NAME%" "*\mffs\" -pthunderdark
 7z a "..\builds\%API_NAME%" "*\mffs\api\"
 cd ..\
 

@@ -5,7 +5,7 @@ import java.util.List;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.MFFSDamageSource;
-import mffs.common.modules.ItemProjectorModuleSphere;
+import mffs.common.modules.ItemModuleSphere;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityGhast;
@@ -51,7 +51,7 @@ public class ItemProjectorOptionMobDefence extends ItemProjectorOptionBase
 
 				if (((entityLiving instanceof EntityMob)) || ((entityLiving instanceof EntitySlime)) || ((entityLiving instanceof EntityGhast)))
 				{
-					if ((!(projector.get_type() instanceof ItemProjectorModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMaschinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
+					if ((!(projector.get_type() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMaschinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{

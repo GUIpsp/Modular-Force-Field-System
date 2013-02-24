@@ -1158,7 +1158,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 	}
 
 	@Override
-	public World n()
+	public World getWorldObj()
 	{
 		return this.worldObj;
 	}

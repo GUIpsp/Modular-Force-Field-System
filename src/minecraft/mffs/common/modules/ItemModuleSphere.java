@@ -16,14 +16,13 @@ import mffs.common.options.ItemProjectorOptionMobDefence;
 import mffs.common.options.ItemProjectorOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 
-public class ItemProjectorModuleCube extends ItemModule3DBase
+public class ItemModuleSphere extends ItemModule3DBase
 {
-	public ItemProjectorModuleCube(int i)
+	public ItemModuleSphere(int i)
 	{
 		super(i);
-		setIconIndex(53);
+		setIconIndex(52);
 	}
 
 	public boolean supportsDistance()
@@ -33,7 +32,7 @@ public class ItemProjectorModuleCube extends ItemModule3DBase
 
 	public boolean supportsStrength()
 	{
-		return false;
+		return true;
 	}
 
 	public boolean supportsMatrix()
@@ -44,27 +43,27 @@ public class ItemProjectorModuleCube extends ItemModule3DBase
 	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
 	{
 		int radius = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4;
-		TileEntity te = (TileEntity) projector;
 
 		int yDown = radius;
-		int yTop = radius;
-		if (te.yCoord + radius > 255)
-		{
-			yTop = 255 - te.yCoord;
-		}
 
-		if (((TileEntityProjector) te).hasOption(ModularForceFieldSystem.MFFSProjectorOptionDome, true))
+		if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.MFFSProjectorOptionDome, true))
 		{
 			yDown = 0;
 		}
 
-		for (int y1 = -yDown; y1 <= yTop; y1++)
+		for (int y1 = -yDown; y1 <= radius; y1++)
 			for (int x1 = -radius; x1 <= radius; x1++)
 				for (int z1 = -radius; z1 <= radius; z1++)
 				{
-					if ((x1 == -radius) || (x1 == radius) || (y1 == -radius) || (y1 == yTop) || (z1 == -radius) || (z1 == radius))
+					int dx = x1;
+					int dy = y1;
+					int dz = z1;
+
+					int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
+
+					if ((dist <= radius) && (dist > radius - (projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1)))
 						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
-					else
+					else if (dist <= radius)
 						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
 				}
 	}

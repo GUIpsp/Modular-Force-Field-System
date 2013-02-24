@@ -32,11 +32,7 @@ public abstract class ItemModuleBase extends ItemMFFSBase
 		super(i);
 		this.setMaxStackSize(8);
 		this.instances.add(this);
-	}
-
-	public boolean isRepairable()
-	{
-		return false;
+		this.setNoRepair();
 	}
 
 	public abstract boolean supportsDistance();
@@ -45,7 +41,7 @@ public abstract class ItemModuleBase extends ItemMFFSBase
 
 	public abstract boolean supportsMatrix();
 
-	public abstract void calculateField(IModularProjector paramIModularProjector, Set paramSet);
+	public abstract void calculateField(IModularProjector modularProjector, Set paramSet);
 
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float hitX, float hitY, float hitZ)
 	{

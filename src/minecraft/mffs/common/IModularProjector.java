@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public abstract interface IModularProjector extends IInventory
 {
-	public abstract World n();
+	public abstract World getWorldObj();
 
 	public abstract int countItemsInSlot(Slots paramSlots);
 
