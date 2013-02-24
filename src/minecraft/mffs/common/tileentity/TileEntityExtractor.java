@@ -258,9 +258,9 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 		{
 			return true;
 		}
-		if (ModularForceFieldSystem.adventuremap)
+		if (MFFSProperties.adventuremap)
 		{
-			setMaxworkcylce(ModularForceFieldSystem.ForceciumCellWorkCylce);
+			setMaxworkcylce(MFFSProperties.ForceciumCellWorkCylce);
 			setWorkCylce(getMaxworkcylce());
 			return true;
 		}
@@ -269,7 +269,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 		{
 			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicium)
 			{
-				setMaxworkcylce(ModularForceFieldSystem.ForceciumWorkCylce);
+				setMaxworkcylce(MFFSProperties.ForceciumWorkCylce);
 				setWorkCylce(getMaxworkcylce());
 				decrStackSize(0, 1);
 				return true;
@@ -277,7 +277,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 			if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell) && (((ItemForcicumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
 			{
-				setMaxworkcylce(ModularForceFieldSystem.ForceciumCellWorkCylce);
+				setMaxworkcylce(MFFSProperties.ForceciumCellWorkCylce);
 				setWorkCylce(getMaxworkcylce());
 				return true;
 			}
@@ -402,7 +402,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 						if (hasPowertoConvert())
 						{
 							setWorkCylce(getWorkCylce() - 1);
-							setForceEnergybuffer(getForceEnergybuffer() + ModularForceFieldSystem.ExtractorPassForceEnergyGenerate);
+							setForceEnergybuffer(getForceEnergybuffer() + MFFSProperties.ExtractorPassForceEnergyGenerate);
 						}
 
 					}

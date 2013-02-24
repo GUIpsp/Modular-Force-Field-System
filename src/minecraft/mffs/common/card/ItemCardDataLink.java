@@ -18,7 +18,7 @@ public class ItemCardDataLink extends ItemCard
 {
 	public ItemCardDataLink(int id)
 	{
-		super(id);
+		super(id, "cardDataLink");
 		setMaxStackSize(1);
 		setIconIndex(22);
 	}

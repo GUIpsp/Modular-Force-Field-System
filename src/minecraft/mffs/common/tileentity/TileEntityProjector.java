@@ -667,7 +667,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		if (init)
 		{
-			cost = MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier;
+			cost = MFFSProperties.forcefieldblockcost * MFFSProperties.forcefieldblockcreatemodifier;
 		}
 		else
 		{
@@ -676,7 +676,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		if (getforcefieldblock_meta() == 1)
 		{
-			cost *= ModularForceFieldSystem.forcefieldblockzappermodifier;
+			cost *= MFFSProperties.forcefieldblockzappermodifier;
 		}
 
 		consumePower(cost * this.field_def.size(), false);
@@ -685,7 +685,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		for (PointXYZ pnt : this.field_def)
 		{
-			if (this.blockcounter == ModularForceFieldSystem.forcefieldmaxblockpeerTick)
+			if (this.blockcounter == MFFSProperties.forcefieldmaxblockpeerTick)
 			{
 				break;
 			}
@@ -825,7 +825,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 		forcepower = blocks * MFFSProperties.forcefieldblockcost;
 		if (factor != 1)
 		{
-			forcepower = forcepower * ModularForceFieldSystem.forcefieldblockcreatemodifier + forcepower * 5;
+			forcepower = forcepower * MFFSProperties.forcefieldblockcreatemodifier + forcepower * 5;
 		}
 
 		return forcepower;

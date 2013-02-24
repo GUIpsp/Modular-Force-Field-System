@@ -12,7 +12,6 @@ import java.util.EnumSet;
 import mffs.api.IPowerLinkItem;
 import mffs.common.Linkgrid;
 import mffs.common.MFFSProperties;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerConverter;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -475,12 +474,12 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 			{
 				double outputWatts = Math.min(outputNetwork.getRequest().getWatts(), volt * amp);
 
-				if (consumePower((int) (ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true))
+				if (consumePower((int) (MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true))
 				{
 					if ((outputWatts > 0.0D) && (isActive()) && (getUE_Output() == 1))
 					{
 						outputNetwork.startProducing(this, outputWatts / volt, volt);
-						consumePower((int) (ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
+						consumePower((int) (MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
 					}
 					else
 					{
@@ -497,11 +496,11 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 		{
 			while (packets > 0)
 			{
-				if (consumePower(ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000 * amount, true))
+				if (consumePower(MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * amount, true))
 				{
 					EnergyTileSourceEvent event = new EnergyTileSourceEvent(this, amount);
 					MinecraftForge.EVENT_BUS.post(event);
-					consumePower(ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
+					consumePower(MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
 				}
 				packets--;
 			}

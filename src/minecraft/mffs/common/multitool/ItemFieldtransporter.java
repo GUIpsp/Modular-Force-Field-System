@@ -6,7 +6,7 @@ import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.Functions;
 import mffs.common.Linkgrid;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.MFFSProperties;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.WorldMap;
@@ -55,7 +55,7 @@ public class ItemFieldTransporter extends ItemMultitool
 						case 0:
 							passTrue = false;
 
-							String[] ops = ModularForceFieldSystem.Admin.split(";");
+							String[] ops = MFFSProperties.Admin.split(";");
 							for (int i = 0; i <= ops.length - 1; i++)
 							{
 								if (entityplayer.username.equalsIgnoreCase(ops[i]))
@@ -147,9 +147,9 @@ public class ItemFieldTransporter extends ItemMultitool
 								{
 									Functions.ChattoPlayer(entityplayer, "[Field Security] Fail: transmission into Void not allowed ");
 								}
-								else if (consumePower(stack, ModularForceFieldSystem.forcefieldtransportcost, true))
+								else if (consumePower(stack, MFFSProperties.forcefieldtransportcost, true))
 								{
-									consumePower(stack, ModularForceFieldSystem.forcefieldtransportcost, false);
+									consumePower(stack, MFFSProperties.forcefieldtransportcost, false);
 									entityplayer.setPositionAndUpdate(x + 0.5D, y - ymodi, z + 0.5D);
 
 									Functions.ChattoPlayer(entityplayer, "[Field Security] Success: transmission complete");

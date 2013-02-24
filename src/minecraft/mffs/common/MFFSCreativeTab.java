@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public class MFFSCreativeTab extends CreativeTabs
 {
-	public static CreativeTabs INSTANCE;
+	public static CreativeTabs INSTANCE = new MFFSCreativeTab(CreativeTabs.getNextID(), "MFFS");;
 
 	public MFFSCreativeTab(int par1, String par2Str)
 	{

@@ -10,21 +10,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 
-public class ItemCard extends ItemMFFS
+public abstract class ItemCard extends ItemMFFS
 {
 	private StringBuffer info = new StringBuffer();
 	protected int tick = 0;
 
-	public ItemCard(int id)
+	public ItemCard(int id, String name)
 	{
-		super(id, "card");
+		super(id, name);
 		this.setMaxStackSize(1);
-	}
-
-	@Override
-	public boolean isRepairable()
-	{
-		return false;
 	}
 
 	public static void setforArea(ItemStack itemStack, String areaname)

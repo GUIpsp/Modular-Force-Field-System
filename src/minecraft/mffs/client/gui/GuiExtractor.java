@@ -1,6 +1,7 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
 import mffs.common.tileentity.TileEntityExtractor;
@@ -92,7 +93,7 @@ public class GuiExtractor extends GuiContainer
 		int Workpowerslider = 79 * this.Extractor.getWorkdone() / 100;
 		drawTexturedModalRect(w + 49, k + 89, 176, 0, Workpowerslider, 6);
 
-		int WorkCylce = 32 * this.Extractor.getWorkCylce() / ModularForceFieldSystem.ForceciumWorkCylce;
+		int WorkCylce = 32 * this.Extractor.getWorkCylce() / MFFSProperties.ForceciumWorkCylce;
 
 		drawTexturedModalRect(w + 73, k + 50, 179, 81, WorkCylce, 32);
 

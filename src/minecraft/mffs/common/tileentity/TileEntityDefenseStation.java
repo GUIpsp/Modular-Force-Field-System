@@ -357,12 +357,12 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 		{
 			if (sec != null)
 			{
-				if (consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, true))
+				if (consumePower(MFFSProperties.DefenceStationKillForceEnergy, true))
 					;
 				switch (getActionmode())
 				{
 					case 3:
-						consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, false);
+						consumePower(MFFSProperties.DefenceStationKillForceEnergy, false);
 						Living.setEntityHealth(0);
 						this.NPClist.remove(Living);
 						break;
@@ -371,7 +371,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 						{
 							Living.setEntityHealth(0);
 							this.NPClist.remove(Living);
-							consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, false);
+							consumePower(MFFSProperties.DefenceStationKillForceEnergy, false);
 						}
 						break;
 					case 5:
@@ -379,7 +379,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 						{
 							Living.setEntityHealth(0);
 							this.NPClist.remove(Living);
-							consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, false);
+							consumePower(MFFSProperties.DefenceStationKillForceEnergy, false);
 						}
 						break;
 				}
@@ -404,7 +404,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 						}
 						break;
 					case 1:
-						if (consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, true))
+						if (consumePower(MFFSProperties.DefenceStationKillForceEnergy, true))
 						{
 							if (!sec.isAccessGranted(player.username, SecurityRight.SR))
 							{
@@ -431,12 +431,12 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 								this.actionlist.remove(player);
 								player.setEntityHealth(0);
 								player.attackEntityFrom(ModularForceFieldSystem.areaDefense, 20);
-								consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, false);
+								consumePower(MFFSProperties.DefenceStationKillForceEnergy, false);
 							}
 						}
 						break;
 					case 2:
-						if (consumePower(ModularForceFieldSystem.DefenceStationSearchForceEnergy, true))
+						if (consumePower(MFFSProperties.DefenceStationSearchForceEnergy, true))
 						{
 							if (!sec.isAccessGranted(player.username, SecurityRight.AAI))
 							{
@@ -463,7 +463,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.armorInventory[i].getItem().getItemDisplayName(player.inventory.armorInventory[i]) + "> will be confiscated!!!");
 													StacksToInventory(this, player.inventory.armorInventory[i], true);
 													player.inventory.armorInventory[i] = null;
-													consumePower(ModularForceFieldSystem.DefenceStationSearchForceEnergy, false);
+													consumePower(MFFSProperties.DefenceStationSearchForceEnergy, false);
 												}
 											}
 
@@ -478,7 +478,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.mainInventory[i].getItem().getItemDisplayName(player.inventory.mainInventory[i]) + "> will be confiscated!!!");
 													StacksToInventory(this, player.inventory.mainInventory[i], true);
 													player.inventory.mainInventory[i] = null;
-													consumePower(ModularForceFieldSystem.DefenceStationSearchForceEnergy, false);
+													consumePower(MFFSProperties.DefenceStationSearchForceEnergy, false);
 												}
 											}
 
@@ -495,7 +495,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.armorInventory[i].getItem().getItemDisplayName(player.inventory.armorInventory[i]) + "> will be confiscated!!!");
 													StacksToInventory(this, player.inventory.armorInventory[i], true);
 													player.inventory.armorInventory[i] = null;
-													consumePower(ModularForceFieldSystem.DefenceStationSearchForceEnergy, false);
+													consumePower(MFFSProperties.DefenceStationSearchForceEnergy, false);
 												}
 											}
 
@@ -509,7 +509,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.mainInventory[i].getItem().getItemDisplayName(player.inventory.mainInventory[i]) + "> will be confiscated!!!");
 													StacksToInventory(this, player.inventory.mainInventory[i], true);
 													player.inventory.mainInventory[i] = null;
-													consumePower(ModularForceFieldSystem.DefenceStationSearchForceEnergy, false);
+													consumePower(MFFSProperties.DefenceStationSearchForceEnergy, false);
 												}
 											}
 								}
@@ -537,15 +537,15 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 			{
 				setActive(true);
 			}
-			if (((!getSwitchValue()) || (!hasPowerSource()) || (getAvailablePower() < ModularForceFieldSystem.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
+			if (((!getSwitchValue()) || (!hasPowerSource()) || (getAvailablePower() < MFFSProperties.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
 			{
 				setActive(false);
 			}
 			if (isActive())
 			{
-				if (consumePower(ModularForceFieldSystem.DefenceStationScannForceEnergy * getInfoDistance(), true))
+				if (consumePower(MFFSProperties.DefenceStationScannForceEnergy * getInfoDistance(), true))
 				{
-					consumePower(ModularForceFieldSystem.DefenceStationScannForceEnergy * getInfoDistance(), false);
+					consumePower(MFFSProperties.DefenceStationScannForceEnergy * getInfoDistance(), false);
 					scanner();
 				}
 

@@ -66,6 +66,21 @@ public class MFFSProperties
 	public static boolean defenseStationNPCNotification;
 	public static boolean advancedParticles;
 	public static boolean uumatterEnabled;
+	public static int forcefieldblockcost;
+	public static int forcefieldblockcreatemodifier;
+	public static int forcefieldblockzappermodifier;
+	public static int forcefieldtransportcost;
+	public static int forcefieldmaxblockpeerTick;
+	public static boolean forcefieldremoveonlywaterandlava;
+	public static boolean influencedbyothermods;
+	public static boolean adventuremap;
+	public static int ForceciumWorkCylce;
+	public static int ForceciumCellWorkCylce;
+	public static int ExtractorPassForceEnergyGenerate;
+	public static int DefenceStationKillForceEnergy;
+	public static int DefenceStationSearchForceEnergy;
+	public static int DefenceStationScannForceEnergy;
+	public static String Admin;
 
 	/**
 	 * Which mods are found in MFFS?
@@ -75,5 +90,5 @@ public class MFFSProperties
 	public static boolean MODULE_EE = false;
 	public static boolean MODULE_BUILDCRAFT = false;
 	public static boolean MODULE_THERMAL_EXPANSION = false;
-	public static int forcefieldblockcost;
+
 }

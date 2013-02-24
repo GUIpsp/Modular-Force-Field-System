@@ -127,9 +127,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 					ffworldmap.setSync(true);
 
 					if (ffworldmap.getTyp() == 1)
-						Projector.consumePower(MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier, false);
+						Projector.consumePower(MFFSProperties.forcefieldblockcost * MFFSProperties.forcefieldblockcreatemodifier, false);
 					else
-						Projector.consumePower(MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier * ModularForceFieldSystem.forcefieldblockzappermodifier, false);
+						Projector.consumePower(MFFSProperties.forcefieldblockcost * MFFSProperties.forcefieldblockcreatemodifier * MFFSProperties.forcefieldblockzappermodifier, false);
 				}
 		}
 	}
@@ -142,7 +142,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new PointXYZ(par2, par3, par4, par1World).hashCode()));
 
-		if ((ffworldmap != null) && (!ModularForceFieldSystem.adventuremap))
+		if ((ffworldmap != null) && (!MFFSProperties.adventuremap))
 		{
 			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (projector != null)
@@ -216,7 +216,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 					{
 						case 0:
 							passtrue = false;
-							if (ModularForceFieldSystem.Admin.equals(((EntityPlayer) entity).username))
+							if (MFFSProperties.Admin.equals(((EntityPlayer) entity).username))
 								passtrue = true;
 							break;
 						case 1:
@@ -321,7 +321,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 			if (((tileEntity instanceof TileEntityProjector)) && (tileEntity != null))
 			{
-				((TileEntityProjector) tileEntity).consumePower(MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier, false);
+				((TileEntityProjector) tileEntity).consumePower(MFFSProperties.forcefieldblockcost * MFFSProperties.forcefieldblockcreatemodifier, false);
 			}
 
 		}
@@ -387,7 +387,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public void weakenForceField(World world, int x, int y, int z)
 	{
-		if (ModularForceFieldSystem.influencedbyothermods)
+		if (MFFSProperties.influencedbyothermods)
 		{
 			world.setBlockWithNotify(x, y, z, 0);
 		}

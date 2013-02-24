@@ -26,7 +26,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 
 	public ItemCardPowerLink(int i)
 	{
-		super(i);
+		super(i, "cardPowerLink");
 		setIconIndex(17);
 	}
 

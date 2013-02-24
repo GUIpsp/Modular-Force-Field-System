@@ -17,7 +17,7 @@ public class ItemCardEmpty extends ItemCard
 {
 	public ItemCardEmpty(int i)
 	{
-		super(i);
+		super(i, "cardEmpty");
 		setIconIndex(16);
 		setMaxStackSize(16);
 	}

@@ -23,7 +23,7 @@ public class ItemCardSecurityLink extends ItemCard
 {
 	public ItemCardSecurityLink(int i)
 	{
-		super(i);
+		super(i, "cardSecurityLink");
 		setIconIndex(19);
 	}
 
