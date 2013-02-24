@@ -109,6 +109,7 @@ public class ModularForceFieldSystem
 	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
 	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
 	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
+	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
 
 	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + NAME + ".cfg"));;
 

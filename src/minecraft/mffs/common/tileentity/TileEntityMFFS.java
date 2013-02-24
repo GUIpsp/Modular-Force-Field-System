@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import universalelectricity.prefab.TranslationHelper;
+
 import mffs.api.IMFFS_Wrench;
 import mffs.api.ISwitchabel;
 import mffs.api.PointXYZ;
@@ -58,6 +60,12 @@ public abstract class TileEntityMFFS extends TileEntity implements INetworkHandl
 		this.ticker = 0;
 		this.DeviceID = 0;
 		this.DeviceName = "Unamed";
+	}
+
+	@Override
+	public String getInvName()
+	{
+		return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
 	}
 
 	public int getPercentageCapacity()

@@ -1,110 +1,77 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
+import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 
-import org.lwjgl.opengl.GL11;
-
-public class GuiCapacitor extends GuiContainer
+public class GuiCapacitor extends GuiMFFS
 {
-	private TileEntityCapacitor Core;
-	private boolean editMode = false;
+	private TileEntityCapacitor tileEntity;
 
 	public GuiCapacitor(EntityPlayer player, TileEntityCapacitor tileentity)
 	{
 		super(new ContainerCapacitor(player, tileentity));
-		this.Core = tileentity;
-		this.xSize = 176;
-		this.ySize = 207;
+		this.tileEntity = tileentity;
 	}
 
-	protected void keyTyped(char c, int i)
-	{
-		if ((i != 1) && (this.editMode))
-		{
-			if (c == '\r')
-			{
-				this.editMode = false;
-				return;
-			}
-
-			if (i == 14)
-			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Core, 12, "");
-			}
-			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
-				NetworkHandlerClient.fireTileEntityEvent(this.Core, 11, String.valueOf(c));
-		}
-		else
-		{
-			super.keyTyped(c, i);
-		}
-	}
-
-	protected void mouseClicked(int i, int j, int k)
-	{
-		super.mouseClicked(i, j, k);
-
-		int xMin = (this.width - this.xSize) / 2;
-		int yMin = (this.height - this.ySize) / 2;
-
-		int x = i - xMin;
-		int y = j - yMin;
-
-		if (this.editMode)
-		{
-			this.editMode = false;
-		}
-		else if ((x >= 5) && (y >= 4) && (x <= 135) && (y <= 18))
-		{
-			NetworkHandlerClient.fireTileEntityEvent(this.Core, 10, "null");
-			this.editMode = true;
-		}
-	}
-
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
-		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiCapacitor.png");
-
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(textur);
-		int w = (this.width - this.xSize) / 2;
-		int k = (this.height - this.ySize) / 2;
-		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
-		int i1 = 79 * this.Core.getPercentageStorageCapacity() / 100;
-		drawTexturedModalRect(w + 8, k + 112, 176, 0, i1 + 1, 79);
-	}
-
-	protected void drawGuiContainerForegroundLayer(int par1, int par2)
-	{
-		this.fontRenderer.drawString("Force Energy Capacitor", 8, 25, 4210752);
-		this.fontRenderer.drawString(this.Core.getDeviceName(), 8, 8, 4210752);
-		this.fontRenderer.drawString("FE: " + String.valueOf(this.Core.getStorageAvailablePower()), 8, 100, 4210752);
-		this.fontRenderer.drawString("Power Uplink: ", 8, 80, 4210752);
-
-		this.fontRenderer.drawString("transmit range:", 8, 60, 4210752);
-		this.fontRenderer.drawString(" " + this.Core.getTransmitRange(), 90, 60, 4210752);
-
-		this.fontRenderer.drawString("linked device:", 8, 43, 4210752);
-		this.fontRenderer.drawString(" " + this.Core.getLinketProjektor(), 90, 45, 4210752);
-	}
-
-	protected void actionPerformed(GuiButton guibutton)
-	{
-		NetworkHandlerClient.fireTileEntityEvent(this.Core, guibutton.id, "");
-	}
-
+	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.Core, 0));
-		this.controlList.add(new GraphicButton(1, this.width / 2 + 20, this.height / 2 - 28, this.Core, 1));
-
 		super.initGui();
+
+		this.textFieldFrequency = new GuiTextField(this.fontRenderer, 30, 76, 60, 12);
+		this.textFieldFrequency.setMaxStringLength(4);
+		this.textFieldFrequency.setText("0");
+
+		this.controlList.clear();
+		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
+		this.controlList.add(new GraphicButton(1, this.width / 2 + 5, this.height / 2 - 35, this.tileEntity, 1));
+
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
+	{
+		super.drawGuiContainerBackgroundLayer(f, x, y);
+
+		/**
+		 * Upgrade Slots
+		 */
+		this.drawSlot(153, 46);
+		this.drawSlot(153, 66);
+		this.drawSlot(153, 86);
+
+		/**
+		 * Frequency Card Slot
+		 */
+		this.drawSlot(8, 73);
+
+		this.drawEnergy(8, 115, 0);
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+	{
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.ySize / 2 - this.tileEntity.getInvName().length() * 5, 6, 4210752);
+
+		this.fontRenderer.drawString("Linked Device: " + this.tileEntity.getLinketProjector(), 8, 30, 4210752);
+		this.fontRenderer.drawString("Range: " + this.tileEntity.getTransmitRange(), 8, 45, 4210752);
+		this.fontRenderer.drawString("Frequency:", 8, 60, 4210752);
+		this.textFieldFrequency.drawTextBox();
+		this.fontRenderer.drawString("Force Power: ", 8, 95, 4210752);
+		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton guibutton)
+	{
+		super.actionPerformed(guibutton);
+		NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
 	}
 }

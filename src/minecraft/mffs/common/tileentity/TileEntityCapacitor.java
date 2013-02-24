@@ -3,6 +3,8 @@ package mffs.common.tileentity;
 import java.util.LinkedList;
 import java.util.List;
 
+import universalelectricity.prefab.TranslationHelper;
+
 import mffs.api.IForceEnergyItems;
 import mffs.api.IForceEnergyStorageBlock;
 import mffs.api.IPowerLinkItem;
@@ -25,7 +27,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 {
 	private ItemStack[] inventory;
 	private int forcePower;
-	private short linketprojektor;
+	private short linketprojector;
 	private int capacity;
 	private int Powerlinkmode;
 	private int TransmitRange;
@@ -34,7 +36,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 	{
 		this.inventory = new ItemStack[5];
 		this.forcePower = 0;
-		this.linketprojektor = 0;
+		this.linketprojector = 0;
 		this.TransmitRange = 8;
 		this.capacity = 0;
 		this.Powerlinkmode = 0;
@@ -85,16 +87,16 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 		return new ContainerCapacitor(inventoryplayer.player, this);
 	}
 
-	public Short getLinketProjektor()
+	public Short getLinketProjector()
 	{
-		return Short.valueOf(this.linketprojektor);
+		return Short.valueOf(this.linketprojector);
 	}
 
 	public void setLinketprojektor(Short linketprojektor)
 	{
-		if (this.linketprojektor != linketprojektor.shortValue())
+		if (this.linketprojector != linketprojektor.shortValue())
 		{
-			this.linketprojektor = linketprojektor.shortValue();
+			this.linketprojector = linketprojektor.shortValue();
 			NetworkHandlerServer.updateTileEntityField(this, "linketprojektor");
 		}
 	}
@@ -330,7 +332,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 
 			if (getTicker() == 10)
 			{
-				if (getLinketProjektor().shortValue() != (short) Linkgrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
+				if (getLinketProjector().shortValue() != (short) Linkgrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
 				{
 					setLinketprojektor(Short.valueOf((short) Linkgrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange())));
 				}
@@ -452,11 +454,6 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 		this.inventory[i] = itemstack;
 		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
 			itemstack.stackSize = getInventoryStackLimit();
-	}
-
-	public String getInvName()
-	{
-		return "Generator";
 	}
 
 	public int getStartInventorySide(ForgeDirection side)
