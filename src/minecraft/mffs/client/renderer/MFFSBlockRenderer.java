@@ -48,7 +48,7 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 			}
 			else
 			{
-				ForgeHooksClient.bindTexture("/chb/mods/mffs/sprites/blocks.png", 0);
+				ForgeHooksClient.bindTexture(BLOCK_TEXTURE_FILE, 0);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 

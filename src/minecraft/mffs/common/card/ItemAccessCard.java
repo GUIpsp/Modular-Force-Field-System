@@ -6,6 +6,7 @@ import mffs.common.FrequencyGrid;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
 import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.ModularForceFieldSystem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,7 +28,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 
 	public String getTextureFile()
 	{
-		return "/chb/mods/mffs/sprites/items.png";
+		return ITEM_TEXTURE_FILE;
 	}
 
 	public boolean isRepairable()

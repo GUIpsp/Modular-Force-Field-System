@@ -9,7 +9,7 @@ public class SecurityRight
 	public final String rightKey;
 	public final String name;
 	public final String description;
-	public String texture = "/chb/mods/mffs/sprites/AdvSecStationButtons.png";
+	public String texture = ModularForceFieldSystem.TEXTURE_DIRECTORY + "AdvSecStationButtons.png";
 	public final int texIndex;
 	public static SecurityRight FFB = new SecurityRight("FFB", "ForceField Bypass", "", 0);
 	public static SecurityRight EB = new SecurityRight("EB", "Edit MFFS Block", "", 1);
