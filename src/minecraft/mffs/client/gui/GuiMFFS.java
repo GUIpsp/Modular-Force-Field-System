@@ -115,7 +115,7 @@ public class GuiMFFS extends GuiContainer
 				displayLines.add(stringInLine.trim());
 			}
 
-			this.drawTooltip(mouseX - this.guiLeft, mouseY + this.guiTop, displayLines.toArray(new String[] {}));
+			this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop, displayLines.toArray(new String[] {}));
 		}
 
 		this.tooltip = "";
@@ -140,7 +140,21 @@ public class GuiMFFS extends GuiContainer
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
-		// TODO: DRAW itemStack
+
+		this.drawItemStack(itemStack, this.containerWidth + x, this.containerHeight + y);
+	}
+
+	protected void drawItemStack(ItemStack par1ItemStack, int x, int y)
+	{
+		x += 1;
+		y += 1;
+		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+		this.zLevel = 500.0F;
+		// itemRenderer.zLevel = 500.0F;
+		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, x, y);
+		itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, x, y);
+		this.zLevel = 0.0F;
+		// itemRenderer.zLevel = 0.0F;
 	}
 
 	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)

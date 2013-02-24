@@ -7,7 +7,7 @@ import java.util.Random;
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.InventoryHelper;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
@@ -30,7 +30,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityDefenseStation extends TileEntityFEPoweredMachine implements ISidedInventory
+public class TileEntityDefenseStation extends TileEntityForcePowerMachine implements ISidedInventory
 {
 	private ItemStack[] Inventory;
 	private int capacity;
@@ -131,7 +131,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 
 	public void invalidate()
 	{
-		Linkgrid.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
@@ -533,11 +533,11 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 			{
 				toggelSwitchValue();
 			}
-			if ((getSwitchValue()) && (hasPowerSource()) && (getAvailablePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
+			if ((getSwitchValue()) && (hasPowerSource()) && (getForcePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
 			{
 				setActive(true);
 			}
-			if (((!getSwitchValue()) || (!hasPowerSource()) || (getAvailablePower() < MFFSProperties.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
+			if (((!getSwitchValue()) || (!hasPowerSource()) || (getForcePower() < MFFSProperties.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
 			{
 				setActive(false);
 			}

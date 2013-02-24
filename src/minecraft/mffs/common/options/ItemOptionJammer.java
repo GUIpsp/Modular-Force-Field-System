@@ -3,7 +3,7 @@ package mffs.common.options;
 import java.util.Map;
 
 import mffs.api.PointXYZ;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 
@@ -18,7 +18,7 @@ public class ItemOptionJammer extends ItemOptionBase implements IChecksOnAll
 	public boolean CheckJammerinfluence(PointXYZ png, World world, TileEntityProjector Projector)
 	{
 		Map<Integer, TileEntityProjector> InnerMap = null;
-		InnerMap = Linkgrid.getWorldMap(world).getJammer();
+		InnerMap = FrequencyGrid.getWorldMap(world).getJammer();
 
 		for (TileEntityProjector tileentity : InnerMap.values())
 		{

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
 import mffs.common.tileentity.TileEntityProjector;
@@ -21,7 +21,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 	public boolean checkFieldFusioninfluence(PointXYZ png, World world, TileEntityProjector Proj)
 	{
 		Map<Integer, TileEntityProjector> InnerMap = null;
-		InnerMap = Linkgrid.getWorldMap(world).getFieldFusion();
+		InnerMap = FrequencyGrid.getWorldMap(world).getFieldFusion();
 		for (TileEntityProjector tileentity : InnerMap.values())
 		{
 			boolean logicswitch = false;
@@ -49,7 +49,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 		{
 			if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
 			{
-				TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector Projector = (TileEntityProjector) FrequencyGrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 				if (Projector != null)
 				{

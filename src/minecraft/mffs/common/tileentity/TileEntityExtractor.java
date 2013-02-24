@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mffs.api.IPowerLinkItem;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
@@ -35,7 +35,7 @@ import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
 
-public class TileEntityExtractor extends TileEntityFEPoweredMachine implements IPowerReceptor, IEnergySink
+public class TileEntityExtractor extends TileEntityForcePowerMachine implements IPowerReceptor, IEnergySink
 {
 	private ItemStack[] inventory;
 	private int workmode = 0;
@@ -294,7 +294,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 			if (hasPowerSource())
 			{
 				int PowerTransferrate = getMaximumPower() / 120;
-				int freeAmount = getMaximumPower() - getAvailablePower();
+				int freeAmount = (int) (getMaximumPower() - getForcePower());
 
 				if (getForceEnergybuffer() > freeAmount)
 				{
@@ -632,7 +632,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 			this.addedToEnergyNet = false;
 		}
 
-		Linkgrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
 
 		super.invalidate();
 	}
@@ -734,7 +734,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
-		TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
+		TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
 		if (cap != null)
 		{
 			TileEntitySecurityStation sec = cap.getLinkedSecurityStation();

@@ -10,7 +10,7 @@ import ic2.api.energy.tile.IEnergySource;
 import java.util.EnumSet;
 
 import mffs.api.IPowerLinkItem;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.container.ContainerConverter;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -25,7 +25,7 @@ import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.vector.Vector3;
 
-public class TileEntityConverter extends TileEntityFEPoweredMachine implements IEnergySource
+public class TileEntityConverter extends TileEntityForcePowerMachine implements IEnergySource
 {
 	private ItemStack[] inventory;
 	private int IC_Outputpacketsize;
@@ -161,7 +161,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 
 			if (hasPowerSource())
 			{
-				setLinkPower(getAvailablePower());
+				setLinkPower((int) getForcePower());
 			}
 			else
 			{
@@ -514,7 +514,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 			this.addedToEnergyNet = false;
 		}
-		Linkgrid.getWorldMap(this.worldObj).getConverter().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getConverter().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
@@ -588,7 +588,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
-		TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
+		TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
 		if (cap != null)
 		{
 			TileEntitySecurityStation sec = cap.getLinkedSecurityStation();

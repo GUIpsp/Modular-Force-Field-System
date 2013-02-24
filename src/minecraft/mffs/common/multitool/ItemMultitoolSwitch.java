@@ -1,6 +1,6 @@
 package mffs.common.multitool;
 
-import mffs.api.ISwitchabel;
+import mffs.api.ISwitchable;
 import mffs.common.Functions;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -25,16 +25,16 @@ public class ItemMultitoolSwitch extends ItemMultitool
 
 		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
 
-		if ((tileentity instanceof ISwitchabel))
+		if ((tileentity instanceof ISwitchable))
 		{
 			if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
 			{
-				if (((ISwitchabel) tileentity).isSwitchabel())
+				if (((ISwitchable) tileentity).isSwitchabel())
 				{
 					if (consumePower(itemstack, 1000, true))
 					{
 						consumePower(itemstack, 1000, false);
-						((ISwitchabel) tileentity).toggelSwitchValue();
+						((ISwitchable) tileentity).toggelSwitchValue();
 						return true;
 					}
 

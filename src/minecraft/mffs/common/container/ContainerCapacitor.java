@@ -28,6 +28,7 @@ public class ContainerCapacitor extends ContainerMFFS
 	{
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(slotID);
+		
 		if ((slot != null) && (slot.getHasStack()))
 		{
 			ItemStack itemstack1 = slot.getStack();
@@ -45,6 +46,7 @@ public class ContainerCapacitor extends ContainerMFFS
 				return null;
 			}
 		}
+		
 		return itemstack;
 	}
 }

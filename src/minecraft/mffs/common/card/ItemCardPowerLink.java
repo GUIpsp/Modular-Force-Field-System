@@ -4,7 +4,7 @@ import mffs.api.IForceEnergyStorageBlock;
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.Functions;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -39,7 +39,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 			int Cap_ID = getValuefromKey("CapacitorID", itemStack);
 			if (Cap_ID != 0)
 			{
-				TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(Cap_ID));
+				TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(Cap_ID));
 				if (cap != null)
 				{
 					if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
@@ -141,7 +141,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 						int Cap_ID = getValuefromKey("CapacitorID", itemStack);
 						if (Cap_ID != 0)
 						{
-							TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(png.getPointWorld()).getCapacitor().get(Integer.valueOf(Cap_ID));
+							TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(png.getPointWorld()).getCapacitor().get(Integer.valueOf(Cap_ID));
 							if (cap != null)
 							{
 								setInformation(itemStack, cap.getMaschinePoint(), "CapacitorID", Cap_ID);

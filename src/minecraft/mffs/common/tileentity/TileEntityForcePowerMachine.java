@@ -1,9 +1,10 @@
 package mffs.common.tileentity;
 
+import mffs.api.IForcePower;
 import mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 
-public abstract class TileEntityFEPoweredMachine extends TileEntityMFFS
+public abstract class TileEntityForcePowerMachine extends TileEntityMFFS implements IForcePower
 {
 	public abstract ItemStack getPowerLinkStack();
 
@@ -27,14 +28,22 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMFFS
 		return false;
 	}
 
-	public int getAvailablePower()
+	@Override
+	public double getForcePower()
 	{
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource())
 		{
 			return ((IPowerLinkItem) linkCard.getItem()).getAvailablePower(linkCard, this, this.worldObj);
 		}
+
 		return 0;
+	}
+
+	@Override
+	public void setForcePower(double joules)
+	{
+
 	}
 
 	public int getPowerSourceID()
@@ -74,6 +83,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMFFS
 		{
 			return ((IPowerLinkItem) linkCard.getItem()).insertPower(linkCard, powerAmount, simulation, this, this.worldObj);
 		}
+
 		return false;
 	}
 

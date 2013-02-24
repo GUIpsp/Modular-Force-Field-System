@@ -161,7 +161,7 @@ public class SecurityHelper
 			switch (((TileEntityProjector) tileEntity).getaccesstyp())
 			{
 				case 2:
-					TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));
+					TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));
 					if (cap != null)
 					{
 						TileEntitySecurityStation sec = cap.getLinkedSecurityStation();

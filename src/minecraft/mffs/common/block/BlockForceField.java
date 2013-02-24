@@ -7,7 +7,7 @@ import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldTyps;
 import mffs.common.Functions;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -114,7 +114,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
-			TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			TileEntityProjector Projector = (TileEntityProjector) FrequencyGrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (Projector != null)
 				if (!Projector.isActive())
 				{
@@ -144,7 +144,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!MFFSProperties.adventuremap))
 		{
-			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (projector != null)
 			{
 				switch (projector.getaccesstyp())
@@ -206,7 +206,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 			if (ffworldmap != null)
 			{
-				TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 				if (projector != null)
 				{
@@ -223,7 +223,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 							passtrue = true;
 							break;
 						case 2:
-							TileEntityCapacitor generator = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(ffworldmap.getGenratorID()));
+							TileEntityCapacitor generator = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(ffworldmap.getGenratorID()));
 							passtrue = SecurityHelper.isAccessGranted(generator, (EntityPlayer) entity, world, SecurityRight.FFB);
 							break;
 						case 3:
@@ -317,7 +317,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
-			TileEntity tileEntity = (TileEntity) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			TileEntity tileEntity = (TileEntity) FrequencyGrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 			if (((tileEntity instanceof TileEntityProjector)) && (tileEntity != null))
 			{
@@ -354,7 +354,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		{
 			if (!ffworldmap.isEmpty())
 			{
-				TileEntityProjector Projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector Projector = (TileEntityProjector) FrequencyGrid.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 				if ((Projector != null) && (!Projector.isActive()))
 				{
 					ffworldmap.removebyProjector(ffworldmap.getProjectorID());

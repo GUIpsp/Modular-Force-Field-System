@@ -3,7 +3,7 @@ package mffs.common.card;
 import java.util.List;
 
 import mffs.api.PointXYZ;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.tileentity.TileEntityMFFS;
@@ -32,7 +32,7 @@ public class ItemCardDataLink extends ItemCard
 			int DeviceID = getValuefromKey("DeviceID", itemStack);
 			if (DeviceID != 0)
 			{
-				TileEntityMFFS device = Linkgrid.getWorldMap(world).getTileEntityMachines(getDeviceTyp(itemStack), DeviceID);
+				TileEntityMFFS device = FrequencyGrid.getWorldMap(world).getTileEntityMachines(getDeviceTyp(itemStack), DeviceID);
 				if (device != null)
 				{
 					if (!device.getDeviceName().equals(getforAreaname(itemStack)))

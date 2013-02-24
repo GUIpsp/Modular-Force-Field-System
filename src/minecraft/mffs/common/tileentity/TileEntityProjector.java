@@ -16,7 +16,7 @@ import mffs.common.ForceFieldTyps;
 import mffs.common.Functions;
 import mffs.common.IModularProjector;
 import mffs.common.InventoryHelper;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
@@ -50,7 +50,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntityProjector extends TileEntityFEPoweredMachine implements IModularProjector
+public class TileEntityProjector extends TileEntityForcePowerMachine implements IModularProjector
 {
 	private ItemStack[] ProjektorItemStacks;
 	private int[] focusmatrix = { 0, 0, 0, 0 };
@@ -384,22 +384,22 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
 		{
-			if (!Linkgrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
-				Linkgrid.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
+			if (!FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
+				FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
 		}
-		else if (Linkgrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
+		else if (FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
 		{
-			Linkgrid.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
+			FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
 		}
 
 		if (hasOption(ModularForceFieldSystem.itemOptionJammer, false))
 		{
-			if (!Linkgrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
-				Linkgrid.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
+			if (!FrequencyGrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
+				FrequencyGrid.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
 		}
-		else if (Linkgrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
+		else if (FrequencyGrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
 		{
-			Linkgrid.getWorldMap(this.worldObj).getJammer().remove(Integer.valueOf(getDeviceID()));
+			FrequencyGrid.getWorldMap(this.worldObj).getJammer().remove(Integer.valueOf(getDeviceID()));
 		}
 
 		if (hasValidTypeMod())
@@ -493,7 +493,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 			if (hasPowerSource())
 			{
-				setLinkPower(getAvailablePower());
+				setLinkPower((int) getForcePower());
 
 				if ((isPowersourceItem()) && (getaccesstyp() != 0))
 					setaccesstyp(0);
@@ -766,7 +766,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			}
 		}
 
-		Map<Integer, TileEntityProjector> FieldFusion = Linkgrid.getWorldMap(this.worldObj).getFieldFusion();
+		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion();
 		for (TileEntityProjector tileentity : FieldFusion.values())
 		{
 			if (tileentity.getPowerSourceID() == getPowerSourceID())
@@ -781,7 +781,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	public void invalidate()
 	{
-		Linkgrid.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
 		destroyField();
 		super.invalidate();
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.Functions;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -41,8 +41,8 @@ public class ItemFieldTransporter extends ItemMultitool
 			int First_Gen_ID = ffworldmap.getGenratorID();
 			int First_Pro_ID = ffworldmap.getProjectorID();
 
-			TileEntityCapacitor generator = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(First_Gen_ID));
-			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(world).getProjector().get(Integer.valueOf(First_Pro_ID));
+			TileEntityCapacitor generator = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(First_Gen_ID));
+			TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(world).getProjector().get(Integer.valueOf(First_Pro_ID));
 
 			if ((projector != null) && (generator != null))
 			{

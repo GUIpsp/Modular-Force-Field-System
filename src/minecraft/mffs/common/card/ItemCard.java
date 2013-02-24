@@ -51,10 +51,10 @@ public abstract class ItemCard extends ItemMFFS
 		nbtTagCompound.setBoolean("valid", false);
 	}
 
+	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		info.add("Link: " + getforAreaname(itemStack));
 		if (tag.hasKey("worldname"))
 			info.add("World: " + tag.getString("worldname"));
 		if (tag.hasKey("linkTarget"))

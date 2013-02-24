@@ -4,7 +4,7 @@ import java.util.List;
 
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.modules.ItemModuleSphere;
@@ -65,7 +65,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 
 							if (projector.getaccesstyp() == 2)
 							{
-								TileEntityCapacitor cap = (TileEntityCapacitor) Linkgrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(projector.getPowerSourceID()));
+								TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(projector.getPowerSourceID()));
 								if (cap != null)
 								{
 									TileEntitySecurityStation SecurityStation = cap.getLinkedSecurityStation();

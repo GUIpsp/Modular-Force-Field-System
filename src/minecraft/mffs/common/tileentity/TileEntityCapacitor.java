@@ -1,14 +1,14 @@
 package mffs.common.tileentity;
 
+import icbm.api.RadarRegistry;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import universalelectricity.prefab.TranslationHelper;
 
 import mffs.api.IForceEnergyItems;
 import mffs.api.IForceEnergyStorageBlock;
 import mffs.api.IPowerLinkItem;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;
@@ -23,23 +23,38 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements INetworkHandlerEventListener, IForceEnergyStorageBlock
+public class TileEntityCapacitor extends TileEntityForcePowerMachine implements INetworkHandlerEventListener, IForceEnergyStorageBlock
 {
 	private ItemStack[] inventory;
 	private int forcePower;
 	private short linketprojector;
 	private int capacity;
-	private int Powerlinkmode;
-	private int TransmitRange;
+	private int linkMode;
+	private int transmitionRange;
 
 	public TileEntityCapacitor()
 	{
 		this.inventory = new ItemStack[5];
 		this.forcePower = 0;
 		this.linketprojector = 0;
-		this.TransmitRange = 8;
+		this.transmitionRange = 8;
 		this.capacity = 0;
-		this.Powerlinkmode = 0;
+		this.linkMode = 0;
+	}
+
+	@Override
+	public void initiate()
+	{
+		super.initiate();
+		RadarRegistry.register(this);
+	}
+
+	@Override
+	public void invalidate()
+	{
+		RadarRegistry.unregister(this);
+		FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().remove(Integer.valueOf(getDeviceID()));
+		super.invalidate();
 	}
 
 	public int getPowerStorageID()
@@ -49,23 +64,23 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 
 	public void setTransmitRange(int transmitRange)
 	{
-		this.TransmitRange = transmitRange;
+		this.transmitionRange = transmitRange;
 		NetworkHandlerServer.updateTileEntityField(this, "TransmitRange");
 	}
 
 	public int getTransmitRange()
 	{
-		return this.TransmitRange;
+		return this.transmitionRange;
 	}
 
 	public int getPowerlinkmode()
 	{
-		return this.Powerlinkmode;
+		return this.linkMode;
 	}
 
 	public void setPowerlinkmode(int powerlinkmode)
 	{
-		this.Powerlinkmode = powerlinkmode;
+		this.linkMode = powerlinkmode;
 	}
 
 	public int getPercentageStorageCapacity()
@@ -253,18 +268,12 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 			dropplugins(a, this);
 	}
 
-	public void invalidate()
-	{
-		Linkgrid.getWorldMap(this.worldObj).getCapacitor().remove(Integer.valueOf(getDeviceID()));
-		super.invalidate();
-	}
-
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
 
 		this.forcePower = nbttagcompound.getInteger("forcepower");
-		this.Powerlinkmode = nbttagcompound.getInteger("Powerlinkmode");
+		this.linkMode = nbttagcompound.getInteger("Powerlinkmode");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
 		this.inventory = new ItemStack[getSizeInventory()];
@@ -283,7 +292,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setInteger("forcepower", this.forcePower);
-		nbttagcompound.setInteger("Powerlinkmode", this.Powerlinkmode);
+		nbttagcompound.setInteger("Powerlinkmode", this.linkMode);
 
 		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < this.inventory.length; i++)
@@ -332,9 +341,9 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 
 			if (getTicker() == 10)
 			{
-				if (getLinketProjector().shortValue() != (short) Linkgrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
+				if (getLinketProjector().shortValue() != (short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
 				{
-					setLinketprojektor(Short.valueOf((short) Linkgrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange())));
+					setLinketprojektor(Short.valueOf((short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange())));
 				}
 				if (getPercentageStorageCapacity() != getStorageAvailablePower() / 1000 * 100 / (getStorageMaxPower() / 1000))
 				{
@@ -357,8 +366,8 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 		if (hasPowerSource())
 		{
 			int PowerTransferrate = getMaximumPower() / 120;
-			int freeStorageAmount = getMaximumPower() - getAvailablePower();
-			int balancelevel = getStorageAvailablePower() - getAvailablePower();
+			int freeStorageAmount = (int) (getMaximumPower() - getForcePower());
+			int balancelevel = (int) (getStorageAvailablePower() - getForcePower());
 
 			switch (getPowerlinkmode())
 			{

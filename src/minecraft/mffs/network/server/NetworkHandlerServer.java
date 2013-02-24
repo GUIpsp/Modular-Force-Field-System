@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.WorldMap;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
@@ -105,7 +105,7 @@ public class NetworkHandlerServer implements IPacketHandler
 								{
 									if (!ffworldmap.isEmpty())
 									{
-										TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(worldserver).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+										TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(worldserver).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 										if (projector != null)
 										{

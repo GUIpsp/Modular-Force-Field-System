@@ -1,6 +1,6 @@
 package mffs.common.tileentity;
 
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecStorage;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -34,7 +34,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 
 	public void invalidate()
 	{
-		Linkgrid.getWorldMap(this.worldObj).getSecStorage().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getSecStorage().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 

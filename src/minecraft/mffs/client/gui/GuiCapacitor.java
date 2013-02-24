@@ -1,15 +1,16 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
-import universalelectricity.prefab.TranslationHelper;
 
 public class GuiCapacitor extends GuiMFFS
 {
@@ -49,7 +50,7 @@ public class GuiCapacitor extends GuiMFFS
 		/**
 		 * Frequency Card Slot
 		 */
-		this.drawSlot(8, 73);
+		this.drawSlot(8, 73, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
 
 		this.drawEnergy(8, 115, 0);
 	}
@@ -60,11 +61,10 @@ public class GuiCapacitor extends GuiMFFS
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.ySize / 2 - this.tileEntity.getInvName().length() * 5, 6, 4210752);
 
 		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinketProjector(), 8, 30, x, y);
-		// this.fontRenderer.drawString(TranslationHelper.getLocal("gui..name") + , , 4210752);
-		this.fontRenderer.drawString(TranslationHelper.getLocal("gui.range.name") + ": " + this.tileEntity.getTransmitRange(), 8, 45, 4210752);
-		this.fontRenderer.drawString(TranslationHelper.getLocal("gui.frequency.name") + ":", 8, 60, 4210752);
+		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
-		this.fontRenderer.drawString(TranslationHelper.getLocal("gui.forcePower.name") + ": ", 8, 95, 4210752);
+		this.drawTextWithTooltip("forcePower", "%1:", 8, 95, x, y);
 		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
 		super.drawGuiContainerForegroundLayer(x, y);
 	}

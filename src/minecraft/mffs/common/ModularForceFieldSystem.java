@@ -103,7 +103,7 @@ public class ModularForceFieldSystem
 {
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
-	public static final String VERSION = "2.3.0";
+	public static final String VERSION = "3.0.0";
 
 	public static final String RESOURCE_DIRECTORY = "/mffs/";
 	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
@@ -114,6 +114,7 @@ public class ModularForceFieldSystem
 	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + NAME + ".cfg"));;
 
 	public static int RENDER_ID = 2908;
+	
 	/**
 	 * Machines
 	 */

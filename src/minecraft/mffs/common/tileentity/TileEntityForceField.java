@@ -4,7 +4,7 @@ import java.util.Random;
 
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.WorldMap;
 import mffs.network.client.ForceFieldClientUpdatehandler;
 import mffs.network.server.ForceFieldServerUpdatehandler;
@@ -149,7 +149,7 @@ public class TileEntityForceField extends TileEntity
 			{
 				if (!ffworldmap.isEmpty())
 				{
-					TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+					TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 					if (projector != null)
 					{

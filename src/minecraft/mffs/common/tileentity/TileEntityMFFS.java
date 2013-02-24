@@ -6,13 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import universalelectricity.prefab.TranslationHelper;
-
 import mffs.api.IMFFS_Wrench;
-import mffs.api.ISwitchabel;
+import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -32,12 +30,13 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ISidedInventory;
+import universalelectricity.prefab.TranslationHelper;
+import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public abstract class TileEntityMFFS extends TileEntity implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IMFFS_Wrench, IWrenchable, ISwitchabel
+public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IMFFS_Wrench, IWrenchable, ISwitchable
 {
 	private boolean Active;
 	private int Side;
@@ -139,7 +138,7 @@ public abstract class TileEntityMFFS extends TileEntity implements INetworkHandl
 
 	public void init()
 	{
-		this.DeviceID = Linkgrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
+		this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
 		if (MFFSProperties.chunckLoader)
 			registerChunkLoading();
 		this.init = false;

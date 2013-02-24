@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import com.google.common.collect.MapMaker;
 
-public final class Linkgrid
+public final class FrequencyGrid
 {
 	private static Map WorldpowernetMap = new MapMaker().weakKeys().makeMap();
 

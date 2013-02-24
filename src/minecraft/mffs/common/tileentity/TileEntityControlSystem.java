@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mffs.api.PointXYZ;
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MachineTypes;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
@@ -61,7 +61,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 
 	public void invalidate()
 	{
-		Linkgrid.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
@@ -332,7 +332,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 			}
 			if (DeviceID != 0)
 			{
-				TileEntityMFFS device = Linkgrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
+				TileEntityMFFS device = FrequencyGrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
 				if (device != null)
 					return device;
 			}

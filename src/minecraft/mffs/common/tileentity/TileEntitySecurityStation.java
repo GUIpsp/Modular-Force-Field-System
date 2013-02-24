@@ -3,7 +3,7 @@ package mffs.common.tileentity;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.common.Linkgrid;
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
@@ -81,7 +81,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 
 	public void invalidate()
 	{
-		Linkgrid.getWorldMap(this.worldObj).getSecStation().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGrid.getWorldMap(this.worldObj).getSecStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
