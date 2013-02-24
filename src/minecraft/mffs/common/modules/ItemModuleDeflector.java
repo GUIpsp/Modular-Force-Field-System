@@ -5,7 +5,7 @@ import java.util.Set;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionShock;
 import net.minecraft.item.Item;
@@ -89,7 +89,7 @@ public class ItemModuleDeflector extends ItemModuleBase
 
 	public static boolean supportsOption(ItemOptionBase item)
 	{
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 		if ((item instanceof ItemOptionCamoflage))
 			return true;
@@ -101,7 +101,7 @@ public class ItemModuleDeflector extends ItemModuleBase
 
 	public boolean supportsOption(Item item)
 	{
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 		if ((item instanceof ItemOptionCamoflage))
 			return true;

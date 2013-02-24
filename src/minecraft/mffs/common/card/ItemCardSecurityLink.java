@@ -95,7 +95,7 @@ public class ItemCardSecurityLink extends ItemCard
 
 					if (world.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded)
 					{
-						inventiory.setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty));
+						inventiory.setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
 					}
 				}
 			}

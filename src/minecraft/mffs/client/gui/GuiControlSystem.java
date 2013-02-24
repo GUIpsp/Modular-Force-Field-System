@@ -114,8 +114,8 @@ public class GuiControlSystem extends GuiContainer
 		{
 			RenderItem renderItem = new RenderItem();
 			RenderHelper.enableGUIStandardItemLighting();
-			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSItemSecLinkCard), 40, 59);
-			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemfc), 100, 59);
+			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardSecurityLink), 40, 59);
+			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardPowerLink), 100, 59);
 			RenderHelper.disableStandardItemLighting();
 			if (this.ControlSystem.getRemoteSecurityStationlink())
 				this.fontRenderer.drawString("linked", 60, 64, 2263842);

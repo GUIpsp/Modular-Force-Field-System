@@ -106,7 +106,7 @@ public class GuiProjector extends GuiContainer
 				drawTexturedModalRect(w + 120, k + 45, 177, 143, 16, 16);
 			}
 
-			if (this.projector.hasOption(ModularForceFieldSystem.MFFSProjectorOptionCamouflage, true))
+			if (this.projector.hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))
 				drawTexturedModalRect(w + 137, k + 45, 177, 143, 16, 16);
 		}
 	}

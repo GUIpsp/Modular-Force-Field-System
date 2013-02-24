@@ -16,8 +16,8 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
 import mffs.common.item.ItemForcicium;
 import mffs.common.item.ItemForcicumCell;
-import mffs.common.upgrade.ItemCapacitorUpgradeCapacity;
-import mffs.common.upgrade.ItemExtractorUpgradeBooster;
+import mffs.common.upgrade.ItemUpgradeCapacity;
+import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -198,7 +198,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 	{
 		if (getStackInSlot(2) != null)
 		{
-			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.MFFSitemupgradecapcap)
+			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemUpgradeCapacity)
 				setMaxForceEnergyBuffer(1000000 + getStackInSlot(2).stackSize * 100000);
 			else
 				setMaxForceEnergyBuffer(1000000);
@@ -210,7 +210,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 		if (getStackInSlot(3) != null)
 		{
-			if (getStackInSlot(3).getItem() == ModularForceFieldSystem.MFFSitemupgradeexctractorboost)
+			if (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemUpgradeBoost)
 				setWorkTicker(20 - getStackInSlot(3).stackSize);
 			else
 				setWorkTicker(20);
@@ -566,13 +566,13 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 				}
 				break;
 			case 2:
-				if ((par1ItemStack.getItem() instanceof ItemCapacitorUpgradeCapacity))
+				if ((par1ItemStack.getItem() instanceof ItemUpgradeCapacity))
 				{
 					return true;
 				}
 				break;
 			case 3:
-				if ((par1ItemStack.getItem() instanceof ItemExtractorUpgradeBooster))
+				if ((par1ItemStack.getItem() instanceof ItemUpgradeBooster))
 				{
 					return true;
 				}

@@ -6,7 +6,7 @@ import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionDefenseStation;
 import mffs.common.options.ItemOptionFieldFusion;
@@ -53,7 +53,7 @@ public class ItemModuleCube extends ItemModule3DBase
 			yTop = 255 - te.yCoord;
 		}
 
-		if (((TileEntityProjector) te).hasOption(ModularForceFieldSystem.MFFSProjectorOptionDome, true))
+		if (((TileEntityProjector) te).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 		{
 			yDown = 0;
 		}
@@ -85,7 +85,7 @@ public class ItemModuleCube extends ItemModule3DBase
 			return true;
 		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 
 		return false;
@@ -107,7 +107,7 @@ public class ItemModuleCube extends ItemModule3DBase
 			return true;
 		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 
 		return false;

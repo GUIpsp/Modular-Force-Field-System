@@ -9,13 +9,13 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemExtractorUpgradeBooster extends ItemMFFS
+public class ItemUpgradeRange extends ItemMFFS
 {
-	public ItemExtractorUpgradeBooster(int i)
+	public ItemUpgradeRange(int i)
 	{
-		super(i, "upgradeBooster");
-		setIconIndex(37);
-		setMaxStackSize(19);
+		super(i, "upgradeRange");
+		setIconIndex(33);
+		setMaxStackSize(9);
 		this.setNoRepair();
 
 	}
@@ -24,12 +24,12 @@ public class ItemExtractorUpgradeBooster extends ItemMFFS
 	{
 		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
 		{
-			info.add("Compatible with:");
-			info.add("MFFS " + MFFSMachine.Extractor.getName());
+			info.add("compatible with:");
+			info.add("MFFS " + MFFSMachine.Capacitor.getName());
 		}
 		else
 		{
-			info.add("Compatible with: (Hold Shift)");
+			info.add("compatible with: (Hold Shift)");
 		}
 	}
 }

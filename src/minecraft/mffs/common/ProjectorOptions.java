@@ -5,15 +5,15 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public enum ProjectorOptions
 {
-	Zapper("<touch damage>", ModularForceFieldSystem.MFFSProjectorOptionZapper, " K KQK K ", " C CdC C "),
-	Subwater("<Sponge>", ModularForceFieldSystem.MFFSProjectorOptionSubwater, " K KcK K ", " C CcC C "),
-	Dome("<Field Manipulator>", ModularForceFieldSystem.MFFSProjectorOptionDome, " K KCK K ", " C CEC C "),
-	Cutter("<Block Breaker>", ModularForceFieldSystem.MFFSProjectorOptionCutter, " K KbK K ", " C CbC C "),
-	FieldJammer("<Force Field Jammer>", ModularForceFieldSystem.MFFSProjectorOptionForceFieldJammer, " J JvJ J ", " a ava a "),
-	Camouflage("<Camouflage>", ModularForceFieldSystem.MFFSProjectorOptionCamouflage, " K KRK K ", " C CGC C "),
-	FieldFusion("<Field Fusion>", ModularForceFieldSystem.MFFSProjectorOptionFieldFusion, " K KDK K ", " C CFC C "),
-	MoobEx("<NPC Defense>", ModularForceFieldSystem.MFFSProjectorOptionMoobEx, "fgfhQhjgj", "fgfhdhjgj"),
-	DefenceStation("<Defense Station>", ModularForceFieldSystem.MFFSProjectorOptionDefenceStation, " z CQC z ", " z EdE z ");
+	Zapper("<touch damage>", ModularForceFieldSystem.itemOptionShock, " K KQK K ", " C CdC C "),
+	Subwater("<Sponge>", ModularForceFieldSystem.itemOptionSponge, " K KcK K ", " C CcC C "),
+	Dome("<Field Manipulator>", ModularForceFieldSystem.itemOptionFieldManipulator, " K KCK K ", " C CEC C "),
+	Cutter("<Block Breaker>", ModularForceFieldSystem.itemOptionCutter, " K KbK K ", " C CbC C "),
+	FieldJammer("<Force Field Jammer>", ModularForceFieldSystem.itemOptionJammer, " J JvJ J ", " a ava a "),
+	Camouflage("<Camouflage>", ModularForceFieldSystem.itemOptionCamouflage, " K KRK K ", " C CGC C "),
+	FieldFusion("<Field Fusion>", ModularForceFieldSystem.itemOptionFieldFusion, " K KDK K ", " C CFC C "),
+	MoobEx("<NPC Defense>", ModularForceFieldSystem.itemOptionAntibiotic, "fgfhQhjgj", "fgfhdhjgj"),
+	DefenceStation("<Defense Station>", ModularForceFieldSystem.itemOptionDefenseeStation, " z CQC z ", " z EdE z ");
 
 	String displayName;
 	Item item;

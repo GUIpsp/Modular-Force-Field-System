@@ -36,7 +36,7 @@ public class ItemCardEmpty extends ItemCard
 			{
 				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
 				{
-					ItemStack newcard = new ItemStack(ModularForceFieldSystem.MFFSItemSecLinkCard);
+					ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardSecurityLink);
 					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", ((TileEntitySecurityStation) tileEntity).getDeviceID());
 					ItemCardSecurityLink.setforArea(newcard, ((TileEntitySecurityStation) tileEntity).getDeviceName());
 
@@ -63,7 +63,7 @@ public class ItemCardEmpty extends ItemCard
 		{
 			if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
 			{
-				ItemStack newcard = new ItemStack(ModularForceFieldSystem.MFFSitemfc);
+				ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardPowerLink);
 				((ItemCardPowerLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "CapacitorID", ((TileEntityCapacitor) tileEntity).getPowerStorageID());
 				ItemCardPowerLink.setforArea(newcard, ((TileEntityCapacitor) tileEntity).getDeviceName());
 

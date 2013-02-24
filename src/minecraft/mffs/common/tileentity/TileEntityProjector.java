@@ -371,17 +371,17 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			UpdateForcefieldTexttur();
 		}
 
-		if ((hasOption(ModularForceFieldSystem.MFFSProjectorOptionCamouflage, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Camouflage.ordinal()))
+		if ((hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Camouflage.ordinal()))
 		{
 			setforcefieldblock_meta((short) ForceFieldTyps.Camouflage.ordinal());
 		}
 
-		if ((hasOption(ModularForceFieldSystem.MFFSProjectorOptionZapper, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Zapper.ordinal()))
+		if ((hasOption(ModularForceFieldSystem.itemOptionShock, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Zapper.ordinal()))
 		{
 			setforcefieldblock_meta((short) ForceFieldTyps.Zapper.ordinal());
 		}
 
-		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionFieldFusion, true))
+		if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
 		{
 			if (!Linkgrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
 				Linkgrid.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
@@ -391,7 +391,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			Linkgrid.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
 		}
 
-		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionForceFieldJammer, false))
+		if (hasOption(ModularForceFieldSystem.itemOptionJammer, false))
 		{
 			if (!Linkgrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
 				Linkgrid.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
@@ -448,7 +448,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 				dropplugins(12, this);
 			}
 
-			if (!hasOption(ModularForceFieldSystem.MFFSProjectorOptionCamouflage, true))
+			if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))
 				dropplugins(11, this);
 		}
 		else
@@ -460,7 +460,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 	private void UpdateForcefieldTexttur()
 	{
-		if ((isActive()) && (hasOption(ModularForceFieldSystem.MFFSProjectorOptionCamouflage, true)))
+		if ((isActive()) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
 		{
 			for (PointXYZ png : this.field_def)
 			{
@@ -541,12 +541,12 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 				{
 					FieldGenerate(false);
 
-					if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionMoobEx, true))
+					if (hasOption(ModularForceFieldSystem.itemOptionAntibiotic, true))
 					{
 						ItemOptionAntibiotic.ProjectorNPCDefence(this, this.worldObj);
 					}
 
-					if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionDefenceStation, true))
+					if (hasOption(ModularForceFieldSystem.itemOptionDefenseeStation, true))
 					{
 						ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj);
 					}
@@ -698,7 +698,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 					if ((this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded) && (!ffb.isEmpty()) && (ffb.getProjectorID() == getDeviceID()))
 					{
-						if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionCutter, true))
+						if (hasOption(ModularForceFieldSystem.itemOptionCutter, true))
 						{
 							int blockid = this.worldObj.getBlockId(png.X, png.Y, png.Z);
 							TileEntity entity = this.worldObj.getBlockTileEntity(png.X, png.Y, png.Z);
@@ -938,7 +938,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			return true;
 		if ((Slot == 0) && ((par1ItemStack.getItem() instanceof IPowerLinkItem)))
 			return true;
-		if ((Slot == 11) && (par1ItemStack.itemID < 4096) && (hasOption(ModularForceFieldSystem.MFFSProjectorOptionCamouflage, true)))
+		if ((Slot == 11) && (par1ItemStack.itemID < 4096) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
 			return true;
 
 		if (hasValidTypeMod())

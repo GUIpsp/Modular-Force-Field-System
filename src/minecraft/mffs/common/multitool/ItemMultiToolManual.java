@@ -5,9 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemManuelBook extends ItemMultitool
+public class ItemMultiToolManual extends ItemMultitool
 {
-	public ItemManuelBook(int par1)
+	public ItemMultiToolManual(int par1)
 	{
 		super(par1, 5, "multitoolManual");
 	}

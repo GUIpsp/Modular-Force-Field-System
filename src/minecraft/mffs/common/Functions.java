@@ -45,7 +45,7 @@ public class Functions
 			return true;
 		}
 
-		if (((IInventory) tileEntity).getStackInSlot(Slot).getItem() == ModularForceFieldSystem.MFFSitemcardempty)
+		if (((IInventory) tileEntity).getStackInSlot(Slot).getItem() == ModularForceFieldSystem.itemCardEmpty)
 		{
 			ItemStack itemstackcopy = itemstack.copy();
 			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstackcopy);

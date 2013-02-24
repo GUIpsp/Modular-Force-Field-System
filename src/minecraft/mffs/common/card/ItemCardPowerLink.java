@@ -80,7 +80,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 					return true;
 				}
 
-				if (((TileEntityExtractor) tileEntity).getStackInSlot(1).getItem() == ModularForceFieldSystem.MFFSitemcardempty)
+				if (((TileEntityExtractor) tileEntity).getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardEmpty)
 				{
 					ItemStack itemstackcopy = itemstack.copy();
 					((TileEntityExtractor) tileEntity).setInventorySlotContents(1, itemstackcopy);

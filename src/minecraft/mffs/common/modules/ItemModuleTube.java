@@ -6,7 +6,7 @@ import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionFieldFusion;
 import mffs.common.options.ItemOptionFieldManipulator;
@@ -61,7 +61,7 @@ public class ItemModuleTube extends ItemModule3DBase
 			tpz = distance;
 
 			y_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.MFFSProjectorOptionDome, true))
+			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
 				if (projector.getSide() == 0)
 				{
@@ -81,7 +81,7 @@ public class ItemModuleTube extends ItemModule3DBase
 			tpx = distance;
 
 			z_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.MFFSProjectorOptionDome, true))
+			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
 				if (projector.getSide() == 2)
 				{
@@ -100,7 +100,7 @@ public class ItemModuleTube extends ItemModule3DBase
 			tpx = Strength;
 
 			x_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.MFFSProjectorOptionDome, true))
+			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
 				if (projector.getSide() == 4)
 				{
@@ -156,7 +156,7 @@ public class ItemModuleTube extends ItemModule3DBase
 			return true;
 		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 		if ((item instanceof ItemOptionShock))
 			return true;
@@ -176,7 +176,7 @@ public class ItemModuleTube extends ItemModule3DBase
 			return true;
 		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 		if ((item instanceof ItemOptionShock))
 			return true;

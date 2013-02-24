@@ -10,8 +10,8 @@ import mffs.common.Linkgrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;
-import mffs.common.upgrade.ItemCapacitorUpgradeCapacity;
-import mffs.common.upgrade.ItemCapacitorUpgradeRange;
+import mffs.common.upgrade.ItemUpgradeCapacity;
+import mffs.common.upgrade.ItemUpgradeRange;
 import mffs.network.INetworkHandlerEventListener;
 import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -129,7 +129,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 
 	public int getStorageMaxPower()
 	{
-		if ((getStackInSlot(0) != null) && (getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSitemupgradecapcap))
+		if ((getStackInSlot(0) != null) && (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemUpgradeCapacity))
 		{
 			if (this.forcePower > 10000000 + 2000000 * getStackInSlot(0).stackSize)
 			{
@@ -147,7 +147,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 	{
 		if (getStackInSlot(1) != null)
 		{
-			if (getStackInSlot(1).getItem() == ModularForceFieldSystem.MFFSitemupgradecaprange)
+			if (getStackInSlot(1).getItem() == ModularForceFieldSystem.itemUpgradeRange)
 			{
 				setTransmitRange(8 * (getStackInSlot(1).stackSize + 1));
 			}
@@ -237,7 +237,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 
 			}
 
-			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.MFFSitemfc)
+			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemCardPowerLink)
 			{
 				if ((getPowerlinkmode() != 0) && (getPowerlinkmode() != 1) && (getPowerlinkmode() != 2))
 					setPowerlinkmode(0);
@@ -487,7 +487,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 
 						return;
 					}
-					if (getStackInSlot(2).getItem() == ModularForceFieldSystem.MFFSitemfc)
+					if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemCardPowerLink)
 					{
 						if (getPowerlinkmode() < 2)
 						{
@@ -563,11 +563,11 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements I
 		switch (Slot)
 		{
 			case 0:
-				if ((par1ItemStack.getItem() instanceof ItemCapacitorUpgradeCapacity))
+				if ((par1ItemStack.getItem() instanceof ItemUpgradeCapacity))
 					return true;
 				break;
 			case 1:
-				if ((par1ItemStack.getItem() instanceof ItemCapacitorUpgradeRange))
+				if ((par1ItemStack.getItem() instanceof ItemUpgradeRange))
 					return true;
 				break;
 			case 2:

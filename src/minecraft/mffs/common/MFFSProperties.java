@@ -61,11 +61,11 @@ public class MFFSProperties
 	/**
 	 * Some general MFFS settings.
 	 */
-	public static boolean chunckloader = true;
-	public static int graphicstyle;
+	public static int graphicStyle;
+	public static boolean chunckLoader = true;
 	public static boolean defenseStationNPCNotification;
-	public static boolean showZapperParticles;
-	public static boolean uumatterForcicium;
+	public static boolean advancedParticles;
+	public static boolean uumatterEnabled;
 
 	/**
 	 * Which mods are found in MFFS?

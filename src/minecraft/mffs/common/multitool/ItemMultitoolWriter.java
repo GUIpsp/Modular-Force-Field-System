@@ -32,12 +32,12 @@ public class ItemMultitoolWriter extends ItemMultitool
 			for (Slot slot : slots)
 			{
 				ItemStack stack = slot.getStack();
-				if ((stack != null) && (stack.getItem() == ModularForceFieldSystem.MFFSitemcardempty))
+				if ((stack != null) && (stack.getItem() == ModularForceFieldSystem.itemCardEmpty))
 				{
 					if (consumePower(itemstack, 1000, true))
 					{
 						consumePower(itemstack, 1000, false);
-						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.MFFSItemIDCard, 1);
+						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.itemCardID, 1);
 						ItemCardPersonalID.setOwner(IDCard, ((EntityPlayer) entity).username);
 
 						if (--stack.stackSize <= 0)
@@ -72,12 +72,12 @@ public class ItemMultitoolWriter extends ItemMultitool
 		for (Slot slot : slots)
 		{
 			ItemStack stack = slot.getStack();
-			if ((stack != null) && (stack.getItem() == ModularForceFieldSystem.MFFSitemcardempty))
+			if ((stack != null) && (stack.getItem() == ModularForceFieldSystem.itemCardEmpty))
 			{
 				if (consumePower(itemstack, 1000, true))
 				{
 					consumePower(itemstack, 1000, false);
-					ItemStack IDCard = new ItemStack(ModularForceFieldSystem.MFFSItemIDCard, 1);
+					ItemStack IDCard = new ItemStack(ModularForceFieldSystem.itemCardID, 1);
 					ItemCardPersonalID.setOwner(IDCard, entityplayer.username);
 
 					if (--stack.stackSize <= 0)
@@ -117,12 +117,12 @@ public class ItemMultitoolWriter extends ItemMultitool
 			for (Slot slot : slots)
 			{
 				ItemStack playerstack = slot.getStack();
-				if ((playerstack != null) && (playerstack.getItem() == ModularForceFieldSystem.MFFSitemcardempty))
+				if ((playerstack != null) && (playerstack.getItem() == ModularForceFieldSystem.itemCardEmpty))
 				{
 					if (consumePower(stack, 1000, true))
 					{
 						consumePower(stack, 1000, false);
-						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.MFFSitemDataLinkCard);
+						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.itemCardDataLink);
 
 						ItemCardDataLink.setforArea(IDCard, ((TileEntityMFFS) tileEntity).getDeviceName());
 						((ItemCardDataLink) IDCard.getItem()).setInformation(IDCard, new PointXYZ(x, y, z, world), "DeviceID", ((TileEntityMFFS) tileEntity).getDeviceID(), tileEntity);

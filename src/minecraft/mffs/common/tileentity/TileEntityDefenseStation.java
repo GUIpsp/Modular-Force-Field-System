@@ -117,7 +117,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 
 	public boolean hasSecurityCard()
 	{
-		if ((getStackInSlot(1) != null) && (getStackInSlot(1).getItem() == ModularForceFieldSystem.MFFSItemSecLinkCard))
+		if ((getStackInSlot(1) != null) && (getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardSecurityLink))
 		{
 			return true;
 		}

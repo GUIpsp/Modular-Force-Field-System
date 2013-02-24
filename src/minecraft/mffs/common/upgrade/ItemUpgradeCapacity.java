@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemCapacitorUpgradeCapacity extends ItemMFFS
+public class ItemUpgradeCapacity extends ItemMFFS
 {
-	public ItemCapacitorUpgradeCapacity(int i)
+	public ItemUpgradeCapacity(int i)
 	{
 		super(i, "upgradeCapacity");
 		setIconIndex(32);

@@ -336,7 +336,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 				if (device != null)
 					return device;
 			}
-			setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty));
+			setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
 		}
 		return null;
 	}

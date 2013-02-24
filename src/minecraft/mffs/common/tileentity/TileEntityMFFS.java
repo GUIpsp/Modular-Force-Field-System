@@ -132,7 +132,7 @@ public abstract class TileEntityMFFS extends TileEntity implements INetworkHandl
 	public void init()
 	{
 		this.DeviceID = Linkgrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
-		if (MFFSProperties.chunckloader)
+		if (MFFSProperties.chunckLoader)
 			registerChunkLoading();
 		this.init = false;
 	}
@@ -233,7 +233,7 @@ public abstract class TileEntityMFFS extends TileEntity implements INetworkHandl
 		{
 			if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
 			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty, 1)));
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
 			}
 			else
 			{

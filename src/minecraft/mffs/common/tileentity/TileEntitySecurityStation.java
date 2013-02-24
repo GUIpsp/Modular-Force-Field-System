@@ -61,7 +61,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		{
 			if (((getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)))
 			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty, 1)));
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
 			}
 			else
 			{
@@ -150,7 +150,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 	{
 		if (getStackInSlot(0) != null)
 		{
-			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSItemIDCard)
+			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemCardID)
 			{
 				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(0).getItem();
 
@@ -231,7 +231,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 	{
 		for (int a = 35; a >= 1; a--)
 		{
-			if ((getStackInSlot(a) != null) && (getStackInSlot(a).getItem() == ModularForceFieldSystem.MFFSItemIDCard))
+			if ((getStackInSlot(a) != null) && (getStackInSlot(a).getItem() == ModularForceFieldSystem.itemCardID))
 			{
 				String username_invtory = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(a)).getString("name");
 
@@ -285,7 +285,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 						else
 						{
 							player.sendChatToPlayer("[Security Station] expired validity <Access license>");
-							ItemStack Card = new ItemStack(ModularForceFieldSystem.MFFSitemcardempty, 1);
+							ItemStack Card = new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1);
 							slot.putStack(Card);
 							NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, Card);
 						}
@@ -391,7 +391,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 			case 101:
 				if ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemAccessCard)))
 					if (ItemAccessCard.getvalidity(getStackInSlot(1)) <= 5)
-						setInventorySlotContents(1, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty, 1));
+						setInventorySlotContents(1, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1));
 					else
 						ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) - 5);
 				break;
@@ -400,7 +400,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 				{
 					if ((getStackInSlot(1).getItem() instanceof ItemCardEmpty))
 					{
-						setInventorySlotContents(1, new ItemStack(ModularForceFieldSystem.MFFSAccessCard, 1));
+						setInventorySlotContents(1, new ItemStack(ModularForceFieldSystem.itemCardAccess, 1));
 						if ((getStackInSlot(1).getItem() instanceof ItemAccessCard))
 						{
 							ItemAccessCard.setforArea(getStackInSlot(1), this);

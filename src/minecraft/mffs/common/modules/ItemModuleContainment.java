@@ -5,7 +5,7 @@ import java.util.Set;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionDefenseStation;
 import mffs.common.options.ItemOptionFieldFusion;
@@ -121,7 +121,7 @@ public class ItemModuleContainment extends ItemModule3DBase
 			return true;
 		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 
 		return false;
@@ -141,7 +141,7 @@ public class ItemModuleContainment extends ItemModule3DBase
 			return true;
 		if ((item instanceof ItemOptionSponge))
 			return true;
-		if ((item instanceof ItemOptionBlockBreaker))
+		if ((item instanceof ItemOptionCutter))
 			return true;
 
 		return false;

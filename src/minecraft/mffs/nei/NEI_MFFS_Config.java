@@ -9,17 +9,17 @@ public class NEI_MFFS_Config implements IConfigureNEI
 {
 	public void loadConfig()
 	{
-		API.hideItem(ModularForceFieldSystem.itemSwitch.itemID);
-		API.hideItem(ModularForceFieldSystem.itemFieldTeleporter.itemID);
-		API.hideItem(ModularForceFieldSystem.itemMFDidtool.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSitemManuelBook.itemID);
+		API.hideItem(ModularForceFieldSystem.itemMultiToolSwitch.itemID);
+		API.hideItem(ModularForceFieldSystem.itemMultiToolFieldTeleporter.itemID);
+		API.hideItem(ModularForceFieldSystem.itemMultiToolID.itemID);
+		API.hideItem(ModularForceFieldSystem.itemMultiToolManual.itemID);
 
-		API.hideItem(ModularForceFieldSystem.MFFSitemfc.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSItemIDCard.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSItemSecLinkCard.itemID);
+		API.hideItem(ModularForceFieldSystem.itemCardPowerLink.itemID);
+		API.hideItem(ModularForceFieldSystem.itemCardID.itemID);
+		API.hideItem(ModularForceFieldSystem.itemCardSecurityLink.itemID);
 		API.hideItem(ModularForceFieldSystem.blockForceField.blockID);
-		API.hideItem(ModularForceFieldSystem.MFFSAccessCard.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSitemDataLinkCard.itemID);
+		API.hideItem(ModularForceFieldSystem.itemCardAccess.itemID);
+		API.hideItem(ModularForceFieldSystem.itemCardDataLink.itemID);
 
 		MultiItemRange blocks = new MultiItemRange();
 		MultiItemRange items = new MultiItemRange();
@@ -35,28 +35,28 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		blocks.add(ModularForceFieldSystem.blockSecurityStorage);
 		blocks.add(ModularForceFieldSystem.blockMonaziteOre);
 
-		items.add(ModularForceFieldSystem.itemWrench);
+		items.add(ModularForceFieldSystem.itemMultiToolWrench);
 		items.add(ModularForceFieldSystem.MFFSitemMFDdebugger);
-		items.add(ModularForceFieldSystem.MFFSitemcardempty);
+		items.add(ModularForceFieldSystem.itemCardEmpty);
 		items.add(ModularForceFieldSystem.itemPowerCrystal);
 		items.add(ModularForceFieldSystem.itemForcicium);
 		items.add(ModularForceFieldSystem.itemForcicumCell);
 		items.add(ModularForceFieldSystem.itemFocusMatix);
-		items.add(ModularForceFieldSystem.MFFSitemInfinitePowerCard);
+		items.add(ModularForceFieldSystem.itemCardInfinite);
 
-		upgrades.add(ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
-		upgrades.add(ModularForceFieldSystem.MFFSitemupgradecaprange);
-		upgrades.add(ModularForceFieldSystem.MFFSitemupgradecapcap);
+		upgrades.add(ModularForceFieldSystem.itemUpgradeBoost);
+		upgrades.add(ModularForceFieldSystem.itemUpgradeRange);
+		upgrades.add(ModularForceFieldSystem.itemUpgradeCapacity);
 
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionZapper);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionSubwater);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionDome);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionCutter);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionDefenceStation);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionMoobEx);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionForceFieldJammer);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionCamouflage);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionFieldFusion);
+		upgrades.add(ModularForceFieldSystem.itemOptionShock);
+		upgrades.add(ModularForceFieldSystem.itemOptionSponge);
+		upgrades.add(ModularForceFieldSystem.itemOptionFieldManipulator);
+		upgrades.add(ModularForceFieldSystem.itemOptionCutter);
+		upgrades.add(ModularForceFieldSystem.itemOptionDefenseeStation);
+		upgrades.add(ModularForceFieldSystem.itemOptionAntibiotic);
+		upgrades.add(ModularForceFieldSystem.itemOptionJammer);
+		upgrades.add(ModularForceFieldSystem.itemOptionCamouflage);
+		upgrades.add(ModularForceFieldSystem.itemOptionFieldFusion);
 
 		upgrades.add(ModularForceFieldSystem.itemModuleDistance);
 		upgrades.add(ModularForceFieldSystem.itemModuleStrength);

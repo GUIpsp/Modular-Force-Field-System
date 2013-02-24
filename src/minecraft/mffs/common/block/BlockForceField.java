@@ -332,7 +332,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if ((MFFSProperties.showZapperParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal()))
+		if ((MFFSProperties.advancedParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal()))
 		{
 			double d = i + Math.random() + 0.2D;
 			double d1 = j + Math.random() + 0.2D;

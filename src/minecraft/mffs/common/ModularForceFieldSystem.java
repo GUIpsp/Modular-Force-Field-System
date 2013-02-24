@@ -35,12 +35,12 @@ import mffs.common.modules.ItemModuleSphere;
 import mffs.common.modules.ItemModuleTube;
 import mffs.common.modules.ItemModuleWall;
 import mffs.common.multitool.ItemFieldTransporter;
-import mffs.common.multitool.ItemManuelBook;
+import mffs.common.multitool.ItemMultiToolManual;
 import mffs.common.multitool.ItemMultitoolSwitch;
 import mffs.common.multitool.ItemMultitoolWriter;
 import mffs.common.multitool.ItemWrench;
 import mffs.common.options.ItemOptionAntibiotic;
-import mffs.common.options.ItemOptionBlockBreaker;
+import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionDefenseStation;
 import mffs.common.options.ItemOptionFieldFusion;
@@ -50,9 +50,9 @@ import mffs.common.options.ItemOptionShock;
 import mffs.common.options.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.upgrade.ItemCapacitorUpgradeCapacity;
-import mffs.common.upgrade.ItemCapacitorUpgradeRange;
-import mffs.common.upgrade.ItemExtractorUpgradeBooster;
+import mffs.common.upgrade.ItemUpgradeCapacity;
+import mffs.common.upgrade.ItemUpgradeRange;
+import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemModuleDistance;
 import mffs.common.upgrade.ItemModuleStrength;
 import mffs.common.upgrade.ItemProjectorFocusMatrix;
@@ -128,22 +128,22 @@ public class ModularForceFieldSystem
 	public static Item itemCompactForcicium;
 	public static Item itemDepletedForcicium;
 	public static Item itemFocusMatix;
-	public static Item itemSwitch;
-	public static Item itemWrench;
-	public static Item itemFieldTeleporter;
-	public static Item itemMFDidtool;
+	public static Item itemMultiToolSwitch;
+	public static Item itemMultiToolWrench;
+	public static Item itemMultiToolFieldTeleporter;
+	public static Item itemMultiToolID;
 	public static Item MFFSitemMFDdebugger;
-	public static Item MFFSitemcardempty;
-	public static Item MFFSitemfc;
-	public static Item MFFSItemIDCard;
-	public static Item MFFSAccessCard;
-	public static Item MFFSItemSecLinkCard;
-	public static Item MFFSitemManuelBook;
-	public static Item MFFSitemInfinitePowerCard;
-	public static Item MFFSitemDataLinkCard;
-	public static Item MFFSitemupgradeexctractorboost;
-	public static Item MFFSitemupgradecaprange;
-	public static Item MFFSitemupgradecapcap;
+	public static Item itemCardEmpty;
+	public static Item itemCardPowerLink;
+	public static Item itemCardID;
+	public static Item itemCardAccess;
+	public static Item itemCardSecurityLink;
+	public static Item itemMultiToolManual;
+	public static Item itemCardInfinite;
+	public static Item itemCardDataLink;
+	public static Item itemUpgradeBoost;
+	public static Item itemUpgradeRange;
+	public static Item itemUpgradeCapacity;
 	public static Item itemModuleSphere;
 	public static Item itemModuleCube;
 	public static Item itemModuleWall;
@@ -152,15 +152,15 @@ public class ModularForceFieldSystem
 	public static Item itemModuleContainment;
 	public static Item itemModuleAdvancedCube;
 	public static Item itemModuleDiagonalWall;
-	public static Item MFFSProjectorOptionZapper;
-	public static Item MFFSProjectorOptionSubwater;
-	public static Item MFFSProjectorOptionDome;
-	public static Item MFFSProjectorOptionCutter;
-	public static Item MFFSProjectorOptionMoobEx;
-	public static Item MFFSProjectorOptionDefenceStation;
-	public static Item MFFSProjectorOptionForceFieldJammer;
-	public static Item MFFSProjectorOptionCamouflage;
-	public static Item MFFSProjectorOptionFieldFusion;
+	public static Item itemOptionShock;
+	public static Item itemOptionSponge;
+	public static Item itemOptionFieldManipulator;
+	public static Item itemOptionCutter;
+	public static Item itemOptionAntibiotic;
+	public static Item itemOptionDefenseeStation;
+	public static Item itemOptionJammer;
+	public static Item itemOptionCamouflage;
+	public static Item itemOptionFieldFusion;
 	public static Item itemModuleDistance;
 	public static Item itemModuleStrength;
 
@@ -236,11 +236,11 @@ public class ModularForceFieldSystem
 
 			Property prop_graphicstyle = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "GraphicStyle", 1);
 			prop_graphicstyle.comment = "Graphical style. 1 for UE Style, 2 for IC2 Style.";
-			MFFSProperties.graphicstyle = prop_graphicstyle.getInt(1);
+			MFFSProperties.graphicStyle = prop_graphicstyle.getInt(1);
 
 			Property chunckloader_prop = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "Chunkloader", true);
 			chunckloader_prop.comment = "Set this to false to turn off the MFFS Chuncloader ability";
-			MFFSProperties.chunckloader = chunckloader_prop.getBoolean(true);
+			MFFSProperties.chunckLoader = chunckloader_prop.getBoolean(true);
 
 			Property DefSationNPCScannoti = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "DefenceStationNPCScannnotification", false);
 			DefSationNPCScannoti.comment = "Set this to true to turn off the DefenceStation notification is in NPC Mode";
@@ -248,11 +248,11 @@ public class ModularForceFieldSystem
 
 			Property zapperParticles = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "renderZapperParticles", true);
 			zapperParticles.comment = "Set this to false to turn off the small smoke particles present around TouchDamage enabled ForceFields.";
-			MFFSProperties.showZapperParticles = zapperParticles.getBoolean(true);
+			MFFSProperties.advancedParticles = zapperParticles.getBoolean(true);
 
 			Property uumatterForciciumprop = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "uumatterForcicium", true);
 			uumatterForciciumprop.comment = "Add IC2 UU-Matter Recipes for Forcicium";
-			MFFSProperties.uumatterForcicium = uumatterForciciumprop.getBoolean(true);
+			MFFSProperties.uumatterEnabled = uumatterForciciumprop.getBoolean(true);
 
 			Property monazitWorldAmount = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "MonazitOreWorldGen", 4);
 			monazitWorldAmount.comment = "Controls the size of the ore node that Monazit Ore will generate in";
@@ -347,33 +347,33 @@ public class ModularForceFieldSystem
 			itemModuleContainment = new ItemModuleContainment(MFFSProperties.item_ModContainment_ID);
 			itemModuleAdvancedCube = new ItemModuleAdvancedCube(MFFSProperties.item_ModAdvCube_ID);
 
-			MFFSProjectorOptionZapper = new ItemOptionShock(MFFSProperties.item_OptTouchHurt_ID);
-			MFFSProjectorOptionSubwater = new ItemOptionSponge(MFFSProperties.item_OptSponge_ID);
-			MFFSProjectorOptionDome = new ItemOptionFieldManipulator(MFFSProperties.item_OptManipulator_ID);
-			MFFSProjectorOptionCutter = new ItemOptionBlockBreaker(MFFSProperties.item_OptBlockBreaker_ID);
-			MFFSProjectorOptionDefenceStation = new ItemOptionDefenseStation(MFFSProperties.item_OptDefense_ID);
-			MFFSProjectorOptionMoobEx = new ItemOptionAntibiotic(MFFSProperties.item_OptMobDefense_ID);
-			MFFSProjectorOptionForceFieldJammer = new ItemOptionJammer(MFFSProperties.item_OptJammer_ID);
-			MFFSProjectorOptionCamouflage = new ItemOptionCamoflage(MFFSProperties.item_OptCamouflage_ID);
-			MFFSProjectorOptionFieldFusion = new ItemOptionFieldFusion(MFFSProperties.item_OptFusion_ID);
+			itemOptionShock = new ItemOptionShock(MFFSProperties.item_OptTouchHurt_ID);
+			itemOptionSponge = new ItemOptionSponge(MFFSProperties.item_OptSponge_ID);
+			itemOptionFieldManipulator = new ItemOptionFieldManipulator(MFFSProperties.item_OptManipulator_ID);
+			itemOptionCutter = new ItemOptionCutter(MFFSProperties.item_OptBlockBreaker_ID);
+			itemOptionDefenseeStation = new ItemOptionDefenseStation(MFFSProperties.item_OptDefense_ID);
+			itemOptionAntibiotic = new ItemOptionAntibiotic(MFFSProperties.item_OptMobDefense_ID);
+			itemOptionJammer = new ItemOptionJammer(MFFSProperties.item_OptJammer_ID);
+			itemOptionCamouflage = new ItemOptionCamoflage(MFFSProperties.item_OptCamouflage_ID);
+			itemOptionFieldFusion = new ItemOptionFieldFusion(MFFSProperties.item_OptFusion_ID);
 
-			MFFSitemcardempty = new ItemCardEmpty(MFFSProperties.item_BlankCard_ID);
-			MFFSitemfc = new ItemCardPowerLink(MFFSProperties.item_CardPowerLink_ID);
-			MFFSItemIDCard = new ItemCardPersonalID(MFFSProperties.item_CardPersonalID_ID);
-			MFFSItemSecLinkCard = new ItemCardSecurityLink(MFFSProperties.item_CardSecurityLink_ID);
-			MFFSitemInfinitePowerCard = new ItemCardPower(MFFSProperties.item_infPowerCard_ID);
-			MFFSAccessCard = new ItemAccessCard(MFFSProperties.item_CardAccess_ID);
-			MFFSitemDataLinkCard = new ItemCardDataLink(MFFSProperties.item_CardDataLink_ID);
+			itemCardEmpty = new ItemCardEmpty(MFFSProperties.item_BlankCard_ID);
+			itemCardPowerLink = new ItemCardPowerLink(MFFSProperties.item_CardPowerLink_ID);
+			itemCardID = new ItemCardPersonalID(MFFSProperties.item_CardPersonalID_ID);
+			itemCardSecurityLink = new ItemCardSecurityLink(MFFSProperties.item_CardSecurityLink_ID);
+			itemCardInfinite = new ItemCardPower(MFFSProperties.item_infPowerCard_ID);
+			itemCardAccess = new ItemAccessCard(MFFSProperties.item_CardAccess_ID);
+			itemCardDataLink = new ItemCardDataLink(MFFSProperties.item_CardDataLink_ID);
 
-			itemWrench = new ItemWrench(MFFSProperties.item_MTWrench_ID);
-			itemSwitch = new ItemMultitoolSwitch(MFFSProperties.item_MTSwitch_ID);
-			itemFieldTeleporter = new ItemFieldTransporter(MFFSProperties.item_MTFieldTransporter_ID);
-			itemMFDidtool = new ItemMultitoolWriter(MFFSProperties.item_MTIDWriter_ID);
-			MFFSitemManuelBook = new ItemManuelBook(MFFSProperties.item_MTManual_ID);
+			itemMultiToolWrench = new ItemWrench(MFFSProperties.item_MTWrench_ID);
+			itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSProperties.item_MTSwitch_ID);
+			itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSProperties.item_MTFieldTransporter_ID);
+			itemMultiToolID = new ItemMultitoolWriter(MFFSProperties.item_MTIDWriter_ID);
+			itemMultiToolManual = new ItemMultiToolManual(MFFSProperties.item_MTManual_ID);
 
-			MFFSitemupgradeexctractorboost = new ItemExtractorUpgradeBooster(MFFSProperties.item_upgradeBoost_ID);
-			MFFSitemupgradecaprange = new ItemCapacitorUpgradeRange(MFFSProperties.item_upgradeRange_ID);
-			MFFSitemupgradecapcap = new ItemCapacitorUpgradeCapacity(MFFSProperties.item_upgradeCap_ID);
+			itemUpgradeBoost = new ItemUpgradeBooster(MFFSProperties.item_upgradeBoost_ID);
+			itemUpgradeRange = new ItemUpgradeRange(MFFSProperties.item_upgradeRange_ID);
+			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSProperties.item_upgradeCap_ID);
 
 			GameRegistry.registerBlock(blockMonaziteOre, "MFFSMonazitOre");
 			GameRegistry.registerBlock(blockForceField, "MFFSFieldblock");
