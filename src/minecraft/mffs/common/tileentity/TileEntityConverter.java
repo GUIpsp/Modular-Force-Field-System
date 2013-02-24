@@ -11,6 +11,7 @@ import java.util.EnumSet;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.Linkgrid;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerConverter;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -464,7 +465,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 
 	public void EmitUEPower(int volt, int amp)
 	{
-		if ((ModularForceFieldSystem.uefound) && (hasPowerSource()))
+		if ((MFFSProperties.MODULE_UE) && (hasPowerSource()))
 		{
 			ForgeDirection outputDirection = ForgeDirection.getOrientation(getSide());
 			TileEntity outputTile = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), outputDirection);
@@ -579,7 +580,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 
 	public void setUEwireConnection()
 	{
-		if (ModularForceFieldSystem.uefound)
+		if (MFFSProperties.MODULE_UE)
 		{
 			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing())));
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));

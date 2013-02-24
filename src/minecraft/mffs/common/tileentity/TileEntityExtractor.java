@@ -11,6 +11,7 @@ import java.util.List;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.Linkgrid;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
 import mffs.common.item.ItemForcicium;
@@ -63,7 +64,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 		this.capacity = 0;
 		this.addedToEnergyNet = false;
 
-		if (ModularForceFieldSystem.buildcraftfound)
+		if (MFFSProperties.MODULE_BUILDCRAFT)
 		{
 			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
 			this.powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D));
@@ -342,7 +343,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 				setUEwireConnection();
 			}
 
-			if ((!this.addedToEnergyNet) && (ModularForceFieldSystem.ic2found))
+			if ((!this.addedToEnergyNet) && (MFFSProperties.MODULE_IC2))
 			{
 				MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 				this.addedToEnergyNet = true;
@@ -368,11 +369,11 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 			if (isActive())
 			{
-				if (ModularForceFieldSystem.buildcraftfound)
+				if (MFFSProperties.MODULE_BUILDCRAFT)
 				{
 					converMJtoWorkEnergy();
 				}
-				if (ModularForceFieldSystem.uefound)
+				if (MFFSProperties.MODULE_UE)
 				{
 					converUEtoWorkEnergy();
 				}
@@ -663,7 +664,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 	public void setUEwireConnection()
 	{
-		if (ModularForceFieldSystem.uefound)
+		if (MFFSProperties.MODULE_UE)
 		{
 			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing()).getOpposite()));
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));

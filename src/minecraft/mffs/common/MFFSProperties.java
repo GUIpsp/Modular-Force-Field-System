@@ -57,9 +57,22 @@ public class MFFSProperties
 	public static int item_upgradeBoost_ID = 11118;
 	public static int item_upgradeRange_ID = 11119;
 	public static int item_upgradeCap_ID = 11120;
+
+	/**
+	 * Some general MFFS settings.
+	 */
 	public static boolean chunckloader = true;
 	public static int graphicstyle;
 	public static boolean defenseStationNPCNotification;
 	public static boolean showZapperParticles;
 	public static boolean uumatterForcicium;
+
+	/**
+	 * Which mods are found in MFFS?
+	 */
+	public static boolean MODULE_IC2 = false;
+	public static boolean MODULE_UE = false;
+	public static boolean MODULE_EE = false;
+	public static boolean MODULE_BUILDCRAFT = false;
+	public static boolean MODULE_THERMAL_EXPANSION = false;
 }

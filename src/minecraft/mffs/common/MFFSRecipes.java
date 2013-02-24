@@ -27,12 +27,12 @@ public class MFFSRecipes
 
 		GameRegistry.addSmelting(ModularForceFieldSystem.blockMonaziteOre.blockID, new ItemStack(ModularForceFieldSystem.itemForcicium, 4), 0.5F);
 
-		if (ModularForceFieldSystem.ThermalExpansionfound)
+		if (MFFSProperties.MODULE_THERMAL_EXPANSION)
 		{
 			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcicium, 8), true);
 		}
 
-		if (ModularForceFieldSystem.ic2found)
+		if (MFFSProperties.MODULE_IC2)
 		{
 			Ic2Recipes.addMaceratorRecipe(new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcicium, 8));
 			Ic2Recipes.addMatterAmplifier(new ItemStack(ModularForceFieldSystem.itemForcicium, 1), 5000);
@@ -51,7 +51,7 @@ public class MFFSRecipes
 			RecipesFactory.addRecipe("mSnExEEDE", 1, 1, null, ModularForceFieldSystem.itemWrench);
 		}
 
-		if (ModularForceFieldSystem.uefound)
+		if (MFFSProperties.MODULE_UE)
 		{
 			RecipesFactory.addRecipe("AAAAxAAHA", 1, 2, null, ModularForceFieldSystem.itemForcicumCell);
 			RecipesFactory.addRecipe("C C G C C", 9, 2, null, ModularForceFieldSystem.MFFSitemupgradeexctractorboost);

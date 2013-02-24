@@ -1,18 +1,20 @@
 package mffs.common;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import mffs.common.block.BlockSecurityStation;
-import mffs.common.block.BlockDefenseStation;
 import mffs.common.block.BlockCapacitor;
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
+import mffs.common.block.BlockDefenseStation;
 import mffs.common.block.BlockExtractor;
 import mffs.common.block.BlockForceField;
 import mffs.common.block.BlockMonaziteOre;
 import mffs.common.block.BlockProjector;
+import mffs.common.block.BlockSecurityStation;
 import mffs.common.block.BlockSecurityStorage;
 import mffs.common.card.ItemAccessCard;
 import mffs.common.card.ItemCardDataLink;
@@ -174,15 +176,6 @@ public class ModularForceFieldSystem
 	public static boolean influencedbyothermods;
 	public static boolean adventuremap;
 
-	/**
-	 * Which mods are found in MFFS?
-	 */
-	public static boolean ic2found = false;
-	public static boolean uefound = false;
-	public static boolean ee3found = false;
-	public static boolean buildcraftfound = false;
-	public static boolean ThermalExpansionfound = false;
-
 	public static int ForceciumWorkCylce;
 	public static int ForceciumCellWorkCylce;
 	public static int ExtractorPassForceEnergyGenerate;
@@ -197,21 +190,40 @@ public class ModularForceFieldSystem
 	@Mod.Instance(ModularForceFieldSystem.ID)
 	public static ModularForceFieldSystem instance;
 
+	public static Logger LOGGER = Logger.getLogger(NAME);
+
 	@Mod.PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		initIC2Plugin();
-		initUEPlugin();
-		initbuildcraftPlugin();
-		initEE3Plugin();
-		ThermalExpansionPlugin();
+		LOGGER.setParent(FMLLog.getLogger());
+
+		if (initiateModule("IC2"))
+		{
+			MFFSProperties.MODULE_IC2 = true;
+		}
+		if (initiateModule("BasicComponents"))
+		{
+			MFFSProperties.MODULE_UE = true;
+		}
+		if (initiateModule("Buildcraft|Core"))
+		{
+			MFFSProperties.MODULE_BUILDCRAFT = true;
+		}
+		if (initiateModule("EE3"))
+		{
+			MFFSProperties.MODULE_EE = true;
+		}
+		if (initiateModule("ThermalExpansion"))
+		{
+			MFFSProperties.MODULE_THERMAL_EXPANSION = true;
+		}
 
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(proxy);
+		MinecraftForge.EVENT_BUS.register(this.proxy);
 
 		Modstats.instance().getReporter().registerMod(this);
 
-		if (ee3found)
+		if (MFFSProperties.MODULE_EE)
 		{
 			MinecraftForge.EVENT_BUS.register(new EE3Event());
 		}
@@ -462,7 +474,7 @@ public class ModularForceFieldSystem
 		try
 		{
 			Class.forName("buildcraft.core.Version");
-			buildcraftfound = Boolean.valueOf(true);
+			MFFSProperties.MODULE_BUILDCRAFT = Boolean.valueOf(true);
 		}
 		catch (Throwable t)
 		{
@@ -476,7 +488,7 @@ public class ModularForceFieldSystem
 		try
 		{
 			Class.forName("thermalexpansion.ThermalExpansion");
-			ThermalExpansionfound = Boolean.valueOf(true);
+			MFFSProperties.MODULE_THERMAL_EXPANSION = Boolean.valueOf(true);
 		}
 		catch (Throwable t)
 		{
@@ -490,7 +502,7 @@ public class ModularForceFieldSystem
 		try
 		{
 			Class.forName("com.pahimar.ee3.event.ActionRequestEvent");
-			ee3found = Boolean.valueOf(true);
+			MFFSProperties.MODULE_EE = Boolean.valueOf(true);
 		}
 		catch (Throwable t)
 		{
@@ -504,7 +516,7 @@ public class ModularForceFieldSystem
 		try
 		{
 			Class.forName("basiccomponents.common.item.ItemBasic");
-			uefound = Boolean.valueOf(true);
+			MFFSProperties.MODULE_UE = Boolean.valueOf(true);
 		}
 		catch (Throwable t)
 		{
@@ -512,17 +524,17 @@ public class ModularForceFieldSystem
 		}
 	}
 
-	public void initIC2Plugin()
+	public boolean initiateModule(String modname)
 	{
-		System.out.println("[ModularForceFieldSystem] Loading module for IC2");
-		try
+		if (Loader.isModLoaded(modname))
 		{
-			Class.forName("ic2.core.IC2");
-			ic2found = Boolean.valueOf(true);
+			LOGGER.info("Loaded module for: " + modname);
+			return true;
 		}
-		catch (Throwable t)
+		else
 		{
-			System.out.println("[ModularForceFieldSystem] Module not loaded: IC2 not found");
+			LOGGER.info("Module not loaded: " + modname);
+			return false;
 		}
 	}
 

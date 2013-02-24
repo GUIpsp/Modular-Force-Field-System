@@ -20,7 +20,7 @@ public class ForceFieldServerUpdatehandler implements IScheduledTickHandler
 {
 	private static Map WorldForcedield = new MapMaker().weakKeys().makeMap();
 
-	public void tickEnd(EnumSet type, Object[] tickData)
+	public void tickEnd(EnumSet type, Object... tickData)
 	{
 		for (World world : DimensionManager.getWorlds())
 		{
@@ -80,7 +80,7 @@ public class ForceFieldServerUpdatehandler implements IScheduledTickHandler
 		}
 	}
 
-	public void tickStart(EnumSet type, Object[] tickData)
+	public void tickStart(EnumSet type, Object... tickData)
 	{
 	}
 
