@@ -5,10 +5,11 @@ import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
+import universalelectricity.core.vector.Vector2;
+import universalelectricity.prefab.TranslationHelper;
 
 public class GuiCapacitor extends GuiMFFS
 {
@@ -23,11 +24,9 @@ public class GuiCapacitor extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		super.initGui();
+		this.textFieldPos = new Vector2(30, 76);
 
-		this.textFieldFrequency = new GuiTextField(this.fontRenderer, 30, 76, 60, 12);
-		this.textFieldFrequency.setMaxStringLength(4);
-		this.textFieldFrequency.setText("0");
+		super.initGui();
 
 		this.controlList.clear();
 		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
@@ -56,16 +55,18 @@ public class GuiCapacitor extends GuiMFFS
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.ySize / 2 - this.tileEntity.getInvName().length() * 5, 6, 4210752);
 
-		this.fontRenderer.drawString("Linked Device: " + this.tileEntity.getLinketProjector(), 8, 30, 4210752);
-		this.fontRenderer.drawString("Range: " + this.tileEntity.getTransmitRange(), 8, 45, 4210752);
-		this.fontRenderer.drawString("Frequency:", 8, 60, 4210752);
+		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinketProjector(), 8, 30, x, y);
+		// this.fontRenderer.drawString(TranslationHelper.getLocal("gui..name") + , , 4210752);
+		this.fontRenderer.drawString(TranslationHelper.getLocal("gui.range.name") + ": " + this.tileEntity.getTransmitRange(), 8, 45, 4210752);
+		this.fontRenderer.drawString(TranslationHelper.getLocal("gui.frequency.name") + ":", 8, 60, 4210752);
 		this.textFieldFrequency.drawTextBox();
-		this.fontRenderer.drawString("Force Power: ", 8, 95, 4210752);
+		this.fontRenderer.drawString(TranslationHelper.getLocal("gui.forcePower.name") + ": ", 8, 95, 4210752);
 		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
+		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
 	@Override

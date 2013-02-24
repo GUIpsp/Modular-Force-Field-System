@@ -1,5 +1,8 @@
 package mffs.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mffs.common.ModularForceFieldSystem;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -9,6 +12,9 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import universalelectricity.core.vector.Vector2;
+import universalelectricity.prefab.TranslationHelper;
 
 public class GuiMFFS extends GuiContainer
 {
@@ -21,6 +27,9 @@ public class GuiMFFS extends GuiContainer
 	public static final int METER_WIDTH = 14;
 
 	protected GuiTextField textFieldFrequency;
+	Vector2 textFieldPos = new Vector2();
+
+	protected String tooltip = "";
 
 	protected int containerWidth;
 	protected int containerHeight;
@@ -35,7 +44,9 @@ public class GuiMFFS extends GuiContainer
 	public void initGui()
 	{
 		super.initGui();
-
+		this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 60, 12);
+		this.textFieldFrequency.setMaxStringLength(4);
+		this.textFieldFrequency.setText("0");
 	}
 
 	@Override
@@ -50,10 +61,10 @@ public class GuiMFFS extends GuiContainer
 
 		try
 		{
-			short newFrequency = (short) Math.max(0, Short.parseShort(this.textFieldFrequency.getText()));
+			int newFrequency = Math.max(0, Integer.parseInt(this.textFieldFrequency.getText()));
 			this.textFieldFrequency.setText(newFrequency + "");
 
-			/*
+			/**
 			 * if (((IItemFrequency) this.itemStack.getItem()).getFrequency(this.itemStack) !=
 			 * newFrequency) { ((IItemFrequency)
 			 * this.itemStack.getItem()).setFrequency(newFrequency, this.itemStack);
@@ -61,6 +72,7 @@ public class GuiMFFS extends GuiContainer
 			 * .sendPacketToServer(PacketManager.getPacketWithID(ZhuYaoWanYi.CHANNEL,
 			 * WanYiPacketType.HUO_LUAN.ordinal(), newFrequency)); }
 			 */
+
 		}
 		catch (NumberFormatException e)
 		{
@@ -72,6 +84,42 @@ public class GuiMFFS extends GuiContainer
 	{
 		super.mouseClicked(par1, par2, par3);
 		this.textFieldFrequency.mouseClicked(par1 - containerWidth, par2 - containerHeight, par3);
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	{
+		if (this.textFieldFrequency != null)
+		{
+			if (this.isPointInRegion(textFieldPos.intX(), textFieldPos.intY(), this.textFieldFrequency.getWidth(), 12, mouseX, mouseY))
+			{
+				this.tooltip = TranslationHelper.getLocal("gui.frequency.tooltip");
+			}
+		}
+
+		if (this.tooltip != null && this.tooltip != "")
+		{
+			String[] words = this.tooltip.split(" ");
+			List<String> displayLines = new ArrayList<String>();
+			int wordsPerLine = 5;
+
+			for (int lineCount = 0; lineCount < Math.ceil((float) words.length / (float) wordsPerLine); lineCount++)
+			{
+				String stringInLine = "";
+
+				for (int i = lineCount * wordsPerLine; i < Math.min(wordsPerLine + lineCount * wordsPerLine, words.length); i++)
+				{
+					stringInLine += words[i] + " ";
+				}
+
+				displayLines.add(stringInLine.trim());
+			}
+
+			this.drawTooltip(mouseX - this.guiLeft, mouseY + this.guiTop, displayLines.toArray(new String[] {}));
+		}
+
+		this.tooltip = "";
+
 	}
 
 	@Override
@@ -93,6 +141,29 @@ public class GuiMFFS extends GuiContainer
 		this.mc.renderEngine.bindTexture(hua);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
 		// TODO: DRAW itemStack
+	}
+
+	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
+	{
+		String name = TranslationHelper.getLocal("gui." + textName + ".name");
+		String text = format.replaceAll("%1", name);
+		this.fontRenderer.drawString(text, x, y, 4210752);
+
+		String tooltip = TranslationHelper.getLocal("gui." + textName + ".tooltip");
+
+		if (tooltip != null && tooltip != "")
+		{
+			if (this.isPointInRegion(x, y, (int) (text.length() * 4.8), 12, mouseX, mouseY))
+			{
+				this.tooltip = tooltip;
+			}
+		}
+
+	}
+
+	protected void drawTextWithTooltip(String textName, int x, int y, int mouseX, int mouseY)
+	{
+		this.drawTextWithTooltip(textName, "%1", x, y, mouseX, mouseY);
 	}
 
 	protected void drawSlot(int x, int y, SlotType type)
@@ -187,75 +258,79 @@ public class GuiMFFS extends GuiContainer
 
 	public void drawTooltip(int x, int y, String... toolTips)
 	{
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-
-		if (toolTips != null)
+		if (!this.isShiftKeyDown())
 		{
-			int var5 = 0;
-			int var6;
-			int var7;
+			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+			RenderHelper.disableStandardItemLighting();
+			GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
 
-			for (var6 = 0; var6 < toolTips.length; ++var6)
+			if (toolTips != null)
 			{
-				var7 = this.fontRenderer.getStringWidth((String) toolTips[var6]);
+				int var5 = 0;
+				int var6;
+				int var7;
 
-				if (var7 > var5)
+				for (var6 = 0; var6 < toolTips.length; ++var6)
 				{
-					var5 = var7;
-				}
-			}
+					var7 = this.fontRenderer.getStringWidth((String) toolTips[var6]);
 
-			var6 = x + 12;
-			var7 = y - 12;
-			int var9 = 8;
-
-			if (toolTips.length > 1)
-			{
-				var9 += 2 + (toolTips.length - 1) * 10;
-			}
-
-			if (this.guiTop + var7 + var9 + 6 > this.containerHeight)
-			{
-				var7 = this.containerHeight - var9 - this.guiTop - 6;
-			}
-
-			this.zLevel = 300.0F;
-			int var10 = -267386864;
-			this.drawGradientRect(var6 - 3, var7 - 4, var6 + var5 + 3, var7 - 3, var10, var10);
-			this.drawGradientRect(var6 - 3, var7 + var9 + 3, var6 + var5 + 3, var7 + var9 + 4, var10, var10);
-			this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 + var9 + 3, var10, var10);
-			this.drawGradientRect(var6 - 4, var7 - 3, var6 - 3, var7 + var9 + 3, var10, var10);
-			this.drawGradientRect(var6 + var5 + 3, var7 - 3, var6 + var5 + 4, var7 + var9 + 3, var10, var10);
-			int var11 = 1347420415;
-			int var12 = (var11 & 16711422) >> 1 | var11 & -16777216;
-			this.drawGradientRect(var6 - 3, var7 - 3 + 1, var6 - 3 + 1, var7 + var9 + 3 - 1, var11, var12);
-			this.drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, var6 + var5 + 3, var7 + var9 + 3 - 1, var11, var12);
-			this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 - 3 + 1, var11, var11);
-			this.drawGradientRect(var6 - 3, var7 + var9 + 2, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
-
-			for (int var13 = 0; var13 < toolTips.length; ++var13)
-			{
-				String var14 = toolTips[var13];
-
-				this.fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
-
-				if (var13 == 0)
-				{
-					var7 += 2;
+					if (var7 > var5)
+					{
+						var5 = var7;
+					}
 				}
 
-				var7 += 10;
+				var6 = x + 12;
+				var7 = y - 12;
+				;
+				int var9 = 8;
+
+				if (toolTips.length > 1)
+				{
+					var9 += 2 + (toolTips.length - 1) * 10;
+				}
+
+				if (this.guiTop + var7 + var9 + 6 > this.height)
+				{
+					var7 = this.height - var9 - this.guiTop - 6;
+				}
+
+				this.zLevel = 300.0F;
+				int var10 = -267386864;
+				this.drawGradientRect(var6 - 3, var7 - 4, var6 + var5 + 3, var7 - 3, var10, var10);
+				this.drawGradientRect(var6 - 3, var7 + var9 + 3, var6 + var5 + 3, var7 + var9 + 4, var10, var10);
+				this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 + var9 + 3, var10, var10);
+				this.drawGradientRect(var6 - 4, var7 - 3, var6 - 3, var7 + var9 + 3, var10, var10);
+				this.drawGradientRect(var6 + var5 + 3, var7 - 3, var6 + var5 + 4, var7 + var9 + 3, var10, var10);
+				int var11 = 1347420415;
+				int var12 = (var11 & 16711422) >> 1 | var11 & -16777216;
+				this.drawGradientRect(var6 - 3, var7 - 3 + 1, var6 - 3 + 1, var7 + var9 + 3 - 1, var11, var12);
+				this.drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, var6 + var5 + 3, var7 + var9 + 3 - 1, var11, var12);
+				this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 - 3 + 1, var11, var11);
+				this.drawGradientRect(var6 - 3, var7 + var9 + 2, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
+
+				for (int var13 = 0; var13 < toolTips.length; ++var13)
+				{
+					String var14 = toolTips[var13];
+
+					this.fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
+
+					if (var13 == 0)
+					{
+						var7 += 2;
+					}
+
+					var7 += 10;
+				}
+
+				this.zLevel = 0.0F;
+
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				GL11.glEnable(GL11.GL_LIGHTING);
+				RenderHelper.enableGUIStandardItemLighting();
+				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			}
-
-			this.zLevel = 0.0F;
-
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
-			GL11.glEnable(GL11.GL_LIGHTING);
-			RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		}
 	}
 }
