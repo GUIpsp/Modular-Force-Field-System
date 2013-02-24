@@ -3,7 +3,7 @@ package mffs.common.options;
 import java.util.ArrayList;
 import java.util.List;
 
-import mffs.common.ProjectorTyp;
+import mffs.common.ProjectorTypes;
 import mffs.common.item.ItemMFFS;
 import mffs.common.modules.ItemModuleAdvancedCube;
 import mffs.common.modules.ItemModuleContainment;
@@ -42,21 +42,21 @@ public abstract class ItemOptionBase extends ItemMFFS
 			info.add("compatible with:");
 
 			if (ItemModuleWall.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.wall));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.wall));
 			if (ItemModuleDiagonalWall.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.diagonallywall));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallywall));
 			if (ItemModuleDeflector.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.deflector));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.deflector));
 			if (ItemModuleTube.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.tube));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.tube));
 			if (ItemModuleSphere.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.sphere));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.sphere));
 			if (ItemModuleCube.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.cube));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.cube));
 			if (ItemModuleAdvancedCube.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.AdvCube));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.AdvCube));
 			if (ItemModuleContainment.supportsOption(this))
-				info.add(ProjectorTyp.getdisplayName(ProjectorTyp.containment));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.containment));
 		}
 		else
 		{

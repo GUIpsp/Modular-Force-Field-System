@@ -4,7 +4,7 @@ import java.util.List;
 
 import mffs.api.PointXYZ;
 import mffs.common.Linkgrid;
-import mffs.common.MFFSMachine;
+import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.entity.Entity;
@@ -52,7 +52,7 @@ public class ItemCardDataLink extends ItemCard
 	public void setInformation(ItemStack itemStack, PointXYZ png, String key, int value, TileEntity tileentity)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		nbtTagCompound.setString("displayName", MFFSMachine.fromTE(tileentity).getName());
+		nbtTagCompound.setString("displayName", MachineTypes.fromTE(tileentity).getName());
 		super.setInformation(itemStack, png, key, value);
 	}
 

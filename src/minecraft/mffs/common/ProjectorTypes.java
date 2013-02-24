@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public enum ProjectorTyp
+public enum ProjectorTypes
 {
 	wall(1, "Wall", "AA AA BB ", ModularForceFieldSystem.itemModuleWall, true),
 	deflector(2, "Deflector", "AAAABAAAA", ModularForceFieldSystem.itemModuleDeflector, true),
@@ -23,7 +23,7 @@ public enum ProjectorTyp
 	public int ProTyp;
 	public boolean Blockdropper;
 
-	private ProjectorTyp(int ProTyp, String dispNm, String recipe, Item item, boolean Blockdropper)
+	private ProjectorTypes(int ProTyp, String dispNm, String recipe, Item item, boolean Blockdropper)
 	{
 		this.displayName = dispNm;
 		this.recipe = recipe;
@@ -32,9 +32,9 @@ public enum ProjectorTyp
 		this.Blockdropper = Blockdropper;
 	}
 
-	public static ProjectorTyp TypfromItem(Item item)
+	public static ProjectorTypes TypfromItem(Item item)
 	{
-		for (ProjectorTyp mach : values())
+		for (ProjectorTypes mach : values())
 		{
 			if (mach.item == item)
 			{
@@ -46,24 +46,24 @@ public enum ProjectorTyp
 
 	public static void initialize()
 	{
-		for (ProjectorTyp mach : values())
+		for (ProjectorTypes mach : values())
 		{
 			generateRecipesFor(mach);
 			addNameForObject(mach);
 		}
 	}
 
-	public static void addNameForObject(ProjectorTyp mach)
+	public static void addNameForObject(ProjectorTypes mach)
 	{
 		LanguageRegistry.instance().addNameForObject(mach.item, "en_US", " MFFS Projector Module  " + mach.displayName);
 	}
 
-	public static String getdisplayName(ProjectorTyp mach)
+	public static String getdisplayName(ProjectorTypes mach)
 	{
 		return "MFFS Projector Module  " + mach.displayName;
 	}
 
-	public static void generateRecipesFor(ProjectorTyp mach)
+	public static void generateRecipesFor(ProjectorTypes mach)
 	{
 		String[] recipeSplit = { mach.recipe.substring(0, 3), mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 

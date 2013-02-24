@@ -7,7 +7,7 @@ import java.util.Set;
 import mffs.common.ForceFieldTyps;
 import mffs.common.Functions;
 import mffs.common.IModularProjector;
-import mffs.common.ProjectorTyp;
+import mffs.common.ProjectorTypes;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.item.ItemMFFS;
@@ -56,7 +56,7 @@ public abstract class ItemModuleBase extends ItemMFFS
 			if (((IModularProjector) tileEntity).getStackInSlot(1) == null)
 			{
 				((IModularProjector) tileEntity).setInventorySlotContents(1, itemstack.splitStack(1));
-				Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTyp.TypfromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
+				Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.TypfromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
 				((TileEntityProjector) tileEntity).checkslots();
 				return true;
 			}

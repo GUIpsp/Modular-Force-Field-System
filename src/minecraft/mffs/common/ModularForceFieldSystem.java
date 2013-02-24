@@ -375,10 +375,6 @@ public class ModularForceFieldSystem
 			itemUpgradeRange = new ItemUpgradeRange(MFFSProperties.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSProperties.item_upgradeCap_ID);
 
-			GameRegistry.registerBlock(blockMonaziteOre, "MFFSMonazitOre");
-			GameRegistry.registerBlock(blockForceField, "MFFSFieldblock");
-			GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
-
 		}
 		catch (Exception e)
 		{
@@ -396,8 +392,12 @@ public class ModularForceFieldSystem
 	{
 		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "language/", new String[] { "en_US" }));
 
-		MFFSMachine.initialize();
-		ProjectorTyp.initialize();
+		GameRegistry.registerBlock(blockMonaziteOre, "MFFSMonaziteOre");
+		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
+		GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
+
+		MachineTypes.initialize();
+		ProjectorTypes.initialize();
 		ProjectorOptions.initialize();
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
@@ -416,7 +416,7 @@ public class ModularForceFieldSystem
 	public void postInit(FMLPostInitializationEvent evt)
 	{
 		MFFSRecipes.init();
-		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new MFFSChunkloadCallback());
+		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkloadCallback());
 	}
 
 	public boolean initiateModule(String modname)
@@ -433,9 +433,9 @@ public class ModularForceFieldSystem
 		}
 	}
 
-	public class MFFSChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback
+	public class ChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback
 	{
-		public MFFSChunkloadCallback()
+		public ChunkloadCallback()
 		{
 		}
 

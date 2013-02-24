@@ -18,7 +18,7 @@ import mffs.common.IModularProjector;
 import mffs.common.InventoryHelper;
 import mffs.common.Linkgrid;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.ProjectorTyp;
+import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerProjector;
@@ -262,9 +262,9 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 	{
 		if (hasValidTypeMod())
 		{
-			if (getProjektor_Typ() != ProjectorTyp.TypfromItem(get_type()).ProTyp)
+			if (getProjektor_Typ() != ProjectorTypes.TypfromItem(get_type()).ProTyp)
 			{
-				setProjektor_Typ(ProjectorTyp.TypfromItem(get_type()).ProTyp);
+				setProjektor_Typ(ProjectorTypes.TypfromItem(get_type()).ProTyp);
 			}
 			if (getforcefieldblock_meta() != get_type().getForceFieldTyps().ordinal())
 			{
@@ -286,7 +286,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 				if (getStackInSlot(place) != null)
 				{
 					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix)
-						switch (ProjectorTyp.TypfromItem(get_type()).ProTyp)
+						switch (ProjectorTypes.TypfromItem(get_type()).ProTyp)
 						{
 							case 6:
 								this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 1);
@@ -303,7 +303,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 				}
 				else
 				{
-					switch (ProjectorTyp.TypfromItem(get_type()).ProTyp)
+					switch (ProjectorTypes.TypfromItem(get_type()).ProTyp)
 					{
 						case 6:
 							this.focusmatrix[(place - 7)] = 1;
@@ -709,7 +709,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 								this.worldObj.setBlockWithNotify(png.X, png.Y, png.Z, 0);
 
-								if ((ProjectorTyp.TypfromItem(get_type()).Blockdropper) && (stacks != null))
+								if ((ProjectorTypes.TypfromItem(get_type()).Blockdropper) && (stacks != null))
 								{
 									IInventory inventory = InventoryHelper.findAttachedInventory(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 									if ((inventory != null) && (inventory.getSizeInventory() > 0))

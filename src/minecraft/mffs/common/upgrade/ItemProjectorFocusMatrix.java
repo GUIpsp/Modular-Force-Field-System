@@ -2,7 +2,7 @@ package mffs.common.upgrade;
 
 import java.util.List;
 
-import mffs.common.MFFSMachine;
+import mffs.common.MachineTypes;
 import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ public class ItemProjectorFocusMatrix extends ItemMFFS
 		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
 		{
 			info.add("compatible with:");
-			info.add("MFFS " + MFFSMachine.Projector.getName());
+			info.add("MFFS " + MachineTypes.Projector.getName());
 		}
 		else
 		{

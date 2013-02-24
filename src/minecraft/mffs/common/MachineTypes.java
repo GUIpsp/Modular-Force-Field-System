@@ -33,7 +33,7 @@ import universalelectricity.prefab.TranslationHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public enum MFFSMachine
+public enum MachineTypes
 {
 	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
 	Extractor(TileEntityExtractor.class, GuiExtractor.class, ContainerForceEnergyExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
@@ -51,7 +51,7 @@ public enum MFFSMachine
 	public String recipe_ic;
 	public String recipe_ue;
 
-	private MFFSMachine(Class<? extends TileEntity> tileEntity, Class<? extends GuiScreen> gui, Class<? extends Container> container, Block block, String recipeic, String recipeue)
+	private MachineTypes(Class<? extends TileEntity> tileEntity, Class<? extends GuiScreen> gui, Class<? extends Container> container, Block block, String recipeic, String recipeue)
 	{
 		this.tileEntity = tileEntity;
 		this.gui = gui;
@@ -67,9 +67,9 @@ public enum MFFSMachine
 		return TranslationHelper.getLocal(this.block.getBlockName() + ".name");
 	}
 
-	public static MFFSMachine get(String name)
+	public static MachineTypes get(String name)
 	{
-		for (MFFSMachine machine : values())
+		for (MachineTypes machine : values())
 		{
 			if (machine.block.getBlockName().equals(name))
 			{
@@ -80,9 +80,9 @@ public enum MFFSMachine
 		return null;
 	}
 
-	public static MFFSMachine fromTE(TileEntity tem)
+	public static MachineTypes fromTE(TileEntity tem)
 	{
-		for (MFFSMachine mach : values())
+		for (MachineTypes mach : values())
 		{
 			if (mach.tileEntity.isInstance(tem))
 			{
@@ -94,7 +94,7 @@ public enum MFFSMachine
 
 	public static void initialize()
 	{
-		for (MFFSMachine mach : values())
+		for (MachineTypes mach : values())
 		{
 			GameRegistry.registerBlock(mach.block, mach.block.getBlockName());
 			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getBlockName());
@@ -104,7 +104,6 @@ public enum MFFSMachine
 			if (MFFSProperties.MODULE_UE)
 				MFFSRecipes.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
 
-			LanguageRegistry.instance().addNameForObject(mach.block, "en_US", "MFFS " + mach.getName());
 			ExplosionWhitelist.addWhitelistedBlock(mach.block);
 		}
 	}
