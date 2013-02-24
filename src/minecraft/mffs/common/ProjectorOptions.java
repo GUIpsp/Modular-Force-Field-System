@@ -35,9 +35,9 @@ public enum ProjectorOptions
 			LanguageRegistry.instance().addNameForObject(mach.item, "en_US", " MFFS Projector Upgrade " + mach.displayName);
 
 			if (MFFSProperties.MODULE_IC2)
-				RecipesFactory.addRecipe(mach.recipeic, 1, 1, null, mach.item);
+				MFFSRecipes.addRecipe(mach.recipeic, 1, 1, null, mach.item);
 			if (MFFSProperties.MODULE_UE)
-				RecipesFactory.addRecipe(mach.recipeue, 1, 2, null, mach.item);
+				MFFSRecipes.addRecipe(mach.recipeue, 1, 2, null, mach.item);
 		}
 	}
 }

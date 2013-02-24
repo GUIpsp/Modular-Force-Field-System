@@ -8,14 +8,14 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public enum ProjectorTyp
 {
-	wall(1, "Wall", "AA AA BB ", ModularForceFieldSystem.MFFSProjectorTypwall, true),
-	deflector(2, "Deflector", "AAAABAAAA", ModularForceFieldSystem.MFFSProjectorTypdeflector, true),
-	tube(3, "Tube", "AAA B AAA", ModularForceFieldSystem.MFFSProjectorTyptube, false),
-	cube(4, "Cube", "B B A B B", ModularForceFieldSystem.MFFSProjectorTypkube, false),
-	sphere(5, "Sphere", " B BAB B ", ModularForceFieldSystem.MFFSProjectorTypsphere, false),
-	containment(6, "Containment", "BBBBABBBB", ModularForceFieldSystem.MFFSProjectorTypcontainment, false),
-	AdvCube(7, "Adv.Cube", "AAAACAAAA", ModularForceFieldSystem.MFFSProjectorTypAdvCube, false),
-	diagonallywall(8, "diagonal Wall", "A A B A A", ModularForceFieldSystem.MFFSProjectorTypdiagowall, true);
+	wall(1, "Wall", "AA AA BB ", ModularForceFieldSystem.itemModuleWall, true),
+	deflector(2, "Deflector", "AAAABAAAA", ModularForceFieldSystem.itemModuleDeflector, true),
+	tube(3, "Tube", "AAA B AAA", ModularForceFieldSystem.itemModuleTube, false),
+	cube(4, "Cube", "B B A B B", ModularForceFieldSystem.itemModuleCube, false),
+	sphere(5, "Sphere", " B BAB B ", ModularForceFieldSystem.itemModuleSphere, false),
+	containment(6, "Containment", "BBBBABBBB", ModularForceFieldSystem.itemModuleContainment, false),
+	AdvCube(7, "Adv.Cube", "AAAACAAAA", ModularForceFieldSystem.itemModuleAdvancedCube, false),
+	diagonallywall(8, "diagonal Wall", "A A B A A", ModularForceFieldSystem.itemModuleDiagonalWall, true);
 
 	public String displayName;
 	public String recipe;
@@ -67,6 +67,6 @@ public enum ProjectorTyp
 	{
 		String[] recipeSplit = { mach.recipe.substring(0, 3), mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 
-		GameRegistry.addRecipe(new ItemStack(mach.item, 1), new Object[] { recipeSplit, Character.valueOf('C'), ModularForceFieldSystem.MFFSProjectorTypkube, Character.valueOf('B'), Block.obsidian, Character.valueOf('A'), ModularForceFieldSystem.itemFocusMatix });
+		GameRegistry.addRecipe(new ItemStack(mach.item, 1), new Object[] { recipeSplit, Character.valueOf('C'), ModularForceFieldSystem.itemModuleCube, Character.valueOf('B'), Block.obsidian, Character.valueOf('A'), ModularForceFieldSystem.itemFocusMatix });
 	}
 }

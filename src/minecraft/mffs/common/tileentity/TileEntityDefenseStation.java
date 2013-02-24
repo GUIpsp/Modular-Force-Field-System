@@ -97,7 +97,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 
 	public int getActionDistance()
 	{
-		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ModularForceFieldSystem.MFFSProjectorFFDistance))
+		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemModuleDistance))
 		{
 			return getStackInSlot(3).stackSize;
 		}
@@ -107,7 +107,7 @@ public class TileEntityDefenseStation extends TileEntityFEPoweredMachine impleme
 
 	public int getInfoDistance()
 	{
-		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ModularForceFieldSystem.MFFSProjectorFFDistance))
+		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemModuleDistance))
 		{
 			return getActionDistance() + (getStackInSlot(2).stackSize + 3);
 		}

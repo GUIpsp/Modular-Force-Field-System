@@ -100,9 +100,9 @@ public enum MFFSMachine
 			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getBlockName());
 
 			if (MFFSProperties.MODULE_IC2)
-				RecipesFactory.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);
+				MFFSRecipes.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);
 			if (MFFSProperties.MODULE_UE)
-				RecipesFactory.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
+				MFFSRecipes.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
 
 			LanguageRegistry.instance().addNameForObject(mach.block, "en_US", "MFFS " + mach.getName());
 			ExplosionWhitelist.addWhitelistedBlock(mach.block);

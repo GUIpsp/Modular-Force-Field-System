@@ -58,16 +58,16 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionCamouflage);
 		upgrades.add(ModularForceFieldSystem.MFFSProjectorOptionFieldFusion);
 
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorFFDistance);
-		upgrades.add(ModularForceFieldSystem.MFFSProjectorFFStrenght);
+		upgrades.add(ModularForceFieldSystem.itemModuleDistance);
+		upgrades.add(ModularForceFieldSystem.itemModuleStrength);
 
-		modules.add(ModularForceFieldSystem.MFFSProjectorTypsphere);
-		modules.add(ModularForceFieldSystem.MFFSProjectorTypkube);
-		modules.add(ModularForceFieldSystem.MFFSProjectorTypwall);
-		modules.add(ModularForceFieldSystem.MFFSProjectorTypdeflector);
-		modules.add(ModularForceFieldSystem.MFFSProjectorTyptube);
-		modules.add(ModularForceFieldSystem.MFFSProjectorTypcontainment);
-		modules.add(ModularForceFieldSystem.MFFSProjectorTypAdvCube);
+		modules.add(ModularForceFieldSystem.itemModuleSphere);
+		modules.add(ModularForceFieldSystem.itemModuleCube);
+		modules.add(ModularForceFieldSystem.itemModuleWall);
+		modules.add(ModularForceFieldSystem.itemModuleDeflector);
+		modules.add(ModularForceFieldSystem.itemModuleTube);
+		modules.add(ModularForceFieldSystem.itemModuleContainment);
+		modules.add(ModularForceFieldSystem.itemModuleAdvancedCube);
 
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);
