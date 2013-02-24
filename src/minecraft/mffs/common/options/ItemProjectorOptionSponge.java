@@ -16,7 +16,7 @@ public class ItemProjectorOptionSponge extends ItemProjectorOptionBase implement
 	public void checkInteriorBlock(PointXYZ png, World world, TileEntityProjector Projector)
 	{
 		if (world.getBlockMaterial(png.X, png.Y, png.Z).isLiquid())
-			if (!ModularForceFieldSystem.forcefieldremoveonlywaterandlava.booleanValue())
+			if (!ModularForceFieldSystem.forcefieldremoveonlywaterandlava)
 				world.setBlockWithNotify(png.X, png.Y, png.Z, 0);
 			else if ((world.getBlockId(png.X, png.Y, png.Z) == 8) || (world.getBlockId(png.X, png.Y, png.Z) == 9) || (world.getBlockId(png.X, png.Y, png.Z) == 10) || (world.getBlockId(png.X, png.Y, png.Z) == 11))
 			{

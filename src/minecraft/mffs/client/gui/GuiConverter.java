@@ -34,9 +34,9 @@ public class GuiConverter extends GuiContainer
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
 		int i1 = 76 * this.Converter.getCapacity() / 100;
 		drawTexturedModalRect(w + 14, k + 65, 0, 233, i1 + 1, 23);
-		if (!ModularForceFieldSystem.ic2found.booleanValue())
+		if (!ModularForceFieldSystem.ic2found)
 			drawTexturedModalRect(w + 99, k + 45, 0, 217, 70, 13);
-		if (!ModularForceFieldSystem.uefound.booleanValue())
+		if (!ModularForceFieldSystem.uefound)
 			drawTexturedModalRect(w + 174, k + 45, 0, 217, 70, 13);
 	}
 
@@ -82,7 +82,7 @@ public class GuiConverter extends GuiContainer
 			NetworkHandlerClient.fireTileEntityEvent(this.Converter, 10, "null");
 			this.NameeditMode = true;
 		}
-		if (ModularForceFieldSystem.ic2found.booleanValue())
+		if (ModularForceFieldSystem.ic2found)
 		{
 			if ((x >= 100) && (y >= 46) && (x <= 114) && (y <= 57))
 				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 200, "+");
@@ -93,7 +93,7 @@ public class GuiConverter extends GuiContainer
 			if ((x >= 155) && (y >= 46) && (x <= 168) && (y <= 57))
 				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 201, "-");
 		}
-		if (ModularForceFieldSystem.uefound.booleanValue())
+		if (ModularForceFieldSystem.uefound)
 		{
 			if ((x >= 175) && (y >= 46) && (x <= 189) && (y <= 57))
 				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 202, "+");
@@ -115,11 +115,11 @@ public class GuiConverter extends GuiContainer
 	{
 		this.controlList.add(new GraphicButton(0, this.width / 2 + 107, this.height / 2 - 104, this.Converter, 0));
 
-		if (ModularForceFieldSystem.ic2found.booleanValue())
+		if (ModularForceFieldSystem.ic2found)
 		{
 			this.controlList.add(new GraphicButton(100, this.width / 2 - 25, this.height / 2 - 80, this.Converter, 1));
 		}
-		if (ModularForceFieldSystem.uefound.booleanValue())
+		if (ModularForceFieldSystem.uefound)
 		{
 			this.controlList.add(new GraphicButton(101, this.width / 2 + 50, this.height / 2 - 80, this.Converter, 2));
 		}
@@ -131,7 +131,7 @@ public class GuiConverter extends GuiContainer
 		this.fontRenderer.drawString(this.Converter.getDeviceName(), 100, 8, 4210752);
 		this.fontRenderer.drawString("MFFS Converter", 8, 8, 4210752);
 
-		if (ModularForceFieldSystem.ic2found.booleanValue())
+		if (ModularForceFieldSystem.ic2found)
 		{
 			this.fontRenderer.drawString("IC 2", 125, 33, 0);
 			this.fontRenderer.drawString("EU", 110, 62, 0);
@@ -141,7 +141,7 @@ public class GuiConverter extends GuiContainer
 			this.fontRenderer.drawString("x", 132, 48, 16777215);
 			this.fontRenderer.drawString("" + this.Converter.getIC_Outputpacketamount(), 150, 48, 16777215);
 		}
-		if (ModularForceFieldSystem.uefound.booleanValue())
+		if (ModularForceFieldSystem.uefound)
 		{
 			this.fontRenderer.drawString("U.E.", 200, 33, 0);
 			this.fontRenderer.drawString("Volt", 180, 62, 0);

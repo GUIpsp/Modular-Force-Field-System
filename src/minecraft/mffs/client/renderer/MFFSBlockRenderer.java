@@ -14,7 +14,7 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
 	{
-		if (block == ModularForceFieldSystem.MFFSFieldblock)
+		if (block == ModularForceFieldSystem.blockForceField)
 		{
 			if (world.getBlockMetadata(x, y, z) == ForceFieldTyps.Camouflage.ordinal())
 			{

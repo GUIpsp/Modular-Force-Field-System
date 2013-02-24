@@ -111,27 +111,27 @@ public class ModularForceFieldSystem
 	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + NAME + ".cfg"));;
 
 	public static int RENDER_ID = 2908;
-	public static Block MFFSCapacitor;
-	public static Block MFFSProjector;
-	public static Block MFFSDefenceStation;
-	public static Block MFFSFieldblock;
-	public static Block MFFSExtractor;
-	public static Block MFFSMonazitOre;
-	public static Block MFFSForceEnergyConverter;
-	public static Block MFFSSecurtyStorage;
-	public static Block MFFSSecurtyStation;
-	public static Block MFFSControlSystem;
+	public static Block blockCapacitor;
+	public static Block blockProjector;
+	public static Block blockDefenceStation;
+	public static Block blockForceField;
+	public static Block blockExtractor;
+	public static Block blockMonaziteOre;
+	public static Block blockConverter;
+	public static Block blockSecurityStorage;
+	public static Block blockSecurityStation;
+	public static Block blockControlSystem;
 
-	public static Item MFFSitemForcicumCell;
-	public static Item MFFSitemForcicium;
-	public static Item MFFSitemForcePowerCrystal;
-	public static Item MFFSitemdensifiedForcicium;
-	public static Item MFFSitemdepletedForcicium;
-	public static Item MFFSitemFocusmatix;
-	public static Item MFFSitemSwitch;
-	public static Item MFFSitemWrench;
-	public static Item MFFSitemFieldTeleporter;
-	public static Item MFFSitemMFDidtool;
+	public static Item itemForcicumCell;
+	public static Item itemForcicium;
+	public static Item itemPowerCrystal;
+	public static Item itemCompactForcicium;
+	public static Item itemDepletedForcicium;
+	public static Item itemFocusMatix;
+	public static Item itemSwitch;
+	public static Item itemWrench;
+	public static Item itemFieldTeleporter;
+	public static Item itemMFDidtool;
 	public static Item MFFSitemMFDdebugger;
 	public static Item MFFSitemcardempty;
 	public static Item MFFSitemfc;
@@ -170,14 +170,14 @@ public class ModularForceFieldSystem
 	public static int forcefieldblockzappermodifier;
 	public static int forcefieldtransportcost;
 	public static int forcefieldmaxblockpeerTick;
-	public static Boolean forcefieldremoveonlywaterandlava;
-	public static Boolean influencedbyothermods;
-	public static Boolean adventuremap;
-	public static Boolean ic2found = Boolean.valueOf(false);
-	public static Boolean uefound = Boolean.valueOf(false);
-	public static Boolean ee3found = Boolean.valueOf(false);
-	public static Boolean buildcraftfound = Boolean.valueOf(false);
-	public static Boolean ThermalExpansionfound = Boolean.valueOf(false);
+	public static boolean forcefieldremoveonlywaterandlava;
+	public static boolean influencedbyothermods;
+	public static boolean adventuremap;
+	public static boolean ic2found = false;
+	public static boolean uefound = false;
+	public static boolean ee3found = false;
+	public static boolean buildcraftfound = false;
+	public static boolean ThermalExpansionfound = false;
 	public static boolean showZapperParticles;
 	public static boolean uumatterForcicium;
 	public static boolean chunckloader = true;
@@ -211,7 +211,7 @@ public class ModularForceFieldSystem
 
 		Modstats.instance().getReporter().registerMod(this);
 
-		if (ee3found.booleanValue())
+		if (ee3found)
 		{
 			MinecraftForge.EVENT_BUS.register(new EE3Event());
 		}
@@ -310,23 +310,23 @@ public class ModularForceFieldSystem
 			Adventuremap.comment = "Set MFFS to AdventureMap Mode Extractor need no Forcecium and ForceField have no click damage";
 			adventuremap = Boolean.valueOf(Adventuremap.getBoolean(false));
 
-			MFFSForceEnergyConverter = new BlockConverter(CONFIGURATION.getBlock("MFFSForceEnergyConverter", DefaultProps.block_Converter_ID).getInt(DefaultProps.block_Converter_ID)).setBlockName("MFFSForceEnergyConverter");
-			MFFSExtractor = new BlockExtractor(CONFIGURATION.getBlock("MFFSExtractor", DefaultProps.block_Extractor_ID).getInt(DefaultProps.block_Extractor_ID)).setBlockName("MFFSExtractor");
-			MFFSMonazitOre = new BlockMonaziteOre(CONFIGURATION.getBlock("MFFSMonazitOre", DefaultProps.block_MonazitOre_ID).getInt(DefaultProps.block_MonazitOre_ID)).setBlockName("MFFSMonazitOre");
-			MFFSDefenceStation = new BlockDefenseStation(CONFIGURATION.getBlock("MFFSDefenceStation", DefaultProps.block_DefenseStation_ID).getInt(DefaultProps.block_DefenseStation_ID)).setBlockName("MFFSDefenceStation");
-			MFFSCapacitor = new BlockCapacitor(CONFIGURATION.getBlock("MFFSCapacitor", DefaultProps.block_Capacitor_ID).getInt(DefaultProps.block_Capacitor_ID)).setBlockName("MFFSCapacitor");
-			MFFSProjector = new BlockProjector(CONFIGURATION.getBlock("MFFSProjector", DefaultProps.block_Projector_ID).getInt(DefaultProps.block_Projector_ID)).setBlockName("MFFSProjector");
-			MFFSFieldblock = new BlockForceField(CONFIGURATION.getBlock("MFFSFieldblock", DefaultProps.block_Field_ID).getInt(DefaultProps.block_Field_ID));
-			MFFSSecurtyStorage = new BlockSecurityStorage(CONFIGURATION.getBlock("MFFSSecurtyStorage", DefaultProps.block_SecureStorage_ID).getInt(DefaultProps.block_SecureStorage_ID)).setBlockName("MFFSSecurtyStorage");
-			MFFSSecurtyStation = new BlockSecurityStation(DefaultProps.block_SecurityStation_ID, 16);
-			MFFSControlSystem = new BlockControlSystem(CONFIGURATION.getBlock("MFFSControlSystem", DefaultProps.block_ControlSystem).getInt(DefaultProps.block_ControlSystem)).setBlockName("MFFSControlSystem");
+			blockConverter = new BlockConverter(CONFIGURATION.getBlock("MFFSForceEnergyConverter", DefaultProps.block_Converter_ID).getInt(DefaultProps.block_Converter_ID)).setBlockName("MFFSForceEnergyConverter");
+			blockExtractor = new BlockExtractor(CONFIGURATION.getBlock("MFFSExtractor", DefaultProps.block_Extractor_ID).getInt(DefaultProps.block_Extractor_ID)).setBlockName("MFFSExtractor");
+			blockMonaziteOre = new BlockMonaziteOre(CONFIGURATION.getBlock("MFFSMonazitOre", DefaultProps.block_MonazitOre_ID).getInt(DefaultProps.block_MonazitOre_ID)).setBlockName("MFFSMonazitOre");
+			blockDefenceStation = new BlockDefenseStation(CONFIGURATION.getBlock("MFFSDefenceStation", DefaultProps.block_DefenseStation_ID).getInt(DefaultProps.block_DefenseStation_ID)).setBlockName("MFFSDefenceStation");
+			blockCapacitor = new BlockCapacitor(CONFIGURATION.getBlock("MFFSCapacitor", DefaultProps.block_Capacitor_ID).getInt(DefaultProps.block_Capacitor_ID)).setBlockName("MFFSCapacitor");
+			blockProjector = new BlockProjector(CONFIGURATION.getBlock("MFFSProjector", DefaultProps.block_Projector_ID).getInt(DefaultProps.block_Projector_ID)).setBlockName("MFFSProjector");
+			blockForceField = new BlockForceField(CONFIGURATION.getBlock("MFFSFieldblock", DefaultProps.block_Field_ID).getInt(DefaultProps.block_Field_ID));
+			blockSecurityStorage = new BlockSecurityStorage(CONFIGURATION.getBlock("MFFSSecurtyStorage", DefaultProps.block_SecureStorage_ID).getInt(DefaultProps.block_SecureStorage_ID)).setBlockName("MFFSSecurtyStorage");
+			blockSecurityStation = new BlockSecurityStation(DefaultProps.block_SecurityStation_ID, 16);
+			blockControlSystem = new BlockControlSystem(CONFIGURATION.getBlock("MFFSControlSystem", DefaultProps.block_ControlSystem).getInt(DefaultProps.block_ControlSystem)).setBlockName("MFFSControlSystem");
 
 			MFFSProjectorFFDistance = new ItemProjectorFieldModulatorDistance(CONFIGURATION.getItem("item", "itemProjectorFFDistance", DefaultProps.item_AltDistance_ID).getInt(DefaultProps.item_AltDistance_ID)).setItemName("itemProjectorFFDistance");
 			MFFSProjectorFFStrenght = new ItemProjectorFieldModulatorStrength(CONFIGURATION.getItem("item", "itemProjectorFFStrength", DefaultProps.item_AltStrength_ID).getInt(DefaultProps.item_AltStrength_ID)).setItemName("itemProjectorFFStrength");
-			MFFSitemFocusmatix = new ItemProjectorFocusMatrix(CONFIGURATION.getItem("item", "itemPorjectorFocusmatrix", DefaultProps.item_FocusMatrix_ID).getInt(DefaultProps.item_FocusMatrix_ID)).setItemName("itemPorjectorFocusmatrix");
-			MFFSitemForcePowerCrystal = new ItemForcePowerCrystal(CONFIGURATION.getItem("item", "itemForcePowerCrystal", DefaultProps.item_FPCrystal_ID).getInt(DefaultProps.item_FPCrystal_ID)).setItemName("itemForcePowerCrystal");
-			MFFSitemForcicium = new ItemForcicium(CONFIGURATION.getItem("item", "itemForcicium", DefaultProps.item_Forcicium_ID).getInt(DefaultProps.item_Forcicium_ID)).setItemName("itemForcicium");
-			MFFSitemForcicumCell = new ItemForcicumCell(CONFIGURATION.getItem("item", "itemForcicumCell", DefaultProps.item_ForciciumCell_ID).getInt(DefaultProps.item_ForciciumCell_ID)).setItemName("itemForcicumCell");
+			itemFocusMatix = new ItemProjectorFocusMatrix(CONFIGURATION.getItem("item", "itemPorjectorFocusmatrix", DefaultProps.item_FocusMatrix_ID).getInt(DefaultProps.item_FocusMatrix_ID)).setItemName("itemPorjectorFocusmatrix");
+			itemPowerCrystal = new ItemForcePowerCrystal(CONFIGURATION.getItem("item", "itemForcePowerCrystal", DefaultProps.item_FPCrystal_ID).getInt(DefaultProps.item_FPCrystal_ID)).setItemName("itemForcePowerCrystal");
+			itemForcicium = new ItemForcicium(CONFIGURATION.getItem("item", "itemForcicium", DefaultProps.item_Forcicium_ID).getInt(DefaultProps.item_Forcicium_ID)).setItemName("itemForcicium");
+			itemForcicumCell = new ItemForcicumCell(CONFIGURATION.getItem("item", "itemForcicumCell", DefaultProps.item_ForciciumCell_ID).getInt(DefaultProps.item_ForciciumCell_ID)).setItemName("itemForcicumCell");
 
 			MFFSProjectorTypdiagowall = new ItemProjectorModulediagonallyWall(CONFIGURATION.getItem("item", "itemProjectorModulediagonallyWall", DefaultProps.item_ModDiag_ID).getInt(DefaultProps.item_ModDiag_ID)).setItemName("itemProjectorModulediagonallyWall");
 			MFFSProjectorTypsphere = new ItemProjectorModuleSphere(CONFIGURATION.getItem("item", "itemProjectorTypsphere", DefaultProps.item_ModSphere_ID).getInt(DefaultProps.item_ModSphere_ID)).setItemName("itemProjectorTypsphere");
@@ -355,10 +355,10 @@ public class ModularForceFieldSystem
 			MFFSAccessCard = new ItemAccessCard(CONFIGURATION.getItem("item", "itemAccessCard", DefaultProps.item_CardAccess_ID).getInt(DefaultProps.item_CardAccess_ID)).setItemName("itemAccessCard");
 			MFFSitemDataLinkCard = new ItemCardDataLink(CONFIGURATION.getItem("item", "itemCardDataLink", DefaultProps.item_CardDataLink_ID).getInt(DefaultProps.item_CardDataLink_ID)).setItemName("itemCardDataLink");
 
-			MFFSitemWrench = new ItemWrench(CONFIGURATION.getItem("item", "itemWrench", DefaultProps.item_MTWrench_ID).getInt(DefaultProps.item_MTWrench_ID)).setItemName("itemWrench");
-			MFFSitemSwitch = new ItemSwitch(CONFIGURATION.getItem("item", "itemSwitch", DefaultProps.item_MTSwitch_ID).getInt(DefaultProps.item_MTSwitch_ID)).setItemName("itemSwitch");
-			MFFSitemFieldTeleporter = new ItemFieldtransporter(CONFIGURATION.getItem("item", "itemForceFieldsync", DefaultProps.item_MTFieldTransporter_ID).getInt(DefaultProps.item_MTFieldTransporter_ID)).setItemName("itemForceFieldsync");
-			MFFSitemMFDidtool = new ItemPersonalIDWriter(CONFIGURATION.getItem("item", "ItemMFDIDwriter", DefaultProps.item_MTIDWriter_ID).getInt(DefaultProps.item_MTIDWriter_ID)).setItemName("ItemMFDIDwriter");
+			itemWrench = new ItemWrench(CONFIGURATION.getItem("item", "itemWrench", DefaultProps.item_MTWrench_ID).getInt(DefaultProps.item_MTWrench_ID)).setItemName("itemWrench");
+			itemSwitch = new ItemSwitch(CONFIGURATION.getItem("item", "itemSwitch", DefaultProps.item_MTSwitch_ID).getInt(DefaultProps.item_MTSwitch_ID)).setItemName("itemSwitch");
+			itemFieldTeleporter = new ItemFieldtransporter(CONFIGURATION.getItem("item", "itemForceFieldsync", DefaultProps.item_MTFieldTransporter_ID).getInt(DefaultProps.item_MTFieldTransporter_ID)).setItemName("itemForceFieldsync");
+			itemMFDidtool = new ItemPersonalIDWriter(CONFIGURATION.getItem("item", "ItemMFDIDwriter", DefaultProps.item_MTIDWriter_ID).getInt(DefaultProps.item_MTIDWriter_ID)).setItemName("ItemMFDIDwriter");
 			MFFSitemMFDdebugger = new ItemDebugger(CONFIGURATION.getItem("item", "itemMFDdebugger", DefaultProps.item_MTDebugger_ID).getInt(DefaultProps.item_MTDebugger_ID)).setItemName("itemMFDdebugger");
 			MFFSitemManuelBook = new ItemManuelBook(CONFIGURATION.getItem("item", "itemManuelBook", DefaultProps.item_MTManual_ID).getInt(DefaultProps.item_MTManual_ID)).setItemName("itemManuelBook");
 
@@ -383,8 +383,8 @@ public class ModularForceFieldSystem
 	{
 		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "language/", new String[] { "en_US" }));
 
-		GameRegistry.registerBlock(MFFSMonazitOre, "MFFSMonazitOre");
-		GameRegistry.registerBlock(MFFSFieldblock, "MFFSFieldblock");
+		GameRegistry.registerBlock(blockMonaziteOre, "MFFSMonazitOre");
+		GameRegistry.registerBlock(blockForceField, "MFFSFieldblock");
 		GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
 
 		MFFSMachine.initialize();
@@ -402,23 +402,23 @@ public class ModularForceFieldSystem
 
 		LanguageRegistry.instance().addNameForObject(MFFSitemupgradeexctractorboost, "en_US", "MFFS Extractor Booster");
 
-		LanguageRegistry.instance().addNameForObject(MFFSMonazitOre, "en_US", "Monazit Ore");
+		LanguageRegistry.instance().addNameForObject(blockMonaziteOre, "en_US", "Monazit Ore");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemForcicumCell, "en_US", "MFFS compact Forcicium Cell");
+		LanguageRegistry.instance().addNameForObject(itemForcicumCell, "en_US", "MFFS compact Forcicium Cell");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemForcicium, "en_US", "Forcicium");
+		LanguageRegistry.instance().addNameForObject(itemForcicium, "en_US", "Forcicium");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemForcePowerCrystal, "en_US", "MFFS Force Energy Crystal");
+		LanguageRegistry.instance().addNameForObject(itemPowerCrystal, "en_US", "MFFS Force Energy Crystal");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemSwitch, "en_US", "MFFS MultiTool <Switch>");
+		LanguageRegistry.instance().addNameForObject(itemSwitch, "en_US", "MFFS MultiTool <Switch>");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemWrench, "en_US", "MFFS MultiTool <Wrench>");
+		LanguageRegistry.instance().addNameForObject(itemWrench, "en_US", "MFFS MultiTool <Wrench>");
 
 		LanguageRegistry.instance().addNameForObject(MFFSitemManuelBook, "en_US", "MFFS MultiTool <Guide>");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemFocusmatix, "en_US", "MFFS Projector Focus Matrix");
+		LanguageRegistry.instance().addNameForObject(itemFocusMatix, "en_US", "MFFS Projector Focus Matrix");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemFieldTeleporter, "en_US", "MFFS MultiTool <Field Teleporter>");
+		LanguageRegistry.instance().addNameForObject(itemFieldTeleporter, "en_US", "MFFS MultiTool <Field Teleporter>");
 
 		LanguageRegistry.instance().addNameForObject(MFFSitemDataLinkCard, "en_US", "MFFS Card <Data Link> ");
 
@@ -434,7 +434,7 @@ public class ModularForceFieldSystem
 
 		LanguageRegistry.instance().addNameForObject(MFFSitemMFDdebugger, "en_US", "MFFS MultiTool <Debugger>");
 
-		LanguageRegistry.instance().addNameForObject(MFFSitemMFDidtool, "en_US", "MFFS MultiTool <PersonalID & Data Link  Coder>");
+		LanguageRegistry.instance().addNameForObject(itemMFDidtool, "en_US", "MFFS MultiTool <PersonalID & Data Link  Coder>");
 
 		LanguageRegistry.instance().addNameForObject(MFFSitemupgradecaprange, "en_US", "MFFS Capacitor Upgrade <Range> ");
 

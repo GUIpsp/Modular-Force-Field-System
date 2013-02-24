@@ -14,7 +14,7 @@ public class MFFSWorldGenerator implements IWorldGenerator
 		chunkX <<= 4;
 		chunkZ <<= 4;
 
-		WorldGenMinable worldGenMinable = new WorldGenMinable(ModularForceFieldSystem.MFFSMonazitOre.blockID, 0, ModularForceFieldSystem.MonazitOreworldamount + 1);
+		WorldGenMinable worldGenMinable = new WorldGenMinable(ModularForceFieldSystem.blockMonaziteOre.blockID, 0, ModularForceFieldSystem.MonazitOreworldamount + 1);
 
 		for (int i = 0; i < ModularForceFieldSystem.MonazitOreworldamount + 1; i++)
 		{

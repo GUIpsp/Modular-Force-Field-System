@@ -9,15 +9,15 @@ public class NEI_MFFS_Config implements IConfigureNEI
 {
 	public void loadConfig()
 	{
-		API.hideItem(ModularForceFieldSystem.MFFSitemSwitch.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSitemFieldTeleporter.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSitemMFDidtool.itemID);
+		API.hideItem(ModularForceFieldSystem.itemSwitch.itemID);
+		API.hideItem(ModularForceFieldSystem.itemFieldTeleporter.itemID);
+		API.hideItem(ModularForceFieldSystem.itemMFDidtool.itemID);
 		API.hideItem(ModularForceFieldSystem.MFFSitemManuelBook.itemID);
 
 		API.hideItem(ModularForceFieldSystem.MFFSitemfc.itemID);
 		API.hideItem(ModularForceFieldSystem.MFFSItemIDCard.itemID);
 		API.hideItem(ModularForceFieldSystem.MFFSItemSecLinkCard.itemID);
-		API.hideItem(ModularForceFieldSystem.MFFSFieldblock.blockID);
+		API.hideItem(ModularForceFieldSystem.blockForceField.blockID);
 		API.hideItem(ModularForceFieldSystem.MFFSAccessCard.itemID);
 		API.hideItem(ModularForceFieldSystem.MFFSitemDataLinkCard.itemID);
 
@@ -26,22 +26,22 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		MultiItemRange upgrades = new MultiItemRange();
 		MultiItemRange modules = new MultiItemRange();
 
-		blocks.add(ModularForceFieldSystem.MFFSForceEnergyConverter);
-		blocks.add(ModularForceFieldSystem.MFFSExtractor);
-		blocks.add(ModularForceFieldSystem.MFFSDefenceStation);
-		blocks.add(ModularForceFieldSystem.MFFSSecurtyStation);
-		blocks.add(ModularForceFieldSystem.MFFSCapacitor);
-		blocks.add(ModularForceFieldSystem.MFFSProjector);
-		blocks.add(ModularForceFieldSystem.MFFSSecurtyStorage);
-		blocks.add(ModularForceFieldSystem.MFFSMonazitOre);
+		blocks.add(ModularForceFieldSystem.blockConverter);
+		blocks.add(ModularForceFieldSystem.blockExtractor);
+		blocks.add(ModularForceFieldSystem.blockDefenceStation);
+		blocks.add(ModularForceFieldSystem.blockSecurityStation);
+		blocks.add(ModularForceFieldSystem.blockCapacitor);
+		blocks.add(ModularForceFieldSystem.blockProjector);
+		blocks.add(ModularForceFieldSystem.blockSecurityStorage);
+		blocks.add(ModularForceFieldSystem.blockMonaziteOre);
 
-		items.add(ModularForceFieldSystem.MFFSitemWrench);
+		items.add(ModularForceFieldSystem.itemWrench);
 		items.add(ModularForceFieldSystem.MFFSitemMFDdebugger);
 		items.add(ModularForceFieldSystem.MFFSitemcardempty);
-		items.add(ModularForceFieldSystem.MFFSitemForcePowerCrystal);
-		items.add(ModularForceFieldSystem.MFFSitemForcicium);
-		items.add(ModularForceFieldSystem.MFFSitemForcicumCell);
-		items.add(ModularForceFieldSystem.MFFSitemFocusmatix);
+		items.add(ModularForceFieldSystem.itemPowerCrystal);
+		items.add(ModularForceFieldSystem.itemForcicium);
+		items.add(ModularForceFieldSystem.itemForcicumCell);
+		items.add(ModularForceFieldSystem.itemFocusMatix);
 		items.add(ModularForceFieldSystem.MFFSitemInfinitePowerCard);
 
 		upgrades.add(ModularForceFieldSystem.MFFSitemupgradeexctractorboost);

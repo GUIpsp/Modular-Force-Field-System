@@ -464,7 +464,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 
 	public void EmitUEPower(int volt, int amp)
 	{
-		if ((ModularForceFieldSystem.uefound.booleanValue()) && (hasPowerSource()))
+		if ((ModularForceFieldSystem.uefound) && (hasPowerSource()))
 		{
 			ForgeDirection outputDirection = ForgeDirection.getOrientation(getSide());
 			TileEntity outputTile = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), outputDirection);
@@ -579,7 +579,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements I
 
 	public void setUEwireConnection()
 	{
-		if (ModularForceFieldSystem.uefound.booleanValue())
+		if (ModularForceFieldSystem.uefound)
 		{
 			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing())));
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));

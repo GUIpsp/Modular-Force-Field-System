@@ -35,14 +35,14 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public enum MFFSMachine
 {
-	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.MFFSProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TileEntityExtractor.class, GuiExtractor.class, ContainerForceEnergyExtractor.class, ModularForceFieldSystem.MFFSExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TileEntityCapacitor.class, GuiCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.MFFSCapacitor, "xJxCFCxJx", "xaxEKExax"),
-	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.MFFSForceEnergyConverter, "ANAJOMAPA", "AKAaJIAMA"),
-	DefenceStation(TileEntityDefenseStation.class, GuiAreaDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.MFFSDefenceStation, " J aFa E ", " a EKE C "),
-	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ModularForceFieldSystem.MFFSSecurtyStation, "KCKCFCKJK", "CECEKECaC"),
-	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ModularForceFieldSystem.MFFSSecurtyStorage, "AAAACAAAA", "AAAAEAAAA"),
-	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ModularForceFieldSystem.MFFSControlSystem, "aCaAFAACA", "aEaAKAAEA");
+	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
+	Extractor(TileEntityExtractor.class, GuiExtractor.class, ContainerForceEnergyExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
+	Capacitor(TileEntityCapacitor.class, GuiCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
+	DefenceStation(TileEntityDefenseStation.class, GuiAreaDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.blockDefenceStation, " J aFa E ", " a EKE C "),
+	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ModularForceFieldSystem.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
+	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ModularForceFieldSystem.blockSecurityStorage, "AAAACAAAA", "AAAAEAAAA"),
+	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ModularForceFieldSystem.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
 
 	public Class<? extends TileEntity> tileEntity;
 	public Class<? extends GuiScreen> gui;
@@ -99,9 +99,9 @@ public enum MFFSMachine
 			GameRegistry.registerBlock(mach.block, mach.block.getBlockName());
 			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getBlockName());
 
-			if (ModularForceFieldSystem.ic2found.booleanValue())
+			if (ModularForceFieldSystem.ic2found)
 				RecipesFactory.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);
-			if (ModularForceFieldSystem.uefound.booleanValue())
+			if (ModularForceFieldSystem.uefound)
 				RecipesFactory.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
 
 			LanguageRegistry.instance().addNameForObject(mach.block, "en_US", "MFFS " + mach.getName());

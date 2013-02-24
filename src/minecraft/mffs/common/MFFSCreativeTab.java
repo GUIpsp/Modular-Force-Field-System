@@ -12,6 +12,6 @@ public class MFFSCreativeTab extends CreativeTabs
 
 	public ItemStack getIconItemStack()
 	{
-		return new ItemStack(ModularForceFieldSystem.MFFSCapacitor);
+		return new ItemStack(ModularForceFieldSystem.blockCapacitor);
 	}
 }

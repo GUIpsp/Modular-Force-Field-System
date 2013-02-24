@@ -60,7 +60,7 @@ public class ItemProjectorOptionFieldFusion extends ItemProjectorOptionBase impl
 
 						PointXYZ ffpng = ffworldmap.getPoint();
 
-						if (world.getBlockId(ffpng.X, ffpng.Y, ffpng.Z) == ModularForceFieldSystem.MFFSFieldblock.blockID)
+						if (world.getBlockId(ffpng.X, ffpng.Y, ffpng.Z) == ModularForceFieldSystem.blockForceField.blockID)
 						{
 							world.removeBlockTileEntity(ffpng.X, ffpng.Y, ffpng.Z);
 							world.setBlockWithNotify(ffpng.X, ffpng.Y, ffpng.Z, 0);

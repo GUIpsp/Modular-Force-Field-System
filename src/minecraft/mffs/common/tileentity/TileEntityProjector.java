@@ -285,7 +285,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 			{
 				if (getStackInSlot(place) != null)
 				{
-					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.MFFSitemFocusmatix)
+					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix)
 						switch (ProjectorTyp.TypfromItem(get_type()).ProTyp)
 						{
 							case 6:
@@ -703,7 +703,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 							int blockid = this.worldObj.getBlockId(png.X, png.Y, png.Z);
 							TileEntity entity = this.worldObj.getBlockTileEntity(png.X, png.Y, png.Z);
 
-							if ((blockid != ModularForceFieldSystem.MFFSFieldblock.blockID) && (blockid != 0) && (blockid != Block.bedrock.blockID) && (entity == null))
+							if ((blockid != ModularForceFieldSystem.blockForceField.blockID) && (blockid != 0) && (blockid != Block.bedrock.blockID) && (entity == null))
 							{
 								ArrayList stacks = Functions.getItemStackFromBlock(this.worldObj, png.X, png.Y, png.Z);
 
@@ -721,11 +721,11 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 						}
 
-						if ((this.worldObj.getBlockMaterial(png.X, png.Y, png.Z).isLiquid()) || (this.worldObj.isAirBlock(png.X, png.Y, png.Z)) || (this.worldObj.getBlockId(png.X, png.Y, png.Z) == ModularForceFieldSystem.MFFSFieldblock.blockID))
+						if ((this.worldObj.getBlockMaterial(png.X, png.Y, png.Z).isLiquid()) || (this.worldObj.isAirBlock(png.X, png.Y, png.Z)) || (this.worldObj.getBlockId(png.X, png.Y, png.Z) == ModularForceFieldSystem.blockForceField.blockID))
 						{
-							if (this.worldObj.getBlockId(png.X, png.Y, png.Z) != ModularForceFieldSystem.MFFSFieldblock.blockID)
+							if (this.worldObj.getBlockId(png.X, png.Y, png.Z) != ModularForceFieldSystem.blockForceField.blockID)
 							{
-								this.worldObj.setBlockAndMetadataWithNotify(png.X, png.Y, png.Z, ModularForceFieldSystem.MFFSFieldblock.blockID, ffb.getTyp());
+								this.worldObj.setBlockAndMetadataWithNotify(png.X, png.Y, png.Z, ModularForceFieldSystem.blockForceField.blockID, ffb.getTyp());
 
 								this.blockcounter += 1;
 							}

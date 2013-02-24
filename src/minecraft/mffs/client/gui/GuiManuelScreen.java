@@ -110,9 +110,9 @@ public class GuiManuelScreen extends GuiContainer
 				this.fontRenderer.drawString("Newest Version : " + ModularForceFieldSystem.VERSION, 20, 75, 16777215);
 				break;
 			case 3:
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSMonazitOre), 30, 45);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemForcicium), 30, 65);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemForcicumCell), 30, 85);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockMonaziteOre), 30, 45);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemForcicium), 30, 65);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemForcicumCell), 30, 85);
 
 				this.fontRenderer.drawString("Monazit Ore (Block/WorldGen)", 60, 50, 16777215);
 				this.fontRenderer.drawString("Forcicium (Item/for Crafting)", 60, 70, 16777215);
@@ -132,7 +132,7 @@ public class GuiManuelScreen extends GuiContainer
 				this.fontRenderer.drawString("up to 16 need for create all Cards ", 35, 55, 16777215);
 
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemfc), 15, 95);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSCapacitor), 35, 105);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockCapacitor), 35, 105);
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty), 140, 105);
 				this.fontRenderer.drawString("Card <Power Link> get from right click", 35, 95, 16777215);
 				this.fontRenderer.drawString("Capacitor with a ", 55, 110, 16777215);
@@ -140,7 +140,7 @@ public class GuiManuelScreen extends GuiContainer
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSItemSecLinkCard), 15, 145);
 				this.fontRenderer.drawString("Card <Security Station Link> get from", 35, 145, 16777215);
 				this.fontRenderer.drawString("right click", 35, 160, 16777215);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSSecurtyStation), 90, 155);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockSecurityStation), 90, 155);
 				this.fontRenderer.drawString("SecurityStation with a ", 110, 160, 16777215);
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty), 220, 155);
 
@@ -148,19 +148,19 @@ public class GuiManuelScreen extends GuiContainer
 			case 5:
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSAccessCard), 15, 45);
 				this.fontRenderer.drawString("Card <Access license> create inside a  ", 35, 45, 16777215);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSSecurtyStation), 35, 55);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockSecurityStation), 35, 55);
 				this.fontRenderer.drawString("SecurityStation with a", 55, 60, 16777215);
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemcardempty), 170, 55);
 
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSItemIDCard), 15, 85);
 				this.fontRenderer.drawString("Card <Personal ID> create with help  ", 35, 85, 16777215);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemMFDidtool), 35, 100);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemMFDidtool), 35, 100);
 				this.fontRenderer.drawString("MultiTool right click create self", 55, 98, 16777215);
 				this.fontRenderer.drawString("or left click for another Player", 55, 110, 16777215);
 
 				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemDataLinkCard), 15, 125);
 				this.fontRenderer.drawString("Card <Data Link> create with help  ", 35, 125, 16777215);
-				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.MFFSitemMFDidtool), 35, 140);
+				renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemMFDidtool), 35, 140);
 				this.fontRenderer.drawString("MultiTool right click any ", 55, 138, 16777215);
 				this.fontRenderer.drawString("MFFS Maschine ", 55, 150, 16777215);
 

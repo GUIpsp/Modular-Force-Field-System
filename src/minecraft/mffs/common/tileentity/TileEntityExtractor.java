@@ -63,7 +63,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 		this.capacity = 0;
 		this.addedToEnergyNet = false;
 
-		if (ModularForceFieldSystem.buildcraftfound.booleanValue())
+		if (ModularForceFieldSystem.buildcraftfound)
 		{
 			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
 			this.powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D));
@@ -221,7 +221,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 		if (getStackInSlot(4) != null)
 		{
-			if (getStackInSlot(4).getItem() == ModularForceFieldSystem.MFFSitemForcicumCell)
+			if (getStackInSlot(4).getItem() == ModularForceFieldSystem.itemForcicumCell)
 			{
 				this.workmode = 1;
 				setMaxWorkEnergy(200000);
@@ -257,7 +257,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 		{
 			return true;
 		}
-		if (ModularForceFieldSystem.adventuremap.booleanValue())
+		if (ModularForceFieldSystem.adventuremap)
 		{
 			setMaxworkcylce(ModularForceFieldSystem.ForceciumCellWorkCylce);
 			setWorkCylce(getMaxworkcylce());
@@ -266,7 +266,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 		if (getStackInSlot(0) != null)
 		{
-			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSitemForcicium)
+			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicium)
 			{
 				setMaxworkcylce(ModularForceFieldSystem.ForceciumWorkCylce);
 				setWorkCylce(getMaxworkcylce());
@@ -274,7 +274,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 				return true;
 			}
 
-			if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSitemForcicumCell) && (((ItemForcicumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
+			if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell) && (((ItemForcicumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
 			{
 				setMaxworkcylce(ModularForceFieldSystem.ForceciumCellWorkCylce);
 				setWorkCylce(getMaxworkcylce());
@@ -342,7 +342,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 				setUEwireConnection();
 			}
 
-			if ((!this.addedToEnergyNet) && (ModularForceFieldSystem.ic2found.booleanValue()))
+			if ((!this.addedToEnergyNet) && (ModularForceFieldSystem.ic2found))
 			{
 				MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 				this.addedToEnergyNet = true;
@@ -368,11 +368,11 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 			if (isActive())
 			{
-				if (ModularForceFieldSystem.buildcraftfound.booleanValue())
+				if (ModularForceFieldSystem.buildcraftfound)
 				{
 					converMJtoWorkEnergy();
 				}
-				if (ModularForceFieldSystem.uefound.booleanValue())
+				if (ModularForceFieldSystem.uefound)
 				{
 					converUEtoWorkEnergy();
 				}
@@ -663,7 +663,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements I
 
 	public void setUEwireConnection()
 	{
-		if (ModularForceFieldSystem.uefound.booleanValue())
+		if (ModularForceFieldSystem.uefound)
 		{
 			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing()).getOpposite()));
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));

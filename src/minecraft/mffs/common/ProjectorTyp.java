@@ -67,6 +67,6 @@ public enum ProjectorTyp
 	{
 		String[] recipeSplit = { mach.recipe.substring(0, 3), mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 
-		GameRegistry.addRecipe(new ItemStack(mach.item, 1), new Object[] { recipeSplit, Character.valueOf('C'), ModularForceFieldSystem.MFFSProjectorTypkube, Character.valueOf('B'), Block.obsidian, Character.valueOf('A'), ModularForceFieldSystem.MFFSitemFocusmatix });
+		GameRegistry.addRecipe(new ItemStack(mach.item, 1), new Object[] { recipeSplit, Character.valueOf('C'), ModularForceFieldSystem.MFFSProjectorTypkube, Character.valueOf('B'), Block.obsidian, Character.valueOf('A'), ModularForceFieldSystem.itemFocusMatix });
 	}
 }

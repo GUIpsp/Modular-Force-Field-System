@@ -49,13 +49,13 @@ public class ItemForcicumCell extends ItemMFFSBase
 						List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
 						for (Slot slot : slots)
 						{
-							if ((slot.getStack() != null) && (slot.getStack().getItem() == ModularForceFieldSystem.MFFSitemForcicium))
+							if ((slot.getStack() != null) && (slot.getStack().getItem() == ModularForceFieldSystem.itemForcicium))
 							{
 								setForceciumlevel(itemStack, getForceciumlevel(itemStack) + 1);
 
 								if (slot.getStack().stackSize > 1)
 								{
-									ItemStack forcecium = new ItemStack(ModularForceFieldSystem.MFFSitemForcicium, slot.getStack().stackSize - 1);
+									ItemStack forcecium = new ItemStack(ModularForceFieldSystem.itemForcicium, slot.getStack().stackSize - 1);
 									slot.putStack(forcecium);
 									break;
 								}

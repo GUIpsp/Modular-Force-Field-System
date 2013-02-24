@@ -93,12 +93,12 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public void onNeighborBlockChange(World world, int x, int y, int z, int blockid)
 	{
-		if (blockid != ModularForceFieldSystem.MFFSFieldblock.blockID)
+		if (blockid != ModularForceFieldSystem.blockForceField.blockID)
 		{
 			for (int x1 = -1; x1 <= 1; x1++)
 				for (int y1 = -1; y1 <= 1; y1++)
 					for (int z1 = -1; z1 <= 1; z1++)
-						if (world.getBlockId(x + x1, y + y1, z + z1) != ModularForceFieldSystem.MFFSFieldblock.blockID)
+						if (world.getBlockId(x + x1, y + y1, z + z1) != ModularForceFieldSystem.blockForceField.blockID)
 						{
 							if (world.getBlockId(x + x1, y + y1, z + z1) == 0)
 							{
@@ -122,7 +122,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 				}
 				else
 				{
-					world.setBlockAndMetadataWithNotify(i, j, k, ModularForceFieldSystem.MFFSFieldblock.blockID, ffworldmap.getTyp());
+					world.setBlockAndMetadataWithNotify(i, j, k, ModularForceFieldSystem.blockForceField.blockID, ffworldmap.getTyp());
 					world.markBlockForUpdate(i, j, k);
 					ffworldmap.setSync(true);
 
@@ -142,7 +142,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new PointXYZ(par2, par3, par4, par1World).hashCode()));
 
-		if ((ffworldmap != null) && (!ModularForceFieldSystem.adventuremap.booleanValue()))
+		if ((ffworldmap != null) && (!ModularForceFieldSystem.adventuremap))
 		{
 			TileEntityProjector projector = (TileEntityProjector) Linkgrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (projector != null)
@@ -387,7 +387,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public void weakenForceField(World world, int x, int y, int z)
 	{
-		if (ModularForceFieldSystem.influencedbyothermods.booleanValue())
+		if (ModularForceFieldSystem.influencedbyothermods)
 		{
 			world.setBlockWithNotify(x, y, z, 0);
 		}
