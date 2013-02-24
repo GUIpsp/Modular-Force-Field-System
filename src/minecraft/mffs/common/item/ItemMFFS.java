@@ -1,5 +1,6 @@
 package mffs.common.item;
 
+import mffs.common.MFFSCreativeTab;
 import mffs.common.ModularForceFieldSystem;
 import net.minecraft.item.Item;
 
@@ -9,7 +10,7 @@ public class ItemMFFS extends Item
 	{
 		super(ModularForceFieldSystem.CONFIGURATION.getItem(name, id).getInt(id));
 		this.setTextureFile(name);
-		this.setCreativeTab(ModularForceFieldSystem.TAB);
+		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
 		this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
 	}
 }

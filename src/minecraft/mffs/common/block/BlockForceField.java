@@ -8,7 +8,6 @@ import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldTyps;
 import mffs.common.Functions;
 import mffs.common.Linkgrid;
-import mffs.common.MFFSDamageSource;
 import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -128,9 +127,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 					ffworldmap.setSync(true);
 
 					if (ffworldmap.getTyp() == 1)
-						Projector.consumePower(ModularForceFieldSystem.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier, false);
+						Projector.consumePower(MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier, false);
 					else
-						Projector.consumePower(ModularForceFieldSystem.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier * ModularForceFieldSystem.forcefieldblockzappermodifier, false);
+						Projector.consumePower(MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier * ModularForceFieldSystem.forcefieldblockzappermodifier, false);
 				}
 		}
 	}
@@ -151,14 +150,14 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 				switch (projector.getaccesstyp())
 				{
 					case 0:
-						par5EntityPlayer.attackEntityFrom(MFFSDamageSource.fieldShock, 10);
+						par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
 						Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field");
 						break;
 					case 2:
 					case 3:
 						if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer, par1World, SecurityRight.SR))
 						{
-							par5EntityPlayer.attackEntityFrom(MFFSDamageSource.fieldShock, 10);
+							par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
 							Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field");
 						}
 						break;
@@ -167,7 +166,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 			}
 			if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer, par1World, SecurityRight.SR))
 			{
-				par5EntityPlayer.attackEntityFrom(MFFSDamageSource.fieldShock, 10);
+				par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
 				Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field");
 			}
 		}
@@ -198,7 +197,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		{
 			if ((entity instanceof EntityLiving))
 			{
-				entity.attackEntityFrom(MFFSDamageSource.fieldShock, 10);
+				entity.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
 			}
 		}
 		else if ((entity instanceof EntityPlayer))
@@ -233,11 +232,11 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 					if (!passtrue)
 					{
-						((EntityPlayer) entity).attackEntityFrom(MFFSDamageSource.fieldShock, 20);
+						((EntityPlayer) entity).attackEntityFrom(ModularForceFieldSystem.fieldShock, 20);
 					}
 					else
 					{
-						((EntityPlayer) entity).attackEntityFrom(MFFSDamageSource.fieldShock, 1);
+						((EntityPlayer) entity).attackEntityFrom(ModularForceFieldSystem.fieldShock, 1);
 					}
 					Functions.ChattoPlayer((EntityPlayer) entity, "[Force Field] Attention High Energy Field");
 				}
@@ -322,7 +321,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 			if (((tileEntity instanceof TileEntityProjector)) && (tileEntity != null))
 			{
-				((TileEntityProjector) tileEntity).consumePower(ModularForceFieldSystem.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier, false);
+				((TileEntityProjector) tileEntity).consumePower(MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier, false);
 			}
 
 		}

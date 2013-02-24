@@ -36,7 +36,6 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		blocks.add(ModularForceFieldSystem.blockMonaziteOre);
 
 		items.add(ModularForceFieldSystem.itemMultiToolWrench);
-		items.add(ModularForceFieldSystem.MFFSitemMFDdebugger);
 		items.add(ModularForceFieldSystem.itemCardEmpty);
 		items.add(ModularForceFieldSystem.itemPowerCrystal);
 		items.add(ModularForceFieldSystem.itemForcicium);

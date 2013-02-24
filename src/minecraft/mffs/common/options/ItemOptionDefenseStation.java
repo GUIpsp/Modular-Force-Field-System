@@ -5,7 +5,7 @@ import java.util.List;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.Linkgrid;
-import mffs.common.MFFSDamageSource;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.modules.ItemModuleSphere;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -90,7 +90,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 								if (projector.consumePower(10000, true))
 								{
 									((EntityPlayer) entityLiving).addChatMessage("!!! [Area Defence] leave or die !!!");
-									((EntityPlayer) entityLiving).attackEntityFrom(MFFSDamageSource.fieldDefense, 10);
+									((EntityPlayer) entityLiving).attackEntityFrom(ModularForceFieldSystem.fieldDefense, 10);
 									projector.consumePower(10000, false);
 								}
 							}

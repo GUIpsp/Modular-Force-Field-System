@@ -2,7 +2,6 @@ package mffs.common;
 
 import java.io.File;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import mffs.common.block.BlockCapacitor;
@@ -40,8 +39,8 @@ import mffs.common.multitool.ItemMultitoolSwitch;
 import mffs.common.multitool.ItemMultitoolWriter;
 import mffs.common.multitool.ItemWrench;
 import mffs.common.options.ItemOptionAntibiotic;
-import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionCamoflage;
+import mffs.common.options.ItemOptionCutter;
 import mffs.common.options.ItemOptionDefenseStation;
 import mffs.common.options.ItemOptionFieldFusion;
 import mffs.common.options.ItemOptionFieldManipulator;
@@ -50,12 +49,12 @@ import mffs.common.options.ItemOptionShock;
 import mffs.common.options.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.upgrade.ItemUpgradeCapacity;
-import mffs.common.upgrade.ItemUpgradeRange;
-import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemModuleDistance;
 import mffs.common.upgrade.ItemModuleStrength;
 import mffs.common.upgrade.ItemProjectorFocusMatrix;
+import mffs.common.upgrade.ItemUpgradeBooster;
+import mffs.common.upgrade.ItemUpgradeCapacity;
+import mffs.common.upgrade.ItemUpgradeRange;
 import mffs.network.client.ForceFieldClientUpdatehandler;
 import mffs.network.client.NetworkHandlerClient;
 import mffs.network.server.ForceFieldServerUpdatehandler;
@@ -63,7 +62,9 @@ import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -75,6 +76,10 @@ import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
 
 import universalelectricity.prefab.TranslationHelper;
+import universalelectricity.prefab.UEDamageSource;
+import universalelectricity.prefab.ore.OreGenBase;
+import universalelectricity.prefab.ore.OreGenReplaceStone;
+import universalelectricity.prefab.ore.OreGenerator;
 
 import com.google.common.collect.Lists;
 
@@ -88,7 +93,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -101,8 +105,6 @@ public class ModularForceFieldSystem
 	public static final String NAME = "Modular Force Field System";
 	public static final String VERSION = "2.3.0";
 
-	public static CreativeTabs TAB;
-
 	public static final String RESOURCE_DIRECTORY = "/mffs/";
 	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
 	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
@@ -111,6 +113,9 @@ public class ModularForceFieldSystem
 	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + NAME + ".cfg"));;
 
 	public static int RENDER_ID = 2908;
+	/**
+	 * Machines
+	 */
 	public static Block blockCapacitor;
 	public static Block blockProjector;
 	public static Block blockDefenceStation;
@@ -122,17 +127,27 @@ public class ModularForceFieldSystem
 	public static Block blockSecurityStation;
 	public static Block blockControlSystem;
 
+	/**
+	 * General Items
+	 */
 	public static Item itemForcicumCell;
 	public static Item itemForcicium;
 	public static Item itemPowerCrystal;
 	public static Item itemCompactForcicium;
 	public static Item itemDepletedForcicium;
 	public static Item itemFocusMatix;
+
+	/**
+	 * Multitool
+	 */
 	public static Item itemMultiToolSwitch;
 	public static Item itemMultiToolWrench;
 	public static Item itemMultiToolFieldTeleporter;
 	public static Item itemMultiToolID;
-	public static Item MFFSitemMFDdebugger;
+
+	/**
+	 * Cards
+	 */
 	public static Item itemCardEmpty;
 	public static Item itemCardPowerLink;
 	public static Item itemCardID;
@@ -141,17 +156,17 @@ public class ModularForceFieldSystem
 	public static Item itemMultiToolManual;
 	public static Item itemCardInfinite;
 	public static Item itemCardDataLink;
+
+	/**
+	 * Upgrades
+	 */
 	public static Item itemUpgradeBoost;
 	public static Item itemUpgradeRange;
 	public static Item itemUpgradeCapacity;
-	public static Item itemModuleSphere;
-	public static Item itemModuleCube;
-	public static Item itemModuleWall;
-	public static Item itemModuleDeflector;
-	public static Item itemModuleTube;
-	public static Item itemModuleContainment;
-	public static Item itemModuleAdvancedCube;
-	public static Item itemModuleDiagonalWall;
+
+	/**
+	 * Module/Options
+	 */
 	public static Item itemOptionShock;
 	public static Item itemOptionSponge;
 	public static Item itemOptionFieldManipulator;
@@ -161,11 +176,23 @@ public class ModularForceFieldSystem
 	public static Item itemOptionJammer;
 	public static Item itemOptionCamouflage;
 	public static Item itemOptionFieldFusion;
+
+	/**
+	 * Modules
+	 */
+	public static Item itemModuleSphere;
+	public static Item itemModuleCube;
+	public static Item itemModuleWall;
+	public static Item itemModuleDeflector;
+	public static Item itemModuleTube;
+	public static Item itemModuleContainment;
+	public static Item itemModuleAdvancedCube;
+	public static Item itemModuleDiagonalWall;
 	public static Item itemModuleDistance;
 	public static Item itemModuleStrength;
 
-	public static int MonazitOreworldamount = 4;
-	public static int forcefieldblockcost;
+	public static OreGenBase monaziteOreGeneration;
+
 	public static int forcefieldblockcreatemodifier;
 	public static int forcefieldblockzappermodifier;
 	public static int forcefieldtransportcost;
@@ -181,6 +208,10 @@ public class ModularForceFieldSystem
 	public static int DefenceStationSearchForceEnergy;
 	public static int DefenceStationScannForceEnergy;
 	public static String Admin;
+
+	public static DamageSource fieldShock = new UEDamageSource("fieldShock").setDamageBypassesArmor();
+	public static DamageSource areaDefense = new UEDamageSource("areaDefense").setDamageBypassesArmor();
+	public static DamageSource fieldDefense = new UEDamageSource("fieldDefense").setDamageBypassesArmor();
 
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -232,7 +263,7 @@ public class ModularForceFieldSystem
 		try
 		{
 			CONFIGURATION.load();
-			TAB = new MFFSCreativeTab(CreativeTabs.getNextID(), "MFFS");
+			MFFSCreativeTab.INSTANCE = new MFFSCreativeTab(CreativeTabs.getNextID(), "MFFS");
 
 			Property prop_graphicstyle = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "GraphicStyle", 1);
 			prop_graphicstyle.comment = "Graphical style. 1 for UE Style, 2 for IC2 Style.";
@@ -254,10 +285,6 @@ public class ModularForceFieldSystem
 			uumatterForciciumprop.comment = "Add IC2 UU-Matter Recipes for Forcicium";
 			MFFSProperties.uumatterEnabled = uumatterForciciumprop.getBoolean(true);
 
-			Property monazitWorldAmount = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "MonazitOreWorldGen", 4);
-			monazitWorldAmount.comment = "Controls the size of the ore node that Monazit Ore will generate in";
-			MonazitOreworldamount = monazitWorldAmount.getInt(4);
-
 			Property adminList = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "ForceFieldMaster", "nobody");
 			adminList.comment = "Add users to this list to give them admin permissions split by ;";
 			Admin = adminList.value;
@@ -276,7 +303,7 @@ public class ModularForceFieldSystem
 
 			Property feFieldBlockCost = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldblockcost", 1);
 			feFieldBlockCost.comment = "How much upkeep FE cost a default ForceFieldblock per second";
-			forcefieldblockcost = feFieldBlockCost.getInt(1);
+			MFFSProperties.forcefieldblockcost = feFieldBlockCost.getInt(1);
 
 			Property BlockCreateMod = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "forcefieldblockcreatemodifier", 10);
 			BlockCreateMod.comment = "Energy need for create a ForceFieldblock (forcefieldblockcost*forcefieldblockcreatemodifier)";
@@ -375,6 +402,10 @@ public class ModularForceFieldSystem
 			itemUpgradeRange = new ItemUpgradeRange(MFFSProperties.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSProperties.item_upgradeCap_ID);
 
+			Property monazitWorldAmount = CONFIGURATION.get(CONFIGURATION.CATEGORY_GENERAL, "Monazit Generation", 15);
+			monazitWorldAmount.comment = "The amount of monazite to generate per chunk.";
+			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, monazitWorldAmount.getInt(15), 4).enable(CONFIGURATION);
+			OreGenerator.addOre(monaziteOreGeneration);
 		}
 		catch (Exception e)
 		{
@@ -402,14 +433,7 @@ public class ModularForceFieldSystem
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
-		proxy.registerRenderInformation();
-		proxy.registerTileEntitySpecialRenderer();
-
-		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator());
-
-		LanguageRegistry.instance().addStringLocalization("death.areaDefense", "en_US", "%1$s disregarded warnings and was fried");
-		LanguageRegistry.instance().addStringLocalization("death.fieldShock", "en_US", "%1$s was fried by a forcefield");
-		LanguageRegistry.instance().addStringLocalization("death.fieldDefense", "en_US", "%1$s was fried");
+		proxy.init();
 	}
 
 	@Mod.PostInit

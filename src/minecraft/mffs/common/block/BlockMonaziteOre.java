@@ -2,6 +2,7 @@ package mffs.common.block;
 
 import java.util.Random;
 
+import mffs.common.MFFSCreativeTab;
 import mffs.common.ModularForceFieldSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,7 +17,7 @@ public class BlockMonaziteOre extends Block
 		this.setHardness(3.0F);
 		this.setResistance(5.0F);
 		this.setStepSound(soundStoneFootstep);
-		this.setCreativeTab(ModularForceFieldSystem.TAB);
+		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
 		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 	}
 

@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 
 public class MFFSCreativeTab extends CreativeTabs
 {
+	public static CreativeTabs INSTANCE;
+
 	public MFFSCreativeTab(int par1, String par2Str)
 	{
 		super(par1, par2Str);

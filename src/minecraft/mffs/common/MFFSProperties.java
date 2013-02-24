@@ -75,4 +75,5 @@ public class MFFSProperties
 	public static boolean MODULE_EE = false;
 	public static boolean MODULE_BUILDCRAFT = false;
 	public static boolean MODULE_THERMAL_EXPANSION = false;
+	public static int forcefieldblockcost;
 }

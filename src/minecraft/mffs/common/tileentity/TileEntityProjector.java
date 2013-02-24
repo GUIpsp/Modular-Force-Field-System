@@ -17,6 +17,7 @@ import mffs.common.Functions;
 import mffs.common.IModularProjector;
 import mffs.common.InventoryHelper;
 import mffs.common.Linkgrid;
+import mffs.common.MFFSProperties;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
@@ -666,11 +667,11 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 
 		if (init)
 		{
-			cost = ModularForceFieldSystem.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier;
+			cost = MFFSProperties.forcefieldblockcost * ModularForceFieldSystem.forcefieldblockcreatemodifier;
 		}
 		else
 		{
-			cost = ModularForceFieldSystem.forcefieldblockcost;
+			cost = MFFSProperties.forcefieldblockcost;
 		}
 
 		if (getforcefieldblock_meta() == 1)
@@ -789,7 +790,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 	{
 		if (!this.field_def.isEmpty())
 		{
-			return this.field_def.size() * ModularForceFieldSystem.forcefieldblockcost;
+			return this.field_def.size() * MFFSProperties.forcefieldblockcost;
 		}
 
 		int forcepower = 0;
@@ -821,7 +822,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements I
 				blocks = countItemsInSlot(IModularProjector.Slots.Distance) * countItemsInSlot(IModularProjector.Slots.Distance) * 6;
 		}
 
-		forcepower = blocks * ModularForceFieldSystem.forcefieldblockcost;
+		forcepower = blocks * MFFSProperties.forcefieldblockcost;
 		if (factor != 1)
 		{
 			forcepower = forcepower * ModularForceFieldSystem.forcefieldblockcreatemodifier + forcepower * 5;

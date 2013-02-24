@@ -4,7 +4,7 @@ import java.util.List;
 
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
-import mffs.common.MFFSDamageSource;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.modules.ItemModuleSphere;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.EntityLiving;
@@ -59,7 +59,7 @@ public class ItemOptionAntibiotic extends ItemOptionBase
 						}
 						if (projector.consumePower(10000, true))
 						{
-							entityLiving.attackEntityFrom(MFFSDamageSource.fieldDefense, 10);
+							entityLiving.attackEntityFrom(ModularForceFieldSystem.fieldDefense, 10);
 							projector.consumePower(10000, false);
 						}
 					}

@@ -48,14 +48,8 @@ public enum ProjectorTypes
 	{
 		for (ProjectorTypes mach : values())
 		{
-			generateRecipesFor(mach);
-			addNameForObject(mach);
+			addRecipeFor(mach);
 		}
-	}
-
-	public static void addNameForObject(ProjectorTypes mach)
-	{
-		LanguageRegistry.instance().addNameForObject(mach.item, "en_US", " MFFS Projector Module  " + mach.displayName);
 	}
 
 	public static String getdisplayName(ProjectorTypes mach)
@@ -63,7 +57,7 @@ public enum ProjectorTypes
 		return "MFFS Projector Module  " + mach.displayName;
 	}
 
-	public static void generateRecipesFor(ProjectorTypes mach)
+	public static void addRecipeFor(ProjectorTypes mach)
 	{
 		String[] recipeSplit = { mach.recipe.substring(0, 3), mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 

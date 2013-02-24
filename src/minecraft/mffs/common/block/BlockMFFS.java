@@ -1,5 +1,6 @@
 package mffs.common.block;
 
+import mffs.common.MFFSCreativeTab;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -35,7 +36,7 @@ public abstract class BlockMFFS extends BlockMachine
 		this.setResistance(100.0F);
 		this.setStepSound(soundMetalFootstep);
 		this.setRequiresSelfNotify();
-		this.setCreativeTab(ModularForceFieldSystem.TAB);
+		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
 		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 	}
 
