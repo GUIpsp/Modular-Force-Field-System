@@ -25,22 +25,12 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityCapacitor extends TileEntityForcePowerMachine implements INetworkHandlerEventListener, IForceEnergyStorageBlock
 {
-	private ItemStack[] inventory;
-	private int forcePower;
-	private short linketprojector;
-	private int capacity;
-	private int linkMode;
-	private int transmitionRange;
-
-	public TileEntityCapacitor()
-	{
-		this.inventory = new ItemStack[5];
-		this.forcePower = 0;
-		this.linketprojector = 0;
-		this.transmitionRange = 8;
-		this.capacity = 0;
-		this.linkMode = 0;
-	}
+	private ItemStack[] inventory = new ItemStack[5];
+	private int forcePower = 0;
+	private short linketprojector = 0;
+	private int capacity = 0;
+	private int linkMode = 0;
+	private int transmitionRange = 0;
 
 	@Override
 	public void initiate()
