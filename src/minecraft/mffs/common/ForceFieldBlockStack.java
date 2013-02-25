@@ -8,98 +8,101 @@ import mffs.api.PointXYZ;
 
 public class ForceFieldBlockStack
 {
-	private PointXYZ png;
-	private boolean sync;
-	public Queue<ForceFieldBlock> blocks = new LinkedList();
 
-	public ForceFieldBlockStack(PointXYZ png)
-	{
-		this.png = png;
-		this.sync = false;
-	}
+    private PointXYZ png;
+    private boolean sync;
+    public Queue<ForceFieldBlock> blocks = new LinkedList();
 
-	public int getsize()
-	{
-		return this.blocks.size();
-	}
+    public ForceFieldBlockStack(PointXYZ png)
+    {
+        this.png = png;
+        this.sync = false;
+    }
 
-	public void removeBlock()
-	{
-		this.blocks.poll();
-	}
+    public int getsize()
+    {
+        return this.blocks.size();
+    }
 
-	public synchronized void removebyProjector(int projectorid)
-	{
-		ArrayList tempblock = new ArrayList();
+    public void removeBlock()
+    {
+        this.blocks.poll();
+    }
 
-		for (ForceFieldBlock ffblock : this.blocks)
-		{
-			if (ffblock.Projektor_ID == projectorid)
-			{
-				tempblock.add(ffblock);
-			}
-		}
-		if (!tempblock.isEmpty())
-			this.blocks.removeAll(tempblock);
-	}
+    public synchronized void removebyProjector(int projectorid)
+    {
+        ArrayList tempblock = new ArrayList();
 
-	public int getGenratorID()
-	{
-		ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
-		if (ffblock != null)
-		{
-			return ffblock.Generator_Id;
-		}
-		return 0;
-	}
+        for (ForceFieldBlock ffblock : this.blocks)
+        {
+            if (ffblock.Projektor_ID == projectorid)
+            {
+                tempblock.add(ffblock);
+            }
+        }
+        if (!tempblock.isEmpty())
+        {
+            this.blocks.removeAll(tempblock);
+        }
+    }
 
-	public int getProjectorID()
-	{
-		ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
-		if (ffblock != null)
-		{
-			return ffblock.Projektor_ID;
-		}
-		return 0;
-	}
+    public int getGenratorID()
+    {
+        ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
+        if (ffblock != null)
+        {
+            return ffblock.Generator_Id;
+        }
+        return 0;
+    }
 
-	public int getTyp()
-	{
-		ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
-		if (ffblock != null)
-		{
-			return ffblock.typ;
-		}
-		return -1;
-	}
+    public int getProjectorID()
+    {
+        ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
+        if (ffblock != null)
+        {
+            return ffblock.Projektor_ID;
+        }
+        return 0;
+    }
 
-	public void setSync(boolean sync)
-	{
-		this.sync = sync;
-	}
+    public int getTyp()
+    {
+        ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
+        if (ffblock != null)
+        {
+            return ffblock.typ;
+        }
+        return -1;
+    }
 
-	public boolean isSync()
-	{
-		return this.sync;
-	}
+    public void setSync(boolean sync)
+    {
+        this.sync = sync;
+    }
 
-	public boolean isEmpty()
-	{
-		return this.blocks.isEmpty();
-	}
+    public boolean isSync()
+    {
+        return this.sync;
+    }
 
-	public ForceFieldBlock get()
-	{
-		return (ForceFieldBlock) this.blocks.peek();
-	}
+    public boolean isEmpty()
+    {
+        return this.blocks.isEmpty();
+    }
 
-	public void add(int Generator_Id, int Projektor_ID, int typ)
-	{
-		this.blocks.offer(new ForceFieldBlock(Generator_Id, Projektor_ID, typ));
-	}
+    public ForceFieldBlock get()
+    {
+        return (ForceFieldBlock) this.blocks.peek();
+    }
 
-	public PointXYZ getPoint()
-	{
-		return this.png;
-	}
+    public void add(int Generator_Id, int Projektor_ID, int typ)
+    {
+        this.blocks.offer(new ForceFieldBlock(Generator_Id, Projektor_ID, typ));
+    }
+
+    public PointXYZ getPoint()
+    {
+        return this.png;
+    }
 }

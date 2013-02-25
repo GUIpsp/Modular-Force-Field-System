@@ -19,101 +19,141 @@ import net.minecraft.item.Item;
 
 public class ItemModuleSphere extends ItemModule3DBase
 {
-	public ItemModuleSphere(int i)
-	{
-		super(i, "moduleSphere");
-		setIconIndex(52);
-	}
 
-        @Override
-	public boolean supportsDistance()
-	{
-		return true;
-	}
+    public ItemModuleSphere(int i)
+    {
+        super(i, "moduleSphere");
+        setIconIndex(52);
+    }
 
-        @Override
-	public boolean supportsStrength()
-	{
-		return true;
-	}
+    @Override
+    public boolean supportsDistance()
+    {
+        return true;
+    }
 
-        @Override
-	public boolean supportsMatrix()
-	{
-		return false;
-	}
+    @Override
+    public boolean supportsStrength()
+    {
+        return true;
+    }
 
-        @Override
-	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
-	{
-		int radius = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4;
+    @Override
+    public boolean supportsMatrix()
+    {
+        return false;
+    }
 
-		int yDown = radius;
+    @Override
+    public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
+    {
+        int radius = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4;
 
-		if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
-		{
-			yDown = 0;
-		}
+        int yDown = radius;
 
-		for (int y1 = -yDown; y1 <= radius; y1++)
-			for (int x1 = -radius; x1 <= radius; x1++)
-				for (int z1 = -radius; z1 <= radius; z1++)
-				{
-					int dx = x1;
-					int dy = y1;
-					int dz = z1;
+        if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+        {
+            yDown = 0;
+        }
 
-					int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
+        for (int y1 = -yDown; y1 <= radius; y1++)
+        {
+            for (int x1 = -radius; x1 <= radius; x1++)
+            {
+                for (int z1 = -radius; z1 <= radius; z1++)
+                {
+                    int dx = x1;
+                    int dy = y1;
+                    int dz = z1;
 
-					if ((dist <= radius) && (dist > radius - (projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1)))
-						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
-					else if (dist <= radius)
-						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
-				}
-	}
+                    int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
 
-	public static boolean supportsOption(ItemOptionBase item)
-	{
-		if ((item instanceof ItemOptionCamoflage))
-			return true;
-		if ((item instanceof ItemOptionDefenseStation))
-			return true;
-		if ((item instanceof ItemOptionFieldFusion))
-			return true;
-		if ((item instanceof ItemOptionFieldManipulator))
-			return true;
-		if ((item instanceof ItemOptionJammer))
-			return true;
-		if ((item instanceof ItemOptionAntibiotic))
-			return true;
-		if ((item instanceof ItemOptionSponge))
-			return true;
-		if ((item instanceof ItemOptionCutter))
-			return true;
+                    if ((dist <= radius) && (dist > radius - (projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1)))
+                    {
+                        ffLocs.add(new PointXYZ(x1, y1, z1, 0));
+                    } else if (dist <= radius)
+                    {
+                        ffInterior.add(new PointXYZ(x1, y1, z1, 0));
+                    }
+                }
+            }
+        }
+    }
 
-		return false;
-	}
+    public static boolean supportsOption(ItemOptionBase item)
+    {
+        if ((item instanceof ItemOptionCamoflage))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionDefenseStation))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionFieldFusion))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionFieldManipulator))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionJammer))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionAntibiotic))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionSponge))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionCutter))
+        {
+            return true;
+        }
 
-        @Override
-	public boolean supportsOption(Item item)
-	{
-		if ((item instanceof ItemOptionCamoflage))
-			return true;
-		if ((item instanceof ItemOptionDefenseStation))
-			return true;
-		if ((item instanceof ItemOptionFieldFusion))
-			return true;
-		if ((item instanceof ItemOptionFieldManipulator))
-			return true;
-		if ((item instanceof ItemOptionJammer))
-			return true;
-		if ((item instanceof ItemOptionAntibiotic))
-			return true;
-		if ((item instanceof ItemOptionSponge))
-			return true;
-		if ((item instanceof ItemOptionCutter))
-			return true;
+        return false;
+    }
 
-		return false;
-	}
+    @Override
+    public boolean supportsOption(Item item)
+    {
+        if ((item instanceof ItemOptionCamoflage))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionDefenseStation))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionFieldFusion))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionFieldManipulator))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionJammer))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionAntibiotic))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionSponge))
+        {
+            return true;
+        }
+        if ((item instanceof ItemOptionCutter))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

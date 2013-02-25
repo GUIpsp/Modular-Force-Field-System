@@ -18,119 +18,120 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class ForceFieldServerUpdatehandler implements IScheduledTickHandler
 {
-	private static Map WorldForcedield = new MapMaker().weakKeys().makeMap();
 
-        @Override
-	public void tickEnd(EnumSet type, Object... tickData)
-	{
-		for (World world : DimensionManager.getWorlds())
-		{
-			StringBuilder str = new StringBuilder();
+    private static Map WorldForcedield = new MapMaker().weakKeys().makeMap();
 
-			while (!getWorldMap(world).queue.isEmpty())
-			{
-				str.append(getWorldMap(world).queue.pop());
-				str.append("/");
-				str.append(getWorldMap(world).queue.pop());
-				str.append("/");
-				str.append(getWorldMap(world).queue.pop());
-				str.append("!");
-				str.append(getWorldMap(world).queue.pop());
-				str.append("<");
-				str.append(getWorldMap(world).queue.pop());
-				str.append("/");
-				str.append(getWorldMap(world).queue.pop());
-				str.append("/");
-				str.append(getWorldMap(world).queue.pop());
-				str.append(">");
+    @Override
+    public void tickEnd(EnumSet type, Object... tickData)
+    {
+        for (World world : DimensionManager.getWorlds())
+        {
+            StringBuilder str = new StringBuilder();
 
-				if (str.length() > 7500)
-				{
-					break;
-				}
-			}
-			if (str.length() > 0)
-			{
-				try
-				{
-					ByteArrayOutputStream bos = new ByteArrayOutputStream(63000);
-					DataOutputStream dos = new DataOutputStream(bos);
-					int typ = 100;
+            while (!getWorldMap(world).queue.isEmpty())
+            {
+                str.append(getWorldMap(world).queue.pop());
+                str.append("/");
+                str.append(getWorldMap(world).queue.pop());
+                str.append("/");
+                str.append(getWorldMap(world).queue.pop());
+                str.append("!");
+                str.append(getWorldMap(world).queue.pop());
+                str.append("<");
+                str.append(getWorldMap(world).queue.pop());
+                str.append("/");
+                str.append(getWorldMap(world).queue.pop());
+                str.append("/");
+                str.append(getWorldMap(world).queue.pop());
+                str.append(">");
 
-					dos.writeInt(0);
-					dos.writeInt(0);
-					dos.writeInt(0);
-					dos.writeInt(typ);
-					dos.writeUTF(str.toString());
+                if (str.length() > 7500)
+                {
+                    break;
+                }
+            }
+            if (str.length() > 0)
+            {
+                try
+                {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream(63000);
+                    DataOutputStream dos = new DataOutputStream(bos);
+                    int typ = 100;
 
-					Packet250CustomPayload pkt = new Packet250CustomPayload();
-					pkt.channel = "MFFS";
-					pkt.data = bos.toByteArray();
-					pkt.length = bos.size();
-					pkt.isChunkDataPacket = true;
+                    dos.writeInt(0);
+                    dos.writeInt(0);
+                    dos.writeInt(0);
+                    dos.writeInt(typ);
+                    dos.writeUTF(str.toString());
 
-					PacketDispatcher.sendPacketToAllInDimension(pkt, world.provider.dimensionId);
-				}
-				catch (Exception e)
-				{
-					System.out.println(e.getLocalizedMessage());
-				}
-			}
+                    Packet250CustomPayload pkt = new Packet250CustomPayload();
+                    pkt.channel = "MFFS";
+                    pkt.data = bos.toByteArray();
+                    pkt.length = bos.size();
+                    pkt.isChunkDataPacket = true;
 
-			str.setLength(0);
-		}
-	}
+                    PacketDispatcher.sendPacketToAllInDimension(pkt, world.provider.dimensionId);
+                } catch (Exception e)
+                {
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
 
-        @Override
-	public void tickStart(EnumSet type, Object... tickData)
-	{
-	}
+            str.setLength(0);
+        }
+    }
 
-        @Override
-	public EnumSet ticks()
-	{
-		return EnumSet.of(TickType.PLAYER);
-	}
+    @Override
+    public void tickStart(EnumSet type, Object... tickData)
+    {
+    }
 
-        @Override
-	public String getLabel()
-	{
-		return "ForceField Server Ticker";
-	}
+    @Override
+    public EnumSet ticks()
+    {
+        return EnumSet.of(TickType.PLAYER);
+    }
 
-        @Override
-	public int nextTickSpacing()
-	{
-		return 1;
-	}
+    @Override
+    public String getLabel()
+    {
+        return "ForceField Server Ticker";
+    }
 
-	public static ForceFieldpacket getWorldMap(World world)
-	{
-		if (world != null)
-		{
-			if (!WorldForcedield.containsKey(world))
-			{
-				WorldForcedield.put(world, new ForceFieldpacket());
-			}
-			return (ForceFieldpacket) WorldForcedield.get(world);
-		}
+    @Override
+    public int nextTickSpacing()
+    {
+        return 1;
+    }
 
-		return null;
-	}
+    public static ForceFieldpacket getWorldMap(World world)
+    {
+        if (world != null)
+        {
+            if (!WorldForcedield.containsKey(world))
+            {
+                WorldForcedield.put(world, new ForceFieldpacket());
+            }
+            return (ForceFieldpacket) WorldForcedield.get(world);
+        }
 
-	public static class ForceFieldpacket
-	{
-		protected Stack queue = new Stack();
+        return null;
+    }
 
-		public void addto(int x, int y, int z, int dimensionId, int px, int py, int pz)
-		{
-			this.queue.push(Integer.valueOf(z));
-			this.queue.push(Integer.valueOf(y));
-			this.queue.push(Integer.valueOf(x));
-			this.queue.push(Integer.valueOf(dimensionId));
-			this.queue.push(Integer.valueOf(px));
-			this.queue.push(Integer.valueOf(py));
-			this.queue.push(Integer.valueOf(pz));
-		}
-	}
+    public static class ForceFieldpacket
+    {
+
+        protected Stack queue = new Stack();
+
+        public void addto(int x, int y, int z, int dimensionId, int px, int py, int pz)
+        {
+            this.queue.push(Integer.valueOf(z));
+            this.queue.push(Integer.valueOf(y));
+            this.queue.push(Integer.valueOf(x));
+            this.queue.push(Integer.valueOf(dimensionId));
+            this.queue.push(Integer.valueOf(px));
+            this.queue.push(Integer.valueOf(py));
+            this.queue.push(Integer.valueOf(pz));
+        }
+    }
 }

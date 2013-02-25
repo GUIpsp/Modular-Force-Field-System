@@ -9,62 +9,63 @@ import cpw.mods.fml.common.TickType;
 
 public final class ForceFieldClientUpdatehandler implements IScheduledTickHandler
 {
-	protected static Stack queue = new Stack();
 
-        @Override
-	public void tickEnd(EnumSet type, Object... tickData)
-	{
-		StringBuilder str = new StringBuilder();
+    protected static Stack queue = new Stack();
 
-		while (!queue.isEmpty())
-		{
-			str.append(queue.pop());
-			str.append("/");
-			str.append(queue.pop());
-			str.append("/");
-			str.append(queue.pop());
-			str.append("#");
+    @Override
+    public void tickEnd(EnumSet type, Object... tickData)
+    {
+        StringBuilder str = new StringBuilder();
 
-			if (str.length() > 7500)
-			{
-				break;
-			}
-		}
+        while (!queue.isEmpty())
+        {
+            str.append(queue.pop());
+            str.append("/");
+            str.append(queue.pop());
+            str.append("/");
+            str.append(queue.pop());
+            str.append("#");
 
-		if (str.length() > 0)
-		{
-			NetworkHandlerClient.requestForceFieldInitialData(ModularForceFieldSystem.proxy.getClientWorld().provider.dimensionId, str.toString());
-			str.setLength(0);
-		}
-	}
+            if (str.length() > 7500)
+            {
+                break;
+            }
+        }
 
-        @Override
-	public void tickStart(EnumSet type, Object... tickData)
-	{
-	}
+        if (str.length() > 0)
+        {
+            NetworkHandlerClient.requestForceFieldInitialData(ModularForceFieldSystem.proxy.getClientWorld().provider.dimensionId, str.toString());
+            str.setLength(0);
+        }
+    }
 
-        @Override
-	public EnumSet ticks()
-	{
-		return EnumSet.of(TickType.PLAYER);
-	}
+    @Override
+    public void tickStart(EnumSet type, Object... tickData)
+    {
+    }
 
-        @Override
-	public String getLabel()
-	{
-		return "ForceField Client Ticker";
-	}
+    @Override
+    public EnumSet ticks()
+    {
+        return EnumSet.of(TickType.PLAYER);
+    }
 
-        @Override
-	public int nextTickSpacing()
-	{
-		return 1;
-	}
+    @Override
+    public String getLabel()
+    {
+        return "ForceField Client Ticker";
+    }
 
-	public static void addto(int x, int y, int z)
-	{
-		queue.push(Integer.valueOf(x));
-		queue.push(Integer.valueOf(y));
-		queue.push(Integer.valueOf(z));
-	}
+    @Override
+    public int nextTickSpacing()
+    {
+        return 1;
+    }
+
+    public static void addto(int x, int y, int z)
+    {
+        queue.push(Integer.valueOf(x));
+        queue.push(Integer.valueOf(y));
+        queue.push(Integer.valueOf(z));
+    }
 }

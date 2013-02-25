@@ -6,11 +6,12 @@ import net.minecraft.item.Item;
 
 public class ItemMFFS extends Item
 {
-	public ItemMFFS(int id, String name)
-	{
-		super(ModularForceFieldSystem.CONFIGURATION.getItem(name, id).getInt(id));
-		this.setItemName(name);
-		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
-		this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
-	}
+
+    public ItemMFFS(int id, String name)
+    {
+        super(ModularForceFieldSystem.CONFIGURATION.getItem(name, id).getInt(id));
+        this.setItemName(name);
+        this.setCreativeTab(MFFSCreativeTab.INSTANCE);
+        this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
+    }
 }

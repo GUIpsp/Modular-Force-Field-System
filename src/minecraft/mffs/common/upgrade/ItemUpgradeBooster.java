@@ -11,26 +11,26 @@ import org.lwjgl.input.Keyboard;
 
 public class ItemUpgradeBooster extends ItemMFFS
 {
-	public ItemUpgradeBooster(int i)
-	{
-		super(i, "upgradeBooster");
-		setIconIndex(37);
-		setMaxStackSize(19);
-		this.setNoRepair();
 
-	}
+    public ItemUpgradeBooster(int i)
+    {
+        super(i, "upgradeBooster");
+        setIconIndex(37);
+        setMaxStackSize(19);
+        this.setNoRepair();
 
-        @Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-	{
-		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
-		{
-			info.add("Compatible with:");
-			info.add("MFFS " + MachineTypes.Extractor.getName());
-		}
-		else
-		{
-			info.add("Compatible with: (Hold Shift)");
-		}
-	}
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
+    {
+        if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
+        {
+            info.add("Compatible with:");
+            info.add("MFFS " + MachineTypes.Extractor.getName());
+        } else
+        {
+            info.add("Compatible with: (Hold Shift)");
+        }
+    }
 }

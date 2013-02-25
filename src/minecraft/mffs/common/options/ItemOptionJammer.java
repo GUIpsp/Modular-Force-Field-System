@@ -9,36 +9,37 @@ import net.minecraft.world.World;
 
 public class ItemOptionJammer extends ItemOptionBase implements IChecksOnAll
 {
-	public ItemOptionJammer(int i)
-	{
-		super(i,"optionJammer");
-		setIconIndex(41);
-	}
 
-	public boolean CheckJammerinfluence(PointXYZ png, World world, TileEntityProjector Projector)
-	{
-		Map<Integer, TileEntityProjector> InnerMap = null;
-		InnerMap = FrequencyGrid.getWorldMap(world).getJammer();
+    public ItemOptionJammer(int i)
+    {
+        super(i, "optionJammer");
+        setIconIndex(41);
+    }
 
-		for (TileEntityProjector tileentity : InnerMap.values())
-		{
-			boolean logicswitch = false;
+    public boolean CheckJammerinfluence(PointXYZ png, World world, TileEntityProjector Projector)
+    {
+        Map<Integer, TileEntityProjector> InnerMap = null;
+        InnerMap = FrequencyGrid.getWorldMap(world).getJammer();
 
-			logicswitch = tileentity.getPowerSourceID() != Projector.getPowerSourceID();
+        for (TileEntityProjector tileentity : InnerMap.values())
+        {
+            boolean logicswitch = false;
 
-			if ((logicswitch) && (tileentity.isActive()))
-			{
-				for (PointXYZ tpng : tileentity.getInteriorPoints())
-				{
-					if ((tpng.X == png.X) && (tpng.Y == png.Y) && (tpng.Z == png.Z))
-					{
-						Projector.ProjektorBurnout();
-						return true;
-					}
-				}
-			}
-		}
+            logicswitch = tileentity.getPowerSourceID() != Projector.getPowerSourceID();
 
-		return false;
-	}
+            if ((logicswitch) && (tileentity.isActive()))
+            {
+                for (PointXYZ tpng : tileentity.getInteriorPoints())
+                {
+                    if ((tpng.X == png.X) && (tpng.Y == png.Y) && (tpng.Z == png.Z))
+                    {
+                        Projector.ProjektorBurnout();
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
