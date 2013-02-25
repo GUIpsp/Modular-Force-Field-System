@@ -32,13 +32,14 @@ public class ItemCardEmpty extends ItemCard
 
 		if ((tileEntity instanceof TileEntitySecurityStation))
 		{
-			if (((TileEntitySecurityStation) tileEntity).isActive())
+                        TileEntitySecurityStation securityStation = (TileEntitySecurityStation) tileEntity;
+			if (securityStation.isActive())
 			{
 				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
 				{
 					ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardSecurityLink);
-					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", ((TileEntitySecurityStation) tileEntity).getDeviceID());
-					ItemCardSecurityLink.setforArea(newcard, ((TileEntitySecurityStation) tileEntity).getDeviceName());
+					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", securityStation.getDeviceID());
+					ItemCardSecurityLink.setforArea(newcard, securityStation.getDeviceName());
 
 					if (--itemstack.stackSize <= 0)
 						entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, newcard);

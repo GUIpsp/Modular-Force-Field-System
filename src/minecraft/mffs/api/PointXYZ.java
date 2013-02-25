@@ -6,83 +6,83 @@ import net.minecraftforge.common.DimensionManager;
 
 public class PointXYZ
 {
-	public int X = 0;
-	public int Y = 0;
-	public int Z = 0;
-	public int dimensionId;
+    public int X;
+    public int Y;
+    public int Z;
+    public int dimensionId;
 
-	public PointXYZ(int x, int y, int z)
-	{
-		this(x, y, z, 2147483647);
-	}
+    public PointXYZ(int x, int y, int z)
+    {
+        this(x, y, z, 2147483647);
+    }
 
-	public PointXYZ(int x, int y, int z, World worldObj)
-	{
-		this(x, y, z, worldObj.provider.dimensionId);
-	}
+    public PointXYZ(int x, int y, int z, World worldObj)
+    {
+        this(x, y, z, worldObj.provider.dimensionId);
+    }
 
-	public PointXYZ(int x, int y, int z, int dimensionId)
-	{
-		this.X = x;
-		this.Y = y;
-		this.Z = z;
-		this.dimensionId = dimensionId;
-	}
+    public PointXYZ(int x, int y, int z, int dimensionId)
+    {
+    	this.X = x;
+    	this.Y = y;
+    	this.Z = z;
+    	this.dimensionId = dimensionId;
+    }
 
-	public PointXYZ(NBTTagCompound nbt)
-	{
-		this(nbt.getInteger("x"), nbt.getInteger("y"), nbt.getInteger("z"), nbt.getInteger("dim"));
-	}
+    public PointXYZ(NBTTagCompound nbt)
+    {
+    	this(nbt.getInteger("x"), nbt.getInteger("y"), nbt.getInteger("z"), nbt.getInteger("dim"));
+    }
 
-	public NBTTagCompound asNBT()
-	{
-		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setInteger("x", this.X);
-		nbt.setInteger("y", this.Y);
-		nbt.setInteger("z", this.Z);
-		nbt.setInteger("dim", this.dimensionId);
-		return nbt;
-	}
+    public NBTTagCompound asNBT()
+    {
+    	NBTTagCompound nbt = new NBTTagCompound();
+    	nbt.setInteger("x", this.X);
+    	nbt.setInteger("y", this.Y);
+	nbt.setInteger("z", this.Z);
+    	nbt.setInteger("dim", this.dimensionId);
+    	return nbt;
+    }
 
-	public World getPointWorld()
-	{
-		if (this.dimensionId != 2147483647)
-			return DimensionManager.getWorld(this.dimensionId);
-		return null;
-	}
+    public World getPointWorld()
+    {
+    	if (this.dimensionId != 2147483647)
+            return DimensionManager.getWorld(this.dimensionId);
+            return null;
+    }
 
-	public static double distance(PointXYZ png1, PointXYZ png2)
+    public static double distance(PointXYZ png1, PointXYZ png2)
+    {
+        if (png1.dimensionId == png2.dimensionId)
 	{
-		if (png1.dimensionId == png2.dimensionId)
-		{
-			int dx = png1.X - png2.X;
-			int dy = png1.Y - png2.Y;
-			int dz = png1.Z - png2.Z;
-			return Math.sqrt(dx * dx + dy * dy + dz * dz);
-		}
-		return 2147483647.0D;
-	}
+            int dx = png1.X - png2.X;
+            int dy = png1.Y - png2.Y;
+            int dz = png1.Z - png2.Z;
+            return Math.sqrt(dx * dx + dy * dy + dz * dz);
+        }
+	return 2147483647.0D;
+    }
 
-        @Override
-	public boolean equals(Object pnt2)
-	{
-		if ((pnt2 instanceof PointXYZ))
-		{
-			PointXYZ p = (PointXYZ) pnt2;
-			return (this.X == p.X) && (this.Y == p.Y) && (this.Z == p.Z) && (this.dimensionId == p.dimensionId);
-		}
-		return false;
+    @Override
+    public boolean equals(Object pnt2)
+    {
+        if ((pnt2 instanceof PointXYZ))
+        {
+            PointXYZ p = (PointXYZ) pnt2;
+            return (this.X == p.X) && (this.Y == p.Y) && (this.Z == p.Z) && (this.dimensionId == p.dimensionId);
 	}
+	return false;
+    }
 
-        @Override
-	public int hashCode()
-	{
-		return ("X: " + this.X + " Y: " + this.Y + " Z: " + this.Z + "D: " + this.dimensionId).hashCode();
-	}
+    @Override
+    public int hashCode()
+    {
+        return ("X: " + this.X + " Y: " + this.Y + " Z: " + this.Z + "D: " + this.dimensionId).hashCode();
+    }
 
-        @Override
-	public String toString()
-	{
-		return "X: " + this.X + " Y: " + this.Y + " Z: " + this.Z;
-	}
+    @Override
+    public String toString()
+    {
+        return "X: " + this.X + " Y: " + this.Y + " Z: " + this.Z;
+    }
 }
