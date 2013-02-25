@@ -12,12 +12,14 @@ public abstract class ItemModule3DBase extends ItemModuleBase
 		super(i, name);
 	}
 
+        @Override
 	public void calculateField(IModularProjector projector, Set points)
 	{
 	}
 
 	public abstract void calculateField(IModularProjector paramIModularProjector, Set paramSet1, Set paramSet2);
 
+        @Override
 	public ForceFieldTyps getForceFieldTyps()
 	{
 		if ((this instanceof ItemModuleContainment))

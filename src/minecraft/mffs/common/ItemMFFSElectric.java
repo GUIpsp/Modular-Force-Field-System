@@ -12,6 +12,7 @@ public abstract class ItemMFFSElectric extends ItemMFFS implements IForceEnergyI
 		super(i, name);
 	}
 
+        @Override
 	public boolean consumePower(ItemStack itemStack, int amount, boolean simulation)
 	{
 		if ((itemStack.getItem() instanceof IForceEnergyItems))

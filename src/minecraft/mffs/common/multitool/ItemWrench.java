@@ -23,6 +23,7 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 		super(id, 0, "multitoolWrench");
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -140,11 +141,13 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 		return false;
 	}
 
+        @Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		return super.onItemRightClick(itemstack, world, entityplayer);
 	}
 
+        @Override
 	public boolean canWrench(EntityPlayer player, int x, int y, int z)
 	{
 		if (consumePower(player.inventory.getCurrentItem(), 1000, true))
@@ -154,6 +157,7 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 		return false;
 	}
 
+        @Override
 	public void wrenchUsed(EntityPlayer player, int x, int y, int z)
 	{
 		consumePower(player.inventory.getCurrentItem(), 1000, false);

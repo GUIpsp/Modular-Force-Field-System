@@ -26,21 +26,25 @@ public class ItemAccessCard extends ItemCardPersonalID
 		setMaxStackSize(1);
 	}
 
+        @Override
 	public String getTextureFile()
 	{
 		return ModularForceFieldSystem.ITEM_TEXTURE_FILE;
 	}
 
+        @Override
 	public boolean isRepairable()
 	{
 		return false;
 	}
 
+        @Override
 	public boolean isDamageable()
 	{
 		return true;
 	}
 
+        @Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{
 		if (this.Tick > 1200)
@@ -142,6 +146,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 		return "not set";
 	}
 
+        @Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		String SecurityArea = String.format("Security Area: %s ", new Object[] { getforAreaname(itemStack) });

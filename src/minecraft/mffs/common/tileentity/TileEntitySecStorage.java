@@ -21,17 +21,20 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		this.inventory = new ItemStack[60];
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.inventory.length; a++)
 			dropplugins(a, this);
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}
 
+        @Override
 	public void invalidate()
 	{
 		FrequencyGrid.getWorldMap(this.worldObj).getSecStorage().remove(Integer.valueOf(getDeviceID()));
@@ -46,11 +49,13 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return 0;
 	}
 
+        @Override
 	public short getmaxSwitchModi()
 	{
 		return 3;
 	}
 
+        @Override
 	public short getminSwitchModi()
 	{
 		return 2;
@@ -70,6 +75,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return count;
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -82,6 +88,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		super.updateEntity();
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -97,6 +104,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -115,21 +123,25 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.inventory[i];
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "SecStation";
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.inventory.length;
 	}
 
+        @Override
 	public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
 	{
 		this.inventory[par1] = par2ItemStack;
@@ -142,6 +154,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		onInventoryChanged();
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.inventory[i] != null)
@@ -162,6 +175,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return null;
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		if (isActive())
@@ -169,6 +183,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return 1;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		if (isActive())
@@ -176,11 +191,13 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return 54;
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerSecStorage(inventoryplayer.player, this);
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -195,6 +212,7 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return true;
 	}
 
+        @Override
 	public int getSlotStackLimit(int slt)
 	{
 		if (slt == 0)

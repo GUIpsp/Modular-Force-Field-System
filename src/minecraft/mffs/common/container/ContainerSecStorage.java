@@ -46,11 +46,13 @@ public class ContainerSecStorage extends Container
 		return this.player;
 	}
 
+        @Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
 		return this.SecStorage.isUseableByPlayer(entityplayer);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i)
 	{
 		ItemStack itemstack = null;

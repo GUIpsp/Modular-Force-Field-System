@@ -26,6 +26,7 @@ public class ItemFieldTransporter extends ItemMultitool
 		super(id, 4, "multitoolTransporter");
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -185,6 +186,7 @@ public class ItemFieldTransporter extends ItemMultitool
 		return true;
 	}
 
+        @Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		return super.onItemRightClick(itemstack, world, entityplayer);

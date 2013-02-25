@@ -63,11 +63,13 @@ public class ContainerProjector extends Container
 		return this.player;
 	}
 
+        @Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
 		return this.projectorentity.isUseableByPlayer(entityplayer);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i)
 	{
 		ItemStack itemstack = null;
@@ -92,6 +94,7 @@ public class ContainerProjector extends Container
 		return itemstack;
 	}
 
+        @Override
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
@@ -124,6 +127,7 @@ public class ContainerProjector extends Container
 		this.capacity = this.projectorentity.getPercentageCapacity();
 	}
 
+        @Override
 	public void updateProgressBar(int i, int j)
 	{
 		switch (i)

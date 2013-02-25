@@ -32,6 +32,7 @@ public class GuiSecurityStation extends GuiContainer
 		this.ySize = 216;
 	}
 
+        @Override
 	protected void keyTyped(char c, int i)
 	{
 		if ((i != 1) && (this.editMode))
@@ -55,6 +56,7 @@ public class GuiSecurityStation extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY)
 	{
 		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiAdvSecstation.png");
@@ -121,6 +123,7 @@ public class GuiSecurityStation extends GuiContainer
 		var10.draw();
 	}
 
+        @Override
 	protected void mouseClicked(int i, int j, int k)
 	{
 		super.mouseClicked(i, j, k);
@@ -154,6 +157,7 @@ public class GuiSecurityStation extends GuiContainer
 			NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 100, this.hoverSR.rightKey);
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		this.fontRenderer.drawString("MFFS Security Station:", 8, 8, 4210752);

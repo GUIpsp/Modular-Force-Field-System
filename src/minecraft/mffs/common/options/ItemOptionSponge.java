@@ -13,6 +13,7 @@ public class ItemOptionSponge extends ItemOptionBase implements IInteriorCheck
 		setIconIndex(35);
 	}
 
+        @Override
 	public void checkInteriorBlock(PointXYZ png, World world, TileEntityProjector Projector)
 	{
 		if (world.getBlockMaterial(png.X, png.Y, png.Z).isLiquid())

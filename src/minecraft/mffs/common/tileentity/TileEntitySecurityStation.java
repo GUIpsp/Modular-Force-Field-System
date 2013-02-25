@@ -36,6 +36,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		this.MainUser = "";
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.inventory.length; a++)
@@ -74,17 +75,20 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		}
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerSecurityStation(inventoryplayer.player, this);
 	}
 
+        @Override
 	public void invalidate()
 	{
 		FrequencyGrid.getWorldMap(this.worldObj).getSecStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -101,6 +105,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -120,6 +125,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -181,21 +187,25 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		}
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.inventory.length;
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.inventory[i];
 	}
 
+        @Override
 	public int getInventoryStackLimit()
 	{
 		return 1;
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.inventory[i] != null)
@@ -216,6 +226,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return null;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.inventory[i] = itemstack;
@@ -223,6 +234,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "Secstation";
@@ -334,16 +346,19 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return this.inventory;
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public List getFieldsforUpdate()
 	{
 		List NetworkedFields = new LinkedList();
@@ -355,6 +370,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return NetworkedFields;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -377,6 +393,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return false;
 	}
 
+        @Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
 		switch (key)
@@ -430,11 +447,13 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return null;
 	}
 
+        @Override
 	public int getSlotStackLimit(int slt)
 	{
 		return 1;
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return this;

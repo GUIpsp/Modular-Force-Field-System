@@ -71,6 +71,7 @@ public class ContainerAreaDefenseStation extends Container
 		return this.player;
 	}
 
+        @Override
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
@@ -107,6 +108,7 @@ public class ContainerAreaDefenseStation extends Container
 		this.capacity = this.defstation.getPercentageCapacity();
 	}
 
+        @Override
 	public void updateProgressBar(int i, int j)
 	{
 		switch (i)
@@ -125,11 +127,13 @@ public class ContainerAreaDefenseStation extends Container
 		}
 	}
 
+        @Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
 		return this.defstation.isUseableByPlayer(entityplayer);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i)
 	{
 		return null;

@@ -17,11 +17,13 @@ public class SlotHelper extends Slot
 		this.Slot = par3;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack)
 	{
 		return this.te.isItemValid(par1ItemStack, this.Slot);
 	}
 
+        @Override
 	public int getSlotStackLimit()
 	{
 		return this.te.getSlotStackLimit(this.Slot);

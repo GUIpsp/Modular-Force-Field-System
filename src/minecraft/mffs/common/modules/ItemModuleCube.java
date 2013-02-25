@@ -26,21 +26,25 @@ public class ItemModuleCube extends ItemModule3DBase
 		setIconIndex(53);
 	}
 
+        @Override
 	public boolean supportsDistance()
 	{
 		return true;
 	}
 
+        @Override
 	public boolean supportsStrength()
 	{
 		return false;
 	}
 
+        @Override
 	public boolean supportsMatrix()
 	{
 		return false;
 	}
 
+        @Override
 	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
 	{
 		int radius = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4;
@@ -91,6 +95,7 @@ public class ItemModuleCube extends ItemModule3DBase
 		return false;
 	}
 
+        @Override
 	public boolean supportsOption(Item item)
 	{
 		if ((item instanceof ItemOptionCamoflage))

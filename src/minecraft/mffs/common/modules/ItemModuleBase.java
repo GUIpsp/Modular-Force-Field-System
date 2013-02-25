@@ -43,6 +43,7 @@ public abstract class ItemModuleBase extends ItemMFFS
 
 	public abstract void calculateField(IModularProjector modularProjector, Set paramSet);
 
+        @Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float hitX, float hitY, float hitZ)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);

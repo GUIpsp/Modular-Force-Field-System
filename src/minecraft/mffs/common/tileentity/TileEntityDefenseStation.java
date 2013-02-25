@@ -124,17 +124,20 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		return false;
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 1, this.worldObj);
 	}
-
+        
+        @Override
 	public void invalidate()
 	{
 		FrequencyGrid.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -153,6 +156,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -174,6 +178,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.Inventory.length; a++)
@@ -521,6 +526,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		}
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -564,6 +570,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		super.updateEntity();
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.Inventory[i] != null)
@@ -584,6 +591,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		return null;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.Inventory[i] = itemstack;
@@ -591,36 +599,43 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.Inventory[i];
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "Defstation";
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.Inventory.length;
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerAreaDefenseStation(inventoryplayer.player, this);
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 15;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 20;
 	}
 
+        @Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
 		if (!isActive())
@@ -658,16 +673,19 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		super.onNetworkHandlerEvent(key, value);
 	}
 
+        @Override
 	public short getmaxSwitchModi()
 	{
 		return 3;
 	}
 
+        @Override
 	public short getminSwitchModi()
 	{
 		return 1;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -696,6 +714,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		return false;
 	}
 
+        @Override
 	public int getSlotStackLimit(int Slot)
 	{
 		switch (Slot)
@@ -719,11 +738,13 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		return 64;
 	}
 
+        @Override
 	public ItemStack getPowerLinkStack()
 	{
 		return getStackInSlot(getPowerlinkSlot());
 	}
 
+        @Override
 	public int getPowerlinkSlot()
 	{
 		return 0;

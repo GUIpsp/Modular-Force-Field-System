@@ -23,6 +23,7 @@ public class ItemCardDataLink extends ItemCard
 		setIconIndex(22);
 	}
 
+        @Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{
 		super.onUpdate(itemStack, world, entity, par4, par5);
@@ -56,6 +57,7 @@ public class ItemCardDataLink extends ItemCard
 		super.setInformation(itemStack, png, key, value);
 	}
 
+        @Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);

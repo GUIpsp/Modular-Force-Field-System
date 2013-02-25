@@ -24,6 +24,7 @@ public class GuiSecStorage extends GuiContainer
 		this.ySize = 238;
 	}
 
+        @Override
 	protected void keyTyped(char c, int i)
 	{
 		if ((i != 1) && (this.editMode))
@@ -47,17 +48,20 @@ public class GuiSecStorage extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, guibutton.id, "");
 	}
 
+        @Override
 	public void initGui()
 	{
 		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 113, this.SecStorage, 0));
 		super.initGui();
 	}
 
+        @Override
 	protected void mouseClicked(int i, int j, int k)
 	{
 		super.mouseClicked(i, j, k);
@@ -79,6 +83,7 @@ public class GuiSecStorage extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiSecStorage.png");
@@ -89,6 +94,7 @@ public class GuiSecStorage extends GuiContainer
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString(this.SecStorage.getDeviceName(), 12, 9, 4210752);

@@ -18,21 +18,25 @@ public class ItemModuleWall extends ItemModuleBase
 		setIconIndex(49);
 	}
 
+        @Override
 	public boolean supportsDistance()
 	{
 		return true;
 	}
 
+        @Override
 	public boolean supportsStrength()
 	{
 		return true;
 	}
 
+        @Override
 	public boolean supportsMatrix()
 	{
 		return true;
 	}
 
+        @Override
 	public void calculateField(IModularProjector projector, Set ffLocs)
 	{
 		int tpx = 0;
@@ -103,6 +107,7 @@ public class ItemModuleWall extends ItemModuleBase
 		return false;
 	}
 
+        @Override
 	public boolean supportsOption(Item item)
 	{
 		if ((item instanceof ItemOptionCutter))

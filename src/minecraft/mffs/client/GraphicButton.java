@@ -25,6 +25,7 @@ public class GraphicButton extends GuiButton
 		this.typ = typ;
 	}
 
+        @Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3)
 	{
 		if (this.drawButton)

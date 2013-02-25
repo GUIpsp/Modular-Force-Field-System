@@ -48,11 +48,13 @@ public class ContainerForceEnergyExtractor extends Container
 		return this.player;
 	}
 
+        @Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
 		return this.ForceEnergyExtractor.isUseableByPlayer(entityplayer);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i)
 	{
 		ItemStack itemstack = null;
@@ -77,6 +79,7 @@ public class ContainerForceEnergyExtractor extends Container
 		return itemstack;
 	}
 
+        @Override
 	public void updateProgressBar(int i, int j)
 	{
 		switch (i)
@@ -96,6 +99,7 @@ public class ContainerForceEnergyExtractor extends Container
 		}
 	}
 
+        @Override
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();

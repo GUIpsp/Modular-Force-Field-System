@@ -15,6 +15,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy
 {
+        @Override
 	public void init()
 	{
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
@@ -25,11 +26,13 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(new MFFSBlockRenderer());
 	}
 
+        @Override
 	public World getClientWorld()
 	{
 		return FMLClientHandler.instance().getClient().theWorld;
 	}
 
+        @Override
 	public boolean isClient()
 	{
 		return true;

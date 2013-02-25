@@ -24,6 +24,7 @@ public class ContainerCapacitor extends ContainerMFFS
 		this.addPlayerInventory(player);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID)
 	{
 		ItemStack itemstack = null;

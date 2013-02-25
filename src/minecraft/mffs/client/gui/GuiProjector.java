@@ -25,6 +25,7 @@ public class GuiProjector extends GuiContainer
 		this.ySize = 186;
 	}
 
+        @Override
 	protected void keyTyped(char c, int i)
 	{
 		if ((i != 1) && (this.editMode))
@@ -48,6 +49,7 @@ public class GuiProjector extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void mouseClicked(int i, int j, int k)
 	{
 		super.mouseClicked(i, j, k);
@@ -69,6 +71,7 @@ public class GuiProjector extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiProjector.png");
@@ -111,11 +114,13 @@ public class GuiProjector extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		NetworkHandlerClient.fireTileEntityEvent(this.projector, guibutton.id, "");
 	}
 
+        @Override
 	public void initGui()
 	{
 		this.controlList.add(new GraphicButton(1, this.width / 2 + 4, this.height / 2 - 37, this.projector, 1));
@@ -124,6 +129,7 @@ public class GuiProjector extends GuiContainer
 		super.initGui();
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString(this.projector.getDeviceName(), 12, 9, 4210752);

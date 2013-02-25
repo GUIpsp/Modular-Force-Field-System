@@ -7,6 +7,7 @@ import codechicken.nei.api.IConfigureNEI;
 
 public class NEI_MFFS_Config implements IConfigureNEI
 {
+        @Override
 	public void loadConfig()
 	{
 		API.hideItem(ModularForceFieldSystem.itemMultiToolSwitch.itemID);
@@ -74,11 +75,13 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		API.addSetRange("MFFS.Blocks", blocks);
 	}
 
+        @Override
 	public String getName()
 	{
 		return ModularForceFieldSystem.NAME;
 	}
 
+        @Override
 	public String getVersion()
 	{
 		return ModularForceFieldSystem.VERSION;

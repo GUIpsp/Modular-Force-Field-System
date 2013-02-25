@@ -29,6 +29,7 @@ public class GuiControlSystem extends GuiContainer
 		this.player = player;
 	}
 
+        @Override
 	protected void keyTyped(char c, int i)
 	{
 		if ((i != 1) && (this.editMode))
@@ -52,6 +53,7 @@ public class GuiControlSystem extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void mouseClicked(int i, int j, int k)
 	{
 		super.mouseClicked(i, j, k);
@@ -73,6 +75,7 @@ public class GuiControlSystem extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiControlSystem.png");
@@ -83,6 +86,7 @@ public class GuiControlSystem extends GuiContainer
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
 	}
 
+        @Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		if (guibutton.id == 103)
@@ -91,6 +95,7 @@ public class GuiControlSystem extends GuiContainer
 			NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, "");
 	}
 
+        @Override
 	public void initGui()
 	{
 		this.controlList.add(new GraphicButton(100, this.width / 2 - 115, this.height / 2 - 45, this.ControlSystem, 1));
@@ -100,6 +105,7 @@ public class GuiControlSystem extends GuiContainer
 		super.initGui();
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("MFFS Control System", 8, 9, 4210752);
