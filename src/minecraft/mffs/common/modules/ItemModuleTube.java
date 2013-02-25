@@ -24,21 +24,25 @@ public class ItemModuleTube extends ItemModule3DBase
 		setIconIndex(51);
 	}
 
+        @Override
 	public boolean supportsDistance()
 	{
 		return true;
 	}
 
+        @Override
 	public boolean supportsStrength()
 	{
 		return true;
 	}
 
+        @Override
 	public boolean supportsMatrix()
 	{
 		return false;
 	}
 
+        @Override
 	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
 	{
 		int tpx = 0;
@@ -164,6 +168,7 @@ public class ItemModuleTube extends ItemModule3DBase
 		return false;
 	}
 
+        @Override
 	public boolean supportsOption(Item item)
 	{
 		if ((item instanceof ItemOptionCamoflage))

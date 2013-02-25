@@ -3,7 +3,6 @@ package mffs.common.container;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -24,6 +23,7 @@ public class ContainerCapacitor extends ContainerMFFS
 		this.addPlayerInventory(player);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID)
 	{
 		ItemStack itemstack = null;

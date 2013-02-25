@@ -111,6 +111,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		this.IC_Outputpacketamount = iC_Outputpacketamount;
 	}
 
+        @Override
 	public void setSide(int i)
 	{
 		super.setSide(i);
@@ -137,6 +138,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		this.capacity = Capacity;
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -196,12 +198,14 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		super.updateEntity();
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.inventory.length; a++)
 			dropplugins(a, this);
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -231,6 +235,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -258,21 +263,25 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.inventory[i];
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "Extractor";
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.inventory.length;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.inventory[i] = itemstack;
@@ -280,6 +289,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.inventory[i] != null)
@@ -300,26 +310,31 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		return null;
 	}
 
+        @Override
 	public ItemStack getStackInSlotOnClosing(int var1)
 	{
 		return null;
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 1;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 1;
 	}
 
+        @Override
 	public void onNetworkHandlerUpdate(String field)
 	{
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
+        @Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
 		if (key == 100)
@@ -507,6 +522,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void invalidate()
 	{
 		if (this.addedToEnergyNet)
@@ -518,26 +534,31 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		super.invalidate();
 	}
 
+        @Override
 	public boolean isAddedToEnergyNet()
 	{
 		return this.addedToEnergyNet;
 	}
 
+        @Override
 	public int getMaxEnergyOutput()
 	{
 		return 2147483647;
 	}
 
+        @Override
 	public boolean emitsEnergyTo(TileEntity receiver, Direction direction)
 	{
 		return receiver instanceof IEnergyAcceptor;
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerConverter(inventoryplayer.player, this);
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -552,26 +573,31 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		return true;
 	}
 
+        @Override
 	public int getSlotStackLimit(int Slot)
 	{
 		return 1;
 	}
 
+        @Override
 	public ItemStack getPowerLinkStack()
 	{
 		return getStackInSlot(getPowerlinkSlot());
 	}
 
+        @Override
 	public int getPowerlinkSlot()
 	{
 		return 0;
 	}
 
+        @Override
 	public short getmaxSwitchModi()
 	{
 		return 3;
 	}
 
+        @Override
 	public short getminSwitchModi()
 	{
 		return 1;
@@ -586,6 +612,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));

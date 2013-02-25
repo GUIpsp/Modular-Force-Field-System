@@ -41,6 +41,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 		return false;
 	}
 
+        @Override
 	public void checkInteriorBlock(PointXYZ png, World world, TileEntityProjector Proj)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(png.X, png.Y, png.Z, world);

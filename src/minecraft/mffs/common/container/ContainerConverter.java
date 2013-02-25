@@ -49,6 +49,7 @@ public class ContainerConverter extends Container
 			addSlotToContainer(new Slot(player.inventory, var3, 50 + var3 * 18, 191));
 	}
 
+        @Override
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
@@ -103,6 +104,7 @@ public class ContainerConverter extends Container
 		this.UE_Output = this.Convertor.getUE_Output();
 	}
 
+        @Override
 	public void updateProgressBar(int i, int j)
 	{
 		switch (i)
@@ -142,11 +144,13 @@ public class ContainerConverter extends Container
 		return this.player;
 	}
 
+        @Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
 		return this.Convertor.isUseableByPlayer(entityplayer);
 	}
 
+        @Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i)
 	{
 		ItemStack itemstack = null;

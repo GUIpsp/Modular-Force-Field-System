@@ -13,6 +13,7 @@ public class ItemModuleDiagonalWall extends ItemModuleWall
 		setIconIndex(56);
 	}
 
+        @Override
 	public void calculateField(IModularProjector projector, Set ffLocs)
 	{
 		int tpx = 0;

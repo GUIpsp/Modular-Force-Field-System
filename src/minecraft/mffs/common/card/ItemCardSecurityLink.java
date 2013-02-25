@@ -27,6 +27,7 @@ public class ItemCardSecurityLink extends ItemCard
 		setIconIndex(19);
 	}
 
+        @Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{
 		super.onUpdate(itemStack, world, entity, par4, par5);
@@ -103,6 +104,7 @@ public class ItemCardSecurityLink extends ItemCard
 		return null;
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float hitX, float hitY, float hitZ)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);

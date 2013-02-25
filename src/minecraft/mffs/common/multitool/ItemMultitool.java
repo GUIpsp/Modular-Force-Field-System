@@ -35,8 +35,10 @@ public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEn
 		this(id, typ, true, name);
 	}
 
+        @Override
 	public abstract boolean onItemUseFirst(ItemStack paramItemStack, EntityPlayer paramEntityPlayer, World paramWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4, float paramFloat1, float paramFloat2, float paramFloat3);
 
+        @Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		if (entityplayer.isSneaking())
@@ -64,32 +66,38 @@ public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEn
 		return itemstack;
 	}
 
+        @Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
 	{
 		par1ItemStack.setItemDamage(getItemDamage(par1ItemStack));
 	}
 
+        @Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		String tooltip = String.format("%d FE/%d FE ", new Object[] { Integer.valueOf(getAvailablePower(itemStack)), Integer.valueOf(getMaximumPower(itemStack)) });
 		info.add(tooltip);
 	}
-
+        
+        @Override
 	public int getPowerTransferrate()
 	{
 		return 50000;
 	}
 
+        @Override
 	public int getMaximumPower(ItemStack itemStack)
 	{
 		return 1000000;
 	}
 
+        @Override
 	public int getItemDamage(ItemStack itemStack)
 	{
 		return 101 - getAvailablePower(itemStack) * 100 / getMaximumPower(itemStack);
 	}
 
+        @Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int i, CreativeTabs tabs, List itemList)
 	{

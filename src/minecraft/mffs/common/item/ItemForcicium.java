@@ -9,6 +9,7 @@ public class ItemForcicium extends ItemMFFS
 		this.setMaxStackSize(64);
 	}
 
+        @Override
 	public boolean isRepairable()
 	{
 		return false;

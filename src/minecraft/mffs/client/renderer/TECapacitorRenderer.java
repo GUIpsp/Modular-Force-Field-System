@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class TECapacitorRenderer extends TileEntitySpecialRenderer
 {
+        @Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
 	{
 		if ((tileEntity instanceof TileEntityCapacitor))

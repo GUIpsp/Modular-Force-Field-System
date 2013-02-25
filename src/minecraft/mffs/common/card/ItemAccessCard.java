@@ -26,21 +26,13 @@ public class ItemAccessCard extends ItemCardPersonalID
 		setMaxStackSize(1);
 	}
 
+        @Override
 	public String getTextureFile()
 	{
 		return ModularForceFieldSystem.ITEM_TEXTURE_FILE;
 	}
 
-	public boolean isRepairable()
-	{
-		return false;
-	}
-
-	public boolean isDamageable()
-	{
-		return true;
-	}
-
+        @Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{
 		if (this.Tick > 1200)
@@ -84,26 +76,6 @@ public class ItemAccessCard extends ItemCardPersonalID
 		return 0;
 	}
 
-	public static boolean hasRight(ItemStack itemStack, SecurityRight sr)
-	{
-		NBTTagCompound itemTag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		NBTTagCompound rightsTag = itemTag.getCompoundTag("rights");
-
-		if (itemTag.hasKey(sr.rightKey))
-		{
-			setRight(itemStack, sr, itemTag.getBoolean(sr.rightKey));
-			itemTag.removeTag(sr.rightKey);
-		}
-		return rightsTag.getBoolean(sr.rightKey);
-	}
-
-	public static void setRight(ItemStack itemStack, SecurityRight sr, boolean value)
-	{
-		NBTTagCompound rightsTag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack).getCompoundTag("rights");
-		rightsTag.setBoolean(sr.rightKey, value);
-		NBTTagCompoundHelper.getTAGfromItemstack(itemStack).setCompoundTag("rights", rightsTag);
-	}
-
 	public static int getlinkID(ItemStack itemstack)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemstack);
@@ -142,6 +114,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 		return "not set";
 	}
 
+        @Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		String SecurityArea = String.format("Security Area: %s ", new Object[] { getforAreaname(itemStack) });

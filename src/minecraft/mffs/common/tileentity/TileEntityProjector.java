@@ -196,12 +196,14 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return this.burnout;
 	}
 
+        @Override
 	public void setBurnedOut(boolean b)
 	{
 		this.burnout = b;
 		NetworkHandlerServer.updateTileEntityField(this, "burnout");
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -223,6 +225,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -247,12 +250,14 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.ProjektorItemStacks.length; a++)
 			dropplugins(a, this);
 	}
 
+        @Override
 	public void onInventoryChanged()
 	{
 		getLinkedSecurityStation();
@@ -478,6 +483,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -779,6 +785,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void invalidate()
 	{
 		FrequencyGrid.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
@@ -831,6 +838,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return forcepower;
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.ProjektorItemStacks[i] != null)
@@ -851,6 +859,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return null;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.ProjektorItemStacks[i] = itemstack;
@@ -858,36 +867,43 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.ProjektorItemStacks[i];
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "Projektor";
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.ProjektorItemStacks.length;
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerProjector(inventoryplayer.player, this);
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 11;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 1;
 	}
 
+        @Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
 		if (!isActive())
@@ -915,6 +931,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		super.onNetworkHandlerEvent(key, value);
 	}
 
+        @Override
 	public List getFieldsforUpdate()
 	{
 		List NetworkedFields = new LinkedList();
@@ -933,6 +950,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return NetworkedFields;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		if ((Slot == 1) && ((par1ItemStack.getItem() instanceof ItemModuleBase)))
@@ -1037,6 +1055,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return false;
 	}
 
+        @Override
 	public int getSlotStackLimit(int Slot)
 	{
 		switch (Slot)
@@ -1070,6 +1089,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return null;
 	}
 
+        @Override
 	public Set<PointXYZ> getInteriorPoints()
 	{
 		return this.field_interior;
@@ -1080,6 +1100,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return this.field_def;
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		TileEntitySecurityStation sec = ItemCardSecurityLink.getLinkedSecurityStation(this, 12, this.worldObj);
@@ -1138,21 +1159,25 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return ret;
 	}
 
+        @Override
 	public short getmaxSwitchModi()
 	{
 		return 3;
 	}
 
+        @Override
 	public short getminSwitchModi()
 	{
 		return 1;
 	}
 
+        @Override
 	public ItemStack getPowerLinkStack()
 	{
 		return getStackInSlot(getPowerlinkSlot());
 	}
 
+        @Override
 	public int getPowerlinkSlot()
 	{
 		return 0;

@@ -12,6 +12,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 {
+        @Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
 	{
 		if (block == ModularForceFieldSystem.blockForceField)
@@ -58,16 +59,19 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 		return true;
 	}
 
+        @Override
 	public boolean shouldRender3DInInventory()
 	{
 		return false;
 	}
 
+        @Override
 	public int getRenderId()
 	{
 		return ModularForceFieldSystem.RENDER_ID;
 	}
 
+        @Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
 	{
 	}

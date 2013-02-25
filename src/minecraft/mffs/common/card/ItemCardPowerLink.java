@@ -30,6 +30,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		setIconIndex(17);
 	}
 
+        @Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{
 		super.onUpdate(itemStack, world, entity, par4, par5);
@@ -54,6 +55,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		this.tick += 1;
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
@@ -72,7 +74,8 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 
 			if (((tileEntity instanceof TileEntityExtractor)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
-				if (((TileEntityExtractor) tileEntity).getStackInSlot(1) == null)
+                                TileEntityExtractor entityExtractor = (TileEntityExtractor) tileEntity;
+				if (entityExtractor.getStackInSlot(1) == null)
 				{
 					((TileEntityExtractor) tileEntity).setInventorySlotContents(1, itemstack);
 					entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
@@ -80,10 +83,10 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 					return true;
 				}
 
-				if (((TileEntityExtractor) tileEntity).getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardEmpty)
+				if (entityExtractor.getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardEmpty)
 				{
 					ItemStack itemstackcopy = itemstack.copy();
-					((TileEntityExtractor) tileEntity).setInventorySlotContents(1, itemstackcopy);
+					entityExtractor.setInventorySlotContents(1, itemstackcopy);
 					Functions.ChattoPlayer(entityplayer, "Success: <Power-Link> Card data copied ");
 					return true;
 				}
@@ -162,6 +165,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return null;
 	}
 
+        @Override
 	public int getAvailablePower(ItemStack itemStack, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -170,6 +174,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return 0;
 	}
 
+        @Override
 	public int getMaximumPower(ItemStack itemStack, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -178,6 +183,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return 1;
 	}
 
+        @Override
 	public int getPowersourceID(ItemStack itemStack, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -186,6 +192,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return 0;
 	}
 
+        @Override
 	public int getPercentageCapacity(ItemStack itemStack, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -194,6 +201,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return 0;
 	}
 
+        @Override
 	public boolean consumePower(ItemStack itemStack, int powerAmount, boolean simulation, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -202,6 +210,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return false;
 	}
 
+        @Override
 	public boolean insertPower(ItemStack itemStack, int powerAmount, boolean simulation, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -210,6 +219,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return false;
 	}
 
+        @Override
 	public int getfreeStorageAmount(ItemStack itemStack, TileEntityMFFS tem, World world)
 	{
 		this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
@@ -218,6 +228,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 		return 0;
 	}
 
+        @Override
 	public boolean isPowersourceItem()
 	{
 		return false;

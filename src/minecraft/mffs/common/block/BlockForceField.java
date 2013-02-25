@@ -43,6 +43,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		setTickRandomly(true);
 	}
 
+        @Override
 	public void onBlockAdded(World world, int i, int j, int k)
 	{
 		this.posx = i;
@@ -50,6 +51,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		this.posz = k;
 	}
 
+        @Override
 	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass()
 	{
@@ -71,26 +73,31 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		return 0;
 	}
 
+        @Override
 	public int getRenderType()
 	{
 		return ModularForceFieldSystem.RENDER_ID;
 	}
 
+        @Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+        @Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
 
+        @Override
 	protected boolean canSilkHarvest()
 	{
 		return false;
 	}
 
+        @Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, int blockid)
 	{
 		if (blockid != ModularForceFieldSystem.blockForceField.blockID)
@@ -108,6 +115,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 	}
 
+        @Override
 	public void breakBlock(World world, int i, int j, int k, int a, int b)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(i, j, k, world).hashCode()));
@@ -134,6 +142,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 	}
 
+        @Override
 	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
 	{
 		if (par1World.isRemote)
@@ -175,6 +184,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		updateTick(par1World, par2, par3, par4, random);
 	}
 
+        @Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
 	{
 		if (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal())
@@ -186,11 +196,13 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1);
 	}
 
+        @Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
 	{
 		return AxisAlignedBB.getBoundingBox(i, j, k, i + 0, j + 0, k + 0);
 	}
 
+        @Override
 	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity)
 	{
 		if (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal())
@@ -244,11 +256,13 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 	}
 
+        @Override
 	public int quantityDropped(Random random)
 	{
 		return 0;
 	}
 
+        @Override
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int x, int y, int z, int side)
 	{
 		int xCord = x;
@@ -283,6 +297,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		return super.shouldSideBeRendered(iblockaccess, x, y, z, side);
 	}
 
+        @Override
 	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l)
 	{
 		TileEntity tileEntity = iblockaccess.getBlockTileEntity(i, j, k);
@@ -311,6 +326,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		return 5;
 	}
 
+        @Override
 	public float getExplosionResistance(Entity entity, World world, int i, int j, int k, double d, double d1, double d2)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(i, j, k, world).hashCode()));
@@ -329,6 +345,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		return 999.0F;
 	}
 
+        @Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
 		if ((MFFSProperties.advancedParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal()))
@@ -341,11 +358,13 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 	}
 
+        @Override
 	public boolean canConnectRedstone(IBlockAccess iba, int i, int j, int k, int dir)
 	{
 		return false;
 	}
 
+        @Override
 	public void updateTick(World world, int x, int y, int z, Random random)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(x, y, z, world).hashCode()));
@@ -370,6 +389,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 	}
 
+        @Override
 	public TileEntity createTileEntity(World world, int meta)
 	{
 		if (meta == ForceFieldTyps.Camouflage.ordinal())
@@ -380,11 +400,13 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		return null;
 	}
 
+        @Override
 	public TileEntity createNewTileEntity(World world)
 	{
 		return createTileEntity(world, 0);
 	}
 
+        @Override
 	public void weakenForceField(World world, int x, int y, int z)
 	{
 		if (MFFSProperties.influencedbyothermods)

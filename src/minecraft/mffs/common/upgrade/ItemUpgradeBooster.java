@@ -20,6 +20,7 @@ public class ItemUpgradeBooster extends ItemMFFS
 
 	}
 
+        @Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))

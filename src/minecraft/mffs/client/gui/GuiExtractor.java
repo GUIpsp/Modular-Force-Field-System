@@ -25,6 +25,7 @@ public class GuiExtractor extends GuiContainer
 		this.ySize = 186;
 	}
 
+        @Override
 	protected void keyTyped(char c, int i)
 	{
 		if ((i != 1) && (this.editMode))
@@ -48,6 +49,7 @@ public class GuiExtractor extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void mouseClicked(int i, int j, int k)
 	{
 		super.mouseClicked(i, j, k);
@@ -69,17 +71,20 @@ public class GuiExtractor extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		NetworkHandlerClient.fireTileEntityEvent(this.Extractor, guibutton.id, "");
 	}
 
+        @Override
 	public void initGui()
 	{
 		this.controlList.add(new GraphicButton(0, this.width / 2 + 60, this.height / 2 - 88, this.Extractor, 0));
 		super.initGui();
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiExtractor.png");
@@ -101,6 +106,7 @@ public class GuiExtractor extends GuiContainer
 		drawTexturedModalRect(w + 137, k + 60, 219, 80, 32, ForceEnergy);
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("Force Energy", 5, 25, 4210752);

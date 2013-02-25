@@ -71,6 +71,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void setSide(int i)
 	{
 		super.setSide(i);
@@ -179,12 +180,14 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		this.MaxWorkEnergy = maxWorkEnergy;
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.inventory.length; a++)
 			dropplugins(a, this);
 	}
 
+        @Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer)
 	{
 		if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
@@ -323,16 +326,19 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public short getmaxSwitchModi()
 	{
 		return 3;
 	}
 
+        @Override
 	public short getminSwitchModi()
 	{
 		return 1;
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -435,11 +441,13 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		super.updateEntity();
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerForceEnergyExtractor(inventoryplayer.player, this);
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -460,6 +468,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -483,21 +492,25 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.inventory[i];
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "Extractor";
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.inventory.length;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.inventory[i] = itemstack;
@@ -505,6 +518,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.inventory[i] != null)
@@ -525,16 +539,19 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return null;
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 1;
 	}
 
+        @Override
 	public List getFieldsforUpdate()
 	{
 		List NetworkedFields = new LinkedList();
@@ -549,6 +566,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return NetworkedFields;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -585,6 +603,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return false;
 	}
 
+        @Override
 	public int getSlotStackLimit(int Slot)
 	{
 		switch (Slot)
@@ -603,6 +622,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return 1;
 	}
 
+        @Override
 	public int demandsEnergy()
 	{
 		if (!isActive())
@@ -610,6 +630,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return getMaxWorkEnergy() - getWorkEnergy();
 	}
 
+        @Override
 	public int injectEnergy(Direction directionFrom, int amount)
 	{
 		int freespace = getMaxWorkEnergy() - getWorkEnergy();
@@ -624,6 +645,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return amount - freespace;
 	}
 
+        @Override
 	public void invalidate()
 	{
 		if (this.addedToEnergyNet)
@@ -637,11 +659,13 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		super.invalidate();
 	}
 
+        @Override
 	public boolean isAddedToEnergyNet()
 	{
 		return this.addedToEnergyNet;
 	}
 
+        @Override
 	public boolean acceptsEnergyFrom(TileEntity tileentity, Direction direction)
 	{
 		return true;
@@ -671,20 +695,24 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void setPowerProvider(IPowerProvider provider)
 	{
 		this.powerProvider = provider;
 	}
 
+        @Override
 	public IPowerProvider getPowerProvider()
 	{
 		return this.powerProvider;
 	}
 
+        @Override
 	public void doWork()
 	{
 	}
 
+        @Override
 	public int powerRequest()
 	{
 		double workEnergyinMJ = getWorkEnergy() / 2.5D;
@@ -717,21 +745,25 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public ItemStack getPowerLinkStack()
 	{
 		return getStackInSlot(getPowerlinkSlot());
 	}
 
+        @Override
 	public int getPowerlinkSlot()
 	{
 		return 1;
 	}
 
+        @Override
 	public int getMaxSafeInput()
 	{
 		return 2048;
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));

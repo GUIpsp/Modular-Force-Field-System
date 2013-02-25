@@ -24,6 +24,7 @@ public class ItemMultitoolWriter extends ItemMultitool
 		super(i, 2, "multitoolWriter");
 	}
 
+        @Override
 	public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity)
 	{
 		if ((entity instanceof EntityPlayer))
@@ -61,6 +62,7 @@ public class ItemMultitoolWriter extends ItemMultitool
 		return false;
 	}
 
+        @Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		if (entityplayer.isSneaking())
@@ -104,6 +106,7 @@ public class ItemMultitoolWriter extends ItemMultitool
 		return itemstack;
 	}
 
+        @Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -150,6 +153,7 @@ public class ItemMultitoolWriter extends ItemMultitool
 		return false;
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		return false;

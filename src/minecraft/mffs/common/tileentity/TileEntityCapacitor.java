@@ -47,6 +47,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		super.invalidate();
 	}
 
+        @Override
 	public int getPowerStorageID()
 	{
 		return getDeviceID();
@@ -73,6 +74,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		this.linkMode = powerlinkmode;
 	}
 
+        @Override
 	public int getPercentageStorageCapacity()
 	{
 		return this.capacity;
@@ -87,6 +89,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerCapacitor(inventoryplayer.player, this);
@@ -106,6 +109,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public int getStorageAvailablePower()
 	{
 		return this.forcePower;
@@ -116,11 +120,13 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		this.forcePower = f;
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.inventory.length;
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 4, this.worldObj);
@@ -134,6 +140,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return 0;
 	}
 
+        @Override
 	public int getStorageMaxPower()
 	{
 		if ((getStackInSlot(0) != null) && (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemUpgradeCapacity))
@@ -252,12 +259,14 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.inventory.length; a++)
 			dropplugins(a, this);
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -277,6 +286,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -299,6 +309,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -423,11 +434,13 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.inventory[i];
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.inventory[i] != null)
@@ -448,6 +461,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return null;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.inventory[i] = itemstack;
@@ -455,16 +469,19 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
 		switch (key)
@@ -508,6 +525,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		super.onNetworkHandlerEvent(key, value);
 	}
 
+        @Override
 	public List getFieldsforUpdate()
 	{
 		List NetworkedFields = new LinkedList();
@@ -522,11 +540,13 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return NetworkedFields;
 	}
 
+        @Override
 	public int getfreeStorageAmount()
 	{
 		return getStorageMaxPower() - getStorageAvailablePower();
 	}
 
+        @Override
 	public boolean insertPowertoStorage(int powerAmount, boolean simulation)
 	{
 		if (simulation)
@@ -539,6 +559,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return true;
 	}
 
+        @Override
 	public boolean consumePowerfromStorage(int powerAmount, boolean simulation)
 	{
 		if (simulation)
@@ -554,6 +575,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return true;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -579,6 +601,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return false;
 	}
 
+        @Override
 	public int getSlotStackLimit(int Slot)
 	{
 		switch (Slot)
@@ -593,21 +616,25 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return 1;
 	}
 
+        @Override
 	public short getmaxSwitchModi()
 	{
 		return 3;
 	}
 
+        @Override
 	public short getminSwitchModi()
 	{
 		return 1;
 	}
 
+        @Override
 	public ItemStack getPowerLinkStack()
 	{
 		return getStackInSlot(getPowerlinkSlot());
 	}
 
+        @Override
 	public int getPowerlinkSlot()
 	{
 		return 2;

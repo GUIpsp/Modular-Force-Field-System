@@ -16,6 +16,7 @@ public class ItemMultitoolSwitch extends ItemMultitool
 		super(id, 1, "multitoolSwitch");
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -51,6 +52,7 @@ public class ItemMultitoolSwitch extends ItemMultitool
 		return false;
 	}
 
+        @Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		return super.onItemRightClick(itemstack, world, entityplayer);

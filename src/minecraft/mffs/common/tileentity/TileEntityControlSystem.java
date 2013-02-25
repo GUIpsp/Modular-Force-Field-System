@@ -40,6 +40,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		this.inventory = new ItemStack[40];
 	}
 
+        @Override
 	public List getFieldsforUpdate()
 	{
 		List NetworkedFields = new LinkedList();
@@ -59,18 +60,21 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		return NetworkedFields;
 	}
 
+        @Override
 	public void invalidate()
 	{
 		FrequencyGrid.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
+        @Override
 	public void dropplugins()
 	{
 		for (int a = 0; a < this.inventory.length; a++)
 			dropplugins(a, this);
 	}
 
+        @Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -98,16 +102,19 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		return this.remote;
 	}
 
+        @Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerControlSystem(inventoryplayer.player, this);
 	}
 
+        @Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}
 
+        @Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
@@ -123,6 +130,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		}
 	}
 
+        @Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
@@ -141,21 +149,25 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
+        @Override
 	public int getSizeInventory()
 	{
 		return this.inventory.length;
 	}
 
+        @Override
 	public ItemStack getStackInSlot(int i)
 	{
 		return this.inventory[i];
 	}
 
+        @Override
 	public int getInventoryStackLimit()
 	{
 		return 1;
 	}
 
+        @Override
 	public ItemStack decrStackSize(int i, int j)
 	{
 		if (this.inventory[i] != null)
@@ -176,6 +188,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		return null;
 	}
 
+        @Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.inventory[i] = itemstack;
@@ -183,26 +196,31 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+        @Override
 	public String getInvName()
 	{
 		return "ControlSystem";
 	}
 
+        @Override
 	public int getStartInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 0;
 	}
 
+        @Override
 	public int getSlotStackLimit(int slt)
 	{
 		return 1;
 	}
 
+        @Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
 		switch (Slot)
@@ -220,6 +238,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		return false;
 	}
 
+        @Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
 		if ((key == 103) && (this.remote != null) && (getRemoteGUIinRange()))

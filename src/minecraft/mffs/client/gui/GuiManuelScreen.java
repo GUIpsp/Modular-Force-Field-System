@@ -28,6 +28,7 @@ public class GuiManuelScreen extends GuiContainer
 		this.ySize = 216;
 	}
 
+        @Override
 	public void initGui()
 	{
 		this.controlList.add(new GuiButton(0, this.width / 2 + 90, this.height / 2 + 80, 22, 16, "-->"));
@@ -35,6 +36,7 @@ public class GuiManuelScreen extends GuiContainer
 		super.initGui();
 	}
 
+        @Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		if (guibutton.id == 0)
@@ -53,6 +55,7 @@ public class GuiManuelScreen extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiManuel.png");
@@ -63,6 +66,7 @@ public class GuiManuelScreen extends GuiContainer
 		drawTexturedModalRect(w, k, 0, 0, 256, 216);
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("ModularForceFieldSystem Guide", 20, 15, 16777215);

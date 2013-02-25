@@ -1,7 +1,5 @@
 package mffs.common.multitool;
 
-import java.util.List;
-
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.Functions;
@@ -14,7 +12,6 @@ import mffs.common.card.ItemCardPowerLink;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -26,6 +23,7 @@ public class ItemFieldTransporter extends ItemMultitool
 		super(id, 4, "multitoolTransporter");
 	}
 
+        @Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if (world.isRemote)
@@ -185,6 +183,7 @@ public class ItemFieldTransporter extends ItemMultitool
 		return true;
 	}
 
+        @Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
 		return super.onItemRightClick(itemstack, world, entityplayer);

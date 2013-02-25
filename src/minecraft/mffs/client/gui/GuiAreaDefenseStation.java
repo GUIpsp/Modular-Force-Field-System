@@ -24,6 +24,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 		this.ySize = 216;
 	}
 
+        @Override
 	protected void keyTyped(char c, int i)
 	{
 		if ((i != 1) && (this.editMode))
@@ -47,6 +48,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void mouseClicked(int i, int j, int k)
 	{
 		super.mouseClicked(i, j, k);
@@ -68,6 +70,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 		}
 	}
 
+        @Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int xSize = 256;
@@ -80,11 +83,13 @@ public class GuiAreaDefenseStation extends GuiContainer
 		drawTexturedModalRect(w, k, 0, 0, xSize, ySize);
 	}
 
+        @Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, guibutton.id, "");
 	}
 
+        @Override
 	public void initGui()
 	{
 		this.controlList.add(new GraphicButton(0, this.width / 2 + 107, this.height / 2 - 104, this.DefenceStation, 0));
@@ -94,6 +99,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 		super.initGui();
 	}
 
+        @Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("MFFS Defence Station", 7, 9, 4210752);

@@ -20,11 +20,13 @@ public class ItemCardPersonalID extends Item
 		setMaxStackSize(1);
 	}
 
+        @Override
 	public boolean isRepairable()
 	{
 		return false;
 	}
 
+        @Override
 	public boolean isDamageable()
 	{
 		return true;
@@ -66,6 +68,7 @@ public class ItemCardPersonalID extends Item
 		return "nobody";
 	}
 
+        @Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
 		String tooltip = String.format("Owner: %s ", new Object[] { NBTTagCompoundHelper.getTAGfromItemstack(itemStack).getString("name") });

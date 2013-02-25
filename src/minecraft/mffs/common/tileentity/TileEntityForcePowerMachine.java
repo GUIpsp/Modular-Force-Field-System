@@ -10,6 +10,7 @@ public abstract class TileEntityForcePowerMachine extends TileEntityMFFS impleme
 
 	public abstract int getPowerlinkSlot();
 
+        @Override
 	public int getPercentageCapacity()
 	{
 		ItemStack linkCard = getPowerLinkStack();
@@ -20,6 +21,7 @@ public abstract class TileEntityForcePowerMachine extends TileEntityMFFS impleme
 		return 0;
 	}
 
+        @Override
 	public boolean hasPowerSource()
 	{
 		ItemStack linkCard = getPowerLinkStack();

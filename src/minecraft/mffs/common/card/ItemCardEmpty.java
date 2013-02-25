@@ -5,9 +5,8 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.item.ItemMFFS;
-import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,6 +21,7 @@ public class ItemCardEmpty extends ItemCard
 		setMaxStackSize(16);
 	}
 
+        @Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float par8, float par9, float par10)
 	{
 		if (world.isRemote)
@@ -32,13 +32,14 @@ public class ItemCardEmpty extends ItemCard
 
 		if ((tileEntity instanceof TileEntitySecurityStation))
 		{
-			if (((TileEntitySecurityStation) tileEntity).isActive())
+                        TileEntitySecurityStation securityStation = (TileEntitySecurityStation) tileEntity;
+			if (securityStation.isActive())
 			{
 				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
 				{
 					ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardSecurityLink);
-					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", ((TileEntitySecurityStation) tileEntity).getDeviceID());
-					ItemCardSecurityLink.setforArea(newcard, ((TileEntitySecurityStation) tileEntity).getDeviceName());
+					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", securityStation.getDeviceID());
+					ItemCardSecurityLink.setforArea(newcard, securityStation.getDeviceName());
 
 					if (--itemstack.stackSize <= 0)
 						entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, newcard);

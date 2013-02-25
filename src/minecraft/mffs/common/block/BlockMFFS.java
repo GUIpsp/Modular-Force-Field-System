@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -54,38 +55,39 @@ public abstract class BlockMFFS extends BlockMachine
 		}
 
 		TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(i, j, k);
-
-		if ((entityplayer.getCurrentEquippedItem() != null) && ((entityplayer.getCurrentEquippedItem().getItem() instanceof ItemMultitool)))
+                ItemStack equippedItem = entityplayer.getCurrentEquippedItem();
+                
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemMultitool)))
 		{
 			return false;
 		}
 
-		if ((entityplayer.getCurrentEquippedItem() != null) && ((entityplayer.getCurrentEquippedItem().getItem() instanceof ItemCardEmpty)))
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardEmpty)))
 		{
 			return false;
 		}
 
-		if ((entityplayer.getCurrentEquippedItem() != null) && ((entityplayer.getCurrentEquippedItem().getItem() instanceof ItemModuleBase)))
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemModuleBase)))
 		{
 			return false;
 		}
 
-		if ((entityplayer.getCurrentEquippedItem() != null) && ((entityplayer.getCurrentEquippedItem().getItem() instanceof ItemCardPowerLink)))
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardPowerLink)))
 		{
 			return false;
 		}
 
-		if ((entityplayer.getCurrentEquippedItem() != null) && ((entityplayer.getCurrentEquippedItem().getItem() instanceof ItemCardSecurityLink)))
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardSecurityLink)))
 		{
 			return false;
 		}
 
-		if ((entityplayer.getCurrentEquippedItem() != null) && (entityplayer.getCurrentEquippedItem().itemID == Block.lever.blockID))
+		if ((equippedItem != null) && (equippedItem.itemID == Block.lever.blockID))
 		{
 			return false;
 		}
 
-		if (((tileEntity instanceof TileEntitySecurityStation)) && (tileEntity.isActive()))
+		if ((tileEntity instanceof TileEntitySecurityStation) && (tileEntity.isActive()))
 		{
 			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
 			{
@@ -93,7 +95,7 @@ public abstract class BlockMFFS extends BlockMachine
 			}
 		}
 
-		if ((tileEntity instanceof TileEntityControlSystem))
+		if (tileEntity instanceof TileEntityControlSystem)
 		{
 			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.UCS))
 			{
@@ -120,21 +122,22 @@ public abstract class BlockMFFS extends BlockMachine
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
 		if ((tileEntity instanceof TileEntityMFFS))
 		{
+                        TileEntityMFFS entityMFFS = (TileEntityMFFS) tileEntity;
 			int l = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
-
 			int i1 = Math.round(entityliving.rotationPitch);
+                        
 			if (i1 >= 65)
-				((TileEntityMFFS) tileEntity).setSide(1);
+				entityMFFS.setSide(1);
 			else if (i1 <= -65)
-				((TileEntityMFFS) tileEntity).setSide(0);
+				entityMFFS.setSide(0);
 			else if (l == 0)
-				((TileEntityMFFS) tileEntity).setSide(2);
+				entityMFFS.setSide(2);
 			else if (l == 1)
-				((TileEntityMFFS) tileEntity).setSide(5);
+				entityMFFS.setSide(5);
 			else if (l == 2)
-				((TileEntityMFFS) tileEntity).setSide(3);
+				entityMFFS.setSide(3);
 			else if (l == 3)
-				((TileEntityMFFS) tileEntity).setSide(4);
+				entityMFFS.setSide(4);
 		}
 	}
 
