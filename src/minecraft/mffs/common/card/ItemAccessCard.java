@@ -28,7 +28,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 
 	public String getTextureFile()
 	{
-		return ITEM_TEXTURE_FILE;
+		return ModularForceFieldSystem.ITEM_TEXTURE_FILE;
 	}
 
 	public boolean isRepairable()
