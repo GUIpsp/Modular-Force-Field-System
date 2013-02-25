@@ -1,6 +1,5 @@
 package mffs.common.block;
 
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

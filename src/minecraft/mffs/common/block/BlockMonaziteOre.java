@@ -6,7 +6,6 @@ import mffs.common.MFFSCreativeTab;
 import mffs.common.ModularForceFieldSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.world.IBlockAccess;
 
 public class BlockMonaziteOre extends Block
 {

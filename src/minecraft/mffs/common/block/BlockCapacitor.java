@@ -1,6 +1,5 @@
 package mffs.common.block;
 
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

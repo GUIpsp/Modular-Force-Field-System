@@ -1,12 +1,12 @@
 package mffs.common;
 
-import java.util.Hashtable;
 import java.util.Map;
 
 import mffs.api.PointXYZ;
 import net.minecraft.world.World;
 
 import com.google.common.collect.MapMaker;
+import java.util.HashMap;
 
 public final class WorldMap
 {
@@ -28,7 +28,7 @@ public final class WorldMap
 
 	public static class ForceFieldWorld
 	{
-		private static Map ForceFieldStackMap = new Hashtable();
+		private static Map ForceFieldStackMap = new HashMap();
 
 		public ForceFieldBlockStack getorcreateFFStackMap(int x, int y, int z, World world)
 		{

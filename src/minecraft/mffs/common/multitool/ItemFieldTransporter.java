@@ -1,7 +1,5 @@
 package mffs.common.multitool;
 
-import java.util.List;
-
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.Functions;
@@ -14,7 +12,6 @@ import mffs.common.card.ItemCardPowerLink;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;

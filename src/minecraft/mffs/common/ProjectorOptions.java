@@ -1,7 +1,6 @@
 package mffs.common;
 
 import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public enum ProjectorOptions
 {
