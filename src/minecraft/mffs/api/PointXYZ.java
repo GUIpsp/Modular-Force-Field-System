@@ -63,6 +63,7 @@ public class PointXYZ
 		return 2147483647.0D;
 	}
 
+        @Override
 	public boolean equals(Object pnt2)
 	{
 		if ((pnt2 instanceof PointXYZ))
@@ -73,11 +74,13 @@ public class PointXYZ
 		return false;
 	}
 
+        @Override
 	public int hashCode()
 	{
 		return ("X: " + this.X + " Y: " + this.Y + " Z: " + this.Z + "D: " + this.dimensionId).hashCode();
 	}
 
+        @Override
 	public String toString()
 	{
 		return "X: " + this.X + " Y: " + this.Y + " Z: " + this.Z;

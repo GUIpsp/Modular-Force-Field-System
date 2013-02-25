@@ -11,7 +11,7 @@ public final class ForcefieldProtected
 	{
 		try
 		{
-			Method method = Class.forName("chb.mods.mffs.common.ForceFieldOptions").getMethod("BlockProtected", new Class[] { World.class, Integer.TYPE, Integer.TYPE, Integer.TYPE, EntityPlayer.class });
+			Method method = Class.forName("mffs.common.ForceFieldOptions").getMethod("BlockProtected", new Class[] { World.class, Integer.TYPE, Integer.TYPE, Integer.TYPE, EntityPlayer.class });
 			return ((Boolean) method.invoke(null, new Object[] { world, Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z), entityPlayer })).booleanValue();
 		}
 		catch (Exception e)
