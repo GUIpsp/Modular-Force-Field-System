@@ -27,6 +27,7 @@ public class ItemCardSecurityLink extends ItemCard
 		setIconIndex(19);
 	}
 
+        @Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{
 		super.onUpdate(itemStack, world, entity, par4, par5);
