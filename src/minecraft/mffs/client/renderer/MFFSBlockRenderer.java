@@ -48,7 +48,7 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 			}
 			else
 			{
-				ForgeHooksClient.bindTexture(BLOCK_TEXTURE_FILE, 0);
+				ForgeHooksClient.bindTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE, 0);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 
