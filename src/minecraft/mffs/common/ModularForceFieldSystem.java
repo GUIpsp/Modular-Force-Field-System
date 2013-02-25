@@ -220,7 +220,7 @@ public class ModularForceFieldSystem
 		{
 			MFFSProperties.MODULE_UE = true;
 		}
-		if (initiateModule("Buildcraft|Core"))
+		if (initiateModule("BuildCraft|Core"))
 		{
 			MFFSProperties.MODULE_BUILDCRAFT = true;
 		}
