@@ -94,6 +94,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import java.text.MessageFormat;
 import java.util.logging.Level;
 
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
@@ -432,12 +433,12 @@ public class ModularForceFieldSystem
 	{
 		if (Loader.isModLoaded(modname))
 		{
-			LOGGER.log(Level.INFO, "Loaded module for: {0}", modname);
+			LOGGER.log(Level.INFO, MessageFormat.format("Loaded module for: {0}", modname));
 			return true;
 		}
 		else
 		{
-			LOGGER.log(Level.INFO, "Module not loaded: {0}", modname);
+			LOGGER.log(Level.INFO, MessageFormat.format("Module not loaded: {0}", modname));
 			return false;
 		}
 	}
