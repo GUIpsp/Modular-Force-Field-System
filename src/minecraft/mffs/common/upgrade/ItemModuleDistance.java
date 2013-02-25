@@ -11,27 +11,27 @@ import org.lwjgl.input.Keyboard;
 
 public class ItemModuleDistance extends ItemMFFS
 {
-	public ItemModuleDistance(int i)
-	{
-		super(i, "moduleDistance");
-		setIconIndex(64);
-		setMaxStackSize(64);
-		this.setNoRepair();
 
-	}
+    public ItemModuleDistance(int i)
+    {
+        super(i, "moduleDistance");
+        setIconIndex(64);
+        setMaxStackSize(64);
+        this.setNoRepair();
 
-        @Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-	{
-		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
-		{
-			info.add("compatible with:");
-			info.add("MFFS " + MachineTypes.Projector.getName());
-			info.add("MFFS " + MachineTypes.DefenceStation.getName());
-		}
-		else
-		{
-			info.add("compatible with: (Hold Shift)");
-		}
-	}
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
+    {
+        if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
+        {
+            info.add("compatible with:");
+            info.add("MFFS " + MachineTypes.Projector.getName());
+            info.add("MFFS " + MachineTypes.DefenceStation.getName());
+        } else
+        {
+            info.add("compatible with: (Hold Shift)");
+        }
+    }
 }

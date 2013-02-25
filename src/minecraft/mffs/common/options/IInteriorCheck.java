@@ -6,5 +6,6 @@ import net.minecraft.world.World;
 
 public abstract interface IInteriorCheck
 {
-	public abstract void checkInteriorBlock(PointXYZ paramPointXYZ, World paramWorld, TileEntityProjector paramTileEntityProjector);
+
+    public abstract void checkInteriorBlock(PointXYZ paramPointXYZ, World paramWorld, TileEntityProjector paramTileEntityProjector);
 }

@@ -23,439 +23,458 @@ import net.minecraftforge.common.ISidedInventory;
 
 public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInventory
 {
-	private TileEntityMFFS remote = null;
-	protected String RemoteDeviceName = "";
-	protected String RemoteDeviceTyp = "";
-	protected boolean RemoteActive = false;
-	protected boolean RemoteSwitchValue = false;
-	protected short RemoteSwitchModi = 0;
-	protected boolean RemoteSecurityStationlink = false;
-	protected boolean RemotehasPowersource = false;
-	protected boolean RemoteGUIinRange = false;
-	protected int RemotePowerleft = 0;
-	private ItemStack[] inventory;
 
-	public TileEntityControlSystem()
-	{
-		this.inventory = new ItemStack[40];
-	}
+    private TileEntityMFFS remote = null;
+    protected String RemoteDeviceName = "";
+    protected String RemoteDeviceTyp = "";
+    protected boolean RemoteActive = false;
+    protected boolean RemoteSwitchValue = false;
+    protected short RemoteSwitchModi = 0;
+    protected boolean RemoteSecurityStationlink = false;
+    protected boolean RemotehasPowersource = false;
+    protected boolean RemoteGUIinRange = false;
+    protected int RemotePowerleft = 0;
+    private ItemStack[] inventory;
 
-        @Override
-	public List getFieldsforUpdate()
-	{
-		List NetworkedFields = new LinkedList();
-		NetworkedFields.clear();
+    public TileEntityControlSystem()
+    {
+        this.inventory = new ItemStack[40];
+    }
 
-		NetworkedFields.addAll(super.getFieldsforUpdate());
-		NetworkedFields.add("RemoteDeviceName");
-		NetworkedFields.add("RemoteDeviceTyp");
-		NetworkedFields.add("RemoteActive");
-		NetworkedFields.add("RemoteSwitchModi");
-		NetworkedFields.add("RemoteSwitchValue");
-		NetworkedFields.add("RemoteSecurityStationlink");
-		NetworkedFields.add("RemotehasPowersource");
-		NetworkedFields.add("RemotePowerleft");
-		NetworkedFields.add("RemoteGUIinRange");
+    @Override
+    public List getFieldsforUpdate()
+    {
+        List NetworkedFields = new LinkedList();
+        NetworkedFields.clear();
 
-		return NetworkedFields;
-	}
+        NetworkedFields.addAll(super.getFieldsforUpdate());
+        NetworkedFields.add("RemoteDeviceName");
+        NetworkedFields.add("RemoteDeviceTyp");
+        NetworkedFields.add("RemoteActive");
+        NetworkedFields.add("RemoteSwitchModi");
+        NetworkedFields.add("RemoteSwitchValue");
+        NetworkedFields.add("RemoteSecurityStationlink");
+        NetworkedFields.add("RemotehasPowersource");
+        NetworkedFields.add("RemotePowerleft");
+        NetworkedFields.add("RemoteGUIinRange");
 
-        @Override
-	public void invalidate()
-	{
-		FrequencyGrid.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
-		super.invalidate();
-	}
+        return NetworkedFields;
+    }
 
-        @Override
-	public void dropplugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-			dropplugins(a, this);
-	}
+    @Override
+    public void invalidate()
+    {
+        FrequencyGrid.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
+        super.invalidate();
+    }
 
-        @Override
-	public void updateEntity()
-	{
-		if (!this.worldObj.isRemote)
-		{
-			if (getTicker() == 20)
-			{
-				if ((getLinkedSecurityStation() != null) && (!isActive()))
-					setActive(true);
-				if ((getLinkedSecurityStation() == null) && (isActive()))
-				{
-					setActive(false);
-				}
-				refreshRemoteData();
+    @Override
+    public void dropplugins()
+    {
+        for (int a = 0; a < this.inventory.length; a++)
+        {
+            dropplugins(a, this);
+        }
+    }
 
-				setTicker((short) 0);
-			}
-			setTicker((short) (getTicker() + 1));
-		}
+    @Override
+    public void updateEntity()
+    {
+        if (!this.worldObj.isRemote)
+        {
+            if (getTicker() == 20)
+            {
+                if ((getLinkedSecurityStation() != null) && (!isActive()))
+                {
+                    setActive(true);
+                }
+                if ((getLinkedSecurityStation() == null) && (isActive()))
+                {
+                    setActive(false);
+                }
+                refreshRemoteData();
 
-		super.updateEntity();
-	}
+                setTicker((short) 0);
+            }
+            setTicker((short) (getTicker() + 1));
+        }
 
-	public TileEntityMFFS getRemote()
-	{
-		return this.remote;
-	}
+        super.updateEntity();
+    }
 
-        @Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerControlSystem(inventoryplayer.player, this);
-	}
+    public TileEntityMFFS getRemote()
+    {
+        return this.remote;
+    }
 
-        @Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
-	}
+    @Override
+    public Container getContainer(InventoryPlayer inventoryplayer)
+    {
+        return new ContainerControlSystem(inventoryplayer.player, this);
+    }
 
-        @Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
-	{
-		super.readFromNBT(nbttagcompound);
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++)
-		{
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
+    @Override
+    public TileEntitySecurityStation getLinkedSecurityStation()
+    {
+        return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
+    }
 
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.inventory.length))
-				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-		}
-	}
+    @Override
+    public void readFromNBT(NBTTagCompound nbttagcompound)
+    {
+        super.readFromNBT(nbttagcompound);
+        NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
+        this.inventory = new ItemStack[getSizeInventory()];
+        for (int i = 0; i < nbttaglist.tagCount(); i++)
+        {
+            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 
-        @Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
-		super.writeToNBT(nbttagcompound);
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.inventory.length; i++)
-		{
-			if (this.inventory[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				this.inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
+            byte byte0 = nbttagcompound1.getByte("Slot");
+            if ((byte0 >= 0) && (byte0 < this.inventory.length))
+            {
+                this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+            }
+        }
+    }
 
-		nbttagcompound.setTag("Items", nbttaglist);
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound nbttagcompound)
+    {
+        super.writeToNBT(nbttagcompound);
+        NBTTagList nbttaglist = new NBTTagList();
+        for (int i = 0; i < this.inventory.length; i++)
+        {
+            if (this.inventory[i] != null)
+            {
+                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                nbttagcompound1.setByte("Slot", (byte) i);
+                this.inventory[i].writeToNBT(nbttagcompound1);
+                nbttaglist.appendTag(nbttagcompound1);
+            }
+        }
 
-        @Override
-	public int getSizeInventory()
-	{
-		return this.inventory.length;
-	}
+        nbttagcompound.setTag("Items", nbttaglist);
+    }
 
-        @Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inventory[i];
-	}
+    @Override
+    public int getSizeInventory()
+    {
+        return this.inventory.length;
+    }
 
-        @Override
-	public int getInventoryStackLimit()
-	{
-		return 1;
-	}
+    @Override
+    public ItemStack getStackInSlot(int i)
+    {
+        return this.inventory[i];
+    }
 
-        @Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if (this.inventory[i] != null)
-		{
-			if (this.inventory[i].stackSize <= j)
-			{
-				ItemStack itemstack = this.inventory[i];
-				this.inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = this.inventory[i].splitStack(j);
-			if (this.inventory[i].stackSize == 0)
-			{
-				this.inventory[i] = null;
-			}
-			return itemstack1;
-		}
-		return null;
-	}
+    @Override
+    public int getInventoryStackLimit()
+    {
+        return 1;
+    }
 
-        @Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inventory[i] = itemstack;
-		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
-			itemstack.stackSize = getInventoryStackLimit();
-	}
+    @Override
+    public ItemStack decrStackSize(int i, int j)
+    {
+        if (this.inventory[i] != null)
+        {
+            if (this.inventory[i].stackSize <= j)
+            {
+                ItemStack itemstack = this.inventory[i];
+                this.inventory[i] = null;
+                return itemstack;
+            }
+            ItemStack itemstack1 = this.inventory[i].splitStack(j);
+            if (this.inventory[i].stackSize == 0)
+            {
+                this.inventory[i] = null;
+            }
+            return itemstack1;
+        }
+        return null;
+    }
 
-        @Override
-	public String getInvName()
-	{
-		return "ControlSystem";
-	}
+    @Override
+    public void setInventorySlotContents(int i, ItemStack itemstack)
+    {
+        this.inventory[i] = itemstack;
+        if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
+        {
+            itemstack.stackSize = getInventoryStackLimit();
+        }
+    }
 
-        @Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
+    @Override
+    public String getInvName()
+    {
+        return "ControlSystem";
+    }
 
-        @Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
+    @Override
+    public int getStartInventorySide(ForgeDirection side)
+    {
+        return 0;
+    }
 
-        @Override
-	public int getSlotStackLimit(int slt)
-	{
-		return 1;
-	}
+    @Override
+    public int getSizeInventorySide(ForgeDirection side)
+    {
+        return 0;
+    }
 
-        @Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
-	{
-		switch (Slot)
-		{
-			case 0:
-				if ((par1ItemStack.getItem() instanceof ItemCardSecurityLink))
-					return true;
+    @Override
+    public int getSlotStackLimit(int slt)
+    {
+        return 1;
+    }
 
-				break;
-		}
+    @Override
+    public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+    {
+        switch (Slot)
+        {
+            case 0:
+                if ((par1ItemStack.getItem() instanceof ItemCardSecurityLink))
+                {
+                    return true;
+                }
 
-		if ((par1ItemStack.getItem() instanceof ItemCardDataLink))
-			return true;
+                break;
+        }
 
-		return false;
-	}
+        if ((par1ItemStack.getItem() instanceof ItemCardDataLink))
+        {
+            return true;
+        }
 
-        @Override
-	public void onNetworkHandlerEvent(int key, String value)
-	{
-		if ((key == 103) && (this.remote != null) && (getRemoteGUIinRange()))
-		{
-			EntityPlayer player = this.worldObj.getPlayerEntityByName(value);
-			if (player != null)
-			{
-				player.openGui(ModularForceFieldSystem.instance, 0, this.worldObj, this.remote.xCoord, this.remote.yCoord, this.remote.zCoord);
-			}
+        return false;
+    }
 
-		}
+    @Override
+    public void onNetworkHandlerEvent(int key, String value)
+    {
+        if ((key == 103) && (this.remote != null) && (getRemoteGUIinRange()))
+        {
+            EntityPlayer player = this.worldObj.getPlayerEntityByName(value);
+            if (player != null)
+            {
+                player.openGui(ModularForceFieldSystem.instance, 0, this.worldObj, this.remote.xCoord, this.remote.yCoord, this.remote.zCoord);
+            }
 
-		if ((key == 102) && (this.remote != null))
-		{
-			this.remote.toggelSwitchValue();
-		}
+        }
 
-		if ((key == 101) && (this.remote != null))
-		{
-			this.remote.toogleSwitchModi();
-		}
+        if ((key == 102) && (this.remote != null))
+        {
+            this.remote.toggelSwitchValue();
+        }
 
-		super.onNetworkHandlerEvent(key, value);
-	}
+        if ((key == 101) && (this.remote != null))
+        {
+            this.remote.toogleSwitchModi();
+        }
 
-	private void refreshRemoteData()
-	{
-		refreshRemoteData(1);
-	}
+        super.onNetworkHandlerEvent(key, value);
+    }
 
-	private void refreshRemoteData(int slot)
-	{
-		this.remote = getTargetMaschine(slot);
+    private void refreshRemoteData()
+    {
+        refreshRemoteData(1);
+    }
 
-		if (this.remote != null)
-		{
-			if ((!this.remote.isActive()) == getRemoteActive())
-			{
-				setRemoteActive(this.remote.isActive());
-			}
-			if (!this.remote.getDeviceName().equalsIgnoreCase(getRemoteDeviceName()))
-			{
-				setRemoteDeviceName(this.remote.getDeviceName());
-			}
-			if (this.remote.getSwitchModi() != getRemoteSwitchModi())
-			{
-				setRemoteSwitchModi(this.remote.getSwitchModi());
-			}
-			if ((!this.remote.getSwitchValue()) == getRemoteSwitchValue())
-			{
-				setRemoteSwitchValue(this.remote.getSwitchValue());
-			}
-			if (this.remote.getLinkedSecurityStation() == null)
-				setRemoteSecurityStationlink(false);
-			else
-				setRemoteSecurityStationlink(true);
+    private void refreshRemoteData(int slot)
+    {
+        this.remote = getTargetMaschine(slot);
 
-			if ((!this.remote.hasPowerSource()) == getRemotehasPowersource())
-			{
-				setRemotehasPowersource(this.remote.hasPowerSource());
-			}
-			if (this.remote.getPercentageCapacity() != getRemotePowerleft())
-			{
-				setRemotePowerleft(this.remote.getPercentageCapacity());
-			}
-			if (!MachineTypes.fromTE(this.remote).getName().equalsIgnoreCase(getRemoteDeviceTyp()))
-			{
-				setRemoteDeviceTyp(MachineTypes.fromTE(this.remote).getName());
-			}
+        if (this.remote != null)
+        {
+            if ((!this.remote.isActive()) == getRemoteActive())
+            {
+                setRemoteActive(this.remote.isActive());
+            }
+            if (!this.remote.getDeviceName().equalsIgnoreCase(getRemoteDeviceName()))
+            {
+                setRemoteDeviceName(this.remote.getDeviceName());
+            }
+            if (this.remote.getSwitchModi() != getRemoteSwitchModi())
+            {
+                setRemoteSwitchModi(this.remote.getSwitchModi());
+            }
+            if ((!this.remote.getSwitchValue()) == getRemoteSwitchValue())
+            {
+                setRemoteSwitchValue(this.remote.getSwitchValue());
+            }
+            if (this.remote.getLinkedSecurityStation() == null)
+            {
+                setRemoteSecurityStationlink(false);
+            } else
+            {
+                setRemoteSecurityStationlink(true);
+            }
 
-			if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) > 61.0D) && (getRemoteGUIinRange()))
-			{
-				setRemoteGUIinRange(false);
-			}
+            if ((!this.remote.hasPowerSource()) == getRemotehasPowersource())
+            {
+                setRemotehasPowersource(this.remote.hasPowerSource());
+            }
+            if (this.remote.getPercentageCapacity() != getRemotePowerleft())
+            {
+                setRemotePowerleft(this.remote.getPercentageCapacity());
+            }
+            if (!MachineTypes.fromTE(this.remote).getName().equalsIgnoreCase(getRemoteDeviceTyp()))
+            {
+                setRemoteDeviceTyp(MachineTypes.fromTE(this.remote).getName());
+            }
 
-			if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) <= 61.0D) && (!getRemoteGUIinRange()))
-			{
-				setRemoteGUIinRange(true);
-			}
+            if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) > 61.0D) && (getRemoteGUIinRange()))
+            {
+                setRemoteGUIinRange(false);
+            }
 
-		}
-		else
-		{
-			if (getRemoteActive())
-			{
-				setRemoteActive(false);
-			}
-			if (getRemoteSwitchModi() != 0)
-			{
-				setRemoteSwitchModi((short) 0);
-			}
-			if (!getRemoteDeviceName().equalsIgnoreCase("-"))
-			{
-				setRemoteDeviceName("-");
-			}
-			if (!getRemoteDeviceTyp().equalsIgnoreCase("-"))
-				setRemoteDeviceTyp("-");
-		}
-	}
+            if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) <= 61.0D) && (!getRemoteGUIinRange()))
+            {
+                setRemoteGUIinRange(true);
+            }
 
-	private TileEntityMFFS getTargetMaschine(int slot)
-	{
-		if ((getStackInSlot(slot) != null) && ((getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
-		{
-			int DeviceID = 0;
-			NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(slot));
-			if (tag.hasKey("DeviceID"))
-			{
-				DeviceID = tag.getInteger("DeviceID");
-			}
-			if (DeviceID != 0)
-			{
-				TileEntityMFFS device = FrequencyGrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
-				if (device != null)
-					return device;
-			}
-			setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
-		}
-		return null;
-	}
+        } else
+        {
+            if (getRemoteActive())
+            {
+                setRemoteActive(false);
+            }
+            if (getRemoteSwitchModi() != 0)
+            {
+                setRemoteSwitchModi((short) 0);
+            }
+            if (!getRemoteDeviceName().equalsIgnoreCase("-"))
+            {
+                setRemoteDeviceName("-");
+            }
+            if (!getRemoteDeviceTyp().equalsIgnoreCase("-"))
+            {
+                setRemoteDeviceTyp("-");
+            }
+        }
+    }
 
-	public boolean getRemoteGUIinRange()
-	{
-		return this.RemoteGUIinRange;
-	}
+    private TileEntityMFFS getTargetMaschine(int slot)
+    {
+        if ((getStackInSlot(slot) != null) && ((getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
+        {
+            int DeviceID = 0;
+            NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(slot));
+            if (tag.hasKey("DeviceID"))
+            {
+                DeviceID = tag.getInteger("DeviceID");
+            }
+            if (DeviceID != 0)
+            {
+                TileEntityMFFS device = FrequencyGrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
+                if (device != null)
+                {
+                    return device;
+                }
+            }
+            setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
+        }
+        return null;
+    }
 
-	public void setRemoteGUIinRange(boolean b)
-	{
-		this.RemoteGUIinRange = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteGUIinRange");
-	}
+    public boolean getRemoteGUIinRange()
+    {
+        return this.RemoteGUIinRange;
+    }
 
-	public int getRemotePowerleft()
-	{
-		return this.RemotePowerleft;
-	}
+    public void setRemoteGUIinRange(boolean b)
+    {
+        this.RemoteGUIinRange = b;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteGUIinRange");
+    }
 
-	public void setRemotePowerleft(int i)
-	{
-		this.RemotePowerleft = i;
-		NetworkHandlerServer.updateTileEntityField(this, "RemotePowerleft");
-	}
+    public int getRemotePowerleft()
+    {
+        return this.RemotePowerleft;
+    }
 
-	public boolean getRemotehasPowersource()
-	{
-		return this.RemotehasPowersource;
-	}
+    public void setRemotePowerleft(int i)
+    {
+        this.RemotePowerleft = i;
+        NetworkHandlerServer.updateTileEntityField(this, "RemotePowerleft");
+    }
 
-	public void setRemotehasPowersource(boolean b)
-	{
-		this.RemotehasPowersource = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemotehasPowersource");
-	}
+    public boolean getRemotehasPowersource()
+    {
+        return this.RemotehasPowersource;
+    }
 
-	public boolean getRemoteSecurityStationlink()
-	{
-		return this.RemoteSecurityStationlink;
-	}
+    public void setRemotehasPowersource(boolean b)
+    {
+        this.RemotehasPowersource = b;
+        NetworkHandlerServer.updateTileEntityField(this, "RemotehasPowersource");
+    }
 
-	public void setRemoteSecurityStationlink(boolean b)
-	{
-		this.RemoteSecurityStationlink = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteSecurityStationlink");
-	}
+    public boolean getRemoteSecurityStationlink()
+    {
+        return this.RemoteSecurityStationlink;
+    }
 
-	public boolean getRemoteSwitchValue()
-	{
-		return this.RemoteSwitchValue;
-	}
+    public void setRemoteSecurityStationlink(boolean b)
+    {
+        this.RemoteSecurityStationlink = b;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteSecurityStationlink");
+    }
 
-	public void setRemoteSwitchValue(boolean b)
-	{
-		this.RemoteSwitchValue = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchValue");
-	}
+    public boolean getRemoteSwitchValue()
+    {
+        return this.RemoteSwitchValue;
+    }
 
-	public short getRemoteSwitchModi()
-	{
-		return this.RemoteSwitchModi;
-	}
+    public void setRemoteSwitchValue(boolean b)
+    {
+        this.RemoteSwitchValue = b;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchValue");
+    }
 
-	public void setRemoteSwitchModi(short s)
-	{
-		this.RemoteSwitchModi = s;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchModi");
-	}
+    public short getRemoteSwitchModi()
+    {
+        return this.RemoteSwitchModi;
+    }
 
-	public boolean getRemoteActive()
-	{
-		return this.RemoteActive;
-	}
+    public void setRemoteSwitchModi(short s)
+    {
+        this.RemoteSwitchModi = s;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchModi");
+    }
 
-	public void setRemoteActive(boolean b)
-	{
-		this.RemoteActive = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteActive");
-	}
+    public boolean getRemoteActive()
+    {
+        return this.RemoteActive;
+    }
 
-	public String getRemoteDeviceTyp()
-	{
-		return this.RemoteDeviceTyp;
-	}
+    public void setRemoteActive(boolean b)
+    {
+        this.RemoteActive = b;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteActive");
+    }
 
-	public void setRemoteDeviceTyp(String s)
-	{
-		this.RemoteDeviceTyp = s;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceTyp");
-	}
+    public String getRemoteDeviceTyp()
+    {
+        return this.RemoteDeviceTyp;
+    }
 
-	public String getRemoteDeviceName()
-	{
-		return this.RemoteDeviceName;
-	}
+    public void setRemoteDeviceTyp(String s)
+    {
+        this.RemoteDeviceTyp = s;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceTyp");
+    }
 
-	public void setRemoteDeviceName(String s)
-	{
-		this.RemoteDeviceName = s;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceName");
-	}
+    public String getRemoteDeviceName()
+    {
+        return this.RemoteDeviceName;
+    }
+
+    public void setRemoteDeviceName(String s)
+    {
+        this.RemoteDeviceName = s;
+        NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceName");
+    }
 }

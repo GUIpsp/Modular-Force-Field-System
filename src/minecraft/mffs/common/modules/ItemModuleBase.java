@@ -20,59 +20,60 @@ import net.minecraft.world.World;
 
 public abstract class ItemModuleBase extends ItemMFFS
 {
-	private static List instances = new ArrayList();
 
-	public static List get_instances()
-	{
-		return instances;
-	}
+    private static List instances = new ArrayList();
 
-	public ItemModuleBase(int i, String name)
-	{
-		super(i, name);
-		this.setMaxStackSize(8);
-		this.instances.add(this);
-		this.setNoRepair();
-	}
+    public static List get_instances()
+    {
+        return instances;
+    }
 
-	public abstract boolean supportsDistance();
+    public ItemModuleBase(int i, String name)
+    {
+        super(i, name);
+        this.setMaxStackSize(8);
+        this.instances.add(this);
+        this.setNoRepair();
+    }
 
-	public abstract boolean supportsStrength();
+    public abstract boolean supportsDistance();
 
-	public abstract boolean supportsMatrix();
+    public abstract boolean supportsStrength();
 
-	public abstract void calculateField(IModularProjector modularProjector, Set paramSet);
+    public abstract boolean supportsMatrix();
 
-        @Override
-	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float hitX, float hitY, float hitZ)
-	{
-		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
+    public abstract void calculateField(IModularProjector modularProjector, Set paramSet);
 
-		if ((!world.isRemote) && ((tileEntity instanceof IModularProjector)))
-		{
-			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
-			{
-				return false;
-			}
-			if (((IModularProjector) tileEntity).getStackInSlot(1) == null)
-			{
-				((IModularProjector) tileEntity).setInventorySlotContents(1, itemstack.splitStack(1));
-				Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.TypfromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
-				((TileEntityProjector) tileEntity).checkslots();
-				return true;
-			}
+    @Override
+    public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float hitX, float hitY, float hitZ)
+    {
+        TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
 
-			Functions.ChattoPlayer(entityplayer, "[Projector] Fail: Slot is not empty");
-			return false;
-		}
+        if ((!world.isRemote) && ((tileEntity instanceof IModularProjector)))
+        {
+            if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
+            {
+                return false;
+            }
+            if (((IModularProjector) tileEntity).getStackInSlot(1) == null)
+            {
+                ((IModularProjector) tileEntity).setInventorySlotContents(1, itemstack.splitStack(1));
+                Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.TypfromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
+                ((TileEntityProjector) tileEntity).checkslots();
+                return true;
+            }
 
-		return false;
-	}
+            Functions.ChattoPlayer(entityplayer, "[Projector] Fail: Slot is not empty");
+            return false;
+        }
 
-	public ForceFieldTyps getForceFieldTyps()
-	{
-		return ForceFieldTyps.Default;
-	}
+        return false;
+    }
 
-	public abstract boolean supportsOption(Item paramItem);
+    public ForceFieldTyps getForceFieldTyps()
+    {
+        return ForceFieldTyps.Default;
+    }
+
+    public abstract boolean supportsOption(Item paramItem);
 }

@@ -10,43 +10,44 @@ import net.minecraft.world.World;
 
 public class BlockProjector extends BlockMFFS
 {
-	public BlockProjector(int i)
-	{
-		super(i, "forceFieldProjector");
-		this.setTextureFile(ModularForceFieldSystem.TEXTURE_DIRECTORY + "projector.png");
-	}
 
-	@Override
-	public TileEntity createNewTileEntity(World world)
-	{
-		return new TileEntityProjector();
-	}
+    public BlockProjector(int i)
+    {
+        super(i, "forceFieldProjector");
+        this.setTextureFile(ModularForceFieldSystem.TEXTURE_DIRECTORY + "projector.png");
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
-	{
-		TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
+    @Override
+    public TileEntity createNewTileEntity(World world)
+    {
+        return new TileEntityProjector();
+    }
 
-		if (tileentity.isBurnout())
-		{
-			return false;
-		}
+    @Override
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
+    {
+        TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
 
-		return super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9);
-	}
+        if (tileentity.isBurnout())
+        {
+            return false;
+        }
 
-	@Override
-	public void randomDisplayTick(World world, int i, int j, int k, Random random)
-	{
-		TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
+        return super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9);
+    }
 
-		if (tileentity.isBurnout())
-		{
-			double d = i + Math.random();
-			double d1 = j + Math.random();
-			double d2 = k + Math.random();
+    @Override
+    public void randomDisplayTick(World world, int i, int j, int k, Random random)
+    {
+        TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
 
-			world.spawnParticle("smoke", d, d1, d2, 0.0D, 0.0D, 0.0D);
-		}
-	}
+        if (tileentity.isBurnout())
+        {
+            double d = i + Math.random();
+            double d1 = j + Math.random();
+            double d2 = k + Math.random();
+
+            world.spawnParticle("smoke", d, d1, d2, 0.0D, 0.0D, 0.0D);
+        }
+    }
 }

@@ -11,26 +11,26 @@ import org.lwjgl.input.Keyboard;
 
 public class ItemUpgradeRange extends ItemMFFS
 {
-	public ItemUpgradeRange(int i)
-	{
-		super(i, "upgradeRange");
-		setIconIndex(33);
-		setMaxStackSize(9);
-		this.setNoRepair();
 
-	}
+    public ItemUpgradeRange(int i)
+    {
+        super(i, "upgradeRange");
+        setIconIndex(33);
+        setMaxStackSize(9);
+        this.setNoRepair();
 
-        @Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-	{
-		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
-		{
-			info.add("compatible with:");
-			info.add("MFFS " + MachineTypes.Capacitor.getName());
-		}
-		else
-		{
-			info.add("compatible with: (Hold Shift)");
-		}
-	}
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
+    {
+        if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
+        {
+            info.add("compatible with:");
+            info.add("MFFS " + MachineTypes.Capacitor.getName());
+        } else
+        {
+            info.add("compatible with: (Hold Shift)");
+        }
+    }
 }

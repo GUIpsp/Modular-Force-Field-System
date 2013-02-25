@@ -11,64 +11,68 @@ import net.minecraft.world.World;
 
 public class InventoryHelper
 {
-	public static IInventory findAttachedInventory(World worldObj, int x, int y, int z)
-	{
-		List<TileEntity> tes = new ArrayList();
 
-		tes.add(worldObj.getBlockTileEntity(x + 1, y, z));
-		tes.add(worldObj.getBlockTileEntity(x - 1, y, z));
-		tes.add(worldObj.getBlockTileEntity(x, y + 1, z));
-		tes.add(worldObj.getBlockTileEntity(x, y - 1, z));
-		tes.add(worldObj.getBlockTileEntity(x, y, z + 1));
-		tes.add(worldObj.getBlockTileEntity(x, y, z - 1));
+    public static IInventory findAttachedInventory(World worldObj, int x, int y, int z)
+    {
+        List<TileEntity> tes = new ArrayList();
 
-		IInventory inv = null;
+        tes.add(worldObj.getBlockTileEntity(x + 1, y, z));
+        tes.add(worldObj.getBlockTileEntity(x - 1, y, z));
+        tes.add(worldObj.getBlockTileEntity(x, y + 1, z));
+        tes.add(worldObj.getBlockTileEntity(x, y - 1, z));
+        tes.add(worldObj.getBlockTileEntity(x, y, z + 1));
+        tes.add(worldObj.getBlockTileEntity(x, y, z - 1));
 
-		for (TileEntity te : tes)
-		{
-			if (((te instanceof IInventory)) && ((inv == null) || (inv.getSizeInventory() < ((IInventory) te).getSizeInventory())))
-				inv = (IInventory) te;
-		}
-		return inv;
-	}
+        IInventory inv = null;
 
-	public static boolean addStacksToInventory(IInventory inventory, ArrayList<ItemStack> itemstacks)
-	{
-		int count = 0;
+        for (TileEntity te : tes)
+        {
+            if (((te instanceof IInventory)) && ((inv == null) || (inv.getSizeInventory() < ((IInventory) te).getSizeInventory())))
+            {
+                inv = (IInventory) te;
+            }
+        }
+        return inv;
+    }
 
-		if ((inventory instanceof TileEntitySecStorage))
-			count = 1;
-		ItemStack inventorystack;
-		for (int a = count; a <= inventory.getSizeInventory() - 1; a++)
-		{
-			inventorystack = inventory.getStackInSlot(a);
+    public static boolean addStacksToInventory(IInventory inventory, ArrayList<ItemStack> itemstacks)
+    {
+        int count = 0;
 
-			for (ItemStack items : itemstacks)
-			{
-				if (items != null)
-				{
-					if (inventorystack != null)
-					{
-						if ((inventorystack.getItem() == items.getItem()) && (inventorystack.getItemDamage() == items.getItemDamage()) && (inventorystack.stackSize + 1 <= inventorystack.getMaxStackSize()) && (inventorystack.stackSize + 1 <= inventory.getInventoryStackLimit()))
-						{
-							inventorystack.stackSize += 1;
+        if ((inventory instanceof TileEntitySecStorage))
+        {
+            count = 1;
+        }
+        ItemStack inventorystack;
+        for (int a = count; a <= inventory.getSizeInventory() - 1; a++)
+        {
+            inventorystack = inventory.getStackInSlot(a);
 
-							items.stackSize -= 1;
-							return true;
-						}
-					}
-					else
-					{
-						inventorystack = items.copy();
-						inventorystack.stackSize = 1;
-						items.stackSize -= 1;
-						inventory.setInventorySlotContents(a, inventorystack);
+            for (ItemStack items : itemstacks)
+            {
+                if (items != null)
+                {
+                    if (inventorystack != null)
+                    {
+                        if ((inventorystack.getItem() == items.getItem()) && (inventorystack.getItemDamage() == items.getItemDamage()) && (inventorystack.stackSize + 1 <= inventorystack.getMaxStackSize()) && (inventorystack.stackSize + 1 <= inventory.getInventoryStackLimit()))
+                        {
+                            inventorystack.stackSize += 1;
 
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+                            items.stackSize -= 1;
+                            return true;
+                        }
+                    } else
+                    {
+                        inventorystack = items.copy();
+                        inventorystack.stackSize = 1;
+                        items.stackSize -= 1;
+                        inventory.setInventorySlotContents(a, inventorystack);
+
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
