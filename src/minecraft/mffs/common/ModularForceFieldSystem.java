@@ -111,7 +111,6 @@ public class ModularForceFieldSystem
     public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
     public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
     public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
-    public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + NAME + ".cfg"));
     public static int RENDER_ID = 2908;
     /**
      * Machines
@@ -205,23 +204,23 @@ public class ModularForceFieldSystem
 
         if (initiateModule("IC2"))
         {
-            MFFSProperties.MODULE_IC2 = true;
+            MFFSConfiguration.MODULE_IC2 = true;
         }
         if (initiateModule("BasicComponents"))
         {
-            MFFSProperties.MODULE_UE = true;
+            MFFSConfiguration.MODULE_UE = true;
         }
         if (initiateModule("BuildCraft|Core"))
         {
-            MFFSProperties.MODULE_BUILDCRAFT = true;
+            MFFSConfiguration.MODULE_BUILDCRAFT = true;
         }
         if (initiateModule("EE3"))
         {
-            MFFSProperties.MODULE_EE = true;
+            MFFSConfiguration.MODULE_EE = true;
         }
         if (initiateModule("ThermalExpansion"))
         {
-            MFFSProperties.MODULE_THERMAL_EXPANSION = true;
+            MFFSConfiguration.MODULE_THERMAL_EXPANSION = true;
         }
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -229,7 +228,7 @@ public class ModularForceFieldSystem
 
         Modstats.instance().getReporter().registerMod(this);
 
-        if (MFFSProperties.MODULE_EE)
+        if (MFFSConfiguration.MODULE_EE)
         {
             MinecraftForge.EVENT_BUS.register(new EE3Event());
         }
@@ -239,148 +238,65 @@ public class ModularForceFieldSystem
 
         try
         {
-            CONFIGURATION.load();
+        	
+        	MFFSConfiguration.initialize();
+        	
+            blockConverter = new BlockConverter(MFFSConfiguration.block_Converter_ID);
+            blockExtractor = new BlockExtractor(MFFSConfiguration.block_Extractor_ID);
+            blockMonaziteOre = new BlockMonaziteOre(MFFSConfiguration.block_MonazitOre_ID);
+            blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
+            blockCapacitor = new BlockCapacitor(MFFSConfiguration.block_Capacitor_ID);
+            blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
+            blockForceField = new BlockForceField(MFFSConfiguration.block_Field_ID);
+            blockSecurityStorage = new BlockSecurityStorage(MFFSConfiguration.block_SecureStorage_ID);
+            blockSecurityStation = new BlockSecurityStation(MFFSConfiguration.block_SecurityStation_ID, 16);
+            blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
-            Property prop_graphicstyle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "GraphicStyle", 1);
-            prop_graphicstyle.comment = "Graphical style. 1 for UE Style, 2 for IC2 Style.";
-            MFFSProperties.graphicStyle = prop_graphicstyle.getInt(1);
+            itemModuleDistance = new ItemModuleDistance(MFFSConfiguration.item_AltDistance_ID);
+            itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
+            itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
+            itemPowerCrystal = new ItemForcePowerCrystal(MFFSConfiguration.item_FPCrystal_ID);
+            itemForcicium = new ItemForcicium(MFFSConfiguration.item_Forcicium_ID);
+            itemForcicumCell = new ItemForcicumCell(MFFSConfiguration.item_ForciciumCell_ID);
 
-            Property chunckloader_prop = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Chunkloader", true);
-            chunckloader_prop.comment = "Set this to false to turn off the MFFS Chuncloader ability";
-            MFFSProperties.chunckLoader = chunckloader_prop.getBoolean(true);
+            itemModuleDiagonalWall = new ItemModuleDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
+            itemModuleSphere = new ItemModuleSphere(MFFSConfiguration.item_ModSphere_ID);
+            itemModuleCube = new ItemModuleCube(MFFSConfiguration.item_ModCube_ID);
+            itemModuleWall = new ItemModuleWall(MFFSConfiguration.item_ModWall_ID);
+            itemModuleDeflector = new ItemModuleDeflector(MFFSConfiguration.item_ModDeflector_ID);
+            itemModuleTube = new ItemModuleTube(MFFSConfiguration.item_ModTube_ID);
+            itemModuleContainment = new ItemModuleContainment(MFFSConfiguration.item_ModContainment_ID);
+            itemModuleAdvancedCube = new ItemModuleAdvancedCube(MFFSConfiguration.item_ModAdvCube_ID);
 
-            Property DefSationNPCScannoti = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationNPCScannnotification", false);
-            DefSationNPCScannoti.comment = "Set this to true to turn off the DefenceStation notification is in NPC Mode";
-            MFFSProperties.defenseStationNPCNotification = DefSationNPCScannoti.getBoolean(false);
+            itemOptionShock = new ItemOptionShock(MFFSConfiguration.item_OptTouchHurt_ID);
+            itemOptionSponge = new ItemOptionSponge(MFFSConfiguration.item_OptSponge_ID);
+            itemOptionFieldManipulator = new ItemOptionFieldManipulator(MFFSConfiguration.item_OptManipulator_ID);
+            itemOptionCutter = new ItemOptionCutter(MFFSConfiguration.item_OptBlockBreaker_ID);
+            itemOptionDefenseeStation = new ItemOptionDefenseStation(MFFSConfiguration.item_OptDefense_ID);
+            itemOptionAntibiotic = new ItemOptionAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
+            itemOptionJammer = new ItemOptionJammer(MFFSConfiguration.item_OptJammer_ID);
+            itemOptionCamouflage = new ItemOptionCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
+            itemOptionFieldFusion = new ItemOptionFieldFusion(MFFSConfiguration.item_OptFusion_ID);
 
-            Property zapperParticles = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "renderZapperParticles", true);
-            zapperParticles.comment = "Set this to false to turn off the small smoke particles present around TouchDamage enabled ForceFields.";
-            MFFSProperties.advancedParticles = zapperParticles.getBoolean(true);
+            itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
+            itemCardPowerLink = new ItemCardPowerLink(MFFSConfiguration.item_CardPowerLink_ID);
+            itemCardID = new ItemCardPersonalID(MFFSConfiguration.item_CardPersonalID_ID);
+            itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
+            itemCardInfinite = new ItemCardPower(MFFSConfiguration.item_infPowerCard_ID);
+            itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
+            itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
-            Property uumatterForciciumprop = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "uumatterForcicium", true);
-            uumatterForciciumprop.comment = "Add IC2 UU-Matter Recipes for Forcicium";
-            MFFSProperties.uumatterEnabled = uumatterForciciumprop.getBoolean(true);
+            itemMultiToolWrench = new ItemWrench(MFFSConfiguration.item_MTWrench_ID);
+            itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSConfiguration.item_MTSwitch_ID);
+            itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSConfiguration.item_MTFieldTransporter_ID);
+            itemMultiToolID = new ItemMultitoolWriter(MFFSConfiguration.item_MTIDWriter_ID);
+            itemMultiToolManual = new ItemMultiToolManual(MFFSConfiguration.item_MTManual_ID);
 
-            Property adminList = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceFieldMaster", "nobody");
-            adminList.comment = "Add users to this list to give them admin permissions split by ;";
-            MFFSProperties.Admin = adminList.value;
+            itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
+            itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
+            itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
-            Property influencedByOther = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "influencedbyothermods", true);
-            influencedByOther.comment = "Should MFFS be influenced by other mods. e.g. ICBM's EMP";
-            MFFSProperties.influencedbyothermods = Boolean.valueOf(influencedByOther.getBoolean(true));
-
-            Property ffRemoveWaterLavaOnly = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldremoveonlywaterandlava", false);
-            ffRemoveWaterLavaOnly.comment = "Should forcefields only remove water and lava when sponge is enabled?";
-            MFFSProperties.forcefieldremoveonlywaterandlava = Boolean.valueOf(ffRemoveWaterLavaOnly.getBoolean(false));
-
-            Property feTransportCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldtransportcost", 10000);
-            feTransportCost.comment = "How much FE should it cost to transport through a field?";
-            MFFSProperties.forcefieldtransportcost = feTransportCost.getInt(10000);
-
-            Property feFieldBlockCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockcost", 1);
-            feFieldBlockCost.comment = "How much upkeep FE cost a default ForceFieldblock per second";
-            MFFSProperties.forcefieldblockcost = feFieldBlockCost.getInt(1);
-
-            Property BlockCreateMod = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockcreatemodifier", 10);
-            BlockCreateMod.comment = "Energy need for create a ForceFieldblock (forcefieldblockcost*forcefieldblockcreatemodifier)";
-            MFFSProperties.forcefieldblockcreatemodifier = BlockCreateMod.getInt(10);
-
-            Property ffZapperMod = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockzappermodifier", 2);
-            ffZapperMod.comment = "Energy need multiplier used when the zapper option is installed";
-            MFFSProperties.forcefieldblockzappermodifier = ffZapperMod.getInt(2);
-
-            Property maxFFGenPerTick = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldmaxblockpeerTick", 5000);
-            maxFFGenPerTick.comment = "How many field blocks can be generated per tick?";
-            MFFSProperties.forcefieldmaxblockpeerTick = maxFFGenPerTick.getInt(5000);
-
-            Property fcWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceciumWorkCylce", 250);
-            fcWorkCycle.comment = "WorkCycle amount of Forcecium inside a Extractor";
-            MFFSProperties.ForceciumWorkCylce = fcWorkCycle.getInt(250);
-
-            Property fcCellWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceciumCellWorkCylce", 230);
-            fcCellWorkCycle.comment = "WorkCycle amount of Forcecium Cell inside a Extractor";
-            MFFSProperties.forceciumCellWorkCycle = fcCellWorkCycle.getInt(230);
-
-            Property extractorPassFEGen = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ExtractorPassForceEnergyGenerate", 12000);
-            extractorPassFEGen.comment = "How many ForceEnergy generate per WorkCycle";
-            MFFSProperties.ExtractorPassForceEnergyGenerate = extractorPassFEGen.getInt(12000);
-
-            MFFSProperties.ExtractorPassForceEnergyGenerate = MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * 4000;
-
-            Property defStationKillCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationKillForceEnergy", 10000);
-            defStationKillCost.comment = "How much FE does the AreaDefenseStation when killing someone";
-            MFFSProperties.DefenceStationKillForceEnergy = defStationKillCost.getInt(10000);
-
-            Property defStationSearchCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationSearchForceEnergy", 1000);
-            defStationSearchCost.comment = "How much FE does the AreaDefenseStation when searching someone for contraband";
-            MFFSProperties.DefenceStationSearchForceEnergy = defStationSearchCost.getInt(1000);
-
-            Property defStationScannCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationScannForceEnergy", 10);
-            defStationScannCost.comment = "How much FE does the AreaDefenseStation when Scann for Targets (amount * range / tick)";
-            MFFSProperties.DefenceStationScannForceEnergy = defStationScannCost.getInt(10);
-
-            Property Adventuremap = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "adventuremap", false);
-            Adventuremap.comment = "Set MFFS to AdventureMap Mode Extractor need no Forcecium and ForceField have no click damage";
-            MFFSProperties.adventureMap = Boolean.valueOf(Adventuremap.getBoolean(false));
-
-            blockConverter = new BlockConverter(MFFSProperties.block_Converter_ID);
-            blockExtractor = new BlockExtractor(MFFSProperties.block_Extractor_ID);
-            blockMonaziteOre = new BlockMonaziteOre(MFFSProperties.block_MonazitOre_ID);
-            blockDefenceStation = new BlockDefenseStation(MFFSProperties.block_DefenseStation_ID);
-            blockCapacitor = new BlockCapacitor(MFFSProperties.block_Capacitor_ID);
-            blockProjector = new BlockProjector(MFFSProperties.block_Projector_ID);
-            blockForceField = new BlockForceField(MFFSProperties.block_Field_ID);
-            blockSecurityStorage = new BlockSecurityStorage(MFFSProperties.block_SecureStorage_ID);
-            blockSecurityStation = new BlockSecurityStation(MFFSProperties.block_SecurityStation_ID, 16);
-            blockControlSystem = new BlockControlSystem(MFFSProperties.block_ControlSystem);
-
-            itemModuleDistance = new ItemModuleDistance(MFFSProperties.item_AltDistance_ID);
-            itemModuleStrength = new ItemModuleStrength(MFFSProperties.item_AltStrength_ID);
-            itemFocusMatix = new ItemProjectorFocusMatrix(MFFSProperties.item_FocusMatrix_ID);
-            itemPowerCrystal = new ItemForcePowerCrystal(MFFSProperties.item_FPCrystal_ID);
-            itemForcicium = new ItemForcicium(MFFSProperties.item_Forcicium_ID);
-            itemForcicumCell = new ItemForcicumCell(MFFSProperties.item_ForciciumCell_ID);
-
-            itemModuleDiagonalWall = new ItemModuleDiagonalWall(MFFSProperties.item_ModDiag_ID);
-            itemModuleSphere = new ItemModuleSphere(MFFSProperties.item_ModSphere_ID);
-            itemModuleCube = new ItemModuleCube(MFFSProperties.item_ModCube_ID);
-            itemModuleWall = new ItemModuleWall(MFFSProperties.item_ModWall_ID);
-            itemModuleDeflector = new ItemModuleDeflector(MFFSProperties.item_ModDeflector_ID);
-            itemModuleTube = new ItemModuleTube(MFFSProperties.item_ModTube_ID);
-            itemModuleContainment = new ItemModuleContainment(MFFSProperties.item_ModContainment_ID);
-            itemModuleAdvancedCube = new ItemModuleAdvancedCube(MFFSProperties.item_ModAdvCube_ID);
-
-            itemOptionShock = new ItemOptionShock(MFFSProperties.item_OptTouchHurt_ID);
-            itemOptionSponge = new ItemOptionSponge(MFFSProperties.item_OptSponge_ID);
-            itemOptionFieldManipulator = new ItemOptionFieldManipulator(MFFSProperties.item_OptManipulator_ID);
-            itemOptionCutter = new ItemOptionCutter(MFFSProperties.item_OptBlockBreaker_ID);
-            itemOptionDefenseeStation = new ItemOptionDefenseStation(MFFSProperties.item_OptDefense_ID);
-            itemOptionAntibiotic = new ItemOptionAntibiotic(MFFSProperties.item_OptMobDefense_ID);
-            itemOptionJammer = new ItemOptionJammer(MFFSProperties.item_OptJammer_ID);
-            itemOptionCamouflage = new ItemOptionCamoflage(MFFSProperties.item_OptCamouflage_ID);
-            itemOptionFieldFusion = new ItemOptionFieldFusion(MFFSProperties.item_OptFusion_ID);
-
-            itemCardEmpty = new ItemCardEmpty(MFFSProperties.item_BlankCard_ID);
-            itemCardPowerLink = new ItemCardPowerLink(MFFSProperties.item_CardPowerLink_ID);
-            itemCardID = new ItemCardPersonalID(MFFSProperties.item_CardPersonalID_ID);
-            itemCardSecurityLink = new ItemCardSecurityLink(MFFSProperties.item_CardSecurityLink_ID);
-            itemCardInfinite = new ItemCardPower(MFFSProperties.item_infPowerCard_ID);
-            itemCardAccess = new ItemAccessCard(MFFSProperties.item_CardAccess_ID);
-            itemCardDataLink = new ItemCardDataLink(MFFSProperties.item_CardDataLink_ID);
-
-            itemMultiToolWrench = new ItemWrench(MFFSProperties.item_MTWrench_ID);
-            itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSProperties.item_MTSwitch_ID);
-            itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSProperties.item_MTFieldTransporter_ID);
-            itemMultiToolID = new ItemMultitoolWriter(MFFSProperties.item_MTIDWriter_ID);
-            itemMultiToolManual = new ItemMultiToolManual(MFFSProperties.item_MTManual_ID);
-
-            itemUpgradeBoost = new ItemUpgradeBooster(MFFSProperties.item_upgradeBoost_ID);
-            itemUpgradeRange = new ItemUpgradeRange(MFFSProperties.item_upgradeRange_ID);
-            itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSProperties.item_upgradeCap_ID);
-
-            Property monazitWorldAmount = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Monazit Generation", 15);
-            monazitWorldAmount.comment = "The amount of monazite to generate per chunk.";
-            monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, monazitWorldAmount.getInt(15), 4).enable(CONFIGURATION);
+            monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.getConfiguration());
             OreGenerator.addOre(monaziteOreGeneration);
         } catch (Exception e)
         {
@@ -388,7 +304,7 @@ public class ModularForceFieldSystem
             LOGGER.severe(e.getMessage());
         } finally
         {
-            CONFIGURATION.save();
+           MFFSConfiguration.getConfiguration().save();
         }
     }
 

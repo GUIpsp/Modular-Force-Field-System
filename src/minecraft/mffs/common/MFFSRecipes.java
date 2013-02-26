@@ -46,17 +46,17 @@ public class MFFSRecipes
 
         GameRegistry.addSmelting(ModularForceFieldSystem.blockMonaziteOre.blockID, new ItemStack(ModularForceFieldSystem.itemForcicium, 4), 0.5F);
 
-        if (MFFSProperties.MODULE_THERMAL_EXPANSION)
+        if (MFFSConfiguration.MODULE_THERMAL_EXPANSION)
         {
             CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcicium, 8), true);
         }
 
-        if (MFFSProperties.MODULE_IC2)
+        if (MFFSConfiguration.MODULE_IC2)
         {
             Ic2Recipes.addMaceratorRecipe(new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcicium, 8));
             Ic2Recipes.addMatterAmplifier(new ItemStack(ModularForceFieldSystem.itemForcicium, 1), 5000);
 
-            if (MFFSProperties.uumatterEnabled)
+            if (MFFSConfiguration.uumatterEnabled)
             {
                 Ic2Recipes.addCraftingRecipe(new ItemStack(ModularForceFieldSystem.itemForcicium, 8), new Object[]
                 {
@@ -73,7 +73,7 @@ public class MFFSRecipes
             MFFSRecipes.addRecipe("mSnExEEDE", 1, 1, null, ModularForceFieldSystem.itemMultiToolWrench);
         }
 
-        if (MFFSProperties.MODULE_UE)
+        if (MFFSConfiguration.MODULE_UE)
         {
             MFFSRecipes.addRecipe("AAAAxAAHA", 1, 2, null, ModularForceFieldSystem.itemForcicumCell);
             MFFSRecipes.addRecipe("C C G C C", 9, 2, null, ModularForceFieldSystem.itemUpgradeBoost);
@@ -119,7 +119,7 @@ public class MFFSRecipes
 
                 return true;
             case 1:
-                if (MFFSProperties.MODULE_IC2)
+                if (MFFSConfiguration.MODULE_IC2)
                 {
                     GameRegistry.addRecipe(itemstack, new Object[]
                     {
@@ -130,7 +130,7 @@ public class MFFSRecipes
                 }
                 break;
             case 2:
-                if (MFFSProperties.MODULE_UE)
+                if (MFFSConfiguration.MODULE_UE)
                 {
                     GameRegistry.addRecipe(new ShapedOreRecipe(itemstack, new Object[]
                     {

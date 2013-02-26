@@ -32,11 +32,11 @@ public enum ProjectorOptions
     {
         for (ProjectorOptions mach : values())
         {
-            if (MFFSProperties.MODULE_IC2)
+            if (MFFSConfiguration.MODULE_IC2)
             {
                 MFFSRecipes.addRecipe(mach.recipeic, 1, 1, null, mach.item);
             }
-            if (MFFSProperties.MODULE_UE)
+            if (MFFSConfiguration.MODULE_UE)
             {
                 MFFSRecipes.addRecipe(mach.recipeue, 1, 2, null, mach.item);
             }

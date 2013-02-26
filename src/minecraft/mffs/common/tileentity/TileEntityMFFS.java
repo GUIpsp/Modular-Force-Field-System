@@ -11,7 +11,7 @@ import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
 import mffs.common.IModularProjector;
 import mffs.common.FrequencyGrid;
-import mffs.common.MFFSProperties;
+import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -150,7 +150,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
     public void init()
     {
         this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
-        if (MFFSProperties.chunckLoader)
+        if (MFFSConfiguration.chunckLoader)
         {
             registerChunkLoading();
         }

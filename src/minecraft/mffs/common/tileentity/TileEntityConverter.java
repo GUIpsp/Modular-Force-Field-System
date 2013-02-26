@@ -11,7 +11,7 @@ import java.util.EnumSet;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
-import mffs.common.MFFSProperties;
+import mffs.common.MFFSConfiguration;
 import mffs.common.container.ContainerConverter;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -497,7 +497,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 
     public void EmitUEPower(int volt, int amp)
     {
-        if ((MFFSProperties.MODULE_UE) && (hasPowerSource()))
+        if ((MFFSConfiguration.MODULE_UE) && (hasPowerSource()))
         {
             ForgeDirection outputDirection = ForgeDirection.getOrientation(getSide());
             TileEntity outputTile = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), outputDirection);
@@ -507,12 +507,12 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
             {
                 double outputWatts = Math.min(outputNetwork.getRequest().getWatts(), volt * amp);
 
-                if (consumePower((int) (MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true))
+                if (consumePower((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true))
                 {
                     if ((outputWatts > 0.0D) && (isActive()) && (getUE_Output() == 1))
                     {
                         outputNetwork.startProducing(this, outputWatts / volt, volt);
-                        consumePower((int) (MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
+                        consumePower((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
                     } else
                     {
                         outputNetwork.stopProducing(this);
@@ -528,11 +528,11 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
         {
             while (packets > 0)
             {
-                if (consumePower(MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * amount, true))
+                if (consumePower(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * amount, true))
                 {
                     EnergyTileSourceEvent event = new EnergyTileSourceEvent(this, amount);
                     MinecraftForge.EVENT_BUS.post(event);
-                    consumePower(MFFSProperties.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
+                    consumePower(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
                 }
                 packets--;
             }
@@ -622,7 +622,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 
     public void setUEwireConnection()
     {
-        if (MFFSProperties.MODULE_UE)
+        if (MFFSConfiguration.MODULE_UE)
         {
             ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing())));
             this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));

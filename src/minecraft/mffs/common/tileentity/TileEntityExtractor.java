@@ -11,7 +11,7 @@ import java.util.List;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
-import mffs.common.MFFSProperties;
+import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
 import mffs.common.item.ItemForcicium;
@@ -65,7 +65,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         this.capacity = 0;
         this.addedToEnergyNet = false;
 
-        if (MFFSProperties.MODULE_BUILDCRAFT)
+        if (MFFSConfiguration.MODULE_BUILDCRAFT)
         {
             this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
             this.powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D));
@@ -268,9 +268,9 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         if (this.workCycle > 0)
             return true;
 
-        if (MFFSProperties.adventureMap)
+        if (MFFSConfiguration.adventureMap)
         {
-            setMaxWorkCycle(MFFSProperties.forceciumCellWorkCycle);
+            setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle);
             setWorkCylce(getMaxWorkCycle());
             return true;
         }
@@ -279,7 +279,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         {
             if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicium)
             {
-                setMaxWorkCycle(MFFSProperties.ForceciumWorkCylce);
+                setMaxWorkCycle(MFFSConfiguration.ForceciumWorkCylce);
                 setWorkCylce(getMaxWorkCycle());
                 decrStackSize(0, 1);
                 return true;
@@ -287,7 +287,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
             if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell) && (((ItemForcicumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
             {
-                setMaxWorkCycle(MFFSProperties.forceciumCellWorkCycle);
+                setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle);
                 setWorkCylce(getMaxWorkCycle());
                 return true;
             }
@@ -353,7 +353,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
                 setUEwireConnection();
             }
 
-            if ((!this.addedToEnergyNet) && (MFFSProperties.MODULE_IC2))
+            if ((!this.addedToEnergyNet) && (MFFSConfiguration.MODULE_IC2))
             {
                 MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
                 this.addedToEnergyNet = true;
@@ -379,11 +379,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
             if (isActive())
             {
-                if (MFFSProperties.MODULE_BUILDCRAFT)
+                if (MFFSConfiguration.MODULE_BUILDCRAFT)
                 {
                     convertMJtoWorkEnergy();
                 }
-                if (MFFSProperties.MODULE_UE)
+                if (MFFSConfiguration.MODULE_UE)
                 {
                     convertUEtoWorkEnergy();
                 }
@@ -414,7 +414,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
                         if (hasPowerToConvert())
                         {
                             setWorkCylce(getWorkCycle() - 1);
-                            setForceEnergyBuffer(getForceEnergybuffer() + MFFSProperties.ExtractorPassForceEnergyGenerate);
+                            setForceEnergyBuffer(getForceEnergybuffer() + MFFSConfiguration.ExtractorPassForceEnergyGenerate);
                         }
 
                     }
@@ -698,7 +698,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
     public void setUEwireConnection()
     {
-        if (MFFSProperties.MODULE_UE)
+        if (MFFSConfiguration.MODULE_UE)
         {
             ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing()).getOpposite()));
             this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));
