@@ -83,6 +83,7 @@ public class MFFSProperties
     public static int DefenceStationSearchForceEnergy;
     public static int DefenceStationScannForceEnergy;
     public static String Admin;
+    public static int monazitWorldAmount;
     
     /**
      * Which mods are found in MFFS?

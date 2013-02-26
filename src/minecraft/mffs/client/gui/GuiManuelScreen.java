@@ -76,7 +76,7 @@ public class GuiManuelScreen extends GuiContainer
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        this.fontRenderer.drawString("ModularForceFieldSystem Guide", 20, 15, 16777215);
+        this.fontRenderer.drawString("MFFS Multitool - Guide", 20, 15, 16777215);
         getcontent(this.page);
         this.fontRenderer.drawString("Page [" + this.page + "] :" + (String) this.pages.get(this.page), 45, 193, 16777215);
     }
@@ -84,12 +84,12 @@ public class GuiManuelScreen extends GuiContainer
     private void generateIndex()
     {
         this.pages.clear();
-        this.pages.add("Table of Content");
+        this.pages.add("Table of Contents");
         this.pages.add("Changelog");
         this.pages.add("Version Check");
-        this.pages.add("Monazit/Forcicium/-Cell");
-        this.pages.add("Card Overview(1)");
-        this.pages.add("Card Overview(2)");
+        this.pages.add("Monazite/Forcillium/Cell");
+        this.pages.add("Card Overview (1)");
+        this.pages.add("Card Overview (2)");
     }
 
     private void getcontent(int page)
@@ -108,14 +108,14 @@ public class GuiManuelScreen extends GuiContainer
                 break;
             case 1:
                 this.fontRenderer.drawString("Changelog V2.2.8.3.6", 90, 45, 16777215);
-                this.fontRenderer.drawString("fix Coverter Powerloop", 20, 65, 16777215);
-                this.fontRenderer.drawString("fix Textur Bug ", 20, 75, 16777215);
-                this.fontRenderer.drawString("change ForceField -> ", 20, 85, 16777215);
-                this.fontRenderer.drawString("touch damage system", 20, 95, 16777215);
+                this.fontRenderer.drawString("Fixed Converter Powerloop.", 20, 65, 16777215);
+                this.fontRenderer.drawString("Fixed Texture Bug.", 20, 75, 16777215);
+                this.fontRenderer.drawString("Changed Force Field.", 20, 85, 16777215);
+                this.fontRenderer.drawString("New Touch Damage System.", 20, 95, 16777215);
 
                 break;
             case 2:
-                this.fontRenderer.drawString("Versions Check", 90, 45, 16777215);
+                this.fontRenderer.drawString("Version Check", 90, 45, 16777215);
                 // TODO: FIX THIS
                 this.fontRenderer.drawString("Current Version: " + ModularForceFieldSystem.VERSION, 20, 65, 16777215);
                 this.fontRenderer.drawString("Newest Version : " + ModularForceFieldSystem.VERSION, 20, 75, 16777215);
@@ -125,58 +125,58 @@ public class GuiManuelScreen extends GuiContainer
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemForcicium), 30, 65);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemForcicumCell), 30, 85);
 
-                this.fontRenderer.drawString("Monazit Ore (Block/WorldGen)", 60, 50, 16777215);
-                this.fontRenderer.drawString("Forcicium (Item/for Crafting)", 60, 70, 16777215);
-                this.fontRenderer.drawString("Forcicium Cell (Item/from Crafting)", 60, 90, 16777215);
+                this.fontRenderer.drawString("Monazite Ore", 60, 50, 16777215);
+                this.fontRenderer.drawString("Forcillium", 60, 70, 16777215);
+                this.fontRenderer.drawString("Forcillium Cell", 60, 90, 16777215);
 
-                this.fontRenderer.drawString("Monazite can be found between 80 and 0", 20, 105, 16777215);
-                this.fontRenderer.drawString("Use furnace to get 4 Forcicium", 20, 115, 16777215);
-                this.fontRenderer.drawString("Use IC Macerator to get 8 Forcicium", 20, 125, 16777215);
-                this.fontRenderer.drawString("Forcicium Cell can store 1kForcicium", 20, 135, 16777215);
-                this.fontRenderer.drawString("if in hand right click to activate", 20, 145, 16777215);
-                this.fontRenderer.drawString("when active remove Forcicium from  ", 20, 155, 16777215);
-                this.fontRenderer.drawString("Player Inventory and stores it", 20, 165, 16777215);
+                this.fontRenderer.drawString("Monazite Ore can be found within Y  level 80-0.", 20, 105, 16777215);
+                this.fontRenderer.drawString("You can smelt to get 4 Forcillium.", 20, 115, 16777215);
+                this.fontRenderer.drawString("You can macerate to get 8 Forcillium.", 20, 125, 16777215);
+                this.fontRenderer.drawString("Forcillium Cell can store 1k Forcillium,", 20, 135, 16777215);
+                this.fontRenderer.drawString("Right click the Forcillium Cell to", 20, 145, 16777215);
+                this.fontRenderer.drawString("remove Forcicium from the player's", 20, 155, 16777215);
+                this.fontRenderer.drawString("inventory and store it.", 20, 165, 16777215);
                 break;
             case 4:
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardEmpty), 15, 45);
-                this.fontRenderer.drawString("Card <blank> get from Crafting stackable ", 35, 45, 16777215);
-                this.fontRenderer.drawString("up to 16 need for create all Cards ", 35, 55, 16777215);
+                this.fontRenderer.drawString("A Card <Blank> is craftable and", 35, 45, 16777215);
+                this.fontRenderer.drawString("needed for all other cards.", 35, 55, 16777215);
 
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardPowerLink), 15, 95);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockCapacitor), 35, 105);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardEmpty), 140, 105);
-                this.fontRenderer.drawString("Card <Power Link> get from right click", 35, 95, 16777215);
-                this.fontRenderer.drawString("Capacitor with a ", 55, 110, 16777215);
+                this.fontRenderer.drawString("Get a Card <Power Link> from right clicking", 35, 95, 16777215);
+                this.fontRenderer.drawString("a Capacitor with a Card <Blank>", 55, 110, 16777215);
 
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardSecurityLink), 15, 145);
-                this.fontRenderer.drawString("Card <Security Station Link> get from", 35, 145, 16777215);
-                this.fontRenderer.drawString("right click", 35, 160, 16777215);
+                this.fontRenderer.drawString("Get a Card <Security Station Link> from", 35, 145, 16777215);
+                this.fontRenderer.drawString("right clicking a", 35, 160, 16777215);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockSecurityStation), 90, 155);
-                this.fontRenderer.drawString("SecurityStation with a ", 110, 160, 16777215);
+                this.fontRenderer.drawString("Security Station with a Card <Blank>.", 110, 160, 16777215);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardEmpty), 220, 155);
 
                 break;
             case 5:
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardAccess), 15, 45);
-                this.fontRenderer.drawString("Card <Access license> create inside a  ", 35, 45, 16777215);
+                this.fontRenderer.drawString("Create a Card <Access License> inside a", 35, 45, 16777215);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.blockSecurityStation), 35, 55);
-                this.fontRenderer.drawString("SecurityStation with a", 55, 60, 16777215);
+                this.fontRenderer.drawString("Security Station with a Card <Blank>.", 55, 60, 16777215);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardEmpty), 170, 55);
 
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardID), 15, 85);
-                this.fontRenderer.drawString("Card <Personal ID> create with help  ", 35, 85, 16777215);
+                this.fontRenderer.drawString("Create a Card <Personal ID> by right clicking", 35, 85, 16777215);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemMultiToolID), 35, 100);
-                this.fontRenderer.drawString("MultiTool right click create self", 55, 98, 16777215);
-                this.fontRenderer.drawString("or left click for another Player", 55, 110, 16777215);
+                this.fontRenderer.drawString("the Multi Tool for yourself", 55, 98, 16777215);
+                this.fontRenderer.drawString("or left click for another player.", 55, 110, 16777215);
 
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardDataLink), 15, 125);
-                this.fontRenderer.drawString("Card <Data Link> create with help  ", 35, 125, 16777215);
+                this.fontRenderer.drawString("Create a Card <Data Link> by right clicking", 35, 125, 16777215);
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemMultiToolID), 35, 140);
-                this.fontRenderer.drawString("MultiTool right click any ", 55, 138, 16777215);
-                this.fontRenderer.drawString("MFFS Maschine ", 55, 150, 16777215);
+                this.fontRenderer.drawString("the Multi Tool on any", 55, 138, 16777215);
+                this.fontRenderer.drawString("MFFS Machine.", 55, 150, 16777215);
 
                 renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardInfinite), 15, 165);
-                this.fontRenderer.drawString("Admin Infinite Force Energy Card", 35, 170, 16777215);
+                this.fontRenderer.drawString("Infinite Force Energy Card", 35, 170, 16777215);
         }
 
         RenderHelper.disableStandardItemLighting();
