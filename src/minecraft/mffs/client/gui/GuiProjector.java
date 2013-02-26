@@ -89,17 +89,17 @@ public class GuiProjector extends GuiContainer
 
         if (this.projector.hasValidTypeMod())
         {
-            if (ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp != 7)
+            if (ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp != 7)
             {
                 drawTexturedModalRect(w + 119, k + 63, 177, 143, 16, 16);
             }
 
-            if ((ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp != 4) && (ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp != 2))
+            if ((ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp != 4) && (ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp != 2))
             {
                 drawTexturedModalRect(w + 155, k + 63, 177, 143, 16, 16);
             }
 
-            if ((ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp == 1) || (ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp == 2) || (ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp == 6) || (ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp == 7) || (ProjectorTypes.TypfromItem(this.projector.get_type()).ProTyp == 8))
+            if ((ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp == 1) || (ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp == 2) || (ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp == 6) || (ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp == 7) || (ProjectorTypes.typeFromItem(this.projector.getType()).ProTyp == 8))
             {
                 drawTexturedModalRect(w + 137, k + 28, 177, 143, 16, 16);
 

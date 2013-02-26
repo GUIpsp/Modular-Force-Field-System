@@ -10,9 +10,9 @@ public abstract interface IForceEnergyStorageBlock
 
     public abstract int getStorageAvailablePower();
 
-    public abstract boolean consumePowerfromStorage(int paramInt, boolean paramBoolean);
+    public abstract boolean consumePowerFromStorage(int paramInt, boolean paramBoolean);
 
-    public abstract boolean insertPowertoStorage(int paramInt, boolean paramBoolean);
+    public abstract boolean insertPowerToStorage(int paramInt, boolean paramBoolean);
 
-    public abstract int getfreeStorageAmount();
+    public abstract int getFreeStorageAmount();
 }

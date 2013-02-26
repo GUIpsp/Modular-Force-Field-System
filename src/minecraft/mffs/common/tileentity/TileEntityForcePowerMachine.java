@@ -9,7 +9,7 @@ public abstract class TileEntityForcePowerMachine extends TileEntityMFFS impleme
 
     public abstract ItemStack getPowerLinkStack();
 
-    public abstract int getPowerlinkSlot();
+    public abstract int getPowerLinkSlot();
 
     @Override
     public int getPercentageCapacity()

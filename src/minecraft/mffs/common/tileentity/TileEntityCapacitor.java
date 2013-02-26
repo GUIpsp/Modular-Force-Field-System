@@ -57,7 +57,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     public void setTransmitRange(int transmitRange)
     {
         this.transmitionRange = transmitRange;
-        NetworkHandlerServer.updateTileEntityField(this, "TransmitRange");
+        NetworkHandlerServer.updateTileEntityField(this, "transmitionRange");
     }
 
     public int getTransmitRange()
@@ -65,14 +65,14 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
         return this.transmitionRange;
     }
 
-    public int getPowerlinkmode()
+    public int getPowerLinkMode()
     {
         return this.linkMode;
     }
 
-    public void setPowerlinkmode(int powerlinkmode)
+    public void setPowerLinkMode(int powerLinkMode)
     {
-        this.linkMode = powerlinkmode;
+        this.linkMode = powerLinkMode;
     }
 
     @Override
@@ -81,11 +81,11 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
         return this.capacity;
     }
 
-    public void setCapacity(int Capacity)
+    public void setCapacity(int capacity)
     {
-        if (getPercentageStorageCapacity() != Capacity)
+        if (getPercentageStorageCapacity() != capacity)
         {
-            this.capacity = Capacity;
+            this.capacity = capacity;
             NetworkHandlerServer.updateTileEntityField(this, "capacity");
         }
     }
@@ -162,7 +162,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
         return 10000000;
     }
 
-    private void checkslots(boolean init)
+    private void checkSlots()
     {
         if (getStackInSlot(1) != null)
         {
@@ -179,13 +179,12 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
         {
             if ((getStackInSlot(2).getItem() instanceof IForceEnergyItems))
             {
-                if ((getPowerlinkmode() != 3) && (getPowerlinkmode() != 4))
-                {
-                    setPowerlinkmode(3);
-                }
+                if ((getPowerLinkMode() != 3) && (getPowerLinkMode() != 4))
+                    setPowerLinkMode(3);
+
                 IForceEnergyItems ForceEnergyItem = (IForceEnergyItems) getStackInSlot(2).getItem();
 
-                switch (getPowerlinkmode())
+                switch (getPowerLinkMode())
                 {
                     case 3:
                         if (ForceEnergyItem.getAvailablePower(getStackInSlot(2)) < ForceEnergyItem.getMaximumPower(null))
@@ -254,21 +253,17 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 
             if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemCardPowerLink)
             {
-                if ((getPowerlinkmode() != 0) && (getPowerlinkmode() != 1) && (getPowerlinkmode() != 2))
-                {
-                    setPowerlinkmode(0);
-                }
+                if ((getPowerLinkMode() != 0) && (getPowerLinkMode() != 1) && (getPowerLinkMode() != 2))
+                    setPowerLinkMode(0);
             }
         }
     }
 
     @Override
-    public void dropplugins()
+    public void dropPlugins()
     {
         for (int a = 0; a < this.inventory.length; a++)
-        {
-            dropplugins(a, this);
-        }
+            dropPlugins(a, this);
     }
 
     @Override
@@ -276,8 +271,8 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     {
         super.readFromNBT(nbttagcompound);
 
-        this.forcePower = nbttagcompound.getInteger("forcepower");
-        this.linkMode = nbttagcompound.getInteger("Powerlinkmode");
+        this.forcePower = nbttagcompound.getInteger("forcePower");
+        this.linkMode = nbttagcompound.getInteger("powerLinkMode");
 
         NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
         this.inventory = new ItemStack[getSizeInventory()];
@@ -298,8 +293,8 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     {
         super.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setInteger("forcepower", this.forcePower);
-        nbttagcompound.setInteger("Powerlinkmode", this.linkMode);
+        nbttagcompound.setInteger("forcePower", this.forcePower);
+        nbttagcompound.setInteger("powerLinkMode", this.linkMode);
 
         NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < this.inventory.length; i++)
@@ -323,24 +318,20 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
         {
             if (this.init)
             {
-                checkslots(true);
+                checkSlots();
             }
 
             if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
-            {
                 toggelSwitchValue();
-            }
+            
             if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
-            {
                 toggelSwitchValue();
-            }
 
             if (getSwitchValue())
             {
                 if (isActive() != true)
-                {
                     setActive(true);
-                }
+                
             } else if (isActive())
             {
                 setActive(false);
@@ -356,10 +347,10 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
                 {
                     setCapacity(getStorageAvailablePower() / 1000 * 100 / (getStorageMaxPower() / 1000));
                 }
-                checkslots(false);
+                checkSlots();
                 if (isActive())
                 {
-                    powertransfer();
+                    powerTransfer();
                 }
                 setTicker((short) 0);
             }
@@ -368,66 +359,66 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
         super.updateEntity();
     }
 
-    private void powertransfer()
+    private void powerTransfer()
     {
         if (hasPowerSource())
         {
-            int PowerTransferrate = getMaximumPower() / 120;
+            int powerTransferRate = getMaximumPower() / 120;
             int freeStorageAmount = (int) (getMaximumPower() - getForcePower());
-            int balancelevel = (int) (getStorageAvailablePower() - getForcePower());
+            int balanceLevel = (int) (getStorageAvailablePower() - getForcePower());
 
-            switch (getPowerlinkmode())
+            switch (getPowerLinkMode())
             {
                 case 0:
                     if ((getPercentageStorageCapacity() >= 95) && (getPercentageCapacity() != 100))
                     {
-                        if (freeStorageAmount > PowerTransferrate)
+                        if (freeStorageAmount > powerTransferRate)
                         {
-                            emitPower(PowerTransferrate, false);
-                            consumePowerfromStorage(PowerTransferrate, false);
+                            emitPower(powerTransferRate, false);
+                            consumePowerFromStorage(powerTransferRate, false);
                         } else
                         {
                             emitPower(freeStorageAmount, false);
-                            consumePowerfromStorage(freeStorageAmount, false);
+                            consumePowerFromStorage(freeStorageAmount, false);
                         }
                     }
                     break;
                 case 1:
                     if (getPercentageCapacity() < getPercentageStorageCapacity())
                     {
-                        if (balancelevel > PowerTransferrate)
+                        if (balanceLevel > powerTransferRate)
                         {
-                            emitPower(PowerTransferrate, false);
-                            consumePowerfromStorage(PowerTransferrate, false);
+                            emitPower(powerTransferRate, false);
+                            consumePowerFromStorage(powerTransferRate, false);
                         } else
                         {
-                            emitPower(balancelevel, false);
-                            consumePowerfromStorage(balancelevel, false);
+                            emitPower(balanceLevel, false);
+                            consumePowerFromStorage(balanceLevel, false);
                         }
                     }
                     break;
                 case 2:
                     if ((getStorageAvailablePower() > 0) && (getPercentageCapacity() != 100))
                     {
-                        if (getStorageAvailablePower() > PowerTransferrate)
+                        if (getStorageAvailablePower() > powerTransferRate)
                         {
-                            if (freeStorageAmount > PowerTransferrate)
+                            if (freeStorageAmount > powerTransferRate)
                             {
-                                emitPower(PowerTransferrate, false);
-                                consumePowerfromStorage(PowerTransferrate, false);
+                                emitPower(powerTransferRate, false);
+                                consumePowerFromStorage(powerTransferRate, false);
                             } else
                             {
                                 emitPower(freeStorageAmount, false);
-                                consumePowerfromStorage(freeStorageAmount, false);
+                                consumePowerFromStorage(freeStorageAmount, false);
                             }
                         } else if (freeStorageAmount > getStorageAvailablePower())
                         {
                             emitPower(getStorageAvailablePower(), false);
-                            consumePowerfromStorage(getStorageAvailablePower(), false);
+                            consumePowerFromStorage(getStorageAvailablePower(), false);
                         } else
                         {
                             emitPower(freeStorageAmount, false);
-                            consumePowerfromStorage(freeStorageAmount, false);
+                            consumePowerFromStorage(freeStorageAmount, false);
                         }
                     }
                     break;
@@ -487,73 +478,71 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     @Override
     public void onNetworkHandlerEvent(int key, String value)
     {
-        switch (key)
+        if (key == 1)
         {
-            case 1:
                 if (getStackInSlot(2) != null)
                 {
                     if ((getStackInSlot(2).getItem() instanceof IForceEnergyItems))
                     {
-                        if (getPowerlinkmode() == 4)
+                        if (getPowerLinkMode() == 4)
                         {
-                            setPowerlinkmode(3);
+                            setPowerLinkMode(3);
                         } else
                         {
-                            setPowerlinkmode(4);
+                            setPowerLinkMode(4);
                         }
 
                         return;
                     }
                     if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemCardPowerLink)
                     {
-                        if (getPowerlinkmode() < 2)
+                        if (getPowerLinkMode() < 2)
                         {
-                            setPowerlinkmode(getPowerlinkmode() + 1);
+                            setPowerLinkMode(getPowerLinkMode() + 1);
                         } else
                         {
-                            setPowerlinkmode(0);
+                            setPowerLinkMode(0);
                         }
 
                         return;
                     }
                 }
 
-                if (getPowerlinkmode() != 4)
+                if (getPowerLinkMode() != 4)
                 {
-                    setPowerlinkmode(getPowerlinkmode() + 1);
+                    setPowerLinkMode(getPowerLinkMode() + 1);
                 } else
                 {
-                    setPowerlinkmode(0);
+                    setPowerLinkMode(0);
                 }
-                break;
         }
 
         super.onNetworkHandlerEvent(key, value);
     }
 
     @Override
-    public List getFieldsforUpdate()
+    public List getFieldsForUpdate()
     {
         List NetworkedFields = new LinkedList();
         NetworkedFields.clear();
 
-        NetworkedFields.addAll(super.getFieldsforUpdate());
+        NetworkedFields.addAll(super.getFieldsForUpdate());
 
         NetworkedFields.add("linketprojektor");
         NetworkedFields.add("capacity");
-        NetworkedFields.add("TransmitRange");
+        NetworkedFields.add("transmitionRange");
 
         return NetworkedFields;
     }
 
     @Override
-    public int getfreeStorageAmount()
+    public int getFreeStorageAmount()
     {
         return getStorageMaxPower() - getStorageAvailablePower();
     }
 
     @Override
-    public boolean insertPowertoStorage(int powerAmount, boolean simulation)
+    public boolean insertPowerToStorage(int powerAmount, boolean simulation)
     {
         if (simulation)
         {
@@ -568,7 +557,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     }
 
     @Override
-    public boolean consumePowerfromStorage(int powerAmount, boolean simulation)
+    public boolean consumePowerFromStorage(int powerAmount, boolean simulation)
     {
         if (simulation)
         {
@@ -627,9 +616,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     {
         switch (Slot)
         {
-            case 0:
-                return 9;
-            case 1:
+            case 0: case 1:
                 return 9;
             case 2:
                 return 64;
@@ -638,13 +625,13 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     }
 
     @Override
-    public short getmaxSwitchModi()
+    public short getMaxSwitchModi()
     {
         return 3;
     }
 
     @Override
-    public short getminSwitchModi()
+    public short getMinSwitchModi()
     {
         return 1;
     }
@@ -652,11 +639,11 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
     @Override
     public ItemStack getPowerLinkStack()
     {
-        return getStackInSlot(getPowerlinkSlot());
+        return getStackInSlot(getPowerLinkSlot());
     }
 
     @Override
-    public int getPowerlinkSlot()
+    public int getPowerLinkSlot()
     {
         return 2;
     }

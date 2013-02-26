@@ -42,12 +42,12 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
     }
 
     @Override
-    public List getFieldsforUpdate()
+    public List getFieldsForUpdate()
     {
         List NetworkedFields = new LinkedList();
         NetworkedFields.clear();
 
-        NetworkedFields.addAll(super.getFieldsforUpdate());
+        NetworkedFields.addAll(super.getFieldsForUpdate());
         NetworkedFields.add("RemoteDeviceName");
         NetworkedFields.add("RemoteDeviceTyp");
         NetworkedFields.add("RemoteActive");
@@ -69,11 +69,11 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
     }
 
     @Override
-    public void dropplugins()
+    public void dropPlugins()
     {
         for (int a = 0; a < this.inventory.length; a++)
         {
-            dropplugins(a, this);
+            dropPlugins(a, this);
         }
     }
 
@@ -325,12 +325,12 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
                 setRemoteDeviceTyp(MachineTypes.fromTE(this.remote).getName());
             }
 
-            if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) > 61.0D) && (getRemoteGUIinRange()))
+            if ((PointXYZ.distance(getMachinePoint(), this.remote.getMachinePoint()) > 61.0D) && (getRemoteGUIinRange()))
             {
                 setRemoteGUIinRange(false);
             }
 
-            if ((PointXYZ.distance(getMaschinePoint(), this.remote.getMaschinePoint()) <= 61.0D) && (!getRemoteGUIinRange()))
+            if ((PointXYZ.distance(getMachinePoint(), this.remote.getMachinePoint()) <= 61.0D) && (!getRemoteGUIinRange()))
             {
                 setRemoteGUIinRange(true);
             }

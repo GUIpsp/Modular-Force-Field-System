@@ -149,7 +149,7 @@ public class SecurityHelper
 
         if ((tileEntity instanceof TileEntityProjector))
         {
-            switch (((TileEntityProjector) tileEntity).getaccesstyp())
+            switch (((TileEntityProjector) tileEntity).getAccessType())
             {
                 case 2:
                     TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));

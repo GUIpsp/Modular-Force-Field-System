@@ -151,12 +151,12 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new PointXYZ(par2, par3, par4, par1World).hashCode()));
 
-		if ((ffworldmap != null) && (!MFFSProperties.adventuremap))
+		if ((ffworldmap != null) && (!MFFSProperties.adventureMap))
 		{
 			TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (projector != null)
 			{
-				switch (projector.getaccesstyp())
+				switch (projector.getAccessType())
 				{
 					case 0:
 						par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
@@ -224,7 +224,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 				{
 					boolean passtrue = false;
 
-					switch (projector.getaccesstyp())
+					switch (projector.getAccessType())
 					{
 						case 0:
 							passtrue = false;

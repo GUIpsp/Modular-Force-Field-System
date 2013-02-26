@@ -12,7 +12,8 @@ import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 
-public class GuiCapacitor extends GuiMFFS {
+public class GuiCapacitor extends GuiMFFS
+{
 
     private TileEntityCapacitor tileEntity;
 

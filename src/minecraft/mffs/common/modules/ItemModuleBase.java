@@ -58,7 +58,7 @@ public abstract class ItemModuleBase extends ItemMFFS
             if (((IModularProjector) tileEntity).getStackInSlot(1) == null)
             {
                 ((IModularProjector) tileEntity).setInventorySlotContents(1, itemstack.splitStack(1));
-                Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.TypfromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
+                Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.typeFromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
                 ((TileEntityProjector) tileEntity).checkslots();
                 return true;
             }

@@ -37,7 +37,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
     }
 
     @Override
-    public void dropplugins()
+    public void dropPlugins()
     {
         for (int a = 0; a < this.inventory.length; a++)
         {
@@ -362,12 +362,12 @@ public class TileEntitySecurityStation extends TileEntityMFFS
     }
 
     @Override
-    public List getFieldsforUpdate()
+    public List getFieldsForUpdate()
     {
         List NetworkedFields = new LinkedList();
         NetworkedFields.clear();
 
-        NetworkedFields.addAll(super.getFieldsforUpdate());
+        NetworkedFields.addAll(super.getFieldsForUpdate());
         NetworkedFields.add("MainUser");
 
         return NetworkedFields;

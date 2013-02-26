@@ -136,7 +136,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
                                     setforArea(itemStack, cap.getDeviceName());
                                 }
 
-                                if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMaschinePoint(), cap.getMaschinePoint()))
+                                if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
                                 {
                                     return cap;
                                 }
@@ -151,8 +151,8 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
                             TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(png.getPointWorld()).getCapacitor().get(Integer.valueOf(Cap_ID));
                             if (cap != null)
                             {
-                                setInformation(itemStack, cap.getMaschinePoint(), "CapacitorID", Cap_ID);
-                                if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMaschinePoint(), cap.getMaschinePoint()))
+                                setInformation(itemStack, cap.getMachinePoint(), "CapacitorID", Cap_ID);
+                                if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
                                 {
                                     return cap;
                                 }
@@ -221,7 +221,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
         this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
         if (this.storage != null)
         {
-            return this.storage.consumePowerfromStorage(powerAmount, simulation);
+            return this.storage.consumePowerFromStorage(powerAmount, simulation);
         }
         return false;
     }
@@ -232,7 +232,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
         this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
         if (this.storage != null)
         {
-            return this.storage.insertPowertoStorage(powerAmount, simulation);
+            return this.storage.insertPowerToStorage(powerAmount, simulation);
         }
         return false;
     }
@@ -243,7 +243,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
         this.storage = getForceEnergyStorageBlock(itemStack, tem, world);
         if (this.storage != null)
         {
-            return this.storage.getfreeStorageAmount();
+            return this.storage.getFreeStorageAmount();
         }
         return 0;
     }

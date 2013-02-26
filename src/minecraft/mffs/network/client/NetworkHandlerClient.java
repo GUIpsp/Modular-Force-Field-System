@@ -69,10 +69,12 @@ public class NetworkHandlerClient implements IPacketHandler
                                     TileEntity proj = world.getBlockTileEntity(Integer.parseInt(ProjectorCorr[2].trim()), Integer.parseInt(ProjectorCorr[1].trim()), Integer.parseInt(ProjectorCorr[0].trim()));
                                     if ((proj instanceof TileEntityProjector))
                                     {
-                                        ((TileEntityForceField) te).setTexturfile(((TileEntityProjector) proj).getForceFieldTexturfile());
-                                        ((TileEntityForceField) te).setTexturid(((TileEntityProjector) proj).getForceFieldTexturID());
-                                        ((TileEntityForceField) te).setForcefieldCamoblockid(((TileEntityProjector) proj).getForcefieldCamoblockid());
-                                        ((TileEntityForceField) te).setForcefieldCamoblockmeta(((TileEntityProjector) proj).getForcefieldCamoblockmeta());
+                                        TileEntityProjector entityProjector = (TileEntityProjector) proj;
+                                        TileEntityForceField entityForceField = (TileEntityForceField) te;
+                                        entityForceField.setTexturefile(entityProjector.getForceFieldTextureFile());
+                                        entityForceField.setTextureID(entityProjector.getForceFieldTextureID());
+                                        entityForceField.setForcefieldCamoblockid(entityProjector.getForceFieldCamoblockID());
+                                        entityForceField.setForcefieldCamoblockmeta(entityProjector.getForceFieldCamoblockMeta());
                                     }
                                 }
                             }
@@ -305,7 +307,7 @@ public class NetworkHandlerClient implements IPacketHandler
 
         StringBuilder str = new StringBuilder();
 
-        for (String fields : ((INetworkHandlerListener) tileEntity).getFieldsforUpdate())
+        for (String fields : ((INetworkHandlerListener) tileEntity).getFieldsForUpdate())
         {
             str.append(fields);
             str.append("/");

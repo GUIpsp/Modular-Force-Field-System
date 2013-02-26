@@ -49,7 +49,7 @@ public class ItemFieldTransporter extends ItemMultitool
                 {
                     boolean passTrue = false;
 
-                    switch (projector.getaccesstyp())
+                    switch (projector.getAccessType())
                     {
                         case 0:
                             passTrue = false;
@@ -176,7 +176,7 @@ public class ItemFieldTransporter extends ItemMultitool
 
                 }
 
-            } else if ((projector != null) && (projector.getStackInSlot(projector.getPowerlinkSlot()) != null) && (!(projector.getStackInSlot(projector.getPowerlinkSlot()).getItem() instanceof ItemCardPowerLink)))
+            } else if ((projector != null) && (projector.getStackInSlot(projector.getPowerLinkSlot()) != null) && (!(projector.getStackInSlot(projector.getPowerLinkSlot()).getItem() instanceof ItemCardPowerLink)))
             {
                 Functions.ChattoPlayer(entityplayer, "[Field Security] Fail: Projector Powersource not Support this activities");
             }

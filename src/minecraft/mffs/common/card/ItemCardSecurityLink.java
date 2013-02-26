@@ -90,7 +90,7 @@ public class ItemCardSecurityLink extends ItemCard
                             TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGrid.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
                             if (sec != null)
                             {
-                                card.setInformation(inventiory.getStackInSlot(slot), sec.getMaschinePoint(), "Secstation_ID", Sec_ID);
+                                card.setInformation(inventiory.getStackInSlot(slot), sec.getMachinePoint(), "Secstation_ID", Sec_ID);
                                 return sec;
                             }
                         }

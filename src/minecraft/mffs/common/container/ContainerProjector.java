@@ -115,15 +115,15 @@ public class ContainerProjector extends Container
                 icrafting.sendProgressBarUpdate(this, 2, this.projectorentity.getPercentageCapacity());
             }
 
-            if (this.accesstyp != this.projectorentity.getaccesstyp())
+            if (this.accesstyp != this.projectorentity.getAccessType())
             {
-                icrafting.sendProgressBarUpdate(this, 4, this.projectorentity.getaccesstyp());
+                icrafting.sendProgressBarUpdate(this, 4, this.projectorentity.getAccessType());
             }
 
         }
 
         this.linkPower = this.projectorentity.getLinkPower();
-        this.accesstyp = this.projectorentity.getaccesstyp();
+        this.accesstyp = this.projectorentity.getAccessType();
         this.capacity = this.projectorentity.getPercentageCapacity();
     }
 
@@ -144,7 +144,7 @@ public class ContainerProjector extends Container
                 this.projectorentity.setCapacity(j);
                 break;
             case 4:
-                this.projectorentity.setaccesstyp(j);
+                this.projectorentity.setAccessType(j);
             case 3:
         }
     }

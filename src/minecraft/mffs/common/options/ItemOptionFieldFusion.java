@@ -59,7 +59,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
                 {
                     if (Projector.hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
                     {
-                        Projector.getfield_queue().remove(png);
+                        Projector.getFieldQueue().remove(png);
                         ffworldmap.removebyProjector(Projector.getDeviceID());
 
                         PointXYZ ffpng = ffworldmap.getPoint();

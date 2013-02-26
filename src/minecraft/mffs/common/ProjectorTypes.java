@@ -32,7 +32,7 @@ public enum ProjectorTypes
         this.Blockdropper = Blockdropper;
     }
 
-    public static ProjectorTypes TypfromItem(Item item)
+    public static ProjectorTypes typeFromItem(Item item)
     {
         for (ProjectorTypes mach : values())
         {
@@ -46,9 +46,9 @@ public enum ProjectorTypes
 
     public static void initialize()
     {
-        for (ProjectorTypes mach : values())
+        for (ProjectorTypes match : values())
         {
-            addRecipeFor(mach);
+            addRecipeFor(match);
         }
     }
 

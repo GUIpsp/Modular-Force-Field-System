@@ -96,10 +96,10 @@ public class GuiExtractor extends GuiContainer
         int k = (this.height - this.ySize) / 2;
         drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
 
-        int Workpowerslider = 79 * this.Extractor.getWorkdone() / 100;
+        int Workpowerslider = 79 * this.Extractor.getWorkDone() / 100;
         drawTexturedModalRect(w + 49, k + 89, 176, 0, Workpowerslider, 6);
 
-        int WorkCylce = 32 * this.Extractor.getWorkCylce() / MFFSProperties.ForceciumWorkCylce;
+        int WorkCylce = 32 * this.Extractor.getWorkCycle() / MFFSProperties.ForceciumWorkCylce;
 
         drawTexturedModalRect(w + 73, k + 50, 179, 81, WorkCylce, 32);
 
@@ -116,6 +116,6 @@ public class GuiExtractor extends GuiContainer
         this.fontRenderer.drawString("Extractor", 5, 35, 4210752);
         this.fontRenderer.drawString(String.valueOf(this.Extractor.getForceEnergybuffer() / 1000).concat("k"), 140, 89, 4210752);
 
-        this.fontRenderer.drawString(String.valueOf(this.Extractor.getWorkdone()).concat("%"), 23, 89, 4210752);
+        this.fontRenderer.drawString(String.valueOf(this.Extractor.getWorkDone()).concat("%"), 23, 89, 4210752);
     }
 }

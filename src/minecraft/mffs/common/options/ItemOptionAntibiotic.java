@@ -34,7 +34,7 @@ public class ItemOptionAntibiotic extends ItemOptionBase
             int fieldzmin = projector.zCoord;
             int fieldzmax = projector.zCoord;
 
-            for (PointXYZ png : projector.getfield_queue())
+            for (PointXYZ png : projector.getFieldQueue())
             {
                 fieldxmax = Math.max(fieldxmax, png.X);
                 fieldxmin = Math.min(fieldxmin, png.X);
@@ -52,7 +52,7 @@ public class ItemOptionAntibiotic extends ItemOptionBase
 
                 if (((entityLiving instanceof EntityMob)) || ((entityLiving instanceof EntitySlime)) || ((entityLiving instanceof EntityGhast)))
                 {
-                    if ((!(projector.get_type() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMaschinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
+                    if ((!(projector.getType() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
                     {
                         if (projector.getLinkPower() < 10000)
                         {

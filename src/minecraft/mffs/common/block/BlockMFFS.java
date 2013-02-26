@@ -167,7 +167,7 @@ public abstract class BlockMFFS extends BlockMachine
 
             if ((tileEntity instanceof TileEntityProjector))
             {
-                typ = ((TileEntityProjector) tileEntity).getProjektor_Typ();
+                typ = ((TileEntityProjector) tileEntity).getProjectorType();
             }
 
             if (tileEntity.isActive())
