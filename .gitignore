@@ -2,6 +2,8 @@
 *.sh
 *.txt
 /*/
+CHANGELOG
+LICENSE
 
 !/src/
 /src/minecraft/*
