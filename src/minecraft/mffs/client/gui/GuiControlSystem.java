@@ -116,8 +116,8 @@ public class GuiControlSystem extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("MFFS Control System", 8, 9, 4210752);
-		this.fontRenderer.drawString(this.ControlSystem.getDeviceName(), 123, 9, 4210752);
-
+		//this.fontRenderer.drawString(this.ControlSystem.getDeviceName(), 123, 9, 4210752);
+		//TODO: REMOVED NAME
 		this.fontRenderer.drawString("DataLink", 190, 54, 4210752);
 		this.fontRenderer.drawString("Reader", 190, 65, 4210752);
 

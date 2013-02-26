@@ -172,7 +172,7 @@ public class GuiSecurityStation extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		this.fontRenderer.drawString("MFFS Security Station:", 8, 8, 4210752);
-		this.fontRenderer.drawString(this.tileEntity.getDeviceName(), 125, 8, 4210752);
+		//this.fontRenderer.drawString(this.tileEntity.getDeviceName(), 125, 8, 4210752);
 		this.fontRenderer.drawString("Master", 200, 38, 4210752);
 		this.fontRenderer.drawString("Rights Allocation", 52, 35, 4210752);
 		this.fontRenderer.drawString("Copy->", 109, 106, 4210752);

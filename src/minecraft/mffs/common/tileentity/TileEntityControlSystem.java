@@ -82,7 +82,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if (getTicker() == 20)
+			if (this.ticks % 20 == 0)
 			{
 				if ((getLinkedSecurityStation() != null) && (!isActive()))
 				{
@@ -93,10 +93,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 					setActive(false);
 				}
 				refreshRemoteData();
-
-				setTicker((short) 0);
 			}
-			setTicker((short) (getTicker() + 1));
 		}
 
 		super.updateEntity();
@@ -292,14 +289,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 			{
 				setRemoteActive(this.remote.isActive());
 			}
-			if (!this.remote.getDeviceName().equalsIgnoreCase(getRemoteDeviceName()))
-			{
-				setRemoteDeviceName(this.remote.getDeviceName());
-			}
-			if (this.remote.getSwitchModi() != getRemoteSwitchModi())
-			{
-				setRemoteSwitchModi(this.remote.getSwitchModi());
-			}
+			// TODO: REMOVED NAME
 			if ((!this.remote.getSwitchValue()) == getRemoteSwitchValue())
 			{
 				setRemoteSwitchValue(this.remote.getSwitchValue());

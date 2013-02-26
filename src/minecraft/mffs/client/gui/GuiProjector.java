@@ -137,7 +137,7 @@ public class GuiProjector extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString(this.projector.getDeviceName(), 12, 9, 4210752);
+	//	this.fontRenderer.drawString(this.projector.getDeviceName(), 12, 9, 4210752);
 		this.fontRenderer.drawString("MFFS Projector", 12, 24, 4210752);
 		this.fontRenderer.drawString("Typ-Mode", 34, 44, 4210752);
 		this.fontRenderer.drawString("PowerLink", 34, 66, 4210752);

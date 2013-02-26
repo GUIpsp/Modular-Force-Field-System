@@ -136,7 +136,8 @@ public class ItemMultitoolWriter extends ItemMultitool
 						consumePower(stack, 1000, false);
 						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.itemCardDataLink);
 
-						ItemCardDataLink.setforArea(IDCard, ((TileEntityMFFS) tileEntity).getDeviceName());
+						//ItemCardDataLink.setforArea(IDCard, ((TileEntityMFFS) tileEntity).getDeviceName());
+						//TODO: REMOVED NAME
 						((ItemCardDataLink) IDCard.getItem()).setInformation(IDCard, new PointXYZ(x, y, z, world), "DeviceID", ((TileEntityMFFS) tileEntity).getDeviceID(), tileEntity);
 
 						if (--playerstack.stackSize <= 0)

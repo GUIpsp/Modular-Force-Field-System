@@ -50,48 +50,48 @@ public class ItemModuleWall extends ItemModuleBase
 			{
 				for (int y1 = 1; y1 < projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1 + 1; y1++)
 				{
-					if (projector.getSide() == 0)
+					if (projector.getDirection().ordinal() == 0)
 					{
 						tpy = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1;
 						tpz = z1 - z1 - z1;
 					}
 
-					if (projector.getSide() == 1)
+					if (projector.getDirection().ordinal() == 1)
 					{
 						tpy = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1;
 						tpz = z1 - z1 - z1;
 					}
 
-					if (projector.getSide() == 2)
+					if (projector.getDirection().ordinal() == 2)
 					{
 						tpz = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1 - x1 - x1;
 						tpy = z1;
 					}
 
-					if (projector.getSide() == 3)
+					if (projector.getDirection().ordinal() == 3)
 					{
 						tpz = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1;
 						tpy = z1;
 					}
 
-					if (projector.getSide() == 4)
+					if (projector.getDirection().ordinal() == 4)
 					{
 						tpx = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpz = x1;
 						tpy = z1;
 					}
-					if (projector.getSide() == 5)
+					if (projector.getDirection().ordinal() == 5)
 					{
 						tpx = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpz = x1 - x1 - x1;
 						tpy = z1;
 					}
 
-					if (((projector.getSide() != 0) && (projector.getSide() != 1)) || (((tpx == 0) && (tpz != 0)) || ((tpz == 0) && (tpx != 0)) || ((tpz == 0) && (tpx == 0)) || (((projector.getSide() != 2) && (projector.getSide() != 3)) || (((tpx == 0) && (tpy != 0)) || ((tpy == 0) && (tpx != 0)) || ((tpy == 0) && (tpx == 0)) || (((projector.getSide() == 4) || (projector.getSide() == 5)) && (((tpz == 0) && (tpy != 0)) || ((tpy == 0) && (tpz != 0)) || ((tpy == 0) && (tpz == 0))))))))
+					if (((projector.getDirection().ordinal() != 0) && (projector.getDirection().ordinal() != 1)) || (((tpx == 0) && (tpz != 0)) || ((tpz == 0) && (tpx != 0)) || ((tpz == 0) && (tpx == 0)) || (((projector.getDirection().ordinal() != 2) && (projector.getDirection().ordinal() != 3)) || (((tpx == 0) && (tpy != 0)) || ((tpy == 0) && (tpx != 0)) || ((tpy == 0) && (tpx == 0)) || (((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)) && (((tpz == 0) && (tpy != 0)) || ((tpy == 0) && (tpz != 0)) || ((tpy == 0) && (tpz == 0))))))))
 					{
 						ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
 					}

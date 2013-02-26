@@ -107,8 +107,8 @@ public class GuiAreaDefenseStation extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("MFFS Defence Station", 7, 9, 4210752);
-		this.fontRenderer.drawString(this.DefenceStation.getDeviceName(), 120, 9, 4210752);
-
+		//this.fontRenderer.drawString(this.DefenceStation.getDeviceName(), 120, 9, 4210752);
+		//TODO: REMOVED NAME
 		switch (this.DefenceStation.getActionmode())
 		{
 			case 0:

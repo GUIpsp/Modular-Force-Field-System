@@ -40,11 +40,12 @@ public class ItemCardSecurityLink extends ItemCard
 			{
 				TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGrid.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
 				if (sec != null)
-				{
+				{/*
 					if (!sec.getDeviceName().equals(getforAreaname(itemStack)))
 					{
 						setforArea(itemStack, sec.getDeviceName());
-					}
+					}*/
+					//TODO: REMOVED NAME
 				}
 			}
 
@@ -75,10 +76,11 @@ public class ItemCardSecurityLink extends ItemCard
 						{
 							if ((sec.getDeviceID() == card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot))) && (card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot)) != 0))
 							{
-								if (!sec.getDeviceName().equals(getforAreaname(inventiory.getStackInSlot(slot))))
+								/*if (!sec.getDeviceName().equals(getforAreaname(inventiory.getStackInSlot(slot))))
 								{
 									setforArea(inventiory.getStackInSlot(slot), sec.getDeviceName());
-								}
+								}*/
+								//TODO: REMOVED NAME
 								return sec;
 							}
 						}

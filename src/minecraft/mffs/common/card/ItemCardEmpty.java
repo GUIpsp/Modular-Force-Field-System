@@ -40,8 +40,8 @@ public class ItemCardEmpty extends ItemCard
 				{
 					ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardSecurityLink);
 					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", securityStation.getDeviceID());
-					ItemCardSecurityLink.setforArea(newcard, securityStation.getDeviceName());
-
+					//ItemCardSecurityLink.setforArea(newcard, securityStation.getDeviceName());
+//TODO: REMOVED NAME
 					if (--itemstack.stackSize <= 0)
 					{
 						entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, newcard);
@@ -69,8 +69,8 @@ public class ItemCardEmpty extends ItemCard
 			{
 				ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardPowerLink);
 				((ItemCardPowerLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "CapacitorID", ((TileEntityCapacitor) tileEntity).getPowerStorageID());
-				ItemCardPowerLink.setforArea(newcard, ((TileEntityCapacitor) tileEntity).getDeviceName());
-
+//				ItemCardPowerLink.setforArea(newcard, ((TileEntityCapacitor) tileEntity).getDeviceName());
+//TODO: REMOVED NAME.
 				if (--itemstack.stackSize <= 0)
 				{
 					entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, newcard);

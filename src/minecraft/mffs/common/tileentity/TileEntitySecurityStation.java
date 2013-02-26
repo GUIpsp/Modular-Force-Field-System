@@ -134,7 +134,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if (getTicker() == 10)
+			if (this.ticks % 10 == 0)
 			{
 				if (!getMainUser().equals(""))
 				{
@@ -149,9 +149,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 				}
 
 				checkslots();
-				setTicker((short) 0);
 			}
-			setTicker((short) (getTicker() + 1));
 		}
 
 		super.updateEntity();
@@ -295,10 +293,11 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 							{
 								if (ItemAccessCard.hasRight(stack, right))
 								{
-									if (!ItemAccessCard.getforAreaname(stack).equals(getDeviceName()))
+									/*if (!ItemAccessCard.getforAreaname(stack).equals(getDeviceName()))
 									{
 										ItemAccessCard.setforArea(stack, this);
-									}
+									}*/
+									//TODO: REMOVED NAME
 									return true;
 								}
 							}

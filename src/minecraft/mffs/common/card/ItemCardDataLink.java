@@ -37,10 +37,11 @@ public class ItemCardDataLink extends ItemCard
 				TileEntityMFFS device = FrequencyGrid.getWorldMap(world).getTileEntityMachines(getDeviceTyp(itemStack), DeviceID);
 				if (device != null)
 				{
-					if (!device.getDeviceName().equals(getforAreaname(itemStack)))
+					/*if (!device.getDeviceName().equals(getforAreaname(itemStack)))
 					{
 						setforArea(itemStack, device.getDeviceName());
-					}
+					}*/
+					//TODO :REMOVED NAME
 
 				}
 

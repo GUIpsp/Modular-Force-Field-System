@@ -158,7 +158,8 @@ public class GuiConverter extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString(this.Converter.getDeviceName(), 100, 8, 4210752);
+		//this.fontRenderer.drawString(this.Converter.getDeviceName(), 100, 8, 4210752);
+		//TODO: REMOVED NAME
 		this.fontRenderer.drawString("MFFS Converter", 8, 8, 4210752);
 
 		if (MFFSConfiguration.MODULE_IC2)

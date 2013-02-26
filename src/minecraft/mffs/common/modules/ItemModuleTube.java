@@ -59,7 +59,7 @@ public class ItemModuleTube extends ItemModule3DBase
 		int distance = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 2;
 		int Strength = projector.countItemsInSlot(IModularProjector.Slots.Strength);
 
-		if ((projector.getSide() == 0) || (projector.getSide() == 1))
+		if ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1))
 		{
 			tpy = Strength;
 			tpx = distance;
@@ -68,18 +68,18 @@ public class ItemModuleTube extends ItemModule3DBase
 			y_offset_s = Strength - Strength;
 			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
-				if (projector.getSide() == 0)
+				if (projector.getDirection().ordinal() == 0)
 				{
 					y_offset_e = Strength;
 				}
-				if (projector.getSide() == 1)
+				if (projector.getDirection().ordinal() == 1)
 				{
 					y_offset_s = Strength;
 				}
 			}
 		}
 
-		if ((projector.getSide() == 2) || (projector.getSide() == 3))
+		if ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3))
 		{
 			tpy = distance;
 			tpz = Strength;
@@ -88,17 +88,17 @@ public class ItemModuleTube extends ItemModule3DBase
 			z_offset_s = Strength - Strength;
 			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
-				if (projector.getSide() == 2)
+				if (projector.getDirection().ordinal() == 2)
 				{
 					z_offset_e = Strength;
 				}
-				if (projector.getSide() == 3)
+				if (projector.getDirection().ordinal() == 3)
 				{
 					z_offset_s = Strength;
 				}
 			}
 		}
-		if ((projector.getSide() == 4) || (projector.getSide() == 5))
+		if ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5))
 		{
 			tpy = distance;
 			tpz = distance;
@@ -107,11 +107,11 @@ public class ItemModuleTube extends ItemModule3DBase
 			x_offset_s = Strength - Strength;
 			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
-				if (projector.getSide() == 4)
+				if (projector.getDirection().ordinal() == 4)
 				{
 					x_offset_e = Strength;
 				}
-				if (projector.getSide() == 5)
+				if (projector.getDirection().ordinal() == 5)
 				{
 					x_offset_s = Strength;
 				}
@@ -129,15 +129,15 @@ public class ItemModuleTube extends ItemModule3DBase
 					int tpy_temp = tpy;
 					int tpz_temp = tpz;
 
-					if ((tpx == Strength) && ((projector.getSide() == 4) || (projector.getSide() == 5)))
+					if ((tpx == Strength) && ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)))
 					{
 						tpx_temp++;
 					}
-					if ((tpy == Strength) && ((projector.getSide() == 0) || (projector.getSide() == 1)))
+					if ((tpy == Strength) && ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1)))
 					{
 						tpy_temp++;
 					}
-					if ((tpz == Strength) && ((projector.getSide() == 2) || (projector.getSide() == 3)))
+					if ((tpz == Strength) && ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3)))
 					{
 						tpz_temp++;
 					}

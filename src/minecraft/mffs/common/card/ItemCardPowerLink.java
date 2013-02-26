@@ -43,11 +43,13 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 			{
 				TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(Cap_ID));
 				if (cap != null)
-				{
+				{/*
 					if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
 					{
 						setforArea(itemStack, cap.getDeviceName());
 					}
+					*/
+					//TODO: REMOVED NAME
 				}
 			}
 
@@ -130,11 +132,11 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 						if (cap != null)
 						{
 							if ((cap.getPowerStorageID() == getValuefromKey("CapacitorID", itemStack)) && getValuefromKey("CapacitorID", itemStack) >= 0)
-							{
+							{/*
 								if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
 								{
 									setforArea(itemStack, cap.getDeviceName());
-								}
+								}*///TODO: REMOVED NAME
 
 								if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
 								{

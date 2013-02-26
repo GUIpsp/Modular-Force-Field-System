@@ -19,7 +19,7 @@ public class TECapacitorRenderer extends TileEntitySpecialRenderer
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);
-			int side = topview.getSide();
+			int side = topview.getDirection().ordinal();
 			float dx = 0.0625F;
 			float dz = 0.0625F;
 			float displayWidth = 0.875F;

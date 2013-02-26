@@ -64,41 +64,41 @@ public class ItemModuleAdvancedCube extends ItemModule3DBase
 			{
 				for (int z1 = 0 - zPout; z1 < zMout + 1; z1++)
 				{
-					if (((TileEntityProjector) projector).getSide() == 0)
+					if (((TileEntityProjector) projector).getDirection().ordinal() == 0)
 					{
 						tpy = y1 - y1 - y1 + 1;
 						tpx = x1;
 						tpz = z1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 1)
+					if (((TileEntityProjector) projector).getDirection().ordinal() == 1)
 					{
 						tpy = y1 - 1;
 						tpx = x1;
 						tpz = z1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 2)
+					if (((TileEntityProjector) projector).getDirection().ordinal() == 2)
 					{
 						tpz = y1 - y1 - y1 + 1;
 						tpy = z1 - z1 - z1;
 						tpx = x1 - x1 - x1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 3)
+					if (((TileEntityProjector) projector).getDirection().ordinal() == 3)
 					{
 						tpz = y1 - 1;
 						tpy = z1 - z1 - z1;
 						tpx = x1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 4)
+					if (((TileEntityProjector) projector).getDirection().ordinal() == 4)
 					{
 						tpx = y1 - y1 - y1 + 1;
 						tpy = z1 - z1 - z1;
 						tpz = x1;
 					}
-					if (((TileEntityProjector) projector).getSide() == 5)
+					if (((TileEntityProjector) projector).getDirection().ordinal() == 5)
 					{
 						tpx = y1 - 1;
 						tpy = z1 - z1 - z1;
@@ -109,7 +109,7 @@ public class ItemModuleAdvancedCube extends ItemModule3DBase
 					{
 						if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 						{
-							switch (((TileEntityProjector) projector).getSide())
+							switch (((TileEntityProjector) projector).getDirection().ordinal())
 							{
 								case 0:
 									if (((TileEntityProjector) projector).yCoord + tpy <= ((TileEntityProjector) projector).yCoord)

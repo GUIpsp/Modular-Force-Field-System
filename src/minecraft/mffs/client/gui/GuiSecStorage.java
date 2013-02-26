@@ -100,7 +100,7 @@ public class GuiSecStorage extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString(this.SecStorage.getDeviceName(), 12, 9, 4210752);
+		//this.fontRenderer.drawString(this.SecStorage.getDeviceName(), 12, 9, 4210752);
 		this.fontRenderer.drawString("MFFS Security Storage", 38, 28, 4210752);
 	}
 }
