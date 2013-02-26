@@ -4,10 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 public class ContainerMFFS extends Container
 {
-
+	protected final int slotCount = 0;
 	private IInventory inventory;
 
 	public ContainerMFFS(IInventory inventory)
@@ -31,6 +32,70 @@ public class ContainerMFFS extends Container
 		{
 			this.addSlotToContainer(new Slot(player.inventory, var3, 8 + var3 * 18, 193));
 		}
+	}
+
+	/**
+	 * Called to transfer a stack from one inventory to the other eg. when shift clicking.
+	 */
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par1)
+	{
+		ItemStack var2 = null;
+		Slot var3 = (Slot) this.inventorySlots.get(par1);
+
+		if (var3 != null && var3.getHasStack())
+		{
+			ItemStack itemStack = var3.getStack();
+			var2 = itemStack.copy();
+
+			if (par1 >= slotCount)
+			{
+				for (int i = 0; i < slotCount; i++)
+				{
+					if (this.getSlot(i).isItemValid(itemStack))
+					{
+						if (!this.mergeItemStack(itemStack, i, i + 1, false))
+						{
+							return null;
+						}
+					}
+				}
+
+				if (par1 < 27 + slotCount)
+				{
+					if (!this.mergeItemStack(itemStack, 27 + slotCount, 36 + slotCount, false))
+					{
+						return null;
+					}
+				}
+				else if (par1 >= 27 + slotCount && par1 < 36 + slotCount && !this.mergeItemStack(itemStack, 4, 30, false))
+				{
+					return null;
+				}
+			}
+			else if (!this.mergeItemStack(itemStack, slotCount, 36 + slotCount, false))
+			{
+				return null;
+			}
+
+			if (itemStack.stackSize == 0)
+			{
+				var3.putStack((ItemStack) null);
+			}
+			else
+			{
+				var3.onSlotChanged();
+			}
+
+			if (itemStack.stackSize == var2.stackSize)
+			{
+				return null;
+			}
+
+			var3.onPickupFromSlot(par1EntityPlayer, itemStack);
+		}
+
+		return var2;
 	}
 
 	@Override

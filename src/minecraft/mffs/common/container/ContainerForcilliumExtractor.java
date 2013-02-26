@@ -43,35 +43,6 @@ public class ContainerForcilliumExtractor extends ContainerMFFS
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i)
-	{
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(i);
-		if ((slot != null) && (slot.getHasStack()))
-		{
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0)
-			{
-				slot.putStack(null);
-			}
-			else
-			{
-				slot.onSlotChanged();
-			}
-			if (itemstack1.stackSize != itemstack.stackSize)
-			{
-				slot.onSlotChanged();
-			}
-			else
-			{
-				return null;
-			}
-		}
-		return itemstack;
-	}
-
-	@Override
 	public void updateProgressBar(int i, int j)
 	{
 		switch (i)

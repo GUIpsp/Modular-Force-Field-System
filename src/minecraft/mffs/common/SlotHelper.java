@@ -7,13 +7,12 @@ import net.minecraft.item.ItemStack;
 
 public class SlotHelper extends Slot
 {
-
 	private TileEntityMFFS tileEntity;
 
-	public SlotHelper(IInventory par2IInventory, int id, int par4, int par5)
+	public SlotHelper(TileEntityMFFS tileEntity, int id, int par4, int par5)
 	{
-		super(par2IInventory, id, par4, par5);
-		this.tileEntity = ((TileEntityMFFS) par2IInventory);
+		super(tileEntity, id, par4, par5);
+		this.tileEntity = tileEntity;
 	}
 
 	@Override
