@@ -1,5 +1,7 @@
 package mffs.client.gui;
 
+import org.lwjgl.opengl.GL11;
+
 import mffs.client.GraphicButton;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerCapacitor;
@@ -40,6 +42,11 @@ public class GuiCapacitor extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
+		
+		GL11.glPushMatrix();
+		GL11.glRotatef(-90, 0, 0, 1);
+		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
+		GL11.glPopMatrix();
 
 		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinketProjector(), 8, 30, x, y);
 		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);

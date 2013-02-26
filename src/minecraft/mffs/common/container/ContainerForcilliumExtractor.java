@@ -25,20 +25,19 @@ public class ContainerForcilliumExtractor extends ContainerMFFS
 		/**
 		 * Focillium Input
 		 */
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 0, 9, 31));
-		
-		/**
-		 * Upgrades
-		 */
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 0, 9, 83));
 
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 1, 154, 47));
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 2, 154, 67));
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 3, 154, 87));
-		
 		/**
 		 * Frequency Card
 		 */
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 4, 9, 56));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 1, 9, 41));
+
+		/**
+		 * Upgrades
+		 */
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 2, 154, 67));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 3, 154, 87));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 4, 154, 47));
 
 		this.addPlayerInventory(player);
 	}

@@ -30,7 +30,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.textFieldPos = new Vector2(30, 40);
+		this.textFieldPos = new Vector2(30, 43);
 		super.initGui();
 		this.controlList.clear();
 		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
@@ -40,16 +40,18 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
-
+		
+		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
+		this.textFieldFrequency.drawTextBox();
+		
 		GL11.glPushMatrix();
 		GL11.glRotatef(-90, 0, 0, 1);
-		this.drawTextWithTooltip("upgrade", 10, 50, x, y);
+		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
 		this.drawTextWithTooltip("progress", "%1: " + this.tileEntity.getWorkDone() + "%", 8, 70, x, y);
 		this.drawTextWithTooltip("forcePower", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getForceEnergybuffer(), ElectricUnit.JOULES), 8, 105, x, y);
 
-		this.textFieldFrequency.drawTextBox();
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
 

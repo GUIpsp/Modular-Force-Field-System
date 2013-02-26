@@ -8,25 +8,23 @@ import net.minecraft.item.ItemStack;
 public class SlotHelper extends Slot
 {
 
-	private TileEntityMFFS te;
-	private int Slot;
+	private TileEntityMFFS tileEntity;
 
-	public SlotHelper(IInventory par2IInventory, int par3, int par4, int par5)
+	public SlotHelper(IInventory par2IInventory, int id, int par4, int par5)
 	{
-		super(par2IInventory, par3, par4, par5);
-		this.te = ((TileEntityMFFS) par2IInventory);
-		this.Slot = par3;
+		super(par2IInventory, id, par4, par5);
+		this.tileEntity = ((TileEntityMFFS) par2IInventory);
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack)
+	public boolean isItemValid(ItemStack itemStack)
 	{
-		return this.te.isItemValid(par1ItemStack, this.Slot);
+		return this.tileEntity.isItemValid(itemStack, this.slotNumber);
 	}
 
 	@Override
 	public int getSlotStackLimit()
 	{
-		return this.te.getSlotStackLimit(this.Slot);
+		return this.tileEntity.getSlotStackLimit(this.slotNumber);
 	}
 }
