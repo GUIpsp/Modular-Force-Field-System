@@ -109,7 +109,7 @@ public class GraphicButton extends GuiButton
             {
                 if (this.typ == 1)
                 {
-                    drawTexturedModalRect(this.xPosition, this.yPosition, 96 + ((TileEntityCapacitor) this.tileEntity).getPowerlinkmode() * 16, 80, this.width, this.height);
+                    drawTexturedModalRect(this.xPosition, this.yPosition, 96 + ((TileEntityCapacitor) this.tileEntity).getPowerLinkMode() * 16, 80, this.width, this.height);
                 }
             }
             if ((this.tileEntity instanceof TileEntityProjector))
