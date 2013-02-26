@@ -198,11 +198,11 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
     }
 
     @Override
-    public void dropplugins()
+    public void dropPlugins()
     {
         for (int a = 0; a < this.inventory.length; a++)
         {
-            dropplugins(a, this);
+            dropPlugins(a, this);
         }
     }
 
@@ -599,23 +599,23 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
     @Override
     public ItemStack getPowerLinkStack()
     {
-        return getStackInSlot(getPowerlinkSlot());
+        return getStackInSlot(getPowerLinkSlot());
     }
 
     @Override
-    public int getPowerlinkSlot()
+    public int getPowerLinkSlot()
     {
         return 0;
     }
 
     @Override
-    public short getmaxSwitchModi()
+    public short getMaxSwitchModi()
     {
         return 3;
     }
 
     @Override
-    public short getminSwitchModi()
+    public short getMinSwitchModi()
     {
         return 1;
     }

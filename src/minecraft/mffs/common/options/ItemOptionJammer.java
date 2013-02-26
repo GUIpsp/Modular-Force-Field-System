@@ -33,7 +33,7 @@ public class ItemOptionJammer extends ItemOptionBase implements IChecksOnAll
                 {
                     if ((tpng.X == png.X) && (tpng.Y == png.Y) && (tpng.Z == png.Z))
                     {
-                        Projector.ProjektorBurnout();
+                        Projector.projectorBurnout();
                         return true;
                     }
                 }

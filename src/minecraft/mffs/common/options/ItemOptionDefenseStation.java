@@ -36,7 +36,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
             int fieldzmin = projector.zCoord;
             int fieldzmax = projector.zCoord;
 
-            for (PointXYZ png : projector.getfield_queue())
+            for (PointXYZ png : projector.getFieldQueue())
             {
                 fieldxmax = Math.max(fieldxmax, png.X);
                 fieldxmin = Math.min(fieldxmin, png.X);
@@ -54,7 +54,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 
                 if ((entityLiving instanceof EntityPlayer))
                 {
-                    if ((!(projector.get_type() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMaschinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
+                    if ((!(projector.getType() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
                     {
                         if (projector.getLinkPower() < 10000)
                         {
@@ -64,7 +64,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
                         {
                             boolean killswitch = false;
 
-                            if (projector.getaccesstyp() == 2)
+                            if (projector.getAccessType() == 2)
                             {
                                 TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(projector.getPowerSourceID()));
                                 if (cap != null)
@@ -77,7 +77,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
                                     }
                                 }
                             }
-                            if (projector.getaccesstyp() == 3)
+                            if (projector.getAccessType() == 3)
                             {
                                 TileEntitySecurityStation SecurityStation = projector.getLinkedSecurityStation();
                                 if (SecurityStation != null)

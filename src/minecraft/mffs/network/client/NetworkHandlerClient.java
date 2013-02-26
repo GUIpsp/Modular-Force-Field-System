@@ -73,8 +73,8 @@ public class NetworkHandlerClient implements IPacketHandler
                                         TileEntityForceField entityForceField = (TileEntityForceField) te;
                                         entityForceField.setTexturefile(entityProjector.getForceFieldTextureFile());
                                         entityForceField.setTextureID(entityProjector.getForceFieldTextureID());
-                                        entityForceField.setForcefieldCamoblockid(entityProjector.getForcefieldCamoblockid());
-                                        entityForceField.setForcefieldCamoblockmeta(entityProjector.getForcefieldCamoblockmeta());
+                                        entityForceField.setForcefieldCamoblockid(entityProjector.getForceFieldCamoblockID());
+                                        entityForceField.setForcefieldCamoblockmeta(entityProjector.getForceFieldCamoblockMeta());
                                     }
                                 }
                             }
@@ -307,7 +307,7 @@ public class NetworkHandlerClient implements IPacketHandler
 
         StringBuilder str = new StringBuilder();
 
-        for (String fields : ((INetworkHandlerListener) tileEntity).getFieldsforUpdate())
+        for (String fields : ((INetworkHandlerListener) tileEntity).getFieldsForUpdate())
         {
             str.append(fields);
             str.append("/");

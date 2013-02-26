@@ -182,11 +182,11 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
     }
 
     @Override
-    public void dropplugins()
+    public void dropPlugins()
     {
         for (int a = 0; a < this.Inventory.length; a++)
         {
-            dropplugins(a, this);
+            dropPlugins(a, this);
         }
     }
 
@@ -220,7 +220,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
                     if ((Living instanceof EntityPlayer))
                     {
                         EntityPlayer player = (EntityPlayer) Living;
-                        int distance = (int) PointXYZ.distance(getMaschinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj));
+                        int distance = (int) PointXYZ.distance(getMachinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj));
 
                         if ((distance <= getInfoDistance()) || (getScanmode() != 1))
                         {
@@ -245,7 +245,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
                     {
                         EntityPlayer player = (EntityPlayer) Living;
 
-                        int distance = (int) Math.round(PointXYZ.distance(getMaschinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj)));
+                        int distance = (int) Math.round(PointXYZ.distance(getMachinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj)));
                         if ((distance <= getActionDistance()) || (getScanmode() != 1))
                         {
                             if (!this.actionlist.contains(player))
@@ -256,7 +256,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
                         }
                     } else
                     {
-                        int distance = (int) Math.round(PointXYZ.distance(getMaschinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj)));
+                        int distance = (int) Math.round(PointXYZ.distance(getMachinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj)));
                         if ((distance <= getActionDistance()) || (getScanmode() != 1))
                         {
                             if (!this.NPClist.contains(Living))
@@ -684,13 +684,13 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
     }
 
     @Override
-    public short getmaxSwitchModi()
+    public short getMaxSwitchModi()
     {
         return 3;
     }
 
     @Override
-    public short getminSwitchModi()
+    public short getMinSwitchModi()
     {
         return 1;
     }
@@ -755,11 +755,11 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
     @Override
     public ItemStack getPowerLinkStack()
     {
-        return getStackInSlot(getPowerlinkSlot());
+        return getStackInSlot(getPowerLinkSlot());
     }
 
     @Override
-    public int getPowerlinkSlot()
+    public int getPowerLinkSlot()
     {
         return 0;
     }

@@ -23,7 +23,7 @@ public final class ForceFieldOptions
 
             int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
 
-            if ((dist <= 64) && (tileentity.isActive()) && (tileentity.getProjektor_Typ() != 1) && (tileentity.getProjektor_Typ() != 2))
+            if ((dist <= 64) && (tileentity.isActive()) && (tileentity.getProjectorType() != 1) && (tileentity.getProjectorType() != 2))
             {
                 Map<Integer, TileEntityProjector> InnerMap = null;
                 InnerMap = FrequencyGrid.getWorldMap(world).getProjector();

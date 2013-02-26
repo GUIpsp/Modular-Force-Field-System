@@ -156,7 +156,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 			TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 			if (projector != null)
 			{
-				switch (projector.getaccesstyp())
+				switch (projector.getAccessType())
 				{
 					case 0:
 						par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
@@ -224,7 +224,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 				{
 					boolean passtrue = false;
 
-					switch (projector.getaccesstyp())
+					switch (projector.getAccessType())
 					{
 						case 0:
 							passtrue = false;

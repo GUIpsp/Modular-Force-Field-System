@@ -159,8 +159,8 @@ public class TileEntityForceField extends TileEntity
                     {
                         setTextureID(projector.getForceFieldTextureID(), projector);
                         setTexturefile(projector.getForceFieldTextureFile());
-                        setForcefieldCamoblockid(projector.getForcefieldCamoblockid());
-                        setForcefieldCamoblockmeta(projector.getForcefieldCamoblockmeta());
+                        setForcefieldCamoblockid(projector.getForceFieldCamoblockID());
+                        setForcefieldCamoblockmeta(projector.getForceFieldCamoblockMeta());
                     }
                 }
             }

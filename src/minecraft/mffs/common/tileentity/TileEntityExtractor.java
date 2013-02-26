@@ -182,11 +182,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     }
 
     @Override
-    public void dropplugins()
+    public void dropPlugins()
     {
         for (int a = 0; a < this.inventory.length; a++)
         {
-            dropplugins(a, this);
+            dropPlugins(a, this);
         }
     }
 
@@ -332,13 +332,13 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     }
 
     @Override
-    public short getmaxSwitchModi()
+    public short getMaxSwitchModi()
     {
         return 3;
     }
 
     @Override
-    public short getminSwitchModi()
+    public short getMinSwitchModi()
     {
         return 1;
     }
@@ -563,12 +563,12 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     }
 
     @Override
-    public List getFieldsforUpdate()
+    public List getFieldsForUpdate()
     {
         List NetworkedFields = new LinkedList();
         NetworkedFields.clear();
 
-        NetworkedFields.addAll(super.getFieldsforUpdate());
+        NetworkedFields.addAll(super.getFieldsForUpdate());
         NetworkedFields.add("capacity");
         NetworkedFields.add("WorkCylce");
         NetworkedFields.add("WorkEnergy");
@@ -763,11 +763,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     @Override
     public ItemStack getPowerLinkStack()
     {
-        return getStackInSlot(getPowerlinkSlot());
+        return getStackInSlot(getPowerLinkSlot());
     }
 
     @Override
-    public int getPowerlinkSlot()
+    public int getPowerLinkSlot()
     {
         return 1;
     }

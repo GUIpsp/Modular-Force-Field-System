@@ -107,7 +107,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
     }
 
     @Override
-    public List getFieldsforUpdate()
+    public List getFieldsForUpdate()
     {
         List NetworkedFields = new LinkedList();
         NetworkedFields.clear();
@@ -157,21 +157,21 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
         this.init = false;
     }
 
-    public short getmaxSwitchModi()
+    public short getMaxSwitchModi()
     {
         return 0;
     }
 
-    public short getminSwitchModi()
+    public short getMinSwitchModi()
     {
         return 0;
     }
 
     public void toogleSwitchModi()
     {
-        if (getSwitchModi() == getmaxSwitchModi())
+        if (getSwitchModi() == getMaxSwitchModi())
         {
-            this.SwitchModi = getminSwitchModi();
+            this.SwitchModi = getMinSwitchModi();
         } else
         {
             this.SwitchModi = ((short) (this.SwitchModi + 1));
@@ -191,9 +191,9 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 
     public short getSwitchModi()
     {
-        if (this.SwitchModi < getminSwitchModi())
+        if (this.SwitchModi < getMinSwitchModi())
         {
-            this.SwitchModi = getminSwitchModi();
+            this.SwitchModi = getMinSwitchModi();
         }
         return this.SwitchModi;
     }
@@ -241,14 +241,14 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
         return this.DeviceName;
     }
 
-    public PointXYZ getMaschinePoint()
+    public PointXYZ getMachinePoint()
     {
         return new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
     }
 
-    public abstract void dropplugins();
+    public abstract void dropPlugins();
 
-    public void dropplugins(int slot, IInventory inventory)
+    public void dropPlugins(int slot, IInventory inventory)
     {
         if (this.worldObj.isRemote)
         {
@@ -411,13 +411,13 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
         }
         if (this.chunkTicket == null)
         {
-            System.out.println("[ModularForceFieldSystem]no free Chunkloaders available");
+            System.out.println("[ModularForceFieldSystem] No free Chunkloaders available");
             return;
         }
 
-        this.chunkTicket.getModData().setInteger("MaschineX", this.xCoord);
-        this.chunkTicket.getModData().setInteger("MaschineY", this.yCoord);
-        this.chunkTicket.getModData().setInteger("MaschineZ", this.zCoord);
+        this.chunkTicket.getModData().setInteger("MachineX", this.xCoord);
+        this.chunkTicket.getModData().setInteger("MachineY", this.yCoord);
+        this.chunkTicket.getModData().setInteger("MachineZ", this.zCoord);
         ForgeChunkManager.forceChunk(this.chunkTicket, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 
         forceChunkLoading(this.chunkTicket);
