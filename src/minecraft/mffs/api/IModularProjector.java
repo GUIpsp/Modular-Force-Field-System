@@ -4,10 +4,10 @@ import java.util.Set;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
+import universalelectricity.prefab.implement.IRotatable;
 
-public abstract interface IModularProjector extends IInventory
+public abstract interface IModularProjector extends IInventory, IRotatable
 {
-
 	public abstract World getWorldObj();
 
 	public abstract int countItemsInSlot(Slots paramSlots);
@@ -19,8 +19,6 @@ public abstract interface IModularProjector extends IInventory
 	public abstract void setBurnedOut(boolean paramBoolean);
 
 	public abstract boolean isActive();
-
-	public abstract int getSide();
 
 	public static enum Slots
 	{

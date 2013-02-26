@@ -112,13 +112,6 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 		this.IC_Outputpacketamount = iC_Outputpacketamount;
 	}
 
-	@Override
-	public void setSide(int i)
-	{
-		super.setSide(i);
-		setUEwireConnection();
-	}
-
 	public int getLinkPower()
 	{
 		return this.linkPower;
@@ -140,6 +133,20 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 	}
 
 	@Override
+	public void initiate()
+	{
+		super.initiate();
+		setUEwireConnection();
+	}
+
+	@Override
+	public void setDirection(ForgeDirection facingDirection)
+	{
+		super.setDirection(facingDirection);
+		this.setUEwireConnection();
+	}
+
+	@Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
@@ -157,11 +164,6 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 				}
 			}
 
-			if (this.init)
-			{
-				setUEwireConnection();
-			}
-
 			if (hasPowerSource())
 			{
 				setLinkPower((int) getForcePower());
@@ -171,11 +173,11 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 				setLinkPower(0);
 			}
 
-			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
 				onSwitch();
 			}
-			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
 			{
 				onSwitch();
 			}
@@ -508,7 +510,7 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 	{
 		if ((MFFSConfiguration.MODULE_UE) && (hasPowerSource()))
 		{
-			ForgeDirection outputDirection = ForgeDirection.getOrientation(getSide());
+			ForgeDirection outputDirection = this.getDirection();
 			TileEntity outputTile = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), outputDirection);
 			ElectricityNetwork outputNetwork = ElectricityNetwork.getNetworkFromTileEntity(outputTile, outputDirection);
 
@@ -616,18 +618,6 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 	public int getPowerLinkSlot()
 	{
 		return 0;
-	}
-
-	@Override
-	public short getMaxSwitchModi()
-	{
-		return 3;
-	}
-
-	@Override
-	public short getMinSwitchModi()
-	{
-		return 1;
 	}
 
 	public void setUEwireConnection()

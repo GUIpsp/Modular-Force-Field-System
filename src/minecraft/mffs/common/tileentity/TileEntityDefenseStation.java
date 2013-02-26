@@ -231,7 +231,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 								{
 									if ((!MFFSConfiguration.defenseStationNPCNotification) || (getActionmode() < 3))
 									{
-										player.addChatMessage("!!! [Security Station][" + sec.getDeviceName() + "] Warning you now in me Scanning range!!!");
+										player.addChatMessage("!!! [Security Station] Warning! You are in scanning range!");
 										player.attackEntityFrom(ModularForceFieldSystem.areaDefense, 1);
 									}
 								}
@@ -538,11 +538,11 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
 				onSwitch();
 			}
-			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
 			{
 				onSwitch();
 			}
@@ -564,15 +564,13 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 
 			}
 
-			if (getTicker() == 100)
+			if (this.ticks % 100 == 0)
 			{
 				if (isActive())
 				{
 					DefenceAction();
 				}
-				setTicker((short) 0);
 			}
-			setTicker((short) (getTicker() + 1));
 		}
 		super.updateEntity();
 	}
@@ -686,18 +684,6 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		}
 
 		super.onNetworkHandlerEvent(key, value);
-	}
-
-	@Override
-	public short getMaxSwitchModi()
-	{
-		return 3;
-	}
-
-	@Override
-	public short getMinSwitchModi()
-	{
-		return 1;
 	}
 
 	@Override

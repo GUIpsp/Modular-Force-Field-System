@@ -110,7 +110,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 				}
 			}
 
-			if (getTicker() >= getWorkTicker())
+			if (this.ticks % getWorkTicker() == 0)
 			{
 				checkSlots(false);
 
@@ -141,8 +141,6 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 					}
 
 					transferForceEnergy();
-
-					setTicker((short) 0);
 				}
 
 				if ((this.workmode == 1) && (isActive()))
@@ -158,21 +156,18 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 							((ItemForcilliumCell) getStackInSlot(4).getItem()).setForceciumlevel(getStackInSlot(4), ((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) + 1);
 						}
 					}
-
-					setTicker((short) 0);
 				}
 			}
 
-			setTicker((short) (getTicker() + 1));
 		}
 		super.updateEntity();
 	}
 
 	@Override
-	public void setSide(int i)
+	public void setDirection(ForgeDirection facingDirection)
 	{
-		super.setSide(i);
-		setUEwireConnection();
+		super.setDirection(facingDirection);
+		this.setUEwireConnection();
 	}
 
 	public int getCapacity()
@@ -434,14 +429,12 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		}
 	}
 
-	@Override
-	public short getMaxSwitchModi()
+	public short getMaxSwitchMode()
 	{
 		return 3;
 	}
 
-	@Override
-	public short getMinSwitchModi()
+	public short getMinSwitchMode()
 	{
 		return 1;
 	}

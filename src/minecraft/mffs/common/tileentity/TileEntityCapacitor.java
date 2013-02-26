@@ -37,7 +37,52 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 	public void initiate()
 	{
 		super.initiate();
+		this.checkSlots();
 		RadarRegistry.register(this);
+	}
+
+	@Override
+	public void updateEntity()
+	{
+		if (!this.worldObj.isRemote)
+		{
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+				onSwitch();
+
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+				onSwitch();
+
+			if (getSwitchValue())
+			{
+				if (isActive() != true)
+					setActive(true);
+
+			}
+			else if (isActive())
+			{
+				setActive(false);
+			}
+
+			if (this.ticks % 10 == 0)
+			{
+				if (getLinkedProjector().shortValue() != (short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
+				{
+					setLinketprojektor(Short.valueOf((short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange())));
+				}
+				if (getPercentageStorageCapacity() != getStorageAvailablePower() / 1000 * 100 / (getStorageMaxPower() / 1000))
+				{
+					setCapacity(getStorageAvailablePower() / 1000 * 100 / (getStorageMaxPower() / 1000));
+				}
+
+				checkSlots();
+
+				if (isActive())
+				{
+					powerTransfer();
+				}
+			}
+		}
+		super.updateEntity();
 	}
 
 	@Override
@@ -317,55 +362,6 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
-	@Override
-	public void updateEntity()
-	{
-		if (!this.worldObj.isRemote)
-		{
-			if (this.init)
-			{
-				checkSlots();
-			}
-
-			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
-				onSwitch();
-
-			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
-				onSwitch();
-
-			if (getSwitchValue())
-			{
-				if (isActive() != true)
-					setActive(true);
-
-			}
-			else if (isActive())
-			{
-				setActive(false);
-			}
-
-			if (getTicker() == 10)
-			{
-				if (getLinkedProjector().shortValue() != (short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
-				{
-					setLinketprojektor(Short.valueOf((short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange())));
-				}
-				if (getPercentageStorageCapacity() != getStorageAvailablePower() / 1000 * 100 / (getStorageMaxPower() / 1000))
-				{
-					setCapacity(getStorageAvailablePower() / 1000 * 100 / (getStorageMaxPower() / 1000));
-				}
-				checkSlots();
-				if (isActive())
-				{
-					powerTransfer();
-				}
-				setTicker((short) 0);
-			}
-			setTicker((short) (getTicker() + 1));
-		}
-		super.updateEntity();
-	}
-
 	private void powerTransfer()
 	{
 		if (hasPowerSource())
@@ -640,19 +636,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		}
 		return 1;
 	}
-
-	@Override
-	public short getMaxSwitchModi()
-	{
-		return 3;
-	}
-
-	@Override
-	public short getMinSwitchModi()
-	{
-		return 1;
-	}
-
+	
 	@Override
 	public ItemStack getPowerLinkStack()
 	{

@@ -54,14 +54,12 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return 0;
 	}
 
-	@Override
-	public short getMaxSwitchModi()
+	public short getMaxSwitchMode()
 	{
 		return 3;
 	}
-
-	@Override
-	public short getMinSwitchModi()
+	
+	public short getMinSwitchMode()
 	{
 		return 2;
 	}

@@ -495,19 +495,21 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	}
 
 	@Override
+	public void initiate()
+	{
+		super.initiate();
+		checkslots();
+		if (isActive())
+		{
+			calculateField(true);
+		}
+	}
+
+	@Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if (this.init)
-			{
-				checkslots();
-				if (isActive())
-				{
-					calculateField(true);
-				}
-			}
-
 			if (hasPowerSource())
 			{
 				setLinkPower((int) getForcePower());
@@ -522,11 +524,11 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 				setLinkPower(0);
 			}
 
-			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
 				onSwitch();
 			}
-			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
 			{
 				onSwitch();
 			}
@@ -555,7 +557,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 				}
 			}
 
-			if (getTicker() == 20)
+			if (this.ticks % 20 == 0)
 			{
 				if (isActive())
 				{
@@ -570,13 +572,9 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 					{
 						ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj);
 					}
-
 				}
-
-				setTicker((short) 0);
 			}
 
-			setTicker((short) (getTicker() + 1));
 		}
 		this.switchDelay += 1;
 		super.updateEntity();
@@ -1170,18 +1168,6 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		}
 
 		return ret;
-	}
-
-	@Override
-	public short getMaxSwitchModi()
-	{
-		return 3;
-	}
-
-	@Override
-	public short getMinSwitchModi()
-	{
-		return 1;
 	}
 
 	@Override

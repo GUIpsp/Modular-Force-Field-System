@@ -48,41 +48,41 @@ public class ItemModuleDeflector extends ItemModuleBase
 		{
 			for (int z1 = 0 - projector.countItemsInSlot(IModularProjector.Slots.FocusUp); z1 < projector.countItemsInSlot(IModularProjector.Slots.FocusDown) + 1; z1++)
 			{
-				if (projector.getSide() == 0)
+				if (projector.getDirection().ordinal() == 0)
 				{
 					tpy = 0 - projector.countItemsInSlot(IModularProjector.Slots.Distance) - 1;
 					tpx = x1;
 					tpz = z1;
 				}
 
-				if (projector.getSide() == 1)
+				if (projector.getDirection().ordinal() == 1)
 				{
 					tpy = 0 + projector.countItemsInSlot(IModularProjector.Slots.Distance) + 1;
 					tpx = x1;
 					tpz = z1;
 				}
 
-				if (projector.getSide() == 2)
+				if (projector.getDirection().ordinal() == 2)
 				{
 					tpz = 0 - projector.countItemsInSlot(IModularProjector.Slots.Distance) - 1;
 					tpy = z1 - z1 - z1;
 					tpx = x1 - x1 - x1;
 				}
 
-				if (projector.getSide() == 3)
+				if (projector.getDirection().ordinal() == 3)
 				{
 					tpz = 0 + projector.countItemsInSlot(IModularProjector.Slots.Distance) + 1;
 					tpy = z1 - z1 - z1;
 					tpx = x1;
 				}
 
-				if (projector.getSide() == 4)
+				if (projector.getDirection().ordinal() == 4)
 				{
 					tpx = 0 - projector.countItemsInSlot(IModularProjector.Slots.Distance) - 1;
 					tpy = z1 - z1 - z1;
 					tpz = x1;
 				}
-				if (projector.getSide() == 5)
+				if (projector.getDirection().ordinal() == 5)
 				{
 					tpx = 0 + projector.countItemsInSlot(IModularProjector.Slots.Distance) + 1;
 					tpy = z1 - z1 - z1;

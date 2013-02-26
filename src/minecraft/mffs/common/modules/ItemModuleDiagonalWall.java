@@ -57,48 +57,48 @@ public class ItemModuleDiagonalWall extends ItemModuleWall
 			{
 				for (int y1 = 1; y1 < projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1 + 1; y1++)
 				{
-					if (projector.getSide() == 0)
+					if (projector.getDirection().ordinal() == 0)
 					{
 						tpy = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1;
 						tpz = z1 - z1 - z1;
 					}
 
-					if (projector.getSide() == 1)
+					if (projector.getDirection().ordinal() == 1)
 					{
 						tpy = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1;
 						tpz = z1 - z1 - z1;
 					}
 
-					if (projector.getSide() == 2)
+					if (projector.getDirection().ordinal() == 2)
 					{
 						tpz = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1 - x1 - x1;
 						tpy = z1;
 					}
 
-					if (projector.getSide() == 3)
+					if (projector.getDirection().ordinal() == 3)
 					{
 						tpz = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpx = x1;
 						tpy = z1;
 					}
 
-					if (projector.getSide() == 4)
+					if (projector.getDirection().ordinal() == 4)
 					{
 						tpx = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpz = x1;
 						tpy = z1;
 					}
-					if (projector.getSide() == 5)
+					if (projector.getDirection().ordinal() == 5)
 					{
 						tpx = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
 						tpz = x1 - x1 - x1;
 						tpy = z1;
 					}
 
-					if (((projector.getSide() != 0) && (projector.getSide() != 1)) || (((Math.abs(tpx) == Math.abs(tpz)) && (((tpx == 0) || (tpz == 0)) && ((tpx == 0) && (tpz == 0) && (((projector.countItemsInSlot(IModularProjector.Slots.FocusUp) != 0) && (tpx >= 0) && (tpz <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusDown) != 0) && (tpx <= 0) && (tpz >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusRight) != 0) && (tpx >= 0) && (tpz >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusLeft) != 0) && (tpx <= 0) && (tpz <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft))))))) || (((projector.getSide() != 2) && (projector.getSide() != 3)) || (((Math.abs(tpx) == Math.abs(tpy)) && (((tpx == 0) || (tpy == 0)) && ((tpx == 0) && (tpy == 0) && (((projector.countItemsInSlot(IModularProjector.Slots.FocusUp) != 0) && (tpx >= 0) && (tpy >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusDown) != 0) && (tpx <= 0) && (tpy <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusRight) != 0) && (tpx >= 0) && (tpy <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusLeft) != 0) && (tpx <= 0) && (tpy >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft))))))) || (((projector.getSide() == 4) || (projector.getSide() == 5)) && (Math.abs(tpz) == Math.abs(tpy)) && (((tpx != 0) && (tpy != 0)) || ((tpz == 0) && (tpy == 0) && (((projector.countItemsInSlot(IModularProjector.Slots.FocusUp) != 0) && (tpz >= 0) && (tpy >= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusDown) != 0) && (tpz <= 0) && (tpy <= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusRight) != 0) && (tpz >= 0) && (tpy <= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusLeft) != 0) && (tpz <= 0) && (tpy >= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)))))))))))
+					if (((projector.getDirection().ordinal() != 0) && (projector.getDirection().ordinal() != 1)) || (((Math.abs(tpx) == Math.abs(tpz)) && (((tpx == 0) || (tpz == 0)) && ((tpx == 0) && (tpz == 0) && (((projector.countItemsInSlot(IModularProjector.Slots.FocusUp) != 0) && (tpx >= 0) && (tpz <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusDown) != 0) && (tpx <= 0) && (tpz >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusRight) != 0) && (tpx >= 0) && (tpz >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusLeft) != 0) && (tpx <= 0) && (tpz <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft))))))) || (((projector.getDirection().ordinal() != 2) && (projector.getDirection().ordinal() != 3)) || (((Math.abs(tpx) == Math.abs(tpy)) && (((tpx == 0) || (tpy == 0)) && ((tpx == 0) && (tpy == 0) && (((projector.countItemsInSlot(IModularProjector.Slots.FocusUp) != 0) && (tpx >= 0) && (tpy >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusDown) != 0) && (tpx <= 0) && (tpy <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusRight) != 0) && (tpx >= 0) && (tpy <= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusLeft) != 0) && (tpx <= 0) && (tpy >= 0) && (tpx <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft))))))) || (((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)) && (Math.abs(tpz) == Math.abs(tpy)) && (((tpx != 0) && (tpy != 0)) || ((tpz == 0) && (tpy == 0) && (((projector.countItemsInSlot(IModularProjector.Slots.FocusUp) != 0) && (tpz >= 0) && (tpy >= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusUp))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusDown) != 0) && (tpz <= 0) && (tpy <= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusDown))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusRight) != 0) && (tpz >= 0) && (tpy <= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusRight))) || ((projector.countItemsInSlot(IModularProjector.Slots.FocusLeft) != 0) && (tpz <= 0) && (tpy >= 0) && (tpz <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)) && (tpy <= projector.countItemsInSlot(IModularProjector.Slots.FocusLeft)))))))))))
 					{
 						ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
 					}
