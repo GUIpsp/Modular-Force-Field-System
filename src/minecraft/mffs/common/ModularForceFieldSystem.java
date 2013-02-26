@@ -97,18 +97,16 @@ import cpw.mods.fml.relauncher.Side;
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerClient.class), serverPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerServer.class))
 @ModstatInfo(prefix = "mffs")
-public class ModularForceFieldSystem {
+public class ModularForceFieldSystem
+{
 
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
 	public static final String VERSION = "3.0.0";
 	public static final String RESOURCE_DIRECTORY = "/mffs/";
-	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY
-			+ "textures/";
-	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY
-			+ "blocks.png";
-	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY
-			+ "items.png";
+	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
+	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
+	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
 	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
 	public static int RENDER_ID = 2908;
 	/**
@@ -185,12 +183,9 @@ public class ModularForceFieldSystem {
 
 	public static OreGenBase monaziteOreGeneration;
 
-	public static DamageSource fieldShock = new UEDamageSource("fieldShock")
-			.setDamageBypassesArmor();
-	public static DamageSource areaDefense = new UEDamageSource("areaDefense")
-			.setDamageBypassesArmor();
-	public static DamageSource fieldDefense = new UEDamageSource("fieldDefense")
-			.setDamageBypassesArmor();
+	public static DamageSource fieldShock = new UEDamageSource("fieldShock").setDamageBypassesArmor();
+	public static DamageSource areaDefense = new UEDamageSource("areaDefense").setDamageBypassesArmor();
+	public static DamageSource fieldDefense = new UEDamageSource("fieldDefense").setDamageBypassesArmor();
 
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -200,22 +195,28 @@ public class ModularForceFieldSystem {
 	public static final Logger LOGGER = Logger.getLogger(NAME);
 
 	@Mod.PreInit
-	public void preInit(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event)
+	{
 		LOGGER.setParent(FMLLog.getLogger());
 
-		if (initiateModule("IC2")) {
+		if (initiateModule("IC2"))
+		{
 			MFFSConfiguration.MODULE_IC2 = true;
 		}
-		if (initiateModule("BasicComponents")) {
+		if (initiateModule("BasicComponents"))
+		{
 			MFFSConfiguration.MODULE_UE = true;
 		}
-		if (initiateModule("BuildCraft|Core")) {
+		if (initiateModule("BuildCraft|Core"))
+		{
 			MFFSConfiguration.MODULE_BUILDCRAFT = true;
 		}
-		if (initiateModule("EE3")) {
+		if (initiateModule("EE3"))
+		{
 			MFFSConfiguration.MODULE_EE = true;
 		}
-		if (initiateModule("ThermalExpansion")) {
+		if (initiateModule("ThermalExpansion"))
+		{
 			MFFSConfiguration.MODULE_THERMAL_EXPANSION = true;
 		}
 
@@ -224,146 +225,96 @@ public class ModularForceFieldSystem {
 
 		Modstats.instance().getReporter().registerMod(this);
 
-		if (MFFSConfiguration.MODULE_EE) {
+		if (MFFSConfiguration.MODULE_EE)
+		{
 			MinecraftForge.EVENT_BUS.register(new EE3Event());
 		}
 
-		TickRegistry.registerScheduledTickHandler(
-				new ForceFieldClientUpdatehandler(), Side.CLIENT);
-		TickRegistry.registerScheduledTickHandler(
-				new ForceFieldServerUpdatehandler(), Side.SERVER);
+		TickRegistry.registerScheduledTickHandler(new ForceFieldClientUpdatehandler(), Side.CLIENT);
+		TickRegistry.registerScheduledTickHandler(new ForceFieldServerUpdatehandler(), Side.SERVER);
 
-		try {
+		try
+		{
 
 			MFFSConfiguration.initialize();
 
-			blockConverter = new BlockConverter(
-					MFFSConfiguration.block_Converter_ID);
-			blockExtractor = new BlockExtractor(
-					MFFSConfiguration.block_Extractor_ID);
-			blockMonaziteOre = new BlockMonaziteOre(
-					MFFSConfiguration.block_MonazitOre_ID);
-			blockDefenceStation = new BlockDefenseStation(
-					MFFSConfiguration.block_DefenseStation_ID);
-			blockCapacitor = new BlockCapacitor(
-					MFFSConfiguration.block_Capacitor_ID);
-			blockProjector = new BlockProjector(
-					MFFSConfiguration.block_Projector_ID);
-			blockForceField = new BlockForceField(
-					MFFSConfiguration.block_Field_ID);
-			blockSecurityStorage = new BlockSecurityStorage(
-					MFFSConfiguration.block_SecureStorage_ID);
-			blockSecurityStation = new BlockSecurityStation(
-					MFFSConfiguration.block_SecurityStation_ID, 16);
-			blockControlSystem = new BlockControlSystem(
-					MFFSConfiguration.block_ControlSystem);
+			blockConverter = new BlockConverter(MFFSConfiguration.block_Converter_ID);
+			blockExtractor = new BlockExtractor(MFFSConfiguration.block_Extractor_ID);
+			blockMonaziteOre = new BlockMonaziteOre(MFFSConfiguration.block_MonazitOre_ID);
+			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
+			blockCapacitor = new BlockCapacitor(MFFSConfiguration.block_Capacitor_ID);
+			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
+			blockForceField = new BlockForceField(MFFSConfiguration.block_Field_ID);
+			blockSecurityStorage = new BlockSecurityStorage(MFFSConfiguration.block_SecureStorage_ID);
+			blockSecurityStation = new BlockSecurityStation(MFFSConfiguration.block_SecurityStation_ID, 16);
+			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
-			itemModuleDistance = new ItemModuleDistance(
-					MFFSConfiguration.item_AltDistance_ID);
-			itemModuleStrength = new ItemModuleStrength(
-					MFFSConfiguration.item_AltStrength_ID);
-			itemFocusMatix = new ItemProjectorFocusMatrix(
-					MFFSConfiguration.item_FocusMatrix_ID);
-			itemPowerCrystal = new ItemForcePowerCrystal(
-					MFFSConfiguration.item_FPCrystal_ID);
-			itemForcicium = new ItemForcicium(
-					MFFSConfiguration.item_Forcicium_ID);
-			itemForcicumCell = new ItemForcicumCell(
-					MFFSConfiguration.item_ForciciumCell_ID);
+			itemModuleDistance = new ItemModuleDistance(MFFSConfiguration.item_AltDistance_ID);
+			itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
+			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
+			itemPowerCrystal = new ItemForcePowerCrystal(MFFSConfiguration.item_FPCrystal_ID);
+			itemForcicium = new ItemForcicium(MFFSConfiguration.item_Forcicium_ID);
+			itemForcicumCell = new ItemForcicumCell(MFFSConfiguration.item_ForciciumCell_ID);
 
-			itemModuleDiagonalWall = new ItemModuleDiagonalWall(
-					MFFSConfiguration.item_ModDiag_ID);
-			itemModuleSphere = new ItemModuleSphere(
-					MFFSConfiguration.item_ModSphere_ID);
-			itemModuleCube = new ItemModuleCube(
-					MFFSConfiguration.item_ModCube_ID);
-			itemModuleWall = new ItemModuleWall(
-					MFFSConfiguration.item_ModWall_ID);
-			itemModuleDeflector = new ItemModuleDeflector(
-					MFFSConfiguration.item_ModDeflector_ID);
-			itemModuleTube = new ItemModuleTube(
-					MFFSConfiguration.item_ModTube_ID);
-			itemModuleContainment = new ItemModuleContainment(
-					MFFSConfiguration.item_ModContainment_ID);
-			itemModuleAdvancedCube = new ItemModuleAdvancedCube(
-					MFFSConfiguration.item_ModAdvCube_ID);
+			itemModuleDiagonalWall = new ItemModuleDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
+			itemModuleSphere = new ItemModuleSphere(MFFSConfiguration.item_ModSphere_ID);
+			itemModuleCube = new ItemModuleCube(MFFSConfiguration.item_ModCube_ID);
+			itemModuleWall = new ItemModuleWall(MFFSConfiguration.item_ModWall_ID);
+			itemModuleDeflector = new ItemModuleDeflector(MFFSConfiguration.item_ModDeflector_ID);
+			itemModuleTube = new ItemModuleTube(MFFSConfiguration.item_ModTube_ID);
+			itemModuleContainment = new ItemModuleContainment(MFFSConfiguration.item_ModContainment_ID);
+			itemModuleAdvancedCube = new ItemModuleAdvancedCube(MFFSConfiguration.item_ModAdvCube_ID);
 
-			itemOptionShock = new ItemOptionShock(
-					MFFSConfiguration.item_OptTouchHurt_ID);
-			itemOptionSponge = new ItemOptionSponge(
-					MFFSConfiguration.item_OptSponge_ID);
-			itemOptionFieldManipulator = new ItemOptionFieldManipulator(
-					MFFSConfiguration.item_OptManipulator_ID);
-			itemOptionCutter = new ItemOptionCutter(
-					MFFSConfiguration.item_OptBlockBreaker_ID);
-			itemOptionDefenseeStation = new ItemOptionDefenseStation(
-					MFFSConfiguration.item_OptDefense_ID);
-			itemOptionAntibiotic = new ItemOptionAntibiotic(
-					MFFSConfiguration.item_OptMobDefense_ID);
-			itemOptionJammer = new ItemOptionJammer(
-					MFFSConfiguration.item_OptJammer_ID);
-			itemOptionCamouflage = new ItemOptionCamoflage(
-					MFFSConfiguration.item_OptCamouflage_ID);
-			itemOptionFieldFusion = new ItemOptionFieldFusion(
-					MFFSConfiguration.item_OptFusion_ID);
+			itemOptionShock = new ItemOptionShock(MFFSConfiguration.item_OptTouchHurt_ID);
+			itemOptionSponge = new ItemOptionSponge(MFFSConfiguration.item_OptSponge_ID);
+			itemOptionFieldManipulator = new ItemOptionFieldManipulator(MFFSConfiguration.item_OptManipulator_ID);
+			itemOptionCutter = new ItemOptionCutter(MFFSConfiguration.item_OptBlockBreaker_ID);
+			itemOptionDefenseeStation = new ItemOptionDefenseStation(MFFSConfiguration.item_OptDefense_ID);
+			itemOptionAntibiotic = new ItemOptionAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
+			itemOptionJammer = new ItemOptionJammer(MFFSConfiguration.item_OptJammer_ID);
+			itemOptionCamouflage = new ItemOptionCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
+			itemOptionFieldFusion = new ItemOptionFieldFusion(MFFSConfiguration.item_OptFusion_ID);
 
-			itemCardEmpty = new ItemCardEmpty(
-					MFFSConfiguration.item_BlankCard_ID);
-			itemCardPowerLink = new ItemCardPowerLink(
-					MFFSConfiguration.item_CardPowerLink_ID);
-			itemCardID = new ItemCardPersonalID(
-					MFFSConfiguration.item_CardPersonalID_ID);
-			itemCardSecurityLink = new ItemCardSecurityLink(
-					MFFSConfiguration.item_CardSecurityLink_ID);
-			itemCardInfinite = new ItemCardPower(
-					MFFSConfiguration.item_infPowerCard_ID);
-			itemCardAccess = new ItemAccessCard(
-					MFFSConfiguration.item_CardAccess_ID);
-			itemCardDataLink = new ItemCardDataLink(
-					MFFSConfiguration.item_CardDataLink_ID);
+			itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
+			itemCardPowerLink = new ItemCardPowerLink(MFFSConfiguration.item_CardPowerLink_ID);
+			itemCardID = new ItemCardPersonalID(MFFSConfiguration.item_CardPersonalID_ID);
+			itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
+			itemCardInfinite = new ItemCardPower(MFFSConfiguration.item_infPowerCard_ID);
+			itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
+			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
-			itemMultiToolWrench = new ItemWrench(
-					MFFSConfiguration.item_MTWrench_ID);
-			itemMultiToolSwitch = new ItemMultitoolSwitch(
-					MFFSConfiguration.item_MTSwitch_ID);
-			itemMultiToolFieldTeleporter = new ItemFieldTransporter(
-					MFFSConfiguration.item_MTFieldTransporter_ID);
-			itemMultiToolID = new ItemMultitoolWriter(
-					MFFSConfiguration.item_MTIDWriter_ID);
-			itemMultiToolManual = new ItemMultiToolManual(
-					MFFSConfiguration.item_MTManual_ID);
+			itemMultiToolWrench = new ItemWrench(MFFSConfiguration.item_MTWrench_ID);
+			itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSConfiguration.item_MTSwitch_ID);
+			itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSConfiguration.item_MTFieldTransporter_ID);
+			itemMultiToolID = new ItemMultitoolWriter(MFFSConfiguration.item_MTIDWriter_ID);
+			itemMultiToolManual = new ItemMultiToolManual(MFFSConfiguration.item_MTManual_ID);
 
-			itemUpgradeBoost = new ItemUpgradeBooster(
-					MFFSConfiguration.item_upgradeBoost_ID);
-			itemUpgradeRange = new ItemUpgradeRange(
-					MFFSConfiguration.item_upgradeRange_ID);
-			itemUpgradeCapacity = new ItemUpgradeCapacity(
-					MFFSConfiguration.item_upgradeCap_ID);
+			itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
+			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
+			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
-			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore",
-					"oreMonazite", new ItemStack(blockMonaziteOre), 80,
-					MFFSConfiguration.monazitWorldAmount, 4)
-					.enable(MFFSConfiguration.getConfiguration());
+			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.getConfiguration());
 			OreGenerator.addOre(monaziteOreGeneration);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			LOGGER.severe("Failed to load blocks and configuration!");
 			LOGGER.severe(e.getMessage());
-		} finally {
+		}
+		finally
+		{
 			MFFSConfiguration.getConfiguration().save();
 		}
 	}
 
 	@Mod.Init
-	public void load(FMLInitializationEvent evt) {
-		System.out.println(NAME
-				+ " has loaded: "
-				+ TranslationHelper.loadLanguages(RESOURCE_DIRECTORY
-						+ "language/", new String[] { "en_US" }));
+	public void load(FMLInitializationEvent evt)
+	{
+		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "language/", new String[] { "en_US" }));
 
 		GameRegistry.registerBlock(blockMonaziteOre, "MFFSMonaziteOre");
 		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
-		GameRegistry.registerTileEntity(TileEntityForceField.class,
-				"MFFSForceField");
+		GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
 
 		MachineTypes.initialize();
 		ProjectorTypes.initialize();
@@ -375,53 +326,57 @@ public class ModularForceFieldSystem {
 	}
 
 	@Mod.PostInit
-	public void postInit(FMLPostInitializationEvent evt) {
+	public void postInit(FMLPostInitializationEvent evt)
+	{
 		MFFSRecipes.init();
-		ForgeChunkManager.setForcedChunkLoadingCallback(instance,
-				new ChunkloadCallback());
+		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkloadCallback());
 	}
 
-	public boolean initiateModule(String modname) {
-		if (Loader.isModLoaded(modname)) {
-			LOGGER.log(Level.INFO,
-					MessageFormat.format("Loaded module for: {0}", modname));
+	public boolean initiateModule(String modname)
+	{
+		if (Loader.isModLoaded(modname))
+		{
+			LOGGER.log(Level.INFO, MessageFormat.format("Loaded module for: {0}", modname));
 			return true;
-		} else {
-			LOGGER.log(Level.INFO,
-					MessageFormat.format("Module not loaded: {0}", modname));
+		}
+		else
+		{
+			LOGGER.log(Level.INFO, MessageFormat.format("Module not loaded: {0}", modname));
 			return false;
 		}
 	}
 
-	public class ChunkloadCallback implements
-			ForgeChunkManager.OrderedLoadingCallback {
+	public class ChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback
+	{
 
 		@Override
-		public void ticketsLoaded(List<Ticket> tickets, World world) {
-			for (ForgeChunkManager.Ticket ticket : tickets) {
+		public void ticketsLoaded(List<Ticket> tickets, World world)
+		{
+			for (ForgeChunkManager.Ticket ticket : tickets)
+			{
 				int MaschineX = ticket.getModData().getInteger("MaschineX");
 				int MaschineY = ticket.getModData().getInteger("MaschineY");
 				int MaschineZ = ticket.getModData().getInteger("MaschineZ");
-				TileEntityMFFS Machines = (TileEntityMFFS) world
-						.getBlockTileEntity(MaschineX, MaschineY, MaschineZ);
+				TileEntityMFFS Machines = (TileEntityMFFS) world.getBlockTileEntity(MaschineX, MaschineY, MaschineZ);
 
 				Machines.forceChunkLoading(ticket);
 			}
 		}
 
 		@Override
-		public List ticketsLoaded(List<Ticket> tickets, World world,
-				int maxTicketCount) {
+		public List ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount)
+		{
 			List validTickets = Lists.newArrayList();
-			for (ForgeChunkManager.Ticket ticket : tickets) {
+			for (ForgeChunkManager.Ticket ticket : tickets)
+			{
 				int MaschineX = ticket.getModData().getInteger("MaschineX");
 				int MaschineY = ticket.getModData().getInteger("MaschineY");
 				int MaschineZ = ticket.getModData().getInteger("MaschineZ");
 
-				TileEntity tileEntity = world.getBlockTileEntity(MaschineX,
-						MaschineY, MaschineZ);
+				TileEntity tileEntity = world.getBlockTileEntity(MaschineX, MaschineY, MaschineZ);
 
-				if ((tileEntity instanceof TileEntityMFFS)) {
+				if ((tileEntity instanceof TileEntityMFFS))
+				{
 					validTickets.add(ticket);
 				}
 			}

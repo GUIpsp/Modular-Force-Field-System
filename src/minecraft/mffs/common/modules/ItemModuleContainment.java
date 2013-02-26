@@ -15,90 +15,100 @@ import mffs.common.options.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
-public class ItemModuleContainment extends ItemModule3DBase {
+public class ItemModuleContainment extends ItemModule3DBase
+{
 
-	public ItemModuleContainment(int i) {
+	public ItemModuleContainment(int i)
+	{
 		super(i, "moduleContainment");
 		setIconIndex(54);
 	}
 
 	@Override
-	public boolean supportsDistance() {
+	public boolean supportsDistance()
+	{
 		return true;
 	}
 
 	@Override
-	public boolean supportsStrength() {
+	public boolean supportsStrength()
+	{
 		return true;
 	}
 
 	@Override
-	public boolean supportsMatrix() {
+	public boolean supportsMatrix()
+	{
 		return true;
 	}
 
 	@Override
-	public void calculateField(IModularProjector projector, Set ffLocs,
-			Set ffInterior) {
+	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
+	{
 		int tpx = 0;
 		int tpy = 0;
 		int tpz = 0;
 
-		int xMout = projector
-				.countItemsInSlot(IModularProjector.Slots.FocusLeft);
-		int xPout = projector
-				.countItemsInSlot(IModularProjector.Slots.FocusRight);
-		int zMout = projector
-				.countItemsInSlot(IModularProjector.Slots.FocusDown);
+		int xMout = projector.countItemsInSlot(IModularProjector.Slots.FocusLeft);
+		int xPout = projector.countItemsInSlot(IModularProjector.Slots.FocusRight);
+		int zMout = projector.countItemsInSlot(IModularProjector.Slots.FocusDown);
 		int zPout = projector.countItemsInSlot(IModularProjector.Slots.FocusUp);
-		int distance = projector
-				.countItemsInSlot(IModularProjector.Slots.Distance);
-		int Strength = projector
-				.countItemsInSlot(IModularProjector.Slots.Strength) + 1;
+		int distance = projector.countItemsInSlot(IModularProjector.Slots.Distance);
+		int Strength = projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1;
 
-		for (int y1 = 0; y1 <= Strength; y1++) {
-			for (int x1 = 0 - xMout; x1 < xPout + 1; x1++) {
-				for (int z1 = 0 - zPout; z1 < zMout + 1; z1++) {
-					if (((TileEntityProjector) projector).getSide() == 0) {
+		for (int y1 = 0; y1 <= Strength; y1++)
+		{
+			for (int x1 = 0 - xMout; x1 < xPout + 1; x1++)
+			{
+				for (int z1 = 0 - zPout; z1 < zMout + 1; z1++)
+				{
+					if (((TileEntityProjector) projector).getSide() == 0)
+					{
 						tpy = y1 - y1 - y1 - distance - 1;
 						tpx = x1;
 						tpz = z1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 1) {
+					if (((TileEntityProjector) projector).getSide() == 1)
+					{
 						tpy = y1 + distance + 1;
 						tpx = x1;
 						tpz = z1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 2) {
+					if (((TileEntityProjector) projector).getSide() == 2)
+					{
 						tpz = y1 - y1 - y1 - distance - 1;
 						tpy = z1 - z1 - z1;
 						tpx = x1 - x1 - x1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 3) {
+					if (((TileEntityProjector) projector).getSide() == 3)
+					{
 						tpz = y1 + distance + 1;
 						tpy = z1 - z1 - z1;
 						tpx = x1;
 					}
 
-					if (((TileEntityProjector) projector).getSide() == 4) {
+					if (((TileEntityProjector) projector).getSide() == 4)
+					{
 						tpx = y1 - y1 - y1 - distance - 1;
 						tpy = z1 - z1 - z1;
 						tpz = x1;
 					}
-					if (((TileEntityProjector) projector).getSide() == 5) {
+					if (((TileEntityProjector) projector).getSide() == 5)
+					{
 						tpx = y1 + distance + 1;
 						tpy = z1 - z1 - z1;
 						tpz = x1 - x1 - x1;
 					}
 
-					if ((y1 == 0) || (y1 == Strength) || (x1 == 0 - xMout)
-							|| (x1 == xPout) || (z1 == 0 - zPout)
-							|| (z1 == zMout)) {
+					if ((y1 == 0) || (y1 == Strength) || (x1 == 0 - xMout) || (x1 == xPout) || (z1 == 0 - zPout) || (z1 == zMout))
+					{
 						ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
-					} else {
+					}
+					else
+					{
 						ffInterior.add(new PointXYZ(tpx, tpy, tpz, 0));
 					}
 				}
@@ -106,26 +116,34 @@ public class ItemModuleContainment extends ItemModule3DBase {
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item) {
-		if ((item instanceof ItemOptionCamoflage)) {
+	public static boolean supportsOption(ItemOptionBase item)
+	{
+		if ((item instanceof ItemOptionCamoflage))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionDefenseStation)) {
+		if ((item instanceof ItemOptionDefenseStation))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldFusion)) {
+		if ((item instanceof ItemOptionFieldFusion))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionJammer)) {
+		if ((item instanceof ItemOptionJammer))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionAntibiotic)) {
+		if ((item instanceof ItemOptionAntibiotic))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionSponge)) {
+		if ((item instanceof ItemOptionSponge))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCutter)) {
+		if ((item instanceof ItemOptionCutter))
+		{
 			return true;
 		}
 
@@ -133,26 +151,34 @@ public class ItemModuleContainment extends ItemModule3DBase {
 	}
 
 	@Override
-	public boolean supportsOption(Item item) {
-		if ((item instanceof ItemOptionCamoflage)) {
+	public boolean supportsOption(Item item)
+	{
+		if ((item instanceof ItemOptionCamoflage))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionDefenseStation)) {
+		if ((item instanceof ItemOptionDefenseStation))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldFusion)) {
+		if ((item instanceof ItemOptionFieldFusion))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionJammer)) {
+		if ((item instanceof ItemOptionJammer))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionAntibiotic)) {
+		if ((item instanceof ItemOptionAntibiotic))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionSponge)) {
+		if ((item instanceof ItemOptionSponge))
+		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCutter)) {
+		if ((item instanceof ItemOptionCutter))
+		{
 			return true;
 		}
 

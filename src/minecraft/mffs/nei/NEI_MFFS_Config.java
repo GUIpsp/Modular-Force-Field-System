@@ -5,10 +5,12 @@ import codechicken.nei.MultiItemRange;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 
-public class NEI_MFFS_Config implements IConfigureNEI {
+public class NEI_MFFS_Config implements IConfigureNEI
+{
 
 	@Override
-	public void loadConfig() {
+	public void loadConfig()
+	{
 		API.hideItem(ModularForceFieldSystem.itemMultiToolSwitch.itemID);
 		API.hideItem(ModularForceFieldSystem.itemMultiToolFieldTeleporter.itemID);
 		API.hideItem(ModularForceFieldSystem.itemMultiToolID.itemID);
@@ -75,12 +77,14 @@ public class NEI_MFFS_Config implements IConfigureNEI {
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return ModularForceFieldSystem.NAME;
 	}
 
 	@Override
-	public String getVersion() {
+	public String getVersion()
+	{
 		return ModularForceFieldSystem.VERSION;
 	}
 }

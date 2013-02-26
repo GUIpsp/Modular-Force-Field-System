@@ -37,104 +37,92 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class NetworkHandlerServer implements IPacketHandler {
+public class NetworkHandlerServer implements IPacketHandler
+{
 
 	@Override
-	public void onPacketData(INetworkManager manager,
-			Packet250CustomPayload packet, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player)
+	{
 		ByteArrayDataInput dat = ByteStreams.newDataInput(packet.data);
 		int x = dat.readInt();
 		int y = dat.readInt();
 		int z = dat.readInt();
 		int typ = dat.readInt();
 
-		switch (typ) {
-		case 2:
-			int dimension = dat.readInt();
-			String daten = dat.readUTF();
-			World serverworld = DimensionManager.getWorld(dimension);
-			if (serverworld != null) {
-				TileEntity servertileEntity = serverworld.getBlockTileEntity(x,
-						y, z);
+		switch (typ)
+		{
+			case 2:
+				int dimension = dat.readInt();
+				String daten = dat.readUTF();
+				World serverworld = DimensionManager.getWorld(dimension);
+				if (serverworld != null)
+				{
+					TileEntity servertileEntity = serverworld.getBlockTileEntity(x, y, z);
 
-				if (servertileEntity != null) {
-					for (String varname : daten.split("/")) {
-						updateTileEntityField(servertileEntity, varname);
+					if (servertileEntity != null)
+					{
+						for (String varname : daten.split("/"))
+						{
+							updateTileEntityField(servertileEntity, varname);
+						}
 					}
+
 				}
 
-			}
+				break;
+			case 3:
+				int dimension2 = dat.readInt();
+				int key = dat.readInt();
+				String value = dat.readUTF();
 
-			break;
-		case 3:
-			int dimension2 = dat.readInt();
-			int key = dat.readInt();
-			String value = dat.readUTF();
+				World serverworld2 = DimensionManager.getWorld(dimension2);
+				TileEntity servertileEntity2 = serverworld2.getBlockTileEntity(x, y, z);
 
-			World serverworld2 = DimensionManager.getWorld(dimension2);
-			TileEntity servertileEntity2 = serverworld2.getBlockTileEntity(x,
-					y, z);
+				if ((servertileEntity2 instanceof INetworkHandlerEventListener))
+				{
+					((INetworkHandlerEventListener) servertileEntity2).onNetworkHandlerEvent(key, value);
+				}
+				break;
+			case 10:
+				int Dim = dat.readInt();
+				String Corrdinsaten = dat.readUTF();
 
-			if ((servertileEntity2 instanceof INetworkHandlerEventListener)) {
-				((INetworkHandlerEventListener) servertileEntity2)
-						.onNetworkHandlerEvent(key, value);
-			}
-			break;
-		case 10:
-			int Dim = dat.readInt();
-			String Corrdinsaten = dat.readUTF();
+				World worldserver = DimensionManager.getWorld(Dim);
 
-			World worldserver = DimensionManager.getWorld(Dim);
+				if (worldserver != null)
+				{
+					for (String varname : Corrdinsaten.split("#"))
+					{
+						if (!varname.isEmpty())
+						{
+							String[] corr = varname.split("/");
+							TileEntity servertileEntity = worldserver.getBlockTileEntity(Integer.parseInt(corr[2].trim()), Integer.parseInt(corr[1].trim()), Integer.parseInt(corr[0].trim()));
+							if ((servertileEntity instanceof TileEntityForceField))
+							{
+								ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(worldserver).getForceFieldStackMap(Integer.valueOf(new PointXYZ(servertileEntity.xCoord, servertileEntity.yCoord, servertileEntity.zCoord, worldserver).hashCode()));
 
-			if (worldserver != null) {
-				for (String varname : Corrdinsaten.split("#")) {
-					if (!varname.isEmpty()) {
-						String[] corr = varname.split("/");
-						TileEntity servertileEntity = worldserver
-								.getBlockTileEntity(
-										Integer.parseInt(corr[2].trim()),
-										Integer.parseInt(corr[1].trim()),
-										Integer.parseInt(corr[0].trim()));
-						if ((servertileEntity instanceof TileEntityForceField)) {
-							ForceFieldBlockStack ffworldmap = WorldMap
-									.getForceFieldWorld(worldserver)
-									.getForceFieldStackMap(
-											Integer.valueOf(new PointXYZ(
-													servertileEntity.xCoord,
-													servertileEntity.yCoord,
-													servertileEntity.zCoord,
-													worldserver).hashCode()));
+								if (ffworldmap != null)
+								{
+									if (!ffworldmap.isEmpty())
+									{
+										TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(worldserver).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
-							if (ffworldmap != null) {
-								if (!ffworldmap.isEmpty()) {
-									TileEntityProjector projector = (TileEntityProjector) FrequencyGrid
-											.getWorldMap(worldserver)
-											.getProjector()
-											.get(Integer.valueOf(ffworldmap
-													.getProjectorID()));
-
-									if (projector != null) {
-										ForceFieldServerUpdatehandler
-												.getWorldMap(worldserver)
-												.addto(servertileEntity.xCoord,
-														servertileEntity.yCoord,
-														servertileEntity.zCoord,
-														Dim, projector.xCoord,
-														projector.yCoord,
-														projector.zCoord);
+										if (projector != null)
+										{
+											ForceFieldServerUpdatehandler.getWorldMap(worldserver).addto(servertileEntity.xCoord, servertileEntity.yCoord, servertileEntity.zCoord, Dim, projector.xCoord, projector.yCoord, projector.zCoord);
+										}
 									}
 								}
 							}
 						}
 					}
 				}
-			}
-			break;
+				break;
 		}
 	}
 
-	public static void syncClientPlayerinventorySlot(EntityPlayer player,
-			Slot slot, ItemStack itemstack) {
+	public static void syncClientPlayerinventorySlot(EntityPlayer player, Slot slot, ItemStack itemstack)
+	{
 		Packet103SetSlot pkt = new Packet103SetSlot();
 		pkt.windowId = 0;
 		pkt.itemSlot = slot.slotNumber;
@@ -142,123 +130,146 @@ public class NetworkHandlerServer implements IPacketHandler {
 		PacketDispatcher.sendPacketToPlayer(pkt, (Player) player);
 	}
 
-	public static void updateTileEntityField(TileEntity tileEntity,
-			String varname) {
-		if (tileEntity != null) {
+	public static void updateTileEntityField(TileEntity tileEntity, String varname)
+	{
+		if (tileEntity != null)
+		{
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(140);
 			DataOutputStream dos = new DataOutputStream(bos);
 			int x = tileEntity.xCoord;
 			int y = tileEntity.yCoord;
 			int z = tileEntity.zCoord;
 			int typ = 1;
-			try {
+			try
+			{
 				dos.writeInt(x);
 				dos.writeInt(y);
 				dos.writeInt(z);
 				dos.writeInt(typ);
 				dos.writeUTF(varname);
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 			}
 
-			if ((tileEntity instanceof TileEntityMFFS)) {
-				try {
-					Field f = ReflectionHelper.findField(TileEntityMFFS.class,
-							new String[] { varname });
+			if ((tileEntity instanceof TileEntityMFFS))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityMFFS.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 				}
 
 			}
 
-			if ((tileEntity instanceof TileEntityProjector)) {
-				try {
-					Field f = ReflectionHelper
-							.findField(TileEntityProjector.class,
-									new String[] { varname });
+			if ((tileEntity instanceof TileEntityProjector))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityProjector.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 				}
 			}
 
-			if ((tileEntity instanceof TileEntityCapacitor)) {
-				try {
-					Field f = ReflectionHelper
-							.findField(TileEntityCapacitor.class,
-									new String[] { varname });
+			if ((tileEntity instanceof TileEntityCapacitor))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityCapacitor.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 				}
 			}
 
-			if ((tileEntity instanceof TileEntityExtractor)) {
-				try {
-					Field f = ReflectionHelper
-							.findField(TileEntityExtractor.class,
-									new String[] { varname });
+			if ((tileEntity instanceof TileEntityExtractor))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityExtractor.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 				}
 			}
 
-			if ((tileEntity instanceof TileEntityConverter)) {
-				try {
-					Field f = ReflectionHelper
-							.findField(TileEntityConverter.class,
-									new String[] { varname });
+			if ((tileEntity instanceof TileEntityConverter))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityConverter.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
 				}
-
-			}
-
-			if ((tileEntity instanceof TileEntityDefenseStation)) {
-				try {
-					Field f = ReflectionHelper.findField(
-							TileEntityDefenseStation.class,
-							new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
-				}
-			}
-
-			if ((tileEntity instanceof TileEntitySecurityStation)) {
-				try {
-					Field f = ReflectionHelper.findField(
-							TileEntitySecurityStation.class,
-							new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				catch (Exception e)
+				{
 				}
 
 			}
 
-			if ((tileEntity instanceof TileEntitySecStorage)) {
-				try {
-					Field f = ReflectionHelper.findField(
-							TileEntitySecStorage.class,
-							new String[] { varname });
+			if ((tileEntity instanceof TileEntityDefenseStation))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityDefenseStation.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
+				}
+			}
+
+			if ((tileEntity instanceof TileEntitySecurityStation))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntitySecurityStation.class, new String[] { varname });
+					f.get(tileEntity);
+					dos.writeUTF(String.valueOf(f.get(tileEntity)));
+				}
+				catch (Exception e)
+				{
 				}
 
 			}
 
-			if ((tileEntity instanceof TileEntityControlSystem)) {
-				try {
-					Field f = ReflectionHelper.findField(
-							TileEntityControlSystem.class,
-							new String[] { varname });
+			if ((tileEntity instanceof TileEntitySecStorage))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntitySecStorage.class, new String[] { varname });
 					f.get(tileEntity);
 					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
+				}
+
+			}
+
+			if ((tileEntity instanceof TileEntityControlSystem))
+			{
+				try
+				{
+					Field f = ReflectionHelper.findField(TileEntityControlSystem.class, new String[] { varname });
+					f.get(tileEntity);
+					dos.writeUTF(String.valueOf(f.get(tileEntity)));
+				}
+				catch (Exception e)
+				{
 				}
 
 			}
@@ -269,8 +280,7 @@ public class NetworkHandlerServer implements IPacketHandler {
 			pkt.length = bos.size();
 			pkt.isChunkDataPacket = true;
 
-			PacketDispatcher.sendPacketToAllAround(x, y, z, 80.0D,
-					tileEntity.worldObj.provider.dimensionId, pkt);
+			PacketDispatcher.sendPacketToAllAround(x, y, z, 80.0D, tileEntity.worldObj.provider.dimensionId, pkt);
 		}
 	}
 }

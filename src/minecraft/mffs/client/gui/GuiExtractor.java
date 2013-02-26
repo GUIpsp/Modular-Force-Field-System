@@ -12,12 +12,14 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiExtractor extends GuiContainer {
+public class GuiExtractor extends GuiContainer
+{
 
 	private TileEntityExtractor Extractor;
 	private boolean editMode = false;
 
-	public GuiExtractor(EntityPlayer player, TileEntityExtractor tileentity) {
+	public GuiExtractor(EntityPlayer player, TileEntityExtractor tileentity)
+	{
 		super(new ContainerForceEnergyExtractor(player, tileentity));
 		this.Extractor = tileentity;
 		this.xSize = 176;
@@ -25,28 +27,34 @@ public class GuiExtractor extends GuiContainer {
 	}
 
 	@Override
-	protected void keyTyped(char c, int i) {
-		if ((i != 1) && (this.editMode)) {
-			if (c == '\r') {
+	protected void keyTyped(char c, int i)
+	{
+		if ((i != 1) && (this.editMode))
+		{
+			if (c == '\r')
+			{
 				this.editMode = false;
 				return;
 			}
 
-			if (i == 14) {
-				NetworkHandlerClient
-						.fireTileEntityEvent(this.Extractor, 12, "");
+			if (i == 14)
+			{
+				NetworkHandlerClient.fireTileEntityEvent(this.Extractor, 12, "");
 			}
-			if ((i != 54) && (i != 42) && (i != 58) && (i != 14)) {
-				NetworkHandlerClient.fireTileEntityEvent(this.Extractor, 11,
-						String.valueOf(c));
+			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
+			{
+				NetworkHandlerClient.fireTileEntityEvent(this.Extractor, 11, String.valueOf(c));
 			}
-		} else {
+		}
+		else
+		{
 			super.keyTyped(c, i);
 		}
 	}
 
 	@Override
-	protected void mouseClicked(int i, int j, int k) {
+	protected void mouseClicked(int i, int j, int k)
+	{
 		super.mouseClicked(i, j, k);
 
 		int xMin = (this.width - this.xSize) / 2;
@@ -55,33 +63,34 @@ public class GuiExtractor extends GuiContainer {
 		int x = i - xMin;
 		int y = j - yMin;
 
-		if (this.editMode) {
+		if (this.editMode)
+		{
 			this.editMode = false;
-		} else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19)) {
-			NetworkHandlerClient
-					.fireTileEntityEvent(this.Extractor, 10, "null");
+		}
+		else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19))
+		{
+			NetworkHandlerClient.fireTileEntityEvent(this.Extractor, 10, "null");
 			this.editMode = true;
 		}
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton guibutton) {
-		NetworkHandlerClient.fireTileEntityEvent(this.Extractor, guibutton.id,
-				"");
+	protected void actionPerformed(GuiButton guibutton)
+	{
+		NetworkHandlerClient.fireTileEntityEvent(this.Extractor, guibutton.id, "");
 	}
 
 	@Override
-	public void initGui() {
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 60,
-				this.height / 2 - 88, this.Extractor, 0));
+	public void initGui()
+	{
+		this.controlList.add(new GraphicButton(0, this.width / 2 + 60, this.height / 2 - 88, this.Extractor, 0));
 		super.initGui();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-		int textur = this.mc.renderEngine
-				.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY
-						+ "GuiExtractor.png");
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
+	{
+		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiExtractor.png");
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(textur);
@@ -92,29 +101,23 @@ public class GuiExtractor extends GuiContainer {
 		int Workpowerslider = 79 * this.Extractor.getWorkDone() / 100;
 		drawTexturedModalRect(w + 49, k + 89, 176, 0, Workpowerslider, 6);
 
-		int WorkCylce = 32 * this.Extractor.getWorkCycle()
-				/ MFFSConfiguration.ForceciumWorkCylce;
+		int WorkCylce = 32 * this.Extractor.getWorkCycle() / MFFSConfiguration.ForceciumWorkCylce;
 
 		drawTexturedModalRect(w + 73, k + 50, 179, 81, WorkCylce, 32);
 
-		int ForceEnergy = 24 * this.Extractor.getForceEnergybuffer()
-				/ this.Extractor.getMaxForceEnergyBuffer();
+		int ForceEnergy = 24 * this.Extractor.getForceEnergybuffer() / this.Extractor.getMaxForceEnergyBuffer();
 		drawTexturedModalRect(w + 137, k + 60, 219, 80, 32, ForceEnergy);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+	{
 		this.fontRenderer.drawString("Force Energy", 5, 25, 4210752);
 		this.fontRenderer.drawString("Upgrades", 10, 50, 4210752);
-		this.fontRenderer.drawString(this.Extractor.getDeviceName(), 8, 9,
-				4210752);
+		this.fontRenderer.drawString(this.Extractor.getDeviceName(), 8, 9, 4210752);
 		this.fontRenderer.drawString("Extractor", 5, 35, 4210752);
-		this.fontRenderer.drawString(
-				String.valueOf(this.Extractor.getForceEnergybuffer() / 1000)
-						.concat("k"), 140, 89, 4210752);
+		this.fontRenderer.drawString(String.valueOf(this.Extractor.getForceEnergybuffer() / 1000).concat("k"), 140, 89, 4210752);
 
-		this.fontRenderer.drawString(
-				String.valueOf(this.Extractor.getWorkDone()).concat("%"), 23,
-				89, 4210752);
+		this.fontRenderer.drawString(String.valueOf(this.Extractor.getWorkDone()).concat("%"), 23, 89, 4210752);
 	}
 }

@@ -6,12 +6,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerCapacitor extends ContainerMFFS {
+public class ContainerCapacitor extends ContainerMFFS
+{
 
 	private TileEntityCapacitor tileEntity;
 
-	public ContainerCapacitor(EntityPlayer player,
-			TileEntityCapacitor tileEntity) {
+	public ContainerCapacitor(EntityPlayer player, TileEntityCapacitor tileEntity)
+	{
 		super(tileEntity);
 		this.tileEntity = tileEntity;
 
@@ -24,21 +25,29 @@ public class ContainerCapacitor extends ContainerMFFS {
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID) {
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID)
+	{
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(slotID);
 
-		if ((slot != null) && (slot.getHasStack())) {
+		if ((slot != null) && (slot.getHasStack()))
+		{
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.stackSize == 0)
+			{
 				slot.putStack(null);
-			} else {
+			}
+			else
+			{
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.stackSize != itemstack.stackSize)
+			{
 				slot.onSlotChanged();
-			} else {
+			}
+			else
+			{
 				return null;
 			}
 		}

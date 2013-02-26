@@ -8,7 +8,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerProjector extends Container {
+public class ContainerProjector extends Container
+{
 
 	private TileEntityProjector projectorentity;
 	private int linkPower = -1;
@@ -16,8 +17,8 @@ public class ContainerProjector extends Container {
 	private int capacity = -1;
 	private EntityPlayer player;
 
-	public ContainerProjector(EntityPlayer player,
-			TileEntityProjector tileentity) {
+	public ContainerProjector(EntityPlayer player, TileEntityProjector tileentity)
+	{
 		this.player = player;
 		this.projectorentity = tileentity;
 
@@ -40,44 +41,55 @@ public class ContainerProjector extends Container {
 
 		addSlotToContainer(new SlotHelper(this.projectorentity, 12, 92, 38));
 		int var3 = 0;
-		for (var3 = 0; var3 < 3; var3++) {
-			for (int var4 = 0; var4 < 9; var4++) {
-				addSlotToContainer(new Slot(player.inventory, var4 + var3 * 9
-						+ 9, 8 + var4 * 18, 104 + var3 * 18));
+		for (var3 = 0; var3 < 3; var3++)
+		{
+			for (int var4 = 0; var4 < 9; var4++)
+			{
+				addSlotToContainer(new Slot(player.inventory, var4 + var3 * 9 + 9, 8 + var4 * 18, 104 + var3 * 18));
 			}
 
 		}
 
-		for (var3 = 0; var3 < 9; var3++) {
-			addSlotToContainer(new Slot(player.inventory, var3, 8 + var3 * 18,
-					162));
+		for (var3 = 0; var3 < 9; var3++)
+		{
+			addSlotToContainer(new Slot(player.inventory, var3, 8 + var3 * 18, 162));
 		}
 	}
 
-	public EntityPlayer getPlayer() {
+	public EntityPlayer getPlayer()
+	{
 		return this.player;
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
+	public boolean canInteractWith(EntityPlayer entityplayer)
+	{
 		return this.projectorentity.isUseableByPlayer(entityplayer);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
+	public ItemStack transferStackInSlot(EntityPlayer p, int i)
+	{
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(i);
-		if ((slot != null) && (slot.getHasStack())) {
+		if ((slot != null) && (slot.getHasStack()))
+		{
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.stackSize == 0)
+			{
 				slot.putStack(null);
-			} else {
+			}
+			else
+			{
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.stackSize != itemstack.stackSize)
+			{
 				slot.onSlotChanged();
-			} else {
+			}
+			else
+			{
 				return null;
 			}
 		}
@@ -85,28 +97,29 @@ public class ContainerProjector extends Container {
 	}
 
 	@Override
-	public void detectAndSendChanges() {
+	public void detectAndSendChanges()
+	{
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < this.crafters.size(); i++) {
+		for (int i = 0; i < this.crafters.size(); i++)
+		{
 			ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
-			if (this.linkPower != this.projectorentity.getLinkPower()) {
-				icrafting.sendProgressBarUpdate(this, 0,
-						this.projectorentity.getLinkPower() & 0xFFFF);
+			if (this.linkPower != this.projectorentity.getLinkPower())
+			{
+				icrafting.sendProgressBarUpdate(this, 0, this.projectorentity.getLinkPower() & 0xFFFF);
 
-				icrafting.sendProgressBarUpdate(this, 1,
-						this.projectorentity.getLinkPower() >>> 16);
+				icrafting.sendProgressBarUpdate(this, 1, this.projectorentity.getLinkPower() >>> 16);
 			}
 
-			if (this.capacity != this.projectorentity.getPercentageCapacity()) {
-				icrafting.sendProgressBarUpdate(this, 2,
-						this.projectorentity.getPercentageCapacity());
+			if (this.capacity != this.projectorentity.getPercentageCapacity())
+			{
+				icrafting.sendProgressBarUpdate(this, 2, this.projectorentity.getPercentageCapacity());
 			}
 
-			if (this.accesstyp != this.projectorentity.getAccessType()) {
-				icrafting.sendProgressBarUpdate(this, 4,
-						this.projectorentity.getAccessType());
+			if (this.accesstyp != this.projectorentity.getAccessType())
+			{
+				icrafting.sendProgressBarUpdate(this, 4, this.projectorentity.getAccessType());
 			}
 
 		}
@@ -117,24 +130,24 @@ public class ContainerProjector extends Container {
 	}
 
 	@Override
-	public void updateProgressBar(int i, int j) {
-		switch (i) {
-		case 0:
-			this.projectorentity.setLinkPower(this.projectorentity
-					.getLinkPower() & 0xFFFF0000 | j);
+	public void updateProgressBar(int i, int j)
+	{
+		switch (i)
+		{
+			case 0:
+				this.projectorentity.setLinkPower(this.projectorentity.getLinkPower() & 0xFFFF0000 | j);
 
-			break;
-		case 1:
-			this.projectorentity.setLinkPower(this.projectorentity
-					.getLinkPower() & 0xFFFF | j << 16);
+				break;
+			case 1:
+				this.projectorentity.setLinkPower(this.projectorentity.getLinkPower() & 0xFFFF | j << 16);
 
-			break;
-		case 2:
-			this.projectorentity.setCapacity(j);
-			break;
-		case 4:
-			this.projectorentity.setAccessType(j);
-		case 3:
+				break;
+			case 2:
+				this.projectorentity.setCapacity(j);
+				break;
+			case 4:
+				this.projectorentity.setAccessType(j);
+			case 3:
 		}
 	}
 }

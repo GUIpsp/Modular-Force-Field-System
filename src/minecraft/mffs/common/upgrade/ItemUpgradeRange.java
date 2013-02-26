@@ -9,9 +9,11 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemUpgradeRange extends ItemMFFS {
+public class ItemUpgradeRange extends ItemMFFS
+{
 
-	public ItemUpgradeRange(int i) {
+	public ItemUpgradeRange(int i)
+	{
 		super(i, "upgradeRange");
 		setIconIndex(33);
 		setMaxStackSize(9);
@@ -20,12 +22,15 @@ public class ItemUpgradeRange extends ItemMFFS {
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
-		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54))) {
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
+	{
+		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
+		{
 			info.add("compatible with:");
 			info.add("MFFS " + MachineTypes.Capacitor.getName());
-		} else {
+		}
+		else
+		{
 			info.add("compatible with: (Hold Shift)");
 		}
 	}

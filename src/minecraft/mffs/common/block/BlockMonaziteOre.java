@@ -7,9 +7,11 @@ import mffs.common.ModularForceFieldSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockMonaziteOre extends Block {
+public class BlockMonaziteOre extends Block
+{
 
-	public BlockMonaziteOre(int i) {
+	public BlockMonaziteOre(int i)
+	{
 		super(i, 4, Material.rock);
 		this.setBlockName("oreMonazite");
 		this.setHardness(3.0F);
@@ -20,12 +22,14 @@ public class BlockMonaziteOre extends Block {
 	}
 
 	@Override
-	public int idDropped(int par1, Random par2Random, int par3) {
+	public int idDropped(int par1, Random par2Random, int par3)
+	{
 		return ModularForceFieldSystem.blockMonaziteOre.blockID;
 	}
 
 	@Override
-	public int quantityDropped(Random par1Random) {
+	public int quantityDropped(Random par1Random)
+	{
 		return 1;
 	}
 }

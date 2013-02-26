@@ -8,7 +8,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerConverter extends Container {
+public class ContainerConverter extends Container
+{
 
 	private int linkPower;
 	private int capacity;
@@ -21,8 +22,8 @@ public class ContainerConverter extends Container {
 	private int UE_Outputamp;
 	private int UE_Output;
 
-	public ContainerConverter(EntityPlayer player,
-			TileEntityConverter tileentity) {
+	public ContainerConverter(EntityPlayer player, TileEntityConverter tileentity)
+	{
 		this.Convertor = tileentity;
 		this.player = player;
 		this.linkPower = -1;
@@ -36,63 +37,63 @@ public class ContainerConverter extends Container {
 
 		addSlotToContainer(new SlotHelper(this.Convertor, 0, 44, 28));
 		int var3 = 0;
-		for (var3 = 0; var3 < 3; var3++) {
-			for (int var4 = 0; var4 < 9; var4++) {
-				addSlotToContainer(new Slot(player.inventory, var4 + var3 * 9
-						+ 9, 50 + var4 * 18, 133 + var3 * 18));
+		for (var3 = 0; var3 < 3; var3++)
+		{
+			for (int var4 = 0; var4 < 9; var4++)
+			{
+				addSlotToContainer(new Slot(player.inventory, var4 + var3 * 9 + 9, 50 + var4 * 18, 133 + var3 * 18));
 			}
 
 		}
 
-		for (var3 = 0; var3 < 9; var3++) {
-			addSlotToContainer(new Slot(player.inventory, var3, 50 + var3 * 18,
-					191));
+		for (var3 = 0; var3 < 9; var3++)
+		{
+			addSlotToContainer(new Slot(player.inventory, var3, 50 + var3 * 18, 191));
 		}
 	}
 
 	@Override
-	public void detectAndSendChanges() {
+	public void detectAndSendChanges()
+	{
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < this.crafters.size(); i++) {
+		for (int i = 0; i < this.crafters.size(); i++)
+		{
 			ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
-			if (this.linkPower != this.Convertor.getLinkPower()) {
-				icrafting.sendProgressBarUpdate(this, 0,
-						this.Convertor.getLinkPower() & 0xFFFF);
-				icrafting.sendProgressBarUpdate(this, 1,
-						this.Convertor.getLinkPower() >>> 16);
+			if (this.linkPower != this.Convertor.getLinkPower())
+			{
+				icrafting.sendProgressBarUpdate(this, 0, this.Convertor.getLinkPower() & 0xFFFF);
+				icrafting.sendProgressBarUpdate(this, 1, this.Convertor.getLinkPower() >>> 16);
 			}
 
-			if (this.capacity != this.Convertor.getPercentageCapacity()) {
-				icrafting.sendProgressBarUpdate(this, 3,
-						this.Convertor.getPercentageCapacity());
+			if (this.capacity != this.Convertor.getPercentageCapacity())
+			{
+				icrafting.sendProgressBarUpdate(this, 3, this.Convertor.getPercentageCapacity());
 			}
-			if (this.IC_Outputpacketamount != this.Convertor
-					.getIC_Outputpacketamount()) {
-				icrafting.sendProgressBarUpdate(this, 5,
-						this.Convertor.getIC_Outputpacketamount());
+			if (this.IC_Outputpacketamount != this.Convertor.getIC_Outputpacketamount())
+			{
+				icrafting.sendProgressBarUpdate(this, 5, this.Convertor.getIC_Outputpacketamount());
 			}
-			if (this.IC_Outputpacketsize != this.Convertor
-					.getIC_Outputpacketsize()) {
-				icrafting.sendProgressBarUpdate(this, 4,
-						this.Convertor.getIC_Outputpacketsize());
+			if (this.IC_Outputpacketsize != this.Convertor.getIC_Outputpacketsize())
+			{
+				icrafting.sendProgressBarUpdate(this, 4, this.Convertor.getIC_Outputpacketsize());
 			}
-			if (this.IC_Output != this.Convertor.getIC_Output()) {
-				icrafting.sendProgressBarUpdate(this, 6,
-						this.Convertor.getIC_Output());
+			if (this.IC_Output != this.Convertor.getIC_Output())
+			{
+				icrafting.sendProgressBarUpdate(this, 6, this.Convertor.getIC_Output());
 			}
-			if (this.UE_Output != this.Convertor.getUE_Output()) {
-				icrafting.sendProgressBarUpdate(this, 7,
-						this.Convertor.getUE_Output());
+			if (this.UE_Output != this.Convertor.getUE_Output())
+			{
+				icrafting.sendProgressBarUpdate(this, 7, this.Convertor.getUE_Output());
 			}
-			if (this.UE_Outputvoltage != this.Convertor.getUE_Outputvoltage()) {
-				icrafting.sendProgressBarUpdate(this, 8,
-						this.Convertor.getUE_Outputvoltage());
+			if (this.UE_Outputvoltage != this.Convertor.getUE_Outputvoltage())
+			{
+				icrafting.sendProgressBarUpdate(this, 8, this.Convertor.getUE_Outputvoltage());
 			}
-			if (this.UE_Outputamp != this.Convertor.getUE_Outputamp()) {
-				icrafting.sendProgressBarUpdate(this, 9,
-						this.Convertor.getUE_Outputamp());
+			if (this.UE_Outputamp != this.Convertor.getUE_Outputamp())
+			{
+				icrafting.sendProgressBarUpdate(this, 9, this.Convertor.getUE_Outputamp());
 			}
 		}
 
@@ -107,64 +108,74 @@ public class ContainerConverter extends Container {
 	}
 
 	@Override
-	public void updateProgressBar(int i, int j) {
-		switch (i) {
-		case 0:
-			this.Convertor.setLinkPower(this.Convertor.getLinkPower()
-					& 0xFFFF0000 | j);
-			break;
-		case 1:
-			this.Convertor.setLinkPower(this.Convertor.getLinkPower() & 0xFFFF
-					| j << 16);
-			break;
-		case 3:
-			this.Convertor.setCapacity(j);
-			break;
-		case 4:
-			this.Convertor.setIC_Outputpacketsize(j);
-			break;
-		case 5:
-			this.Convertor.setIC_Outputpacketamount(j);
-			break;
-		case 6:
-			this.Convertor.setIC_Output(j);
-			break;
-		case 7:
-			this.Convertor.setUE_Output(j);
-			break;
-		case 8:
-			this.Convertor.setUE_Outputvoltage(j);
-			break;
-		case 9:
-			this.Convertor.setUE_Outputamp(j);
-		case 2:
+	public void updateProgressBar(int i, int j)
+	{
+		switch (i)
+		{
+			case 0:
+				this.Convertor.setLinkPower(this.Convertor.getLinkPower() & 0xFFFF0000 | j);
+				break;
+			case 1:
+				this.Convertor.setLinkPower(this.Convertor.getLinkPower() & 0xFFFF | j << 16);
+				break;
+			case 3:
+				this.Convertor.setCapacity(j);
+				break;
+			case 4:
+				this.Convertor.setIC_Outputpacketsize(j);
+				break;
+			case 5:
+				this.Convertor.setIC_Outputpacketamount(j);
+				break;
+			case 6:
+				this.Convertor.setIC_Output(j);
+				break;
+			case 7:
+				this.Convertor.setUE_Output(j);
+				break;
+			case 8:
+				this.Convertor.setUE_Outputvoltage(j);
+				break;
+			case 9:
+				this.Convertor.setUE_Outputamp(j);
+			case 2:
 		}
 	}
 
-	public EntityPlayer getPlayer() {
+	public EntityPlayer getPlayer()
+	{
 		return this.player;
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
+	public boolean canInteractWith(EntityPlayer entityplayer)
+	{
 		return this.Convertor.isUseableByPlayer(entityplayer);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
+	public ItemStack transferStackInSlot(EntityPlayer p, int i)
+	{
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(i);
-		if ((slot != null) && (slot.getHasStack())) {
+		if ((slot != null) && (slot.getHasStack()))
+		{
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.stackSize == 0)
+			{
 				slot.putStack(null);
-			} else {
+			}
+			else
+			{
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.stackSize != itemstack.stackSize)
+			{
 				slot.onSlotChanged();
-			} else {
+			}
+			else
+			{
 				return null;
 			}
 		}

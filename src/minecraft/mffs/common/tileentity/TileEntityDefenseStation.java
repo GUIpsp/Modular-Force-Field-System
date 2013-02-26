@@ -30,8 +30,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityDefenseStation extends TileEntityForcePowerMachine
-		implements ISidedInventory {
+public class TileEntityDefenseStation extends TileEntityForcePowerMachine implements ISidedInventory
+{
 
 	private ItemStack[] Inventory;
 	private int capacity;
@@ -44,7 +44,8 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	protected List NPClist = new ArrayList();
 	private ArrayList ContraList = new ArrayList();
 
-	public TileEntityDefenseStation() {
+	public TileEntityDefenseStation()
+	{
 		Random random = new Random();
 
 		this.Inventory = new ItemStack[36];
@@ -54,59 +55,70 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 		this.scanmode = 1;
 	}
 
-	public int getScanmode() {
+	public int getScanmode()
+	{
 		return this.scanmode;
 	}
 
-	public void setScanmode(int scanmode) {
+	public void setScanmode(int scanmode)
+	{
 		this.scanmode = scanmode;
 	}
 
-	public int getActionmode() {
+	public int getActionmode()
+	{
 		return this.actionmode;
 	}
 
-	public void setActionmode(int actionmode) {
+	public void setActionmode(int actionmode)
+	{
 		this.actionmode = actionmode;
 	}
 
-	public int getcontratyp() {
+	public int getcontratyp()
+	{
 		return this.contratyp;
 	}
 
-	public void setcontratyp(int a) {
+	public void setcontratyp(int a)
+	{
 		this.contratyp = a;
 	}
 
-	public int getCapacity() {
+	public int getCapacity()
+	{
 		return this.capacity;
 	}
 
-	public void setCapacity(int Capacity) {
+	public void setCapacity(int Capacity)
+	{
 		this.capacity = Capacity;
 	}
 
-	public int getActionDistance() {
-		if ((getStackInSlot(3) != null)
-				&& (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemModuleDistance)) {
+	public int getActionDistance()
+	{
+		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemModuleDistance))
+		{
 			return getStackInSlot(3).stackSize;
 		}
 
 		return 0;
 	}
 
-	public int getInfoDistance() {
-		if ((getStackInSlot(2) != null)
-				&& (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemModuleDistance)) {
+	public int getInfoDistance()
+	{
+		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemModuleDistance))
+		{
 			return getActionDistance() + (getStackInSlot(2).stackSize + 3);
 		}
 
 		return getActionDistance() + 3;
 	}
 
-	public boolean hasSecurityCard() {
-		if ((getStackInSlot(1) != null)
-				&& (getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardSecurityLink)) {
+	public boolean hasSecurityCard()
+	{
+		if ((getStackInSlot(1) != null) && (getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardSecurityLink))
+		{
 			return true;
 		}
 
@@ -114,47 +126,51 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	}
 
 	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation() {
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 1,
-				this.worldObj);
+	public TileEntitySecurityStation getLinkedSecurityStation()
+	{
+		return ItemCardSecurityLink.getLinkedSecurityStation(this, 1, this.worldObj);
 	}
 
 	@Override
-	public void invalidate() {
-		FrequencyGrid.getWorldMap(this.worldObj).getDefStation()
-				.remove(Integer.valueOf(getDeviceID()));
+	public void invalidate()
+	{
+		FrequencyGrid.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
 		super.readFromNBT(nbttagcompound);
 		this.contratyp = nbttagcompound.getInteger("contratyp");
 		this.actionmode = nbttagcompound.getInteger("actionmode");
 		this.scanmode = nbttagcompound.getInteger("scanmode");
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
 		this.Inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.tagAt(i);
+		for (int i = 0; i < nbttaglist.tagCount(); i++)
+		{
+			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.Inventory.length)) {
-				this.Inventory[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+			if ((byte0 >= 0) && (byte0 < this.Inventory.length))
+			{
+				this.Inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
+	public void writeToNBT(NBTTagCompound nbttagcompound)
+	{
 		super.writeToNBT(nbttagcompound);
 		nbttagcompound.setInteger("contratyp", this.contratyp);
 		nbttagcompound.setInteger("actionmode", this.actionmode);
 		nbttagcompound.setInteger("scanmode", this.scanmode);
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.Inventory.length; i++) {
-			if (this.Inventory[i] != null) {
+		for (int i = 0; i < this.Inventory.length; i++)
+		{
+			if (this.Inventory[i] != null)
+			{
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
 				this.Inventory[i].writeToNBT(nbttagcompound1);
@@ -166,17 +182,22 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	}
 
 	@Override
-	public void dropPlugins() {
-		for (int a = 0; a < this.Inventory.length; a++) {
+	public void dropPlugins()
+	{
+		for (int a = 0; a < this.Inventory.length; a++)
+		{
 			dropPlugins(a, this);
 		}
 	}
 
-	public void scanner() {
-		try {
+	public void scanner()
+	{
+		try
+		{
 			TileEntitySecurityStation sec = getLinkedSecurityStation();
 
-			if (sec != null) {
+			if (sec != null)
+			{
 				int xmininfo = this.xCoord - getInfoDistance();
 				int xmaxinfo = this.xCoord + getInfoDistance() + 1;
 				int ymininfo = this.yCoord - getInfoDistance();
@@ -191,68 +212,56 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 				int zminaction = this.zCoord - getActionDistance();
 				int zmaxaction = this.zCoord + getActionDistance() + 1;
 
-				List<EntityLiving> infoLivinglist = this.worldObj
-						.getEntitiesWithinAABB(EntityLiving.class,
-								AxisAlignedBB.getBoundingBox(xmininfo,
-										ymininfo, zmininfo, xmaxinfo, ymaxinfo,
-										zmaxinfo));
-				List<EntityLiving> actionLivinglist = this.worldObj
-						.getEntitiesWithinAABB(EntityLiving.class,
-								AxisAlignedBB.getBoundingBox(xminaction,
-										yminaction, zminaction, xmaxaction,
-										ymaxaction, zmaxaction));
+				List<EntityLiving> infoLivinglist = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xmininfo, ymininfo, zmininfo, xmaxinfo, ymaxinfo, zmaxinfo));
+				List<EntityLiving> actionLivinglist = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xminaction, yminaction, zminaction, xmaxaction, ymaxaction, zmaxaction));
 
-				for (EntityLiving Living : infoLivinglist) {
-					if ((Living instanceof EntityPlayer)) {
+				for (EntityLiving Living : infoLivinglist)
+				{
+					if ((Living instanceof EntityPlayer))
+					{
 						EntityPlayer player = (EntityPlayer) Living;
-						int distance = (int) PointXYZ.distance(
-								getMachinePoint(), new PointXYZ(
-										(int) Living.posX, (int) Living.posY,
-										(int) Living.posZ, this.worldObj));
+						int distance = (int) PointXYZ.distance(getMachinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj));
 
-						if ((distance <= getInfoDistance())
-								|| (getScanmode() != 1)) {
-							if (!this.warnlist.contains(player)) {
+						if ((distance <= getInfoDistance()) || (getScanmode() != 1))
+						{
+							if (!this.warnlist.contains(player))
+							{
 								this.warnlist.add(player);
-								if (!sec.isAccessGranted(player.username,
-										SecurityRight.SR)) {
-									if ((!MFFSConfiguration.defenseStationNPCNotification)
-											|| (getActionmode() < 3)) {
-										player.addChatMessage("!!! [Security Station]["
-												+ sec.getDeviceName()
-												+ "] Warning you now in me Scanning range!!!");
-										player.attackEntityFrom(
-												ModularForceFieldSystem.areaDefense,
-												1);
+								if (!sec.isAccessGranted(player.username, SecurityRight.SR))
+								{
+									if ((!MFFSConfiguration.defenseStationNPCNotification) || (getActionmode() < 3))
+									{
+										player.addChatMessage("!!! [Security Station][" + sec.getDeviceName() + "] Warning you now in me Scanning range!!!");
+										player.attackEntityFrom(ModularForceFieldSystem.areaDefense, 1);
 									}
 								}
 							}
 						}
 					}
 				}
-				for (EntityLiving Living : actionLivinglist) {
-					if ((Living instanceof EntityPlayer)) {
+				for (EntityLiving Living : actionLivinglist)
+				{
+					if ((Living instanceof EntityPlayer))
+					{
 						EntityPlayer player = (EntityPlayer) Living;
 
-						int distance = (int) Math.round(PointXYZ.distance(
-								getMachinePoint(), new PointXYZ(
-										(int) Living.posX, (int) Living.posY,
-										(int) Living.posZ, this.worldObj)));
-						if ((distance <= getActionDistance())
-								|| (getScanmode() != 1)) {
-							if (!this.actionlist.contains(player)) {
+						int distance = (int) Math.round(PointXYZ.distance(getMachinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj)));
+						if ((distance <= getActionDistance()) || (getScanmode() != 1))
+						{
+							if (!this.actionlist.contains(player))
+							{
 								this.actionlist.add(player);
 								DefenceAction(player);
 							}
 						}
-					} else {
-						int distance = (int) Math.round(PointXYZ.distance(
-								getMachinePoint(), new PointXYZ(
-										(int) Living.posX, (int) Living.posY,
-										(int) Living.posZ, this.worldObj)));
-						if ((distance <= getActionDistance())
-								|| (getScanmode() != 1)) {
-							if (!this.NPClist.contains(Living)) {
+					}
+					else
+					{
+						int distance = (int) Math.round(PointXYZ.distance(getMachinePoint(), new PointXYZ((int) Living.posX, (int) Living.posY, (int) Living.posZ, this.worldObj)));
+						if ((distance <= getActionDistance()) || (getScanmode() != 1))
+						{
+							if (!this.NPClist.contains(Living))
+							{
 								this.NPClist.add(Living);
 								DefenceAction(Living);
 							}
@@ -263,334 +272,302 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 
 				}
 
-				for (int i = 0; i < this.actionlist.size(); i++) {
-					if (!actionLivinglist.contains(this.actionlist.get(i))) {
+				for (int i = 0; i < this.actionlist.size(); i++)
+				{
+					if (!actionLivinglist.contains(this.actionlist.get(i)))
+					{
 						this.actionlist.remove(this.actionlist.get(i));
 					}
 				}
 
-				for (int i = 0; i < this.warnlist.size(); i++) {
-					if (!infoLivinglist.contains(this.warnlist.get(i))) {
+				for (int i = 0; i < this.warnlist.size(); i++)
+				{
+					if (!infoLivinglist.contains(this.warnlist.get(i)))
+					{
 						this.warnlist.remove(this.warnlist.get(i));
 					}
 				}
 
 			}
 
-		} catch (Exception ex) {
-			System.err
-					.println("[ModularForceFieldSystem] catch  Crash <TileEntityAreaDefenseStation:scanner> ");
+		}
+		catch (Exception ex)
+		{
+			System.err.println("[ModularForceFieldSystem] catch  Crash <TileEntityAreaDefenseStation:scanner> ");
 		}
 	}
 
-	public void DefenceAction() {
-		for (int i = 0; i < this.actionlist.size(); i++) {
+	public void DefenceAction()
+	{
+		for (int i = 0; i < this.actionlist.size(); i++)
+		{
 			DefenceAction((EntityPlayer) this.actionlist.get(i));
 		}
 	}
 
-	public boolean StacksToInventory(IInventory inventory,
-			ItemStack itemstacks, boolean loop) {
+	public boolean StacksToInventory(IInventory inventory, ItemStack itemstacks, boolean loop)
+	{
 		int count = 0;
 
-		if ((inventory instanceof TileEntitySecStorage)) {
+		if ((inventory instanceof TileEntitySecStorage))
+		{
 			count = 1;
 		}
-		if ((inventory instanceof TileEntityDefenseStation)) {
+		if ((inventory instanceof TileEntityDefenseStation))
+		{
 			count = 15;
 		}
-		for (int a = count; a <= inventory.getSizeInventory() - 1; a++) {
-			if (inventory.getStackInSlot(a) == null) {
+		for (int a = count; a <= inventory.getSizeInventory() - 1; a++)
+		{
+			if (inventory.getStackInSlot(a) == null)
+			{
 				inventory.setInventorySlotContents(a, itemstacks);
 				return true;
 			}
-			if ((inventory.getStackInSlot(a).getItem() == itemstacks.getItem())
-					&& (inventory.getStackInSlot(a).getItemDamage() == itemstacks
-							.getItemDamage())
-					&& (inventory.getStackInSlot(a).stackSize < inventory
-							.getStackInSlot(a).getMaxStackSize())) {
-				int free = inventory.getStackInSlot(a).getMaxStackSize()
-						- inventory.getStackInSlot(a).stackSize;
+			if ((inventory.getStackInSlot(a).getItem() == itemstacks.getItem()) && (inventory.getStackInSlot(a).getItemDamage() == itemstacks.getItemDamage()) && (inventory.getStackInSlot(a).stackSize < inventory.getStackInSlot(a).getMaxStackSize()))
+			{
+				int free = inventory.getStackInSlot(a).getMaxStackSize() - inventory.getStackInSlot(a).stackSize;
 
-				if (free > itemstacks.stackSize) {
+				if (free > itemstacks.stackSize)
+				{
 					inventory.getStackInSlot(a).stackSize += itemstacks.stackSize;
 					return true;
 				}
-				inventory.getStackInSlot(a).stackSize = inventory
-						.getStackInSlot(a).getMaxStackSize();
+				inventory.getStackInSlot(a).stackSize = inventory.getStackInSlot(a).getMaxStackSize();
 				itemstacks.stackSize -= free;
 			}
 
 		}
 
-		if (loop) {
+		if (loop)
+		{
 			addremoteInventory(itemstacks);
 		}
 		return false;
 	}
 
-	public void addremoteInventory(ItemStack itemstacks) {
-		IInventory inv = InventoryHelper.findAttachedInventory(this.worldObj,
-				this.xCoord, this.yCoord, this.zCoord);
-		if (inv != null) {
+	public void addremoteInventory(ItemStack itemstacks)
+	{
+		IInventory inv = InventoryHelper.findAttachedInventory(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+		if (inv != null)
+		{
 			StacksToInventory(inv, itemstacks, false);
 		}
 	}
 
-	public void DefenceAction(EntityLiving Living) {
-		if ((Living instanceof EntityPlayer)) {
+	public void DefenceAction(EntityLiving Living)
+	{
+		if ((Living instanceof EntityPlayer))
+		{
 			return;
 		}
 		TileEntitySecurityStation sec = getLinkedSecurityStation();
 
-		if (hasPowerSource()) {
-			if (sec != null) {
-				if (consumePower(
-						MFFSConfiguration.DefenceStationKillForceEnergy, true))
+		if (hasPowerSource())
+		{
+			if (sec != null)
+			{
+				if (consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, true))
 					;
-				switch (getActionmode()) {
-				case 3:
-					consumePower(
-							MFFSConfiguration.DefenceStationKillForceEnergy,
-							false);
-					Living.setEntityHealth(0);
-					this.NPClist.remove(Living);
-					break;
-				case 4:
-					if (((Living instanceof EntityMob))
-							|| ((Living instanceof EntityAmbientCreature))
-							|| ((Living instanceof EntitySlime))
-							|| ((Living instanceof EntityGhast))) {
+				switch (getActionmode())
+				{
+					case 3:
+						consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, false);
 						Living.setEntityHealth(0);
 						this.NPClist.remove(Living);
-						consumePower(
-								MFFSConfiguration.DefenceStationKillForceEnergy,
-								false);
-					}
-					break;
-				case 5:
-					if ((!(Living instanceof EntityMob))
-							&& (!(Living instanceof EntitySlime))
-							&& (!(Living instanceof EntityGhast))) {
-						Living.setEntityHealth(0);
-						this.NPClist.remove(Living);
-						consumePower(
-								MFFSConfiguration.DefenceStationKillForceEnergy,
-								false);
-					}
-					break;
+						break;
+					case 4:
+						if (((Living instanceof EntityMob)) || ((Living instanceof EntityAmbientCreature)) || ((Living instanceof EntitySlime)) || ((Living instanceof EntityGhast)))
+						{
+							Living.setEntityHealth(0);
+							this.NPClist.remove(Living);
+							consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, false);
+						}
+						break;
+					case 5:
+						if ((!(Living instanceof EntityMob)) && (!(Living instanceof EntitySlime)) && (!(Living instanceof EntityGhast)))
+						{
+							Living.setEntityHealth(0);
+							this.NPClist.remove(Living);
+							consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, false);
+						}
+						break;
 				}
 			}
 		}
 	}
 
-	public void DefenceAction(EntityPlayer player) {
+	public void DefenceAction(EntityPlayer player)
+	{
 		TileEntitySecurityStation sec = getLinkedSecurityStation();
 
-		if (hasPowerSource()) {
-			if (sec != null) {
-				switch (getActionmode()) {
-				case 0:
-					if (!sec.isAccessGranted(player.username, SecurityRight.SR)) {
-						player.addChatMessage("!!! [Area Defence]  get out immediately you have no right to be here!!!");
-					}
-					break;
-				case 1:
-					if (consumePower(
-							MFFSConfiguration.DefenceStationKillForceEnergy,
-							true)) {
-						if (!sec.isAccessGranted(player.username,
-								SecurityRight.SR)) {
-							player.addChatMessage("!!! [Area Defence] you have been warned BYE BYE!!!");
-
-							for (int i = 0; i < 4; i++) {
-								if (player.inventory.armorInventory[i] != null) {
-									StacksToInventory(this,
-											player.inventory.armorInventory[i],
-											true);
-									player.inventory.armorInventory[i] = null;
-								}
-							}
-
-							for (int i = 0; i < 36; i++) {
-								if (player.inventory.mainInventory[i] != null) {
-									StacksToInventory(this,
-											player.inventory.mainInventory[i],
-											true);
-									player.inventory.mainInventory[i] = null;
-								}
-							}
-
-							this.actionlist.remove(player);
-							player.setEntityHealth(0);
-							player.attackEntityFrom(
-									ModularForceFieldSystem.areaDefense, 20);
-							consumePower(
-									MFFSConfiguration.DefenceStationKillForceEnergy,
-									false);
+		if (hasPowerSource())
+		{
+			if (sec != null)
+			{
+				switch (getActionmode())
+				{
+					case 0:
+						if (!sec.isAccessGranted(player.username, SecurityRight.SR))
+						{
+							player.addChatMessage("!!! [Area Defence]  get out immediately you have no right to be here!!!");
 						}
-					}
-					break;
-				case 2:
-					if (consumePower(
-							MFFSConfiguration.DefenceStationSearchForceEnergy,
-							true)) {
-						if (!sec.isAccessGranted(player.username,
-								SecurityRight.AAI)) {
-							this.ContraList.clear();
+						break;
+					case 1:
+						if (consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, true))
+						{
+							if (!sec.isAccessGranted(player.username, SecurityRight.SR))
+							{
+								player.addChatMessage("!!! [Area Defence] you have been warned BYE BYE!!!");
 
-							for (int place = 5; place < 15; place++) {
-								if (getStackInSlot(place) != null) {
-									this.ContraList.add(getStackInSlot(place)
-											.getItem());
+								for (int i = 0; i < 4; i++)
+								{
+									if (player.inventory.armorInventory[i] != null)
+									{
+										StacksToInventory(this, player.inventory.armorInventory[i], true);
+										player.inventory.armorInventory[i] = null;
+									}
 								}
 
+								for (int i = 0; i < 36; i++)
+								{
+									if (player.inventory.mainInventory[i] != null)
+									{
+										StacksToInventory(this, player.inventory.mainInventory[i], true);
+										player.inventory.mainInventory[i] = null;
+									}
+								}
+
+								this.actionlist.remove(player);
+								player.setEntityHealth(0);
+								player.attackEntityFrom(ModularForceFieldSystem.areaDefense, 20);
+								consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, false);
 							}
+						}
+						break;
+					case 2:
+						if (consumePower(MFFSConfiguration.DefenceStationSearchForceEnergy, true))
+						{
+							if (!sec.isAccessGranted(player.username, SecurityRight.AAI))
+							{
+								this.ContraList.clear();
 
-							switch (getcontratyp()) {
-							case 0:
-								for (int i = 0; i < 4; i++) {
-									if (player.inventory.armorInventory[i] != null) {
-										if (!this.ContraList
-												.contains(player.inventory.armorInventory[i]
-														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.armorInventory[i]
-															.getItem()
-															.getItemDisplayName(
-																	player.inventory.armorInventory[i])
-													+ "> will be confiscated!!!");
-											StacksToInventory(
-													this,
-													player.inventory.armorInventory[i],
-													true);
-											player.inventory.armorInventory[i] = null;
-											consumePower(
-													MFFSConfiguration.DefenceStationSearchForceEnergy,
-													false);
-										}
+								for (int place = 5; place < 15; place++)
+								{
+									if (getStackInSlot(place) != null)
+									{
+										this.ContraList.add(getStackInSlot(place).getItem());
 									}
 
 								}
 
-								for (int i = 0; i < 36; i++) {
-									if (player.inventory.mainInventory[i] != null) {
-										if (!this.ContraList
-												.contains(player.inventory.mainInventory[i]
-														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.mainInventory[i]
-															.getItem()
-															.getItemDisplayName(
-																	player.inventory.mainInventory[i])
-													+ "> will be confiscated!!!");
-											StacksToInventory(
-													this,
-													player.inventory.mainInventory[i],
-													true);
-											player.inventory.mainInventory[i] = null;
-											consumePower(
-													MFFSConfiguration.DefenceStationSearchForceEnergy,
-													false);
+								switch (getcontratyp())
+								{
+									case 0:
+										for (int i = 0; i < 4; i++)
+										{
+											if (player.inventory.armorInventory[i] != null)
+											{
+												if (!this.ContraList.contains(player.inventory.armorInventory[i].getItem()))
+												{
+													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.armorInventory[i].getItem().getItemDisplayName(player.inventory.armorInventory[i]) + "> will be confiscated!!!");
+													StacksToInventory(this, player.inventory.armorInventory[i], true);
+													player.inventory.armorInventory[i] = null;
+													consumePower(MFFSConfiguration.DefenceStationSearchForceEnergy, false);
+												}
+											}
+
 										}
-									}
 
-								}
+										for (int i = 0; i < 36; i++)
+										{
+											if (player.inventory.mainInventory[i] != null)
+											{
+												if (!this.ContraList.contains(player.inventory.mainInventory[i].getItem()))
+												{
+													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.mainInventory[i].getItem().getItemDisplayName(player.inventory.mainInventory[i]) + "> will be confiscated!!!");
+													StacksToInventory(this, player.inventory.mainInventory[i], true);
+													player.inventory.mainInventory[i] = null;
+													consumePower(MFFSConfiguration.DefenceStationSearchForceEnergy, false);
+												}
+											}
 
-								break;
-							case 1:
-								for (int i = 0; i < 4; i++) {
-									if (player.inventory.armorInventory[i] != null) {
-										if (this.ContraList
-												.contains(player.inventory.armorInventory[i]
-														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.armorInventory[i]
-															.getItem()
-															.getItemDisplayName(
-																	player.inventory.armorInventory[i])
-													+ "> will be confiscated!!!");
-											StacksToInventory(
-													this,
-													player.inventory.armorInventory[i],
-													true);
-											player.inventory.armorInventory[i] = null;
-											consumePower(
-													MFFSConfiguration.DefenceStationSearchForceEnergy,
-													false);
 										}
-									}
 
-								}
+										break;
+									case 1:
+										for (int i = 0; i < 4; i++)
+										{
+											if (player.inventory.armorInventory[i] != null)
+											{
+												if (this.ContraList.contains(player.inventory.armorInventory[i].getItem()))
+												{
+													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.armorInventory[i].getItem().getItemDisplayName(player.inventory.armorInventory[i]) + "> will be confiscated!!!");
+													StacksToInventory(this, player.inventory.armorInventory[i], true);
+													player.inventory.armorInventory[i] = null;
+													consumePower(MFFSConfiguration.DefenceStationSearchForceEnergy, false);
+												}
+											}
 
-								for (int i = 0; i < 36; i++) {
-									if (player.inventory.mainInventory[i] != null) {
-										if (this.ContraList
-												.contains(player.inventory.mainInventory[i]
-														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.mainInventory[i]
-															.getItem()
-															.getItemDisplayName(
-																	player.inventory.mainInventory[i])
-													+ "> will be confiscated!!!");
-											StacksToInventory(
-													this,
-													player.inventory.mainInventory[i],
-													true);
-											player.inventory.mainInventory[i] = null;
-											consumePower(
-													MFFSConfiguration.DefenceStationSearchForceEnergy,
-													false);
 										}
-									}
+
+										for (int i = 0; i < 36; i++)
+										{
+											if (player.inventory.mainInventory[i] != null)
+											{
+												if (this.ContraList.contains(player.inventory.mainInventory[i].getItem()))
+												{
+													player.addChatMessage("!!! [Area Defence] You  have illegal goods <" + player.inventory.mainInventory[i].getItem().getItemDisplayName(player.inventory.mainInventory[i]) + "> will be confiscated!!!");
+													StacksToInventory(this, player.inventory.mainInventory[i], true);
+													player.inventory.mainInventory[i] = null;
+													consumePower(MFFSConfiguration.DefenceStationSearchForceEnergy, false);
+												}
+											}
+										}
 								}
 							}
 						}
-					}
-					break;
+						break;
 				}
 			}
 		}
 	}
 
 	@Override
-	public void updateEntity() {
-		if (!this.worldObj.isRemote) {
-			if ((getSwitchModi() == 1) && (!getSwitchValue())
-					&& (isRedstoneSignal())) {
+	public void updateEntity()
+	{
+		if (!this.worldObj.isRemote)
+		{
+			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			{
 				toggelSwitchValue();
 			}
-			if ((getSwitchModi() == 1) && (getSwitchValue())
-					&& (!isRedstoneSignal())) {
+			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			{
 				toggelSwitchValue();
 			}
-			if ((getSwitchValue()) && (hasPowerSource())
-					&& (getForcePower() > 0)
-					&& (getLinkedSecurityStation() != null) && (!isActive())) {
+			if ((getSwitchValue()) && (hasPowerSource()) && (getForcePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
+			{
 				setActive(true);
 			}
-			if (((!getSwitchValue())
-					|| (!hasPowerSource())
-					|| (getForcePower() < MFFSConfiguration.DefenceStationScannForceEnergy
-							* getInfoDistance()) || (getLinkedSecurityStation() == null))
-					&& (isActive())) {
+			if (((!getSwitchValue()) || (!hasPowerSource()) || (getForcePower() < MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
+			{
 				setActive(false);
 			}
-			if (isActive()) {
-				if (consumePower(
-						MFFSConfiguration.DefenceStationScannForceEnergy
-								* getInfoDistance(), true)) {
-					consumePower(
-							MFFSConfiguration.DefenceStationScannForceEnergy
-									* getInfoDistance(), false);
+			if (isActive())
+			{
+				if (consumePower(MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance(), true))
+				{
+					consumePower(MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance(), false);
 					scanner();
 				}
 
 			}
 
-			if (getTicker() == 100) {
-				if (isActive()) {
+			if (getTicker() == 100)
+			{
+				if (isActive())
+				{
 					DefenceAction();
 				}
 				setTicker((short) 0);
@@ -601,15 +578,19 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (this.Inventory[i] != null) {
-			if (this.Inventory[i].stackSize <= j) {
+	public ItemStack decrStackSize(int i, int j)
+	{
+		if (this.Inventory[i] != null)
+		{
+			if (this.Inventory[i].stackSize <= j)
+			{
 				ItemStack itemstack = this.Inventory[i];
 				this.Inventory[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = this.Inventory[i].splitStack(j);
-			if (this.Inventory[i].stackSize == 0) {
+			if (this.Inventory[i].stackSize == 0)
+			{
 				this.Inventory[i] = null;
 			}
 			return itemstack1;
@@ -618,70 +599,89 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
+	public void setInventorySlotContents(int i, ItemStack itemstack)
+	{
 		this.Inventory[i] = itemstack;
-		if ((itemstack != null)
-				&& (itemstack.stackSize > getInventoryStackLimit())) {
+		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
+		{
 			itemstack.stackSize = getInventoryStackLimit();
 		}
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
+	public ItemStack getStackInSlot(int i)
+	{
 		return this.Inventory[i];
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInvName()
+	{
 		return "Defstation";
 	}
 
 	@Override
-	public int getSizeInventory() {
+	public int getSizeInventory()
+	{
 		return this.Inventory.length;
 	}
 
 	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer) {
+	public Container getContainer(InventoryPlayer inventoryplayer)
+	{
 		return new ContainerAreaDefenseStation(inventoryplayer.player, this);
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
+	public int getStartInventorySide(ForgeDirection side)
+	{
 		return 15;
 	}
 
 	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
+	public int getSizeInventorySide(ForgeDirection side)
+	{
 		return 20;
 	}
 
 	@Override
-	public void onNetworkHandlerEvent(int key, String value) {
-		if (!isActive()) {
-			switch (key) {
-			case 100:
-				if (getcontratyp() == 0) {
-					setcontratyp(1);
-				} else {
-					setcontratyp(0);
-				}
-				break;
-			case 101:
-				if (getActionmode() == 5) {
-					setActionmode(0);
-				} else {
-					setActionmode(getActionmode() + 1);
-				}
+	public void onNetworkHandlerEvent(int key, String value)
+	{
+		if (!isActive())
+		{
+			switch (key)
+			{
+				case 100:
+					if (getcontratyp() == 0)
+					{
+						setcontratyp(1);
+					}
+					else
+					{
+						setcontratyp(0);
+					}
+					break;
+				case 101:
+					if (getActionmode() == 5)
+					{
+						setActionmode(0);
+					}
+					else
+					{
+						setActionmode(getActionmode() + 1);
+					}
 
-				break;
-			case 102:
-				if (getScanmode() == 0) {
-					setScanmode(1);
-				} else {
-					setScanmode(0);
-				}
-				break;
+					break;
+				case 102:
+					if (getScanmode() == 0)
+					{
+						setScanmode(1);
+					}
+					else
+					{
+						setScanmode(0);
+					}
+					break;
 			}
 		}
 
@@ -689,36 +689,44 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	}
 
 	@Override
-	public short getMaxSwitchModi() {
+	public short getMaxSwitchModi()
+	{
 		return 3;
 	}
 
 	@Override
-	public short getMinSwitchModi() {
+	public short getMinSwitchModi()
+	{
 		return 1;
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot) {
-		switch (Slot) {
-		case 0:
-			if ((par1ItemStack.getItem() instanceof IPowerLinkItem)) {
-				return true;
-			}
-			break;
-		case 1:
-			if ((par1ItemStack.getItem() instanceof ItemCardSecurityLink)) {
-				return true;
-			}
-			break;
-		case 2:
-		case 3:
-			if ((par1ItemStack.getItem() instanceof ItemModuleDistance)) {
-				return true;
-			}
-			break;
+	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+	{
+		switch (Slot)
+		{
+			case 0:
+				if ((par1ItemStack.getItem() instanceof IPowerLinkItem))
+				{
+					return true;
+				}
+				break;
+			case 1:
+				if ((par1ItemStack.getItem() instanceof ItemCardSecurityLink))
+				{
+					return true;
+				}
+				break;
+			case 2:
+			case 3:
+				if ((par1ItemStack.getItem() instanceof ItemModuleDistance))
+				{
+					return true;
+				}
+				break;
 		}
-		if ((Slot >= 5) && (Slot <= 14)) {
+		if ((Slot >= 5) && (Slot <= 14))
+		{
 			return true;
 		}
 
@@ -726,32 +734,38 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine
 	}
 
 	@Override
-	public int getSlotStackLimit(int Slot) {
-		switch (Slot) {
-		case 0:
-		case 1:
-			return 1;
-		case 2:
-		case 3:
-			return 64;
+	public int getSlotStackLimit(int Slot)
+	{
+		switch (Slot)
+		{
+			case 0:
+			case 1:
+				return 1;
+			case 2:
+			case 3:
+				return 64;
 		}
 
-		if ((Slot >= 5) && (Slot <= 14)) {
+		if ((Slot >= 5) && (Slot <= 14))
+		{
 			return 1;
 		}
-		if ((Slot >= 5) && (Slot <= 14)) {
+		if ((Slot >= 5) && (Slot <= 14))
+		{
 			return 1;
 		}
 		return 64;
 	}
 
 	@Override
-	public ItemStack getPowerLinkStack() {
+	public ItemStack getPowerLinkStack()
+	{
 		return getStackInSlot(getPowerLinkSlot());
 	}
 
 	@Override
-	public int getPowerLinkSlot() {
+	public int getPowerLinkSlot()
+	{
 		return 0;
 	}
 }

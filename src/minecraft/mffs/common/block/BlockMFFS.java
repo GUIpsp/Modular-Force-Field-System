@@ -27,11 +27,12 @@ import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.BlockMachine;
 
-public abstract class BlockMFFS extends BlockMachine {
+public abstract class BlockMFFS extends BlockMachine
+{
 
-	public BlockMFFS(int id, String name) {
-		super(MFFSConfiguration.getConfiguration().getBlock(name, id)
-				.getInt(id), UniversalElectricity.machine);
+	public BlockMFFS(int id, String name)
+	{
+		super(MFFSConfiguration.getConfiguration().getBlock(name, id).getInt(id), UniversalElectricity.machine);
 		this.setBlockName(name);
 		this.setBlockUnbreakable();
 		this.setRequiresSelfNotify();
@@ -43,140 +44,157 @@ public abstract class BlockMFFS extends BlockMachine {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k,
-			EntityPlayer entityplayer, int par6, float par7, float par8,
-			float par9) {
-		if (entityplayer.isSneaking()) {
+	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
+	{
+		if (entityplayer.isSneaking())
+		{
 			return false;
 		}
 
-		if (world.isRemote) {
+		if (world.isRemote)
+		{
 			return true;
 		}
 
-		TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(
-				i, j, k);
+		TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(i, j, k);
 		ItemStack equippedItem = entityplayer.getCurrentEquippedItem();
 
-		if ((equippedItem != null)
-				&& ((equippedItem.getItem() instanceof ItemMultitool))) {
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemMultitool)))
+		{
 			return false;
 		}
 
-		if ((equippedItem != null)
-				&& ((equippedItem.getItem() instanceof ItemCardEmpty))) {
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardEmpty)))
+		{
 			return false;
 		}
 
-		if ((equippedItem != null)
-				&& ((equippedItem.getItem() instanceof ItemModuleBase))) {
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemModuleBase)))
+		{
 			return false;
 		}
 
-		if ((equippedItem != null)
-				&& ((equippedItem.getItem() instanceof ItemCardPowerLink))) {
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardPowerLink)))
+		{
 			return false;
 		}
 
-		if ((equippedItem != null)
-				&& ((equippedItem.getItem() instanceof ItemCardSecurityLink))) {
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardSecurityLink)))
+		{
 			return false;
 		}
 
-		if ((equippedItem != null)
-				&& (equippedItem.itemID == Block.lever.blockID)) {
+		if ((equippedItem != null) && (equippedItem.itemID == Block.lever.blockID))
+		{
 			return false;
 		}
 
-		if ((tileEntity instanceof TileEntitySecurityStation)
-				&& (tileEntity.isActive())) {
-			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer,
-					world, SecurityRight.CSR)) {
+		if ((tileEntity instanceof TileEntitySecurityStation) && (tileEntity.isActive()))
+		{
+			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
+			{
 				return true;
 			}
 		}
 
-		if (tileEntity instanceof TileEntityControlSystem) {
-			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer,
-					world, SecurityRight.UCS)) {
+		if (tileEntity instanceof TileEntityControlSystem)
+		{
+			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.UCS))
+			{
 				return true;
 			}
 		}
 
-		if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world,
-				SecurityRight.EB)) {
+		if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
+		{
 			return true;
 		}
 
-		if (!world.isRemote) {
-			entityplayer.openGui(ModularForceFieldSystem.instance, 0, world, i,
-					j, k);
+		if (!world.isRemote)
+		{
+			entityplayer.openGui(ModularForceFieldSystem.instance, 0, world, i, j, k);
 		}
 
 		return true;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k,
-			EntityLiving entityliving) {
+	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
+	{
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
-		if ((tileEntity instanceof TileEntityMFFS)) {
+		if ((tileEntity instanceof TileEntityMFFS))
+		{
 			TileEntityMFFS entityMFFS = (TileEntityMFFS) tileEntity;
-			int l = MathHelper
-					.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
+			int l = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
 			int i1 = Math.round(entityliving.rotationPitch);
 
-			if (i1 >= 65) {
+			if (i1 >= 65)
+			{
 				entityMFFS.setSide(1);
-			} else if (i1 <= -65) {
+			}
+			else if (i1 <= -65)
+			{
 				entityMFFS.setSide(0);
-			} else if (l == 0) {
+			}
+			else if (l == 0)
+			{
 				entityMFFS.setSide(2);
-			} else if (l == 1) {
+			}
+			else if (l == 1)
+			{
 				entityMFFS.setSide(5);
-			} else if (l == 2) {
+			}
+			else if (l == 2)
+			{
 				entityMFFS.setSide(3);
-			} else if (l == 3) {
+			}
+			else if (l == 3)
+			{
 				entityMFFS.setSide(4);
 			}
 		}
 	}
 
 	@Override
-	public int getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z,
-			int l) {
+	public int getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int l)
+	{
 		int typ = 0;
 
 		TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
 
-		if (t instanceof TileEntityMFFS) {
+		if (t instanceof TileEntityMFFS)
+		{
 			TileEntityMFFS tileEntity = (TileEntityMFFS) t;
 
-			int facing = (tileEntity instanceof TileEntityMFFS) ? ((TileEntityMFFS) tileEntity)
-					.getSide() : 1;
+			int facing = (tileEntity instanceof TileEntityMFFS) ? ((TileEntityMFFS) tileEntity).getSide() : 1;
 
 			ForgeDirection blockfacing = ForgeDirection.getOrientation(l);
-			ForgeDirection TileEntityfacing = ForgeDirection
-					.getOrientation(facing);
+			ForgeDirection TileEntityfacing = ForgeDirection.getOrientation(facing);
 
-			if ((tileEntity instanceof TileEntityProjector)) {
+			if ((tileEntity instanceof TileEntityProjector))
+			{
 				typ = ((TileEntityProjector) tileEntity).getProjectorType();
 			}
 
-			if (tileEntity.isActive()) {
-				if (blockfacing.equals(TileEntityfacing)) {
+			if (tileEntity.isActive())
+			{
+				if (blockfacing.equals(TileEntityfacing))
+				{
 					return this.blockIndexInTexture + typ * 16 + 3 + 1;
 				}
-				if (blockfacing.equals(TileEntityfacing.getOpposite())) {
+				if (blockfacing.equals(TileEntityfacing.getOpposite()))
+				{
 					return this.blockIndexInTexture + typ * 16 + 3 + 2;
 				}
 				return this.blockIndexInTexture + typ * 16 + 3;
 			}
 
-			if (blockfacing.equals(TileEntityfacing)) {
+			if (blockfacing.equals(TileEntityfacing))
+			{
 				return this.blockIndexInTexture + typ * 16 + 1;
 			}
-			if (blockfacing.equals(TileEntityfacing.getOpposite())) {
+			if (blockfacing.equals(TileEntityfacing.getOpposite()))
+			{
 				return this.blockIndexInTexture + typ * 16 + 2;
 			}
 		}
@@ -185,11 +203,13 @@ public abstract class BlockMFFS extends BlockMachine {
 	}
 
 	@Override
-	public float getExplosionResistance(Entity entity, World world, int i,
-			int j, int k, double d, double d1, double d2) {
-		if ((world.getBlockTileEntity(i, j, k) instanceof TileEntityMFFS)) {
+	public float getExplosionResistance(Entity entity, World world, int i, int j, int k, double d, double d1, double d2)
+	{
+		if ((world.getBlockTileEntity(i, j, k) instanceof TileEntityMFFS))
+		{
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
-			if (((TileEntityMFFS) tileentity).isActive()) {
+			if (((TileEntityMFFS) tileentity).isActive())
+			{
 				return 999.0F;
 			}
 			return 100.0F;

@@ -49,8 +49,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntityProjector extends TileEntityForcePowerMachine implements
-		IModularProjector {
+public class TileEntityProjector extends TileEntityForcePowerMachine implements IModularProjector
+{
 
 	private ItemStack[] ProjectorItemStacks = new ItemStack[13];
 
@@ -58,8 +58,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	protected Set field_interior = new HashSet();
 	protected Set<PointXYZ> field_def = new HashSet();
 
-	private short forcefieldblock_meta = ((short) ForceFieldTyps.Default
-			.ordinal());
+	private short forcefieldblock_meta = ((short) ForceFieldTyps.Default.ordinal());
 
 	private String forceFieldTextureIDs = "-76/-76/-76/-76/-76/-76";
 	private String forceFieldTextureFile = "/terrain.png";
@@ -76,143 +75,163 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	private int linkPower = 0;
 	private int switchDelay = 0;
 
-	public int getCapacity() {
+	public int getCapacity()
+	{
 		return this.capacity;
 	}
 
-	public void setCapacity(int Capacity) {
+	public void setCapacity(int Capacity)
+	{
 		this.capacity = Capacity;
 	}
 
-	public int getAccessType() {
+	public int getAccessType()
+	{
 		return this.accessType;
 	}
 
-	public void setAccessType(int accesstyp) {
+	public void setAccessType(int accesstyp)
+	{
 		this.accessType = accesstyp;
 	}
 
-	public int getForceFieldCamoblockMeta() {
+	public int getForceFieldCamoblockMeta()
+	{
 		return this.forceFieldCamoblockMeta;
 	}
 
-	public void setForceFieldCamoblockMeta(int forcefieldCamoblockmeta) {
+	public void setForceFieldCamoblockMeta(int forcefieldCamoblockmeta)
+	{
 		this.forceFieldCamoblockMeta = forcefieldCamoblockmeta;
-		NetworkHandlerServer.updateTileEntityField(this,
-				"ForceFieldCamoblockMeta");
+		NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockMeta");
 	}
 
-	public int getForceFieldCamoblockID() {
+	public int getForceFieldCamoblockID()
+	{
 		return this.forceFieldCamoblockID;
 	}
 
-	public void setForceFieldCamoblockID(int forcefieldCamoblockid) {
+	public void setForceFieldCamoblockID(int forcefieldCamoblockid)
+	{
 		this.forceFieldCamoblockID = forcefieldCamoblockid;
-		NetworkHandlerServer.updateTileEntityField(this,
-				"ForceFieldCamoblockID");
+		NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockID");
 	}
 
-	public String getForceFieldTextureFile() {
+	public String getForceFieldTextureFile()
+	{
 		return this.forceFieldTextureFile;
 	}
 
-	public void setForceFieldTextureFile(String forceFieldTexturfile) {
+	public void setForceFieldTextureFile(String forceFieldTexturfile)
+	{
 		this.forceFieldTextureFile = forceFieldTexturfile;
-		NetworkHandlerServer.updateTileEntityField(this,
-				"ForceFieldTextureFile");
+		NetworkHandlerServer.updateTileEntityField(this, "ForceFieldTextureFile");
 	}
 
-	public String getForceFieldTextureID() {
+	public String getForceFieldTextureID()
+	{
 		return this.forceFieldTextureIDs;
 	}
 
-	public void setForceFieldTextureID(String forceFieldTextureIDs) {
+	public void setForceFieldTextureID(String forceFieldTextureIDs)
+	{
 		this.forceFieldTextureIDs = forceFieldTextureIDs;
-		NetworkHandlerServer
-				.updateTileEntityField(this, "forceFieldTextureIDs");
+		NetworkHandlerServer.updateTileEntityField(this, "forceFieldTextureIDs");
 	}
 
-	public int getProjectorType() {
+	public int getProjectorType()
+	{
 		return this.projectorType;
 	}
 
-	public void setProjectorType(int projectorType) {
+	public void setProjectorType(int projectorType)
+	{
 		this.projectorType = projectorType;
 		NetworkHandlerServer.updateTileEntityField(this, "projectorType");
 	}
 
-	public int getBlockCounter() {
+	public int getBlockCounter()
+	{
 		return this.blockCounter;
 	}
 
-	public int getforcefieldblock_meta() {
+	public int getforcefieldblock_meta()
+	{
 		return this.forcefieldblock_meta;
 	}
 
-	public void setforcefieldblock_meta(int ffmeta) {
+	public void setforcefieldblock_meta(int ffmeta)
+	{
 		this.forcefieldblock_meta = ((short) ffmeta);
 	}
 
-	public int getLinkPower() {
+	public int getLinkPower()
+	{
 		return this.linkPower;
 	}
 
-	public void setLinkPower(int linkPower) {
+	public void setLinkPower(int linkPower)
+	{
 		this.linkPower = linkPower;
 	}
 
-	public void projectorBurnout() {
+	public void projectorBurnout()
+	{
 		setBurnedOut(true);
 		dropPlugins();
 	}
 
-	public boolean isBurnout() {
+	public boolean isBurnout()
+	{
 		return this.burnout;
 	}
 
 	@Override
-	public void setBurnedOut(boolean b) {
+	public void setBurnedOut(boolean b)
+	{
 		this.burnout = b;
 		NetworkHandlerServer.updateTileEntityField(this, "burnout");
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
 		super.readFromNBT(nbttagcompound);
 
 		this.accessType = nbttagcompound.getInteger("accessType");
 		this.burnout = nbttagcompound.getBoolean("burnout");
 		this.projectorType = nbttagcompound.getInteger("ProjectorType");
-		this.forcefieldblock_meta = nbttagcompound
-				.getShort("forceFieldblockMeta");
+		this.forcefieldblock_meta = nbttagcompound.getShort("forceFieldblockMeta");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
 		this.ProjectorItemStacks = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.tagAt(i);
+		for (int i = 0; i < nbttaglist.tagCount(); i++)
+		{
+			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.ProjectorItemStacks.length)) {
-				this.ProjectorItemStacks[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+			if ((byte0 >= 0) && (byte0 < this.ProjectorItemStacks.length))
+			{
+				this.ProjectorItemStacks[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
+	public void writeToNBT(NBTTagCompound nbttagcompound)
+	{
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setInteger("accessType", this.accessType);
 		nbttagcompound.setBoolean("burnout", this.burnout);
 		nbttagcompound.setInteger("ProjectorType", this.projectorType);
-		nbttagcompound.setShort("forceFieldblockMeta",
-				this.forcefieldblock_meta);
+		nbttagcompound.setShort("forceFieldblockMeta", this.forcefieldblock_meta);
 
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.ProjectorItemStacks.length; i++) {
-			if (this.ProjectorItemStacks[i] != null) {
+		for (int i = 0; i < this.ProjectorItemStacks.length; i++)
+		{
+			if (this.ProjectorItemStacks[i] != null)
+			{
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
 				this.ProjectorItemStacks[i].writeToNBT(nbttagcompound1);
@@ -224,65 +243,82 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public void dropPlugins() {
-		for (int a = 0; a < this.ProjectorItemStacks.length; a++) {
+	public void dropPlugins()
+	{
+		for (int a = 0; a < this.ProjectorItemStacks.length; a++)
+		{
 			dropPlugins(a, this);
 		}
 	}
 
 	@Override
-	public void onInventoryChanged() {
+	public void onInventoryChanged()
+	{
 		getLinkedSecurityStation();
 		checkslots();
 	}
 
-	public void checkslots() {
-		if (hasValidTypeMod()) {
-			if (getProjectorType() != ProjectorTypes.typeFromItem(getType()).ProTyp) {
+	public void checkslots()
+	{
+		if (hasValidTypeMod())
+		{
+			if (getProjectorType() != ProjectorTypes.typeFromItem(getType()).ProTyp)
+			{
 				setProjectorType(ProjectorTypes.typeFromItem(getType()).ProTyp);
 			}
-			if (getforcefieldblock_meta() != getType().getForceFieldTyps()
-					.ordinal()) {
+			if (getforcefieldblock_meta() != getType().getForceFieldTyps().ordinal())
+			{
 				setforcefieldblock_meta(getType().getForceFieldTyps().ordinal());
 			}
-			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-					this.zCoord);
-		} else {
-			if (getProjectorType() != 0) {
+			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+		}
+		else
+		{
+			if (getProjectorType() != 0)
+			{
 				setProjectorType(0);
 			}
-			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-					this.zCoord);
+			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 		}
 
-		if (hasValidTypeMod()) {
-			for (int place = 7; place < 11; place++) {
-				if (getStackInSlot(place) != null) {
-					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix) {
-						switch (ProjectorTypes.typeFromItem(getType()).ProTyp) {
-						case 6:
-							this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 1);
-							break;
-						case 7:
-							this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 2);
-							break;
-						default:
-							this.focusmatrix[(place - 7)] = getStackInSlot(place).stackSize;
-							break;
+		if (hasValidTypeMod())
+		{
+			for (int place = 7; place < 11; place++)
+			{
+				if (getStackInSlot(place) != null)
+				{
+					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix)
+					{
+						switch (ProjectorTypes.typeFromItem(getType()).ProTyp)
+						{
+							case 6:
+								this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 1);
+								break;
+							case 7:
+								this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 2);
+								break;
+							default:
+								this.focusmatrix[(place - 7)] = getStackInSlot(place).stackSize;
+								break;
 						}
-					} else {
+					}
+					else
+					{
 						dropPlugins(place, this);
 					}
-				} else {
-					switch (ProjectorTypes.typeFromItem(getType()).ProTyp) {
-					case 6:
-						this.focusmatrix[(place - 7)] = 1;
-						break;
-					case 7:
-						this.focusmatrix[(place - 7)] = 2;
-						break;
-					default:
-						this.focusmatrix[(place - 7)] = 0;
+				}
+				else
+				{
+					switch (ProjectorTypes.typeFromItem(getType()).ProTyp)
+					{
+						case 6:
+							this.focusmatrix[(place - 7)] = 1;
+							break;
+						case 7:
+							this.focusmatrix[(place - 7)] = 2;
+							break;
+						default:
+							this.focusmatrix[(place - 7)] = 0;
 					}
 				}
 
@@ -290,52 +326,51 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 
 		}
 
-		if (getStackInSlot(11) != null) {
-			if (getStackInSlot(11).itemID < 4095) {
+		if (getStackInSlot(11) != null)
+		{
+			if (getStackInSlot(11).itemID < 4095)
+			{
 
 				String textureFile;
 				String forceFieldTextureTemp;
 
 				int[] index = new int[6];
-				for (int side = 0; side < 6; side++) {
-					index[side] = Block.blocksList[getStackInSlot(11).itemID]
-							.getBlockTextureFromSideAndMetadata(side,
-									getStackInSlot(11).getItemDamage());
+				for (int side = 0; side < 6; side++)
+				{
+					index[side] = Block.blocksList[getStackInSlot(11).itemID].getBlockTextureFromSideAndMetadata(side, getStackInSlot(11).getItemDamage());
 				}
-				forceFieldTextureTemp = index[0] + "/" + index[1] + "/"
-						+ index[2] + "/" + index[3] + "/" + index[4] + "/"
-						+ index[5];
-				textureFile = Block.blocksList[getStackInSlot(11).itemID]
-						.getTextureFile();
+				forceFieldTextureTemp = index[0] + "/" + index[1] + "/" + index[2] + "/" + index[3] + "/" + index[4] + "/" + index[5];
+				textureFile = Block.blocksList[getStackInSlot(11).itemID].getTextureFile();
 
-				if ((!forceFieldTextureTemp
-						.equalsIgnoreCase(this.forceFieldTextureIDs))
-						|| (!this.forceFieldTextureFile
-								.equalsIgnoreCase(getForceFieldTextureFile()))) {
-					if (getStackInSlot(11).getItem() == Item.bucketLava) {
+				if ((!forceFieldTextureTemp.equalsIgnoreCase(this.forceFieldTextureIDs)) || (!this.forceFieldTextureFile.equalsIgnoreCase(getForceFieldTextureFile())))
+				{
+					if (getStackInSlot(11).getItem() == Item.bucketLava)
+					{
 						setForceFieldTextureID("237/237/239/254/255/255");
 					}
-					if (getStackInSlot(11).getItem() == Item.bucketWater) {
+					if (getStackInSlot(11).getItem() == Item.bucketWater)
+					{
 						setForceFieldTextureID("205/205/207/222/223/223");
 					}
-					if ((getStackInSlot(11).getItem() != Item.bucketLava)
-							&& (getStackInSlot(11).getItem() != Item.bucketWater)) {
+					if ((getStackInSlot(11).getItem() != Item.bucketLava) && (getStackInSlot(11).getItem() != Item.bucketWater))
+					{
 						setForceFieldTextureID(forceFieldTextureTemp);
 					}
-					setForceFieldCamoblockMeta(getStackInSlot(11)
-							.getItemDamage());
+					setForceFieldCamoblockMeta(getStackInSlot(11).getItemDamage());
 					setForceFieldCamoblockID(getStackInSlot(11).itemID);
 					setForceFieldTextureFile(textureFile);
 					updateForceFieldTexture();
 				}
 
-			} else {
+			}
+			else
+			{
 				dropPlugins(11, this);
 			}
 
-		} else if ((!this.forceFieldTextureIDs
-				.equalsIgnoreCase("-76/-76/-76/-76/-76/-76"))
-				|| (getForceFieldCamoblockID() != -1)) {
+		}
+		else if ((!this.forceFieldTextureIDs.equalsIgnoreCase("-76/-76/-76/-76/-76/-76")) || (getForceFieldCamoblockID() != -1))
+		{
 			setForceFieldCamoblockMeta(0);
 			setForceFieldCamoblockID(-1);
 			setForceFieldTextureID("-76/-76/-76/-76/-76/-76");
@@ -343,112 +378,115 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 			updateForceFieldTexture();
 		}
 
-		if ((hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))
-				&& (getforcefieldblock_meta() != ForceFieldTyps.Camouflage
-						.ordinal())) {
+		if ((hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Camouflage.ordinal()))
+		{
 			setforcefieldblock_meta((short) ForceFieldTyps.Camouflage.ordinal());
 		}
 
-		if ((hasOption(ModularForceFieldSystem.itemOptionShock, true))
-				&& (getforcefieldblock_meta() != ForceFieldTyps.Zapper
-						.ordinal())) {
+		if ((hasOption(ModularForceFieldSystem.itemOptionShock, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Zapper.ordinal()))
+		{
 			setforcefieldblock_meta((short) ForceFieldTyps.Zapper.ordinal());
 		}
 
-		if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true)) {
-			if (!FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion()
-					.containsKey(Integer.valueOf(getDeviceID()))) {
-				FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion()
-						.put(Integer.valueOf(getDeviceID()), this);
+		if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
+		{
+			if (!FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
+			{
+				FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
 			}
-		} else if (FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion()
-				.containsKey(Integer.valueOf(getDeviceID()))) {
-			FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion()
-					.remove(Integer.valueOf(getDeviceID()));
+		}
+		else if (FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
+		{
+			FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
 		}
 
-		if (hasOption(ModularForceFieldSystem.itemOptionJammer, false)) {
-			if (!FrequencyGrid.getWorldMap(this.worldObj).getJammer()
-					.containsKey(Integer.valueOf(getDeviceID()))) {
-				FrequencyGrid.getWorldMap(this.worldObj).getJammer()
-						.put(Integer.valueOf(getDeviceID()), this);
+		if (hasOption(ModularForceFieldSystem.itemOptionJammer, false))
+		{
+			if (!FrequencyGrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
+			{
+				FrequencyGrid.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
 			}
-		} else if (FrequencyGrid.getWorldMap(this.worldObj).getJammer()
-				.containsKey(Integer.valueOf(getDeviceID()))) {
-			FrequencyGrid.getWorldMap(this.worldObj).getJammer()
-					.remove(Integer.valueOf(getDeviceID()));
+		}
+		else if (FrequencyGrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
+		{
+			FrequencyGrid.getWorldMap(this.worldObj).getJammer().remove(Integer.valueOf(getDeviceID()));
 		}
 
-		if (hasValidTypeMod()) {
+		if (hasValidTypeMod())
+		{
 			ItemModuleBase modType = getType();
 
-			if (!modType.supportsStrength()) {
+			if (!modType.supportsStrength())
+			{
 				dropPlugins(6, this);
 			}
-			if (!modType.supportsDistance()) {
+			if (!modType.supportsDistance())
+			{
 				dropPlugins(5, this);
 			}
-			if (!modType.supportsMatrix()) {
+			if (!modType.supportsMatrix())
+			{
 				dropPlugins(7, this);
 				dropPlugins(8, this);
 				dropPlugins(9, this);
 				dropPlugins(10, this);
 			}
 
-			for (int spot = 2; spot <= 4; spot++) {
-				if ((getStackInSlot(spot) != null)
-						&& (!modType.supportsOption(getStackInSlot(spot)
-								.getItem()))) {
+			for (int spot = 2; spot <= 4; spot++)
+			{
+				if ((getStackInSlot(spot) != null) && (!modType.supportsOption(getStackInSlot(spot).getItem())))
+				{
 					dropPlugins(spot, this);
 				}
 
-				if ((getStackInSlot(spot) != null)
-						&& ((getStackInSlot(spot).getItem() instanceof ItemOptionJammer))
-						&& (isPowersourceItem())) {
+				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionJammer)) && (isPowersourceItem()))
+				{
 					dropPlugins(spot, this);
 				}
 
-				if ((getStackInSlot(spot) != null)
-						&& ((getStackInSlot(spot).getItem() instanceof ItemOptionFieldFusion))
-						&& (isPowersourceItem())) {
+				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionFieldFusion)) && (isPowersourceItem()))
+				{
 					dropPlugins(spot, this);
 				}
 
-				if ((getStackInSlot(spot) != null)
-						&& ((getStackInSlot(spot).getItem() instanceof ItemOptionDefenseStation))
-						&& (isPowersourceItem())) {
+				if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
+				{
 					dropPlugins(spot, this);
 				}
 
 			}
 
-			if ((getStackInSlot(12) != null)
-					&& ((getStackInSlot(12).getItem() instanceof ItemCardSecurityLink))
-					&& (isPowersourceItem())) {
+			if ((getStackInSlot(12) != null) && ((getStackInSlot(12).getItem() instanceof ItemCardSecurityLink)) && (isPowersourceItem()))
+			{
 				dropPlugins(12, this);
 			}
 
-			if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) {
+			if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))
+			{
 				dropPlugins(11, this);
 			}
-		} else {
-			for (int spot = 2; spot <= 10; spot++) {
+		}
+		else
+		{
+			for (int spot = 2; spot <= 10; spot++)
+			{
 				dropPlugins(spot, this);
 			}
 		}
 	}
 
-	private void updateForceFieldTexture() {
-		if ((isActive())
-				&& (hasOption(ModularForceFieldSystem.itemOptionCamouflage,
-						true))) {
-			for (PointXYZ png : this.field_def) {
-				if (this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded) {
-					TileEntity tileEntity = this.worldObj.getBlockTileEntity(
-							png.X, png.Y, png.Z);
+	private void updateForceFieldTexture()
+	{
+		if ((isActive()) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
+		{
+			for (PointXYZ png : this.field_def)
+			{
+				if (this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded)
+				{
+					TileEntity tileEntity = this.worldObj.getBlockTileEntity(png.X, png.Y, png.Z);
 
-					if ((tileEntity != null)
-							&& ((tileEntity instanceof TileEntityForceField))) {
+					if ((tileEntity != null) && ((tileEntity instanceof TileEntityForceField)))
+					{
 						((TileEntityForceField) tileEntity).updateTexture();
 					}
 				}
@@ -457,74 +495,80 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public void updateEntity() {
-		if (!this.worldObj.isRemote) {
-			if (this.init) {
+	public void updateEntity()
+	{
+		if (!this.worldObj.isRemote)
+		{
+			if (this.init)
+			{
 				checkslots();
-				if (isActive()) {
+				if (isActive())
+				{
 					calculateField(true);
 				}
 			}
 
-			if (hasPowerSource()) {
+			if (hasPowerSource())
+			{
 				setLinkPower((int) getForcePower());
 
-				if ((isPowersourceItem()) && (getAccessType() != 0)) {
+				if ((isPowersourceItem()) && (getAccessType() != 0))
+				{
 					setAccessType(0);
 				}
-			} else {
+			}
+			else
+			{
 				setLinkPower(0);
 			}
 
-			if ((getSwitchModi() == 1) && (!getSwitchValue())
-					&& (isRedstoneSignal())) {
+			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			{
 				toggelSwitchValue();
 			}
-			if ((getSwitchModi() == 1) && (getSwitchValue())
-					&& (!isRedstoneSignal())) {
+			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			{
 				toggelSwitchValue();
 			}
 
-			if ((getSwitchValue()) && (this.switchDelay >= 40)
-					&& (hasValidTypeMod()) && (hasPowerSource())
-					&& (getLinkPower() > forcePowerNeed(5))) {
-				if (isActive() != true) {
+			if ((getSwitchValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) && (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5)))
+			{
+				if (isActive() != true)
+				{
 					setActive(true);
 					this.switchDelay = 0;
-					if (calculateField(true)) {
+					if (calculateField(true))
+					{
 						fieldGenerate(true);
 					}
-					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-							this.zCoord);
+					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
-			if (((!getSwitchValue()) && (this.switchDelay >= 40))
-					|| (!hasValidTypeMod()) || (!hasPowerSource())
-					|| (this.burnout) || (getLinkPower() <= forcePowerNeed(1))) {
-				if (isActive()) {
+			if (((!getSwitchValue()) && (this.switchDelay >= 40)) || (!hasValidTypeMod()) || (!hasPowerSource()) || (this.burnout) || (getLinkPower() <= forcePowerNeed(1)))
+			{
+				if (isActive())
+				{
 					setActive(false);
 					this.switchDelay = 0;
 					destroyField();
-					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-							this.zCoord);
+					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
 
-			if (getTicker() == 20) {
-				if (isActive()) {
+			if (getTicker() == 20)
+			{
+				if (isActive())
+				{
 					fieldGenerate(false);
 
-					if (hasOption(ModularForceFieldSystem.itemOptionAntibiotic,
-							true)) {
-						ItemOptionAntibiotic.ProjectorNPCDefence(this,
-								this.worldObj);
+					if (hasOption(ModularForceFieldSystem.itemOptionAntibiotic, true))
+					{
+						ItemOptionAntibiotic.ProjectorNPCDefence(this, this.worldObj);
 					}
 
-					if (hasOption(
-							ModularForceFieldSystem.itemOptionDefenseeStation,
-							true)) {
-						ItemOptionDefenseStation.ProjectorPlayerDefence(this,
-								this.worldObj);
+					if (hasOption(ModularForceFieldSystem.itemOptionDefenseeStation, true))
+					{
+						ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj);
 					}
 
 				}
@@ -538,40 +582,52 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		super.updateEntity();
 	}
 
-	private boolean calculateField(boolean addtoMap) {
+	private boolean calculateField(boolean addtoMap)
+	{
 		this.field_def.clear();
 		this.field_interior.clear();
-		if (hasValidTypeMod()) {
+		if (hasValidTypeMod())
+		{
 			Set<PointXYZ> tField = new HashSet();
 			Set<PointXYZ> tFieldInt = new HashSet();
 
-			if ((getType() instanceof ItemModule3DBase)) {
-				((ItemModule3DBase) getType()).calculateField(this, tField,
-						tFieldInt);
-			} else {
+			if ((getType() instanceof ItemModule3DBase))
+			{
+				((ItemModule3DBase) getType()).calculateField(this, tField, tFieldInt);
+			}
+			else
+			{
 				getType().calculateField(this, tField);
 			}
 
-			for (PointXYZ pnt : tField) {
-				if (pnt.Y + this.yCoord < 255) {
-					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y
-							+ this.yCoord, pnt.Z + this.zCoord, this.worldObj);
+			for (PointXYZ pnt : tField)
+			{
+				if (pnt.Y + this.yCoord < 255)
+				{
+					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y + this.yCoord, pnt.Z + this.zCoord, this.worldObj);
 
-					if (forceFieldDefine(tp, addtoMap)) {
+					if (forceFieldDefine(tp, addtoMap))
+					{
 						this.field_def.add(tp);
-					} else {
+					}
+					else
+					{
 						return false;
 					}
 				}
 			}
-			for (PointXYZ pnt : tFieldInt) {
-				if (pnt.Y + this.yCoord < 255) {
-					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y
-							+ this.yCoord, pnt.Z + this.zCoord, this.worldObj);
+			for (PointXYZ pnt : tFieldInt)
+			{
+				if (pnt.Y + this.yCoord < 255)
+				{
+					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y + this.yCoord, pnt.Z + this.zCoord, this.worldObj);
 
-					if (calculateBlock(tp)) {
+					if (calculateBlock(tp))
+					{
 						this.field_interior.add(tp);
-					} else {
+					}
+					else
+					{
 						return false;
 					}
 				}
@@ -583,45 +639,47 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		return false;
 	}
 
-	public boolean calculateBlock(PointXYZ pnt) {
-		for (ItemOptionBase opt : getOptions(true)) {
-			if ((opt instanceof IInteriorCheck)) {
-				((IInteriorCheck) opt).checkInteriorBlock(pnt, this.worldObj,
-						this);
+	public boolean calculateBlock(PointXYZ pnt)
+	{
+		for (ItemOptionBase opt : getOptions(true))
+		{
+			if ((opt instanceof IInteriorCheck))
+			{
+				((IInteriorCheck) opt).checkInteriorBlock(pnt, this.worldObj, this);
 			}
 		}
 		return true;
 	}
 
-	public boolean forceFieldDefine(PointXYZ png, boolean addtoMap) {
-		for (ItemOptionBase opt : getOptions(true)) {
-			if (((opt instanceof ItemOptionJammer))
-					&& (((ItemOptionJammer) opt).CheckJammerinfluence(png,
-							this.worldObj, this))) {
+	public boolean forceFieldDefine(PointXYZ png, boolean addtoMap)
+	{
+		for (ItemOptionBase opt : getOptions(true))
+		{
+			if (((opt instanceof ItemOptionJammer)) && (((ItemOptionJammer) opt).CheckJammerinfluence(png, this.worldObj, this)))
+			{
 				return false;
 			}
 
-			if (((opt instanceof ItemOptionFieldFusion))
-					&& (((ItemOptionFieldFusion) opt)
-							.checkFieldFusioninfluence(png, this.worldObj, this))) {
+			if (((opt instanceof ItemOptionFieldFusion)) && (((ItemOptionFieldFusion) opt).checkFieldFusioninfluence(png, this.worldObj, this)))
+			{
 				return true;
 			}
 
 		}
 
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(
-				this.worldObj).getorcreateFFStackMap(png.X, png.Y, png.Z,
-				this.worldObj);
+		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getorcreateFFStackMap(png.X, png.Y, png.Z, this.worldObj);
 
-		if (!ffworldmap.isEmpty()) {
-			if (ffworldmap.getProjectorID() != getDeviceID()) {
+		if (!ffworldmap.isEmpty())
+		{
+			if (ffworldmap.getProjectorID() != getDeviceID())
+			{
 				ffworldmap.removebyProjector(getDeviceID());
-				ffworldmap.add(getPowerSourceID(), getDeviceID(),
-						getforcefieldblock_meta());
+				ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
 			}
-		} else {
-			ffworldmap.add(getPowerSourceID(), getDeviceID(),
-					getforcefieldblock_meta());
+		}
+		else
+		{
+			ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
 			ffworldmap.setSync(false);
 		}
 
@@ -630,17 +688,21 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		return true;
 	}
 
-	public void fieldGenerate(boolean init) {
+	public void fieldGenerate(boolean init)
+	{
 		int cost = 0;
 
-		if (init) {
-			cost = MFFSConfiguration.forcefieldblockcost
-					* MFFSConfiguration.forcefieldblockcreatemodifier;
-		} else {
+		if (init)
+		{
+			cost = MFFSConfiguration.forcefieldblockcost * MFFSConfiguration.forcefieldblockcreatemodifier;
+		}
+		else
+		{
 			cost = MFFSConfiguration.forcefieldblockcost;
 		}
 
-		if (getforcefieldblock_meta() == 1) {
+		if (getforcefieldblock_meta() == 1)
+		{
 			cost *= MFFSConfiguration.forcefieldblockzappermodifier;
 		}
 
@@ -648,70 +710,50 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 
 		this.blockCounter = 0;
 
-		for (PointXYZ pnt : this.field_def) {
-			if (this.blockCounter == MFFSConfiguration.forcefieldmaxblockpeerTick) {
+		for (PointXYZ pnt : this.field_def)
+		{
+			if (this.blockCounter == MFFSConfiguration.forcefieldmaxblockpeerTick)
+			{
 				break;
 			}
-			ForceFieldBlockStack ffb = WorldMap.getForceFieldWorld(
-					this.worldObj).getForceFieldStackMap(
-					Integer.valueOf(pnt.hashCode()));
+			ForceFieldBlockStack ffb = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(pnt.hashCode()));
 
-			if (ffb != null) {
-				if (!ffb.isSync()) {
+			if (ffb != null)
+			{
+				if (!ffb.isSync())
+				{
 					PointXYZ png = ffb.getPoint();
 
-					if ((this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded)
-							&& (!ffb.isEmpty())
-							&& (ffb.getProjectorID() == getDeviceID())) {
-						if (hasOption(ModularForceFieldSystem.itemOptionCutter,
-								true)) {
-							int blockid = this.worldObj.getBlockId(png.X,
-									png.Y, png.Z);
-							TileEntity entity = this.worldObj
-									.getBlockTileEntity(png.X, png.Y, png.Z);
+					if ((this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded) && (!ffb.isEmpty()) && (ffb.getProjectorID() == getDeviceID()))
+					{
+						if (hasOption(ModularForceFieldSystem.itemOptionCutter, true))
+						{
+							int blockid = this.worldObj.getBlockId(png.X, png.Y, png.Z);
+							TileEntity entity = this.worldObj.getBlockTileEntity(png.X, png.Y, png.Z);
 
-							if ((blockid != ModularForceFieldSystem.blockForceField.blockID)
-									&& (blockid != 0)
-									&& (blockid != Block.bedrock.blockID)
-									&& (entity == null)) {
-								ArrayList stacks = Functions
-										.getItemStackFromBlock(this.worldObj,
-												png.X, png.Y, png.Z);
+							if ((blockid != ModularForceFieldSystem.blockForceField.blockID) && (blockid != 0) && (blockid != Block.bedrock.blockID) && (entity == null))
+							{
+								ArrayList stacks = Functions.getItemStackFromBlock(this.worldObj, png.X, png.Y, png.Z);
 
-								this.worldObj.setBlockWithNotify(png.X, png.Y,
-										png.Z, 0);
+								this.worldObj.setBlockWithNotify(png.X, png.Y, png.Z, 0);
 
-								if ((ProjectorTypes.typeFromItem(getType()).Blockdropper)
-										&& (stacks != null)) {
-									IInventory inventory = InventoryHelper
-											.findAttachedInventory(
-													this.worldObj, this.xCoord,
-													this.yCoord, this.zCoord);
-									if ((inventory != null)
-											&& (inventory.getSizeInventory() > 0)) {
-										InventoryHelper.addStacksToInventory(
-												inventory, stacks);
+								if ((ProjectorTypes.typeFromItem(getType()).Blockdropper) && (stacks != null))
+								{
+									IInventory inventory = InventoryHelper.findAttachedInventory(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+									if ((inventory != null) && (inventory.getSizeInventory() > 0))
+									{
+										InventoryHelper.addStacksToInventory(inventory, stacks);
 									}
 								}
 							}
 
 						}
 
-						if ((this.worldObj
-								.getBlockMaterial(png.X, png.Y, png.Z)
-								.isLiquid())
-								|| (this.worldObj.isAirBlock(png.X, png.Y,
-										png.Z))
-								|| (this.worldObj.getBlockId(png.X, png.Y,
-										png.Z) == ModularForceFieldSystem.blockForceField.blockID)) {
-							if (this.worldObj.getBlockId(png.X, png.Y, png.Z) != ModularForceFieldSystem.blockForceField.blockID) {
-								this.worldObj
-										.setBlockAndMetadataWithNotify(
-												png.X,
-												png.Y,
-												png.Z,
-												ModularForceFieldSystem.blockForceField.blockID,
-												ffb.getTyp());
+						if ((this.worldObj.getBlockMaterial(png.X, png.Y, png.Z).isLiquid()) || (this.worldObj.isAirBlock(png.X, png.Y, png.Z)) || (this.worldObj.getBlockId(png.X, png.Y, png.Z) == ModularForceFieldSystem.blockForceField.blockID))
+						{
+							if (this.worldObj.getBlockId(png.X, png.Y, png.Z) != ModularForceFieldSystem.blockForceField.blockID)
+							{
+								this.worldObj.setBlockAndMetadataWithNotify(png.X, png.Y, png.Z, ModularForceFieldSystem.blockForceField.blockID, ffb.getTyp());
 
 								this.blockCounter += 1;
 							}
@@ -723,36 +765,41 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		}
 	}
 
-	public void destroyField() {
-		while (!this.field_queue.isEmpty()) {
-			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(
-					this.worldObj).getForceFieldStackMap(
-					(Integer) this.field_queue.pop());
+	public void destroyField()
+	{
+		while (!this.field_queue.isEmpty())
+		{
+			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap((Integer) this.field_queue.pop());
 
-			if (!ffworldmap.isEmpty()) {
-				if (ffworldmap.getProjectorID() == getDeviceID()) {
+			if (!ffworldmap.isEmpty())
+			{
+				if (ffworldmap.getProjectorID() == getDeviceID())
+				{
 					ffworldmap.removebyProjector(getDeviceID());
 
-					if (ffworldmap.isSync()) {
+					if (ffworldmap.isSync())
+					{
 						PointXYZ png = ffworldmap.getPoint();
-						this.worldObj
-								.removeBlockTileEntity(png.X, png.Y, png.Z);
-						this.worldObj
-								.setBlockWithNotify(png.X, png.Y, png.Z, 0);
+						this.worldObj.removeBlockTileEntity(png.X, png.Y, png.Z);
+						this.worldObj.setBlockWithNotify(png.X, png.Y, png.Z, 0);
 					}
 
 					ffworldmap.setSync(false);
-				} else {
+				}
+				else
+				{
 					ffworldmap.removebyProjector(getDeviceID());
 				}
 			}
 		}
 
-		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGrid
-				.getWorldMap(this.worldObj).getFieldFusion();
-		for (TileEntityProjector tileentity : FieldFusion.values()) {
-			if (tileentity.getPowerSourceID() == getPowerSourceID()) {
-				if (tileentity.isActive()) {
+		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion();
+		for (TileEntityProjector tileentity : FieldFusion.values())
+		{
+			if (tileentity.getPowerSourceID() == getPowerSourceID())
+			{
+				if (tileentity.isActive())
+				{
 					tileentity.calculateField(false);
 				}
 			}
@@ -760,17 +807,18 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public void invalidate() {
-		FrequencyGrid.getWorldMap(this.worldObj).getProjector()
-				.remove(Integer.valueOf(getDeviceID()));
+	public void invalidate()
+	{
+		FrequencyGrid.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
 		destroyField();
 		super.invalidate();
 	}
 
-	public int forcePowerNeed(int factor) {
-		if (!this.field_def.isEmpty()) {
-			return this.field_def.size()
-					* MFFSConfiguration.forcefieldblockcost;
+	public int forcePowerNeed(int factor)
+	{
+		if (!this.field_def.isEmpty())
+		{
+			return this.field_def.size() * MFFSConfiguration.forcefieldblockcost;
 		}
 
 		int forcepower = 0;
@@ -778,58 +826,53 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 
 		int tmplength = 1;
 
-		if (countItemsInSlot(IModularProjector.Slots.Strength) != 0) {
+		if (countItemsInSlot(IModularProjector.Slots.Strength) != 0)
+		{
 			tmplength = countItemsInSlot(IModularProjector.Slots.Strength);
 		}
 
-		switch (getProjectorType()) {
-		case 1:
-			blocks = (countItemsInSlot(IModularProjector.Slots.FocusDown)
-					+ countItemsInSlot(IModularProjector.Slots.FocusLeft)
-					+ countItemsInSlot(IModularProjector.Slots.FocusRight)
-					+ countItemsInSlot(IModularProjector.Slots.FocusUp) + 1)
-					* tmplength;
+		switch (getProjectorType())
+		{
+			case 1:
+				blocks = (countItemsInSlot(IModularProjector.Slots.FocusDown) + countItemsInSlot(IModularProjector.Slots.FocusLeft) + countItemsInSlot(IModularProjector.Slots.FocusRight) + countItemsInSlot(IModularProjector.Slots.FocusUp) + 1) * tmplength;
 
-			break;
-		case 2:
-			blocks = (countItemsInSlot(IModularProjector.Slots.FocusDown)
-					+ countItemsInSlot(IModularProjector.Slots.FocusUp) + 1)
-					* (countItemsInSlot(IModularProjector.Slots.FocusLeft)
-							+ countItemsInSlot(IModularProjector.Slots.FocusRight) + 1);
+				break;
+			case 2:
+				blocks = (countItemsInSlot(IModularProjector.Slots.FocusDown) + countItemsInSlot(IModularProjector.Slots.FocusUp) + 1) * (countItemsInSlot(IModularProjector.Slots.FocusLeft) + countItemsInSlot(IModularProjector.Slots.FocusRight) + 1);
 
-			break;
-		case 3:
-			blocks = ((countItemsInSlot(IModularProjector.Slots.Distance) + 2
-					+ countItemsInSlot(IModularProjector.Slots.Distance) + 2) * 4 + 4)
-					* (countItemsInSlot(IModularProjector.Slots.Strength) + 1);
+				break;
+			case 3:
+				blocks = ((countItemsInSlot(IModularProjector.Slots.Distance) + 2 + countItemsInSlot(IModularProjector.Slots.Distance) + 2) * 4 + 4) * (countItemsInSlot(IModularProjector.Slots.Strength) + 1);
 
-			break;
-		case 4:
-		case 5:
-			blocks = countItemsInSlot(IModularProjector.Slots.Distance)
-					* countItemsInSlot(IModularProjector.Slots.Distance) * 6;
+				break;
+			case 4:
+			case 5:
+				blocks = countItemsInSlot(IModularProjector.Slots.Distance) * countItemsInSlot(IModularProjector.Slots.Distance) * 6;
 		}
 
 		forcepower = blocks * MFFSConfiguration.forcefieldblockcost;
-		if (factor != 1) {
-			forcepower = forcepower
-					* MFFSConfiguration.forcefieldblockcreatemodifier
-					+ forcepower * 5;
+		if (factor != 1)
+		{
+			forcepower = forcepower * MFFSConfiguration.forcefieldblockcreatemodifier + forcepower * 5;
 		}
 
 		return forcepower;
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (this.ProjectorItemStacks[i] != null) {
-			if (this.ProjectorItemStacks[i].stackSize <= j) {
+	public ItemStack decrStackSize(int i, int j)
+	{
+		if (this.ProjectorItemStacks[i] != null)
+		{
+			if (this.ProjectorItemStacks[i].stackSize <= j)
+			{
 				ItemStack itemstack = this.ProjectorItemStacks[i];
 				this.ProjectorItemStacks[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = this.ProjectorItemStacks[i].splitStack(j);
-			if (this.ProjectorItemStacks[i].stackSize == 0) {
+			if (this.ProjectorItemStacks[i].stackSize == 0)
+			{
 				this.ProjectorItemStacks[i] = null;
 			}
 			return itemstack1;
@@ -838,59 +881,74 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
+	public void setInventorySlotContents(int i, ItemStack itemstack)
+	{
 		this.ProjectorItemStacks[i] = itemstack;
-		if ((itemstack != null)
-				&& (itemstack.stackSize > getInventoryStackLimit())) {
+		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
+		{
 			itemstack.stackSize = getInventoryStackLimit();
 		}
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
+	public ItemStack getStackInSlot(int i)
+	{
 		return this.ProjectorItemStacks[i];
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInvName()
+	{
 		return "Projektor";
 	}
 
 	@Override
-	public int getSizeInventory() {
+	public int getSizeInventory()
+	{
 		return this.ProjectorItemStacks.length;
 	}
 
 	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer) {
+	public Container getContainer(InventoryPlayer inventoryplayer)
+	{
 		return new ContainerProjector(inventoryplayer.player, this);
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
+	public int getStartInventorySide(ForgeDirection side)
+	{
 		return 11;
 	}
 
 	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
+	public int getSizeInventorySide(ForgeDirection side)
+	{
 		return 1;
 	}
 
 	@Override
-	public void onNetworkHandlerEvent(int key, String value) {
-		if (!isActive()) {
-			switch (key) {
-			case 1:
-				if (!isPowersourceItem()) {
-					if (getAccessType() != 3) {
-						if (getAccessType() == 2) {
-							setAccessType(0);
-						} else {
-							setAccessType(getAccessType() + 1);
+	public void onNetworkHandlerEvent(int key, String value)
+	{
+		if (!isActive())
+		{
+			switch (key)
+			{
+				case 1:
+					if (!isPowersourceItem())
+					{
+						if (getAccessType() != 3)
+						{
+							if (getAccessType() == 2)
+							{
+								setAccessType(0);
+							}
+							else
+							{
+								setAccessType(getAccessType() + 1);
+							}
 						}
 					}
-				}
-				break;
+					break;
 			}
 
 		}
@@ -899,7 +957,8 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public List getFieldsForUpdate() {
+	public List getFieldsForUpdate()
+	{
 		List NetworkedFields = new LinkedList();
 		NetworkedFields.clear();
 
@@ -917,95 +976,93 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemStack, int slot) {
+	public boolean isItemValid(ItemStack itemStack, int slot)
+	{
 		if ((slot == 1) && ((itemStack.getItem() instanceof ItemModuleBase)))
 			return true;
 
 		if ((slot == 0) && ((itemStack.getItem() instanceof IPowerLinkItem)))
 			return true;
 
-		if ((slot == 11)
-				&& (itemStack.itemID < 4096)
-				&& (hasOption(ModularForceFieldSystem.itemOptionCamouflage,
-						true)))
+		if ((slot == 11) && (itemStack.itemID < 4096) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
 			return true;
 
-		if (hasValidTypeMod()) {
+		if (hasValidTypeMod())
+		{
 			ItemModuleBase modType = getType();
 
-			switch (slot) {
-			case 12:
-				if (((itemStack.getItem() instanceof ItemOptionDefenseStation))
-						&& (isPowersourceItem()))
-					return false;
+			switch (slot)
+			{
+				case 12:
+					if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
+						return false;
 
-				if (((itemStack.getItem() instanceof ItemCardSecurityLink))
-						&& (isPowersourceItem()))
-					return false;
+					if (((itemStack.getItem() instanceof ItemCardSecurityLink)) && (isPowersourceItem()))
+						return false;
 
-				if ((itemStack.getItem() instanceof ItemCardSecurityLink))
-					return true;
+					if ((itemStack.getItem() instanceof ItemCardSecurityLink))
+						return true;
 
-				break;
-			case 5:
-				if ((itemStack.getItem() instanceof ItemModuleDistance))
-					return modType.supportsDistance();
+					break;
+				case 5:
+					if ((itemStack.getItem() instanceof ItemModuleDistance))
+						return modType.supportsDistance();
 
-				break;
-			case 6:
-				if ((itemStack.getItem() instanceof ItemModuleStrength)) {
-					return modType.supportsStrength();
-				}
-
-				break;
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-				if ((itemStack.getItem() instanceof ItemProjectorFocusMatrix))
-					return modType.supportsMatrix();
-
-				break;
-			case 2:
-			case 3:
-			case 4:
-				if (isActive())
-					return false;
-
-				if ((itemStack.getItem() instanceof ItemOptionShock)) {
-					for (int spot = 2; spot <= 4; spot++) {
-						if ((getStackInSlot(spot) != null)
-								&& ((getStackInSlot(spot).getItem() instanceof ItemOptionCamoflage)))
-							return false;
-					}
-				}
-
-				if ((itemStack.getItem() instanceof ItemOptionCamoflage)) {
-					for (int spot = 2; spot <= 4; spot++) {
-						if ((getStackInSlot(spot) != null)
-								&& ((getStackInSlot(spot).getItem() instanceof ItemOptionShock)))
-							return false;
+					break;
+				case 6:
+					if ((itemStack.getItem() instanceof ItemModuleStrength))
+					{
+						return modType.supportsStrength();
 					}
 
-				}
+					break;
+				case 7:
+				case 8:
+				case 9:
+				case 10:
+					if ((itemStack.getItem() instanceof ItemProjectorFocusMatrix))
+						return modType.supportsMatrix();
 
-				if (!hasPowerSource())
-					return false;
+					break;
+				case 2:
+				case 3:
+				case 4:
+					if (isActive())
+						return false;
 
-				if (((itemStack.getItem() instanceof ItemOptionDefenseStation))
-						&& (isPowersourceItem()))
-					return false;
+					if ((itemStack.getItem() instanceof ItemOptionShock))
+					{
+						for (int spot = 2; spot <= 4; spot++)
+						{
+							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionCamoflage)))
+								return false;
+						}
+					}
 
-				if (((itemStack.getItem() instanceof ItemOptionFieldFusion))
-						&& (isPowersourceItem()))
-					return false;
+					if ((itemStack.getItem() instanceof ItemOptionCamoflage))
+					{
+						for (int spot = 2; spot <= 4; spot++)
+						{
+							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionShock)))
+								return false;
+						}
 
-				if (((itemStack.getItem() instanceof ItemOptionJammer))
-						&& (isPowersourceItem()))
-					return false;
+					}
 
-				if ((itemStack.getItem() instanceof ItemOptionBase))
-					return modType.supportsOption(itemStack.getItem());
+					if (!hasPowerSource())
+						return false;
+
+					if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
+						return false;
+
+					if (((itemStack.getItem() instanceof ItemOptionFieldFusion)) && (isPowersourceItem()))
+						return false;
+
+					if (((itemStack.getItem() instanceof ItemOptionJammer)) && (isPowersourceItem()))
+						return false;
+
+					if ((itemStack.getItem() instanceof ItemOptionBase))
+						return modType.supportsOption(itemStack.getItem());
 			}
 		}
 
@@ -1013,7 +1070,8 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public int getSlotStackLimit(int slot) {
+	public int getSlotStackLimit(int slot)
+	{
 
 		if ((slot >= 5) && (slot <= 10))
 			return 64;
@@ -1021,35 +1079,41 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		return 1;
 	}
 
-	public boolean hasValidTypeMod() {
-		if ((getStackInSlot(1) != null)
-				&& ((getStackInSlot(1).getItem() instanceof ItemModuleBase))) {
+	public boolean hasValidTypeMod()
+	{
+		if ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemModuleBase)))
+		{
 			return true;
 		}
 		return false;
 	}
 
-	public ItemModuleBase getType() {
-		if (hasValidTypeMod()) {
+	public ItemModuleBase getType()
+	{
+		if (hasValidTypeMod())
+		{
 			return (ItemModuleBase) getStackInSlot(1).getItem();
 		}
 		return null;
 	}
 
 	@Override
-	public Set<PointXYZ> getInteriorPoints() {
+	public Set<PointXYZ> getInteriorPoints()
+	{
 		return this.field_interior;
 	}
 
-	public Set<PointXYZ> getFieldQueue() {
+	public Set<PointXYZ> getFieldQueue()
+	{
 		return this.field_def;
 	}
 
 	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation() {
-		TileEntitySecurityStation sec = ItemCardSecurityLink
-				.getLinkedSecurityStation(this, 12, this.worldObj);
-		if (sec != null) {
+	public TileEntitySecurityStation getLinkedSecurityStation()
+	{
+		TileEntitySecurityStation sec = ItemCardSecurityLink.getLinkedSecurityStation(this, 12, this.worldObj);
+		if (sec != null)
+		{
 			if ((getAccessType() != 3) && (!isPowersourceItem()))
 				setAccessType(3);
 
@@ -1062,16 +1126,20 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		return null;
 	}
 
-	public int getSecStation_ID() {
+	public int getSecStation_ID()
+	{
 		TileEntitySecurityStation sec = getLinkedSecurityStation();
-		if (sec != null) {
+		if (sec != null)
+		{
 			return sec.getDeviceID();
 		}
 		return 0;
 	}
 
-	public boolean hasOption(Item item, boolean includeCheckAll) {
-		for (ItemOptionBase opt : getOptions(includeCheckAll)) {
+	public boolean hasOption(Item item, boolean includeCheckAll)
+	{
+		for (ItemOptionBase opt : getOptions(includeCheckAll))
+		{
 			if (opt == item)
 				return true;
 
@@ -1079,17 +1147,22 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 		return false;
 	}
 
-	public List<ItemOptionBase> getOptions(boolean includeCheckAll) {
+	public List<ItemOptionBase> getOptions(boolean includeCheckAll)
+	{
 		List ret = new ArrayList();
-		for (int place = 2; place < 5; place++) {
-			if ((getStackInSlot(place) != null)
-					&& ((getStackInSlot(place).getItem() instanceof ItemOptionBase))) {
+		for (int place = 2; place < 5; place++)
+		{
+			if ((getStackInSlot(place) != null) && ((getStackInSlot(place).getItem() instanceof ItemOptionBase)))
+			{
 				ret.add((ItemOptionBase) getStackInSlot(place).getItem());
 			}
 
-			if (includeCheckAll) {
-				for (ItemOptionBase opt : ItemOptionBase.get_instances()) {
-					if (((opt instanceof IChecksOnAll)) && (!ret.contains(opt))) {
+			if (includeCheckAll)
+			{
+				for (ItemOptionBase opt : ItemOptionBase.get_instances())
+				{
+					if (((opt instanceof IChecksOnAll)) && (!ret.contains(opt)))
+					{
 						ret.add(opt);
 					}
 				}
@@ -1100,27 +1173,32 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements
 	}
 
 	@Override
-	public short getMaxSwitchModi() {
+	public short getMaxSwitchModi()
+	{
 		return 3;
 	}
 
 	@Override
-	public short getMinSwitchModi() {
+	public short getMinSwitchModi()
+	{
 		return 1;
 	}
 
 	@Override
-	public ItemStack getPowerLinkStack() {
+	public ItemStack getPowerLinkStack()
+	{
 		return getStackInSlot(getPowerLinkSlot());
 	}
 
 	@Override
-	public int getPowerLinkSlot() {
+	public int getPowerLinkSlot()
+	{
 		return 0;
 	}
 
 	@Override
-	public World getWorldObj() {
+	public World getWorldObj()
+	{
 		return this.worldObj;
 	}
 }

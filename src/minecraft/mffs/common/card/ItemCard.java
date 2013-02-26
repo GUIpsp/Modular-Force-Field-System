@@ -10,90 +10,93 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 
-public abstract class ItemCard extends ItemMFFS {
+public abstract class ItemCard extends ItemMFFS
+{
 
 	private StringBuffer info = new StringBuffer();
 	protected int tick = 0;
 
-	public ItemCard(int id, String name) {
+	public ItemCard(int id, String name)
+	{
 		super(id, name);
 		this.setMaxStackSize(1);
 	}
 
-	public static void setforArea(ItemStack itemStack, String areaname) {
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
+	public static void setforArea(ItemStack itemStack, String areaname)
+	{
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
 		nbtTagCompound.setString("Areaname", areaname);
 	}
 
-	public static String getforAreaname(ItemStack itemstack) {
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemstack);
-		if (nbtTagCompound != null) {
+	public static String getforAreaname(ItemStack itemstack)
+	{
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemstack);
+		if (nbtTagCompound != null)
+		{
 			return nbtTagCompound.getString("Areaname");
 		}
 		return "not set";
 	}
 
-	public boolean isvalid(ItemStack itemStack) {
-		NBTTagCompound tag = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
-		if (tag.hasKey("valid")) {
+	public boolean isvalid(ItemStack itemStack)
+	{
+		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		if (tag.hasKey("valid"))
+		{
 			return tag.getBoolean("valid");
 		}
 		return false;
 	}
 
-	public void setinvalid(ItemStack itemStack) {
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
+	public void setinvalid(ItemStack itemStack)
+	{
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
 		nbtTagCompound.setBoolean("valid", false);
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
-		NBTTagCompound tag = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
-		if (tag.hasKey("worldname")) {
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
+	{
+		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		if (tag.hasKey("worldname"))
+		{
 			info.add("World: " + tag.getString("worldname"));
 		}
-		if (tag.hasKey("linkTarget")) {
-			info.add("Coords: "
-					+ new PointXYZ(tag.getCompoundTag("linkTarget")).toString());
+		if (tag.hasKey("linkTarget"))
+		{
+			info.add("Coords: " + new PointXYZ(tag.getCompoundTag("linkTarget")).toString());
 		}
-		if (tag.hasKey("valid")) {
-			info.add(tag.getBoolean("valid") ? "\u00a72Valid"
-					: "\u00a74Invalid");
+		if (tag.hasKey("valid"))
+		{
+			info.add(tag.getBoolean("valid") ? "\u00a72Valid" : "\u00a74Invalid");
 		}
 	}
 
-	public void setInformation(ItemStack itemStack, PointXYZ png, String key,
-			int value) {
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
+	public void setInformation(ItemStack itemStack, PointXYZ png, String key, int value)
+	{
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
 
 		nbtTagCompound.setInteger(key, value);
-		nbtTagCompound.setString("worldname",
-				DimensionManager.getWorld(png.dimensionId).getWorldInfo()
-						.getWorldName());
+		nbtTagCompound.setString("worldname", DimensionManager.getWorld(png.dimensionId).getWorldInfo().getWorldName());
 		nbtTagCompound.setTag("linkTarget", png.asNBT());
 		nbtTagCompound.setBoolean("valid", true);
 	}
 
-	public int getValuefromKey(String key, ItemStack itemStack) {
-		NBTTagCompound tag = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
-		if (tag.hasKey(key)) {
+	public int getValuefromKey(String key, ItemStack itemStack)
+	{
+		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		if (tag.hasKey(key))
+		{
 			return tag.getInteger(key);
 		}
 		return 0;
 	}
 
-	public PointXYZ getCardTargetPoint(ItemStack itemStack) {
-		NBTTagCompound tag = NBTTagCompoundHelper
-				.getTAGfromItemstack(itemStack);
-		if (tag.hasKey("linkTarget")) {
+	public PointXYZ getCardTargetPoint(ItemStack itemStack)
+	{
+		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		if (tag.hasKey("linkTarget"))
+		{
 			return new PointXYZ(tag.getCompoundTag("linkTarget"));
 		}
 		tag.setBoolean("valid", false);

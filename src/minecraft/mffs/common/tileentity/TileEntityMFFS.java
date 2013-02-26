@@ -36,9 +36,8 @@ import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public abstract class TileEntityMFFS extends TileEntityAdvanced implements
-		INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory,
-		IMFFS_Wrench, IWrenchable, ISwitchable {
+public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IMFFS_Wrench, IWrenchable, ISwitchable
+{
 
 	private boolean Active;
 	private int Side;
@@ -51,7 +50,8 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	protected Random random = new Random();
 	protected ForgeChunkManager.Ticket chunkTicket;
 
-	public TileEntityMFFS() {
+	public TileEntityMFFS()
+	{
 		this.Active = false;
 		this.SwitchValue = false;
 		this.init = true;
@@ -63,46 +63,52 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	}
 
 	@Override
-	public String getInvName() {
-		return TranslationHelper.getLocal(this.getBlockType().getBlockName()
-				+ ".name");
+	public String getInvName()
+	{
+		return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
 	}
 
-	public int getPercentageCapacity() {
+	public int getPercentageCapacity()
+	{
 		return 0;
 	}
 
-	public boolean hasPowerSource() {
+	public boolean hasPowerSource()
+	{
 		return false;
 	}
 
 	public abstract TileEntitySecurityStation getLinkedSecurityStation();
 
 	@Override
-	public void onNetworkHandlerEvent(int key, String value) {
-		switch (key) {
-		case 0:
-			toogleSwitchModi();
-			break;
-		case 10:
-			setDeviceName("");
-			break;
-		case 11:
-			if (getDeviceName().length() <= 20) {
-				setDeviceName(getDeviceName() + value);
-			}
-			break;
-		case 12:
-			if (getDeviceName().length() >= 1) {
-				setDeviceName(getDeviceName().substring(0,
-						getDeviceName().length() - 1));
-			}
-			break;
+	public void onNetworkHandlerEvent(int key, String value)
+	{
+		switch (key)
+		{
+			case 0:
+				toogleSwitchModi();
+				break;
+			case 10:
+				setDeviceName("");
+				break;
+			case 11:
+				if (getDeviceName().length() <= 20)
+				{
+					setDeviceName(getDeviceName() + value);
+				}
+				break;
+			case 12:
+				if (getDeviceName().length() >= 1)
+				{
+					setDeviceName(getDeviceName().substring(0, getDeviceName().length() - 1));
+				}
+				break;
 		}
 	}
 
 	@Override
-	public List getFieldsForUpdate() {
+	public List getFieldsForUpdate()
+	{
 		List NetworkedFields = new LinkedList();
 		NetworkedFields.clear();
 
@@ -117,19 +123,23 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	}
 
 	@Override
-	public void onNetworkHandlerUpdate(String field) {
-		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord,
-				this.zCoord);
+	public void onNetworkHandlerUpdate(String field)
+	{
+		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	@Override
-	public void updateEntity() {
-		if ((!this.worldObj.isRemote) && (this.init)) {
+	public void updateEntity()
+	{
+		if ((!this.worldObj.isRemote) && (this.init))
+		{
 			init();
 		}
 
-		if ((this.worldObj.isRemote) && (this.DeviceID == 0)) {
-			if (getTicker() >= 5 + this.random.nextInt(20)) {
+		if ((this.worldObj.isRemote) && (this.DeviceID == 0))
+		{
+			if (getTicker() >= 5 + this.random.nextInt(20))
+			{
 				NetworkHandlerClient.requestInitialData(this, true);
 				setTicker((short) 0);
 			}
@@ -137,110 +147,125 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 		}
 	}
 
-	public void init() {
-		this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(
-				this, this.DeviceID);
-		if (MFFSConfiguration.chunckLoader) {
+	public void init()
+	{
+		this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
+		if (MFFSConfiguration.chunckLoader)
+		{
 			registerChunkLoading();
 		}
 		this.init = false;
 	}
 
-	public short getMaxSwitchModi() {
+	public short getMaxSwitchModi()
+	{
 		return 0;
 	}
 
-	public short getMinSwitchModi() {
+	public short getMinSwitchModi()
+	{
 		return 0;
 	}
 
-	public void toogleSwitchModi() {
-		if (getSwitchModi() == getMaxSwitchModi()) {
+	public void toogleSwitchModi()
+	{
+		if (getSwitchModi() == getMaxSwitchModi())
+		{
 			this.SwitchModi = getMinSwitchModi();
-		} else {
+		}
+		else
+		{
 			this.SwitchModi = ((short) (this.SwitchModi + 1));
 		}
 
 		NetworkHandlerServer.updateTileEntityField(this, "SwitchModi");
 	}
 
-	public boolean isRedstoneSignal() {
-		if ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord,
-				this.zCoord))
-				|| (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord,
-						this.yCoord, this.zCoord))) {
+	public boolean isRedstoneSignal()
+	{
+		if ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord)) || (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)))
+		{
 			return true;
 		}
 		return false;
 	}
 
-	public short getSwitchModi() {
-		if (this.SwitchModi < getMinSwitchModi()) {
+	public short getSwitchModi()
+	{
+		if (this.SwitchModi < getMinSwitchModi())
+		{
 			this.SwitchModi = getMinSwitchModi();
 		}
 		return this.SwitchModi;
 	}
 
-	public boolean getSwitchValue() {
+	public boolean getSwitchValue()
+	{
 		return this.SwitchValue;
 	}
 
 	@Override
-	public boolean isSwitchabel() {
-		if (getSwitchModi() == 2) {
+	public boolean isSwitchabel()
+	{
+		if (getSwitchModi() == 2)
+		{
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void toggelSwitchValue() {
+	public void toggelSwitchValue()
+	{
 		this.SwitchValue = (!this.SwitchValue);
 		NetworkHandlerServer.updateTileEntityField(this, "SwitchValue");
 	}
 
-	public void setDeviceName(String DeviceName) {
+	public void setDeviceName(String DeviceName)
+	{
 		this.DeviceName = DeviceName;
 		NetworkHandlerServer.updateTileEntityField(this, "DeviceName");
 	}
 
-	public int getDeviceID() {
+	public int getDeviceID()
+	{
 		return this.DeviceID;
 	}
 
-	public void setDeviceID(int i) {
+	public void setDeviceID(int i)
+	{
 		this.DeviceID = i;
 	}
 
-	public String getDeviceName() {
+	public String getDeviceName()
+	{
 		return this.DeviceName;
 	}
 
-	public PointXYZ getMachinePoint() {
-		return new PointXYZ(this.xCoord, this.yCoord, this.zCoord,
-				this.worldObj);
+	public PointXYZ getMachinePoint()
+	{
+		return new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
 	}
 
 	public abstract void dropPlugins();
 
-	public void dropPlugins(int slot, IInventory inventory) {
-		if (this.worldObj.isRemote) {
+	public void dropPlugins(int slot, IInventory inventory)
+	{
+		if (this.worldObj.isRemote)
+		{
 			setInventorySlotContents(slot, null);
 			return;
 		}
 
-		if (inventory.getStackInSlot(slot) != null) {
-			if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink))
-					|| ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink))
-					|| ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID))
-					|| ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink))) {
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,
-						this.xCoord, this.yCoord, this.zCoord, new ItemStack(
-								ModularForceFieldSystem.itemCardEmpty, 1)));
-			} else {
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,
-						this.xCoord, this.yCoord, this.zCoord, inventory
-								.getStackInSlot(slot)));
+		if (inventory.getStackInSlot(slot) != null)
+		{
+			if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
+			{
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
+			}
+			else
+			{
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, inventory.getStackInSlot(slot)));
 			}
 
 			inventory.setInventorySlotContents(slot, null);
@@ -251,7 +276,8 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	public abstract Container getContainer(InventoryPlayer paramInventoryPlayer);
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
 		super.readFromNBT(nbttagcompound);
 		this.Side = nbttagcompound.getInteger("side");
 		this.Active = nbttagcompound.getBoolean("active");
@@ -262,7 +288,8 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
+	public void writeToNBT(NBTTagCompound nbttagcompound)
+	{
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setShort("SwitchModi", this.SwitchModi);
@@ -274,54 +301,66 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	}
 
 	@Override
-	public boolean wrenchCanManipulate(EntityPlayer entityPlayer, int side) {
-		if (!SecurityHelper.isAccessGranted(this, entityPlayer, this.worldObj,
-				SecurityRight.EB)) {
+	public boolean wrenchCanManipulate(EntityPlayer entityPlayer, int side)
+	{
+		if (!SecurityHelper.isAccessGranted(this, entityPlayer, this.worldObj, SecurityRight.EB))
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public short getTicker() {
+	public short getTicker()
+	{
 		return this.ticker;
 	}
 
-	public void setTicker(short ticker) {
+	public void setTicker(short ticker)
+	{
 		this.ticker = ticker;
 	}
 
 	@Override
-	public void setSide(int i) {
+	public void setSide(int i)
+	{
 		this.Side = i;
 		NetworkHandlerServer.updateTileEntityField(this, "Side");
 	}
 
-	public boolean isActive() {
+	public boolean isActive()
+	{
 		return this.Active;
 	}
 
-	public void setActive(boolean flag) {
+	public void setActive(boolean flag)
+	{
 		this.Active = flag;
 		NetworkHandlerServer.updateTileEntityField(this, "Active");
 	}
 
 	@Override
-	public int getSide() {
+	public int getSide()
+	{
 		return this.Side;
 	}
 
 	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		if (side == getFacing()) {
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
+	{
+		if (side == getFacing())
+		{
 			return false;
 		}
-		if ((this instanceof TileEntitySecStorage)) {
+		if ((this instanceof TileEntitySecStorage))
+		{
 			return false;
 		}
-		if ((this instanceof TileEntitySecurityStation)) {
+		if ((this instanceof TileEntitySecurityStation))
+		{
 			return false;
 		}
-		if (this.Active) {
+		if (this.Active)
+		{
 			return false;
 		}
 
@@ -329,60 +368,66 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	}
 
 	@Override
-	public short getFacing() {
+	public short getFacing()
+	{
 		return (short) getSide();
 	}
 
 	@Override
-	public void setFacing(short facing) {
+	public void setFacing(short facing)
+	{
 		setSide(facing);
 	}
 
 	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		if (this.Active) {
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
+	{
+		if (this.Active)
+		{
 			return false;
 		}
 		return wrenchCanManipulate(entityPlayer, 0);
 	}
 
 	@Override
-	public float getWrenchDropRate() {
+	public float getWrenchDropRate()
+	{
 		return 1.0F;
 	}
 
-	public void forceChunkLoading(ForgeChunkManager.Ticket ticket) {
-		if (this.chunkTicket == null) {
+	public void forceChunkLoading(ForgeChunkManager.Ticket ticket)
+	{
+		if (this.chunkTicket == null)
+		{
 			this.chunkTicket = ticket;
 		}
-		ChunkCoordIntPair Chunk = new ChunkCoordIntPair(this.xCoord >> 4,
-				this.zCoord >> 4);
+		ChunkCoordIntPair Chunk = new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4);
 		ForgeChunkManager.forceChunk(ticket, Chunk);
 	}
 
-	protected void registerChunkLoading() {
-		if (this.chunkTicket == null) {
-			this.chunkTicket = ForgeChunkManager.requestTicket(
-					ModularForceFieldSystem.instance, this.worldObj,
-					ForgeChunkManager.Type.NORMAL);
+	protected void registerChunkLoading()
+	{
+		if (this.chunkTicket == null)
+		{
+			this.chunkTicket = ForgeChunkManager.requestTicket(ModularForceFieldSystem.instance, this.worldObj, ForgeChunkManager.Type.NORMAL);
 		}
-		if (this.chunkTicket == null) {
-			System.out
-					.println("[ModularForceFieldSystem] No free Chunkloaders available");
+		if (this.chunkTicket == null)
+		{
+			System.out.println("[ModularForceFieldSystem] No free Chunkloaders available");
 			return;
 		}
 
 		this.chunkTicket.getModData().setInteger("MachineX", this.xCoord);
 		this.chunkTicket.getModData().setInteger("MachineY", this.yCoord);
 		this.chunkTicket.getModData().setInteger("MachineZ", this.zCoord);
-		ForgeChunkManager.forceChunk(this.chunkTicket, new ChunkCoordIntPair(
-				this.xCoord >> 4, this.zCoord >> 4));
+		ForgeChunkManager.forceChunk(this.chunkTicket, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 
 		forceChunkLoading(this.chunkTicket);
 	}
 
 	@Override
-	public void invalidate() {
+	public void invalidate()
+	{
 		ForgeChunkManager.releaseTicket(this.chunkTicket);
 		super.invalidate();
 	}
@@ -392,42 +437,47 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements
 	public abstract int getSlotStackLimit(int paramInt);
 
 	@Override
-	public void openChest() {
+	public void openChest()
+	{
 	}
 
 	@Override
-	public void closeChest() {
+	public void closeChest()
+	{
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord,
-				this.zCoord) != this) {
+	public boolean isUseableByPlayer(EntityPlayer entityplayer)
+	{
+		if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
+		{
 			return false;
 		}
-		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D,
-				this.zCoord + 0.5D) <= 64.0D;
+		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(
-				net.minecraft.block.Block.blocksList[this.worldObj.getBlockId(
-						this.xCoord, this.yCoord, this.zCoord)]);
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
+	{
+		return new ItemStack(net.minecraft.block.Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]);
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1) {
+	public ItemStack getStackInSlotOnClosing(int var1)
+	{
 		return null;
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
+	public int getInventoryStackLimit()
+	{
 		return 64;
 	}
 
-	public int countItemsInSlot(IModularProjector.Slots slt) {
-		if (getStackInSlot(slt.slot) != null) {
+	public int countItemsInSlot(IModularProjector.Slots slt)
+	{
+		if (getStackInSlot(slt.slot) != null)
+		{
 			return getStackInSlot(slt.slot).stackSize;
 		}
 		return 0;

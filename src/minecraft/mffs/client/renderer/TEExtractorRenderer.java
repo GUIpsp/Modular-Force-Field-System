@@ -7,12 +7,14 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-public class TEExtractorRenderer extends TileEntitySpecialRenderer {
+public class TEExtractorRenderer extends TileEntitySpecialRenderer
+{
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileEntity, double x, double y,
-			double z, float f) {
-		if ((tileEntity instanceof TileEntityExtractor)) {
+	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
+	{
+		if ((tileEntity instanceof TileEntityExtractor))
+		{
 			TileEntityExtractor topview = (TileEntityExtractor) tileEntity;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
@@ -23,41 +25,41 @@ public class TEExtractorRenderer extends TileEntitySpecialRenderer {
 			float displayWidth = 0.875F;
 			float displayHeight = 0.875F;
 			GL11.glTranslatef((float) x, (float) y, (float) z);
-			switch (side) {
-			case 1:
-				break;
-			case 0:
-				GL11.glTranslatef(1.0F, 1.0F, 0.0F);
-				GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-				GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+			switch (side)
+			{
+				case 1:
+					break;
+				case 0:
+					GL11.glTranslatef(1.0F, 1.0F, 0.0F);
+					GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+					GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
 
-				break;
-			case 3:
-				GL11.glTranslatef(0.0F, 1.0F, 0.0F);
-				GL11.glRotatef(0.0F, 0.0F, 1.0F, 0.0F);
-				GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+					break;
+				case 3:
+					GL11.glTranslatef(0.0F, 1.0F, 0.0F);
+					GL11.glRotatef(0.0F, 0.0F, 1.0F, 0.0F);
+					GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
 
-				break;
-			case 2:
-				GL11.glTranslatef(1.0F, 1.0F, 1.0F);
-				GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-				GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+					break;
+				case 2:
+					GL11.glTranslatef(1.0F, 1.0F, 1.0F);
+					GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+					GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
 
-				break;
-			case 5:
-				GL11.glTranslatef(0.0F, 1.0F, 1.0F);
-				GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
-				GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+					break;
+				case 5:
+					GL11.glTranslatef(0.0F, 1.0F, 1.0F);
+					GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+					GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
 
-				break;
-			case 4:
-				GL11.glTranslatef(1.0F, 1.0F, 0.0F);
-				GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
-				GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+					break;
+				case 4:
+					GL11.glTranslatef(1.0F, 1.0F, 0.0F);
+					GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
+					GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
 			}
 
-			GL11.glTranslatef(dx + displayWidth / 2.0F, 1.0F, dz
-					+ displayHeight / 2.0F);
+			GL11.glTranslatef(dx + displayWidth / 2.0F, 1.0F, dz + displayHeight / 2.0F);
 			GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			FontRenderer fontRenderer = getFontRenderer();
@@ -78,49 +80,24 @@ public class TEExtractorRenderer extends TileEntitySpecialRenderer {
 			int offsetY;
 			int offsetX;
 
-			if (scaleX < scaleY) {
+			if (scaleX < scaleY)
+			{
 				offsetX = 2;
 				offsetY = (realHeight - requiredHeight) / 2;
-			} else {
+			}
+			else
+			{
 				offsetX = (realWidth - maxWidth) / 2 + 2;
 				offsetY = 0;
 			}
 			GL11.glDisable(2896);
-			fontRenderer.drawString(header, offsetX - realWidth / 2, 1
-					+ offsetY - realHeight / 2 + -2 * lineHeight, 1);
-			fontRenderer.drawString("WE:", offsetX - realWidth / 2, 1 + offsetY
-					- realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString(
-					String.valueOf(topview.getWorkDone()).concat(" % "),
-					offsetX
-							+ realWidth
-							/ 2
-							- offsetX
-							- fontRenderer.getStringWidth(String.valueOf(
-									topview.getWorkDone()).concat(" % ")),
-					offsetY - realHeight / 2 - 0 * lineHeight, 1);
-			fontRenderer.drawString("WC left:", offsetX - realWidth / 2, 1
-					+ offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString(
-					String.valueOf(topview.getWorkCycle()),
-					offsetX
-							+ realWidth
-							/ 2
-							- offsetX
-							- fontRenderer.getStringWidth(String
-									.valueOf(topview.getWorkCycle())), offsetY
-							- realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString("FE Cap:", offsetX - realWidth / 2, 1
-					+ offsetY - realHeight / 2 + 2 * lineHeight, 1);
-			fontRenderer.drawString(
-					String.valueOf(topview.getCapacity()).concat("%"),
-					offsetX
-							+ realWidth
-							/ 2
-							- offsetX
-							- fontRenderer.getStringWidth(String.valueOf(
-									topview.getCapacity()).concat("%")),
-					offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
+			fontRenderer.drawString("WE:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
+			fontRenderer.drawString(String.valueOf(topview.getWorkDone()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkDone()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			fontRenderer.drawString("WC left:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString(String.valueOf(topview.getWorkCycle()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkCycle())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString("FE Cap:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString(String.valueOf(topview.getCapacity()).concat("%"), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getCapacity()).concat("%")), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
