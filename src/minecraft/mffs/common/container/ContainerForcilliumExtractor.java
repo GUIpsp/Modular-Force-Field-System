@@ -1,7 +1,7 @@
 package mffs.common.container;
 
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
@@ -9,12 +9,12 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerForcilliumExtractor extends ContainerMFFS
 {
-	private TileEntityExtractor tileEntity;
+	private TileEntityForcilliumExtractor tileEntity;
 	private int workCylce;
 	private int workdone;
 	private int forceEnergybuffer;
 
-	public ContainerForcilliumExtractor(EntityPlayer player, TileEntityExtractor tileentity)
+	public ContainerForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
 	{
 		super(tileentity);
 		this.tileEntity = tileentity;

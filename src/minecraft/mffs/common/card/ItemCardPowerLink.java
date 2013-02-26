@@ -11,7 +11,7 @@ import mffs.common.SecurityRight;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.Entity;
@@ -75,12 +75,12 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 0, "<Power-Link>");
 			}
 
-			if (((tileEntity instanceof TileEntityExtractor)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
+			if (((tileEntity instanceof TileEntityForcilliumExtractor)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
-				TileEntityExtractor entityExtractor = (TileEntityExtractor) tileEntity;
+				TileEntityForcilliumExtractor entityExtractor = (TileEntityForcilliumExtractor) tileEntity;
 				if (entityExtractor.getStackInSlot(1) == null)
 				{
-					((TileEntityExtractor) tileEntity).setInventorySlotContents(1, itemstack);
+					((TileEntityForcilliumExtractor) tileEntity).setInventorySlotContents(1, itemstack);
 					entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
 					Functions.ChattoPlayer(entityplayer, "Success: <Power-Link> Card installed");
 					return true;

@@ -14,12 +14,12 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemForcePowerCrystal extends ItemMFFS implements IPowerLinkItem, IForceEnergyItems
+public class ItemFortronCrystal extends ItemMFFS implements IPowerLinkItem, IForceEnergyItems
 {
 
-	public ItemForcePowerCrystal(int i)
+	public ItemFortronCrystal(int i)
 	{
-		super(i, "forcePowerCrystal");
+		super(i, "fortronCrystal");
 		this.setIconIndex(96);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);

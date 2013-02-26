@@ -9,16 +9,9 @@ import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
-import mffs.common.tileentity.TileEntityCapacitor;
-import mffs.common.tileentity.TileEntityControlSystem;
-import mffs.common.tileentity.TileEntityConverter;
-import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityExtractor;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
-import mffs.common.tileentity.TileEntitySecStorage;
-import mffs.common.tileentity.TileEntitySecurityStation;
 import mffs.network.INetworkHandlerEventListener;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -155,13 +148,22 @@ public class NetworkHandlerServer implements IPacketHandler
 
 			try
 			{
-				Field f = ReflectionHelper.findField(tileEntity.getClass(), new String[] { varname });
+				Field f = ReflectionHelper.findField(TileEntityMFFS.class, new String[] { varname });
 				f.get(tileEntity);
 				dos.writeUTF(String.valueOf(f.get(tileEntity)));
 			}
 			catch (Exception e)
 			{
-				ModularForceFieldSystem.LOGGER.severe("Failed to get variable for packet '" + varname + "' in TileEntity: " + tileEntity.getClass().getSimpleName());
+				try
+				{
+					Field f = ReflectionHelper.findField(tileEntity.getClass(), new String[] { varname });
+					f.get(tileEntity);
+					dos.writeUTF(String.valueOf(f.get(tileEntity)));
+				}
+				catch (Exception ex)
+				{
+					ModularForceFieldSystem.LOGGER.severe("Failed to get variable for packet '" + varname + "' in TileEntity: " + tileEntity.getClass().getSimpleName());
+				}
 			}
 
 			Packet250CustomPayload pkt = new Packet250CustomPayload();

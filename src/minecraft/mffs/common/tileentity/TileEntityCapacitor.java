@@ -45,10 +45,10 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
 				onSwitch();
 
-			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
 				onSwitch();
 
 			if (getSwitchValue())
@@ -150,7 +150,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		if (this.linkedProjector != linketprojektor.shortValue())
 		{
 			this.linkedProjector = linketprojektor.shortValue();
-			NetworkHandlerServer.updateTileEntityField(this, "linketprojektor");
+			NetworkHandlerServer.updateTileEntityField(this, "linkedProjector");
 		}
 	}
 

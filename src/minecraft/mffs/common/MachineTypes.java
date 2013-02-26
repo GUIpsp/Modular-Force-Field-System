@@ -21,7 +21,7 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -36,7 +36,7 @@ public enum MachineTypes
 {
 
 	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TileEntityExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
+	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
 	Capacitor(TileEntityCapacitor.class, GuiCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
 	DefenceStation(TileEntityDefenseStation.class, GuiAreaDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.blockDefenceStation, " J aFa E ", " a EKE C "),

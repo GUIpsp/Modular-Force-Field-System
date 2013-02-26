@@ -9,7 +9,7 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
@@ -44,7 +44,7 @@ public final class FrequencyGrid
 		private Map<Integer, TileEntityCapacitor> Capacitors = new Hashtable();
 		private Map<Integer, TileEntitySecurityStation> SecStation = new Hashtable();
 		private Map<Integer, TileEntityDefenseStation> DefStation = new Hashtable();
-		private Map<Integer, TileEntityExtractor> Extractor = new Hashtable();
+		private Map<Integer, TileEntityForcilliumExtractor> Extractor = new Hashtable();
 		private Map<Integer, TileEntityConverter> Converter = new Hashtable();
 		private Map Jammer = new Hashtable();
 		private Map FieldFusion = new Hashtable();
@@ -183,7 +183,7 @@ public final class FrequencyGrid
 				this.Converter.put(Integer.valueOf(DeviceID), (TileEntityConverter) tileEntity);
 				return DeviceID;
 			}
-			if ((tileEntity instanceof TileEntityExtractor))
+			if ((tileEntity instanceof TileEntityForcilliumExtractor))
 			{
 				if (remDeviceID == 0)
 				{
@@ -193,7 +193,7 @@ public final class FrequencyGrid
 					}
 				}
 				DeviceID = remDeviceID;
-				this.Extractor.put(Integer.valueOf(DeviceID), (TileEntityExtractor) tileEntity);
+				this.Extractor.put(Integer.valueOf(DeviceID), (TileEntityForcilliumExtractor) tileEntity);
 				return DeviceID;
 			}
 			if ((tileEntity instanceof TileEntityProjector))
@@ -242,7 +242,7 @@ public final class FrequencyGrid
 
 			}
 
-			for (TileEntityExtractor tileentity : this.Extractor.values())
+			for (TileEntityForcilliumExtractor tileentity : this.Extractor.values())
 			{
 				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{

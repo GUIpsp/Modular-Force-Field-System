@@ -36,12 +36,18 @@ import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
 
-public class TileEntityExtractor extends TileEntityForcePowerMachine implements IPowerReceptor, IEnergySink
+/**
+ * A TileEntity that extract forcillium into fortrons.
+ * 
+ * @author Calclavia
+ * 
+ */
+public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine implements IPowerReceptor, IEnergySink
 {
 	private ItemStack[] inventory = new ItemStack[5];
 	private int workmode = 0;
 	protected int workEnergy;
-	protected int MaxWorkEnergy = 4000;
+	protected int maxWorkEnergy = 4000;
 	private int forceEnergyBuffer = 0;
 	private int maxForceEnergyBuffer = 1000000;
 	private int workCycle = 0;
@@ -51,7 +57,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	private int capacity = 0;
 	private IPowerProvider powerProvider;
 
-	public TileEntityExtractor()
+	public TileEntityForcilliumExtractor()
 	{
 		if (MFFSConfiguration.MODULE_BUILDCRAFT)
 		{
@@ -64,7 +70,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	public void initiate()
 	{
 		super.initiate();
-		checkSlots(true);
+		this.checkSlots();
 		setUEwireConnection();
 		MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 	}
@@ -74,11 +80,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((this.getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((this.getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
 			{
 				onSwitch();
 			}
-			if ((this.getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((this.getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
 			{
 				onSwitch();
 			}
@@ -106,7 +112,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
 			if (this.ticks % getWorkTicker() == 0)
 			{
-				checkSlots(false);
+				this.checkSlots();
 
 				if ((this.workmode == 0) && (isActive()))
 				{
@@ -258,12 +264,12 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
 	public int getMaxWorkEnergy()
 	{
-		return this.MaxWorkEnergy;
+		return this.maxWorkEnergy;
 	}
 
 	public void setMaxWorkEnergy(int maxWorkEnergy)
 	{
-		this.MaxWorkEnergy = maxWorkEnergy;
+		this.maxWorkEnergy = maxWorkEnergy;
 	}
 
 	@Override
@@ -285,8 +291,22 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
-	public void checkSlots(boolean init)
+	public void checkSlots()
 	{
+		if (getStackInSlot(0) != null)
+		{
+			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell)
+			{
+				this.workmode = 1;
+				setMaxWorkEnergy(200000);
+			}
+		}
+		else
+		{
+			this.workmode = 0;
+			setMaxWorkEnergy(4000);
+		}
+
 		if (getStackInSlot(2) != null)
 		{
 			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemUpgradeCapacity)
@@ -318,25 +338,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		{
 			setWorkTicker(20);
 		}
-
-		if (getStackInSlot(4) != null)
-		{
-			if (getStackInSlot(4).getItem() == ModularForceFieldSystem.itemForcicumCell)
-			{
-				this.workmode = 1;
-				setMaxWorkEnergy(200000);
-			}
-		}
-		else
-		{
-			this.workmode = 0;
-			setMaxWorkEnergy(4000);
-		}
 	}
 
 	private boolean hasPowerToConvert()
 	{
-		if (this.workEnergy >= this.MaxWorkEnergy - 1)
+		if (this.workEnergy >= this.maxWorkEnergy - 1)
 		{
 			setWorkEnergy(0);
 			return true;

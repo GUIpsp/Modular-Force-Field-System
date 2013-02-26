@@ -4,10 +4,11 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
-public class TECapacitorRenderer extends TileEntitySpecialRenderer
+public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 {
 
 	@Override
@@ -25,10 +26,15 @@ public class TECapacitorRenderer extends TileEntitySpecialRenderer
 			float displayWidth = 0.875F;
 			float displayHeight = 0.875F;
 			GL11.glTranslatef((float) x, (float) y, (float) z);
+			
+			//TODO: NEST THIS IN A CLASS AND ROTATE THE RENDER BASED ON WHERE THE PLAYER IS LOOKING AT THE TILE ENTITY FROM.
+			
 			switch (side)
 			{
 				case 1:
+				{
 					break;
+				}
 				case 0:
 					GL11.glTranslatef(1.0F, 1.0F, 0.0F);
 					GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
@@ -64,7 +70,7 @@ public class TECapacitorRenderer extends TileEntitySpecialRenderer
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			FontRenderer fontRenderer = getFontRenderer();
 			int maxWidth = 1;
-			String header = "MFFS Capacitor";
+			String header = "Fortron Capacitor";
 			maxWidth = Math.max(fontRenderer.getStringWidth(header), maxWidth);
 			maxWidth += 4;
 			int lineHeight = fontRenderer.FONT_HEIGHT + 2;
@@ -92,11 +98,11 @@ public class TECapacitorRenderer extends TileEntitySpecialRenderer
 			}
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
-			fontRenderer.drawString("capacity: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
+			fontRenderer.drawString("Capacity: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getPercentageStorageCapacity()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getPercentageStorageCapacity()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
-			fontRenderer.drawString("range: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString("Range: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getTransmitRange()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getTransmitRange())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString("linked device: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString("Linked Device: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getLinkedProjector()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getLinkedProjector())), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);

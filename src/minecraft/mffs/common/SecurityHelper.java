@@ -4,7 +4,7 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -112,9 +112,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntityExtractor))
+		if ((tileEntity instanceof TileEntityForcilliumExtractor))
 		{
-			TileEntitySecurityStation sec = ((TileEntityExtractor) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityForcilliumExtractor) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))

@@ -122,33 +122,34 @@ public abstract class BlockMFFSMachine extends BlockMachine
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
 	{
 		TileEntity tile = world.getBlockTileEntity(i, j, k);
+		
 		if (tile instanceof TileEntityMFFS)
 		{
 			TileEntityMFFS tileEntity = (TileEntityMFFS) tile;
-			int l = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
-			int i1 = Math.round(entityliving.rotationPitch);
+			int side = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
+			int height = Math.round(entityliving.rotationPitch);
 
-			if (i1 >= 65)
+			if (height >= 65)
 			{
 				tileEntity.setDirection(ForgeDirection.getOrientation(1));
 			}
-			else if (i1 <= -65)
+			else if (height <= -65)
 			{
 				tileEntity.setDirection(ForgeDirection.getOrientation(0));
 			}
-			else if (l == 0)
+			else if (side == 0)
 			{
 				tileEntity.setDirection(ForgeDirection.getOrientation(2));
 			}
-			else if (l == 1)
+			else if (side == 1)
 			{
 				tileEntity.setDirection(ForgeDirection.getOrientation(5));
 			}
-			else if (l == 2)
+			else if (side == 2)
 			{
 				tileEntity.setDirection(ForgeDirection.getOrientation(3));
 			}
-			else if (l == 3)
+			else if (side == 3)
 			{
 				tileEntity.setDirection(ForgeDirection.getOrientation(4));
 			}

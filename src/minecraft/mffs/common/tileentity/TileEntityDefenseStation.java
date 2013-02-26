@@ -538,11 +538,11 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
 			{
 				onSwitch();
 			}
-			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
 			{
 				onSwitch();
 			}

@@ -9,7 +9,7 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
@@ -117,11 +117,11 @@ public class NetworkHandlerClient implements IPacketHandler
 
 				}
 
-				if ((tileEntity instanceof TileEntityExtractor))
+				if ((tileEntity instanceof TileEntityForcilliumExtractor))
 				{
 					try
 					{
-						Field f = ReflectionHelper.findField(TileEntityExtractor.class, new String[] { fieldname });
+						Field f = ReflectionHelper.findField(TileEntityForcilliumExtractor.class, new String[] { fieldname });
 						reflectionsetvalue(f, tileEntity, dat, fieldname);
 					}
 					catch (Exception e)

@@ -173,11 +173,11 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 				setLinkPower(0);
 			}
 
-			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
 			{
 				onSwitch();
 			}
-			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
 			{
 				onSwitch();
 			}

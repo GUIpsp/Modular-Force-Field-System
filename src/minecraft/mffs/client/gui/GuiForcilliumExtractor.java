@@ -4,7 +4,7 @@ import mffs.client.GraphicButton;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForcilliumExtractor;
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,10 +18,10 @@ import universalelectricity.core.vector.Vector2;
 
 public class GuiForcilliumExtractor extends GuiMFFS
 {
-	private TileEntityExtractor tileEntity;
+	private TileEntityForcilliumExtractor tileEntity;
 	private boolean editMode = false;
 
-	public GuiForcilliumExtractor(EntityPlayer player, TileEntityExtractor tileentity)
+	public GuiForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
 	{
 		super(new ContainerForcilliumExtractor(player, tileentity));
 		this.tileEntity = tileentity;
@@ -40,17 +40,17 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
-		
+
 		this.drawTextWithTooltip("frequency", "%1:", 8, 30, x, y);
 		this.textFieldFrequency.drawTextBox();
-		
+
 		GL11.glPushMatrix();
 		GL11.glRotatef(-90, 0, 0, 1);
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
 		this.drawTextWithTooltip("progress", "%1: " + this.tileEntity.getWorkDone() + "%", 8, 70, x, y);
-		this.drawTextWithTooltip("forcePower", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getForceEnergybuffer(), ElectricUnit.JOULES), 8, 105, x, y);
+		this.drawTextWithTooltip("fortron", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getForceEnergybuffer(), ElectricUnit.JOULES), 8, 105, x, y);
 
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
@@ -71,12 +71,12 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		 * Frequency Card Slot
 		 */
 		this.drawSlot(8, 40);
-		
+
 		/**
 		 * Focillium Input
 		 */
 		this.drawSlot(8, 82);
-		this.drawBar(30, 84, (float) this.tileEntity.getWorkCycle() / (float) MFFSConfiguration.ForcilliumWorkCylce);
+		this.drawBar(30, 84, (100f - (float) this.tileEntity.getWorkDone()) / 100f);
 
 		/**
 		 * Force Power Bar

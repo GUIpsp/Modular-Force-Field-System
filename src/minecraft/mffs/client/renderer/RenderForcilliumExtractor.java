@@ -1,21 +1,21 @@
 package mffs.client.renderer;
 
-import mffs.common.tileentity.TileEntityExtractor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-public class TEExtractorRenderer extends TileEntitySpecialRenderer
+public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
 	{
-		if ((tileEntity instanceof TileEntityExtractor))
+		if ((tileEntity instanceof TileEntityForcilliumExtractor))
 		{
-			TileEntityExtractor topview = (TileEntityExtractor) tileEntity;
+			TileEntityForcilliumExtractor topview = (TileEntityForcilliumExtractor) tileEntity;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);
@@ -64,7 +64,7 @@ public class TEExtractorRenderer extends TileEntitySpecialRenderer
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			FontRenderer fontRenderer = getFontRenderer();
 			int maxWidth = 1;
-			String header = "MFFS Extractor";
+			String header = "Forcillium Extractor";
 			maxWidth = Math.max(fontRenderer.getStringWidth(header), maxWidth);
 			maxWidth += 4;
 			int lineHeight = fontRenderer.FONT_HEIGHT + 2;
@@ -92,11 +92,11 @@ public class TEExtractorRenderer extends TileEntitySpecialRenderer
 			}
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
-			fontRenderer.drawString("WE:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
+			fontRenderer.drawString("Process:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getWorkDone()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkDone()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
-			fontRenderer.drawString("WC left:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString("Remaining:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getWorkCycle()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkCycle())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString("FE Cap:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString("Buffer:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getCapacity()).concat("%"), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getCapacity()).concat("%")), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);

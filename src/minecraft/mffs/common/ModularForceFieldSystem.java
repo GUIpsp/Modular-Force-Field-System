@@ -23,7 +23,7 @@ import mffs.common.card.ItemCardPower;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.event.EE3Event;
-import mffs.common.item.ItemForcePowerCrystal;
+import mffs.common.item.ItemFortronCrystal;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemForcilliumCell;
 import mffs.common.modules.ItemModuleAdvancedCube;
@@ -253,7 +253,7 @@ public class ModularForceFieldSystem
 			itemModuleDistance = new ItemModuleDistance(MFFSConfiguration.item_AltDistance_ID);
 			itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
-			itemPowerCrystal = new ItemForcePowerCrystal(MFFSConfiguration.item_FPCrystal_ID);
+			itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
 			itemForcicium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
 			itemForcicumCell = new ItemForcilliumCell(MFFSConfiguration.item_ForciciumCell_ID);
 

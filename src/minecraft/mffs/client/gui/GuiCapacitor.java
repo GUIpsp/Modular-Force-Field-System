@@ -42,7 +42,7 @@ public class GuiCapacitor extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
-		
+
 		GL11.glPushMatrix();
 		GL11.glRotatef(-90, 0, 0, 1);
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
@@ -52,7 +52,7 @@ public class GuiCapacitor extends GuiMFFS
 		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
-		this.drawTextWithTooltip("forcePower", "%1:", 8, 95, x, y);
+		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
 		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
@@ -74,7 +74,7 @@ public class GuiCapacitor extends GuiMFFS
 		 */
 		this.drawSlot(8, 73);
 
-		this.drawForce(8, 115, 0);
+		this.drawForce(8, 115, Math.min((float) this.tileEntity.getStorageAvailablePower() / (float) this.tileEntity.getMaximumPower(), 1));
 	}
 
 	@Override

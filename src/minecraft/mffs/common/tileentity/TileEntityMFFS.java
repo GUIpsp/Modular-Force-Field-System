@@ -40,9 +40,21 @@ import universalelectricity.prefab.tile.TileEntityAdvanced;
 
 public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IWrenchable, ISwitchable, IRotatable
 {
+	/**
+	 * Is the machine active and working?
+	 */
 	private boolean isActive = false;
 	protected int deviceID = 0;
+
+	/**
+	 * The switch mode determines the mode in which the machine is switched to. Used for determining
+	 * if the machine is accepting "X" type of events for turning on.
+	 */
 	protected short switchMode = 0;
+
+	/**
+	 * Is the machine being switched on or is it off?
+	 */
 	protected boolean switchValue = false;
 	protected Random random = new Random();
 	protected Ticket chunkTicket;
@@ -125,21 +137,21 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		}
 	}
 
-	public short getMaxswitchMode()
+	public short getMaxSwitchMode()
 	{
-		return 0;
+		return 3;
 	}
 
-	public short getMinswitchMode()
+	public short getMinSwitchMode()
 	{
 		return 0;
 	}
 
 	public void toogleSwitchMode()
 	{
-		if (getSwitchMode() == getMaxswitchMode())
+		if (getSwitchMode() >= getMaxSwitchMode())
 		{
-			this.switchMode = getMinswitchMode();
+			this.switchMode = getMinSwitchMode();
 		}
 		else
 		{
@@ -149,21 +161,13 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		NetworkHandlerServer.updateTileEntityField(this, "switchMode");
 	}
 
-	public boolean isRedstoneSignal()
+	public boolean isPoweredByRedstone()
 	{
-		if ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord)) || (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)))
-		{
-			return true;
-		}
-		return false;
+		return ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord)) || (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)));
 	}
 
 	public short getSwitchMode()
 	{
-		if (this.switchMode < getMinswitchMode())
-		{
-			this.switchMode = getMinswitchMode();
-		}
 		return this.switchMode;
 	}
 
