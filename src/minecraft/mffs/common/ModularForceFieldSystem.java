@@ -35,7 +35,6 @@ import mffs.common.modules.ItemModuleSphere;
 import mffs.common.modules.ItemModuleTube;
 import mffs.common.modules.ItemModuleWall;
 import mffs.common.multitool.ItemFieldTransporter;
-import mffs.common.multitool.ItemMultiToolManual;
 import mffs.common.multitool.ItemMultitoolSwitch;
 import mffs.common.multitool.ItemMultitoolWriter;
 import mffs.common.multitool.ItemMultiToolWrench;
@@ -288,7 +287,6 @@ public class ModularForceFieldSystem
 			itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSConfiguration.item_MTSwitch_ID);
 			itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSConfiguration.item_MTFieldTransporter_ID);
 			itemMultiToolID = new ItemMultitoolWriter(MFFSConfiguration.item_MTIDWriter_ID);
-			itemMultiToolManual = new ItemMultiToolManual(MFFSConfiguration.item_MTManual_ID);
 
 			itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);

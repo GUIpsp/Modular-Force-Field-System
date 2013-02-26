@@ -40,11 +40,11 @@ public class ItemMultitoolSwitch extends ItemMultitool
 						return true;
 					}
 
-					Functions.ChattoPlayer(entityplayer, "[MultiTool] Fail: not enough FP please charge");
+					Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Not enough Fortron!");
 					return false;
 				}
 
-				Functions.ChattoPlayer(entityplayer, "[MultiTool] Fail: Object not in switch enable mode");
+				Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Machine not set to accept Switch!");
 				return false;
 			}
 

@@ -15,7 +15,7 @@ public class ItemCardPower extends ItemMFFS implements IPowerLinkItem, IForceEne
 
 	public ItemCardPower(int id)
 	{
-		super(id, "cardPower");
+		super(id, "cardInfinite");
 		setMaxStackSize(1);
 		setIconIndex(21);
 	}
@@ -71,8 +71,8 @@ public class ItemCardPower extends ItemMFFS implements IPowerLinkItem, IForceEne
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		info.add("Admin Card to Power Maschines");
-		info.add("or use to infinit charge Capactior");
+		info.add("Gives Infinite Fortron Energy");
+		info.add("Creative Mode Only");
 	}
 
 	@Override

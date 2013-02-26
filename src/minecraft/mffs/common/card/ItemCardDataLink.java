@@ -64,8 +64,8 @@ public class ItemCardDataLink extends ItemCard
 	{
 		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
 
-		info.add("DeviceTyp: " + getDeviceTyp(itemStack));
-		info.add("DeviceName: " + getforAreaname(itemStack));
+		info.add("Device Type: " + getDeviceTyp(itemStack));
+		info.add("Device Name: " + getforAreaname(itemStack));
 
 		if (tag.hasKey("worldname"))
 		{
