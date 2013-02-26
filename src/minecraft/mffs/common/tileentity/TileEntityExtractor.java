@@ -14,8 +14,8 @@ import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForceEnergyExtractor;
-import mffs.common.item.ItemForcicium;
-import mffs.common.item.ItemForcicumCell;
+import mffs.common.item.ItemForcillium;
+import mffs.common.item.ItemForcilliumCell;
 import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import mffs.network.server.NetworkHandlerServer;
@@ -290,7 +290,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 				return true;
 			}
 
-			if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell) && (((ItemForcicumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
+			if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell) && (((ItemForcilliumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
 			{
 				setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle);
 				setWorkCylce(getMaxWorkCycle());
@@ -438,11 +438,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 					{
 						setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
 					}
-					if (((ItemForcicumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) < ((ItemForcicumCell) getStackInSlot(4).getItem()).getMaxForceciumlevel())
+					if (((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) < ((ItemForcilliumCell) getStackInSlot(4).getItem()).getMaxForceciumlevel())
 					{
 						if ((hasPowerToConvert()) && (isActive()))
 						{
-							((ItemForcicumCell) getStackInSlot(4).getItem()).setForceciumlevel(getStackInSlot(4), ((ItemForcicumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) + 1);
+							((ItemForcilliumCell) getStackInSlot(4).getItem()).setForceciumlevel(getStackInSlot(4), ((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) + 1);
 						}
 					}
 
@@ -590,7 +590,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		switch (slot)
 		{
 			case 0:
-				if ((((itemStack.getItem() instanceof ItemForcicium)) || ((itemStack.getItem() instanceof ItemForcicumCell))) && (getStackInSlot(4) == null))
+				if ((((itemStack.getItem() instanceof ItemForcillium)) || ((itemStack.getItem() instanceof ItemForcilliumCell))) && (getStackInSlot(4) == null))
 					return true;
 
 				break;
@@ -610,7 +610,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
 				break;
 			case 4:
-				if (((itemStack.getItem() instanceof ItemForcicumCell)) && (getStackInSlot(0) == null))
+				if (((itemStack.getItem() instanceof ItemForcilliumCell)) && (getStackInSlot(0) == null))
 					return true;
 
 				break;

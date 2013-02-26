@@ -14,23 +14,17 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemForcicumCell extends ItemMFFS
+public class ItemForcilliumCell extends ItemMFFS
 {
+	private boolean isAbsorbingFocillium = false;
 
-	private boolean aktiv = false;
-
-	public ItemForcicumCell(int id)
+	public ItemForcilliumCell(int id)
 	{
-		super(id, "forciciumCell");
+		super(id, "forcilliumCell");
 		this.setIconIndex(98);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
-	}
-
-	@Override
-	public boolean isRepairable()
-	{
-		return false;
+		this.setNoRepair();
 	}
 
 	public int getItemDamage(ItemStack itemStack)
@@ -43,7 +37,7 @@ public class ItemForcicumCell extends ItemMFFS
 	{
 		if (!world.isRemote)
 		{
-			if (this.aktiv)
+			if (this.isAbsorbingFocillium)
 			{
 				if (getForceciumlevel(itemStack) < getMaxForceciumlevel())
 				{
@@ -81,7 +75,7 @@ public class ItemForcicumCell extends ItemMFFS
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		String tooltip = String.format("%d / %d  Forcicum  ", new Object[] { Integer.valueOf(getForceciumlevel(itemStack)), Integer.valueOf(getMaxForceciumlevel()) });
+		String tooltip = String.format("%d / %d  Forcillium  ", new Object[] { Integer.valueOf(getForceciumlevel(itemStack)), Integer.valueOf(getMaxForceciumlevel()) });
 		info.add(tooltip);
 	}
 
@@ -104,7 +98,7 @@ public class ItemForcicumCell extends ItemMFFS
 	public void setForceciumlevel(ItemStack itemStack, int Forceciumlevel)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		nbtTagCompound.setInteger("Forceciumlevel", Forceciumlevel);
+		nbtTagCompound.setInteger("Forcilliumlevel", Forceciumlevel);
 	}
 
 	public int getForceciumlevel(ItemStack itemstack)
@@ -112,7 +106,7 @@ public class ItemForcicumCell extends ItemMFFS
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemstack);
 		if (nbtTagCompound != null)
 		{
-			return nbtTagCompound.getInteger("Forceciumlevel");
+			return nbtTagCompound.getInteger("Forcilliumlevel");
 		}
 		return 0;
 	}
@@ -122,15 +116,15 @@ public class ItemForcicumCell extends ItemMFFS
 	{
 		if (!world.isRemote)
 		{
-			if (!this.aktiv)
+			if (!this.isAbsorbingFocillium)
 			{
-				this.aktiv = true;
-				entityplayer.addChatMessage("[Forcicum Cell] Active");
+				this.isAbsorbingFocillium = true;
+				entityplayer.addChatMessage("Cell Active");
 			}
 			else
 			{
-				this.aktiv = false;
-				entityplayer.addChatMessage("[Forcicum Cell] Inactive");
+				this.isAbsorbingFocillium = false;
+				entityplayer.addChatMessage("Cell Inactive");
 			}
 
 		}

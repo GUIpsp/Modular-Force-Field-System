@@ -4,12 +4,12 @@ import mffs.common.tileentity.TileEntityExtractor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockExtractor extends BlockMFFS
+public class BlockForcilliumExtractor extends BlockMFFS
 {
 
-	public BlockExtractor(int i)
+	public BlockForcilliumExtractor(int i)
 	{
-		super(i, "forciciumExtractor");
+		super(i, "forcilliumExtractor");
 		this.blockIndexInTexture = 6 * 16;
 	}
 

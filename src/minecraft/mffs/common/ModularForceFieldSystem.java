@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mffs.common.block.BlockCapacitor;
+import mffs.common.block.BlockForceCapacitor;
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
-import mffs.common.block.BlockExtractor;
+import mffs.common.block.BlockForcilliumExtractor;
 import mffs.common.block.BlockForceField;
 import mffs.common.block.BlockMonaziteOre;
 import mffs.common.block.BlockProjector;
@@ -24,8 +24,8 @@ import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.event.EE3Event;
 import mffs.common.item.ItemForcePowerCrystal;
-import mffs.common.item.ItemForcicium;
-import mffs.common.item.ItemForcicumCell;
+import mffs.common.item.ItemForcillium;
+import mffs.common.item.ItemForcilliumCell;
 import mffs.common.modules.ItemModuleAdvancedCube;
 import mffs.common.modules.ItemModuleContainment;
 import mffs.common.modules.ItemModuleCube;
@@ -235,14 +235,15 @@ public class ModularForceFieldSystem
 
 		try
 		{
-
 			MFFSConfiguration.initialize();
 
+			MFFSConfiguration.CONFIGURATION.load();
+
 			blockConverter = new BlockConverter(MFFSConfiguration.block_Converter_ID);
-			blockExtractor = new BlockExtractor(MFFSConfiguration.block_Extractor_ID);
+			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.block_Extractor_ID);
 			blockMonaziteOre = new BlockMonaziteOre(MFFSConfiguration.block_MonazitOre_ID);
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
-			blockCapacitor = new BlockCapacitor(MFFSConfiguration.block_Capacitor_ID);
+			blockCapacitor = new BlockForceCapacitor(MFFSConfiguration.block_Capacitor_ID);
 			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
 			blockForceField = new BlockForceField(MFFSConfiguration.block_Field_ID);
 			blockSecurityStorage = new BlockSecurityStorage(MFFSConfiguration.block_SecureStorage_ID);
@@ -253,8 +254,8 @@ public class ModularForceFieldSystem
 			itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
 			itemPowerCrystal = new ItemForcePowerCrystal(MFFSConfiguration.item_FPCrystal_ID);
-			itemForcicium = new ItemForcicium(MFFSConfiguration.item_Forcicium_ID);
-			itemForcicumCell = new ItemForcicumCell(MFFSConfiguration.item_ForciciumCell_ID);
+			itemForcicium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
+			itemForcicumCell = new ItemForcilliumCell(MFFSConfiguration.item_ForciciumCell_ID);
 
 			itemModuleDiagonalWall = new ItemModuleDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
 			itemModuleSphere = new ItemModuleSphere(MFFSConfiguration.item_ModSphere_ID);
@@ -293,7 +294,7 @@ public class ModularForceFieldSystem
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
-			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.getConfiguration());
+			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.CONFIGURATION);
 			OreGenerator.addOre(monaziteOreGeneration);
 		}
 		catch (Exception e)
@@ -303,7 +304,7 @@ public class ModularForceFieldSystem
 		}
 		finally
 		{
-			MFFSConfiguration.getConfiguration().save();
+			MFFSConfiguration.CONFIGURATION.save();
 		}
 	}
 
