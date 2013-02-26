@@ -524,11 +524,11 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 
 			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
-				toggelSwitchValue();
+				onSwitch();
 			}
 			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
 			{
-				toggelSwitchValue();
+				onSwitch();
 			}
 
 			if ((getSwitchValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) && (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5)))

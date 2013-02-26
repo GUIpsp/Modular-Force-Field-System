@@ -38,7 +38,7 @@ import mffs.common.multitool.ItemFieldTransporter;
 import mffs.common.multitool.ItemMultiToolManual;
 import mffs.common.multitool.ItemMultitoolSwitch;
 import mffs.common.multitool.ItemMultitoolWriter;
-import mffs.common.multitool.ItemWrench;
+import mffs.common.multitool.ItemMultiToolWrench;
 import mffs.common.options.ItemOptionAntibiotic;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionCutter;
@@ -284,7 +284,7 @@ public class ModularForceFieldSystem
 			itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
 			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
-			itemMultiToolWrench = new ItemWrench(MFFSConfiguration.item_MTWrench_ID);
+			itemMultiToolWrench = new ItemMultiToolWrench(MFFSConfiguration.item_MTWrench_ID);
 			itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSConfiguration.item_MTSwitch_ID);
 			itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSConfiguration.item_MTFieldTransporter_ID);
 			itemMultiToolID = new ItemMultitoolWriter(MFFSConfiguration.item_MTIDWriter_ID);

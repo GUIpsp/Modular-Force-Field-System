@@ -4,7 +4,7 @@ import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockDefenseStation extends BlockMFFS
+public class BlockDefenseStation extends BlockMFFSMachine
 {
 
 	public BlockDefenseStation(int i)

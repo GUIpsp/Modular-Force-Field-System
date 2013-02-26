@@ -540,11 +540,11 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		{
 			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
-				toggelSwitchValue();
+				onSwitch();
 			}
 			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
 			{
-				toggelSwitchValue();
+				onSwitch();
 			}
 			if ((getSwitchValue()) && (hasPowerSource()) && (getForcePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
 			{

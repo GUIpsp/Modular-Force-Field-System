@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSecurityStorage extends BlockMFFS
+public class BlockSecurityStorage extends BlockMFFSMachine
 {
 
 	public BlockSecurityStorage(int i)

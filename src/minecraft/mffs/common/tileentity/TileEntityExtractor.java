@@ -62,6 +62,113 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	}
 
 	@Override
+	public void initiate()
+	{
+		super.initiate();
+		checkSlots(true);
+		setUEwireConnection();
+	}
+
+	@Override
+	public void updateEntity()
+	{
+		if (!this.worldObj.isRemote)
+		{
+			if ((!this.addedToEnergyNet) && (MFFSConfiguration.MODULE_IC2))
+			{
+				MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+				this.addedToEnergyNet = true;
+			}
+
+			if ((this.getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
+			{
+				onSwitch();
+			}
+			if ((this.getSwitchMode() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
+			{
+				onSwitch();
+			}
+
+			if ((!isActive()) && (getSwitchValue()))
+			{
+				setActive(true);
+			}
+			if ((isActive()) && (!getSwitchValue()))
+			{
+				setActive(false);
+			}
+
+			if (isActive())
+			{
+				if (MFFSConfiguration.MODULE_BUILDCRAFT)
+				{
+					convertMJtoWorkEnergy();
+				}
+				if (MFFSConfiguration.MODULE_UE)
+				{
+					convertUEtoWorkEnergy();
+				}
+			}
+
+			if (getTicker() >= getWorkTicker())
+			{
+				checkSlots(false);
+
+				if ((this.workmode == 0) && (isActive()))
+				{
+					if (getWorkDone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
+					{
+						setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
+					}
+					if (getWorkDone() > 100)
+					{
+						setWorkDone(100);
+					}
+
+					if (getCapacity() != getForceEnergybuffer() * 100 / getMaxForceEnergyBuffer())
+					{
+						setCapacity(getForceEnergybuffer() * 100 / getMaxForceEnergyBuffer());
+					}
+
+					if ((hasFreeForceEnergyStorage()) && (hasStuffToConvert()))
+					{
+						if (hasPowerToConvert())
+						{
+							setWorkCylce(getWorkCycle() - 1);
+							setForceEnergyBuffer(getForceEnergybuffer() + MFFSConfiguration.ExtractorPassForceEnergyGenerate);
+						}
+
+					}
+
+					transferForceEnergy();
+
+					setTicker((short) 0);
+				}
+
+				if ((this.workmode == 1) && (isActive()))
+				{
+					if (getWorkDone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
+					{
+						setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
+					}
+					if (((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) < ((ItemForcilliumCell) getStackInSlot(4).getItem()).getMaxForceciumlevel())
+					{
+						if ((hasPowerToConvert()) && (isActive()))
+						{
+							((ItemForcilliumCell) getStackInSlot(4).getItem()).setForceciumlevel(getStackInSlot(4), ((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) + 1);
+						}
+					}
+
+					setTicker((short) 0);
+				}
+			}
+
+			setTicker((short) (getTicker() + 1));
+		}
+		super.updateEntity();
+	}
+
+	@Override
 	public void setSide(int i)
 	{
 		super.setSide(i);
@@ -337,111 +444,6 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	public short getMinSwitchModi()
 	{
 		return 1;
-	}
-
-	@Override
-	public void updateEntity()
-	{
-		if (!this.worldObj.isRemote)
-		{
-			if (this.init)
-			{
-				checkSlots(true);
-				setUEwireConnection();
-			}
-
-			if ((!this.addedToEnergyNet) && (MFFSConfiguration.MODULE_IC2))
-			{
-				MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-				this.addedToEnergyNet = true;
-			}
-
-			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
-			{
-				toggelSwitchValue();
-			}
-			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
-			{
-				toggelSwitchValue();
-			}
-
-			if ((!isActive()) && (getSwitchValue()))
-			{
-				setActive(true);
-			}
-			if ((isActive()) && (!getSwitchValue()))
-			{
-				setActive(false);
-			}
-
-			if (isActive())
-			{
-				if (MFFSConfiguration.MODULE_BUILDCRAFT)
-				{
-					convertMJtoWorkEnergy();
-				}
-				if (MFFSConfiguration.MODULE_UE)
-				{
-					convertUEtoWorkEnergy();
-				}
-			}
-
-			if (getTicker() >= getWorkTicker())
-			{
-				checkSlots(false);
-
-				if ((this.workmode == 0) && (isActive()))
-				{
-					if (getWorkDone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
-					{
-						setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
-					}
-					if (getWorkDone() > 100)
-					{
-						setWorkDone(100);
-					}
-
-					if (getCapacity() != getForceEnergybuffer() * 100 / getMaxForceEnergyBuffer())
-					{
-						setCapacity(getForceEnergybuffer() * 100 / getMaxForceEnergyBuffer());
-					}
-
-					if ((hasFreeForceEnergyStorage()) && (hasStuffToConvert()))
-					{
-						if (hasPowerToConvert())
-						{
-							setWorkCylce(getWorkCycle() - 1);
-							setForceEnergyBuffer(getForceEnergybuffer() + MFFSConfiguration.ExtractorPassForceEnergyGenerate);
-						}
-
-					}
-
-					transferForceEnergy();
-
-					setTicker((short) 0);
-				}
-
-				if ((this.workmode == 1) && (isActive()))
-				{
-					if (getWorkDone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
-					{
-						setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
-					}
-					if (((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) < ((ItemForcilliumCell) getStackInSlot(4).getItem()).getMaxForceciumlevel())
-					{
-						if ((hasPowerToConvert()) && (isActive()))
-						{
-							((ItemForcilliumCell) getStackInSlot(4).getItem()).setForceciumlevel(getStackInSlot(4), ((ItemForcilliumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) + 1);
-						}
-					}
-
-					setTicker((short) 0);
-				}
-			}
-
-			setTicker((short) (getTicker() + 1));
-		}
-		super.updateEntity();
 	}
 
 	@Override

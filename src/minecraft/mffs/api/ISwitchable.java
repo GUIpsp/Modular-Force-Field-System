@@ -1,8 +1,8 @@
 package mffs.api;
 
-public abstract interface ISwitchable
+public interface ISwitchable
 {
-	public abstract boolean isSwitchabel();
+	public boolean canSwitch();
 
-	public abstract void toggelSwitchValue();
+	public void onSwitch();
 }

@@ -4,7 +4,7 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockForceCapacitor extends BlockMFFS
+public class BlockForceCapacitor extends BlockMFFSMachine
 {
 
 	public BlockForceCapacitor(int i)

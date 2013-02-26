@@ -4,7 +4,7 @@ import mffs.common.tileentity.TileEntityExtractor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockForcilliumExtractor extends BlockMFFS
+public class BlockForcilliumExtractor extends BlockMFFSMachine
 {
 
 	public BlockForcilliumExtractor(int i)

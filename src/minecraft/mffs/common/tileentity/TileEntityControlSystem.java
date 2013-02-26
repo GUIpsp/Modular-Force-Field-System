@@ -266,12 +266,12 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 
 		if ((key == 102) && (this.remote != null))
 		{
-			this.remote.toggelSwitchValue();
+			this.remote.onSwitch();
 		}
 
 		if ((key == 101) && (this.remote != null))
 		{
-			this.remote.toogleSwitchModi();
+			this.remote.toogleSwitchMode();
 		}
 
 		super.onNetworkHandlerEvent(key, value);

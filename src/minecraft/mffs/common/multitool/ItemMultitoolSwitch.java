@@ -31,12 +31,12 @@ public class ItemMultitoolSwitch extends ItemMultitool
 		{
 			if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
 			{
-				if (((ISwitchable) tileentity).isSwitchabel())
+				if (((ISwitchable) tileentity).canSwitch())
 				{
 					if (consumePower(itemstack, 1000, true))
 					{
 						consumePower(itemstack, 1000, false);
-						((ISwitchable) tileentity).toggelSwitchValue();
+						((ISwitchable) tileentity).onSwitch();
 						return true;
 					}
 

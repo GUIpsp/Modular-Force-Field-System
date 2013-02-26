@@ -173,11 +173,11 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 
 			if ((getSwitchModi() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
-				toggelSwitchValue();
+				onSwitch();
 			}
 			if ((getSwitchModi() == 1) && (getSwitchValue()) && (!isRedstoneSignal()))
 			{
-				toggelSwitchValue();
+				onSwitch();
 			}
 
 			if ((getSwitchValue()) && (hasPowerSource()) && (!isActive()))

@@ -27,10 +27,10 @@ import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.BlockMachine;
 
-public abstract class BlockMFFS extends BlockMachine
+public abstract class BlockMFFSMachine extends BlockMachine
 {
 
-	public BlockMFFS(int id, String name)
+	public BlockMFFSMachine(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
 		this.setBlockName(name);
@@ -121,36 +121,36 @@ public abstract class BlockMFFS extends BlockMachine
 	@Override
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
 	{
-		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
-		if ((tileEntity instanceof TileEntityMFFS))
+		TileEntity tile = world.getBlockTileEntity(i, j, k);
+		if (tile instanceof TileEntityMFFS)
 		{
-			TileEntityMFFS entityMFFS = (TileEntityMFFS) tileEntity;
+			TileEntityMFFS tileEntity = (TileEntityMFFS) tile;
 			int l = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
 			int i1 = Math.round(entityliving.rotationPitch);
 
 			if (i1 >= 65)
 			{
-				entityMFFS.setSide(1);
+				tileEntity.setDirection(ForgeDirection.getOrientation(1));
 			}
 			else if (i1 <= -65)
 			{
-				entityMFFS.setSide(0);
+				tileEntity.setDirection(ForgeDirection.getOrientation(0));
 			}
 			else if (l == 0)
 			{
-				entityMFFS.setSide(2);
+				tileEntity.setDirection(ForgeDirection.getOrientation(2));
 			}
 			else if (l == 1)
 			{
-				entityMFFS.setSide(5);
+				tileEntity.setDirection(ForgeDirection.getOrientation(5));
 			}
 			else if (l == 2)
 			{
-				entityMFFS.setSide(3);
+				tileEntity.setDirection(ForgeDirection.getOrientation(3));
 			}
 			else if (l == 3)
 			{
-				entityMFFS.setSide(4);
+				tileEntity.setDirection(ForgeDirection.getOrientation(4));
 			}
 		}
 	}
@@ -166,7 +166,7 @@ public abstract class BlockMFFS extends BlockMachine
 		{
 			TileEntityMFFS tileEntity = (TileEntityMFFS) t;
 
-			int facing = (tileEntity instanceof TileEntityMFFS) ? ((TileEntityMFFS) tileEntity).getSide() : 1;
+			int facing = (tileEntity instanceof TileEntityMFFS) ? ((TileEntityMFFS) tileEntity).getDirection().ordinal() : 1;
 
 			ForgeDirection blockfacing = ForgeDirection.getOrientation(l);
 			ForgeDirection TileEntityfacing = ForgeDirection.getOrientation(facing);

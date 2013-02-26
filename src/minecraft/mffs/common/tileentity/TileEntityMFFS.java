@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import mffs.api.IMFFS_Wrench;
 import mffs.api.IModularProjector;
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
@@ -32,35 +31,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.prefab.TranslationHelper;
+import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IMFFS_Wrench, IWrenchable, ISwitchable
+public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IWrenchable, ISwitchable, IRotatable
 {
-
-	private boolean Active;
-	private int Side;
-	private short ticker;
-	protected boolean init;
-	protected String DeviceName;
-	protected int DeviceID;
-	protected short SwitchModi;
-	protected boolean SwitchValue;
+	private boolean isActive = false;
+	protected int deviceID = 0;
+	protected short switchMode = 0;
+	protected boolean switchValue = false;
 	protected Random random = new Random();
-	protected ForgeChunkManager.Ticket chunkTicket;
-
-	public TileEntityMFFS()
-	{
-		this.Active = false;
-		this.SwitchValue = false;
-		this.init = true;
-		this.Side = -1;
-		this.SwitchModi = 0;
-		this.ticker = 0;
-		this.DeviceID = 0;
-		this.DeviceName = "Unamed";
-	}
+	protected Ticket chunkTicket;
 
 	@Override
 	public String getInvName()
@@ -86,22 +71,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		switch (key)
 		{
 			case 0:
-				toogleSwitchModi();
-				break;
-			case 10:
-				setDeviceName("");
-				break;
-			case 11:
-				if (getDeviceName().length() <= 20)
-				{
-					setDeviceName(getDeviceName() + value);
-				}
-				break;
-			case 12:
-				if (getDeviceName().length() >= 1)
-				{
-					setDeviceName(getDeviceName().substring(0, getDeviceName().length() - 1));
-				}
+				toogleSwitchMode();
 				break;
 		}
 	}
@@ -116,7 +86,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		NetworkedFields.add("Side");
 		NetworkedFields.add("DeviceID");
 		NetworkedFields.add("DeviceName");
-		NetworkedFields.add("SwitchModi");
+		NetworkedFields.add("switchMode");
 		NetworkedFields.add("SwitchValue");
 
 		return NetworkedFields;
@@ -129,56 +99,56 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	}
 
 	@Override
-	public void updateEntity()
+	public void initiate()
 	{
-		if ((!this.worldObj.isRemote) && (this.init))
-		{
-			init();
-		}
+		super.initiate();
 
-		if ((this.worldObj.isRemote) && (this.DeviceID == 0))
-		{
-			if (getTicker() >= 5 + this.random.nextInt(20))
-			{
-				NetworkHandlerClient.requestInitialData(this, true);
-				setTicker((short) 0);
-			}
-			setTicker((short) (getTicker() + 1));
-		}
-	}
+		this.deviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.deviceID);
 
-	public void init()
-	{
-		this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
 		if (MFFSConfiguration.chunckLoader)
 		{
 			registerChunkLoading();
 		}
-		this.init = false;
+
+		NetworkHandlerClient.requestInitialData(this, true);
 	}
 
-	public short getMaxSwitchModi()
+	@Override
+	public void updateEntity()
 	{
-		return 0;
-	}
+		super.updateEntity();
 
-	public short getMinSwitchModi()
-	{
-		return 0;
-	}
-
-	public void toogleSwitchModi()
-	{
-		if (getSwitchModi() == getMaxSwitchModi())
+		if (this.worldObj.isRemote && this.deviceID == 0)
 		{
-			this.SwitchModi = getMinSwitchModi();
+			if (this.ticks % 300 == 0)
+			{
+				NetworkHandlerClient.requestInitialData(this, true);
+			}
+		}
+	}
+
+	public short getMaxswitchMode()
+	{
+		return 0;
+	}
+
+	public short getMinswitchMode()
+	{
+		return 0;
+	}
+
+	public void toogleSwitchMode()
+	{
+		if (getSwitchMode() == getMaxswitchMode())
+		{
+			this.switchMode = getMinswitchMode();
 		}
 		else
 		{
-			this.SwitchModi = ((short) (this.SwitchModi + 1));
+			this.switchMode = ((short) (this.switchMode + 1));
 		}
 
-		NetworkHandlerServer.updateTileEntityField(this, "SwitchModi");
+		NetworkHandlerServer.updateTileEntityField(this, "switchMode");
 	}
 
 	public boolean isRedstoneSignal()
@@ -190,24 +160,24 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		return false;
 	}
 
-	public short getSwitchModi()
+	public short getSwitchMode()
 	{
-		if (this.SwitchModi < getMinSwitchModi())
+		if (this.switchMode < getMinswitchMode())
 		{
-			this.SwitchModi = getMinSwitchModi();
+			this.switchMode = getMinswitchMode();
 		}
-		return this.SwitchModi;
+		return this.switchMode;
 	}
 
 	public boolean getSwitchValue()
 	{
-		return this.SwitchValue;
+		return this.switchValue;
 	}
 
 	@Override
-	public boolean isSwitchabel()
+	public boolean canSwitch()
 	{
-		if (getSwitchModi() == 2)
+		if (getSwitchMode() == 2)
 		{
 			return true;
 		}
@@ -215,31 +185,20 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	}
 
 	@Override
-	public void toggelSwitchValue()
+	public void onSwitch()
 	{
-		this.SwitchValue = (!this.SwitchValue);
+		this.switchValue = (!this.switchValue);
 		NetworkHandlerServer.updateTileEntityField(this, "SwitchValue");
-	}
-
-	public void setDeviceName(String DeviceName)
-	{
-		this.DeviceName = DeviceName;
-		NetworkHandlerServer.updateTileEntityField(this, "DeviceName");
 	}
 
 	public int getDeviceID()
 	{
-		return this.DeviceID;
+		return this.deviceID;
 	}
 
 	public void setDeviceID(int i)
 	{
-		this.DeviceID = i;
-	}
-
-	public String getDeviceName()
-	{
-		return this.DeviceName;
+		this.deviceID = i;
 	}
 
 	public PointXYZ getMachinePoint()
@@ -279,12 +238,10 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
-		this.Side = nbttagcompound.getInteger("side");
-		this.Active = nbttagcompound.getBoolean("active");
-		this.SwitchValue = nbttagcompound.getBoolean("SwitchValue");
-		this.DeviceID = nbttagcompound.getInteger("DeviceID");
-		this.DeviceName = nbttagcompound.getString("DeviceName");
-		this.SwitchModi = nbttagcompound.getShort("SwitchModi");
+		this.isActive = nbttagcompound.getBoolean("active");
+		this.switchValue = nbttagcompound.getBoolean("SwitchValue");
+		this.deviceID = nbttagcompound.getInteger("DeviceID");
+		this.switchMode = nbttagcompound.getShort("switchMode");
 	}
 
 	@Override
@@ -292,15 +249,12 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	{
 		super.writeToNBT(nbttagcompound);
 
-		nbttagcompound.setShort("SwitchModi", this.SwitchModi);
-		nbttagcompound.setInteger("side", this.Side);
-		nbttagcompound.setBoolean("active", this.Active);
-		nbttagcompound.setBoolean("SwitchValue", this.SwitchValue);
-		nbttagcompound.setInteger("DeviceID", this.DeviceID);
-		nbttagcompound.setString("DeviceName", this.DeviceName);
+		nbttagcompound.setShort("switchMode", this.switchMode);
+		nbttagcompound.setBoolean("active", this.isActive);
+		nbttagcompound.setBoolean("switchValue", this.switchValue);
+		nbttagcompound.setInteger("deviceID", this.deviceID);
 	}
 
-	@Override
 	public boolean wrenchCanManipulate(EntityPlayer entityPlayer, int side)
 	{
 		if (!SecurityHelper.isAccessGranted(this, entityPlayer, this.worldObj, SecurityRight.EB))
@@ -310,38 +264,15 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		return true;
 	}
 
-	public short getTicker()
-	{
-		return this.ticker;
-	}
-
-	public void setTicker(short ticker)
-	{
-		this.ticker = ticker;
-	}
-
-	@Override
-	public void setSide(int i)
-	{
-		this.Side = i;
-		NetworkHandlerServer.updateTileEntityField(this, "Side");
-	}
-
 	public boolean isActive()
 	{
-		return this.Active;
+		return this.isActive;
 	}
 
 	public void setActive(boolean flag)
 	{
-		this.Active = flag;
+		this.isActive = flag;
 		NetworkHandlerServer.updateTileEntityField(this, "Active");
-	}
-
-	@Override
-	public int getSide()
-	{
-		return this.Side;
 	}
 
 	@Override
@@ -359,7 +290,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		{
 			return false;
 		}
-		if (this.Active)
+		if (this.isActive)
 		{
 			return false;
 		}
@@ -370,19 +301,19 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	@Override
 	public short getFacing()
 	{
-		return (short) getSide();
+		return (short) this.getDirection().ordinal();
 	}
 
 	@Override
 	public void setFacing(short facing)
 	{
-		setSide(facing);
+		this.setDirection(ForgeDirection.getOrientation(facing));
 	}
 
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (this.Active)
+		if (this.isActive)
 		{
 			return false;
 		}
@@ -481,5 +412,17 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 			return getStackInSlot(slt.slot).stackSize;
 		}
 		return 0;
+	}
+
+	@Override
+	public ForgeDirection getDirection()
+	{
+		return ForgeDirection.getOrientation(this.getBlockMetadata());
+	}
+
+	@Override
+	public void setDirection(ForgeDirection facingDirection)
+	{
+		this.worldObj.setBlockMetadata(this.xCoord, this.yCoord, this.zCoord, facingDirection.ordinal());
 	}
 }

@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockProjector extends BlockMFFS
+public class BlockProjector extends BlockMFFSMachine
 {
 
 	public BlockProjector(int i)

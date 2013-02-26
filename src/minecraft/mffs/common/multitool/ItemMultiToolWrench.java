@@ -1,12 +1,8 @@
 package mffs.common.multitool;
 
 import ic2.api.IWrenchable;
-import mffs.api.IMFFS_Wrench;
 import mffs.common.Functions;
-import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
-import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,10 +12,10 @@ import railcraft.common.api.core.items.ICrowbar;
 import universalelectricity.prefab.implement.IToolConfigurator;
 import buildcraft.api.tools.IToolWrench;
 
-public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToolWrench, ICrowbar
+public class ItemMultiToolWrench extends ItemMultitool implements IToolConfigurator, IToolWrench, ICrowbar
 {
 
-	public ItemWrench(int id)
+	public ItemMultiToolWrench(int id)
 	{
 		super(id, 0, "multitoolWrench");
 	}
@@ -52,7 +48,7 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 
 		}
 
-		if (((tileentity instanceof IWrenchable)) && (!(tileentity instanceof IMFFS_Wrench)))
+		if (((tileentity instanceof IWrenchable)))
 		{
 			if (consumePower(stack, 1000, true))
 			{
@@ -85,7 +81,7 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 			}
 
 		}
-
+/*
 		if ((tileentity instanceof IMFFS_Wrench))
 		{
 			if (consumePower(stack, 1000, true))
@@ -116,7 +112,6 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 								return false;
 							}
 						}
-
 					}
 
 					if (((IMFFS_Wrench) tileentity).getSide() != side)
@@ -137,7 +132,7 @@ public class ItemWrench extends ItemMultitool implements IToolConfigurator, IToo
 				Functions.ChattoPlayer(player, "[MultiTool] Fail: not enough FP please charge need min 1000");
 			}
 
-		}
+		}*/
 
 		return false;
 	}
