@@ -17,7 +17,7 @@ import mffs.common.Functions;
 import mffs.common.IModularProjector;
 import mffs.common.InventoryHelper;
 import mffs.common.FrequencyGrid;
-import mffs.common.MFFSProperties;
+import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
@@ -682,15 +682,15 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 
         if (init)
         {
-            cost = MFFSProperties.forcefieldblockcost * MFFSProperties.forcefieldblockcreatemodifier;
+            cost = MFFSConfiguration.forcefieldblockcost * MFFSConfiguration.forcefieldblockcreatemodifier;
         } else
         {
-            cost = MFFSProperties.forcefieldblockcost;
+            cost = MFFSConfiguration.forcefieldblockcost;
         }
 
         if (getforcefieldblock_meta() == 1)
         {
-            cost *= MFFSProperties.forcefieldblockzappermodifier;
+            cost *= MFFSConfiguration.forcefieldblockzappermodifier;
         }
 
         consumePower(cost * this.field_def.size(), false);
@@ -699,7 +699,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 
         for (PointXYZ pnt : this.field_def)
         {
-            if (this.blockCounter == MFFSProperties.forcefieldmaxblockpeerTick)
+            if (this.blockCounter == MFFSConfiguration.forcefieldmaxblockpeerTick)
             {
                 break;
             }
@@ -804,7 +804,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
     {
         if (!this.field_def.isEmpty())
         {
-            return this.field_def.size() * MFFSProperties.forcefieldblockcost;
+            return this.field_def.size() * MFFSConfiguration.forcefieldblockcost;
         }
 
         int forcepower = 0;
@@ -836,10 +836,10 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
                 blocks = countItemsInSlot(IModularProjector.Slots.Distance) * countItemsInSlot(IModularProjector.Slots.Distance) * 6;
         }
 
-        forcepower = blocks * MFFSProperties.forcefieldblockcost;
+        forcepower = blocks * MFFSConfiguration.forcefieldblockcost;
         if (factor != 1)
         {
-            forcepower = forcepower * MFFSProperties.forcefieldblockcreatemodifier + forcepower * 5;
+            forcepower = forcepower * MFFSConfiguration.forcefieldblockcreatemodifier + forcepower * 5;
         }
 
         return forcepower;

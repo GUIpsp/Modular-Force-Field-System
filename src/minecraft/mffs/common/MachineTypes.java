@@ -99,10 +99,10 @@ public enum MachineTypes
             GameRegistry.registerBlock(mach.block, mach.block.getBlockName());
             GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getBlockName());
 
-            if (MFFSProperties.MODULE_IC2)
+            if (MFFSConfiguration.MODULE_IC2)
                 MFFSRecipes.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);
 
-            if (MFFSProperties.MODULE_UE)
+            if (MFFSConfiguration.MODULE_UE)
                 MFFSRecipes.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
 
             ExplosionWhitelist.addWhitelistedBlock(mach.block);

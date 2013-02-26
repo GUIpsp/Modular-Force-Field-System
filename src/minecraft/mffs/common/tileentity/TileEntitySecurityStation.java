@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mffs.common.FrequencyGrid;
-import mffs.common.MFFSProperties;
+import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
@@ -319,7 +319,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
         {
             return true;
         }
-        String[] ops = MFFSProperties.Admin.split(";");
+        String[] ops = MFFSConfiguration.Admin.split(";");
 
         for (int i = 0; i <= ops.length - 1; i++)
         {
