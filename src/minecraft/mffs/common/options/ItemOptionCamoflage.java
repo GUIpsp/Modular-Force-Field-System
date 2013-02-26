@@ -1,11 +1,9 @@
 package mffs.common.options;
 
-public class ItemOptionCamoflage extends ItemOptionBase
-{
+public class ItemOptionCamoflage extends ItemOptionBase {
 
-    public ItemOptionCamoflage(int i)
-    {
-        super(i, "optionCamouflage");
-        setIconIndex(42);
-    }
+	public ItemOptionCamoflage(int i) {
+		super(i, "optionCamouflage");
+		setIconIndex(42);
+	}
 }

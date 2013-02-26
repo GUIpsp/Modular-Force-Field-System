@@ -13,29 +13,29 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy {
 
-    @Override
-    public void init()
-    {
-        MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
-        MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCapacitor.class, new TECapacitorRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityExtractor.class, new TEExtractorRenderer());
+	@Override
+	public void init() {
+		MinecraftForgeClient
+				.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
+		MinecraftForgeClient
+				.preloadTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCapacitor.class,
+				new TECapacitorRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityExtractor.class,
+				new TEExtractorRenderer());
 
-        RenderingRegistry.registerBlockHandler(new MFFSBlockRenderer());
-    }
+		RenderingRegistry.registerBlockHandler(new MFFSBlockRenderer());
+	}
 
-    @Override
-    public World getClientWorld()
-    {
-        return FMLClientHandler.instance().getClient().theWorld;
-    }
+	@Override
+	public World getClientWorld() {
+		return FMLClientHandler.instance().getClient().theWorld;
+	}
 
-    @Override
-    public boolean isClient()
-    {
-        return true;
-    }
+	@Override
+	public boolean isClient() {
+		return true;
+	}
 }

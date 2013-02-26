@@ -4,18 +4,15 @@ import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockDefenseStation extends BlockMFFS
-{
+public class BlockDefenseStation extends BlockMFFS {
 
-    public BlockDefenseStation(int i)
-    {
-        super(i, "defenseStation");
-        this.blockIndexInTexture = 5 * 16;
-    }
+	public BlockDefenseStation(int i) {
+		super(i, "defenseStation");
+		this.blockIndexInTexture = 5 * 16;
+	}
 
-    @Override
-    public TileEntity createNewTileEntity(World world)
-    {
-        return new TileEntityDefenseStation();
-    }
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return new TileEntityDefenseStation();
+	}
 }

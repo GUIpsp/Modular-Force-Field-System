@@ -2,10 +2,9 @@ package mffs.network;
 
 import java.util.List;
 
-public abstract interface INetworkHandlerListener
-{
+public abstract interface INetworkHandlerListener {
 
-    public abstract void onNetworkHandlerUpdate(String paramString);
+	public abstract void onNetworkHandlerUpdate(String paramString);
 
-    public abstract List<String> getFieldsForUpdate();
+	public abstract List<String> getFieldsForUpdate();
 }

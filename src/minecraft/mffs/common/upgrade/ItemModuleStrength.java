@@ -9,29 +9,25 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemModuleStrength extends ItemMFFS
-{
+public class ItemModuleStrength extends ItemMFFS {
 
-    public ItemModuleStrength(int i)
-    {
-        super(i, "moduleStrength");
-        setIconIndex(65);
-        setMaxStackSize(64);
-        this.setNoRepair();
+	public ItemModuleStrength(int i) {
+		super(i, "moduleStrength");
+		setIconIndex(65);
+		setMaxStackSize(64);
+		this.setNoRepair();
 
-    }
+	}
 
-    @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-    {
-        if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
-        {
-            info.add("compatible with:");
-            info.add("MFFS " + MachineTypes.Projector.getName());
-            info.add("MFFS " + MachineTypes.DefenceStation.getName());
-        } else
-        {
-            info.add("compatible with: (Hold Shift)");
-        }
-    }
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player,
+			List info, boolean b) {
+		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54))) {
+			info.add("compatible with:");
+			info.add("MFFS " + MachineTypes.Projector.getName());
+			info.add("MFFS " + MachineTypes.DefenceStation.getName());
+		} else {
+			info.add("compatible with: (Hold Shift)");
+		}
+	}
 }

@@ -14,144 +14,129 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemForcicumCell extends ItemMFFS
-{
+public class ItemForcicumCell extends ItemMFFS {
 
-    private boolean aktiv = false;
+	private boolean aktiv = false;
 
-    public ItemForcicumCell(int id)
-    {
-        super(id, "forciciumCell");
-        this.setIconIndex(98);
-        this.setMaxStackSize(1);
-        this.setMaxDamage(100);
-    }
+	public ItemForcicumCell(int id) {
+		super(id, "forciciumCell");
+		this.setIconIndex(98);
+		this.setMaxStackSize(1);
+		this.setMaxDamage(100);
+	}
 
-    @Override
-    public boolean isRepairable()
-    {
-        return false;
-    }
+	@Override
+	public boolean isRepairable() {
+		return false;
+	}
 
-    public int getItemDamage(ItemStack itemStack)
-    {
-        return 101 - getForceciumlevel(itemStack) * 100 / getMaxForceciumlevel();
-    }
+	public int getItemDamage(ItemStack itemStack) {
+		return 101 - getForceciumlevel(itemStack) * 100
+				/ getMaxForceciumlevel();
+	}
 
-    @Override
-    public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
-    {
-        if (!world.isRemote)
-        {
-            if (this.aktiv)
-            {
-                if (getForceciumlevel(itemStack) < getMaxForceciumlevel())
-                {
-                    if ((entity instanceof EntityPlayer))
-                    {
-                        List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
-                        for (Slot slot : slots)
-                        {
-                            if ((slot.getStack() != null) && (slot.getStack().getItem() == ModularForceFieldSystem.itemForcicium))
-                            {
-                                setForceciumlevel(itemStack, getForceciumlevel(itemStack) + 1);
+	@Override
+	public void onUpdate(ItemStack itemStack, World world, Entity entity,
+			int par4, boolean par5) {
+		if (!world.isRemote) {
+			if (this.aktiv) {
+				if (getForceciumlevel(itemStack) < getMaxForceciumlevel()) {
+					if ((entity instanceof EntityPlayer)) {
+						List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
+						for (Slot slot : slots) {
+							if ((slot.getStack() != null)
+									&& (slot.getStack().getItem() == ModularForceFieldSystem.itemForcicium)) {
+								setForceciumlevel(itemStack,
+										getForceciumlevel(itemStack) + 1);
 
-                                if (slot.getStack().stackSize > 1)
-                                {
-                                    ItemStack forcecium = new ItemStack(ModularForceFieldSystem.itemForcicium, slot.getStack().stackSize - 1);
-                                    slot.putStack(forcecium);
-                                    break;
-                                }
-                                slot.putStack(null);
+								if (slot.getStack().stackSize > 1) {
+									ItemStack forcecium = new ItemStack(
+											ModularForceFieldSystem.itemForcicium,
+											slot.getStack().stackSize - 1);
+									slot.putStack(forcecium);
+									break;
+								}
+								slot.putStack(null);
 
-                                break;
-                            }
+								break;
+							}
 
-                        }
+						}
 
-                    }
+					}
 
-                }
+				}
 
-                itemStack.setItemDamage(getItemDamage(itemStack));
-            }
-        }
-    }
+				itemStack.setItemDamage(getItemDamage(itemStack));
+			}
+		}
+	}
 
-    @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-    {
-        String tooltip = String.format("%d / %d  Forcicum  ", new Object[]
-        {
-            Integer.valueOf(getForceciumlevel(itemStack)), Integer.valueOf(getMaxForceciumlevel())
-        });
-        info.add(tooltip);
-    }
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player,
+			List info, boolean b) {
+		String tooltip = String.format("%d / %d  Forcicum  ",
+				new Object[] { Integer.valueOf(getForceciumlevel(itemStack)),
+						Integer.valueOf(getMaxForceciumlevel()) });
+		info.add(tooltip);
+	}
 
-    public boolean useForcecium(int count, ItemStack itemstack)
-    {
-        if (count > getForceciumlevel(itemstack))
-        {
-            return false;
-        }
+	public boolean useForcecium(int count, ItemStack itemstack) {
+		if (count > getForceciumlevel(itemstack)) {
+			return false;
+		}
 
-        setForceciumlevel(itemstack, getForceciumlevel(itemstack) - count);
-        return true;
-    }
+		setForceciumlevel(itemstack, getForceciumlevel(itemstack) - count);
+		return true;
+	}
 
-    public int getMaxForceciumlevel()
-    {
-        return 1000;
-    }
+	public int getMaxForceciumlevel() {
+		return 1000;
+	}
 
-    public void setForceciumlevel(ItemStack itemStack, int Forceciumlevel)
-    {
-        NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-        nbtTagCompound.setInteger("Forceciumlevel", Forceciumlevel);
-    }
+	public void setForceciumlevel(ItemStack itemStack, int Forceciumlevel) {
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper
+				.getTAGfromItemstack(itemStack);
+		nbtTagCompound.setInteger("Forceciumlevel", Forceciumlevel);
+	}
 
-    public int getForceciumlevel(ItemStack itemstack)
-    {
-        NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemstack);
-        if (nbtTagCompound != null)
-        {
-            return nbtTagCompound.getInteger("Forceciumlevel");
-        }
-        return 0;
-    }
+	public int getForceciumlevel(ItemStack itemstack) {
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper
+				.getTAGfromItemstack(itemstack);
+		if (nbtTagCompound != null) {
+			return nbtTagCompound.getInteger("Forceciumlevel");
+		}
+		return 0;
+	}
 
-    @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
-    {
-        if (!world.isRemote)
-        {
-            if (!this.aktiv)
-            {
-                this.aktiv = true;
-                entityplayer.addChatMessage("[Forcicum Cell] Active");
-            } else
-            {
-                this.aktiv = false;
-                entityplayer.addChatMessage("[Forcicum Cell] Inactive");
-            }
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemstack, World world,
+			EntityPlayer entityplayer) {
+		if (!world.isRemote) {
+			if (!this.aktiv) {
+				this.aktiv = true;
+				entityplayer.addChatMessage("[Forcicum Cell] Active");
+			} else {
+				this.aktiv = false;
+				entityplayer.addChatMessage("[Forcicum Cell] Inactive");
+			}
 
-        }
+		}
 
-        return itemstack;
-    }
+		return itemstack;
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(int i, CreativeTabs tabs, List itemList)
-    {
-        ItemStack charged = new ItemStack(this, 1);
-        charged.setItemDamage(1);
-        setForceciumlevel(charged, getMaxForceciumlevel());
-        itemList.add(charged);
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(int i, CreativeTabs tabs, List itemList) {
+		ItemStack charged = new ItemStack(this, 1);
+		charged.setItemDamage(1);
+		setForceciumlevel(charged, getMaxForceciumlevel());
+		itemList.add(charged);
 
-        ItemStack empty = new ItemStack(this, 1);
-        empty.setItemDamage(100);
-        setForceciumlevel(empty, 0);
-        itemList.add(empty);
-    }
+		ItemStack empty = new ItemStack(this, 1);
+		empty.setItemDamage(100);
+		setForceciumlevel(empty, 0);
+		itemList.add(empty);
+	}
 }

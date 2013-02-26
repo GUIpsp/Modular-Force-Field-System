@@ -7,65 +7,59 @@ import mffs.common.ModularForceFieldSystem;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
 
-public final class ForceFieldClientUpdatehandler implements IScheduledTickHandler
-{
+public final class ForceFieldClientUpdatehandler implements
+		IScheduledTickHandler {
 
-    protected static Stack queue = new Stack();
+	protected static Stack queue = new Stack();
 
-    @Override
-    public void tickEnd(EnumSet type, Object... tickData)
-    {
-        StringBuilder str = new StringBuilder();
+	@Override
+	public void tickEnd(EnumSet type, Object... tickData) {
+		StringBuilder str = new StringBuilder();
 
-        while (!queue.isEmpty())
-        {
-            str.append(queue.pop());
-            str.append("/");
-            str.append(queue.pop());
-            str.append("/");
-            str.append(queue.pop());
-            str.append("#");
+		while (!queue.isEmpty()) {
+			str.append(queue.pop());
+			str.append("/");
+			str.append(queue.pop());
+			str.append("/");
+			str.append(queue.pop());
+			str.append("#");
 
-            if (str.length() > 7500)
-            {
-                break;
-            }
-        }
+			if (str.length() > 7500) {
+				break;
+			}
+		}
 
-        if (str.length() > 0)
-        {
-            NetworkHandlerClient.requestForceFieldInitialData(ModularForceFieldSystem.proxy.getClientWorld().provider.dimensionId, str.toString());
-            str.setLength(0);
-        }
-    }
+		if (str.length() > 0) {
+			NetworkHandlerClient
+					.requestForceFieldInitialData(
+							ModularForceFieldSystem.proxy.getClientWorld().provider.dimensionId,
+							str.toString());
+			str.setLength(0);
+		}
+	}
 
-    @Override
-    public void tickStart(EnumSet type, Object... tickData)
-    {
-    }
+	@Override
+	public void tickStart(EnumSet type, Object... tickData) {
+	}
 
-    @Override
-    public EnumSet ticks()
-    {
-        return EnumSet.of(TickType.PLAYER);
-    }
+	@Override
+	public EnumSet ticks() {
+		return EnumSet.of(TickType.PLAYER);
+	}
 
-    @Override
-    public String getLabel()
-    {
-        return "ForceField Client Ticker";
-    }
+	@Override
+	public String getLabel() {
+		return "ForceField Client Ticker";
+	}
 
-    @Override
-    public int nextTickSpacing()
-    {
-        return 1;
-    }
+	@Override
+	public int nextTickSpacing() {
+		return 1;
+	}
 
-    public static void addto(int x, int y, int z)
-    {
-        queue.push(Integer.valueOf(x));
-        queue.push(Integer.valueOf(y));
-        queue.push(Integer.valueOf(z));
-    }
+	public static void addto(int x, int y, int z) {
+		queue.push(Integer.valueOf(x));
+		queue.push(Integer.valueOf(y));
+		queue.push(Integer.valueOf(z));
+	}
 }

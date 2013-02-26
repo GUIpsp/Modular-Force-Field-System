@@ -9,8 +9,8 @@ import java.util.Random;
 import mffs.api.IMFFS_Wrench;
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
-import mffs.common.IModularProjector;
 import mffs.common.FrequencyGrid;
+import mffs.common.IModularProjector;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -36,448 +36,400 @@ import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IMFFS_Wrench, IWrenchable, ISwitchable
-{
+public abstract class TileEntityMFFS extends TileEntityAdvanced implements
+		INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory,
+		IMFFS_Wrench, IWrenchable, ISwitchable {
 
-    private boolean Active;
-    private int Side;
-    private short ticker;
-    protected boolean init;
-    protected String DeviceName;
-    protected int DeviceID;
-    protected short SwitchModi;
-    protected boolean SwitchValue;
-    protected Random random = new Random();
-    protected ForgeChunkManager.Ticket chunkTicket;
+	private boolean Active;
+	private int Side;
+	private short ticker;
+	protected boolean init;
+	protected String DeviceName;
+	protected int DeviceID;
+	protected short SwitchModi;
+	protected boolean SwitchValue;
+	protected Random random = new Random();
+	protected ForgeChunkManager.Ticket chunkTicket;
 
-    public TileEntityMFFS()
-    {
-        this.Active = false;
-        this.SwitchValue = false;
-        this.init = true;
-        this.Side = -1;
-        this.SwitchModi = 0;
-        this.ticker = 0;
-        this.DeviceID = 0;
-        this.DeviceName = "Unamed";
-    }
+	public TileEntityMFFS() {
+		this.Active = false;
+		this.SwitchValue = false;
+		this.init = true;
+		this.Side = -1;
+		this.SwitchModi = 0;
+		this.ticker = 0;
+		this.DeviceID = 0;
+		this.DeviceName = "Unamed";
+	}
 
-    @Override
-    public String getInvName()
-    {
-        return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
-    }
+	@Override
+	public String getInvName() {
+		return TranslationHelper.getLocal(this.getBlockType().getBlockName()
+				+ ".name");
+	}
 
-    public int getPercentageCapacity()
-    {
-        return 0;
-    }
+	public int getPercentageCapacity() {
+		return 0;
+	}
 
-    public boolean hasPowerSource()
-    {
-        return false;
-    }
+	public boolean hasPowerSource() {
+		return false;
+	}
 
-    public abstract TileEntitySecurityStation getLinkedSecurityStation();
+	public abstract TileEntitySecurityStation getLinkedSecurityStation();
 
-    @Override
-    public void onNetworkHandlerEvent(int key, String value)
-    {
-        switch (key)
-        {
-            case 0:
-                toogleSwitchModi();
-                break;
-            case 10:
-                setDeviceName("");
-                break;
-            case 11:
-                if (getDeviceName().length() <= 20)
-                {
-                    setDeviceName(getDeviceName() + value);
-                }
-                break;
-            case 12:
-                if (getDeviceName().length() >= 1)
-                {
-                    setDeviceName(getDeviceName().substring(0, getDeviceName().length() - 1));
-                }
-                break;
-        }
-    }
+	@Override
+	public void onNetworkHandlerEvent(int key, String value) {
+		switch (key) {
+		case 0:
+			toogleSwitchModi();
+			break;
+		case 10:
+			setDeviceName("");
+			break;
+		case 11:
+			if (getDeviceName().length() <= 20) {
+				setDeviceName(getDeviceName() + value);
+			}
+			break;
+		case 12:
+			if (getDeviceName().length() >= 1) {
+				setDeviceName(getDeviceName().substring(0,
+						getDeviceName().length() - 1));
+			}
+			break;
+		}
+	}
 
-    @Override
-    public List getFieldsForUpdate()
-    {
-        List NetworkedFields = new LinkedList();
-        NetworkedFields.clear();
+	@Override
+	public List getFieldsForUpdate() {
+		List NetworkedFields = new LinkedList();
+		NetworkedFields.clear();
 
-        NetworkedFields.add("Active");
-        NetworkedFields.add("Side");
-        NetworkedFields.add("DeviceID");
-        NetworkedFields.add("DeviceName");
-        NetworkedFields.add("SwitchModi");
-        NetworkedFields.add("SwitchValue");
+		NetworkedFields.add("Active");
+		NetworkedFields.add("Side");
+		NetworkedFields.add("DeviceID");
+		NetworkedFields.add("DeviceName");
+		NetworkedFields.add("SwitchModi");
+		NetworkedFields.add("SwitchValue");
 
-        return NetworkedFields;
-    }
+		return NetworkedFields;
+	}
 
-    @Override
-    public void onNetworkHandlerUpdate(String field)
-    {
-        this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-    }
+	@Override
+	public void onNetworkHandlerUpdate(String field) {
+		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord,
+				this.zCoord);
+	}
 
-    @Override
-    public void updateEntity()
-    {
-        if ((!this.worldObj.isRemote) && (this.init))
-        {
-            init();
-        }
+	@Override
+	public void updateEntity() {
+		if ((!this.worldObj.isRemote) && (this.init)) {
+			init();
+		}
 
-        if ((this.worldObj.isRemote) && (this.DeviceID == 0))
-        {
-            if (getTicker() >= 5 + this.random.nextInt(20))
-            {
-                NetworkHandlerClient.requestInitialData(this, true);
-                setTicker((short) 0);
-            }
-            setTicker((short) (getTicker() + 1));
-        }
-    }
+		if ((this.worldObj.isRemote) && (this.DeviceID == 0)) {
+			if (getTicker() >= 5 + this.random.nextInt(20)) {
+				NetworkHandlerClient.requestInitialData(this, true);
+				setTicker((short) 0);
+			}
+			setTicker((short) (getTicker() + 1));
+		}
+	}
 
-    public void init()
-    {
-        this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.DeviceID);
-        if (MFFSConfiguration.chunckLoader)
-        {
-            registerChunkLoading();
-        }
-        this.init = false;
-    }
+	public void init() {
+		this.DeviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(
+				this, this.DeviceID);
+		if (MFFSConfiguration.chunckLoader) {
+			registerChunkLoading();
+		}
+		this.init = false;
+	}
 
-    public short getMaxSwitchModi()
-    {
-        return 0;
-    }
+	public short getMaxSwitchModi() {
+		return 0;
+	}
 
-    public short getMinSwitchModi()
-    {
-        return 0;
-    }
+	public short getMinSwitchModi() {
+		return 0;
+	}
 
-    public void toogleSwitchModi()
-    {
-        if (getSwitchModi() == getMaxSwitchModi())
-        {
-            this.SwitchModi = getMinSwitchModi();
-        } else
-        {
-            this.SwitchModi = ((short) (this.SwitchModi + 1));
-        }
+	public void toogleSwitchModi() {
+		if (getSwitchModi() == getMaxSwitchModi()) {
+			this.SwitchModi = getMinSwitchModi();
+		} else {
+			this.SwitchModi = ((short) (this.SwitchModi + 1));
+		}
 
-        NetworkHandlerServer.updateTileEntityField(this, "SwitchModi");
-    }
+		NetworkHandlerServer.updateTileEntityField(this, "SwitchModi");
+	}
 
-    public boolean isRedstoneSignal()
-    {
-        if ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord)) || (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)))
-        {
-            return true;
-        }
-        return false;
-    }
+	public boolean isRedstoneSignal() {
+		if ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord,
+				this.zCoord))
+				|| (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord,
+						this.yCoord, this.zCoord))) {
+			return true;
+		}
+		return false;
+	}
 
-    public short getSwitchModi()
-    {
-        if (this.SwitchModi < getMinSwitchModi())
-        {
-            this.SwitchModi = getMinSwitchModi();
-        }
-        return this.SwitchModi;
-    }
+	public short getSwitchModi() {
+		if (this.SwitchModi < getMinSwitchModi()) {
+			this.SwitchModi = getMinSwitchModi();
+		}
+		return this.SwitchModi;
+	}
 
-    public boolean getSwitchValue()
-    {
-        return this.SwitchValue;
-    }
+	public boolean getSwitchValue() {
+		return this.SwitchValue;
+	}
 
-    @Override
-    public boolean isSwitchabel()
-    {
-        if (getSwitchModi() == 2)
-        {
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public boolean isSwitchabel() {
+		if (getSwitchModi() == 2) {
+			return true;
+		}
+		return false;
+	}
 
-    @Override
-    public void toggelSwitchValue()
-    {
-        this.SwitchValue = (!this.SwitchValue);
-        NetworkHandlerServer.updateTileEntityField(this, "SwitchValue");
-    }
+	@Override
+	public void toggelSwitchValue() {
+		this.SwitchValue = (!this.SwitchValue);
+		NetworkHandlerServer.updateTileEntityField(this, "SwitchValue");
+	}
 
-    public void setDeviceName(String DeviceName)
-    {
-        this.DeviceName = DeviceName;
-        NetworkHandlerServer.updateTileEntityField(this, "DeviceName");
-    }
+	public void setDeviceName(String DeviceName) {
+		this.DeviceName = DeviceName;
+		NetworkHandlerServer.updateTileEntityField(this, "DeviceName");
+	}
 
-    public int getDeviceID()
-    {
-        return this.DeviceID;
-    }
+	public int getDeviceID() {
+		return this.DeviceID;
+	}
 
-    public void setDeviceID(int i)
-    {
-        this.DeviceID = i;
-    }
+	public void setDeviceID(int i) {
+		this.DeviceID = i;
+	}
 
-    public String getDeviceName()
-    {
-        return this.DeviceName;
-    }
+	public String getDeviceName() {
+		return this.DeviceName;
+	}
 
-    public PointXYZ getMachinePoint()
-    {
-        return new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
-    }
+	public PointXYZ getMachinePoint() {
+		return new PointXYZ(this.xCoord, this.yCoord, this.zCoord,
+				this.worldObj);
+	}
 
-    public abstract void dropPlugins();
+	public abstract void dropPlugins();
 
-    public void dropPlugins(int slot, IInventory inventory)
-    {
-        if (this.worldObj.isRemote)
-        {
-            setInventorySlotContents(slot, null);
-            return;
-        }
+	public void dropPlugins(int slot, IInventory inventory) {
+		if (this.worldObj.isRemote) {
+			setInventorySlotContents(slot, null);
+			return;
+		}
 
-        if (inventory.getStackInSlot(slot) != null)
-        {
-            if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
-            {
-                this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
-            } else
-            {
-                this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, inventory.getStackInSlot(slot)));
-            }
+		if (inventory.getStackInSlot(slot) != null) {
+			if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink))
+					|| ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink))
+					|| ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID))
+					|| ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink))) {
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,
+						this.xCoord, this.yCoord, this.zCoord, new ItemStack(
+								ModularForceFieldSystem.itemCardEmpty, 1)));
+			} else {
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,
+						this.xCoord, this.yCoord, this.zCoord, inventory
+								.getStackInSlot(slot)));
+			}
 
-            inventory.setInventorySlotContents(slot, null);
-            onInventoryChanged();
-        }
-    }
+			inventory.setInventorySlotContents(slot, null);
+			onInventoryChanged();
+		}
+	}
 
-    public abstract Container getContainer(InventoryPlayer paramInventoryPlayer);
+	public abstract Container getContainer(InventoryPlayer paramInventoryPlayer);
 
-    @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound)
-    {
-        super.readFromNBT(nbttagcompound);
-        this.Side = nbttagcompound.getInteger("side");
-        this.Active = nbttagcompound.getBoolean("active");
-        this.SwitchValue = nbttagcompound.getBoolean("SwitchValue");
-        this.DeviceID = nbttagcompound.getInteger("DeviceID");
-        this.DeviceName = nbttagcompound.getString("DeviceName");
-        this.SwitchModi = nbttagcompound.getShort("SwitchModi");
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
+		super.readFromNBT(nbttagcompound);
+		this.Side = nbttagcompound.getInteger("side");
+		this.Active = nbttagcompound.getBoolean("active");
+		this.SwitchValue = nbttagcompound.getBoolean("SwitchValue");
+		this.DeviceID = nbttagcompound.getInteger("DeviceID");
+		this.DeviceName = nbttagcompound.getString("DeviceName");
+		this.SwitchModi = nbttagcompound.getShort("SwitchModi");
+	}
 
-    @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound)
-    {
-        super.writeToNBT(nbttagcompound);
+	@Override
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
+		super.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setShort("SwitchModi", this.SwitchModi);
-        nbttagcompound.setInteger("side", this.Side);
-        nbttagcompound.setBoolean("active", this.Active);
-        nbttagcompound.setBoolean("SwitchValue", this.SwitchValue);
-        nbttagcompound.setInteger("DeviceID", this.DeviceID);
-        nbttagcompound.setString("DeviceName", this.DeviceName);
-    }
+		nbttagcompound.setShort("SwitchModi", this.SwitchModi);
+		nbttagcompound.setInteger("side", this.Side);
+		nbttagcompound.setBoolean("active", this.Active);
+		nbttagcompound.setBoolean("SwitchValue", this.SwitchValue);
+		nbttagcompound.setInteger("DeviceID", this.DeviceID);
+		nbttagcompound.setString("DeviceName", this.DeviceName);
+	}
 
-    @Override
-    public boolean wrenchCanManipulate(EntityPlayer entityPlayer, int side)
-    {
-        if (!SecurityHelper.isAccessGranted(this, entityPlayer, this.worldObj, SecurityRight.EB))
-        {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean wrenchCanManipulate(EntityPlayer entityPlayer, int side) {
+		if (!SecurityHelper.isAccessGranted(this, entityPlayer, this.worldObj,
+				SecurityRight.EB)) {
+			return false;
+		}
+		return true;
+	}
 
-    public short getTicker()
-    {
-        return this.ticker;
-    }
+	public short getTicker() {
+		return this.ticker;
+	}
 
-    public void setTicker(short ticker)
-    {
-        this.ticker = ticker;
-    }
+	public void setTicker(short ticker) {
+		this.ticker = ticker;
+	}
 
-    @Override
-    public void setSide(int i)
-    {
-        this.Side = i;
-        NetworkHandlerServer.updateTileEntityField(this, "Side");
-    }
+	@Override
+	public void setSide(int i) {
+		this.Side = i;
+		NetworkHandlerServer.updateTileEntityField(this, "Side");
+	}
 
-    public boolean isActive()
-    {
-        return this.Active;
-    }
+	public boolean isActive() {
+		return this.Active;
+	}
 
-    public void setActive(boolean flag)
-    {
-        this.Active = flag;
-        NetworkHandlerServer.updateTileEntityField(this, "Active");
-    }
+	public void setActive(boolean flag) {
+		this.Active = flag;
+		NetworkHandlerServer.updateTileEntityField(this, "Active");
+	}
 
-    @Override
-    public int getSide()
-    {
-        return this.Side;
-    }
+	@Override
+	public int getSide() {
+		return this.Side;
+	}
 
-    @Override
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
-    {
-        if (side == getFacing())
-        {
-            return false;
-        }
-        if ((this instanceof TileEntitySecStorage))
-        {
-            return false;
-        }
-        if ((this instanceof TileEntitySecurityStation))
-        {
-            return false;
-        }
-        if (this.Active)
-        {
-            return false;
-        }
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+		if (side == getFacing()) {
+			return false;
+		}
+		if ((this instanceof TileEntitySecStorage)) {
+			return false;
+		}
+		if ((this instanceof TileEntitySecurityStation)) {
+			return false;
+		}
+		if (this.Active) {
+			return false;
+		}
 
-        return wrenchCanManipulate(entityPlayer, side);
-    }
+		return wrenchCanManipulate(entityPlayer, side);
+	}
 
-    @Override
-    public short getFacing()
-    {
-        return (short) getSide();
-    }
+	@Override
+	public short getFacing() {
+		return (short) getSide();
+	}
 
-    @Override
-    public void setFacing(short facing)
-    {
-        setSide(facing);
-    }
+	@Override
+	public void setFacing(short facing) {
+		setSide(facing);
+	}
 
-    @Override
-    public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-    {
-        if (this.Active)
-        {
-            return false;
-        }
-        return wrenchCanManipulate(entityPlayer, 0);
-    }
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+		if (this.Active) {
+			return false;
+		}
+		return wrenchCanManipulate(entityPlayer, 0);
+	}
 
-    @Override
-    public float getWrenchDropRate()
-    {
-        return 1.0F;
-    }
+	@Override
+	public float getWrenchDropRate() {
+		return 1.0F;
+	}
 
-    public void forceChunkLoading(ForgeChunkManager.Ticket ticket)
-    {
-        if (this.chunkTicket == null)
-        {
-            this.chunkTicket = ticket;
-        }
-        ChunkCoordIntPair Chunk = new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4);
-        ForgeChunkManager.forceChunk(ticket, Chunk);
-    }
+	public void forceChunkLoading(ForgeChunkManager.Ticket ticket) {
+		if (this.chunkTicket == null) {
+			this.chunkTicket = ticket;
+		}
+		ChunkCoordIntPair Chunk = new ChunkCoordIntPair(this.xCoord >> 4,
+				this.zCoord >> 4);
+		ForgeChunkManager.forceChunk(ticket, Chunk);
+	}
 
-    protected void registerChunkLoading()
-    {
-        if (this.chunkTicket == null)
-        {
-            this.chunkTicket = ForgeChunkManager.requestTicket(ModularForceFieldSystem.instance, this.worldObj, ForgeChunkManager.Type.NORMAL);
-        }
-        if (this.chunkTicket == null)
-        {
-            System.out.println("[ModularForceFieldSystem] No free Chunkloaders available");
-            return;
-        }
+	protected void registerChunkLoading() {
+		if (this.chunkTicket == null) {
+			this.chunkTicket = ForgeChunkManager.requestTicket(
+					ModularForceFieldSystem.instance, this.worldObj,
+					ForgeChunkManager.Type.NORMAL);
+		}
+		if (this.chunkTicket == null) {
+			System.out
+					.println("[ModularForceFieldSystem] No free Chunkloaders available");
+			return;
+		}
 
-        this.chunkTicket.getModData().setInteger("MachineX", this.xCoord);
-        this.chunkTicket.getModData().setInteger("MachineY", this.yCoord);
-        this.chunkTicket.getModData().setInteger("MachineZ", this.zCoord);
-        ForgeChunkManager.forceChunk(this.chunkTicket, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
+		this.chunkTicket.getModData().setInteger("MachineX", this.xCoord);
+		this.chunkTicket.getModData().setInteger("MachineY", this.yCoord);
+		this.chunkTicket.getModData().setInteger("MachineZ", this.zCoord);
+		ForgeChunkManager.forceChunk(this.chunkTicket, new ChunkCoordIntPair(
+				this.xCoord >> 4, this.zCoord >> 4));
 
-        forceChunkLoading(this.chunkTicket);
-    }
+		forceChunkLoading(this.chunkTicket);
+	}
 
-    @Override
-    public void invalidate()
-    {
-        ForgeChunkManager.releaseTicket(this.chunkTicket);
-        super.invalidate();
-    }
+	@Override
+	public void invalidate() {
+		ForgeChunkManager.releaseTicket(this.chunkTicket);
+		super.invalidate();
+	}
 
-    public abstract boolean isItemValid(ItemStack paramItemStack, int paramInt);
+	public abstract boolean isItemValid(ItemStack paramItemStack, int paramInt);
 
-    public abstract int getSlotStackLimit(int paramInt);
+	public abstract int getSlotStackLimit(int paramInt);
 
-    @Override
-    public void openChest()
-    {
-    }
+	@Override
+	public void openChest() {
+	}
 
-    @Override
-    public void closeChest()
-    {
-    }
+	@Override
+	public void closeChest() {
+	}
 
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer entityplayer)
-    {
-        if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
-        {
-            return false;
-        }
-        return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
-    }
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord,
+				this.zCoord) != this) {
+			return false;
+		}
+		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D,
+				this.zCoord + 0.5D) <= 64.0D;
+	}
 
-    @Override
-    public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-    {
-        return new ItemStack(net.minecraft.block.Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]);
-    }
+	@Override
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(
+				net.minecraft.block.Block.blocksList[this.worldObj.getBlockId(
+						this.xCoord, this.yCoord, this.zCoord)]);
+	}
 
-    @Override
-    public ItemStack getStackInSlotOnClosing(int var1)
-    {
-        return null;
-    }
+	@Override
+	public ItemStack getStackInSlotOnClosing(int var1) {
+		return null;
+	}
 
-    @Override
-    public int getInventoryStackLimit()
-    {
-        return 64;
-    }
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
 
-    public int countItemsInSlot(IModularProjector.Slots slt)
-    {
-        if (getStackInSlot(slt.slot) != null)
-        {
-            return getStackInSlot(slt.slot).stackSize;
-        }
-        return 0;
-    }
+	public int countItemsInSlot(IModularProjector.Slots slt) {
+		if (getStackInSlot(slt.slot) != null) {
+			return getStackInSlot(slt.slot).stackSize;
+		}
+		return 0;
+	}
 }
