@@ -75,7 +75,7 @@ public class ItemForcilliumCell extends ItemMFFS
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		String tooltip = String.format("%d / %d  Forcillium  ", new Object[] { Integer.valueOf(getForceciumlevel(itemStack)), Integer.valueOf(getMaxForceciumlevel()) });
+		String tooltip = String.format("%d / %d  Forcillium", new Object[] { Integer.valueOf(getForceciumlevel(itemStack)), Integer.valueOf(getMaxForceciumlevel()) });
 		info.add(tooltip);
 	}
 

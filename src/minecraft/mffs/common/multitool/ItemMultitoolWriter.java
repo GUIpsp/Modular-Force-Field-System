@@ -50,16 +50,16 @@ public class ItemMultitoolWriter extends ItemMultitool
 						{
 							entityplayer.dropPlayerItem(IDCard);
 						}
-						Functions.ChattoPlayer(entityplayer, "[MultiTool] Success: ID-Card create");
+						Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Identification Card created.");
 						return true;
 					}
-					Functions.ChattoPlayer(entityplayer, "[MultiTool] Fail: not enough FP please charge");
+					Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Not enough Fortron!");
 					return true;
 				}
 
 			}
 
-			Functions.ChattoPlayer(entityplayer, "[MultiTool] Fail: need MFFS Card <blank> in  Inventory");
+			Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Blank Card needed in Inventory!");
 			return true;
 		}
 		return false;
@@ -95,13 +95,13 @@ public class ItemMultitoolWriter extends ItemMultitool
 					}
 					if (world.isRemote)
 					{
-						Functions.ChattoPlayer(entityplayer, "[MultiTool] Success: ID-Card create");
+						Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Identification Card created.");
 					}
 					return itemstack;
 				}
 				if (world.isRemote)
 				{
-					Functions.ChattoPlayer(entityplayer, "[MultiTool] Fail: not enough FP please charge");
+					Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Not enough Fortron!");
 				}
 				return itemstack;
 			}
@@ -110,7 +110,7 @@ public class ItemMultitoolWriter extends ItemMultitool
 
 		if (world.isRemote)
 		{
-			Functions.ChattoPlayer(entityplayer, "[MultiTool] Fail: need MFFS Card <blank> in  Inventory");
+			Functions.ChattoPlayer(entityplayer, "[Multi-Tool] Blank Card needed in Inventory!");
 		}
 		return itemstack;
 	}
@@ -136,8 +136,6 @@ public class ItemMultitoolWriter extends ItemMultitool
 						consumePower(stack, 1000, false);
 						ItemStack IDCard = new ItemStack(ModularForceFieldSystem.itemCardDataLink);
 
-						//ItemCardDataLink.setforArea(IDCard, ((TileEntityMFFS) tileEntity).getDeviceName());
-						//TODO: REMOVED NAME
 						((ItemCardDataLink) IDCard.getItem()).setInformation(IDCard, new PointXYZ(x, y, z, world), "DeviceID", ((TileEntityMFFS) tileEntity).getDeviceID(), tileEntity);
 
 						if (--playerstack.stackSize <= 0)
@@ -149,12 +147,12 @@ public class ItemMultitoolWriter extends ItemMultitool
 							player.dropPlayerItem(IDCard);
 						}
 						player.inventoryContainer.detectAndSendChanges();
-						Functions.ChattoPlayer(player, "[MultiTool] Success: DataLink-Card create");
+						Functions.ChattoPlayer(player, "[Multi-Tool] Data-Link Card created.");
 
 						return true;
 					}
 
-					Functions.ChattoPlayer(player, "[MultiTool] Fail: not enough FP please charge");
+					Functions.ChattoPlayer(player, "[Multi-Tool] Not enough Fortron!");
 					return false;
 				}
 

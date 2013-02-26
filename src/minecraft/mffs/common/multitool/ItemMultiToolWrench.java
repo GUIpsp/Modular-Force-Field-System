@@ -38,11 +38,11 @@ public class ItemMultiToolWrench extends ItemMultitool implements IToolConfigura
 				{
 					consumePower(stack, 10000, false);
 					((TileEntityProjector) tileentity).setBurnedOut(false);
-					Functions.ChattoPlayer(player, "[MultiTool] Projector repaired");
+					Functions.ChattoPlayer(player, "[Multi-Tool] Projector repaired.");
 					return true;
 				}
 
-				Functions.ChattoPlayer(player, "[MultiTool] Fail: not enough FP please charge need min 10000");
+				Functions.ChattoPlayer(player, "[Multi-Tool] Not enough Fortron!");
 				return false;
 			}
 
@@ -62,7 +62,7 @@ public class ItemMultiToolWrench extends ItemMultitool implements IToolConfigura
 			}
 			else
 			{
-				Functions.ChattoPlayer(player, "[MultiTool] Fail: not enough FE please charge need min 1000 for change Facing");
+				Functions.ChattoPlayer(player, "[Multi-Tool] Not enough Fortron!");
 			}
 
 			if (consumePower(stack, 25000, true))
@@ -77,62 +77,10 @@ public class ItemMultiToolWrench extends ItemMultitool implements IToolConfigura
 			}
 			else
 			{
-				Functions.ChattoPlayer(player, "[MultiTool] Fail: not enough FE please charge need min 25000 for remove");
+				Functions.ChattoPlayer(player, "[Multi-Tool] Not enough Fortron!");
 			}
 
 		}
-/*
-		if ((tileentity instanceof IMFFS_Wrench))
-		{
-			if (consumePower(stack, 1000, true))
-			{
-				if (((IMFFS_Wrench) tileentity).wrenchCanManipulate(player, side))
-				{
-					if ((tileentity instanceof TileEntityMFFS))
-					{
-						if ((tileentity instanceof TileEntityProjector))
-						{
-							if (((TileEntityProjector) tileentity).isActive())
-							{
-								return false;
-							}
-						}
-
-						if ((tileentity instanceof TileEntitySecurityStation))
-						{
-							if (((TileEntitySecurityStation) tileentity).isActive())
-							{
-								return false;
-							}
-						}
-						if ((tileentity instanceof TileEntityDefenseStation))
-						{
-							if (((TileEntityDefenseStation) tileentity).isActive())
-							{
-								return false;
-							}
-						}
-					}
-
-					if (((IMFFS_Wrench) tileentity).getSide() != side)
-					{
-						((IMFFS_Wrench) tileentity).setSide(side);
-						consumePower(stack, 1000, false);
-						return true;
-					}
-
-					world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(net.minecraft.block.Block.blocksList[world.getBlockId(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord)])));
-					world.setBlockWithNotify(x, y, z, 0);
-					consumePower(stack, 1000, false);
-				}
-
-			}
-			else
-			{
-				Functions.ChattoPlayer(player, "[MultiTool] Fail: not enough FP please charge need min 1000");
-			}
-
-		}*/
 
 		return false;
 	}

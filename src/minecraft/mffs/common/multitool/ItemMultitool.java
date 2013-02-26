@@ -17,25 +17,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEnergyItems
 {
 
-	private int typ;
 	private static List MTTypes = new ArrayList();
 
-	protected ItemMultitool(int id, int typ, boolean addToList, String name)
+	protected ItemMultitool(int id, int index, boolean addToList, String name)
 	{
 		super(id, name);
-		this.typ = typ;
-		setIconIndex(typ);
+		setIconIndex(index);
 		setMaxStackSize(1);
 		setMaxDamage(100);
-		if (addToList)
-		{
+		if(addToList) {
 			MTTypes.add(this);
 		}
 	}
 
-	protected ItemMultitool(int id, int typ, String name)
+	protected ItemMultitool(int id, int index, String name)
 	{
-		this(id, typ, true, name);
+		this(id, index, true, name);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEn
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		String tooltip = String.format("%d FE/%d FE ", new Object[] { Integer.valueOf(getAvailablePower(itemStack)), Integer.valueOf(getMaximumPower(itemStack)) });
+		String tooltip = String.format("%d FE/%d FE", new Object[] { Integer.valueOf(getAvailablePower(itemStack)), Integer.valueOf(getMaximumPower(itemStack)) });
 		info.add(tooltip);
 	}
 

@@ -2,7 +2,6 @@ package mffs.common;
 
 import java.lang.reflect.Constructor;
 
-import mffs.client.gui.GuiManuelScreen;
 import mffs.common.container.ContainerDummy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -19,10 +18,6 @@ public class CommonProxy implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		if (ID != 0)
-		{
-			return new GuiManuelScreen(new ContainerDummy());
-		}
 
 		TileEntity te = world.getBlockTileEntity(x, y, z);
 		if (te == null)

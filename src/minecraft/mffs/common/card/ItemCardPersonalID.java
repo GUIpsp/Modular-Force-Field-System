@@ -4,19 +4,19 @@ import java.util.List;
 
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
+import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemCardPersonalID extends Item
+public class ItemCardPersonalID extends ItemMFFS
 {
 
 	public ItemCardPersonalID(int i)
 	{
-		super(i);
+		super(i, "identificationCard");
 		setIconIndex(18);
 		setMaxStackSize(1);
 	}
