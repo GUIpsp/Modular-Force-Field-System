@@ -1,6 +1,5 @@
 package mffs.common.block;
 
-import mffs.common.MFFSConfiguration;
 import mffs.common.MFFSCreativeTab;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -32,7 +31,7 @@ public abstract class BlockMFFS extends BlockMachine
 
     public BlockMFFS(int id, String name)
     {
-        super(MFFSConfiguration.getConfiguration().getBlock(name, id).getInt(id), UniversalElectricity.machine);
+        super(ModularForceFieldSystem.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
         this.setBlockName(name);
         this.setBlockUnbreakable();
         this.setRequiresSelfNotify();
