@@ -55,12 +55,12 @@ public class TileEntityForceField extends TileEntity
         this.ForcefieldCamoblockid = forcefieldCamoblockid;
     }
 
-    public String getTexturfile()
+    public String getTexturefile()
     {
         return this.texturfile;
     }
 
-    public void setTexturfile(String texturfile)
+    public void setTexturefile(String texturfile)
     {
         this.texturfile = texturfile;
     }
@@ -84,7 +84,7 @@ public class TileEntityForceField extends TileEntity
             {
                 if ((this.texturid[0] == -76) || (this.texturfile == null))
                 {
-                    UpdateTextur();
+                    updateTexture();
                 }
 
                 setTicker(0);
@@ -107,7 +107,7 @@ public class TileEntityForceField extends TileEntity
         }
     }
 
-    public void setTexturid(String remotetextu)
+    public void setTextureID(String remotetextu)
     {
         String[] textur = remotetextu.split("/");
 
@@ -122,7 +122,7 @@ public class TileEntityForceField extends TileEntity
         setTicker(0);
     }
 
-    public void setTexturid(String texturid, TileEntityProjector proj)
+    public void setTextureID(String texturid, TileEntityProjector proj)
     {
         try
         {
@@ -143,7 +143,7 @@ public class TileEntityForceField extends TileEntity
         }
     }
 
-    public void UpdateTextur()
+    public void updateTexture()
     {
         if (!this.worldObj.isRemote)
         {
@@ -157,8 +157,8 @@ public class TileEntityForceField extends TileEntity
 
                     if (projector != null)
                     {
-                        setTexturid(projector.getForceFieldTexturID(), projector);
-                        setTexturfile(projector.getForceFieldTexturfile());
+                        setTextureID(projector.getForceFieldTextureID(), projector);
+                        setTexturefile(projector.getForceFieldTextureFile());
                         setForcefieldCamoblockid(projector.getForcefieldCamoblockid());
                         setForcefieldCamoblockmeta(projector.getForcefieldCamoblockmeta());
                     }

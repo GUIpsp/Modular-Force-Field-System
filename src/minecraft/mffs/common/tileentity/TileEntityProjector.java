@@ -128,18 +128,18 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
         NetworkHandlerServer.updateTileEntityField(this, "ForcefieldCamoblockid");
     }
 
-    public String getForceFieldTexturfile()
+    public String getForceFieldTextureFile()
     {
         return this.ForceFieldTexturfile;
     }
 
-    public void setForceFieldTexturfile(String forceFieldTexturfile)
+    public void setForceFieldTextureFile(String forceFieldTexturfile)
     {
         this.ForceFieldTexturfile = forceFieldTexturfile;
         NetworkHandlerServer.updateTileEntityField(this, "ForceFieldTexturfile");
     }
 
-    public String getForceFieldTexturID()
+    public String getForceFieldTextureID()
     {
         return this.ForceFieldTexturids;
     }
@@ -350,7 +350,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
                 ForcefieldTexturtemp = index[0] + "/" + index[1] + "/" + index[2] + "/" + index[3] + "/" + index[4] + "/" + index[5];
                 Texturfile = Block.blocksList[getStackInSlot(11).itemID].getTextureFile();
 
-                if ((!ForcefieldTexturtemp.equalsIgnoreCase(this.ForceFieldTexturids)) || (!this.ForceFieldTexturfile.equalsIgnoreCase(getForceFieldTexturfile())))
+                if ((!ForcefieldTexturtemp.equalsIgnoreCase(this.ForceFieldTexturids)) || (!this.ForceFieldTexturfile.equalsIgnoreCase(getForceFieldTextureFile())))
                 {
                     if (getStackInSlot(11).getItem() == Item.bucketLava)
                     {
@@ -366,7 +366,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
                     }
                     setForcefieldCamoblockmeta(getStackInSlot(11).getItemDamage());
                     setForcefieldCamoblockid(getStackInSlot(11).itemID);
-                    setForceFieldTexturfile(Texturfile);
+                    setForceFieldTextureFile(Texturfile);
                     UpdateForcefieldTexttur();
                 }
 
@@ -380,7 +380,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
             setForcefieldCamoblockmeta(0);
             setForcefieldCamoblockid(-1);
             setForceFieldTexturID("-76/-76/-76/-76/-76/-76");
-            setForceFieldTexturfile("/terrain.png");
+            setForceFieldTextureFile("/terrain.png");
             UpdateForcefieldTexttur();
         }
 
@@ -490,7 +490,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 
                     if ((tileEntity != null) && ((tileEntity instanceof TileEntityForceField)))
                     {
-                        ((TileEntityForceField) tileEntity).UpdateTextur();
+                        ((TileEntityForceField) tileEntity).updateTexture();
                     }
                 }
             }

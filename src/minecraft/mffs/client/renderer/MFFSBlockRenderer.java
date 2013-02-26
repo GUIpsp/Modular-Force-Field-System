@@ -36,9 +36,9 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
                             }
                         }
                     }
-                    if (((TileEntityForceField) te).getTexturfile() != null)
+                    if (((TileEntityForceField) te).getTexturefile() != null)
                     {
-                        ForgeHooksClient.bindTexture(((TileEntityForceField) te).getTexturfile(), 0);
+                        ForgeHooksClient.bindTexture(((TileEntityForceField) te).getTexturefile(), 0);
                         renderer.renderStandardBlock(block, x, y, z);
                         return true;
                     }
