@@ -82,12 +82,10 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		List NetworkedFields = new LinkedList();
 		NetworkedFields.clear();
 
-		NetworkedFields.add("Active");
-		NetworkedFields.add("Side");
-		NetworkedFields.add("DeviceID");
-		NetworkedFields.add("DeviceName");
+		NetworkedFields.add("isActive");
+		NetworkedFields.add("deviceID");
 		NetworkedFields.add("switchMode");
-		NetworkedFields.add("SwitchValue");
+		NetworkedFields.add("switchValue");
 
 		return NetworkedFields;
 	}
@@ -187,8 +185,8 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	@Override
 	public void onSwitch()
 	{
-		this.switchValue = (!this.switchValue);
-		NetworkHandlerServer.updateTileEntityField(this, "SwitchValue");
+		this.switchValue = !this.switchValue;
+		NetworkHandlerServer.updateTileEntityField(this, "switchValue");
 	}
 
 	public int getDeviceID()
@@ -238,9 +236,9 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
-		this.isActive = nbttagcompound.getBoolean("active");
-		this.switchValue = nbttagcompound.getBoolean("SwitchValue");
-		this.deviceID = nbttagcompound.getInteger("DeviceID");
+		this.isActive = nbttagcompound.getBoolean("isActive");
+		this.switchValue = nbttagcompound.getBoolean("switchValue");
+		this.deviceID = nbttagcompound.getInteger("deviceID");
 		this.switchMode = nbttagcompound.getShort("switchMode");
 	}
 
@@ -250,7 +248,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setShort("switchMode", this.switchMode);
-		nbttagcompound.setBoolean("active", this.isActive);
+		nbttagcompound.setBoolean("isActive", this.isActive);
 		nbttagcompound.setBoolean("switchValue", this.switchValue);
 		nbttagcompound.setInteger("deviceID", this.deviceID);
 	}
@@ -272,7 +270,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	public void setActive(boolean flag)
 	{
 		this.isActive = flag;
-		NetworkHandlerServer.updateTileEntityField(this, "Active");
+		NetworkHandlerServer.updateTileEntityField(this, "isActive");
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
 		
-		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 30, x, y);
 		this.textFieldFrequency.drawTextBox();
 		
 		GL11.glPushMatrix();

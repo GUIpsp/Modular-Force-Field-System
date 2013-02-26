@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 
 public abstract class TileEntityForcePowerMachine extends TileEntityMFFS implements IForcePower
 {
-
 	public abstract ItemStack getPowerLinkStack();
 
 	public abstract int getPowerLinkSlot();

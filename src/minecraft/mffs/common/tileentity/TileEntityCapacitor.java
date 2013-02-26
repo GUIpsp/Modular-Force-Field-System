@@ -25,13 +25,12 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityCapacitor extends TileEntityForcePowerMachine implements INetworkHandlerEventListener, IForceEnergyStorageBlock
 {
-
 	private ItemStack[] inventory = new ItemStack[5];
 	private int forcePower = 0;
-	private short linketprojector = 0;
+	private short linkedProjector = 0;
 	private int capacity = 0;
 	private int linkMode = 0;
-	private int transmitionRange = 0;
+	private int transmissionRange = 0;
 
 	@Override
 	public void initiate()
@@ -101,13 +100,13 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 
 	public void setTransmitRange(int transmitRange)
 	{
-		this.transmitionRange = transmitRange;
-		NetworkHandlerServer.updateTileEntityField(this, "transmitionRange");
+		this.transmissionRange = transmitRange;
+		NetworkHandlerServer.updateTileEntityField(this, "transmissionRange");
 	}
 
 	public int getTransmitRange()
 	{
-		return this.transmitionRange;
+		return this.transmissionRange;
 	}
 
 	public int getPowerLinkMode()
@@ -143,14 +142,14 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 
 	public Short getLinkedProjector()
 	{
-		return Short.valueOf(this.linketprojector);
+		return Short.valueOf(this.linkedProjector);
 	}
 
 	public void setLinketprojektor(Short linketprojektor)
 	{
-		if (this.linketprojector != linketprojektor.shortValue())
+		if (this.linkedProjector != linketprojektor.shortValue())
 		{
-			this.linketprojector = linketprojektor.shortValue();
+			this.linkedProjector = linketprojektor.shortValue();
 			NetworkHandlerServer.updateTileEntityField(this, "linketprojektor");
 		}
 	}
@@ -539,9 +538,9 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 
 		NetworkedFields.addAll(super.getFieldsForUpdate());
 
-		NetworkedFields.add("linketprojektor");
+		NetworkedFields.add("linkedProjector");
 		NetworkedFields.add("capacity");
-		NetworkedFields.add("transmitionRange");
+		NetworkedFields.add("transmissionRange");
 
 		return NetworkedFields;
 	}

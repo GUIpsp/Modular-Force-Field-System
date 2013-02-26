@@ -50,6 +50,7 @@ public class ContainerMFFS extends Container
 
 			if (par1 >= slotCount)
 			{
+				boolean didTry = false;
 				for (int i = 0; i < slotCount; i++)
 				{
 					if (this.getSlot(i).isItemValid(itemStack))
@@ -58,19 +59,23 @@ public class ContainerMFFS extends Container
 						{
 							return null;
 						}
+						didTry = true;
 					}
 				}
 
-				if (par1 < 27 + slotCount)
+				if (!didTry)
 				{
-					if (!this.mergeItemStack(itemStack, 27 + slotCount, 36 + slotCount, false))
+					if (par1 < 27 + slotCount)
+					{
+						if (!this.mergeItemStack(itemStack, 27 + slotCount, 36 + slotCount, false))
+						{
+							return null;
+						}
+					}
+					else if (par1 >= 27 + slotCount && par1 < 36 + slotCount && !this.mergeItemStack(itemStack, 4, 30, false))
 					{
 						return null;
 					}
-				}
-				else if (par1 >= 27 + slotCount && par1 < 36 + slotCount && !this.mergeItemStack(itemStack, 4, 30, false))
-				{
-					return null;
 				}
 			}
 			else if (!this.mergeItemStack(itemStack, slotCount, 36 + slotCount, false))

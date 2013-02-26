@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGrid;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
 import mffs.common.tileentity.TileEntityCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
@@ -152,126 +153,15 @@ public class NetworkHandlerServer implements IPacketHandler
 			{
 			}
 
-			if ((tileEntity instanceof TileEntityMFFS))
+			try
 			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityMFFS.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-
+				Field f = ReflectionHelper.findField(tileEntity.getClass(), new String[] { varname });
+				f.get(tileEntity);
+				dos.writeUTF(String.valueOf(f.get(tileEntity)));
 			}
-
-			if ((tileEntity instanceof TileEntityProjector))
+			catch (Exception e)
 			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityProjector.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-			}
-
-			if ((tileEntity instanceof TileEntityCapacitor))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityCapacitor.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-			}
-
-			if ((tileEntity instanceof TileEntityExtractor))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityExtractor.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-			}
-
-			if ((tileEntity instanceof TileEntityConverter))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityConverter.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-
-			}
-
-			if ((tileEntity instanceof TileEntityDefenseStation))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityDefenseStation.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-			}
-
-			if ((tileEntity instanceof TileEntitySecurityStation))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntitySecurityStation.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-
-			}
-
-			if ((tileEntity instanceof TileEntitySecStorage))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntitySecStorage.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-
-			}
-
-			if ((tileEntity instanceof TileEntityControlSystem))
-			{
-				try
-				{
-					Field f = ReflectionHelper.findField(TileEntityControlSystem.class, new String[] { varname });
-					f.get(tileEntity);
-					dos.writeUTF(String.valueOf(f.get(tileEntity)));
-				}
-				catch (Exception e)
-				{
-				}
-
+				ModularForceFieldSystem.LOGGER.severe("Failed to get variable for packet '" + varname + "' in TileEntity: " + tileEntity.getClass().getSimpleName());
 			}
 
 			Packet250CustomPayload pkt = new Packet250CustomPayload();

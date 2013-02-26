@@ -40,7 +40,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 {
 	private ItemStack[] inventory = new ItemStack[5];
 	private int workmode = 0;
-	protected int WorkEnergy;
+	protected int workEnergy;
 	protected int MaxWorkEnergy = 4000;
 	private int forceEnergyBuffer = 0;
 	private int maxForceEnergyBuffer = 1000000;
@@ -50,7 +50,6 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	private int maxWorkCycle = 125;
 	private int capacity = 0;
 	private IPowerProvider powerProvider;
-	private boolean addedToEnergyNet = false;
 
 	public TileEntityExtractor()
 	{
@@ -67,6 +66,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		super.initiate();
 		checkSlots(true);
 		setUEwireConnection();
+		MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 	}
 
 	@Override
@@ -74,12 +74,6 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((!this.addedToEnergyNet) && (MFFSConfiguration.MODULE_IC2))
-			{
-				MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-				this.addedToEnergyNet = true;
-			}
-
 			if ((this.getSwitchMode() == 1) && (!getSwitchValue()) && (isRedstoneSignal()))
 			{
 				onSwitch();
@@ -254,12 +248,12 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
 	public int getWorkEnergy()
 	{
-		return this.WorkEnergy;
+		return this.workEnergy;
 	}
 
 	public void setWorkEnergy(int workEnergy)
 	{
-		this.WorkEnergy = workEnergy;
+		this.workEnergy = workEnergy;
 	}
 
 	public int getMaxWorkEnergy()
@@ -342,7 +336,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
 	private boolean hasPowerToConvert()
 	{
-		if (this.WorkEnergy >= this.MaxWorkEnergy - 1)
+		if (this.workEnergy >= this.MaxWorkEnergy - 1)
 		{
 			setWorkEnergy(0);
 			return true;
@@ -451,7 +445,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		super.readFromNBT(nbttagcompound);
 
 		this.forceEnergyBuffer = nbttagcompound.getInteger("forceEnergyBuffer");
-		this.WorkEnergy = nbttagcompound.getInteger("workEnergy");
+		this.workEnergy = nbttagcompound.getInteger("workEnergy");
 		this.workCycle = nbttagcompound.getInteger("workCycle");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
@@ -474,7 +468,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setInteger("workCycle", this.workCycle);
-		nbttagcompound.setInteger("workEnergy", this.WorkEnergy);
+		nbttagcompound.setInteger("workEnergy", this.workEnergy);
 		nbttagcompound.setInteger("forceEnergyBuffer", this.forceEnergyBuffer);
 
 		NBTTagList nbttaglist = new NBTTagList();
@@ -649,11 +643,8 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	@Override
 	public void invalidate()
 	{
-		if (this.addedToEnergyNet)
-		{
-			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-			this.addedToEnergyNet = false;
-		}
+
+		MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 
 		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
 
@@ -663,7 +654,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	@Override
 	public boolean isAddedToEnergyNet()
 	{
-		return this.addedToEnergyNet;
+		return this.ticks > 0;
 	}
 
 	@Override
