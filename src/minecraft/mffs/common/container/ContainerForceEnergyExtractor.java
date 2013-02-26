@@ -90,17 +90,17 @@ public class ContainerForceEnergyExtractor extends Container
         switch (i)
         {
             case 0:
-                this.ForceEnergyExtractor.setWorkdone(j);
+                this.ForceEnergyExtractor.setWorkDone(j);
                 break;
             case 1:
                 this.ForceEnergyExtractor.setWorkCylce(j);
                 break;
             case 2:
-                this.ForceEnergyExtractor.setForceEnergybuffer(this.ForceEnergyExtractor.getForceEnergybuffer() & 0xFFFF0000 | j);
+                this.ForceEnergyExtractor.setForceEnergyBuffer(this.ForceEnergyExtractor.getForceEnergybuffer() & 0xFFFF0000 | j);
 
                 break;
             case 3:
-                this.ForceEnergyExtractor.setForceEnergybuffer(this.ForceEnergyExtractor.getForceEnergybuffer() & 0xFFFF | j << 16);
+                this.ForceEnergyExtractor.setForceEnergyBuffer(this.ForceEnergyExtractor.getForceEnergybuffer() & 0xFFFF | j << 16);
         }
     }
 
@@ -113,14 +113,14 @@ public class ContainerForceEnergyExtractor extends Container
         {
             ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
-            if (this.workdone != this.ForceEnergyExtractor.getWorkdone())
+            if (this.workdone != this.ForceEnergyExtractor.getWorkDone())
             {
-                icrafting.sendProgressBarUpdate(this, 0, this.ForceEnergyExtractor.getWorkdone());
+                icrafting.sendProgressBarUpdate(this, 0, this.ForceEnergyExtractor.getWorkDone());
             }
 
-            if (this.WorkCylce != this.ForceEnergyExtractor.getWorkCylce())
+            if (this.WorkCylce != this.ForceEnergyExtractor.getWorkCycle())
             {
-                icrafting.sendProgressBarUpdate(this, 1, this.ForceEnergyExtractor.getWorkCylce());
+                icrafting.sendProgressBarUpdate(this, 1, this.ForceEnergyExtractor.getWorkCycle());
             }
 
             if (this.ForceEnergybuffer != this.ForceEnergyExtractor.getForceEnergybuffer())
@@ -132,8 +132,8 @@ public class ContainerForceEnergyExtractor extends Container
 
         }
 
-        this.workdone = this.ForceEnergyExtractor.getWorkdone();
-        this.WorkCylce = this.ForceEnergyExtractor.getWorkCylce();
+        this.workdone = this.ForceEnergyExtractor.getWorkDone();
+        this.WorkCylce = this.ForceEnergyExtractor.getWorkCycle();
         this.ForceEnergybuffer = this.ForceEnergyExtractor.getForceEnergybuffer();
     }
 }

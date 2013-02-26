@@ -299,7 +299,7 @@ public class ModularForceFieldSystem
 
             Property fcCellWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceciumCellWorkCylce", 230);
             fcCellWorkCycle.comment = "WorkCycle amount of Forcecium Cell inside a Extractor";
-            MFFSProperties.ForceciumCellWorkCylce = fcCellWorkCycle.getInt(230);
+            MFFSProperties.forceciumCellWorkCycle = fcCellWorkCycle.getInt(230);
 
             Property extractorPassFEGen = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ExtractorPassForceEnergyGenerate", 12000);
             extractorPassFEGen.comment = "How many ForceEnergy generate per WorkCycle";
@@ -321,7 +321,7 @@ public class ModularForceFieldSystem
 
             Property Adventuremap = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "adventuremap", false);
             Adventuremap.comment = "Set MFFS to AdventureMap Mode Extractor need no Forcecium and ForceField have no click damage";
-            MFFSProperties.adventuremap = Boolean.valueOf(Adventuremap.getBoolean(false));
+            MFFSProperties.adventureMap = Boolean.valueOf(Adventuremap.getBoolean(false));
 
             blockConverter = new BlockConverter(MFFSProperties.block_Converter_ID);
             blockExtractor = new BlockExtractor(MFFSProperties.block_Extractor_ID);

@@ -42,12 +42,12 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     private int workmode = 0;
     protected int WorkEnergy;
     protected int MaxWorkEnergy;
-    private int ForceEnergybuffer;
-    private int MaxForceEnergyBuffer;
-    private int WorkCylce;
+    private int forceEnergyBuffer;
+    private int maxForceEnergyBuffer;
+    private int workCycle;
     private int workTicker;
-    private int workdone;
-    private int maxworkcylce;
+    private int workDone;
+    private int maxWorkCycle;
     private int capacity;
     private IPowerProvider powerProvider;
     private boolean addedToEnergyNet;
@@ -57,11 +57,11 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         this.inventory = new ItemStack[5];
         this.WorkEnergy = 0;
         this.MaxWorkEnergy = 4000;
-        this.ForceEnergybuffer = 0;
-        this.MaxForceEnergyBuffer = 1000000;
-        this.WorkCylce = 0;
+        this.forceEnergyBuffer = 0;
+        this.maxForceEnergyBuffer = 1000000;
+        this.workCycle = 0;
         this.workTicker = 20;
-        this.maxworkcylce = 125;
+        this.maxWorkCycle = 125;
         this.capacity = 0;
         this.addedToEnergyNet = false;
 
@@ -93,27 +93,27 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         }
     }
 
-    public int getMaxworkcylce()
+    public int getMaxWorkCycle()
     {
-        return this.maxworkcylce;
+        return this.maxWorkCycle;
     }
 
-    public void setMaxworkcylce(int maxworkcylce)
+    public void setMaxWorkCycle(int maxWorkCycle)
     {
-        this.maxworkcylce = maxworkcylce;
+        this.maxWorkCycle = maxWorkCycle;
     }
 
-    public int getWorkdone()
+    public int getWorkDone()
     {
-        return this.workdone;
+        return this.workDone;
     }
 
-    public void setWorkdone(int workdone)
+    public void setWorkDone(int workDone)
     {
-        if (this.workdone != workdone)
+        if (this.workDone != workDone)
         {
-            this.workdone = workdone;
-            NetworkHandlerServer.updateTileEntityField(this, "workdone");
+            this.workDone = workDone;
+            NetworkHandlerServer.updateTileEntityField(this, "workDone");
         }
     }
 
@@ -129,36 +129,36 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
     public int getMaxForceEnergyBuffer()
     {
-        return this.MaxForceEnergyBuffer;
+        return this.maxForceEnergyBuffer;
     }
 
     public void setMaxForceEnergyBuffer(int maxForceEnergyBuffer)
     {
-        this.MaxForceEnergyBuffer = maxForceEnergyBuffer;
+        this.maxForceEnergyBuffer = maxForceEnergyBuffer;
     }
 
     public int getForceEnergybuffer()
     {
-        return this.ForceEnergybuffer;
+        return this.forceEnergyBuffer;
     }
 
-    public void setForceEnergybuffer(int forceEnergybuffer)
+    public void setForceEnergyBuffer(int forceEnergyBuffer)
     {
-        this.ForceEnergybuffer = forceEnergybuffer;
+        this.forceEnergyBuffer = forceEnergyBuffer;
     }
 
     public void setWorkCylce(int i)
     {
-        if (this.WorkCylce != i)
+        if (this.workCycle != i)
         {
-            this.WorkCylce = i;
-            NetworkHandlerServer.updateTileEntityField(this, "WorkCylce");
+            this.workCycle = i;
+            NetworkHandlerServer.updateTileEntityField(this, "workCycle");
         }
     }
 
-    public int getWorkCylce()
+    public int getWorkCycle()
     {
-        return this.WorkCylce;
+        return this.workCycle;
     }
 
     public int getWorkEnergy()
@@ -200,7 +200,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 
-    public void checkslots(boolean init)
+    public void checkSlots(boolean init)
     {
         if (getStackInSlot(2) != null)
         {
@@ -244,7 +244,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         }
     }
 
-    private boolean hasPowertoConvert()
+    private boolean hasPowerToConvert()
     {
         if (this.WorkEnergy >= this.MaxWorkEnergy - 1)
         {
@@ -254,25 +254,24 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         return false;
     }
 
-    private boolean hasfreeForceEnergyStorage()
+    private boolean hasFreeForceEnergyStorage()
     {
-        if (this.MaxForceEnergyBuffer > this.ForceEnergybuffer)
+        if (this.maxForceEnergyBuffer > this.forceEnergyBuffer)
         {
             return true;
         }
         return false;
     }
 
-    private boolean hasStufftoConvert()
+    private boolean hasStuffToConvert()
     {
-        if (this.WorkCylce > 0)
-        {
+        if (this.workCycle > 0)
             return true;
-        }
-        if (MFFSProperties.adventuremap)
+
+        if (MFFSProperties.adventureMap)
         {
-            setMaxworkcylce(MFFSProperties.ForceciumCellWorkCylce);
-            setWorkCylce(getMaxworkcylce());
+            setMaxWorkCycle(MFFSProperties.forceciumCellWorkCycle);
+            setWorkCylce(getMaxWorkCycle());
             return true;
         }
 
@@ -280,16 +279,16 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         {
             if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicium)
             {
-                setMaxworkcylce(MFFSProperties.ForceciumWorkCylce);
-                setWorkCylce(getMaxworkcylce());
+                setMaxWorkCycle(MFFSProperties.ForceciumWorkCylce);
+                setWorkCylce(getMaxWorkCycle());
                 decrStackSize(0, 1);
                 return true;
             }
 
             if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicumCell) && (((ItemForcicumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
             {
-                setMaxworkcylce(MFFSProperties.ForceciumCellWorkCylce);
-                setWorkCylce(getMaxworkcylce());
+                setMaxWorkCycle(MFFSProperties.forceciumCellWorkCycle);
+                setWorkCylce(getMaxWorkCycle());
                 return true;
             }
 
@@ -304,28 +303,28 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         {
             if (hasPowerSource())
             {
-                int PowerTransferrate = getMaximumPower() / 120;
+                int powerTransferRate = getMaximumPower() / 120;
                 int freeAmount = (int) (getMaximumPower() - getForcePower());
 
                 if (getForceEnergybuffer() > freeAmount)
                 {
-                    if (freeAmount > PowerTransferrate)
+                    if (freeAmount > powerTransferRate)
                     {
-                        emitPower(PowerTransferrate, false);
-                        setForceEnergybuffer(getForceEnergybuffer() - PowerTransferrate);
+                        emitPower(powerTransferRate, false);
+                        setForceEnergyBuffer(getForceEnergybuffer() - powerTransferRate);
                     } else
                     {
                         emitPower(freeAmount, false);
-                        setForceEnergybuffer(getForceEnergybuffer() - freeAmount);
+                        setForceEnergyBuffer(getForceEnergybuffer() - freeAmount);
                     }
                 } else if (freeAmount > getForceEnergybuffer())
                 {
                     emitPower(getForceEnergybuffer(), false);
-                    setForceEnergybuffer(getForceEnergybuffer() - getForceEnergybuffer());
+                    setForceEnergyBuffer(getForceEnergybuffer() - getForceEnergybuffer());
                 } else
                 {
                     emitPower(freeAmount, false);
-                    setForceEnergybuffer(getForceEnergybuffer() - freeAmount);
+                    setForceEnergyBuffer(getForceEnergybuffer() - freeAmount);
                 }
             }
         }
@@ -350,7 +349,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         {
             if (this.init)
             {
-                checkslots(true);
+                checkSlots(true);
                 setUEwireConnection();
             }
 
@@ -382,27 +381,27 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
             {
                 if (MFFSProperties.MODULE_BUILDCRAFT)
                 {
-                    converMJtoWorkEnergy();
+                    convertMJtoWorkEnergy();
                 }
                 if (MFFSProperties.MODULE_UE)
                 {
-                    converUEtoWorkEnergy();
+                    convertUEtoWorkEnergy();
                 }
             }
 
             if (getTicker() >= getWorkTicker())
             {
-                checkslots(false);
+                checkSlots(false);
 
                 if ((this.workmode == 0) && (isActive()))
                 {
-                    if (getWorkdone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
+                    if (getWorkDone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
                     {
-                        setWorkdone(getWorkEnergy() * 100 / getMaxWorkEnergy());
+                        setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
                     }
-                    if (getWorkdone() > 100)
+                    if (getWorkDone() > 100)
                     {
-                        setWorkdone(100);
+                        setWorkDone(100);
                     }
 
                     if (getCapacity() != getForceEnergybuffer() * 100 / getMaxForceEnergyBuffer())
@@ -410,12 +409,12 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
                         setCapacity(getForceEnergybuffer() * 100 / getMaxForceEnergyBuffer());
                     }
 
-                    if ((hasfreeForceEnergyStorage()) && (hasStufftoConvert()))
+                    if ((hasFreeForceEnergyStorage()) && (hasStuffToConvert()))
                     {
-                        if (hasPowertoConvert())
+                        if (hasPowerToConvert())
                         {
-                            setWorkCylce(getWorkCylce() - 1);
-                            setForceEnergybuffer(getForceEnergybuffer() + MFFSProperties.ExtractorPassForceEnergyGenerate);
+                            setWorkCylce(getWorkCycle() - 1);
+                            setForceEnergyBuffer(getForceEnergybuffer() + MFFSProperties.ExtractorPassForceEnergyGenerate);
                         }
 
                     }
@@ -427,13 +426,13 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
                 if ((this.workmode == 1) && (isActive()))
                 {
-                    if (getWorkdone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
+                    if (getWorkDone() != getWorkEnergy() * 100 / getMaxWorkEnergy())
                     {
-                        setWorkdone(getWorkEnergy() * 100 / getMaxWorkEnergy());
+                        setWorkDone(getWorkEnergy() * 100 / getMaxWorkEnergy());
                     }
                     if (((ItemForcicumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) < ((ItemForcicumCell) getStackInSlot(4).getItem()).getMaxForceciumlevel())
                     {
-                        if ((hasPowertoConvert()) && (isActive()))
+                        if ((hasPowerToConvert()) && (isActive()))
                         {
                             ((ItemForcicumCell) getStackInSlot(4).getItem()).setForceciumlevel(getStackInSlot(4), ((ItemForcicumCell) getStackInSlot(4).getItem()).getForceciumlevel(getStackInSlot(4)) + 1);
                         }
@@ -459,9 +458,9 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     {
         super.readFromNBT(nbttagcompound);
 
-        this.ForceEnergybuffer = nbttagcompound.getInteger("ForceEnergybuffer");
-        this.WorkEnergy = nbttagcompound.getInteger("WorkEnergy");
-        this.WorkCylce = nbttagcompound.getInteger("WorkCylce");
+        this.forceEnergyBuffer = nbttagcompound.getInteger("forceEnergyBuffer");
+        this.WorkEnergy = nbttagcompound.getInteger("workEnergy");
+        this.workCycle = nbttagcompound.getInteger("workCycle");
 
         NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
         this.inventory = new ItemStack[getSizeInventory()];
@@ -482,9 +481,9 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
     {
         super.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setInteger("WorkCylce", this.WorkCylce);
-        nbttagcompound.setInteger("WorkEnergy", this.WorkEnergy);
-        nbttagcompound.setInteger("ForceEnergybuffer", this.ForceEnergybuffer);
+        nbttagcompound.setInteger("workCycle", this.workCycle);
+        nbttagcompound.setInteger("workEnergy", this.WorkEnergy);
+        nbttagcompound.setInteger("forceEnergyBuffer", this.forceEnergyBuffer);
 
         NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < this.inventory.length; i++)
@@ -570,67 +569,62 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 
         NetworkedFields.addAll(super.getFieldsForUpdate());
         NetworkedFields.add("capacity");
-        NetworkedFields.add("WorkCylce");
-        NetworkedFields.add("WorkEnergy");
-        NetworkedFields.add("workdone");
+        NetworkedFields.add("workCycle");
+        NetworkedFields.add("workEnergy");
+        NetworkedFields.add("workDone");
 
         return NetworkedFields;
     }
 
     @Override
-    public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+    public boolean isItemValid(ItemStack itemStack, int slot)
     {
-        switch (Slot)
+        switch (slot)
         {
             case 0:
-                if ((((par1ItemStack.getItem() instanceof ItemForcicium)) || ((par1ItemStack.getItem() instanceof ItemForcicumCell))) && (getStackInSlot(4) == null))
-                {
+                if ((((itemStack.getItem() instanceof ItemForcicium)) || ((itemStack.getItem() instanceof ItemForcicumCell))) && (getStackInSlot(4) == null))
                     return true;
-                }
+
                 break;
             case 1:
-                if ((par1ItemStack.getItem() instanceof IPowerLinkItem))
-                {
+                if ((itemStack.getItem() instanceof IPowerLinkItem))
                     return true;
-                }
+
                 break;
             case 2:
-                if ((par1ItemStack.getItem() instanceof ItemUpgradeCapacity))
-                {
+                if ((itemStack.getItem() instanceof ItemUpgradeCapacity))
                     return true;
-                }
+
                 break;
             case 3:
-                if ((par1ItemStack.getItem() instanceof ItemUpgradeBooster))
-                {
+                if ((itemStack.getItem() instanceof ItemUpgradeBooster))
                     return true;
-                }
+
                 break;
             case 4:
-                if (((par1ItemStack.getItem() instanceof ItemForcicumCell)) && (getStackInSlot(0) == null))
-                {
+                if (((itemStack.getItem() instanceof ItemForcicumCell)) && (getStackInSlot(0) == null))
                     return true;
-                }
+
                 break;
         }
         return false;
     }
 
     @Override
-    public int getSlotStackLimit(int Slot)
+    public int getSlotStackLimit(int slot)
     {
-        switch (Slot)
+        switch (slot)
         {
             case 0:
                 return 64;
             case 1:
-                return 1;
+                break;
             case 2:
                 return 9;
             case 3:
                 return 19;
             case 4:
-                return 1;
+                break;
         }
         return 1;
     }
@@ -686,7 +680,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         return true;
     }
 
-    public void converMJtoWorkEnergy()
+    public void convertMJtoWorkEnergy()
     {
         if (getWorkEnergy() < getMaxWorkEnergy())
         {
@@ -737,7 +731,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         return (int) Math.round(MaxWorkEnergyinMj - workEnergyinMJ);
     }
 
-    public void converUEtoWorkEnergy()
+    public void convertUEtoWorkEnergy()
     {
         ForgeDirection inputDirection = ForgeDirection.getOrientation(getFacing()).getOpposite();
 
@@ -786,9 +780,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
         {
             TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
             if (sec != null)
-            {
                 return sec;
-            }
         }
 
         return null;

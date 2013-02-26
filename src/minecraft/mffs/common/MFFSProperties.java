@@ -75,9 +75,9 @@ public class MFFSProperties
     public static int forcefieldmaxblockpeerTick;
     public static boolean forcefieldremoveonlywaterandlava;
     public static boolean influencedbyothermods;
-    public static boolean adventuremap;
+    public static boolean adventureMap;
     public static int ForceciumWorkCylce;
-    public static int ForceciumCellWorkCylce;
+    public static int forceciumCellWorkCycle;
     public static int ExtractorPassForceEnergyGenerate;
     public static int DefenceStationKillForceEnergy;
     public static int DefenceStationSearchForceEnergy;

@@ -92,9 +92,9 @@ public class TEExtractorRenderer extends TileEntitySpecialRenderer
             GL11.glDisable(2896);
             fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
             fontRenderer.drawString("WE:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-            fontRenderer.drawString(String.valueOf(topview.getWorkdone()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkdone()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+            fontRenderer.drawString(String.valueOf(topview.getWorkDone()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkDone()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
             fontRenderer.drawString("WC left:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
-            fontRenderer.drawString(String.valueOf(topview.getWorkCylce()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkCylce())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
+            fontRenderer.drawString(String.valueOf(topview.getWorkCycle()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkCycle())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
             fontRenderer.drawString("FE Cap:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
             fontRenderer.drawString(String.valueOf(topview.getCapacity()).concat("%"), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getCapacity()).concat("%")), offsetY - realHeight / 2 + 2 * lineHeight, 1);
             GL11.glEnable(2896);
