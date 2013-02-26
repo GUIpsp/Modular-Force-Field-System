@@ -39,6 +39,8 @@ public class ContainerForcilliumExtractor extends ContainerMFFS
 		this.addSlotToContainer(new SlotHelper(this.tileEntity, 3, 154, 87));
 		this.addSlotToContainer(new SlotHelper(this.tileEntity, 4, 154, 47));
 
+		this.slotCount = 5;
+		
 		this.addPlayerInventory(player);
 	}
 

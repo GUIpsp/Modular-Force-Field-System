@@ -96,7 +96,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return new ContainerCapacitor(inventoryplayer.player, this);
 	}
 
-	public Short getLinketProjector()
+	public Short getLinkedProjector()
 	{
 		return Short.valueOf(this.linketprojector);
 	}
@@ -346,7 +346,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 
 			if (getTicker() == 10)
 			{
-				if (getLinketProjector().shortValue() != (short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
+				if (getLinkedProjector().shortValue() != (short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
 				{
 					setLinketprojektor(Short.valueOf((short) FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange())));
 				}

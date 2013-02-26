@@ -3,12 +3,10 @@ package mffs.common.container;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.ICrafting;
 
 public class ContainerCapacitor extends ContainerMFFS
 {
-
 	private TileEntityCapacitor tileEntity;
 
 	public ContainerCapacitor(EntityPlayer player, TileEntityCapacitor tileEntity)
@@ -25,33 +23,42 @@ public class ContainerCapacitor extends ContainerMFFS
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID)
+	public void detectAndSendChanges()
 	{
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(slotID);
+		super.detectAndSendChanges();
 
-		if ((slot != null) && (slot.getHasStack()))
+		for (int i = 0; i < crafters.size(); i++)
 		{
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0)
-			{
-				slot.putStack(null);
-			}
-			else
-			{
-				slot.onSlotChanged();
-			}
-			if (itemstack1.stackSize != itemstack.stackSize)
-			{
-				slot.onSlotChanged();
-			}
-			else
-			{
-				return null;
-			}
-		}
+			ICrafting icrafting = (ICrafting) crafters.get(i);
+			icrafting.sendProgressBarUpdate(this, 1, tileEntity.getLinkedProjector());
+			icrafting.sendProgressBarUpdate(this, 2, tileEntity.getStorageAvailablePower() & 0xffff);
+			icrafting.sendProgressBarUpdate(this, 3, tileEntity.getStorageAvailablePower() >>> 16);
+			icrafting.sendProgressBarUpdate(this, 4, tileEntity.getPercentageStorageCapacity());
+			icrafting.sendProgressBarUpdate(this, 6, tileEntity.getPowerLinkMode());
 
-		return itemstack;
+		}
+	}
+
+	@Override
+	public void updateProgressBar(int i, int j)
+	{
+		switch (i)
+		{
+			case 1:
+				tileEntity.setLinketprojektor((short) j);
+				break;
+			case 2:
+				tileEntity.setForcePower((tileEntity.getStorageAvailablePower() & 0xffff0000) | j);
+				break;
+			case 3:
+				tileEntity.setForcePower((tileEntity.getStorageAvailablePower() & 0xffff) | (j << 16));
+				break;
+			case 4:
+				tileEntity.setCapacity(j);
+				break;
+			case 6:
+				tileEntity.setPowerLinkMode(j);
+				break;
+		}
 	}
 }

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerMFFS extends Container
 {
-	protected final int slotCount = 0;
+	protected int slotCount = 0;
 	private IInventory inventory;
 
 	public ContainerMFFS(IInventory inventory)

@@ -48,7 +48,7 @@ public class GuiCapacitor extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinketProjector(), 8, 30, x, y);
+		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedProjector(), 8, 30, x, y);
 		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
