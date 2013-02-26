@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import mffs.api.IModularProjector;
 import mffs.common.ForceFieldTyps;
 import mffs.common.Functions;
-import mffs.common.IModularProjector;
 import mffs.common.ProjectorTypes;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;

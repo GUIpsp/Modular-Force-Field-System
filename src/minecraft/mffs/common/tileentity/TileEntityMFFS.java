@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Random;
 
 import mffs.api.IMFFS_Wrench;
+import mffs.api.IModularProjector;
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGrid;
-import mffs.common.IModularProjector;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;

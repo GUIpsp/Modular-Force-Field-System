@@ -8,7 +8,6 @@ import cpw.mods.fml.common.Loader;
 
 public class MFFSConfiguration
 {
-
 	/*
 	 * Blocks
 	 */
@@ -100,12 +99,7 @@ public class MFFSConfiguration
 	public static boolean MODULE_BUILDCRAFT = false;
 	public static boolean MODULE_THERMAL_EXPANSION = false;
 
-	private static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + ModularForceFieldSystem.NAME + ".cfg"));
-
-	public static Configuration getConfiguration()
-	{
-		return CONFIGURATION;
-	}
+	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + ModularForceFieldSystem.NAME + ".cfg"));
 
 	public static void initialize()
 	{
@@ -195,6 +189,7 @@ public class MFFSConfiguration
 		Property monazitWorldAmountProp = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Monazite Ore Generation", 15);
 		monazitWorldAmountProp.comment = "The amount of Monazite Ore generated per chunk.";
 		monazitWorldAmount = monazitWorldAmountProp.getInt(15);
+		CONFIGURATION.save();
 	}
 
 }

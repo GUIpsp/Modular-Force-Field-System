@@ -32,7 +32,7 @@ public abstract class BlockMFFS extends BlockMachine
 
 	public BlockMFFS(int id, String name)
 	{
-		super(MFFSConfiguration.getConfiguration().getBlock(name, id).getInt(id), UniversalElectricity.machine);
+		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
 		this.setBlockName(name);
 		this.setBlockUnbreakable();
 		this.setRequiresSelfNotify();

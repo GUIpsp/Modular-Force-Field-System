@@ -4,12 +4,12 @@ import mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockCapacitor extends BlockMFFS
+public class BlockForceCapacitor extends BlockMFFS
 {
 
-	public BlockCapacitor(int i)
+	public BlockForceCapacitor(int i)
 	{
-		super(i, "mffsCapacitor");
+		super(i, "forceCapacitor");
 		this.blockIndexInTexture = 2 * 16;
 	}
 

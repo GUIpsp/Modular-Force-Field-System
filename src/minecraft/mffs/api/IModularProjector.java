@@ -1,4 +1,4 @@
-package mffs.common;
+package mffs.api;
 
 import java.util.Set;
 

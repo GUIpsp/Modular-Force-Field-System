@@ -2,8 +2,8 @@ package mffs.common.modules;
 
 import java.util.Set;
 
+import mffs.api.IModularProjector;
 import mffs.common.ForceFieldTyps;
-import mffs.common.IModularProjector;
 
 public abstract class ItemModule3DBase extends ItemModuleBase
 {

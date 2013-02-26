@@ -2,8 +2,8 @@ package mffs.common.modules;
 
 import java.util.Set;
 
+import mffs.api.IModularProjector;
 import mffs.api.PointXYZ;
-import mffs.common.IModularProjector;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.options.ItemOptionAntibiotic;
 import mffs.common.options.ItemOptionBase;

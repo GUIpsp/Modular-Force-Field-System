@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import mffs.api.IModularProjector;
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldTyps;
 import mffs.common.FrequencyGrid;
 import mffs.common.Functions;
-import mffs.common.IModularProjector;
 import mffs.common.InventoryHelper;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;

@@ -2,8 +2,8 @@ package mffs.common.options;
 
 import java.util.List;
 
+import mffs.api.IModularProjector;
 import mffs.api.PointXYZ;
-import mffs.common.IModularProjector;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.modules.ItemModuleSphere;
 import mffs.common.tileentity.TileEntityProjector;
