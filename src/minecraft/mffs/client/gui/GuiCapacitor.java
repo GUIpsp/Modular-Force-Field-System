@@ -65,7 +65,7 @@ public class GuiCapacitor extends GuiMFFS
 		/**
 		 * Frequency Card Slot
 		 */
-		this.drawSlot(8, 73, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
+		this.drawSlot(8, 73);
 
 		this.drawForce(8, 115, 0);
 	}

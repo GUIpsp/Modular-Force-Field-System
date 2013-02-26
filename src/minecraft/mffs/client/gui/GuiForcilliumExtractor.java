@@ -8,11 +8,13 @@ import mffs.common.tileentity.TileEntityExtractor;
 import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
+import universalelectricity.core.vector.Vector2;
 
 public class GuiForcilliumExtractor extends GuiMFFS
 {
@@ -28,8 +30,10 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 60, this.height / 2 - 88, this.tileEntity, 0));
+		this.textFieldPos = new Vector2(30, 40);
 		super.initGui();
+		this.controlList.clear();
+		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
 	}
 
 	@Override
@@ -39,11 +43,14 @@ public class GuiForcilliumExtractor extends GuiMFFS
 
 		GL11.glPushMatrix();
 		GL11.glRotatef(-90, 0, 0, 1);
-		this.drawTextWithTooltip("upgrades", 10, 50, x, y);
+		this.drawTextWithTooltip("upgrade", 10, 50, x, y);
 		GL11.glPopMatrix();
 
-		this.drawTextWithTooltip("progress", "%1:" + this.tileEntity.getWorkDone() + "%", 8, 80, x, y);
-		this.drawTextWithTooltip("forcePower", "%1:" + ElectricInfo.getDisplay(this.tileEntity.getForceEnergybuffer(), ElectricUnit.JOULES), 8, 105, x, y);
+		this.drawTextWithTooltip("progress", "%1: " + this.tileEntity.getWorkDone() + "%", 8, 70, x, y);
+		this.drawTextWithTooltip("forcePower", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getForceEnergybuffer(), ElectricUnit.JOULES), 8, 105, x, y);
+
+		this.textFieldFrequency.drawTextBox();
+		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
 	@Override
@@ -51,34 +58,34 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	{
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 
-		this.drawSlot(153, 46);
-
-		this.drawElectricity(8, 90, this.tileEntity.getWorkCycle() / MFFSConfiguration.ForcilliumWorkCylce);
-		this.drawForce(8, 115, this.tileEntity.getForceEnergybuffer() / this.tileEntity.getMaxForceEnergyBuffer());
-
-		/*
-		 * int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY +
-		 * "GuiExtractor.png");
-		 * 
-		 * GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F); this.mc.renderEngine.bindTexture(textur); int w =
-		 * (this.width - this.xSize) / 2; int k = (this.height - this.ySize) / 2;
-		 * drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
-		 * 
-		 * int Workpowerslider = 79 * this.tileEntity.getWorkDone() / 100; drawTexturedModalRect(w +
-		 * 49, k + 89, 176, 0, Workpowerslider, 6);
-		 * 
-		 * int WorkCylce = 32 * ;
-		 * 
-		 * drawTexturedModalRect(w + 73, k + 50, 179, 81, WorkCylce, 32);
-		 * 
-		 * drawTexturedModalRect(w + 137, k + 60, 219, 80, 32, ForceEnergy);
+		/**
+		 * Upgrade Slots
 		 */
+		this.drawSlot(153, 46);
+		this.drawSlot(153, 66);
+		this.drawSlot(153, 86);
 
+		/**
+		 * Frequency Card Slot
+		 */
+		this.drawSlot(8, 40);
+		
+		/**
+		 * Focillium Input
+		 */
+		this.drawSlot(8, 82);
+		this.drawBar(30, 84, (float) this.tileEntity.getWorkCycle() / (float) MFFSConfiguration.ForcilliumWorkCylce);
+
+		/**
+		 * Force Power Bar
+		 */
+		this.drawForce(8, 115, (float) this.tileEntity.getForceEnergybuffer() / (float) this.tileEntity.getMaxForceEnergyBuffer());
 	}
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
+		super.actionPerformed(guibutton);
 		NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
 	}
 }

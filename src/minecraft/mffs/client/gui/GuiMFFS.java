@@ -50,7 +50,11 @@ public class GuiMFFS extends GuiContainer
 	@Override
 	public void keyTyped(char par1, int par2)
 	{
-		super.keyTyped(par1, par2);
+		if (par2 == 1)// esc
+		{
+			this.mc.thePlayer.closeScreen();
+			return;
+		}
 
 		/**
 		 * Everytime a key is typed, try to reset the frequency.
@@ -239,10 +243,10 @@ public class GuiMFFS extends GuiContainer
 			/**
 			 * Draw white color actual progress.
 			 */
-			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 11, 107 - (int) (scale * 107), 11);
+			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 11, (int) (scale * 107), 11);
 		}
 	}
-	
+
 	protected void drawElectricity(int x, int y, float scale)
 	{
 		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
@@ -258,7 +262,7 @@ public class GuiMFFS extends GuiContainer
 			/**
 			 * Draw white color actual progress.
 			 */
-			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 23, 107 - (int) (scale * 107), 11);
+			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 22, (int) (scale * 107), 11);
 		}
 	}
 
