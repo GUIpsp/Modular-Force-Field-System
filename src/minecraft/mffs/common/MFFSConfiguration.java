@@ -81,7 +81,7 @@ public class MFFSConfiguration
 	public static boolean forcefieldremoveonlywaterandlava;
 	public static boolean influencedbyothermods;
 	public static boolean adventureMap;
-	public static int ForceciumWorkCylce;
+	public static int ForcilliumWorkCylce;
 	public static int forceciumCellWorkCycle;
 	public static int ExtractorPassForceEnergyGenerate;
 	public static int DefenceStationKillForceEnergy;
@@ -159,7 +159,7 @@ public class MFFSConfiguration
 
 		Property fcWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceciumWorkCylce", 250);
 		fcWorkCycle.comment = "Forcillium Work Cycle used inside a Extractor.";
-		ForceciumWorkCylce = fcWorkCycle.getInt(250);
+		ForcilliumWorkCylce = fcWorkCycle.getInt(250);
 
 		Property fcCellWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forceciumCellWorkCycle", 230);
 		fcCellWorkCycle.comment = "Forcecium Cell Work Cycle used inside a Extractor.";

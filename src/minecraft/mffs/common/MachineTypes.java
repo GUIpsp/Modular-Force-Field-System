@@ -5,7 +5,7 @@ import mffs.client.gui.GuiAreaDefenseStation;
 import mffs.client.gui.GuiCapacitor;
 import mffs.client.gui.GuiControlSystem;
 import mffs.client.gui.GuiConverter;
-import mffs.client.gui.GuiExtractor;
+import mffs.client.gui.GuiForcilliumExtractor;
 import mffs.client.gui.GuiProjector;
 import mffs.client.gui.GuiSecStorage;
 import mffs.client.gui.GuiSecurityStation;
@@ -13,7 +13,7 @@ import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.container.ContainerConverter;
-import mffs.common.container.ContainerForceEnergyExtractor;
+import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.container.ContainerProjector;
 import mffs.common.container.ContainerSecStorage;
 import mffs.common.container.ContainerSecurityStation;
@@ -36,7 +36,7 @@ public enum MachineTypes
 {
 
 	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TileEntityExtractor.class, GuiExtractor.class, ContainerForceEnergyExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
+	Extractor(TileEntityExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
 	Capacitor(TileEntityCapacitor.class, GuiCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
 	DefenceStation(TileEntityDefenseStation.class, GuiAreaDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.blockDefenceStation, " J aFa E ", " a EKE C "),

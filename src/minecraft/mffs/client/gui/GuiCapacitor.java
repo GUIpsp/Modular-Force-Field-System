@@ -37,6 +37,20 @@ public class GuiCapacitor extends GuiMFFS
 	}
 
 	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y)
+	{
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
+
+		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinketProjector(), 8, 30, x, y);
+		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
+		this.textFieldFrequency.drawTextBox();
+		this.drawTextWithTooltip("forcePower", "%1:", 8, 95, x, y);
+		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
+		super.drawGuiContainerForegroundLayer(x, y);
+	}
+
+	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
 	{
 		super.drawGuiContainerBackgroundLayer(f, x, y);
@@ -53,21 +67,7 @@ public class GuiCapacitor extends GuiMFFS
 		 */
 		this.drawSlot(8, 73, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
 
-		this.drawEnergy(8, 115, 0);
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(int x, int y)
-	{
-		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.ySize / 2 - this.tileEntity.getInvName().length() * 5, 6, 4210752);
-
-		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinketProjector(), 8, 30, x, y);
-		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
-		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
-		this.textFieldFrequency.drawTextBox();
-		this.drawTextWithTooltip("forcePower", "%1:", 8, 95, x, y);
-		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
-		super.drawGuiContainerForegroundLayer(x, y);
+		this.drawForce(8, 115, 0);
 	}
 
 	@Override

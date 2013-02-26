@@ -13,7 +13,7 @@ import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.container.ContainerForceEnergyExtractor;
+import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemForcilliumCell;
 import mffs.common.upgrade.ItemUpgradeBooster;
@@ -31,40 +31,29 @@ import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.TranslationHelper;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
 
 public class TileEntityExtractor extends TileEntityForcePowerMachine implements IPowerReceptor, IEnergySink
 {
-
-	private ItemStack[] inventory;
+	private ItemStack[] inventory = new ItemStack[5];
 	private int workmode = 0;
 	protected int WorkEnergy;
-	protected int MaxWorkEnergy;
-	private int forceEnergyBuffer;
-	private int maxForceEnergyBuffer;
-	private int workCycle;
-	private int workTicker;
-	private int workDone;
-	private int maxWorkCycle;
-	private int capacity;
+	protected int MaxWorkEnergy = 4000;
+	private int forceEnergyBuffer = 0;
+	private int maxForceEnergyBuffer = 1000000;
+	private int workCycle = 0;
+	private int workTicker = 20;
+	private int workDone = 0;
+	private int maxWorkCycle = 125;
+	private int capacity = 0;
 	private IPowerProvider powerProvider;
-	private boolean addedToEnergyNet;
+	private boolean addedToEnergyNet = false;
 
 	public TileEntityExtractor()
 	{
-		this.inventory = new ItemStack[5];
-		this.WorkEnergy = 0;
-		this.MaxWorkEnergy = 4000;
-		this.forceEnergyBuffer = 0;
-		this.maxForceEnergyBuffer = 1000000;
-		this.workCycle = 0;
-		this.workTicker = 20;
-		this.maxWorkCycle = 125;
-		this.capacity = 0;
-		this.addedToEnergyNet = false;
-
 		if (MFFSConfiguration.MODULE_BUILDCRAFT)
 		{
 			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
@@ -284,7 +273,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 		{
 			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcicium)
 			{
-				setMaxWorkCycle(MFFSConfiguration.ForceciumWorkCylce);
+				setMaxWorkCycle(MFFSConfiguration.ForcilliumWorkCylce);
 				setWorkCylce(getMaxWorkCycle());
 				decrStackSize(0, 1);
 				return true;
@@ -458,7 +447,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	@Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
-		return new ContainerForceEnergyExtractor(inventoryplayer.player, this);
+		return new ContainerForcilliumExtractor(inventoryplayer.player, this);
 	}
 
 	@Override
@@ -517,7 +506,7 @@ public class TileEntityExtractor extends TileEntityForcePowerMachine implements 
 	@Override
 	public String getInvName()
 	{
-		return "Extractor";
+		return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
 	}
 
 	@Override

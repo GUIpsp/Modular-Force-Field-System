@@ -21,7 +21,6 @@ public class GuiMFFS extends GuiContainer
 
 	public enum SlotType
 	{
-
 		NONE, BATTERY, LIQUID
 	}
 
@@ -142,17 +141,16 @@ public class GuiMFFS extends GuiContainer
 		this.drawItemStack(itemStack, this.containerWidth + x, this.containerHeight + y);
 	}
 
-	protected void drawItemStack(ItemStack par1ItemStack, int x, int y)
+	protected void drawItemStack(ItemStack itemStack, int x, int y)
 	{
 		x += 1;
 		y += 1;
 		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-		this.zLevel = 500.0F;
-		// itemRenderer.zLevel = 500.0F;
-		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, x, y);
-		itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, x, y);
-		this.zLevel = 0.0F;
-		// itemRenderer.zLevel = 0.0F;
+
+		// GL11.glEnable(GL11.GL_BLEND);
+		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, itemStack, x, y);
+		// GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
@@ -226,7 +224,7 @@ public class GuiMFFS extends GuiContainer
 		}
 	}
 
-	protected void drawEnergy(int x, int y, float scale)
+	protected void drawForce(int x, int y, float scale)
 	{
 		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -242,6 +240,25 @@ public class GuiMFFS extends GuiContainer
 			 * Draw white color actual progress.
 			 */
 			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 11, 107 - (int) (scale * 107), 11);
+		}
+	}
+	
+	protected void drawElectricity(int x, int y, float scale)
+	{
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.renderEngine.bindTexture(hua);
+		/**
+		 * Draw background progress bar/
+		 */
+		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 0, 107, 11);
+
+		if (scale > 0)
+		{
+			/**
+			 * Draw white color actual progress.
+			 */
+			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 54, 23, 107 - (int) (scale * 107), 11);
 		}
 	}
 
