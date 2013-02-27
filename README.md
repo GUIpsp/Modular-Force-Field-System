@@ -8,7 +8,7 @@ MFFS adds advanced security systems, force fields, force energy, and more to Min
 **Contributors** - samrg472
 
 ### License
-This intellectual property is licensed under the Minecraft Mod Public license which can be found here:
+This intellectual property is licensed under the following copyright:
 
 http://universalelectricity.com/?m=mffs&p=copyright
 
