@@ -52,12 +52,6 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	}
 
 	@Override
-	public int getSizeInventory()
-	{
-		return this.inventory.length;
-	}
-
-	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
 		this.inventory[i] = itemstack;
@@ -146,7 +140,10 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		return 0;
 	}
 
-	public abstract void dropPlugins();
+	public void dropPlugins()
+	{
+
+	}
 
 	public void dropPlugins(int slot, IInventory inventory)
 	{

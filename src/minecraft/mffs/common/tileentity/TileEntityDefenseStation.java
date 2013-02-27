@@ -35,7 +35,6 @@ import net.minecraftforge.common.ISidedInventory;
 public class TileEntityDefenseStation extends TileEntityMFFSMachine implements ISidedInventory
 {
 
-	private ItemStack[] Inventory;
 	private int capacity;
 	private int distance;
 	private int contratyp;
@@ -50,7 +49,6 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	{
 		Random random = new Random();
 
-		this.Inventory = new ItemStack[36];
 		this.capacity = 0;
 		this.contratyp = 1;
 		this.actionmode = 0;
@@ -148,15 +146,15 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 		this.actionmode = nbttagcompound.getInteger("actionmode");
 		this.scanmode = nbttagcompound.getInteger("scanmode");
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.Inventory = new ItemStack[getSizeInventory()];
+		this.inventory = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); i++)
 		{
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.Inventory.length))
+			if ((byte0 >= 0) && (byte0 < this.inventory.length))
 			{
-				this.Inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
 	}
@@ -169,13 +167,13 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 		nbttagcompound.setInteger("actionmode", this.actionmode);
 		nbttagcompound.setInteger("scanmode", this.scanmode);
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.Inventory.length; i++)
+		for (int i = 0; i < this.inventory.length; i++)
 		{
-			if (this.Inventory[i] != null)
+			if (this.inventory[i] != null)
 			{
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
-				this.Inventory[i].writeToNBT(nbttagcompound1);
+				this.inventory[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
@@ -186,7 +184,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	@Override
 	public void dropPlugins()
 	{
-		for (int a = 0; a < this.Inventory.length; a++)
+		for (int a = 0; a < this.inventory.length; a++)
 		{
 			dropPlugins(a, this);
 		}
@@ -580,18 +578,18 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	@Override
 	public ItemStack decrStackSize(int i, int j)
 	{
-		if (this.Inventory[i] != null)
+		if (this.inventory[i] != null)
 		{
-			if (this.Inventory[i].stackSize <= j)
+			if (this.inventory[i].stackSize <= j)
 			{
-				ItemStack itemstack = this.Inventory[i];
-				this.Inventory[i] = null;
+				ItemStack itemstack = this.inventory[i];
+				this.inventory[i] = null;
 				return itemstack;
 			}
-			ItemStack itemstack1 = this.Inventory[i].splitStack(j);
-			if (this.Inventory[i].stackSize == 0)
+			ItemStack itemstack1 = this.inventory[i].splitStack(j);
+			if (this.inventory[i].stackSize == 0)
 			{
-				this.Inventory[i] = null;
+				this.inventory[i] = null;
 			}
 			return itemstack1;
 		}
@@ -601,7 +599,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
-		this.Inventory[i] = itemstack;
+		this.inventory[i] = itemstack;
 		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
 		{
 			itemstack.stackSize = getInventoryStackLimit();
@@ -611,7 +609,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	@Override
 	public ItemStack getStackInSlot(int i)
 	{
-		return this.Inventory[i];
+		return this.inventory[i];
 	}
 
 	@Override
@@ -623,7 +621,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	@Override
 	public int getSizeInventory()
 	{
-		return this.Inventory.length;
+		return 36;
 	}
 
 	@Override

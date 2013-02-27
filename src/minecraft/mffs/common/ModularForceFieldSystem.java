@@ -185,8 +185,6 @@ public class ModularForceFieldSystem
 	public static DamageSource areaDefense = new UEDamageSource("areaDefense").setDamageBypassesArmor();
 	public static DamageSource fieldDefense = new UEDamageSource("fieldDefense").setDamageBypassesArmor();
 
-	public static LiquidStack LIQUID_FORTRON;
-
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
 
@@ -295,7 +293,7 @@ public class ModularForceFieldSystem
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
-			LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemForcillium, 0));
+			Fortron.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemForcillium, 0));
 
 			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.CONFIGURATION);
 			OreGenerator.addOre(monaziteOreGeneration);
@@ -334,22 +332,6 @@ public class ModularForceFieldSystem
 	{
 		MFFSRecipes.init();
 		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkloadCallback());
-	}
-
-	public static LiquidStack getFortron(int amount)
-	{
-		LiquidStack stack = LIQUID_FORTRON.copy();
-		stack.amount = amount;
-		return stack;
-	}
-
-	public static int getAmount(LiquidStack liquidStack)
-	{
-		if (liquidStack != null)
-		{
-			return liquidStack.amount;
-		}
-		return 0;
 	}
 
 	public boolean initiateModule(String modname)

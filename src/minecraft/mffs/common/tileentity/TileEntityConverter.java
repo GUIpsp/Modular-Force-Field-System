@@ -30,7 +30,6 @@ import universalelectricity.core.vector.Vector3;
 public class TileEntityConverter extends TileEntityMFFSMachine implements IEnergySource
 {
 
-	private ItemStack[] inventory;
 	private int IC_Outputpacketsize;
 	private int IC_Outputpacketamount;
 	private int IC_Output = 0;
@@ -287,7 +286,7 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 	@Override
 	public int getSizeInventory()
 	{
-		return this.inventory.length;
+		return 4;
 	}
 
 	@Override

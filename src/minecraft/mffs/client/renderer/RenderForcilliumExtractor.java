@@ -90,14 +90,16 @@ public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 				offsetX = (realWidth - maxWidth) / 2 + 2;
 				offsetY = 0;
 			}
+			
+			//TODO:FIX
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
 			fontRenderer.drawString("Process:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getWorkDone()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkDone()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			//fontRenderer.drawString(String.valueOf(topview.getWorkDone()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(topview.processTime/topview.TOTAL_TIME+" % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Remaining:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getWorkCycle()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkCycle())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			//fontRenderer.drawString(String.valueOf(topview.getWorkCycle()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getWorkCycle())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Buffer:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getCapacity()).concat("%"), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getCapacity()).concat("%")), offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			//fontRenderer.drawString(String.valueOf(topview.getCapacity()).concat("%"), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getCapacity()).concat("%")), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

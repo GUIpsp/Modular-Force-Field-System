@@ -1,6 +1,7 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
+import mffs.common.Fortron;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.GuiButton;
@@ -45,8 +46,8 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		this.drawTextWithTooltip("progress", "%1: " + this.tileEntity.getWorkDone() + "%", 8, 70, x, y);
-		this.drawTextWithTooltip("fortron", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getForceEnergybuffer(), ElectricUnit.JOULES), 8, 105, x, y);
+		this.drawTextWithTooltip("progress", "%1: " + (int) (100 - ((float) this.tileEntity.processTime / (float) this.tileEntity.TOTAL_TIME) * 100) + "%", 8, 70, x, y);
+		this.drawTextWithTooltip("fortron", "%1: " + ElectricInfo.getDisplayShort(Fortron.getAmount(this.tileEntity.fortronTank), ElectricUnit.JOULES), 8, 105, x, y);
 
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
@@ -72,18 +73,18 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		 * Focillium Input
 		 */
 		this.drawSlot(8, 82);
-		this.drawBar(30, 84, (100f - (float) this.tileEntity.getWorkDone()) / 100f);
+		this.drawBar(30, 84, (float) this.tileEntity.processTime / (float) this.tileEntity.TOTAL_TIME);
 
 		/**
 		 * Force Power Bar
 		 */
-		this.drawForce(8, 115, (float) this.tileEntity.getForceEnergybuffer() / (float) this.tileEntity.getMaxForceEnergyBuffer());
+		this.drawForce(8, 115, (float) Fortron.getAmount(this.tileEntity.fortronTank) / (float) this.tileEntity.fortronTank.getCapacity());
 	}
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		super.actionPerformed(guibutton);
-		//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
+		// NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
 	}
 }

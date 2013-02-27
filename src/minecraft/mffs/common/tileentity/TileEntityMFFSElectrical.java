@@ -1,19 +1,23 @@
 package mffs.common.tileentity;
 
+import ic2.api.Direction;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
 
 import java.util.EnumSet;
 
 import mffs.common.MFFSConfiguration;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.implement.IItemElectric;
 import universalelectricity.core.implement.IVoltage;
-import universalelectricity.prefab.ItemElectric;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
@@ -24,39 +28,14 @@ public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory i
 
 	public TileEntityMFFSElectrical()
 	{
+		ElectricityConnections.registerConnector(this, EnumSet.allOf(ForgeDirection.class));
+
 		if (MFFSConfiguration.MODULE_BUILDCRAFT)
 		{
 			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
 			// this.powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5D), (int)
 			// (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D));
 		}
-	}
-
-	@Override
-	public void setPowerProvider(IPowerProvider provider)
-	{
-		this.powerProvider = provider;
-	}
-
-	@Override
-	public IPowerProvider getPowerProvider()
-	{
-		return this.powerProvider;
-	}
-
-	@Override
-	public void doWork()
-	{
-	}
-
-	@Override
-	public int powerRequest()
-	{
-		// double workEnergyinMJ = getWorkEnergy() / 2.5D;
-		// double MaxWorkEnergyinMj = getMaxWorkEnergy() / 2.5D;
-
-		// return (int) Math.round(MaxWorkEnergyinMj - workEnergyinMJ);
-		return 0;
 	}
 
 	/**
@@ -150,7 +129,7 @@ public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory i
 
 		return 120;
 	}
-	
+
 	public void decharge(ItemStack itemStack)
 	{
 		if (itemStack != null)
@@ -168,4 +147,98 @@ public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory i
 		}
 	}
 
+	/**
+	 * IC2 Methods
+	 */
+	@Override
+	public void initiate()
+	{
+		super.initiate();
+		MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+	}
+
+	@Override
+	public void invalidate()
+	{
+		MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+		super.invalidate();
+	}
+
+	@Override
+	public boolean acceptsEnergyFrom(TileEntity emitter, Direction direction)
+	{
+		if (this.getConsumingSides() != null)
+		{
+			return this.getConsumingSides().contains(direction.toForgeDirection());
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	@Override
+	public boolean isAddedToEnergyNet()
+	{
+		return this.ticks > 0;
+	}
+
+	@Override
+	public int demandsEnergy()
+	{
+		return (int) (this.getRequest().getWatts() * UniversalElectricity.TO_IC2_RATIO);
+	}
+
+	@Override
+	public int injectEnergy(Direction direction, int i)
+	{
+		double givenElectricity = i * UniversalElectricity.IC2_RATIO;
+		double rejects = 0;
+
+		if (givenElectricity > this.getWattBuffer())
+		{
+			rejects = givenElectricity - this.getRequest().getWatts();
+		}
+
+		this.onReceive(new ElectricityPack(givenElectricity / this.getVoltage(), this.getVoltage()));
+
+		return (int) (rejects * UniversalElectricity.TO_IC2_RATIO);
+	}
+
+	@Override
+	public int getMaxSafeInput()
+	{
+		return 2048;
+	}
+
+	/**
+	 * Buildcraft Methods
+	 */
+
+	@Override
+	public void setPowerProvider(IPowerProvider provider)
+	{
+		this.powerProvider = provider;
+	}
+
+	@Override
+	public IPowerProvider getPowerProvider()
+	{
+		return this.powerProvider;
+	}
+
+	@Override
+	public void doWork()
+	{
+	}
+
+	@Override
+	public int powerRequest()
+	{
+		// double workEnergyinMJ = getWorkEnergy() / 2.5D;
+		// double MaxWorkEnergyinMj = getMaxWorkEnergy() / 2.5D;
+
+		// return (int) Math.round(MaxWorkEnergyinMj - workEnergyinMJ);
+		return 0;
+	}
 }

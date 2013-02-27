@@ -10,6 +10,7 @@ import java.util.List;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
+import mffs.common.Fortron;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForcilliumExtractor;
@@ -51,19 +52,10 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	 * The amount of watts this machine uses.
 	 */
 	public static final int WATTAGE = 1000;
-	private static final int TOTAL_TIME = 20 * 20;
-	private int processTime = 0;
+	public static final int TOTAL_TIME = 20 * 20;
+	public int processTime = 0;
 
-	private LiquidTank fortronTank = new LiquidTank(ModularForceFieldSystem.LIQUID_FORTRON, 250 * LiquidContainerRegistry.BUCKET_VOLUME, this);
-
-	@Override
-	public void initiate()
-	{
-		super.initiate();
-		this.checkSlots();
-		setUEwireConnection();
-		MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-	}
+	public LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON, 250 * LiquidContainerRegistry.BUCKET_VOLUME, this);
 
 	@Override
 	public void updateEntity()
@@ -106,7 +98,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 					this.processTime = 0;
 				}
 
-				if (this.ticks % 10 == 0 && this.playersUsing > 0)
+				if (this.ticks % 3 == 0 && this.playersUsing > 0)
 				{
 					PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
 				}
@@ -154,6 +146,12 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	}
 
 	@Override
+	public int getSizeInventory()
+	{
+		return 5;
+	}
+
+	@Override
 	public ElectricityPack getRequest()
 	{
 		if (this.canUse())
@@ -184,7 +182,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	{
 		if (this.canUse())
 		{
-			this.fortronTank.fill(ModularForceFieldSystem.getFortron(100), true);
+			this.fortronTank.fill(Fortron.getFortron(100), true);
 		}
 	}
 
@@ -196,7 +194,8 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	{
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
-		objects.add(ModularForceFieldSystem.getAmount(this.fortronTank.getLiquid()));
+		objects.add(Fortron.getAmount(this.fortronTank.getLiquid()));
+		objects.add(this.processTime);
 		return objects;
 	}
 
@@ -204,240 +203,54 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
 		super.onReceivePacket(packetID, dataStream);
-		this.fortronTank.setLiquid(ModularForceFieldSystem.getFortron(dataStream.readInt()));
+		this.fortronTank.setLiquid(Fortron.getFortron(dataStream.readInt()));
+		this.processTime = dataStream.readInt();
+		System.out.println(processTime);
 	}
 
-	@Override
-	public void setDirection(ForgeDirection facingDirection)
-	{
-		super.setDirection(facingDirection);
-		this.setUEwireConnection();
-	}
-
-	public int getCapacity()
-	{
-		return this.capacity;
-	}
-
-	public void setCapacity(int Capacity)
-	{
-		if (this.capacity != Capacity)
-		{
-			this.capacity = Capacity;
-		}
-	}
-
-	public int getMaxWorkCycle()
-	{
-		return this.maxWorkCycle;
-	}
-
-	public void setMaxWorkCycle(int maxWorkCycle)
-	{
-		this.maxWorkCycle = maxWorkCycle;
-	}
-
-	public int getWorkDone()
-	{
-		return this.workDone;
-	}
-
-	public void setWorkDone(int workDone)
-	{
-		if (this.workDone != workDone)
-		{
-			this.workDone = workDone;
-		}
-	}
-
-	public int getWorkTicker()
-	{
-		return this.workTicker;
-	}
-
-	public void setWorkTicker(int workTicker)
-	{
-		this.workTicker = workTicker;
-	}
-
-	public int getMaxForceEnergyBuffer()
-	{
-		return this.maxForceEnergyBuffer;
-	}
-
-	public void setMaxForceEnergyBuffer(int maxForceEnergyBuffer)
-	{
-		this.maxForceEnergyBuffer = maxForceEnergyBuffer;
-	}
-
-	public int getForceEnergybuffer()
-	{
-		return this.forceEnergyBuffer;
-	}
-
-	public void setForceEnergyBuffer(int forceEnergyBuffer)
-	{
-		this.forceEnergyBuffer = forceEnergyBuffer;
-	}
-
-	public void setWorkCylce(int i)
-	{
-		if (this.workCycle != i)
-		{
-			this.workCycle = i;
-		}
-	}
-
-	public int getWorkCycle()
-	{
-		return this.workCycle;
-	}
-
-	public int getWorkEnergy()
-	{
-		return this.workEnergy;
-	}
-
-	public void setWorkEnergy(int workEnergy)
-	{
-		this.workEnergy = workEnergy;
-	}
-
-	public int getMaxWorkEnergy()
-	{
-		return this.maxWorkEnergy;
-	}
-
-	public void setMaxWorkEnergy(int maxWorkEnergy)
-	{
-		this.maxWorkEnergy = maxWorkEnergy;
-	}
-
-	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-		{
-			dropPlugins(a, this);
-		}
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
-		if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
-		{
-			return false;
-		}
-		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
-	}
-
-	public void checkSlots()
-	{
-		if (getStackInSlot(0) != null)
-		{
-			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcilliumCell)
-			{
-				this.workmode = 1;
-				setMaxWorkEnergy(200000);
-			}
-		}
-		else
-		{
-			this.workmode = 0;
-			setMaxWorkEnergy(4000);
-		}
-
-		if (getStackInSlot(2) != null)
-		{
-			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemUpgradeCapacity)
-			{
-				setMaxForceEnergyBuffer(1000000 + getStackInSlot(2).stackSize * 100000);
-			}
-			else
-			{
-				setMaxForceEnergyBuffer(1000000);
-			}
-		}
-		else
-		{
-			setMaxForceEnergyBuffer(1000000);
-		}
-
-		if (getStackInSlot(3) != null)
-		{
-			if (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemUpgradeBoost)
-			{
-				setWorkTicker(20 - getStackInSlot(3).stackSize);
-			}
-			else
-			{
-				setWorkTicker(20);
-			}
-		}
-		else
-		{
-			setWorkTicker(20);
-		}
-	}
-
-	private boolean hasPowerToConvert()
-	{
-		if (this.workEnergy >= this.maxWorkEnergy - 1)
-		{
-			setWorkEnergy(0);
-			return true;
-		}
-		return false;
-	}
-
-	private boolean hasFreeForceEnergyStorage()
-	{
-		if (this.maxForceEnergyBuffer > this.forceEnergyBuffer)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	private boolean hasStuffToConvert()
-	{
-		if (this.workCycle > 0)
-			return true;
-
-		if (MFFSConfiguration.adventureMap)
-		{
-			setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle);
-			setWorkCylce(getMaxWorkCycle());
-			return true;
-		}
-
-		if (getStackInSlot(0) != null)
-		{
-			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcillium)
-			{
-				setMaxWorkCycle(MFFSConfiguration.ForcilliumWorkCylce);
-				setWorkCylce(getMaxWorkCycle());
-				decrStackSize(0, 1);
-				return true;
-			}
-
-			if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcilliumCell) && (((ItemForcilliumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0))))
-			{
-				setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle);
-				setWorkCylce(getMaxWorkCycle());
-				return true;
-			}
-
-		}
-
-		return false;
-	}
-
-	public void transferForceEnergy()
-	{/*
-	 * if (getForceEnergybuffer() > 0) { if (hasPowerSource()) { int powerTransferRate =
-	 * getMaximumPower() / 120; int freeAmount = (int) (getMaximumPower() - getForcePower());
+	/*
+	 * public void checkSlots() { if (getStackInSlot(0) != null) { if (getStackInSlot(0).getItem()
+	 * == ModularForceFieldSystem.itemForcilliumCell) { this.workmode = 1; setMaxWorkEnergy(200000);
+	 * } } else { this.workmode = 0; setMaxWorkEnergy(4000); }
+	 * 
+	 * if (getStackInSlot(2) != null) { if (getStackInSlot(2).getItem() ==
+	 * ModularForceFieldSystem.itemUpgradeCapacity) { setMaxForceEnergyBuffer(1000000 +
+	 * getStackInSlot(2).stackSize * 100000); } else { setMaxForceEnergyBuffer(1000000); } } else {
+	 * setMaxForceEnergyBuffer(1000000); }
+	 * 
+	 * if (getStackInSlot(3) != null) { if (getStackInSlot(3).getItem() ==
+	 * ModularForceFieldSystem.itemUpgradeBoost) { setWorkTicker(20 - getStackInSlot(3).stackSize);
+	 * } else { setWorkTicker(20); } } else { setWorkTicker(20); } }
+	 * 
+	 * private boolean hasPowerToConvert() { if (this.workEnergy >= this.maxWorkEnergy - 1) {
+	 * setWorkEnergy(0); return true; } return false; }
+	 * 
+	 * private boolean hasFreeForceEnergyStorage() { if (this.maxForceEnergyBuffer >
+	 * this.forceEnergyBuffer) { return true; } return false; }
+	 * 
+	 * private boolean hasStuffToConvert() { if (this.workCycle > 0) return true;
+	 * 
+	 * if (MFFSConfiguration.adventureMap) {
+	 * setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle); setWorkCylce(getMaxWorkCycle());
+	 * return true; }
+	 * 
+	 * if (getStackInSlot(0) != null) { if (getStackInSlot(0).getItem() ==
+	 * ModularForceFieldSystem.itemForcillium) {
+	 * setMaxWorkCycle(MFFSConfiguration.ForcilliumWorkCylce); setWorkCylce(getMaxWorkCycle());
+	 * decrStackSize(0, 1); return true; }
+	 * 
+	 * if ((getStackInSlot(0).getItem() == ModularForceFieldSystem.itemForcilliumCell) &&
+	 * (((ItemForcilliumCell) getStackInSlot(0).getItem()).useForcecium(1, getStackInSlot(0)))) {
+	 * setMaxWorkCycle(MFFSConfiguration.forceciumCellWorkCycle); setWorkCylce(getMaxWorkCycle());
+	 * return true; }
+	 * 
+	 * }
+	 * 
+	 * return false; }
+	 * 
+	 * public void transferForceEnergy() {/* if (getForceEnergybuffer() > 0) { if (hasPowerSource())
+	 * { int powerTransferRate = getMaximumPower() / 120; int freeAmount = (int) (getMaximumPower()
+	 * - getForcePower());
 	 * 
 	 * if (getForceEnergybuffer() > freeAmount) { if (freeAmount > powerTransferRate) {
 	 * emitPower(powerTransferRate, false); setForceEnergyBuffer(getForceEnergybuffer() -
@@ -447,8 +260,9 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	 * setForceEnergyBuffer(getForceEnergybuffer() - getForceEnergybuffer()); } else {
 	 * emitPower(freeAmount, false); setForceEnergyBuffer(getForceEnergybuffer() - freeAmount); } }
 	 * }
+	 * 
+	 * }
 	 */
-	}
 
 	public short getMaxSwitchMode()
 	{
@@ -467,23 +281,28 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
+	public void readFromNBT(NBTTagCompound nbt)
 	{
-		super.readFromNBT(nbttagcompound);
+		super.readFromNBT(nbt);
 
-		this.forceEnergyBuffer = nbttagcompound.getInteger("forceEnergyBuffer");
-		this.workEnergy = nbttagcompound.getInteger("workEnergy");
-		this.workCycle = nbttagcompound.getInteger("workCycle");
+		this.processTime = nbt.getInteger("processTime");
+		this.fortronTank.setLiquid(LiquidStack.loadLiquidStackFromNBT(nbt.getCompoundTag("fortron")));
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
+	public void writeToNBT(NBTTagCompound nbt)
 	{
-		super.writeToNBT(nbttagcompound);
+		super.writeToNBT(nbt);
 
-		nbttagcompound.setInteger("workCycle", this.workCycle);
-		nbttagcompound.setInteger("workEnergy", this.workEnergy);
-		nbttagcompound.setInteger("forceEnergyBuffer", this.forceEnergyBuffer);
+		nbt.setInteger("processTime", this.processTime);
+
+		if (this.fortronTank.getLiquid() != null)
+		{
+			NBTTagCompound fortronCompound = new NBTTagCompound();
+			this.fortronTank.getLiquid().writeToNBT(fortronCompound);
+			nbt.setTag("fortron", fortronCompound);
+		}
+
 	}
 
 	@Override
@@ -521,31 +340,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	}
 
 	@Override
-	public int demandsEnergy()
-	{
-		if (!isActive())
-		{
-			return 0;
-		}
-		return getMaxWorkEnergy() - getWorkEnergy();
-	}
-
-	@Override
-	public int injectEnergy(Direction directionFrom, int amount)
-	{
-		int freespace = getMaxWorkEnergy() - getWorkEnergy();
-
-		if (freespace >= amount)
-		{
-			setWorkEnergy(getWorkEnergy() + amount);
-			return 0;
-		}
-
-		setWorkEnergy(getMaxWorkEnergy());
-		return amount - freespace;
-	}
-
-	@Override
 	public void invalidate()
 	{
 
@@ -568,67 +362,11 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 		return true;
 	}
 
-	public void convertMJtoWorkEnergy()
-	{
-		if (getWorkEnergy() < getMaxWorkEnergy())
-		{
-			float use = this.powerProvider.useEnergy(1.0F, (float) (getMaxWorkEnergy() - getWorkEnergy() / 2.5D), true);
-
-			if (getWorkEnergy() + use * 2.5D > getMaxWorkEnergy())
-			{
-				setWorkEnergy(getMaxWorkEnergy());
-			}
-			else
-			{
-				setWorkEnergy((int) (getWorkEnergy() + use * 2.5D));
-			}
-		}
-	}
-
-	public void setUEwireConnection()
-	{
-		if (MFFSConfiguration.MODULE_UE)
-		{
-			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing()).getOpposite()));
-			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));
-		}
-	}
-
-	public void convertUEtoWorkEnergy()
-	{
-		ForgeDirection inputDirection = ForgeDirection.getOrientation(getFacing()).getOpposite();
-
-		TileEntity inputTile = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), inputDirection);
-
-		if (inputTile != null)
-		{
-			if ((inputTile instanceof IConductor))
-			{
-				if (getWorkEnergy() >= getMaxWorkEnergy())
-				{
-					((IConductor) inputTile).getNetwork().stopRequesting(this);
-				}
-				else
-				{
-					((IConductor) inputTile).getNetwork().startRequesting(this, 10.0D, 120.0D);
-
-					setWorkEnergy((int) (getWorkEnergy() + ((IConductor) inputTile).getNetwork().consumeElectricity(this).getWatts() / 50.0D));
-				}
-			}
-		}
-	}
-
 	/*
 	 * @Override public ItemStack getPowerLinkStack() { return getStackInSlot(getPowerLinkSlot()); }
 	 * 
 	 * @Override public int getPowerLinkSlot() { return 1; }
 	 */
-
-	@Override
-	public int getMaxSafeInput()
-	{
-		return 2048;
-	}
 
 	@Override
 	public TileEntitySecurityStation getLinkedSecurityStation()

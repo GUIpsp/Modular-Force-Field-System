@@ -52,9 +52,6 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityProjector extends TileEntityMFFSMachine implements IModularProjector
 {
-
-	private ItemStack[] ProjectorItemStacks = new ItemStack[13];
-
 	protected Stack field_queue = new Stack();
 	protected Set field_interior = new HashSet();
 	protected Set<PointXYZ> field_def = new HashSet();
@@ -205,15 +202,15 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 		this.forcefieldblock_meta = nbttagcompound.getShort("forceFieldblockMeta");
 
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.ProjectorItemStacks = new ItemStack[getSizeInventory()];
+		this.inventory = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nbttaglist.tagCount(); i++)
 		{
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.ProjectorItemStacks.length))
+			if ((byte0 >= 0) && (byte0 < this.inventory.length))
 			{
-				this.ProjectorItemStacks[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
 	}
@@ -229,13 +226,13 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 		nbttagcompound.setShort("forceFieldblockMeta", this.forcefieldblock_meta);
 
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.ProjectorItemStacks.length; i++)
+		for (int i = 0; i < this.inventory.length; i++)
 		{
-			if (this.ProjectorItemStacks[i] != null)
+			if (this.inventory[i] != null)
 			{
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
-				this.ProjectorItemStacks[i].writeToNBT(nbttagcompound1);
+				this.inventory[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
@@ -246,7 +243,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	@Override
 	public void dropPlugins()
 	{
-		for (int a = 0; a < this.ProjectorItemStacks.length; a++)
+		for (int a = 0; a < this.inventory.length; a++)
 		{
 			dropPlugins(a, this);
 		}
@@ -861,18 +858,18 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	@Override
 	public ItemStack decrStackSize(int i, int j)
 	{
-		if (this.ProjectorItemStacks[i] != null)
+		if (this.inventory[i] != null)
 		{
-			if (this.ProjectorItemStacks[i].stackSize <= j)
+			if (this.inventory[i].stackSize <= j)
 			{
-				ItemStack itemstack = this.ProjectorItemStacks[i];
-				this.ProjectorItemStacks[i] = null;
+				ItemStack itemstack = this.inventory[i];
+				this.inventory[i] = null;
 				return itemstack;
 			}
-			ItemStack itemstack1 = this.ProjectorItemStacks[i].splitStack(j);
-			if (this.ProjectorItemStacks[i].stackSize == 0)
+			ItemStack itemstack1 = this.inventory[i].splitStack(j);
+			if (this.inventory[i].stackSize == 0)
 			{
-				this.ProjectorItemStacks[i] = null;
+				this.inventory[i] = null;
 			}
 			return itemstack1;
 		}
@@ -882,7 +879,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
-		this.ProjectorItemStacks[i] = itemstack;
+		this.inventory[i] = itemstack;
 		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
 		{
 			itemstack.stackSize = getInventoryStackLimit();
@@ -892,7 +889,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	@Override
 	public ItemStack getStackInSlot(int i)
 	{
-		return this.ProjectorItemStacks[i];
+		return this.inventory[i];
 	}
 
 	@Override
@@ -904,7 +901,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	@Override
 	public int getSizeInventory()
 	{
-		return this.ProjectorItemStacks.length;
+		return 13;
 	}
 
 	@Override

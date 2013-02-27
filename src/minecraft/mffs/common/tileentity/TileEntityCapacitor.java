@@ -24,7 +24,6 @@ import universalelectricity.prefab.network.IPacketReceiver;
 
 public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacketReceiver, IForceEnergyStorageBlock
 {
-	private ItemStack[] inventory = new ItemStack[5];
 	private int forcePower = 0;
 	private short linkedProjector = 0;
 	private int capacity = 0;
@@ -167,7 +166,7 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 	@Override
 	public int getSizeInventory()
 	{
-		return this.inventory.length;
+		return 5;
 	}
 
 	@Override
