@@ -4,6 +4,7 @@ MFFS adds advanced security systems, force fields, force energy, and more to Min
 ### Developement
 
 Just a forward notice before making any contributions to MFFS. Calclavia owns MFFS. His words are final. Just because one contributes to MFFS does not mean they own the mod. However, appropriate credits will be given to them.
+By being a developer of MFFS, you are under a non-disclousure agreement to not disclose anything related to the mod, especially the source code to anyone who is not in the development team.
 
 **Project Leader** - calclaia
 
