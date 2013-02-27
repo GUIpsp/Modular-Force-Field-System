@@ -1,14 +1,14 @@
 package mffs.common.tileentity;
 
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerFramework;
-import com.google.common.io.ByteArrayDataInput;
 import ic2.api.Direction;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
+
 import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
@@ -33,6 +33,11 @@ import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.TranslationHelper;
+import buildcraft.api.power.IPowerProvider;
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerFramework;
+
+import com.google.common.io.ByteArrayDataInput;
 
 /**
  * A TileEntity that extract forcillium into fortrons.
@@ -40,9 +45,8 @@ import universalelectricity.prefab.TranslationHelper;
  * @author Calclavia
  * 
  */
-public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine implements IPowerReceptor, IEnergySink
+public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine implements IPowerReceptor, IEnergySink
 {
-	private ItemStack[] inventory = new ItemStack[5];
 	private int workmode = 0;
 	protected int workEnergy;
 	protected int maxWorkEnergy = 4000;
@@ -160,6 +164,21 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		}
 		super.updateEntity();
 	}
+	
+	@Override
+	public List getPacketUpdate()
+	{
+		List objects = new LinkedList();
+		objects.clear();
+		objects.addAll(super.getPacketUpdate());
+		objects.add(this.capacity);
+		objects.add(this.workCycle);
+		objects.add(this.workEnergy);
+		objects.add(this.workDone);
+
+		return objects;
+	}
+    
 
 	@Override
 	public void setDirection(ForgeDirection facingDirection)
@@ -451,19 +470,6 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		this.forceEnergyBuffer = nbttagcompound.getInteger("forceEnergyBuffer");
 		this.workEnergy = nbttagcompound.getInteger("workEnergy");
 		this.workCycle = nbttagcompound.getInteger("workCycle");
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++)
-		{
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
-
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.inventory.length))
-			{
-				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
 	}
 
 	@Override
@@ -474,99 +480,7 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		nbttagcompound.setInteger("workCycle", this.workCycle);
 		nbttagcompound.setInteger("workEnergy", this.workEnergy);
 		nbttagcompound.setInteger("forceEnergyBuffer", this.forceEnergyBuffer);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.inventory.length; i++)
-		{
-			if (this.inventory[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				this.inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
 	}
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inventory[i];
-	}
-
-	@Override
-	public String getInvName()
-	{
-		return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
-	}
-
-	@Override
-	public int getSizeInventory()
-	{
-		return this.inventory.length;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inventory[i] = itemstack;
-		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
-		{
-			itemstack.stackSize = getInventoryStackLimit();
-		}
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if (this.inventory[i] != null)
-		{
-			if (this.inventory[i].stackSize <= j)
-			{
-				ItemStack itemstack = this.inventory[i];
-				this.inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = this.inventory[i].splitStack(j);
-			if (this.inventory[i].stackSize == 0)
-			{
-				this.inventory[i] = null;
-			}
-			return itemstack1;
-		}
-		return null;
-	}
-
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 1;
-	}
-
-    /*
-	@Override
-	public List getFieldsForUpdate()
-	{
-		List NetworkedFields = new LinkedList();
-		NetworkedFields.clear();
-
-		NetworkedFields.addAll(super.getFieldsForUpdate());
-		NetworkedFields.add("capacity");
-		NetworkedFields.add("workCycle");
-		NetworkedFields.add("workEnergy");
-		NetworkedFields.add("workDone");
-
-		return NetworkedFields;
-	}
-    */
 
 	@Override
 	public boolean isItemValid(ItemStack itemStack, int slot)
@@ -600,25 +514,6 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 				break;
 		}
 		return false;
-	}
-
-	@Override
-	public int getSlotStackLimit(int slot)
-	{
-		switch (slot)
-		{
-			case 0:
-				return 64;
-			case 1:
-				break;
-			case 2:
-				return 9;
-			case 3:
-				return 19;
-			case 4:
-				break;
-		}
-		return 1;
 	}
 
 	@Override

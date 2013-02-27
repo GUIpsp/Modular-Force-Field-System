@@ -20,7 +20,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInventory
+public class TileEntityControlSystem extends TileEntityMFFSInventory implements ISidedInventory
 {
 
 	private TileEntityMFFS remote = null;
@@ -219,12 +219,6 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public int getSizeInventorySide(ForgeDirection side)
 	{
 		return 0;
-	}
-
-	@Override
-	public int getSlotStackLimit(int slt)
-	{
-		return 1;
 	}
 
 	@Override

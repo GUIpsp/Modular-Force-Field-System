@@ -32,7 +32,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityDefenseStation extends TileEntityForcePowerMachine implements ISidedInventory
+public class TileEntityDefenseStation extends TileEntityMFFSMachine implements ISidedInventory
 {
 
 	private ItemStack[] Inventory;
@@ -721,30 +721,6 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		}
 
 		return false;
-	}
-
-	@Override
-	public int getSlotStackLimit(int Slot)
-	{
-		switch (Slot)
-		{
-			case 0:
-			case 1:
-				return 1;
-			case 2:
-			case 3:
-				return 64;
-		}
-
-		if ((Slot >= 5) && (Slot <= 14))
-		{
-			return 1;
-		}
-		if ((Slot >= 5) && (Slot <= 14))
-		{
-			return 1;
-		}
-		return 64;
 	}
 
 	@Override

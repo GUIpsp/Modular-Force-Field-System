@@ -1,7 +1,13 @@
 package mffs.common.tileentity;
 
 import ic2.api.IWrenchable;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import com.google.common.io.ByteArrayDataInput;
+
 import mffs.api.IModularProjector;
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
@@ -21,6 +27,10 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
@@ -29,9 +39,10 @@ import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
+import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPacketReceiver, ISidedInventory, IWrenchable, ISwitchable, IRotatable
+public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPacketReceiver, IWrenchable, ISwitchable, IRotatable
 {
 	/**
 	 * Is the machine active and working?
@@ -52,12 +63,6 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 	protected Random random = new Random();
 	protected Ticket chunkTicket;
 
-	@Override
-	public String getInvName()
-	{
-		return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
-	}
-
 	public int getPercentageCapacity()
 	{
 		return 0;
@@ -70,40 +75,57 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 
 	public abstract TileEntitySecurityStation getLinkedSecurityStation();
 
-    /*
-	@Override
-	public void onNetworkHandlerEvent(int key, String value)
+	/*
+	 * @Override public void onNetworkHandlerEvent(int key, String value) { switch (key) { case 0:
+	 * toogleSwitchMode(); break; } }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @Override public void onNetworkHandlerUpdate(String field) {
+	 * this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord); }
+	 */
+
+	public List getPacketUpdate()
 	{
-		switch (key)
+		List objects = new ArrayList();
+		objects.add(1);
+		objects.add(this.isActive);
+		objects.add(this.deviceID);
+		objects.add(this.switchMode);
+		objects.add(this.switchValue);
+
+		return objects;
+	}
+
+	@Override
+	public Packet getDescriptionPacket()
+	{
+		return PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, this, this.getPacketUpdate().toArray());
+	}
+
+	@Override
+	public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput dataStream)
+	{
+		try
 		{
-			case 0:
-				toogleSwitchMode();
-				break;
+			this.onReceivePacket(dataStream.readInt(), dataStream);
+		}
+		catch (Exception e)
+		{
+			ModularForceFieldSystem.LOGGER.severe("Packet receiving failed: " + this.getClass().getSimpleName());
+			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public List getFieldsForUpdate()
+	/**
+	 * Inherit this function to receive packets. Make sure this function is supered.
+	 */
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
-		List NetworkedFields = new LinkedList();
-		NetworkedFields.clear();
 
-		NetworkedFields.add("isActive");
-		NetworkedFields.add("deviceID");
-		NetworkedFields.add("switchMode");
-		NetworkedFields.add("switchValue");
-
-		return NetworkedFields;
 	}
-    
 
-	@Override
-	public void onNetworkHandlerUpdate(String field)
-	{
-		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-	}
-    */
-    
 	@Override
 	public void initiate()
 	{
@@ -116,7 +138,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 			registerChunkLoading();
 		}
 
-		//NetworkHandlerClient.requestInitialData(this, true);
+		// NetworkHandlerClient.requestInitialData(this, true);
 	}
 
 	@Override
@@ -128,7 +150,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 		{
 			if (this.ticks % 300 == 0)
 			{
-				//NetworkHandlerClient.requestInitialData(this, true);
+				// NetworkHandlerClient.requestInitialData(this, true);
 			}
 		}
 	}
@@ -154,7 +176,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 			this.switchMode = ((short) (this.switchMode + 1));
 		}
 
-		//NetworkHandlerServer.updateTileEntityField(this, "switchMode");
+		// NetworkHandlerServer.updateTileEntityField(this, "switchMode");
 	}
 
 	public boolean isPoweredByRedstone()
@@ -186,7 +208,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 	public void onSwitch()
 	{
 		this.switchValue = !this.switchValue;
-		//NetworkHandlerServer.updateTileEntityField(this, "switchValue");
+		// NetworkHandlerServer.updateTileEntityField(this, "switchValue");
 	}
 
 	public int getDeviceID()
@@ -202,32 +224,6 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 	public PointXYZ getMachinePoint()
 	{
 		return new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
-	}
-
-	public abstract void dropPlugins();
-
-	public void dropPlugins(int slot, IInventory inventory)
-	{
-		if (this.worldObj.isRemote)
-		{
-			setInventorySlotContents(slot, null);
-			return;
-		}
-
-		if (inventory.getStackInSlot(slot) != null)
-		{
-			if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
-			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
-			}
-			else
-			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, inventory.getStackInSlot(slot)));
-			}
-
-			inventory.setInventorySlotContents(slot, null);
-			onInventoryChanged();
-		}
 	}
 
 	public abstract Container getContainer(InventoryPlayer paramInventoryPlayer);
@@ -270,7 +266,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 	public void setActive(boolean flag)
 	{
 		this.isActive = flag;
-		//NetworkHandlerServer.updateTileEntityField(this, "isActive");
+		// NetworkHandlerServer.updateTileEntityField(this, "isActive");
 	}
 
 	@Override
@@ -342,7 +338,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 		}
 		if (this.chunkTicket == null)
 		{
-			System.out.println("[ModularForceFieldSystem] No free Chunkloaders available");
+			ModularForceFieldSystem.LOGGER.fine("No free Chunkloaders available");
 			return;
 		}
 
@@ -361,57 +357,15 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 		super.invalidate();
 	}
 
-	public abstract boolean isItemValid(ItemStack paramItemStack, int paramInt);
-
-	public abstract int getSlotStackLimit(int paramInt);
-
-	@Override
-	public void openChest()
-	{
-	}
-
-	@Override
-	public void closeChest()
-	{
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
-		if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
-		{
-			return false;
-		}
-		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
-	}
-
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
 		return new ItemStack(net.minecraft.block.Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]);
 	}
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
-	{
-		return null;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-
-	public int countItemsInSlot(IModularProjector.Slots slt)
-	{
-		if (getStackInSlot(slt.slot) != null)
-		{
-			return getStackInSlot(slt.slot).stackSize;
-		}
-		return 0;
-	}
-
+	/**
+	 * Direction Methods
+	 */
 	@Override
 	public ForgeDirection getDirection()
 	{

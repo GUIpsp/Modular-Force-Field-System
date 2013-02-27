@@ -27,7 +27,7 @@ import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.vector.Vector3;
 
-public class TileEntityConverter extends TileEntityForcePowerMachine implements IEnergySource
+public class TileEntityConverter extends TileEntityMFFSMachine implements IEnergySource
 {
 
 	private ItemStack[] inventory;
@@ -604,12 +604,6 @@ public class TileEntityConverter extends TileEntityForcePowerMachine implements 
 				break;
 		}
 		return true;
-	}
-
-	@Override
-	public int getSlotStackLimit(int Slot)
-	{
-		return 1;
 	}
 
 	@Override

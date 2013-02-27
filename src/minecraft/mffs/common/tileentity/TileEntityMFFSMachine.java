@@ -4,7 +4,7 @@ import mffs.api.IForcePower;
 import mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 
-public abstract class TileEntityForcePowerMachine extends TileEntityMFFS implements IForcePower
+public abstract class TileEntityMFFSMachine extends TileEntityMFFSInventory implements IForcePower
 {
 	public abstract ItemStack getPowerLinkStack();
 

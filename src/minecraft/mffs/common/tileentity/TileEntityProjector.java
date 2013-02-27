@@ -50,7 +50,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntityProjector extends TileEntityForcePowerMachine implements IModularProjector
+public class TileEntityProjector extends TileEntityMFFSMachine implements IModularProjector
 {
 
 	private ItemStack[] ProjectorItemStacks = new ItemStack[13];
@@ -1068,16 +1068,6 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		}
 
 		return false;
-	}
-
-	@Override
-	public int getSlotStackLimit(int slot)
-	{
-
-		if ((slot >= 5) && (slot <= 10))
-			return 64;
-
-		return 1;
 	}
 
 	public boolean hasValidTypeMod()

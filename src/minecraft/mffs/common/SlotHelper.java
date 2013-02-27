@@ -1,15 +1,14 @@
 package mffs.common;
 
-import mffs.common.tileentity.TileEntityMFFS;
-import net.minecraft.inventory.IInventory;
+import mffs.common.tileentity.TileEntityMFFSInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SlotHelper extends Slot
 {
-	private TileEntityMFFS tileEntity;
+	private TileEntityMFFSInventory tileEntity;
 
-	public SlotHelper(TileEntityMFFS tileEntity, int id, int par4, int par5)
+	public SlotHelper(TileEntityMFFSInventory tileEntity, int id, int par4, int par5)
 	{
 		super(tileEntity, id, par4, par5);
 		this.tileEntity = tileEntity;
@@ -24,6 +23,13 @@ public class SlotHelper extends Slot
 	@Override
 	public int getSlotStackLimit()
 	{
-		return this.tileEntity.getSlotStackLimit(this.slotNumber);
+		ItemStack itemStack = this.tileEntity.getStackInSlot(this.slotNumber);
+
+		if (itemStack != null)
+		{
+			return itemStack.getMaxStackSize();
+		}
+
+		return 64;
 	}
 }

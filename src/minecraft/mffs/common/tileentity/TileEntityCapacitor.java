@@ -22,7 +22,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.prefab.network.IPacketReceiver;
 
-public class TileEntityCapacitor extends TileEntityForcePowerMachine implements IPacketReceiver, IForceEnergyStorageBlock
+public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacketReceiver, IForceEnergyStorageBlock
 {
 	private ItemStack[] inventory = new ItemStack[5];
 	private int forcePower = 0;
@@ -621,20 +621,6 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 			case 3:
 		}
 		return false;
-	}
-
-	@Override
-	public int getSlotStackLimit(int Slot)
-	{
-		switch (Slot)
-		{
-			case 0:
-			case 1:
-				return 9;
-			case 2:
-				return 64;
-		}
-		return 1;
 	}
 	
 	@Override

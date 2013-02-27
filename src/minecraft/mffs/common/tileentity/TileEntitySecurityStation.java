@@ -25,7 +25,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntitySecurityStation extends TileEntityMFFS
+public class TileEntitySecurityStation extends TileEntityMFFSInventory
 {
 
 	private String MainUser = "";
@@ -468,12 +468,6 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 			return getStackInSlot(1);
 		}
 		return null;
-	}
-
-	@Override
-	public int getSlotStackLimit(int slt)
-	{
-		return 1;
 	}
 
 	@Override

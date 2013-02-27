@@ -1,6 +1,5 @@
 package mffs.common.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
 import mffs.common.FrequencyGrid;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecStorage;
@@ -16,7 +15,9 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInventory, IInventory
+import com.google.common.io.ByteArrayDataInput;
+
+public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISidedInventory, IInventory
 {
 
 	private ItemStack[] inventory;
@@ -229,15 +230,6 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		return true;
 	}
 
-	@Override
-	public int getSlotStackLimit(int slt)
-	{
-		if (slt == 0)
-		{
-			return 1;
-		}
-		return 64;
-	}
     
     @Override
     public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
