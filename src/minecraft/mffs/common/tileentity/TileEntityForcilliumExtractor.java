@@ -23,7 +23,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
@@ -32,7 +31,6 @@ import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.TranslationHelper;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
@@ -45,7 +43,7 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine implements IPowerReceptor, IEnergySink
+public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical implements IPowerReceptor, IEnergySink
 {
 	private int workmode = 0;
 	protected int workEnergy;
@@ -164,21 +162,28 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine impleme
 		}
 		super.updateEntity();
 	}
-	
+
 	@Override
 	public List getPacketUpdate()
 	{
 		List objects = new LinkedList();
-		objects.clear();
 		objects.addAll(super.getPacketUpdate());
 		objects.add(this.capacity);
 		objects.add(this.workCycle);
 		objects.add(this.workEnergy);
 		objects.add(this.workDone);
-
 		return objects;
 	}
-    
+
+	@Override
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	{
+		super.onReceivePacket(packetID, dataStream);
+		this.capacity = dataStream.readInt();
+		this.workCycle = dataStream.readInt();
+		this.workEnergy = dataStream.readInt();
+		this.workDone = dataStream.readInt();
+	}
 
 	@Override
 	public void setDirection(ForgeDirection facingDirection)
@@ -197,7 +202,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine impleme
 		if (this.capacity != Capacity)
 		{
 			this.capacity = Capacity;
-			//NetworkHandlerServer.updateTileEntityField(this, "capacity");
 		}
 	}
 
@@ -221,7 +225,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine impleme
 		if (this.workDone != workDone)
 		{
 			this.workDone = workDone;
-			//NetworkHandlerServer.updateTileEntityField(this, "workDone");
 		}
 	}
 
@@ -260,7 +263,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine impleme
 		if (this.workCycle != i)
 		{
 			this.workCycle = i;
-			//NetworkHandlerServer.updateTileEntityField(this, "workCycle");
 		}
 	}
 
@@ -671,13 +673,13 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSMachine impleme
 
 		return null;
 	}
-    
-    @Override
-    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
-    {
-        int x = data.readInt();
-        int y = data.readInt();
-        int z = data.readInt();
-        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
-    }
+
+	@Override
+	public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+	{
+		int x = data.readInt();
+		int y = data.readInt();
+		int z = data.readInt();
+		System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+	}
 }

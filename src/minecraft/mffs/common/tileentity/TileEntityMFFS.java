@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.google.common.io.ByteArrayDataInput;
-
-import mffs.api.IModularProjector;
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGrid;
@@ -16,18 +13,11 @@ import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.card.ItemCardDataLink;
-import mffs.common.card.ItemCardPersonalID;
-import mffs.common.card.ItemCardPowerLink;
-import mffs.common.card.ItemCardSecurityLink;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -35,14 +25,14 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
-import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
-import universalelectricity.prefab.tile.TileEntityAdvanced;
+import universalelectricity.prefab.tile.TileEntityDisableable;
 
-public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPacketReceiver, IWrenchable, ISwitchable, IRotatable
+import com.google.common.io.ByteArrayDataInput;
+
+public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IWrenchable, ISwitchable, IRotatable
 {
 	/**
 	 * Is the machine active and working?
@@ -94,7 +84,6 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 		objects.add(this.deviceID);
 		objects.add(this.switchMode);
 		objects.add(this.switchValue);
-
 		return objects;
 	}
 
@@ -123,7 +112,10 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPack
 	 */
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
-
+		this.isActive = dataStream.readBoolean();
+		this.deviceID = dataStream.readInt();
+		this.switchMode = dataStream.readShort();
+		this.switchValue = dataStream.readBoolean();
 	}
 
 	@Override

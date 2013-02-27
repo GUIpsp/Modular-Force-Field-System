@@ -30,6 +30,6 @@ public class SlotHelper extends Slot
 			return itemStack.getMaxStackSize();
 		}
 
-		return 64;
+		return this.tileEntity.getInventoryStackLimit();
 	}
 }
