@@ -1,14 +1,10 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
-import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
@@ -88,6 +84,6 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		super.actionPerformed(guibutton);
-		NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
+		//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
 	}
 }

@@ -16,8 +16,6 @@ public class ItemProjectorFocusMatrix extends ItemMFFS
 	{
 		super(i, "moduleFocus");
 		setIconIndex(66);
-		setMaxStackSize(64);
-		this.setNoRepair();
 	}
 
 	@Override

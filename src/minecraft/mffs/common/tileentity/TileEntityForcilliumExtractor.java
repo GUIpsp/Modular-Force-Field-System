@@ -1,14 +1,14 @@
 package mffs.common.tileentity;
 
+import buildcraft.api.power.IPowerProvider;
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerFramework;
+import com.google.common.io.ByteArrayDataInput;
 import ic2.api.Direction;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
-
 import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
@@ -18,13 +18,14 @@ import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemForcilliumCell;
 import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
-import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,9 +33,6 @@ import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.TranslationHelper;
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerFramework;
 
 /**
  * A TileEntity that extract forcillium into fortrons.
@@ -180,7 +178,7 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		if (this.capacity != Capacity)
 		{
 			this.capacity = Capacity;
-			NetworkHandlerServer.updateTileEntityField(this, "capacity");
+			//NetworkHandlerServer.updateTileEntityField(this, "capacity");
 		}
 	}
 
@@ -204,7 +202,7 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		if (this.workDone != workDone)
 		{
 			this.workDone = workDone;
-			NetworkHandlerServer.updateTileEntityField(this, "workDone");
+			//NetworkHandlerServer.updateTileEntityField(this, "workDone");
 		}
 	}
 
@@ -243,7 +241,7 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		if (this.workCycle != i)
 		{
 			this.workCycle = i;
-			NetworkHandlerServer.updateTileEntityField(this, "workCycle");
+			//NetworkHandlerServer.updateTileEntityField(this, "workCycle");
 		}
 	}
 
@@ -553,6 +551,7 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 		return 1;
 	}
 
+    /*
 	@Override
 	public List getFieldsForUpdate()
 	{
@@ -567,6 +566,7 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 
 		return NetworkedFields;
 	}
+    */
 
 	@Override
 	public boolean isItemValid(ItemStack itemStack, int slot)
@@ -776,4 +776,13 @@ public class TileEntityForcilliumExtractor extends TileEntityForcePowerMachine i
 
 		return null;
 	}
+    
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

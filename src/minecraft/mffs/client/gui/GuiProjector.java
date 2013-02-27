@@ -5,11 +5,9 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
 import mffs.common.container.ContainerProjector;
 import mffs.common.tileentity.TileEntityProjector;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiProjector extends GuiContainer
@@ -39,11 +37,11 @@ public class GuiProjector extends GuiContainer
 
 			if (i == 14)
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.projector, 12, "");
+				//NetworkHandlerClient.fireTileEntityEvent(this.projector, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.projector, 11, String.valueOf(c));
+				//NetworkHandlerClient.fireTileEntityEvent(this.projector, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -69,7 +67,7 @@ public class GuiProjector extends GuiContainer
 		}
 		else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.projector, 10, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.projector, 10, "null");
 			this.editMode = true;
 		}
 	}
@@ -122,7 +120,7 @@ public class GuiProjector extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
-		NetworkHandlerClient.fireTileEntityEvent(this.projector, guibutton.id, "");
+		//NetworkHandlerClient.fireTileEntityEvent(this.projector, guibutton.id, "");
 	}
 
 	@Override

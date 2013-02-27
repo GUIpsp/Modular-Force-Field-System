@@ -1,9 +1,9 @@
 package mffs.common.tileentity;
 
+import com.google.common.io.ByteArrayDataInput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGrid;
@@ -26,6 +26,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
@@ -642,6 +644,7 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 		return 20;
 	}
 
+    /*
 	@Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
@@ -685,7 +688,8 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 
 		super.onNetworkHandlerEvent(key, value);
 	}
-
+    */
+    
 	@Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
 	{
@@ -754,4 +758,13 @@ public class TileEntityDefenseStation extends TileEntityForcePowerMachine implem
 	{
 		return 0;
 	}
+    
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

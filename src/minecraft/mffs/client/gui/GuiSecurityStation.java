@@ -3,19 +3,16 @@ package mffs.client.gui;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.card.ItemCardPersonalID;
 import mffs.common.container.ContainerSecurityStation;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiSecurityStation extends GuiContainer
@@ -46,11 +43,11 @@ public class GuiSecurityStation extends GuiContainer
 
 			if (i == 14)
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 12, "");
+				//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 11, String.valueOf(c));
+				//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -145,12 +142,12 @@ public class GuiSecurityStation extends GuiContainer
 
 		if ((x >= 12) && (y >= 103) && (x <= 27) && (y <= 118))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 101, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 101, "null");
 		}
 
 		if ((x >= 68) && (y >= 103) && (x <= 83) && (y <= 118))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 102, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 102, "null");
 		}
 
 		if (this.editMode)
@@ -159,12 +156,12 @@ public class GuiSecurityStation extends GuiContainer
 		}
 		else if ((x >= 120) && (y >= 4) && (x <= 250) && (y <= 18))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 10, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 10, "null");
 			this.editMode = true;
 		}
 		if (this.hoverSR != null)
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 100, this.hoverSR.rightKey);
+			//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, 100, this.hoverSR.rightKey);
 		}
 	}
 

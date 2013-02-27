@@ -14,5 +14,7 @@ public class ItemMFFS extends Item
 		this.setItemName(name);
 		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
 		this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
+                this.setMaxStackSize(64);
+                this.setNoRepair();
 	}
 }

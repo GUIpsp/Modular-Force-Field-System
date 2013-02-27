@@ -1,13 +1,12 @@
 package mffs.common.tileentity;
 
+import com.google.common.io.ByteArrayDataInput;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-
 import mffs.api.IModularProjector;
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
@@ -36,8 +35,8 @@ import mffs.common.options.ItemOptionShock;
 import mffs.common.upgrade.ItemModuleDistance;
 import mffs.common.upgrade.ItemModuleStrength;
 import mffs.common.upgrade.ItemProjectorFocusMatrix;
-import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -45,6 +44,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -103,7 +104,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	public void setForceFieldCamoblockMeta(int forcefieldCamoblockmeta)
 	{
 		this.forceFieldCamoblockMeta = forcefieldCamoblockmeta;
-		NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockMeta");
+		//NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockMeta");
 	}
 
 	public int getForceFieldCamoblockID()
@@ -114,7 +115,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	public void setForceFieldCamoblockID(int forcefieldCamoblockid)
 	{
 		this.forceFieldCamoblockID = forcefieldCamoblockid;
-		NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockID");
+		//NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockID");
 	}
 
 	public String getForceFieldTextureFile()
@@ -125,7 +126,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	public void setForceFieldTextureFile(String forceFieldTexturfile)
 	{
 		this.forceFieldTextureFile = forceFieldTexturfile;
-		NetworkHandlerServer.updateTileEntityField(this, "ForceFieldTextureFile");
+		//NetworkHandlerServer.updateTileEntityField(this, "ForceFieldTextureFile");
 	}
 
 	public String getForceFieldTextureID()
@@ -136,7 +137,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	public void setForceFieldTextureID(String forceFieldTextureIDs)
 	{
 		this.forceFieldTextureIDs = forceFieldTextureIDs;
-		NetworkHandlerServer.updateTileEntityField(this, "forceFieldTextureIDs");
+		//NetworkHandlerServer.updateTileEntityField(this, "forceFieldTextureIDs");
 	}
 
 	public int getProjectorType()
@@ -147,7 +148,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	public void setProjectorType(int projectorType)
 	{
 		this.projectorType = projectorType;
-		NetworkHandlerServer.updateTileEntityField(this, "projectorType");
+		//NetworkHandlerServer.updateTileEntityField(this, "projectorType");
 	}
 
 	public int getBlockCounter()
@@ -190,7 +191,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	public void setBurnedOut(boolean b)
 	{
 		this.burnout = b;
-		NetworkHandlerServer.updateTileEntityField(this, "burnout");
+		//NetworkHandlerServer.updateTileEntityField(this, "burnout");
 	}
 
 	@Override
@@ -924,6 +925,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 		return 1;
 	}
 
+    /*
 	@Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
@@ -972,6 +974,7 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 
 		return NetworkedFields;
 	}
+    */
 
 	@Override
 	public boolean isItemValid(ItemStack itemStack, int slot)
@@ -1187,4 +1190,13 @@ public class TileEntityProjector extends TileEntityForcePowerMachine implements 
 	{
 		return this.worldObj;
 	}
+    
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

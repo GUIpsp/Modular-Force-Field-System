@@ -1,8 +1,7 @@
 package mffs.common.tileentity;
 
-import java.util.LinkedList;
+import com.google.common.io.ByteArrayDataInput;
 import java.util.List;
-
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
@@ -14,7 +13,6 @@ import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecurityStation;
-import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,6 +21,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntitySecurityStation extends TileEntityMFFS
@@ -55,7 +55,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		if (!this.MainUser.equals(s))
 		{
 			this.MainUser = s;
-			NetworkHandlerServer.updateTileEntityField(this, "MainUser");
+			//NetworkHandlerServer.updateTileEntityField(this, "MainUser");
 		}
 	}
 
@@ -307,7 +307,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 							player.sendChatToPlayer("[Security Station] expired validity <Access license>");
 							ItemStack Card = new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1);
 							slot.putStack(Card);
-							NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, Card);
+							//NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, Card);
 						}
 					}
 				}
@@ -365,6 +365,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return 0;
 	}
 
+    /*
 	@Override
 	public List getFieldsForUpdate()
 	{
@@ -376,6 +377,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 
 		return NetworkedFields;
 	}
+    */
 
 	@Override
 	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
@@ -404,6 +406,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 		return false;
 	}
 
+    /*
 	@Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
@@ -456,6 +459,7 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 
 		super.onNetworkHandlerEvent(key, value);
 	}
+    */
 
 	public ItemStack getModCardStack()
 	{
@@ -477,4 +481,13 @@ public class TileEntitySecurityStation extends TileEntityMFFS
 	{
 		return this;
 	}
+    
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

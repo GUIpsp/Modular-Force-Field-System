@@ -4,11 +4,9 @@ import mffs.client.GraphicButton;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiAreaDefenseStation extends GuiContainer
@@ -38,12 +36,12 @@ public class GuiAreaDefenseStation extends GuiContainer
 
 			if (i == 14)
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 12, "");
+				//NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 12, "");
 			}
 
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 11, String.valueOf(c));
+				//NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -69,7 +67,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 		}
 		else if ((x >= 115) && (y >= 5) && (x <= 233) && (y <= 19))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 10, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 10, "null");
 			this.editMode = true;
 		}
 	}
@@ -90,7 +88,7 @@ public class GuiAreaDefenseStation extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
-		NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, guibutton.id, "");
+		//NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, guibutton.id, "");
 	}
 
 	@Override

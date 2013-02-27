@@ -17,7 +17,6 @@ public class ItemUpgradeBooster extends ItemMFFS
 		super(i, "upgradeBooster");
 		setIconIndex(37);
 		setMaxStackSize(19);
-		this.setNoRepair();
 
 	}
 

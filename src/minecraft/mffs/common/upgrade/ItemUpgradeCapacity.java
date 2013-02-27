@@ -17,7 +17,6 @@ public class ItemUpgradeCapacity extends ItemMFFS
 		super(i, "upgradeCapacity");
 		setIconIndex(32);
 		setMaxStackSize(9);
-		this.setNoRepair();
 	}
 
 	@Override

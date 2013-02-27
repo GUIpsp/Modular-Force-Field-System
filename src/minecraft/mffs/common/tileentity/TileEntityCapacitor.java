@@ -1,10 +1,7 @@
 package mffs.common.tileentity;
 
+import com.google.common.io.ByteArrayDataInput;
 import icbm.api.RadarRegistry;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import mffs.api.IForceEnergyItems;
 import mffs.api.IForceEnergyStorageBlock;
 import mffs.api.IPowerLinkItem;
@@ -14,16 +11,18 @@ import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import mffs.common.upgrade.ItemUpgradeRange;
-import mffs.network.INetworkHandlerEventListener;
-import mffs.network.server.NetworkHandlerServer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.prefab.network.IPacketReceiver;
 
-public class TileEntityCapacitor extends TileEntityForcePowerMachine implements INetworkHandlerEventListener, IForceEnergyStorageBlock
+public class TileEntityCapacitor extends TileEntityForcePowerMachine implements IPacketReceiver, IForceEnergyStorageBlock
 {
 	private ItemStack[] inventory = new ItemStack[5];
 	private int forcePower = 0;
@@ -101,7 +100,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 	public void setTransmitRange(int transmitRange)
 	{
 		this.transmissionRange = transmitRange;
-		NetworkHandlerServer.updateTileEntityField(this, "transmissionRange");
+		//NetworkHandlerServer.updateTileEntityField(this, "transmissionRange");
 	}
 
 	public int getTransmitRange()
@@ -130,7 +129,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		if (getPercentageStorageCapacity() != capacity)
 		{
 			this.capacity = capacity;
-			NetworkHandlerServer.updateTileEntityField(this, "capacity");
+			//NetworkHandlerServer.updateTileEntityField(this, "capacity");
 		}
 	}
 
@@ -150,7 +149,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		if (this.linkedProjector != linketprojektor.shortValue())
 		{
 			this.linkedProjector = linketprojektor.shortValue();
-			NetworkHandlerServer.updateTileEntityField(this, "linkedProjector");
+			//NetworkHandlerServer.updateTileEntityField(this, "linkedProjector");
 		}
 	}
 
@@ -482,6 +481,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 		return 0;
 	}
 
+    /*
 	@Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
@@ -544,6 +544,7 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 
 		return NetworkedFields;
 	}
+    */
 
 	@Override
 	public int getFreeStorageAmount()
@@ -647,4 +648,13 @@ public class TileEntityCapacitor extends TileEntityForcePowerMachine implements 
 	{
 		return 2;
 	}
+
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

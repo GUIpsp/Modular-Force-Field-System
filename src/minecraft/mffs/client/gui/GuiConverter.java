@@ -5,11 +5,9 @@ import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerConverter;
 import mffs.common.tileentity.TileEntityConverter;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiConverter extends GuiContainer
@@ -60,11 +58,11 @@ public class GuiConverter extends GuiContainer
 
 			if (i == 14)
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 12, "");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 11, String.valueOf(c));
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -90,45 +88,45 @@ public class GuiConverter extends GuiContainer
 		}
 		else if ((x >= 97) && (y >= 4) && (x <= 227) && (y <= 18))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.Converter, 10, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 10, "null");
 			this.NameeditMode = true;
 		}
 		if (MFFSConfiguration.MODULE_IC2)
 		{
 			if ((x >= 100) && (y >= 46) && (x <= 114) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 200, "+");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 200, "+");
 			}
 			if ((x >= 115) && (y >= 46) && (x <= 128) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 200, "-");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 200, "-");
 			}
 			if ((x >= 140) && (y >= 46) && (x <= 154) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 201, "+");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 201, "+");
 			}
 			if ((x >= 155) && (y >= 46) && (x <= 168) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 201, "-");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 201, "-");
 			}
 		}
 		if (MFFSConfiguration.MODULE_UE)
 		{
 			if ((x >= 175) && (y >= 46) && (x <= 189) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 202, "+");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 202, "+");
 			}
 			if ((x >= 190) && (y >= 46) && (x <= 203) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 202, "-");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 202, "-");
 			}
 			if ((x >= 215) && (y >= 46) && (x <= 229) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 203, "+");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 203, "+");
 			}
 			if ((x >= 230) && (y >= 46) && (x <= 243) && (y <= 57))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.Converter, 203, "-");
+				//NetworkHandlerClient.fireTileEntityEvent(this.Converter, 203, "-");
 			}
 		}
 	}
@@ -136,7 +134,7 @@ public class GuiConverter extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
-		NetworkHandlerClient.fireTileEntityEvent(this.Converter, guibutton.id, "null");
+		//NetworkHandlerClient.fireTileEntityEvent(this.Converter, guibutton.id, "null");
 	}
 
 	@Override

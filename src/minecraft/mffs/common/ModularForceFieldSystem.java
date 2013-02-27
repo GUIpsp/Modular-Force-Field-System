@@ -1,16 +1,26 @@
 package mffs.common;
 
+import com.google.common.collect.Lists;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import mffs.common.block.BlockForceCapacitor;
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
-import mffs.common.block.BlockForcilliumExtractor;
+import mffs.common.block.BlockForceCapacitor;
 import mffs.common.block.BlockForceField;
+import mffs.common.block.BlockForcilliumExtractor;
 import mffs.common.block.BlockMonaziteOre;
 import mffs.common.block.BlockProjector;
 import mffs.common.block.BlockSecurityStation;
@@ -23,9 +33,9 @@ import mffs.common.card.ItemCardPower;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.event.EE3Event;
-import mffs.common.item.ItemFortronCrystal;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemForcilliumCell;
+import mffs.common.item.ItemFortronCrystal;
 import mffs.common.modules.ItemModuleAdvancedCube;
 import mffs.common.modules.ItemModuleContainment;
 import mffs.common.modules.ItemModuleCube;
@@ -35,9 +45,9 @@ import mffs.common.modules.ItemModuleSphere;
 import mffs.common.modules.ItemModuleTube;
 import mffs.common.modules.ItemModuleWall;
 import mffs.common.multitool.ItemFieldTransporter;
+import mffs.common.multitool.ItemMultiToolWrench;
 import mffs.common.multitool.ItemMultitoolSwitch;
 import mffs.common.multitool.ItemMultitoolWriter;
-import mffs.common.multitool.ItemMultiToolWrench;
 import mffs.common.options.ItemOptionAntibiotic;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionCutter;
@@ -55,10 +65,6 @@ import mffs.common.upgrade.ItemProjectorFocusMatrix;
 import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import mffs.common.upgrade.ItemUpgradeRange;
-import mffs.network.client.ForceFieldClientUpdatehandler;
-import mffs.network.client.NetworkHandlerClient;
-import mffs.network.server.ForceFieldServerUpdatehandler;
-import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -68,37 +74,23 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
-
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
-
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.UEDamageSource;
+import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenBase;
 import universalelectricity.prefab.ore.OreGenReplaceStone;
 import universalelectricity.prefab.ore.OreGenerator;
 
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
-
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerClient.class), serverPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerServer.class))
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class)
 @ModstatInfo(prefix = "mffs")
 public class ModularForceFieldSystem
 {
-
+    
+    public static final String CHANNEL = "MFFS";
+    
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
 	public static final String VERSION = "3.0.0";
@@ -229,8 +221,8 @@ public class ModularForceFieldSystem
 			MinecraftForge.EVENT_BUS.register(new EE3Event());
 		}
 
-		TickRegistry.registerScheduledTickHandler(new ForceFieldClientUpdatehandler(), Side.CLIENT);
-		TickRegistry.registerScheduledTickHandler(new ForceFieldServerUpdatehandler(), Side.SERVER);
+		//TickRegistry.registerScheduledTickHandler(new ForceFieldClientUpdatehandler(), Side.CLIENT);
+		//TickRegistry.registerScheduledTickHandler(new ForceFieldServerUpdatehandler(), Side.SERVER);
 
 		try
 		{

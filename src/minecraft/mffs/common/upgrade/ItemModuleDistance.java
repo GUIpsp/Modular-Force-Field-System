@@ -16,8 +16,6 @@ public class ItemModuleDistance extends ItemMFFS
 	{
 		super(i, "moduleDistance");
 		setIconIndex(64);
-		setMaxStackSize(64);
-		this.setNoRepair();
 
 	}
 

@@ -1,8 +1,6 @@
 package mffs.common.tileentity;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import com.google.common.io.ByteArrayDataInput;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGrid;
 import mffs.common.MachineTypes;
@@ -11,13 +9,14 @@ import mffs.common.NBTTagCompoundHelper;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerControlSystem;
-import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
@@ -41,6 +40,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		this.inventory = new ItemStack[40];
 	}
 
+    /*
 	@Override
 	public List getFieldsForUpdate()
 	{
@@ -60,7 +60,8 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 
 		return NetworkedFields;
 	}
-
+    */
+    
 	@Override
 	public void invalidate()
 	{
@@ -248,6 +249,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 		return false;
 	}
 
+    /*
 	@Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
@@ -273,7 +275,8 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 
 		super.onNetworkHandlerEvent(key, value);
 	}
-
+    */
+    
 	private void refreshRemoteData()
 	{
 		refreshRemoteData(1);
@@ -379,7 +382,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteGUIinRange(boolean b)
 	{
 		this.RemoteGUIinRange = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteGUIinRange");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteGUIinRange");
 	}
 
 	public int getRemotePowerleft()
@@ -390,7 +393,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemotePowerleft(int i)
 	{
 		this.RemotePowerleft = i;
-		NetworkHandlerServer.updateTileEntityField(this, "RemotePowerleft");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemotePowerleft");
 	}
 
 	public boolean getRemotehasPowersource()
@@ -401,7 +404,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemotehasPowersource(boolean b)
 	{
 		this.RemotehasPowersource = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemotehasPowersource");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemotehasPowersource");
 	}
 
 	public boolean getRemoteSecurityStationlink()
@@ -412,7 +415,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteSecurityStationlink(boolean b)
 	{
 		this.RemoteSecurityStationlink = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteSecurityStationlink");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteSecurityStationlink");
 	}
 
 	public boolean getRemoteSwitchValue()
@@ -423,7 +426,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteSwitchValue(boolean b)
 	{
 		this.RemoteSwitchValue = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchValue");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchValue");
 	}
 
 	public short getRemoteSwitchModi()
@@ -434,7 +437,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteSwitchModi(short s)
 	{
 		this.RemoteSwitchModi = s;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchModi");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchModi");
 	}
 
 	public boolean getRemoteActive()
@@ -445,7 +448,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteActive(boolean b)
 	{
 		this.RemoteActive = b;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteActive");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteActive");
 	}
 
 	public String getRemoteDeviceTyp()
@@ -456,7 +459,7 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteDeviceTyp(String s)
 	{
 		this.RemoteDeviceTyp = s;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceTyp");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceTyp");
 	}
 
 	public String getRemoteDeviceName()
@@ -467,6 +470,15 @@ public class TileEntityControlSystem extends TileEntityMFFS implements ISidedInv
 	public void setRemoteDeviceName(String s)
 	{
 		this.RemoteDeviceName = s;
-		NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceName");
+		//NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceName");
 	}
+    
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

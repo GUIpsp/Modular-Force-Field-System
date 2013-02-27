@@ -1,11 +1,7 @@
 package mffs.common.tileentity;
 
 import ic2.api.IWrenchable;
-
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
-
 import mffs.api.IModularProjector;
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
@@ -18,10 +14,6 @@ import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
-import mffs.network.INetworkHandlerEventListener;
-import mffs.network.INetworkHandlerListener;
-import mffs.network.client.NetworkHandlerClient;
-import mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -31,14 +23,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.implement.IRotatable;
+import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory, IWrenchable, ISwitchable, IRotatable
+public abstract class TileEntityMFFS extends TileEntityAdvanced implements IPacketReceiver, ISidedInventory, IWrenchable, ISwitchable, IRotatable
 {
 	/**
 	 * Is the machine active and working?
@@ -77,6 +70,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 
 	public abstract TileEntitySecurityStation getLinkedSecurityStation();
 
+    /*
 	@Override
 	public void onNetworkHandlerEvent(int key, String value)
 	{
@@ -101,13 +95,15 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 
 		return NetworkedFields;
 	}
+    
 
 	@Override
 	public void onNetworkHandlerUpdate(String field)
 	{
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
-
+    */
+    
 	@Override
 	public void initiate()
 	{
@@ -120,7 +116,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 			registerChunkLoading();
 		}
 
-		NetworkHandlerClient.requestInitialData(this, true);
+		//NetworkHandlerClient.requestInitialData(this, true);
 	}
 
 	@Override
@@ -132,7 +128,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 		{
 			if (this.ticks % 300 == 0)
 			{
-				NetworkHandlerClient.requestInitialData(this, true);
+				//NetworkHandlerClient.requestInitialData(this, true);
 			}
 		}
 	}
@@ -158,7 +154,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 			this.switchMode = ((short) (this.switchMode + 1));
 		}
 
-		NetworkHandlerServer.updateTileEntityField(this, "switchMode");
+		//NetworkHandlerServer.updateTileEntityField(this, "switchMode");
 	}
 
 	public boolean isPoweredByRedstone()
@@ -190,7 +186,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	public void onSwitch()
 	{
 		this.switchValue = !this.switchValue;
-		NetworkHandlerServer.updateTileEntityField(this, "switchValue");
+		//NetworkHandlerServer.updateTileEntityField(this, "switchValue");
 	}
 
 	public int getDeviceID()
@@ -274,7 +270,7 @@ public abstract class TileEntityMFFS extends TileEntityAdvanced implements INetw
 	public void setActive(boolean flag)
 	{
 		this.isActive = flag;
-		NetworkHandlerServer.updateTileEntityField(this, "isActive");
+		//NetworkHandlerServer.updateTileEntityField(this, "isActive");
 	}
 
 	@Override

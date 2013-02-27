@@ -4,14 +4,12 @@ import mffs.client.GraphicButton;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.tileentity.TileEntityControlSystem;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiControlSystem extends GuiContainer
@@ -43,11 +41,11 @@ public class GuiControlSystem extends GuiContainer
 
 			if (i == 14)
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 12, "");
+				//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 11, String.valueOf(c));
+				//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -73,7 +71,7 @@ public class GuiControlSystem extends GuiContainer
 		}
 		else if ((x >= 115) && (y >= 5) && (x <= 234) && (y <= 19))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 10, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 10, "null");
 			this.editMode = true;
 		}
 	}
@@ -94,11 +92,11 @@ public class GuiControlSystem extends GuiContainer
 	{
 		if (guibutton.id == 103)
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, this.player.username);
+			//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, this.player.username);
 		}
 		else
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, "");
+			//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, "");
 		}
 	}
 

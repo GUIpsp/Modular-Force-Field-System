@@ -1,14 +1,18 @@
 package mffs.common.tileentity;
 
+import com.google.common.io.ByteArrayDataInput;
 import mffs.common.FrequencyGrid;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecStorage;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
@@ -234,4 +238,13 @@ public class TileEntitySecStorage extends TileEntityMFFS implements ISidedInvent
 		}
 		return 64;
 	}
+    
+    @Override
+    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
+    {
+        int x = data.readInt();
+        int y = data.readInt();
+        int z = data.readInt();
+        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
+    }
 }

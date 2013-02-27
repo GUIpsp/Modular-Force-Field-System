@@ -16,8 +16,6 @@ public class ItemModuleStrength extends ItemMFFS
 	{
 		super(i, "moduleStrength");
 		setIconIndex(65);
-		setMaxStackSize(64);
-		this.setNoRepair();
 
 	}
 

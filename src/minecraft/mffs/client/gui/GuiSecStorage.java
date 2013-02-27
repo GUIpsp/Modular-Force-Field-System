@@ -4,11 +4,9 @@ import mffs.client.GraphicButton;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerSecStorage;
 import mffs.common.tileentity.TileEntitySecStorage;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiSecStorage extends GuiContainer
@@ -38,11 +36,11 @@ public class GuiSecStorage extends GuiContainer
 
 			if (i == 14)
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 12, "");
+				//NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 11, String.valueOf(c));
+				//NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -54,7 +52,7 @@ public class GuiSecStorage extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
-		NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, guibutton.id, "");
+		//NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, guibutton.id, "");
 	}
 
 	@Override
@@ -81,7 +79,7 @@ public class GuiSecStorage extends GuiContainer
 		}
 		else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19))
 		{
-			NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 10, "null");
+			//NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 10, "null");
 			this.editMode = true;
 		}
 	}

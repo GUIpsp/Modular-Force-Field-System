@@ -3,13 +3,10 @@ package mffs.client.gui;
 import org.lwjgl.opengl.GL11;
 
 import mffs.client.GraphicButton;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityCapacitor;
-import mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
@@ -81,6 +78,6 @@ public class GuiCapacitor extends GuiMFFS
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		super.actionPerformed(guibutton);
-		NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
+		//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
 	}
 }
