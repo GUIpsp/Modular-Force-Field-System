@@ -40,8 +40,8 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		items.add(ModularForceFieldSystem.itemMultiToolWrench);
 		items.add(ModularForceFieldSystem.itemCardEmpty);
 		items.add(ModularForceFieldSystem.itemPowerCrystal);
-		items.add(ModularForceFieldSystem.itemForcicium);
-		items.add(ModularForceFieldSystem.itemForcicumCell);
+		items.add(ModularForceFieldSystem.itemForcillium);
+		items.add(ModularForceFieldSystem.itemForcilliumCell);
 		items.add(ModularForceFieldSystem.itemFocusMatix);
 		items.add(ModularForceFieldSystem.itemCardInfinite);
 

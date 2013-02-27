@@ -1,19 +1,64 @@
 package mffs.common.tileentity;
 
+import ic2.api.energy.tile.IEnergySink;
+
 import java.util.EnumSet;
 
+import mffs.common.MFFSConfiguration;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.electricity.ElectricityPack;
+import universalelectricity.core.implement.IItemElectric;
 import universalelectricity.core.implement.IVoltage;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.prefab.ItemElectric;
+import buildcraft.api.power.IPowerProvider;
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerFramework;
 
-public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory implements IVoltage
+public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory implements IVoltage, IPowerReceptor, IEnergySink
 {
+	protected IPowerProvider powerProvider;
+
+	public TileEntityMFFSElectrical()
+	{
+		if (MFFSConfiguration.MODULE_BUILDCRAFT)
+		{
+			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
+			// this.powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5D), (int)
+			// (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D));
+		}
+	}
+
+	@Override
+	public void setPowerProvider(IPowerProvider provider)
+	{
+		this.powerProvider = provider;
+	}
+
+	@Override
+	public IPowerProvider getPowerProvider()
+	{
+		return this.powerProvider;
+	}
+
+	@Override
+	public void doWork()
+	{
+	}
+
+	@Override
+	public int powerRequest()
+	{
+		// double workEnergyinMJ = getWorkEnergy() / 2.5D;
+		// double MaxWorkEnergyinMj = getMaxWorkEnergy() / 2.5D;
+
+		// return (int) Math.round(MaxWorkEnergyinMj - workEnergyinMJ);
+		return 0;
+	}
+
 	/**
 	 * The amount of watts received this tick. This variable should be deducted when used.
 	 */
@@ -94,4 +139,33 @@ public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory i
 	{
 		return this.getRequest().getWatts() * 2;
 	}
+
+	@Override
+	public double getVoltage(Object... data)
+	{
+		if (UniversalElectricity.isVoltageSensitive)
+		{
+			return 240;
+		}
+
+		return 120;
+	}
+	
+	public void decharge(ItemStack itemStack)
+	{
+		if (itemStack != null)
+		{
+			if (itemStack.getItem() instanceof IItemElectric)
+			{
+				IItemElectric electricItem = (IItemElectric) itemStack.getItem();
+
+				if (electricItem.canProduceElectricity())
+				{
+					double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules() * 0.005, this.getRequest().getWatts()), itemStack);
+					this.wattsReceived += receivedElectricity;
+				}
+			}
+		}
+	}
+
 }

@@ -1,20 +1,10 @@
 package mffs.common;
 
-import com.google.common.collect.Lists;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
@@ -74,8 +64,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.liquids.LiquidDictionary;
+import net.minecraftforge.liquids.LiquidStack;
+
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
+
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.UEDamageSource;
 import universalelectricity.prefab.network.PacketManager;
@@ -83,16 +77,29 @@ import universalelectricity.prefab.ore.OreGenBase;
 import universalelectricity.prefab.ore.OreGenReplaceStone;
 import universalelectricity.prefab.ore.OreGenerator;
 
+import com.google.common.collect.Lists;
+
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class)
 @ModstatInfo(prefix = "mffs")
 public class ModularForceFieldSystem
 {
-    
-    public static final String CHANNEL = "MFFS";
+
+	public static final String CHANNEL = "MFFS";
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
-	
+
 	public static final String VERSION = "3.0.0";
 	public static final String RESOURCE_DIRECTORY = "/mffs/";
 	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
@@ -116,8 +123,8 @@ public class ModularForceFieldSystem
 	/**
 	 * General Items
 	 */
-	public static Item itemForcicumCell;
-	public static Item itemForcicium;
+	public static Item itemForcilliumCell;
+	public static Item itemForcillium;
 	public static Item itemPowerCrystal;
 	public static Item itemCompactForcicium;
 	public static Item itemDepletedForcicium;
@@ -178,6 +185,8 @@ public class ModularForceFieldSystem
 	public static DamageSource areaDefense = new UEDamageSource("areaDefense").setDamageBypassesArmor();
 	public static DamageSource fieldDefense = new UEDamageSource("fieldDefense").setDamageBypassesArmor();
 
+	public static LiquidStack LIQUID_FORTRON;
+
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
 
@@ -221,8 +230,10 @@ public class ModularForceFieldSystem
 			MinecraftForge.EVENT_BUS.register(new EE3Event());
 		}
 
-		//TickRegistry.registerScheduledTickHandler(new ForceFieldClientUpdatehandler(), Side.CLIENT);
-		//TickRegistry.registerScheduledTickHandler(new ForceFieldServerUpdatehandler(), Side.SERVER);
+		// TickRegistry.registerScheduledTickHandler(new ForceFieldClientUpdatehandler(),
+		// Side.CLIENT);
+		// TickRegistry.registerScheduledTickHandler(new ForceFieldServerUpdatehandler(),
+		// Side.SERVER);
 
 		try
 		{
@@ -245,8 +256,8 @@ public class ModularForceFieldSystem
 			itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
 			itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
-			itemForcicium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
-			itemForcicumCell = new ItemForcilliumCell(MFFSConfiguration.item_ForciciumCell_ID);
+			itemForcillium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
+			itemForcilliumCell = new ItemForcilliumCell(MFFSConfiguration.item_ForciciumCell_ID);
 
 			itemModuleDiagonalWall = new ItemModuleDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
 			itemModuleSphere = new ItemModuleSphere(MFFSConfiguration.item_ModSphere_ID);
@@ -283,6 +294,8 @@ public class ModularForceFieldSystem
 			itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
+
+			LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemForcillium, 0));
 
 			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.CONFIGURATION);
 			OreGenerator.addOre(monaziteOreGeneration);
@@ -323,6 +336,22 @@ public class ModularForceFieldSystem
 		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkloadCallback());
 	}
 
+	public static LiquidStack getFortron(int amount)
+	{
+		LiquidStack stack = LIQUID_FORTRON.copy();
+		stack.amount = amount;
+		return stack;
+	}
+
+	public static int getAmount(LiquidStack liquidStack)
+	{
+		if (liquidStack != null)
+		{
+			return liquidStack.amount;
+		}
+		return 0;
+	}
+
 	public boolean initiateModule(String modname)
 	{
 		if (Loader.isModLoaded(modname))
@@ -339,7 +368,6 @@ public class ModularForceFieldSystem
 
 	public class ChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback
 	{
-
 		@Override
 		public void ticketsLoaded(List<Ticket> tickets, World world)
 		{

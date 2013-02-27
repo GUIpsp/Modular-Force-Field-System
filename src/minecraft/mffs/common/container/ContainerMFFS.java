@@ -14,11 +14,17 @@ public class ContainerMFFS extends Container
 	public ContainerMFFS(IInventory inventory)
 	{
 		this.inventory = inventory;
+		this.inventory.openChest();
+	}
+
+	@Override
+	public void onCraftGuiClosed(EntityPlayer par1EntityPlayer)
+	{
+		this.inventory.closeChest();
 	}
 
 	public void addPlayerInventory(EntityPlayer player)
 	{
-
 		for (int var3 = 0; var3 < 3; var3++)
 		{
 			for (int var4 = 0; var4 < 9; var4++)

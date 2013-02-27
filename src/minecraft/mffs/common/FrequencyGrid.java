@@ -244,10 +244,10 @@ public final class FrequencyGrid
 
 			for (TileEntityForcilliumExtractor tileentity : this.Extractor.values())
 			{
-				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
+				/*if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{
 					counter++;
-				}
+				}*/
 
 			}
 

@@ -32,6 +32,11 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	protected ItemStack[] inventory = new ItemStack[this.getSizeInventory()];
 
 	/**
+	 * The amount of players using the inventory.
+	 */
+	protected int playersUsing = 0;
+
+	/**
 	 * Inventory Methods
 	 */
 	@Override
@@ -98,11 +103,13 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	@Override
 	public void openChest()
 	{
+		this.playersUsing++;
 	}
 
 	@Override
 	public void closeChest()
 	{
+		this.playersUsing--;
 	}
 
 	public abstract boolean isItemValid(ItemStack itemStack, int slotID);
@@ -162,6 +169,39 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 
 			inventory.setInventorySlotContents(slot, null);
 			onInventoryChanged();
+		}
+	}
+
+	/**
+	 * @return Returns if a specific slot is valid to input a specific itemStack.
+	 * 
+	 */
+	public boolean isSlotValidFor(int slot, ItemStack itemStack)
+	{
+		if (this.getStackInSlot(slot) == null)
+		{
+			return true;
+		}
+		else
+		{
+			if (this.getStackInSlot(slot).stackSize + 1 <= 64)
+			{
+				return this.getStackInSlot(slot).isItemEqual(itemStack);
+			}
+		}
+
+		return false;
+	}
+
+	public void incrStackSize(int slot, ItemStack itemStack)
+	{
+		if (this.getStackInSlot(slot) == null)
+		{
+			this.setInventorySlotContents(slot, itemStack.copy());
+		}
+		else if (this.getStackInSlot(slot).isItemEqual(itemStack))
+		{
+			this.getStackInSlot(slot).stackSize++;
 		}
 	}
 
