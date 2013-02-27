@@ -29,7 +29,7 @@ public class Fortron
 		return 0;
 	}
 
-	public static double getAmount(LiquidTank fortronTank)
+	public static int getAmount(LiquidTank fortronTank)
 	{
 		if (fortronTank != null)
 		{
