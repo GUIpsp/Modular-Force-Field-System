@@ -1,6 +1,9 @@
 package mffs.common.tileentity;
 
 import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
 import java.util.List;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
@@ -33,7 +36,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 
 	public TileEntitySecurityStation()
 	{
-		this.inventory = new ItemStack[40];
+		this.inventory = new ItemStack[11];
 	}
 
 	@Override
@@ -155,8 +158,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		super.updateEntity();
 	}
 
-	public void checkslots()
-	{
+	public void checkslots() {
 		if (getStackInSlot(0) != null)
 		{
 			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemCardID)
@@ -185,16 +187,12 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 			setMainUser("");
 		}
 
-		if ((getStackInSlot(39) != null) && (getStackInSlot(38) != null) && ((getStackInSlot(38).getItem() instanceof ItemCardEmpty)) && ((getStackInSlot(39).getItem() instanceof ItemCardPersonalID)))
-		{
-			setInventorySlotContents(38, ItemStack.copyItemStack(getStackInSlot(39)));
-		}
 	}
 
 	@Override
 	public int getSizeInventory()
 	{
-		return this.inventory.length;
+		return 11;
 	}
 
 	@Override
@@ -243,7 +241,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 	@Override
 	public String getInvName()
 	{
-		return "Secstation";
+		return LanguageRegistry.instance().getStringLocalization("tile.securityStation.name");
 	}
 
 	public boolean RemoteInventory(String username, SecurityRight right)
@@ -380,30 +378,15 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
     */
 
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
-	{
-		switch (Slot)
-		{
-			case 38:
-				if (!(par1ItemStack.getItem() instanceof ItemCardEmpty))
-				{
-					return false;
-				}
-				break;
-			case 39:
-				if (((par1ItemStack.getItem() instanceof ItemAccessCard)) || (!(par1ItemStack.getItem() instanceof ItemCardPersonalID)))
-				{
-					return false;
-				}
-
-				break;
-		}
-
-		if (((par1ItemStack.getItem() instanceof ItemCardPersonalID)) || ((par1ItemStack.getItem() instanceof ItemCardEmpty)))
-		{
+	public boolean isItemValid(ItemStack par1ItemStack, int slot) {
+		
+		if (slot == 0 && par1ItemStack.getItem() instanceof ItemAccessCard) {
+			return true;
+		}else if(slot != 0 && par1ItemStack.getItem() instanceof ItemCardPersonalID){
 			return true;
 		}
 		return false;
+			
 	}
 
     /*

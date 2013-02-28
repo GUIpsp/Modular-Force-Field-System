@@ -157,7 +157,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	@Override
 	public int getSizeInventory()
 	{
-		return this.inventory.length;
+		return 40;
 	}
 
 	@Override

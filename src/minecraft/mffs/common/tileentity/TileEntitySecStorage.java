@@ -152,7 +152,7 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	@Override
 	public int getSizeInventory()
 	{
-		return this.inventory.length;
+		return 60;
 	}
 
 	@Override
