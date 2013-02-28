@@ -90,6 +90,8 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+// Use the Force, Luke.
+
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class)
 @ModstatInfo(prefix = "mffs")
