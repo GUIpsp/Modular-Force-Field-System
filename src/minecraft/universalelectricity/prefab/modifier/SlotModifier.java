@@ -1,7 +1,7 @@
 package universalelectricity.prefab.modifier;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.slotID;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
  * @author Calclavia
  * 
  */
-public class SlotModifier extends Slot
+public class SlotModifier extends slotID
 {
 	public SlotModifier(IInventory par2IInventory, int par3, int par4, int par5)
 	{

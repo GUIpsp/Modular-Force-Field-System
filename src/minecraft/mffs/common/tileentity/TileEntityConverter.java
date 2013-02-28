@@ -578,12 +578,12 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		switch (Slot)
+		switch (slotID)
 		{
 			case 0:
-				if (!(par1ItemStack.getItem() instanceof IPowerLinkItem))
+				if (!(itemStack.getItem() instanceof IPowerLinkItem))
 				{
 					return false;
 				}

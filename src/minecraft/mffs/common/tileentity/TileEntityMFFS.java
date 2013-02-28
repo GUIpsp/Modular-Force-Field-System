@@ -241,7 +241,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	public void setActive(boolean flag)
 	{
 		this.isActive = flag;
-		// NetworkHandlerServer.updateTileEntityField(this, "isActive");
 	}
 
 	@Override
@@ -301,6 +300,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		{
 			this.chunkTicket = ticket;
 		}
+		
 		ChunkCoordIntPair Chunk = new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4);
 		ForgeChunkManager.forceChunk(ticket, Chunk);
 	}
@@ -317,9 +317,9 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 			return;
 		}
 
-		this.chunkTicket.getModData().setInteger("MachineX", this.xCoord);
-		this.chunkTicket.getModData().setInteger("MachineY", this.yCoord);
-		this.chunkTicket.getModData().setInteger("MachineZ", this.zCoord);
+		this.chunkTicket.getModData().setInteger("xCoord", this.xCoord);
+		this.chunkTicket.getModData().setInteger("yCoord", this.yCoord);
+		this.chunkTicket.getModData().setInteger("zCoord", this.zCoord);
 		ForgeChunkManager.forceChunk(this.chunkTicket, new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4));
 
 		forceChunkLoading(this.chunkTicket);

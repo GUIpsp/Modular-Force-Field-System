@@ -3,7 +3,7 @@ package mffs.common.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.slotID;
 import net.minecraft.item.ItemStack;
 
 public class ContainerMFFS extends Container
@@ -29,14 +29,14 @@ public class ContainerMFFS extends Container
 		{
 			for (int var4 = 0; var4 < 9; var4++)
 			{
-				this.addSlotToContainer(new Slot(player.inventory, var4 + var3 * 9 + 9, 8 + var4 * 18, 135 + var3 * 18));
+				this.addSlotToContainer(new slotID(player.inventory, var4 + var3 * 9 + 9, 8 + var4 * 18, 135 + var3 * 18));
 			}
 
 		}
 
 		for (int var3 = 0; var3 < 9; var3++)
 		{
-			this.addSlotToContainer(new Slot(player.inventory, var3, 8 + var3 * 18, 193));
+			this.addSlotToContainer(new slotID(player.inventory, var3, 8 + var3 * 18, 193));
 		}
 	}
 
@@ -47,7 +47,7 @@ public class ContainerMFFS extends Container
 	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par1)
 	{
 		ItemStack var2 = null;
-		Slot var3 = (Slot) this.inventorySlots.get(par1);
+		slotID var3 = (slotID) this.inventorySlots.get(par1);
 
 		if (var3 != null && var3.getHasStack())
 		{

@@ -50,7 +50,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 
 	public TileEntityForcilliumExtractor()
 	{
-		this.fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON, 50 * LiquidContainerRegistry.BUCKET_VOLUME, this);
+		this.fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), 50 * LiquidContainerRegistry.BUCKET_VOLUME, this);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	@Override
 	public ElectricityPack getRequest()
 	{
-		if (this.canUse())
+		if (this.canUse() && !this.isPoweredByRedstone())
 		{
 			return new ElectricityPack(WATTAGE / this.getVoltage(), this.getVoltage());
 		}
@@ -133,11 +133,17 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 		return super.getRequest();
 	}
 
+	@Override
+	public boolean isActive()
+	{
+		return !this.isPoweredByRedstone();
+	}
+
 	public boolean canUse()
 	{
 		if (!this.isDisabled())
 		{
-			if (this.isItemValid(this.getStackInSlot(0), 0))
+			if (this.isItemValid(0, this.getStackInSlot(0)))
 			{
 				return Fortron.getAmount(this.fortronTank) < this.fortronTank.getCapacity();
 			}
@@ -163,7 +169,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	{
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
-		objects.add(Fortron.getAmount(this.fortronTank.getLiquid()));
 		objects.add(this.processTime);
 		return objects;
 	}
@@ -172,7 +177,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
 		super.onReceivePacket(packetID, dataStream);
-		this.fortronTank.setLiquid(Fortron.getFortron(dataStream.readInt()));
 		this.processTime = dataStream.readInt();
 	}
 
@@ -188,7 +192,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 		super.readFromNBT(nbt);
 
 		this.processTime = nbt.getInteger("processTime");
-		this.fortronTank.setLiquid(LiquidStack.loadLiquidStackFromNBT(nbt.getCompoundTag("fortron")));
 	}
 
 	@Override
@@ -197,20 +200,12 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 		super.writeToNBT(nbt);
 
 		nbt.setInteger("processTime", this.processTime);
-
-		if (this.fortronTank.getLiquid() != null)
-		{
-			NBTTagCompound fortronCompound = new NBTTagCompound();
-			this.fortronTank.getLiquid().writeToNBT(fortronCompound);
-			nbt.setTag("fortron", fortronCompound);
-		}
-
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemStack, int slotID)
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		if (itemStack != null && super.isItemValid(itemStack, slotID))
+		if (itemStack != null)
 		{
 			switch (slotID)
 			{

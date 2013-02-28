@@ -32,7 +32,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		blocks.add(ModularForceFieldSystem.blockCapacitor);
 		blocks.add(ModularForceFieldSystem.blockProjector);
 		blocks.add(ModularForceFieldSystem.blockSecurityStorage);
-		blocks.add(ModularForceFieldSystem.blockMonaziteOre);
+		blocks.add(ModularForceFieldSystem.blockFortronite);
 
 		items.add(ModularForceFieldSystem.itemMultiTool);
 		items.add(ModularForceFieldSystem.itemCardEmpty);

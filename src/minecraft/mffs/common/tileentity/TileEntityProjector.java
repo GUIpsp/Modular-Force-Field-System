@@ -955,22 +955,22 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
     */
 
 	@Override
-	public boolean isItemValid(ItemStack itemStack, int slot)
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		if ((slot == 1) && ((itemStack.getItem() instanceof ItemModuleBase)))
+		if ((slotID == 1) && ((itemStack.getItem() instanceof ItemModuleBase)))
 			return true;
 
-		if ((slot == 0) && ((itemStack.getItem() instanceof IPowerLinkItem)))
+		if ((slotID == 0) && ((itemStack.getItem() instanceof IPowerLinkItem)))
 			return true;
 
-		if ((slot == 11) && (itemStack.itemID < 4096) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
+		if ((slotID == 11) && (itemStack.itemID < 4096) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
 			return true;
 
 		if (hasValidTypeMod())
 		{
 			ItemModuleBase modType = getType();
 
-			switch (slot)
+			switch (slotID)
 			{
 				case 12:
 					if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))

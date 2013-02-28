@@ -1,27 +1,18 @@
 package mffs.common;
 
-import com.google.common.collect.Lists;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
 import mffs.common.block.BlockForceCapacitor;
 import mffs.common.block.BlockForceField;
 import mffs.common.block.BlockForcilliumExtractor;
-import mffs.common.block.BlockMonaziteOre;
+import mffs.common.block.BlockFortronite;
 import mffs.common.block.BlockProjector;
 import mffs.common.block.BlockSecurityStation;
 import mffs.common.block.BlockSecurityStorage;
@@ -36,6 +27,7 @@ import mffs.common.event.EE3Event;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemForcilliumCell;
 import mffs.common.item.ItemFortronCrystal;
+import mffs.common.item.ItemMFFS;
 import mffs.common.modules.ItemModuleAdvancedCube;
 import mffs.common.modules.ItemModuleContainment;
 import mffs.common.modules.ItemModuleCube;
@@ -73,8 +65,10 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
+
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
+
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.UEDamageSource;
 import universalelectricity.prefab.network.ConnectionHandler;
@@ -82,6 +76,16 @@ import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenBase;
 import universalelectricity.prefab.ore.OreGenReplaceStone;
 import universalelectricity.prefab.ore.OreGenerator;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 // Use the Force, Luke.
 
@@ -110,14 +114,16 @@ public class ModularForceFieldSystem
 	public static Block blockDefenceStation;
 	public static Block blockForceField;
 	public static Block blockExtractor;
-	public static Block blockMonaziteOre;
+	public static Block blockFortronite;
 	public static Block blockConverter;
 	public static Block blockSecurityStorage;
 	public static Block blockSecurityStation;
 	public static Block blockControlSystem;
+
 	/**
-	 * General Items
+	 * Fortron related items
 	 */
+	public static Item itemFortron;
 	public static Item itemForcilliumCell;
 	public static Item itemForcillium;
 	public static Item itemPowerCrystal;
@@ -219,11 +225,6 @@ public class ModularForceFieldSystem
 			MinecraftForge.EVENT_BUS.register(new EE3Event());
 		}
 
-		// TickRegistry.registerScheduledTickHandler(new ForceFieldClientUpdatehandler(),
-		// Side.CLIENT);
-		// TickRegistry.registerScheduledTickHandler(new ForceFieldServerUpdatehandler(),
-		// Side.SERVER);
-
 		try
 		{
 			MFFSConfiguration.initialize();
@@ -232,7 +233,7 @@ public class ModularForceFieldSystem
 
 			blockConverter = new BlockConverter(MFFSConfiguration.block_Converter_ID);
 			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.block_Extractor_ID);
-			blockMonaziteOre = new BlockMonaziteOre(MFFSConfiguration.block_MonazitOre_ID);
+			blockFortronite = new BlockFortronite(MFFSConfiguration.blockFortronite_ID, "oreFortronite");
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
 			blockCapacitor = new BlockForceCapacitor(MFFSConfiguration.block_Capacitor_ID);
 			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
@@ -275,15 +276,20 @@ public class ModularForceFieldSystem
 			itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
 			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
-			itemMultiTool= new ItemMultitool(MFFSConfiguration.item_MT_ID);
-			
+			itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
+
 			itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
-			Fortron.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemForcillium, 0));
+			/**
+			 * The Fortron Liquid
+			 */
+			itemFortron = new ItemMFFS(MFFSConfiguration.itemFortronID, "fortron").setTextureFile(BLOCK_TEXTURE_FILE).setCreativeTab(null).setIconIndex(5);
+			Fortron.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemFortron, 0));
 
-			monaziteOreGeneration = new OreGenReplaceStone("Monazite Ore", "oreMonazite", new ItemStack(blockMonaziteOre), 80, MFFSConfiguration.monazitWorldAmount, 4).enable(MFFSConfiguration.CONFIGURATION);
+			monaziteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
+			monaziteOreGeneration.shouldGenerate = MFFSConfiguration.CONFIGURATION.get("Ore Generation", "Generate Fortronite", false).getBoolean(false);
 			OreGenerator.addOre(monaziteOreGeneration);
 		}
 		catch (Exception e)
@@ -302,7 +308,7 @@ public class ModularForceFieldSystem
 	{
 		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "language/", new String[] { "en_US" }));
 
-		GameRegistry.registerBlock(blockMonaziteOre, "MFFSMonaziteOre");
+		GameRegistry.registerBlock(blockFortronite, "MFFSMonaziteOre");
 		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
 		GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
 
@@ -341,30 +347,34 @@ public class ModularForceFieldSystem
 		@Override
 		public void ticketsLoaded(List<Ticket> tickets, World world)
 		{
-			for (ForgeChunkManager.Ticket ticket : tickets)
+			for (Ticket ticket : tickets)
 			{
-				int MaschineX = ticket.getModData().getInteger("MaschineX");
-				int MaschineY = ticket.getModData().getInteger("MaschineY");
-				int MaschineZ = ticket.getModData().getInteger("MaschineZ");
-				TileEntityMFFS Machines = (TileEntityMFFS) world.getBlockTileEntity(MaschineX, MaschineY, MaschineZ);
+				int x = ticket.getModData().getInteger("xCoord");
+				int y = ticket.getModData().getInteger("yCoord");
+				int z = ticket.getModData().getInteger("zCoord");
+				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				Machines.forceChunkLoading(ticket);
+				if (tileEntity instanceof TileEntityMFFS)
+				{
+					((TileEntityMFFS) tileEntity).forceChunkLoading(ticket);
+				}
 			}
 		}
 
 		@Override
 		public List ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount)
 		{
-			List validTickets = Lists.newArrayList();
-			for (ForgeChunkManager.Ticket ticket : tickets)
+			List validTickets = new ArrayList<Ticket>();
+
+			for (Ticket ticket : tickets)
 			{
-				int MaschineX = ticket.getModData().getInteger("MaschineX");
-				int MaschineY = ticket.getModData().getInteger("MaschineY");
-				int MaschineZ = ticket.getModData().getInteger("MaschineZ");
+				int x = ticket.getModData().getInteger("xCoord");
+				int y = ticket.getModData().getInteger("yCoord");
+				int z = ticket.getModData().getInteger("zCoord");
 
-				TileEntity tileEntity = world.getBlockTileEntity(MaschineX, MaschineY, MaschineZ);
+				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				if ((tileEntity instanceof TileEntityMFFS))
+				if (tileEntity instanceof TileEntityMFFS)
 				{
 					validTickets.add(ticket);
 				}

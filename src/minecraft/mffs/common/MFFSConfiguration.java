@@ -8,13 +8,13 @@ import cpw.mods.fml.common.Loader;
 
 public class MFFSConfiguration
 {
-	/*
+	/**
 	 * Blocks
 	 */
 	public static int block_ControlSystem = 690;
 	public static int block_Converter_ID = 687;
 	public static int block_Extractor_ID = 682;
-	public static int block_MonazitOre_ID = 688;
+	public static int blockFortronite_ID = 688;
 	public static int block_DefenseStation_ID = 681;
 	public static int block_Capacitor_ID = 680;
 	public static int block_Projector_ID = 685;
@@ -22,10 +22,12 @@ public class MFFSConfiguration
 	public static int block_SecureStorage_ID = 684;
 	public static int block_SecurityStation_ID = 686;
 
-	/*
+	/**
 	 * Items
 	 */
-	public static int item_AltDistance_ID = 11131;
+	//TODO: Make all IDs based on the ID prefix + a specific value. -- Calclavia.
+	public static int ITEM_ID_PREFIX = 11130;
+	public static int item_AltDistance_ID = ITEM_ID_PREFIX + 1;
 	public static int item_AltStrength_ID = 11132;
 	public static int item_FocusMatrix_ID = 11133;
 	public static int item_FPCrystal_ID = 11145;
@@ -33,7 +35,6 @@ public class MFFSConfiguration
 	public static int item_ForciciumCell_ID = 11146;
 	public static int item_ModAdvCube_ID = 11142;
 	public static int item_ModContainment_ID = 11140;
-	public static int item_ModCube_ID = 11122;
 	public static int item_ModDeflector_ID = 11125;
 	public static int item_ModDiag_ID = 11113;
 	public static int item_ModSphere_ID = 11121;
@@ -55,10 +56,12 @@ public class MFFSConfiguration
 	public static int item_CardSecurityLink_ID = 11135;
 	public static int item_CardAccess_ID = 11114;
 	public static int item_CardDataLink_ID = 11148;
-	public static int item_MT_ID = 11107;
+	public static int item_MultiTool_ID = 11107;
 	public static int item_upgradeBoost_ID = 11118;
 	public static int item_upgradeRange_ID = 11119;
 	public static int item_upgradeCap_ID = 11120;
+	public static int item_ModCube_ID = 11122;
+	public static int itemFortronID = 11123;
 
 	/**
 	 * Settings
@@ -83,7 +86,6 @@ public class MFFSConfiguration
 	public static int DefenceStationSearchForceEnergy;
 	public static int DefenceStationScannForceEnergy;
 	public static String Admin;
-	public static int monazitWorldAmount;
 
 	/**
 	 * Compatibility Modules
@@ -180,10 +182,6 @@ public class MFFSConfiguration
 		Property Adventuremap = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "adventureMap", false);
 		Adventuremap.comment = "Set MFFS to Adventure Map Mode Extractor, requires no Forcillium and Force Fields have no click damage.";
 		adventureMap = Boolean.valueOf(Adventuremap.getBoolean(false));
-
-		Property monazitWorldAmountProp = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Monazite Ore Generation", 15);
-		monazitWorldAmountProp.comment = "The amount of Monazite Ore generated per chunk.";
-		monazitWorldAmount = monazitWorldAmountProp.getInt(15);
 		CONFIGURATION.save();
 	}
 

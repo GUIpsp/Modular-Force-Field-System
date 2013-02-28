@@ -16,7 +16,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.slotID;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -43,7 +43,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		if (!this.MainUser.equals(s))
 		{
 			this.MainUser = s;
-			//NetworkHandlerServer.updateTileEntityField(this, "MainUser");
+			// NetworkHandlerServer.updateTileEntityField(this, "MainUser");
 		}
 	}
 
@@ -143,7 +143,8 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		super.updateEntity();
 	}
 
-	public void checkslots() {
+	public void checkslots()
+	{
 		if (getStackInSlot(0) != null)
 		{
 			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemCardID)
@@ -262,8 +263,8 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		EntityPlayer player = this.worldObj.getPlayerEntityByName(username);
 		if (player != null)
 		{
-			List<Slot> slots = player.inventoryContainer.inventorySlots;
-			for (Slot slot : slots)
+			List<slotID> slots = player.inventoryContainer.inventorySlots;
+			for (slotID slot : slots)
 			{
 				ItemStack stack = slot.getStack();
 				if (stack != null)
@@ -276,11 +277,12 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 							{
 								if (ItemAccessCard.hasRight(stack, right))
 								{
-									/*if (!ItemAccessCard.getforAreaname(stack).equals(getDeviceName()))
-									{
-										ItemAccessCard.setforArea(stack, this);
-									}*/
-									//TODO: REMOVED NAME
+									/*
+									 * if
+									 * (!ItemAccessCard.getforAreaname(stack).equals(getDeviceName
+									 * ())) { ItemAccessCard.setforArea(stack, this); }
+									 */
+									// TODO: REMOVED NAME
 									return true;
 								}
 							}
@@ -290,7 +292,8 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 							player.sendChatToPlayer("[Security Station] expired validity <Access license>");
 							ItemStack Card = new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1);
 							slot.putStack(Card);
-							//NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, Card);
+							// NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot,
+							// Card);
 						}
 					}
 				}
@@ -348,86 +351,53 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		return 0;
 	}
 
-    /*
+	/*
+	 * @Override public List getFieldsForUpdate() { List NetworkedFields = new LinkedList();
+	 * NetworkedFields.clear();
+	 * 
+	 * NetworkedFields.addAll(super.getFieldsForUpdate()); NetworkedFields.add("MainUser");
+	 * 
+	 * return NetworkedFields; }
+	 */
+
 	@Override
-	public List getFieldsForUpdate()
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		List NetworkedFields = new LinkedList();
-		NetworkedFields.clear();
-
-		NetworkedFields.addAll(super.getFieldsForUpdate());
-		NetworkedFields.add("MainUser");
-
-		return NetworkedFields;
-	}
-    */
-
-	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int slot) {
-		
-		if (slot == 0 && par1ItemStack.getItem() instanceof ItemAccessCard) {
+		if (slotID == 0 && itemStack.getItem() instanceof ItemAccessCard)
+		{
 			return true;
-		}else if(slot != 0 && par1ItemStack.getItem() instanceof ItemCardPersonalID){
+		}
+		else if (slotID != 0 && itemStack.getItem() instanceof ItemCardPersonalID)
+		{
 			return true;
 		}
 		return false;
-			
+
 	}
 
-    /*
-	@Override
-	public void onNetworkHandlerEvent(int key, String value)
-	{
-		switch (key)
-		{
-			case 100:
-				if (getStackInSlot(1) != null)
-				{
-					SecurityRight sr = (SecurityRight) SecurityRight.rights.get(value);
-					if ((sr != null) && ((getStackInSlot(1).getItem() instanceof ItemCardPersonalID)))
-					{
-						ItemCardPersonalID.setRight(getStackInSlot(1), sr, !ItemCardPersonalID.hasRight(getStackInSlot(1), sr));
-					}
-				}
-				break;
-			case 101:
-				if ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemAccessCard)))
-				{
-					if (ItemAccessCard.getvalidity(getStackInSlot(1)) <= 5)
-					{
-						setInventorySlotContents(1, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1));
-					}
-					else
-					{
-						ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) - 5);
-					}
-				}
-				break;
-			case 102:
-				if (getStackInSlot(1) != null)
-				{
-					if ((getStackInSlot(1).getItem() instanceof ItemCardEmpty))
-					{
-						setInventorySlotContents(1, new ItemStack(ModularForceFieldSystem.itemCardAccess, 1));
-						if ((getStackInSlot(1).getItem() instanceof ItemAccessCard))
-						{
-							ItemAccessCard.setforArea(getStackInSlot(1), this);
-							ItemAccessCard.setvalidity(getStackInSlot(1), 5);
-							ItemAccessCard.setlinkID(getStackInSlot(1), this);
-						}
-
-					}
-					else if ((getStackInSlot(1).getItem() instanceof ItemAccessCard))
-					{
-						ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) + 5);
-					}
-				}
-				break;
-		}
-
-		super.onNetworkHandlerEvent(key, value);
-	}
-    */
+	/*
+	 * @Override public void onNetworkHandlerEvent(int key, String value) { switch (key) { case 100:
+	 * if (getStackInSlot(1) != null) { SecurityRight sr = (SecurityRight)
+	 * SecurityRight.rights.get(value); if ((sr != null) && ((getStackInSlot(1).getItem() instanceof
+	 * ItemCardPersonalID))) { ItemCardPersonalID.setRight(getStackInSlot(1), sr,
+	 * !ItemCardPersonalID.hasRight(getStackInSlot(1), sr)); } } break; case 101: if
+	 * ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemAccessCard))) {
+	 * if (ItemAccessCard.getvalidity(getStackInSlot(1)) <= 5) { setInventorySlotContents(1, new
+	 * ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)); } else {
+	 * ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) -
+	 * 5); } } break; case 102: if (getStackInSlot(1) != null) { if ((getStackInSlot(1).getItem()
+	 * instanceof ItemCardEmpty)) { setInventorySlotContents(1, new
+	 * ItemStack(ModularForceFieldSystem.itemCardAccess, 1)); if ((getStackInSlot(1).getItem()
+	 * instanceof ItemAccessCard)) { ItemAccessCard.setforArea(getStackInSlot(1), this);
+	 * ItemAccessCard.setvalidity(getStackInSlot(1), 5); ItemAccessCard.setlinkID(getStackInSlot(1),
+	 * this); }
+	 * 
+	 * } else if ((getStackInSlot(1).getItem() instanceof ItemAccessCard)) {
+	 * ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) +
+	 * 5); } } break; }
+	 * 
+	 * super.onNetworkHandlerEvent(key, value); }
+	 */
 
 	public ItemStack getModCardStack()
 	{
@@ -443,5 +413,5 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 	{
 		return this;
 	}
-    
+
 }

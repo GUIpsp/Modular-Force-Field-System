@@ -201,12 +201,12 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		switch (Slot)
+		switch (slotID)
 		{
 			case 0:
-				if (!(par1ItemStack.getItem() instanceof ItemCardSecurityLink))
+				if (!(itemStack.getItem() instanceof ItemCardSecurityLink))
 				{
 					return false;
 				}

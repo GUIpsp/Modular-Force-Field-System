@@ -676,31 +676,31 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
     */
     
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		switch (Slot)
+		switch (slotID)
 		{
 			case 0:
-				if ((par1ItemStack.getItem() instanceof IPowerLinkItem))
+				if ((itemStack.getItem() instanceof IPowerLinkItem))
 				{
 					return true;
 				}
 				break;
 			case 1:
-				if ((par1ItemStack.getItem() instanceof ItemCardSecurityLink))
+				if ((itemStack.getItem() instanceof ItemCardSecurityLink))
 				{
 					return true;
 				}
 				break;
 			case 2:
 			case 3:
-				if ((par1ItemStack.getItem() instanceof ItemModuleDistance))
+				if ((itemStack.getItem() instanceof ItemModuleDistance))
 				{
 					return true;
 				}
 				break;
 		}
-		if ((Slot >= 5) && (Slot <= 14))
+		if ((slotID >= 5) && (slotID <= 14))
 		{
 			return true;
 		}

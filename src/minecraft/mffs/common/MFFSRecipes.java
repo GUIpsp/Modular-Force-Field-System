@@ -17,7 +17,7 @@ public class MFFSRecipes
 	public static void init()
 	{
 		OreDictionary.registerOre("ForciciumItem", ModularForceFieldSystem.itemForcillium);
-		OreDictionary.registerOre("MonazitOre", ModularForceFieldSystem.blockMonaziteOre);
+		OreDictionary.registerOre("MonazitOre", ModularForceFieldSystem.blockFortronite);
 
 		MFFSRecipes.addRecipe("uuuuiuuuu", 1, 0, null, ModularForceFieldSystem.itemPowerCrystal);
 		MFFSRecipes.addRecipe("vvvvvvvvv", 1, 0, null, ModularForceFieldSystem.itemModuleStrength);
@@ -29,16 +29,16 @@ public class MFFSRecipes
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ModularForceFieldSystem.itemCardEmpty), new Object[] { new ItemStack(ModularForceFieldSystem.itemCardAccess) });
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ModularForceFieldSystem.itemCardEmpty), new Object[] { new ItemStack(ModularForceFieldSystem.itemCardDataLink) });
 
-		GameRegistry.addSmelting(ModularForceFieldSystem.blockMonaziteOre.blockID, new ItemStack(ModularForceFieldSystem.itemForcillium, 4), 0.5F);
+		GameRegistry.addSmelting(ModularForceFieldSystem.blockFortronite.blockID, new ItemStack(ModularForceFieldSystem.itemForcillium, 4), 0.5F);
 
 		if (MFFSConfiguration.MODULE_THERMAL_EXPANSION)
 		{
-			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcillium, 8), true);
+			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(ModularForceFieldSystem.blockFortronite, 1), new ItemStack(ModularForceFieldSystem.itemForcillium, 8), true);
 		}
 
 		if (MFFSConfiguration.MODULE_IC2)
 		{
-			Ic2Recipes.addMaceratorRecipe(new ItemStack(ModularForceFieldSystem.blockMonaziteOre, 1), new ItemStack(ModularForceFieldSystem.itemForcillium, 8));
+			Ic2Recipes.addMaceratorRecipe(new ItemStack(ModularForceFieldSystem.blockFortronite, 1), new ItemStack(ModularForceFieldSystem.itemForcillium, 8));
 			Ic2Recipes.addMatterAmplifier(new ItemStack(ModularForceFieldSystem.itemForcillium, 1), 5000);
 
 			if (MFFSConfiguration.uumatterEnabled)

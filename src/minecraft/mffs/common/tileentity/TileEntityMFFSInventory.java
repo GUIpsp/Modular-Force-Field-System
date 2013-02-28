@@ -137,12 +137,17 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		}
 		return 0;
 	}
-	
+
+	public boolean isItemValid(int slotID, ItemStack itemStack)
+	{
+		return true;
+	}
+
 	/**
 	 * @return Returns if a specific slot is valid to input a specific itemStack.
 	 * 
 	 */
-	public boolean isItemValid(ItemStack itemStack, int slotID)
+	public boolean canIncreaseStack(int slotID, ItemStack itemStack)
 	{
 		if (this.getStackInSlot(slotID) == null)
 		{

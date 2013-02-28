@@ -29,7 +29,6 @@ import universalelectricity.prefab.BlockMachine;
 
 public abstract class BlockMFFSMachine extends BlockMachine
 {
-
 	public BlockMFFSMachine(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);

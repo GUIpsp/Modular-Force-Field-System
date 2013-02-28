@@ -1,10 +1,10 @@
 package mffs.common;
 
 import mffs.common.tileentity.TileEntityMFFSInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.slotID;
 import net.minecraft.item.ItemStack;
 
-public class SlotHelper extends Slot
+public class SlotHelper extends slotID
 {
 	private TileEntityMFFSInventory tileEntity;
 
@@ -17,7 +17,7 @@ public class SlotHelper extends Slot
 	@Override
 	public boolean isItemValid(ItemStack itemStack)
 	{
-		return this.tileEntity.isItemValid(itemStack, this.slotNumber);
+		return this.tileEntity.isItemValid(this.slotNumber, itemStack);
 	}
 
 	@Override

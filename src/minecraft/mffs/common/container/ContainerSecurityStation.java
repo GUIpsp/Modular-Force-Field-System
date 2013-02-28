@@ -4,7 +4,7 @@ import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.slotID;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSecurityStation extends ContainerMFFS {
