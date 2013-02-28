@@ -1,5 +1,10 @@
 package mffs.common.tileentity;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.google.common.io.ByteArrayDataInput;
+
 import icbm.api.RadarRegistry;
 import mffs.api.IForceEnergyItems;
 import mffs.api.IFortronStorage;
@@ -22,17 +27,14 @@ import net.minecraftforge.liquids.LiquidTank;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
 
-public class TileEntityCapacitor extends TileEntityFortron implements IFortronStorage
+public class TileEntityFortronCapacitor extends TileEntityFortron implements IFortronStorage
 {
-	private int forcePower = 0;
-	private short linkedProjector = 0;
-	private int capacity = 0;
 	private int distributionMode = 0;
 	private int transmissionRange = 0;
 
-	public TileEntityCapacitor()
+	public TileEntityFortronCapacitor()
 	{
-		this.fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), 500 * LiquidContainerRegistry.BUCKET_VOLUME, this);
+		this.fortronTank.setCapacity(500 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}
 	
 	@Override
@@ -44,7 +46,23 @@ public class TileEntityCapacitor extends TileEntityFortron implements IFortronSt
 
 	@Override
 	public void updateEntity()
-	{/*
+	{
+		if (!this.worldObj.isRemote)
+		{
+			if (!this.isDisabled())
+			{
+				/**
+				 * Transmit fortrons in frequency network, evenly distributing them.
+				 */
+				if (this.ticks % 4 == 0 && this.playersUsing > 0)
+				{
+					
+					PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
+				}
+			}
+		}
+		
+		/*
 		if (!this.worldObj.isRemote)
 		{
 			if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone()))
@@ -85,6 +103,27 @@ public class TileEntityCapacitor extends TileEntityFortron implements IFortronSt
 		}
 		super.updateEntity();*/
 	}
+	
+	/**
+	 * Packet Methods
+	 */
+	@Override
+	public List getPacketUpdate()
+	{
+		List objects = new LinkedList();
+		objects.addAll(super.getPacketUpdate());
+		objects.add(this.distributionMode);
+		objects.add(this.transmissionRange);
+		return objects;
+	}
+
+	@Override
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	{
+		super.onReceivePacket(packetID, dataStream);
+		this.distributionMode = dataStream.readInt();
+		this.transmissionRange = dataStream.readInt();
+	}
 
 	@Override
 	public void invalidate()
@@ -120,30 +159,12 @@ public class TileEntityCapacitor extends TileEntityFortron implements IFortronSt
 		return new ContainerCapacitor(inventoryplayer.player, this);
 	}
 
-	public Short getLinkedProjector()
-	{
-		return Short.valueOf(this.linkedProjector);
-	}
-
-	public void setLinketprojektor(Short linketprojektor)
-	{
-		if (this.linkedProjector != linketprojektor.shortValue())
-		{
-			this.linkedProjector = linketprojektor.shortValue();
-		}
-	}
-	
 /*
 	@Override
 	public int getStorageAvailablePower()
 	{
 		return this.forcePower;
 	}*/
-
-	public void setForcePower(int f)
-	{
-		this.forcePower = f;
-	}
 
 	@Override
 	public int getSizeInventory()

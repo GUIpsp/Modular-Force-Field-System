@@ -70,7 +70,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	private int linkPower = 0;
 	private int switchDelay = 0;
 
-	public int getCapacity()
+	public int getFortronCapacity()
 	{
 		return this.capacity;
 	}
@@ -492,7 +492,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 		{
 			if (hasPowerSource())
 			{
-				setLinkPower((int) getFortron());
+				setLinkPower((int) getFortronEnergy());
 
 				//if ((isPowersourceItem()) && (getAccessType() != 0))
 				{

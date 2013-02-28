@@ -1,15 +1,15 @@
 package mffs.common.container;
 
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 
 public class ContainerCapacitor extends ContainerMFFS
 {
-	private TileEntityCapacitor tileEntity;
+	private TileEntityFortronCapacitor tileEntity;
 
-	public ContainerCapacitor(EntityPlayer player, TileEntityCapacitor tileEntity)
+	public ContainerCapacitor(EntityPlayer player, TileEntityFortronCapacitor tileEntity)
 	{
 		super(tileEntity);
 		this.tileEntity = tileEntity;

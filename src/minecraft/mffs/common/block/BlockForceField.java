@@ -13,7 +13,7 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.WorldMap;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.block.BlockContainer;
@@ -235,7 +235,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 							passtrue = true;
 							break;
 						case 2:
-							TileEntityCapacitor generator = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(ffworldmap.getGenratorID()));
+							TileEntityFortronCapacitor generator = (TileEntityFortronCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(ffworldmap.getGenratorID()));
 							passtrue = SecurityHelper.isAccessGranted(generator, (EntityPlayer) entity, world, SecurityRight.FFB);
 							break;
 						case 3:

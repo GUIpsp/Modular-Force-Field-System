@@ -45,12 +45,12 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	 * The amount of watts this machine uses.
 	 */
 	public static final int WATTAGE = 1000;
-	public static final int REQUIRED_TIME = 20 * 20;
+	public static final int REQUIRED_TIME = 20 * 15;
 	public int processTime = 0;
 
 	public TileEntityForcilliumExtractor()
 	{
-		this.fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), 50 * LiquidContainerRegistry.BUCKET_VOLUME, this);
+		this.fortronTank.setCapacity(10 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}
 
 	@Override

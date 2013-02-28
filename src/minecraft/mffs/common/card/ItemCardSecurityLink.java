@@ -6,7 +6,7 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityProjector;
@@ -125,7 +125,7 @@ public class ItemCardSecurityLink extends ItemCard
 
 			}
 
-			if ((tileEntity instanceof TileEntityCapacitor))
+			if ((tileEntity instanceof TileEntityFortronCapacitor))
 			{
 				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
 				{

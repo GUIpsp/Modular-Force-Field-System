@@ -1,6 +1,6 @@
 package mffs.client.renderer;
 
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -14,9 +14,9 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
 	{
-		if ((tileEntity instanceof TileEntityCapacitor))
+		if ((tileEntity instanceof TileEntityFortronCapacitor))
 		{
-			TileEntityCapacitor topview = (TileEntityCapacitor) tileEntity;
+			TileEntityFortronCapacitor topview = (TileEntityFortronCapacitor) tileEntity;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);
@@ -99,11 +99,11 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
 			fontRenderer.drawString("Capacity: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getFortron() ).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getFortron() ).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			fontRenderer.drawString(String.valueOf(topview.getFortronEnergy() ).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getFortronEnergy() ).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Range: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getTransmitRange()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getTransmitRange())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Linked Device: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getLinkedProjector()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getLinkedProjector())), offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			//fontRenderer.drawString(String.valueOf(topview.getLinkedProjector()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getLinkedProjector())), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

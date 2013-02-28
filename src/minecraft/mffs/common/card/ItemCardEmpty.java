@@ -5,7 +5,7 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -63,7 +63,7 @@ public class ItemCardEmpty extends ItemCard
 
 		}
 
-		if ((tileEntity instanceof TileEntityCapacitor))
+		if ((tileEntity instanceof TileEntityFortronCapacitor))
 		{
 			if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
 			{

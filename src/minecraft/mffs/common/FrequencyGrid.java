@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import mffs.api.PointXYZ;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
@@ -41,7 +41,7 @@ public final class FrequencyGrid
 	{
 
 		private Map<Integer, TileEntityProjector> Projector = new Hashtable();
-		private Map<Integer, TileEntityCapacitor> Capacitors = new Hashtable();
+		private Map<Integer, TileEntityFortronCapacitor> Capacitors = new Hashtable();
 		private Map<Integer, TileEntitySecurityStation> SecStation = new Hashtable();
 		private Map<Integer, TileEntityDefenseStation> DefStation = new Hashtable();
 		private Map<Integer, TileEntityForcilliumExtractor> Extractor = new Hashtable();
@@ -157,7 +157,7 @@ public final class FrequencyGrid
 				this.DefStation.put(Integer.valueOf(DeviceID), (TileEntityDefenseStation) tileEntity);
 				return DeviceID;
 			}
-			if ((tileEntity instanceof TileEntityCapacitor))
+			if ((tileEntity instanceof TileEntityFortronCapacitor))
 			{
 				if (remDeviceID == 0)
 				{
@@ -167,7 +167,7 @@ public final class FrequencyGrid
 					}
 				}
 				DeviceID = remDeviceID;
-				this.Capacitors.put(Integer.valueOf(DeviceID), (TileEntityCapacitor) tileEntity);
+				this.Capacitors.put(Integer.valueOf(DeviceID), (TileEntityFortronCapacitor) tileEntity);
 				return DeviceID;
 			}
 			if ((tileEntity instanceof TileEntityConverter))
@@ -212,7 +212,7 @@ public final class FrequencyGrid
 			return 0;
 		}
 
-		public int connectedtoCapacitor(TileEntityCapacitor Cap, int range)
+		public int connectedtoCapacitor(TileEntityFortronCapacitor Cap, int range)
 		{
 			int counter = 0;
 			for (TileEntityProjector tileentity : this.Projector.values())
@@ -224,7 +224,7 @@ public final class FrequencyGrid
 
 			}
 
-			for (TileEntityCapacitor tileentity : this.Capacitors.values())
+			for (TileEntityFortronCapacitor tileentity : this.Capacitors.values())
 			{
 				//if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{

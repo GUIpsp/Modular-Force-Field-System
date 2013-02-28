@@ -121,7 +121,7 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 		this.linkPower = linkPower;
 	}
 
-	public int getCapacity()
+	public int getFortronCapacity()
 	{
 		return this.capacity;
 	}
@@ -165,7 +165,7 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 
 			if (hasPowerSource())
 			{
-				setLinkPower(getFortron());
+				setLinkPower(getFortronEnergy());
 			}
 			else
 			{

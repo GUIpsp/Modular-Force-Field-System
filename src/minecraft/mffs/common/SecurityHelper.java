@@ -1,6 +1,6 @@
 package mffs.common;
 
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
@@ -95,9 +95,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntityCapacitor))
+		if ((tileEntity instanceof TileEntityFortronCapacitor))
 		{
-			TileEntitySecurityStation sec = ((TileEntityCapacitor) tileEntity).getLinkedSecurityStation();
+			TileEntitySecurityStation sec = ((TileEntityFortronCapacitor) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))

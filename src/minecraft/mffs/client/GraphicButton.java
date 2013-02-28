@@ -1,7 +1,7 @@
 package mffs.client;
 
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
@@ -104,11 +104,11 @@ public class GraphicButton extends GuiButton
 					drawTexturedModalRect(this.xPosition, this.yPosition, 160 + ((TileEntityDefenseStation) this.tileEntity).getScanmode() * 16, 96, this.width, this.height);
 				}
 			}
-			if ((this.tileEntity instanceof TileEntityCapacitor))
+			if ((this.tileEntity instanceof TileEntityFortronCapacitor))
 			{
 				if (this.type == 1)
 				{
-					drawTexturedModalRect(this.xPosition, this.yPosition, 96 + ((TileEntityCapacitor) this.tileEntity).getPowerLinkMode() * 16, 80, this.width, this.height);
+					drawTexturedModalRect(this.xPosition, this.yPosition, 96 + ((TileEntityFortronCapacitor) this.tileEntity).getPowerLinkMode() * 16, 80, this.width, this.height);
 				}
 			}
 			if ((this.tileEntity instanceof TileEntityProjector))

@@ -15,6 +15,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.liquids.LiquidTank;
 
@@ -28,7 +29,7 @@ import com.google.common.io.ByteArrayDataInput;
  */
 public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronStorage
 {
-	public LiquidTank fortronTank;
+	protected LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
 
 	@Override
 	public void invalidate()
@@ -130,19 +131,19 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	}
 
 	@Override
-	public void setFortron(int joules)
+	public void setFortronEnergy(int joules)
 	{
 		this.fortronTank.setLiquid(Fortron.getFortron(joules));
 	}
 
 	@Override
-	public int getFortron()
+	public int getFortronEnergy()
 	{
 		return Fortron.getAmount(this.fortronTank);
 	}
 
 	@Override
-	public int getCapacity()
+	public int getFortronCapacity()
 	{
 		return this.fortronTank.getCapacity();
 	}

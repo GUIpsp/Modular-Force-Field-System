@@ -8,7 +8,7 @@ import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.modules.ItemModuleSphere;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.EntityLiving;

@@ -7,21 +7,21 @@ public interface IFortronStorage
 	 * 
 	 * @param joules
 	 */
-	public void setFortron(int joules);
+	public void setFortronEnergy(int joules);
 
 	/**
 	 * @return Gets the amount of fortron stored.
 	 */
-	public int getFortron();
+	public int getFortronEnergy();
 
 	/**
 	 * 
 	 * @return Gets the maximum possible amount of fortron that can be stored.
 	 */
-	public int getCapacity();
+	public int getFortronCapacity();
 
 	/**
-	 * Called to use and consume fortrons from this storage unit.
+	 * Called to use and consume fortron energy from this storage unit.
 	 * @param joules - Amount of fortron energy to use.
 	 * @param doUse - True if actually using, false if just simulating.
 	 */

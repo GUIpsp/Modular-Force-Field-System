@@ -33,7 +33,7 @@ public class GuiConverter extends GuiContainer
 		int w = (this.width - this.xSize) / 2;
 		int k = (this.height - this.ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
-		int i1 = 76 * this.Converter.getCapacity() / 100;
+		int i1 = 76 * this.Converter.getFortronCapacity() / 100;
 		drawTexturedModalRect(w + 14, k + 65, 0, 233, i1 + 1, 23);
 		if (!MFFSConfiguration.MODULE_IC2)
 		{

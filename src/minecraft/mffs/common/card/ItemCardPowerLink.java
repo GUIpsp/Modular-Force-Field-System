@@ -8,7 +8,7 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntityCapacitor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
@@ -41,7 +41,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 			int Cap_ID = getValuefromKey("CapacitorID", itemStack);
 			if (Cap_ID != 0)
 			{
-				TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(Cap_ID));
+				TileEntityFortronCapacitor cap = (TileEntityFortronCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(Cap_ID));
 				if (cap != null)
 				{/*
 					if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
@@ -102,7 +102,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 0, "<Power-Link>");
 			}
 
-			if (((tileEntity instanceof TileEntityCapacitor)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
+			if (((tileEntity instanceof TileEntityFortronCapacitor)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 2, "<Power-Link>");
 			}
@@ -126,9 +126,9 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 						return null;
 					}
 
-					if ((world.getBlockTileEntity(png.X, png.Y, png.Z) instanceof TileEntityCapacitor))
+					if ((world.getBlockTileEntity(png.X, png.Y, png.Z) instanceof TileEntityFortronCapacitor))
 					{
-						TileEntityCapacitor cap = (TileEntityCapacitor) world.getBlockTileEntity(png.X, png.Y, png.Z);
+						TileEntityFortronCapacitor cap = (TileEntityFortronCapacitor) world.getBlockTileEntity(png.X, png.Y, png.Z);
 						if (cap != null)
 						{
 							/*if ((cap.getPowerStorageID() == getValuefromKey("CapacitorID", itemStack)) && getValuefromKey("CapacitorID", itemStack) >= 0)
@@ -151,7 +151,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 						int Cap_ID = getValuefromKey("CapacitorID", itemStack);
 						if (Cap_ID != 0)
 						{
-							TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(png.getPointWorld()).getCapacitor().get(Integer.valueOf(Cap_ID));
+							TileEntityFortronCapacitor cap = (TileEntityFortronCapacitor) FrequencyGrid.getWorldMap(png.getPointWorld()).getCapacitor().get(Integer.valueOf(Cap_ID));
 							if (cap != null)
 							{
 								setInformation(itemStack, cap.getMachinePoint(), "CapacitorID", Cap_ID);

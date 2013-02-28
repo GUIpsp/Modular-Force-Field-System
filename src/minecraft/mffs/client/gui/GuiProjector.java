@@ -84,7 +84,7 @@ public class GuiProjector extends GuiContainer
 		int k = (this.height - this.ySize) / 2;
 
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
-		int i1 = 79 * this.projector.getCapacity() / 100;
+		int i1 = 79 * this.projector.getFortronCapacity() / 100;
 		drawTexturedModalRect(w + 8, k + 91, 176, 0, i1 + 1, 79);
 
 		if (this.projector.hasValidTypeMod())

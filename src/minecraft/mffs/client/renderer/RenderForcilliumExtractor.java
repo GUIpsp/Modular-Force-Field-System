@@ -97,9 +97,9 @@ public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 			fontRenderer.drawString("Process:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
 			fontRenderer.drawString((int) (100 - ((float) tileEntity.processTime / (float) tileEntity.REQUIRED_TIME) * 100) + "%", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.processTime / tileEntity.REQUIRED_TIME + " % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Fortrons:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString(Fortron.getAmount(tileEntity.fortronTank) + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(Fortron.getAmount(tileEntity.fortronTank) + ""), offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString(tileEntity.getFortronEnergy() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.getFortronEnergy() + ""), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Capacity:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
-			fontRenderer.drawString(tileEntity.fortronTank.getCapacity() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.fortronTank.getCapacity() + ""), offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString(tileEntity.getFortronCapacity() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.getFortronCapacity() + ""), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

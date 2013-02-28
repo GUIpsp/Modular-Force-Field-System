@@ -47,7 +47,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		GL11.glPopMatrix();
 
 		this.drawTextWithTooltip("progress", "%1: " + (int) (100 - ((float) this.tileEntity.processTime / (float) this.tileEntity.REQUIRED_TIME) * 100) + "%", 8, 70, x, y);
-		this.drawTextWithTooltip("fortron", "%1: " + ElectricInfo.getDisplayShort(Fortron.getAmount(this.tileEntity.fortronTank), ElectricUnit.JOULES), 8, 105, x, y);
+		this.drawTextWithTooltip("fortron", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES), 8, 105, x, y);
 
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
@@ -78,7 +78,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		/**
 		 * Force Power Bar
 		 */
-		this.drawForce(8, 115, (float) Fortron.getAmount(this.tileEntity.fortronTank) / (float) this.tileEntity.fortronTank.getCapacity());
+		this.drawForce(8, 115, (float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity());
 	}
 
 	@Override
