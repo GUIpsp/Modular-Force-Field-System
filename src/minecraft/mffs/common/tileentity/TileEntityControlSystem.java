@@ -283,9 +283,9 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 				setRemoteActive(this.remote.isActive());
 			}
 			// TODO: REMOVED NAME
-			if ((!this.remote.getSwitchValue()) == getRemoteSwitchValue())
+			if ((!this.remote.getStatusValue()) == getRemoteSwitchValue())
 			{
-				setRemoteSwitchValue(this.remote.getSwitchValue());
+				setRemoteSwitchValue(this.remote.getStatusValue());
 			}
 			if (this.remote.getLinkedSecurityStation() == null)
 			{

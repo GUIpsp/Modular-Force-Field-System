@@ -170,20 +170,20 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 				setLinkPower(0);
 			}
 
-			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
+			if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone()))
 			{
-				onSwitch();
+				onToggle();
 			}
-			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
+			if ((getStatusMode() == 1) && (getStatusValue()) && (!isPoweredByRedstone()))
 			{
-				onSwitch();
+				onToggle();
 			}
 
-			if ((getSwitchValue()) && (hasPowerSource()) && (!isActive()))
+			if ((getStatusValue()) && (hasPowerSource()) && (!isActive()))
 			{
 				setActive(true);
 			}
-			if (((!getSwitchValue()) || (!hasPowerSource())) && (isActive()))
+			if (((!getStatusValue()) || (!hasPowerSource())) && (isActive()))
 			{
 				setActive(false);
 			}

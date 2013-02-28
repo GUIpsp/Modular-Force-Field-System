@@ -7,6 +7,7 @@ import ic2.api.energy.tile.IEnergySink;
 
 import java.util.EnumSet;
 
+import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -160,6 +161,7 @@ public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory i
 	@Override
 	public void invalidate()
 	{
+		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
 		MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 		super.invalidate();
 	}

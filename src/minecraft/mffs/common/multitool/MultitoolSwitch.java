@@ -1,6 +1,6 @@
 package mffs.common.multitool;
 
-import mffs.api.ISwitchable;
+import mffs.api.IStatusToggle;
 import mffs.common.Functions;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
@@ -22,12 +22,12 @@ public class MultitoolSwitch implements IMultiTool {
 
 		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
 
-		if ((tileentity instanceof ISwitchable))
+		if ((tileentity instanceof IStatusToggle))
 		{
 			if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
 			{
-				if (((ISwitchable) tileentity).canSwitch()) {
-					((ISwitchable) tileentity).onSwitch();
+				if (((IStatusToggle) tileentity).canToggle()) {
+					((IStatusToggle) tileentity).onToggle();
 					return true;
 				}
 

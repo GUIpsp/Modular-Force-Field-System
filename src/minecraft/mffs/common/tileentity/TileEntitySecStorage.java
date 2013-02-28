@@ -83,11 +83,11 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((getLinkedSecurityStation() != null) && (!isActive()) && (getSwitchValue()))
+			if ((getLinkedSecurityStation() != null) && (!isActive()) && (getStatusValue()))
 			{
 				setActive(true);
 			}
-			if (((getLinkedSecurityStation() == null) || (!getSwitchValue())) && (isActive()))
+			if (((getLinkedSecurityStation() == null) || (!getStatusValue())) && (isActive()))
 			{
 				setActive(false);
 			}

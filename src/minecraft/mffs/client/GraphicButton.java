@@ -35,7 +35,7 @@ public class GraphicButton extends GuiButton
 
 			if (this.tileEntity instanceof TileEntityMFFS && this.type == 0)
 			{
-				drawTexturedModalRect(this.xPosition, this.yPosition, 80 + ((TileEntityMFFS) this.tileEntity).getSwitchMode() * 16, 112, this.width, this.height);
+				drawTexturedModalRect(this.xPosition, this.yPosition, 80 + ((TileEntityMFFS) this.tileEntity).getStatusMode() * 16, 112, this.width, this.height);
 			}
 
 			if ((this.tileEntity instanceof TileEntityConverter))

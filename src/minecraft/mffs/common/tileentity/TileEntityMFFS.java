@@ -6,7 +6,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import mffs.api.ISwitchable;
+import mffs.api.IStatusToggle;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
@@ -31,7 +31,7 @@ import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.tile.TileEntityDisableable;
 
-public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IWrenchable, ISwitchable, IRotatable
+public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IWrenchable, IStatusToggle, IRotatable
 {
 	/**
 	 * Is the machine active and working?
@@ -49,6 +49,9 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	 * Is the machine being switched on or is it off?
 	 */
 	protected boolean switchValue = false;
+
+	protected int maxSwitchMode = 3;
+
 	protected Random random = new Random();
 	protected Ticket chunkTicket;
 
@@ -62,18 +65,10 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		return false;
 	}
 
-	public abstract TileEntitySecurityStation getLinkedSecurityStation();
-
-	/*
-	 * @Override public void onNetworkHandlerEvent(int key, String value) { switch (key) { case 0:
-	 * toogleSwitchMode(); break; } }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @Override public void onNetworkHandlerUpdate(String field) {
-	 * this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord); }
-	 */
+	public TileEntitySecurityStation getLinkedSecurityStation()
+	{
+		return null;
+	}
 
 	public List getPacketUpdate()
 	{
@@ -129,7 +124,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 			registerChunkLoading();
 		}
 
-        PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
+		PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 	}
 
 	@Override
@@ -141,33 +136,21 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		{
 			if (this.ticks % 300 == 0)
 			{
-                PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
+				PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 			}
 		}
 	}
 
-	public short getMaxSwitchMode()
-	{
-		return 3;
-	}
-
-	public short getMinSwitchMode()
-	{
-		return 0;
-	}
-
 	public void toogleSwitchMode()
 	{
-		if (getSwitchMode() >= getMaxSwitchMode())
+		if (getStatusMode() >= this.maxSwitchMode)
 		{
-			this.switchMode = getMinSwitchMode();
+			this.switchMode = 0;
 		}
 		else
 		{
 			this.switchMode = ((short) (this.switchMode + 1));
 		}
-
-		// NetworkHandlerServer.updateTileEntityField(this, "switchMode");
 	}
 
 	public boolean isPoweredByRedstone()
@@ -175,20 +158,22 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		return ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord)) || (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)));
 	}
 
-	public short getSwitchMode()
+	@Override
+	public short getStatusMode()
 	{
 		return this.switchMode;
 	}
 
-	public boolean getSwitchValue()
+	@Override
+	public boolean getStatusValue()
 	{
 		return this.switchValue;
 	}
 
 	@Override
-	public boolean canSwitch()
+	public boolean canToggle()
 	{
-		if (getSwitchMode() == 2)
+		if (getStatusMode() == 2)
 		{
 			return true;
 		}
@@ -196,10 +181,9 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	}
 
 	@Override
-	public void onSwitch()
+	public void onToggle()
 	{
 		this.switchValue = !this.switchValue;
-		// NetworkHandlerServer.updateTileEntityField(this, "switchValue");
 	}
 
 	public int getDeviceID()

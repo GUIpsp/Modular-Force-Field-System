@@ -46,7 +46,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	 */
 	public static final int WATTAGE = 1000;
 	public static final int REQUIRED_TIME = 20 * 20;
-	public static final int CAPACITY = 100 * LiquidContainerRegistry.BUCKET_VOLUME;
+	public static final int CAPACITY = 50 * LiquidContainerRegistry.BUCKET_VOLUME;
 	public int processTime = 0;
 
 	public LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON, CAPACITY, this);
@@ -135,12 +135,9 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	{
 		if (!this.isDisabled())
 		{
-			if (this.getStackInSlot(0) != null)
+			if (this.isItemValid(this.getStackInSlot(0), 0))
 			{
-				if (this.getStackInSlot(0).itemID == ModularForceFieldSystem.itemForcillium.itemID)
-				{
-					return Fortron.getAmount(this.fortronTank) < this.fortronTank.getCapacity();
-				}
+				return Fortron.getAmount(this.fortronTank) < this.fortronTank.getCapacity();
 			}
 		}
 
@@ -151,7 +148,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	{
 		if (this.canUse())
 		{
-			this.fortronTank.fill(Fortron.getFortron(500 + this.worldObj.rand.nextInt(250)), true);
+			this.fortronTank.fill(Fortron.getFortron(750 + this.worldObj.rand.nextInt(500)), true);
 			this.decrStackSize(0, 1);
 		}
 	}
@@ -175,16 +172,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 		super.onReceivePacket(packetID, dataStream);
 		this.fortronTank.setLiquid(Fortron.getFortron(dataStream.readInt()));
 		this.processTime = dataStream.readInt();
-	}
-
-	public short getMaxSwitchMode()
-	{
-		return 3;
-	}
-
-	public short getMinSwitchMode()
-	{
-		return 1;
 	}
 
 	@Override
@@ -221,78 +208,43 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	@Override
 	public boolean isItemValid(ItemStack itemStack, int slot)
 	{
-		switch (slot)
+		if (itemStack != null)
 		{
-			case 0:
-				if ((((itemStack.getItem() instanceof ItemForcillium)) || ((itemStack.getItem() instanceof ItemForcilliumCell))) && (getStackInSlot(4) == null))
-					return true;
+			switch (slot)
+			{
+				case 0:
+					if ((((itemStack.getItem() instanceof ItemForcillium)) || ((itemStack.getItem() instanceof ItemForcilliumCell))) && (getStackInSlot(4) == null))
+						return true;
 
-				break;
-			case 1:
-				if ((itemStack.getItem() instanceof IPowerLinkItem))
-					return true;
+					break;
+				case 1:
+					if ((itemStack.getItem() instanceof IPowerLinkItem))
+						return true;
 
-				break;
-			case 2:
-				if ((itemStack.getItem() instanceof ItemUpgradeCapacity))
-					return true;
+					break;
+				case 2:
+					if ((itemStack.getItem() instanceof ItemUpgradeCapacity))
+						return true;
 
-				break;
-			case 3:
-				if ((itemStack.getItem() instanceof ItemUpgradeBooster))
-					return true;
+					break;
+				case 3:
+					if ((itemStack.getItem() instanceof ItemUpgradeBooster))
+						return true;
 
-				break;
-			case 4:
-				if (((itemStack.getItem() instanceof ItemForcilliumCell)) && (getStackInSlot(0) == null))
-					return true;
+					break;
+				case 4:
+					if (((itemStack.getItem() instanceof ItemForcilliumCell)) && (getStackInSlot(0) == null))
+						return true;
 
-				break;
+					break;
+			}
 		}
 		return false;
 	}
 
-	@Override
-	public void invalidate()
-	{
-
-		MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-
-		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
-
-		super.invalidate();
-	}
-
-	@Override
-	public boolean isAddedToEnergyNet()
-	{
-		return this.ticks > 0;
-	}
-
-	@Override
-	public boolean acceptsEnergyFrom(TileEntity tileentity, Direction direction)
-	{
-		return true;
-	}
-
-	/*
-	 * @Override public ItemStack getPowerLinkStack() { return getStackInSlot(getPowerLinkSlot()); }
-	 * 
-	 * @Override public int getPowerLinkSlot() { return 1; }
+	/**
+	 * Liquid Functions.
 	 */
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{/*
-	 * TileEntityCapacitor cap = (TileEntityCapacitor)
-	 * FrequencyGrid.getWorldMap(this.worldObj).getCapacitor
-	 * ().get(Integer.valueOf(getPowerSourceID())); if (cap != null) { TileEntitySecurityStation sec
-	 * = cap.getLinkedSecurityStation(); if (sec != null) return sec; }
-	 */
-
-		return null;
-	}
-
 	@Override
 	public int fill(ForgeDirection from, LiquidStack resource, boolean doFill)
 	{

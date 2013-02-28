@@ -41,13 +41,13 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
-				onSwitch();
+			if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone()))
+				onToggle();
 
-			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
-				onSwitch();
+			if ((getStatusMode() == 1) && (getStatusValue()) && (!isPoweredByRedstone()))
+				onToggle();
 
-			if (getSwitchValue())
+			if (getStatusValue())
 			{
 				if (isActive() != true)
 					setActive(true);

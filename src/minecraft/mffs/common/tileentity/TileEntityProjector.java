@@ -518,16 +518,16 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 				setLinkPower(0);
 			}
 
-			if ((getSwitchMode() == 1) && (!getSwitchValue()) && (isPoweredByRedstone()))
+			if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone()))
 			{
-				onSwitch();
+				onToggle();
 			}
-			if ((getSwitchMode() == 1) && (getSwitchValue()) && (!isPoweredByRedstone()))
+			if ((getStatusMode() == 1) && (getStatusValue()) && (!isPoweredByRedstone()))
 			{
-				onSwitch();
+				onToggle();
 			}
 
-			if ((getSwitchValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) && (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5)))
+			if ((getStatusValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) && (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5)))
 			{
 				if (isActive() != true)
 				{
@@ -540,7 +540,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
-			if (((!getSwitchValue()) && (this.switchDelay >= 40)) || (!hasValidTypeMod()) || (!hasPowerSource()) || (this.burnout) || (getLinkPower() <= forcePowerNeed(1)))
+			if (((!getStatusValue()) && (this.switchDelay >= 40)) || (!hasValidTypeMod()) || (!hasPowerSource()) || (this.burnout) || (getLinkPower() <= forcePowerNeed(1)))
 			{
 				if (isActive())
 				{
