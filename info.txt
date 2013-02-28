@@ -3,3 +3,4 @@ x MFFS_v2.2.9.2.jar MFFS_v2.2.9.2_api.zip
 x MFFS_v2.2.9.3.jar MFFS_v2.2.9.3_api.zip
 x MFFS_v3.0.0.4.jar MFFS_v3.0.0.4_api.zip
 x MFFS_v3.0.0.5.jar MFFS_v3.0.0.5_api.zip
+@ MFFS_v3.0.0.6.jar MFFS_v3.0.0.6_api.zip
