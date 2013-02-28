@@ -172,7 +172,6 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	public void projectorBurnout()
 	{
 		setBurnedOut(true);
-		dropPlugins();
 	}
 
 	public boolean isBurnout()
@@ -235,16 +234,6 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
-
-	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-		{
-			dropPlugins(a, this);
-		}
-	}
-
 	@Override
 	public void onInventoryChanged()
 	{
@@ -295,10 +284,6 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 								this.focusmatrix[(place - 7)] = getStackInSlot(place).stackSize;
 								break;
 						}
-					}
-					else
-					{
-						dropPlugins(place, this);
 					}
 				}
 				else
@@ -359,7 +344,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 			}
 			else
 			{
-				dropPlugins(11, this);
+//				dropPlugins(11, this);
 			}
 
 		}
@@ -409,7 +394,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 		if (hasValidTypeMod())
 		{
 			ItemModuleBase modType = getType();
-
+/*
 			if (!modType.supportsStrength())
 			{
 				dropPlugins(6, this);
@@ -458,13 +443,13 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 			if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))
 			{
 				dropPlugins(11, this);
-			}
+			}*/
 		}
 		else
 		{
 			for (int spot = 2; spot <= 10; spot++)
 			{
-				dropPlugins(spot, this);
+				//dropPlugins(spot, this);
 			}
 		}
 	}

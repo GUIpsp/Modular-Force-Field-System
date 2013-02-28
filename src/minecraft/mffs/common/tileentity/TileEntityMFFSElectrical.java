@@ -23,7 +23,7 @@ import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
 
-public abstract class TileEntityMFFSElectrical extends TileEntityMFFSInventory implements IVoltage, IPowerReceptor, IEnergySink
+public abstract class TileEntityMFFSElectrical extends TileEntityFortron implements IVoltage, IPowerReceptor, IEnergySink
 {
 	protected IPowerProvider powerProvider;
 

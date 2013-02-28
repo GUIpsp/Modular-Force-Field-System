@@ -177,16 +177,6 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
-
-	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-		{
-			dropPlugins(a, this);
-		}
-	}
-
 	public void scanner()
 	{
 		try

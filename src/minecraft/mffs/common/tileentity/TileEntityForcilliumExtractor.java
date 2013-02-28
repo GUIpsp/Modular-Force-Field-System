@@ -39,17 +39,19 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical implements ITankContainer
+public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 {
 	/**
 	 * The amount of watts this machine uses.
 	 */
 	public static final int WATTAGE = 1000;
 	public static final int REQUIRED_TIME = 20 * 20;
-	public static final int CAPACITY = 50 * LiquidContainerRegistry.BUCKET_VOLUME;
 	public int processTime = 0;
 
-	public LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON, CAPACITY, this);
+	public TileEntityForcilliumExtractor()
+	{
+		this.fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON, 50 * LiquidContainerRegistry.BUCKET_VOLUME, this);
+	}
 
 	@Override
 	public void updateEntity()
@@ -206,78 +208,27 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical impl
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemStack, int slot)
+	public boolean isItemValid(ItemStack itemStack, int slotID)
 	{
-		if (itemStack != null)
+		if (itemStack != null && super.isItemValid(itemStack, slotID))
 		{
-			switch (slot)
+			switch (slotID)
 			{
 				case 0:
-					if ((((itemStack.getItem() instanceof ItemForcillium)) || ((itemStack.getItem() instanceof ItemForcilliumCell))) && (getStackInSlot(4) == null))
+					if (itemStack.getItem() instanceof ItemForcillium || itemStack.getItem() instanceof ItemForcilliumCell)
 						return true;
-
-					break;
 				case 1:
-					if ((itemStack.getItem() instanceof IPowerLinkItem))
+					if (itemStack.getItem() instanceof IPowerLinkItem)
 						return true;
-
-					break;
 				case 2:
-					if ((itemStack.getItem() instanceof ItemUpgradeCapacity))
+					if (itemStack.getItem() instanceof ItemUpgradeCapacity)
 						return true;
-
-					break;
 				case 3:
-					if ((itemStack.getItem() instanceof ItemUpgradeBooster))
+					if (itemStack.getItem() instanceof ItemUpgradeBooster)
 						return true;
-
-					break;
-				case 4:
-					if (((itemStack.getItem() instanceof ItemForcilliumCell)) && (getStackInSlot(0) == null))
-						return true;
-
-					break;
 			}
 		}
+
 		return false;
-	}
-
-	/**
-	 * Liquid Functions.
-	 */
-	@Override
-	public int fill(ForgeDirection from, LiquidStack resource, boolean doFill)
-	{
-		return 0;
-	}
-
-	@Override
-	public int fill(int tankIndex, LiquidStack resource, boolean doFill)
-	{
-		return 0;
-	}
-
-	@Override
-	public LiquidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
-	{
-		return this.fortronTank.drain(maxDrain, doDrain);
-	}
-
-	@Override
-	public LiquidStack drain(int tankIndex, int maxDrain, boolean doDrain)
-	{
-		return this.drain(ForgeDirection.getOrientation(tankIndex), maxDrain, doDrain);
-	}
-
-	@Override
-	public ILiquidTank[] getTanks(ForgeDirection direction)
-	{
-		return new ILiquidTank[] { this.fortronTank };
-	}
-
-	@Override
-	public ILiquidTank getTank(ForgeDirection direction, LiquidStack type)
-	{
-		return this.fortronTank;
 	}
 }

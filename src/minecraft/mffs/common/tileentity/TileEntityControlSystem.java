@@ -66,15 +66,6 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	}
 
 	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-		{
-			dropPlugins(a, this);
-		}
-	}
-
-	@Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)

@@ -21,16 +21,6 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	{
 		this.inventory = new ItemStack[60];
 	}
-
-	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-		{
-			dropPlugins(a, this);
-		}
-	}
-
 	@Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{

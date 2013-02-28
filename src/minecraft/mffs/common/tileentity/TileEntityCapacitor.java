@@ -308,13 +308,6 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 	}
 
 	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-			dropPlugins(a, this);
-	}
-
-	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);

@@ -33,15 +33,6 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		this.inventory = new ItemStack[11];
 	}
 
-	@Override
-	public void dropPlugins()
-	{
-		for (int a = 0; a < this.inventory.length; a++)
-		{
-			dropplugins(a);
-		}
-	}
-
 	public String getMainUser()
 	{
 		return this.MainUser;

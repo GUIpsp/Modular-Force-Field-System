@@ -106,8 +106,6 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		this.playersUsing--;
 	}
 
-	public abstract boolean isItemValid(ItemStack itemStack, int slotID);
-
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer)
 	{
@@ -139,51 +137,22 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		}
 		return 0;
 	}
-
-	public void dropPlugins()
-	{
-
-	}
-
-	public void dropPlugins(int slot, IInventory inventory)
-	{
-		if (this.worldObj.isRemote)
-		{
-			setInventorySlotContents(slot, null);
-			return;
-		}
-
-		if (inventory.getStackInSlot(slot) != null)
-		{
-			if (((inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)) || ((inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
-			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
-			}
-			else
-			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, inventory.getStackInSlot(slot)));
-			}
-
-			inventory.setInventorySlotContents(slot, null);
-			onInventoryChanged();
-		}
-	}
-
+	
 	/**
 	 * @return Returns if a specific slot is valid to input a specific itemStack.
 	 * 
 	 */
-	public boolean isSlotValidFor(int slot, ItemStack itemStack)
+	public boolean isItemValid(ItemStack itemStack, int slotID)
 	{
-		if (this.getStackInSlot(slot) == null)
+		if (this.getStackInSlot(slotID) == null)
 		{
 			return true;
 		}
 		else
 		{
-			if (this.getStackInSlot(slot).stackSize + 1 <= 64)
+			if (this.getStackInSlot(slotID).stackSize + 1 <= 64)
 			{
-				return this.getStackInSlot(slot).isItemEqual(itemStack);
+				return this.getStackInSlot(slotID).isItemEqual(itemStack);
 			}
 		}
 
