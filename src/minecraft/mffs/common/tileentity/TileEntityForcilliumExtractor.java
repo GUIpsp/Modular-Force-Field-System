@@ -1,14 +1,10 @@
 package mffs.common.tileentity;
 
-import ic2.api.Direction;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
-
 import java.util.LinkedList;
 import java.util.List;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.Fortron;
-import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.item.ItemForcillium;
@@ -21,12 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.liquids.ILiquidTank;
-import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
-import net.minecraftforge.liquids.LiquidStack;
-import net.minecraftforge.liquids.LiquidTank;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
@@ -62,6 +53,21 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 		{
 			if (!this.isDisabled())
 			{
+				/**
+				 * Spread Fortrons to nearby Fortron Capacitors
+				 */
+				for (int i = 0; i < 6; i++)
+				{
+					TileEntity tileEntity = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.getOrientation(i));
+
+					if (tileEntity instanceof TileEntityFortronCapacitor)
+					{
+						// TODO:Finish this.
+						// ((TileEntityFortronCapacitor)tileEntity)
+
+					}
+				}
+
 				if (this.canUse())
 				{
 					if (this.wattsReceived >= this.WATTAGE)

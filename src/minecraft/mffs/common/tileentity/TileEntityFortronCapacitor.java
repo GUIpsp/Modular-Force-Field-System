@@ -56,7 +56,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 				 */
 				if (this.ticks % 4 == 0 && this.playersUsing > 0)
 				{
-					
 					PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
 				}
 			}
