@@ -44,10 +44,7 @@ import mffs.common.modules.ItemModuleDiagonalWall;
 import mffs.common.modules.ItemModuleSphere;
 import mffs.common.modules.ItemModuleTube;
 import mffs.common.modules.ItemModuleWall;
-import mffs.common.multitool.ItemFieldTransporter;
-import mffs.common.multitool.ItemMultiToolWrench;
-import mffs.common.multitool.ItemMultitoolSwitch;
-import mffs.common.multitool.ItemMultitoolWriter;
+import mffs.common.multitool.ItemMultitool;
 import mffs.common.options.ItemOptionAntibiotic;
 import mffs.common.options.ItemOptionCamoflage;
 import mffs.common.options.ItemOptionCutter;
@@ -130,10 +127,7 @@ public class ModularForceFieldSystem
 	/**
 	 * Multitool
 	 */
-	public static Item itemMultiToolSwitch;
-	public static Item itemMultiToolWrench;
-	public static Item itemMultiToolFieldTeleporter;
-	public static Item itemMultiToolID;
+	public static Item itemMultiTool;
 	/**
 	 * Cards
 	 */
@@ -142,7 +136,6 @@ public class ModularForceFieldSystem
 	public static Item itemCardID;
 	public static Item itemCardAccess;
 	public static Item itemCardSecurityLink;
-	public static Item itemMultiToolManual;
 	public static Item itemCardInfinite;
 	public static Item itemCardDataLink;
 	/**
@@ -282,11 +275,8 @@ public class ModularForceFieldSystem
 			itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
 			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
-			itemMultiToolWrench = new ItemMultiToolWrench(MFFSConfiguration.item_MTWrench_ID);
-			itemMultiToolSwitch = new ItemMultitoolSwitch(MFFSConfiguration.item_MTSwitch_ID);
-			itemMultiToolFieldTeleporter = new ItemFieldTransporter(MFFSConfiguration.item_MTFieldTransporter_ID);
-			itemMultiToolID = new ItemMultitoolWriter(MFFSConfiguration.item_MTIDWriter_ID);
-
+			itemMultiTool= new ItemMultitool(MFFSConfiguration.item_MT_ID);
+			
 			itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);

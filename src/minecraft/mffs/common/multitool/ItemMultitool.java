@@ -1,111 +1,62 @@
 package mffs.common.multitool;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mffs.api.IForceEnergyItems;
-import mffs.common.ItemMFFSElectric;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemMultitool extends ItemMFFSElectric implements IForceEnergyItems
-{
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import mffs.api.IForceEnergyItems;
+import mffs.common.ModularForceFieldSystem;
+import mffs.common.item.ItemMFFS;
 
-	private static List MTTypes = new ArrayList();
+public class ItemMultitool extends ItemMFFS {
 
-	protected ItemMultitool(int id, int index, boolean addToList, String name)
-	{
-		super(id, name);
-		setIconIndex(index);
+	public ItemMultitool(int id) {
+		super(id, "itemMultiTool");
+		setIconIndex(1);
 		setMaxStackSize(1);
 		setMaxDamage(100);
-		if(addToList) {
-			MTTypes.add(this);
+		this.hasSubtypes = true;
+		
+		ToolRegistry.appendMode(new MultitoolSwitch());
+	}
+	
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+		return ToolRegistry.getMode(stack.getItemDamage()).onLeftClickEntity(stack, player, entity);
+	}
+
+	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		return ToolRegistry.getMode(stack.getItemDamage()).onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
+
+		if (player.isSneaking() && ToolRegistry.getMode(itemstack.getItemDamage()) != null) {
+			ItemStack newStack = itemstack.copy();
+			newStack.setItemDamage(itemstack.getItemDamage() + 1);
+			return newStack;
+		}else{
+			ToolRegistry.getMode(itemstack.getItemDamage()).onItemRightClick(itemstack, world, player);
+			return player.getCurrentEquippedItem();
 		}
-	}
-
-	protected ItemMultitool(int id, int index, String name)
-	{
-		this(id, index, true, name);
+		
 	}
 
 	@Override
-	public abstract boolean onItemUseFirst(ItemStack paramItemStack, EntityPlayer paramEntityPlayer, World paramWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4, float paramFloat1, float paramFloat2, float paramFloat3);
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
-	{
-		if (entityplayer.isSneaking())
-		{
-			int modeNum = 0;
-			for (int i = 0; i < MTTypes.size(); i++)
-			{
-				ItemMultitool MT = (ItemMultitool) MTTypes.get(i);
-				if (MT.itemID == itemstack.getItem().itemID)
-				{
-					if (i + 1 < MTTypes.size())
-					{
-						modeNum = i + 1;
-					}
-					else
-					{
-						modeNum = 0;
-					}
-				}
-			}
-			int powerleft = getAvailablePower(itemstack);
-			ItemStack hand = entityplayer.inventory.getCurrentItem();
-			hand = new ItemStack((Item) MTTypes.get(modeNum), 1);
-			chargeItem(hand, powerleft, false);
-			return hand;
-		}
-		return itemstack;
-	}
-
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
-	{
-		par1ItemStack.setItemDamage(getItemDamage(par1ItemStack));
-	}
-
-	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-	{
-		String tooltip = String.format("%d FE/%d FE", new Object[] { Integer.valueOf(getAvailablePower(itemStack)), Integer.valueOf(getMaximumPower(itemStack)) });
-		info.add(tooltip);
-	}
-
-	@Override
-	public int getPowerTransferrate()
-	{
-		return 50000;
-	}
-
-	@Override
-	public int getMaximumPower(ItemStack itemStack)
-	{
-		return 1000000;
-	}
-
-	@Override
-	public int getItemDamage(ItemStack itemStack)
-	{
-		return 101 - getAvailablePower(itemStack) * 100 / getMaximumPower(itemStack);
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b) {
+		info.add("Mode: " + ToolRegistry.getMode(itemStack.getItemDamage()).getName());
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int i, CreativeTabs tabs, List itemList)
-	{
-		ItemStack charged = new ItemStack(this, 1);
-		charged.setItemDamage(1);
-		setAvailablePower(charged, getMaximumPower(null));
-		itemList.add(charged);
+	public void getSubItems(int i, CreativeTabs tabs, List itemList) {
+		itemList.add(new ItemStack(ModularForceFieldSystem.itemMultiTool, 1, 0));
 	}
+	
 }

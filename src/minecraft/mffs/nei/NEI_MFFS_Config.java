@@ -11,10 +11,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	@Override
 	public void loadConfig()
 	{
-		API.hideItem(ModularForceFieldSystem.itemMultiToolSwitch.itemID);
-		API.hideItem(ModularForceFieldSystem.itemMultiToolFieldTeleporter.itemID);
-		API.hideItem(ModularForceFieldSystem.itemMultiToolID.itemID);
-		API.hideItem(ModularForceFieldSystem.itemMultiToolManual.itemID);
+		API.hideItem(ModularForceFieldSystem.itemMultiTool.itemID);
 
 		API.hideItem(ModularForceFieldSystem.itemCardPowerLink.itemID);
 		API.hideItem(ModularForceFieldSystem.itemCardID.itemID);
@@ -37,7 +34,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		blocks.add(ModularForceFieldSystem.blockSecurityStorage);
 		blocks.add(ModularForceFieldSystem.blockMonaziteOre);
 
-		items.add(ModularForceFieldSystem.itemMultiToolWrench);
+		items.add(ModularForceFieldSystem.itemMultiTool);
 		items.add(ModularForceFieldSystem.itemCardEmpty);
 		items.add(ModularForceFieldSystem.itemPowerCrystal);
 		items.add(ModularForceFieldSystem.itemForcillium);

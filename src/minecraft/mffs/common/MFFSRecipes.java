@@ -51,9 +51,7 @@ public class MFFSRecipes
 			MFFSRecipes.addRecipe(" E ExE E ", 1, 1, null, ModularForceFieldSystem.itemUpgradeCapacity);
 			MFFSRecipes.addRecipe("HHHEIEEDE", 1, 1, null, ModularForceFieldSystem.itemUpgradeRange);
 			MFFSRecipes.addRecipe("AlAlilAlA", 64, 1, null, ModularForceFieldSystem.itemFocusMatix);
-			MFFSRecipes.addRecipe("ooooCoooo", 1, 1, null, ModularForceFieldSystem.itemCardEmpty);
-			MFFSRecipes.addRecipe("mSnExEEDE", 1, 1, null, ModularForceFieldSystem.itemMultiToolWrench);
-		}
+			MFFSRecipes.addRecipe("ooooCoooo", 1, 1, null, ModularForceFieldSystem.itemCardEmpty);		}
 
 		if (MFFSConfiguration.MODULE_UE)
 		{
@@ -63,7 +61,6 @@ public class MFFSRecipes
 			MFFSRecipes.addRecipe("NNNCICCEC", 1, 2, null, ModularForceFieldSystem.itemUpgradeRange);
 			MFFSRecipes.addRecipe("BlBlilBlB", 64, 2, null, ModularForceFieldSystem.itemFocusMatix);
 			MFFSRecipes.addRecipe("ooooEoooo", 1, 2, null, ModularForceFieldSystem.itemCardEmpty);
-			MFFSRecipes.addRecipe("mOnDxDDED", 1, 2, null, ModularForceFieldSystem.itemMultiToolWrench);
 		}
 	}
 

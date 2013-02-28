@@ -55,12 +55,7 @@ public class MFFSConfiguration
 	public static int item_CardSecurityLink_ID = 11135;
 	public static int item_CardAccess_ID = 11114;
 	public static int item_CardDataLink_ID = 11148;
-	public static int item_MTWrench_ID = 11107;
-	public static int item_MTSwitch_ID = 11108;
-	public static int item_MTFieldTransporter_ID = 11109;
-	public static int item_MTIDWriter_ID = 11110;
-	public static int item_MTDebugger_ID = 11111;
-	public static int item_MTManual_ID = 11112;
+	public static int item_MT_ID = 11107;
 	public static int item_upgradeBoost_ID = 11118;
 	public static int item_upgradeRange_ID = 11119;
 	public static int item_upgradeCap_ID = 11120;
