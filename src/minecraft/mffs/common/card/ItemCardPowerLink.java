@@ -131,19 +131,19 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 						TileEntityCapacitor cap = (TileEntityCapacitor) world.getBlockTileEntity(png.X, png.Y, png.Z);
 						if (cap != null)
 						{
-							if ((cap.getPowerStorageID() == getValuefromKey("CapacitorID", itemStack)) && getValuefromKey("CapacitorID", itemStack) >= 0)
-							{/*
+							/*if ((cap.getPowerStorageID() == getValuefromKey("CapacitorID", itemStack)) && getValuefromKey("CapacitorID", itemStack) >= 0)
+							{
 								if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
 								{
 									setforArea(itemStack, cap.getDeviceName());
-								}*///TODO: REMOVED NAME
+								}//TODO: REMOVED NAME
 
 								if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
 								{
 									return cap;
 								}
 								return null;
-							}
+							}*/
 						}
 					}
 					else
@@ -157,7 +157,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 								setInformation(itemStack, cap.getMachinePoint(), "CapacitorID", Cap_ID);
 								if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
 								{
-									return cap;
+								//	return cap;
 								}
 								return null;
 							}

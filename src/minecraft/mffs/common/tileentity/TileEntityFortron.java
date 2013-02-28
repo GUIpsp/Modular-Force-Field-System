@@ -1,17 +1,24 @@
 package mffs.common.tileentity;
 
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import com.google.common.io.ByteArrayDataInput;
-
+import mffs.api.IFortronStorage;
 import mffs.common.Fortron;
+import mffs.common.FrequencyGrid;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.liquids.LiquidTank;
+
+import com.google.common.io.ByteArrayDataInput;
 
 /**
  * A TileEntity that is powered by fortron.
@@ -19,9 +26,17 @@ import net.minecraftforge.liquids.LiquidTank;
  * @author Calclavia
  * 
  */
-public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer
+public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronStorage
 {
 	public LiquidTank fortronTank;
+
+	@Override
+	public void invalidate()
+	{
+		// TODO:FIXTHIS
+		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
+		super.invalidate();
+	}
 
 	/**
 	 * Packet Methods
@@ -112,5 +127,29 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 		}
 
 		return null;
+	}
+
+	@Override
+	public void setFortron(int joules)
+	{
+		this.fortronTank.setLiquid(Fortron.getFortron(joules));
+	}
+
+	@Override
+	public int getFortron()
+	{
+		return Fortron.getAmount(this.fortronTank);
+	}
+
+	@Override
+	public int getCapacity()
+	{
+		return this.fortronTank.getCapacity();
+	}
+
+	@Override
+	public int consumeFortron(int joules, boolean doUse)
+	{
+		return Fortron.getAmount(this.fortronTank.drain(joules, doUse));
 	}
 }

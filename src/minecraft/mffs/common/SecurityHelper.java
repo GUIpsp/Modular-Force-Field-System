@@ -152,8 +152,8 @@ public class SecurityHelper
 			switch (((TileEntityProjector) tileEntity).getAccessType())
 			{
 				case 2:
-					TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));
-					if (cap != null)
+				//	TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));
+					/*if (cap != null)
 					{
 						TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
 						if (sec != null)
@@ -166,7 +166,7 @@ public class SecurityHelper
 
 							return false;
 						}
-					}
+					}*/
 
 					break;
 				case 3:

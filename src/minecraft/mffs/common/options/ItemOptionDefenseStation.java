@@ -66,7 +66,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 
 							if (projector.getAccessType() == 2)
 							{
-								TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(projector.getPowerSourceID()));
+								/*TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(projector.getPowerSourceID()));
 								if (cap != null)
 								{
 									TileEntitySecurityStation SecurityStation = cap.getLinkedSecurityStation();
@@ -75,7 +75,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 									{
 										killswitch = !SecurityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityRight.SR);
 									}
-								}
+								}*/
 							}
 							if (projector.getAccessType() == 3)
 							{
@@ -88,11 +88,11 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 
 							if (killswitch)
 							{
-								if (projector.consumePower(10000, true))
+								//if (projector.consumePower(10000, true))
 								{
 									((EntityPlayer) entityLiving).addChatMessage("!!! [Area Defence] leave or die !!!");
 									((EntityPlayer) entityLiving).attackEntityFrom(ModularForceFieldSystem.fieldDefense, 10);
-									projector.consumePower(10000, false);
+								//	projector.consumePower(10000, false);
 								}
 							}
 						}

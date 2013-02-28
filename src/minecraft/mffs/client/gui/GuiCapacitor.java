@@ -50,7 +50,7 @@ public class GuiCapacitor extends GuiMFFS
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
-		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getStorageAvailablePower(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getMaximumPower(), ElectricUnit.JOULES), 8, 105, 4210752);
+		this.fontRenderer.drawString(ElectricInfo.getDisplay(this.tileEntity.getFortron(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplay(this.tileEntity.getCapacity(), ElectricUnit.JOULES), 8, 105, 4210752);
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
@@ -71,13 +71,13 @@ public class GuiCapacitor extends GuiMFFS
 		 */
 		this.drawSlot(8, 73);
 
-		this.drawForce(8, 115, Math.min((float) this.tileEntity.getStorageAvailablePower() / (float) this.tileEntity.getMaximumPower(), 1));
+		this.drawForce(8, 115, Math.min((float) this.tileEntity.getFortron() / (float) this.tileEntity.getCapacity(), 1));
 	}
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		super.actionPerformed(guibutton);
-		//NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
+		// NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
 	}
 }

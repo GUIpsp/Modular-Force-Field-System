@@ -1,5 +1,7 @@
 package mffs.api;
 
+//TODO: Remove this
+@Deprecated
 public abstract interface IForceEnergyStorageBlock
 {
 	public abstract int getPercentageStorageCapacity();

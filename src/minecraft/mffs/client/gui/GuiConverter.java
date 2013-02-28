@@ -180,11 +180,11 @@ public class GuiConverter extends GuiContainer
 			this.fontRenderer.drawString("" + this.Converter.getUE_Outputamp(), 222, 48, 16777215);
 		}
 
-		if (this.Converter.getPowerSourceID() != 0)
+		//if (this.Converter.getPowerSourceID() != 0)
 		{
 			this.fontRenderer.drawString("FE: " + this.Converter.getLinkPower(), 17, 54, 4210752);
 		}
-		else
+		//else
 		{
 			this.fontRenderer.drawString("FE: No Link/OOR", 17, 54, 4210752);
 		}

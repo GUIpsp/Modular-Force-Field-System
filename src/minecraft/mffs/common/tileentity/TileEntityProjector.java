@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
 import mffs.api.IModularProjector;
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
@@ -46,7 +47,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileEntityProjector extends TileEntityMFFSMachine implements IModularProjector
+public class TileEntityProjector extends TileEntityFortron implements IModularProjector
 {
 	protected Stack field_queue = new Stack();
 	protected Set field_interior = new HashSet();
@@ -491,9 +492,9 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 		{
 			if (hasPowerSource())
 			{
-				setLinkPower((int) getForcePower());
+				setLinkPower((int) getFortron());
 
-				if ((isPowersourceItem()) && (getAccessType() != 0))
+				//if ((isPowersourceItem()) && (getAccessType() != 0))
 				{
 					setAccessType(0);
 				}
@@ -651,12 +652,12 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 			if (ffworldmap.getProjectorID() != getDeviceID())
 			{
 				ffworldmap.removebyProjector(getDeviceID());
-				ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
+				//ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
 			}
 		}
 		else
 		{
-			ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
+			//ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
 			ffworldmap.setSync(false);
 		}
 
@@ -683,7 +684,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 			cost *= MFFSConfiguration.forcefieldblockzappermodifier;
 		}
 
-		consumePower(cost * this.field_def.size(), false);
+		//consumePower(cost * this.field_def.size(), false);
 
 		this.blockCounter = 0;
 
@@ -773,7 +774,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion();
 		for (TileEntityProjector tileentity : FieldFusion.values())
 		{
-			if (tileentity.getPowerSourceID() == getPowerSourceID())
+			//if (tileentity.getPowerSourceID() == getPowerSourceID())
 			{
 				if (tileentity.isActive())
 				{
@@ -973,11 +974,11 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 			switch (slotID)
 			{
 				case 12:
-					if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
-						return false;
+				//	if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
+					//	return false;
 
-					if (((itemStack.getItem() instanceof ItemCardSecurityLink)) && (isPowersourceItem()))
-						return false;
+				//	if (((itemStack.getItem() instanceof ItemCardSecurityLink)) && (isPowersourceItem()))
+					//	return false;
 
 					if ((itemStack.getItem() instanceof ItemCardSecurityLink))
 						return true;
@@ -1031,14 +1032,14 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 					if (!hasPowerSource())
 						return false;
 
-					if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
-						return false;
+				//	if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && (isPowersourceItem()))
+						//return false;
 
-					if (((itemStack.getItem() instanceof ItemOptionFieldFusion)) && (isPowersourceItem()))
-						return false;
+					//if (((itemStack.getItem() instanceof ItemOptionFieldFusion)) && (isPowersourceItem()))
+				//		return false;
 
-					if (((itemStack.getItem() instanceof ItemOptionJammer)) && (isPowersourceItem()))
-						return false;
+					//if (((itemStack.getItem() instanceof ItemOptionJammer)) && (isPowersourceItem()))
+					//	return false;
 
 					if ((itemStack.getItem() instanceof ItemOptionBase))
 						return modType.supportsOption(itemStack.getItem());
@@ -1083,7 +1084,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 		TileEntitySecurityStation sec = ItemCardSecurityLink.getLinkedSecurityStation(this, 12, this.worldObj);
 		if (sec != null)
 		{
-			if ((getAccessType() != 3) && (!isPowersourceItem()))
+			//if ((getAccessType() != 3) && (!isPowersourceItem()))
 				setAccessType(3);
 
 			return sec;
@@ -1140,7 +1141,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 
 		return ret;
 	}
-
+/*
 	@Override
 	public ItemStack getPowerLinkStack()
 	{
@@ -1151,7 +1152,7 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	public int getPowerLinkSlot()
 	{
 		return 0;
-	}
+	}*/
 
 	@Override
 	public World getWorldObj()

@@ -201,7 +201,10 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		return new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
 	}
 
-	public abstract Container getContainer(InventoryPlayer paramInventoryPlayer);
+	public Container getContainer(InventoryPlayer paramInventoryPlayer)
+	{
+		return null;
+	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
@@ -300,7 +303,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		{
 			this.chunkTicket = ticket;
 		}
-		
+
 		ChunkCoordIntPair Chunk = new ChunkCoordIntPair(this.xCoord >> 4, this.zCoord >> 4);
 		ForgeChunkManager.forceChunk(ticket, Chunk);
 	}

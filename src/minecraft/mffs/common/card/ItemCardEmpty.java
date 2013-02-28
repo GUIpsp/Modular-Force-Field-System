@@ -68,7 +68,7 @@ public class ItemCardEmpty extends ItemCard
 			if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
 			{
 				ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardPowerLink);
-				((ItemCardPowerLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "CapacitorID", ((TileEntityCapacitor) tileEntity).getPowerStorageID());
+//				((ItemCardPowerLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "CapacitorID", ((TileEntityCapacitor) tileEntity).getPowerStorageID());
 //				ItemCardPowerLink.setforArea(newcard, ((TileEntityCapacitor) tileEntity).getDeviceName());
 //TODO: REMOVED NAME.
 				if (--itemstack.stackSize <= 0)

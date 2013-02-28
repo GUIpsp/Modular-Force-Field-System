@@ -217,7 +217,7 @@ public final class FrequencyGrid
 			int counter = 0;
 			for (TileEntityProjector tileentity : this.Projector.values())
 			{
-				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
+				//if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{
 					counter++;
 				}
@@ -226,7 +226,7 @@ public final class FrequencyGrid
 
 			for (TileEntityCapacitor tileentity : this.Capacitors.values())
 			{
-				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
+				//if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{
 					counter++;
 				}
@@ -235,7 +235,7 @@ public final class FrequencyGrid
 
 			for (TileEntityDefenseStation tileentity : this.DefStation.values())
 			{
-				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
+//				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{
 					counter++;
 				}
@@ -253,7 +253,7 @@ public final class FrequencyGrid
 
 			for (TileEntityConverter tileentity : this.Converter.values())
 			{
-				if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
+				//if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >= PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
 				{
 					counter++;
 				}

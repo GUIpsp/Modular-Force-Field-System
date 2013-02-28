@@ -99,7 +99,7 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
 			fontRenderer.drawString("Capacity: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getPercentageStorageCapacity()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getPercentageStorageCapacity()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			fontRenderer.drawString(String.valueOf(topview.getFortron() ).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getFortron() ).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Range: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getTransmitRange()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getTransmitRange())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Linked Device: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);

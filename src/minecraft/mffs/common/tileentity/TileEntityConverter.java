@@ -6,7 +6,9 @@ import ic2.api.energy.event.EnergyTileSourceEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergySource;
+
 import java.util.EnumSet;
+
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
@@ -23,7 +25,7 @@ import universalelectricity.core.electricity.ElectricityConnections;
 import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.vector.Vector3;
 
-public class TileEntityConverter extends TileEntityMFFSMachine implements IEnergySource
+public class TileEntityConverter extends TileEntityFortron implements IEnergySource
 {
 
 	private int IC_Outputpacketsize;
@@ -163,7 +165,7 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 
 			if (hasPowerSource())
 			{
-				setLinkPower((int) getForcePower());
+				setLinkPower(getFortron());
 			}
 			else
 			{
@@ -325,177 +327,44 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 		return 1;
 	}
 
-    /*
-	@Override
-	public void onNetworkHandlerUpdate(String field)
-	{
-		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-	}
+	/*
+	 * @Override public void onNetworkHandlerUpdate(String field) {
+	 * this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord); }
+	 * 
+	 * @Override public void onNetworkHandlerEvent(int key, String value) { if (key == 100) { if
+	 * (getIC_Output() == 0) { setIC_Output(1); } else { setIC_Output(0); } }
+	 * 
+	 * if (key == 101) { if (getUE_Output() == 0) { setUE_Output(1); } else { setUE_Output(0); } }
+	 * 
+	 * if (getIC_Output() == 0) { if (key == 200) { if (value.equalsIgnoreCase("+")) { switch
+	 * (this.IC_Outputpacketsize) { case 1: this.IC_Outputpacketsize = 32; break; case 32:
+	 * this.IC_Outputpacketsize = 128; break; case 128: this.IC_Outputpacketsize = 512; break; case
+	 * 512: this.IC_Outputpacketsize = 2048; break; case 2048: this.IC_Outputpacketsize = 1; } } if
+	 * (value.equalsIgnoreCase("-")) { switch (this.IC_Outputpacketsize) { case 1:
+	 * this.IC_Outputpacketsize = 2048; break; case 32: this.IC_Outputpacketsize = 1; break; case
+	 * 128: this.IC_Outputpacketsize = 32; break; case 512: this.IC_Outputpacketsize = 128; break;
+	 * case 2048: this.IC_Outputpacketsize = 512; } } } if (key == 201) { if
+	 * (value.equalsIgnoreCase("+")) { if (this.IC_Outputpacketamount == 9) {
+	 * this.IC_Outputpacketamount = 1; } else { this.IC_Outputpacketamount += 1; } } if
+	 * (value.equalsIgnoreCase("-")) { if (this.IC_Outputpacketamount == 1) {
+	 * this.IC_Outputpacketamount = 9; } else { this.IC_Outputpacketamount -= 1; } } } } if
+	 * (getUE_Output() == 0) { if (key == 202) { if (value.equalsIgnoreCase("+")) { switch
+	 * (this.UE_Outputvoltage) { case 60: this.UE_Outputvoltage = 120; break; case 120:
+	 * this.UE_Outputvoltage = 240; break; case 240: this.UE_Outputvoltage = 60; } } if
+	 * (value.equalsIgnoreCase("-")) { switch (this.UE_Outputvoltage) { case 60:
+	 * this.UE_Outputvoltage = 240; break; case 120: this.UE_Outputvoltage = 60; break; case 240:
+	 * this.UE_Outputvoltage = 120; } } } if (key == 203) { if (value.equalsIgnoreCase("+")) { if
+	 * (this.UE_Outputamp == 50) { this.UE_Outputamp = 1; } else { this.UE_Outputamp += 1; } } if
+	 * (value.equalsIgnoreCase("-")) { if (this.UE_Outputamp == 1) { this.UE_Outputamp = 50; } else
+	 * { this.UE_Outputamp -= 1; } }
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * super.onNetworkHandlerEvent(key, value); }
+	 */
 
-	@Override
-	public void onNetworkHandlerEvent(int key, String value)
-	{
-		if (key == 100)
-		{
-			if (getIC_Output() == 0)
-			{
-				setIC_Output(1);
-			}
-			else
-			{
-				setIC_Output(0);
-			}
-		}
-
-		if (key == 101)
-		{
-			if (getUE_Output() == 0)
-			{
-				setUE_Output(1);
-			}
-			else
-			{
-				setUE_Output(0);
-			}
-		}
-
-		if (getIC_Output() == 0)
-		{
-			if (key == 200)
-			{
-				if (value.equalsIgnoreCase("+"))
-				{
-					switch (this.IC_Outputpacketsize)
-					{
-						case 1:
-							this.IC_Outputpacketsize = 32;
-							break;
-						case 32:
-							this.IC_Outputpacketsize = 128;
-							break;
-						case 128:
-							this.IC_Outputpacketsize = 512;
-							break;
-						case 512:
-							this.IC_Outputpacketsize = 2048;
-							break;
-						case 2048:
-							this.IC_Outputpacketsize = 1;
-					}
-				}
-				if (value.equalsIgnoreCase("-"))
-				{
-					switch (this.IC_Outputpacketsize)
-					{
-						case 1:
-							this.IC_Outputpacketsize = 2048;
-							break;
-						case 32:
-							this.IC_Outputpacketsize = 1;
-							break;
-						case 128:
-							this.IC_Outputpacketsize = 32;
-							break;
-						case 512:
-							this.IC_Outputpacketsize = 128;
-							break;
-						case 2048:
-							this.IC_Outputpacketsize = 512;
-					}
-				}
-			}
-			if (key == 201)
-			{
-				if (value.equalsIgnoreCase("+"))
-				{
-					if (this.IC_Outputpacketamount == 9)
-					{
-						this.IC_Outputpacketamount = 1;
-					}
-					else
-					{
-						this.IC_Outputpacketamount += 1;
-					}
-				}
-				if (value.equalsIgnoreCase("-"))
-				{
-					if (this.IC_Outputpacketamount == 1)
-					{
-						this.IC_Outputpacketamount = 9;
-					}
-					else
-					{
-						this.IC_Outputpacketamount -= 1;
-					}
-				}
-			}
-		}
-		if (getUE_Output() == 0)
-		{
-			if (key == 202)
-			{
-				if (value.equalsIgnoreCase("+"))
-				{
-					switch (this.UE_Outputvoltage)
-					{
-						case 60:
-							this.UE_Outputvoltage = 120;
-							break;
-						case 120:
-							this.UE_Outputvoltage = 240;
-							break;
-						case 240:
-							this.UE_Outputvoltage = 60;
-					}
-				}
-				if (value.equalsIgnoreCase("-"))
-				{
-					switch (this.UE_Outputvoltage)
-					{
-						case 60:
-							this.UE_Outputvoltage = 240;
-							break;
-						case 120:
-							this.UE_Outputvoltage = 60;
-							break;
-						case 240:
-							this.UE_Outputvoltage = 120;
-					}
-				}
-			}
-			if (key == 203)
-			{
-				if (value.equalsIgnoreCase("+"))
-				{
-					if (this.UE_Outputamp == 50)
-					{
-						this.UE_Outputamp = 1;
-					}
-					else
-					{
-						this.UE_Outputamp += 1;
-					}
-				}
-				if (value.equalsIgnoreCase("-"))
-				{
-					if (this.UE_Outputamp == 1)
-					{
-						this.UE_Outputamp = 50;
-					}
-					else
-					{
-						this.UE_Outputamp -= 1;
-					}
-				}
-
-			}
-
-		}
-
-		super.onNetworkHandlerEvent(key, value);
-	}
-    */
-    
 	public void EmitUEPower(int volt, int amp)
 	{
 		if ((MFFSConfiguration.MODULE_UE) && (hasPowerSource()))
@@ -508,12 +377,12 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 			{
 				double outputWatts = Math.min(outputNetwork.getRequest().getWatts(), volt * amp);
 
-				if (consumePower((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true))
+				if (consumeFortron((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true) > 0)
 				{
 					if ((outputWatts > 0.0D) && (isActive()) && (getUE_Output() == 1))
 					{
 						outputNetwork.startProducing(this, outputWatts / volt, volt);
-						consumePower((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
+						consumeFortron((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
 					}
 					else
 					{
@@ -530,11 +399,11 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 		{
 			while (packets > 0)
 			{
-				if (consumePower(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * amount, true))
+				if (consumeFortron(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * amount, true) > 0)
 				{
 					EnergyTileSourceEvent event = new EnergyTileSourceEvent(this, amount);
 					MinecraftForge.EVENT_BUS.post(event);
-					consumePower(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
+					consumeFortron(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
 				}
 				packets--;
 			}
@@ -591,7 +460,7 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 		}
 		return true;
 	}
-
+/*
 	@Override
 	public ItemStack getPowerLinkStack()
 	{
@@ -602,7 +471,7 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 	public int getPowerLinkSlot()
 	{
 		return 0;
-	}
+	}*/
 
 	public void setUEwireConnection()
 	{
@@ -616,7 +485,7 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 	@Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
-		TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
+		/*TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
 		if (cap != null)
 		{
 			TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
@@ -624,8 +493,8 @@ public class TileEntityConverter extends TileEntityMFFSMachine implements IEnerg
 			{
 				return sec;
 			}
-		}
+		}*/
 		return null;
 	}
-    
+
 }

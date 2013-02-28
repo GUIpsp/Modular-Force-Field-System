@@ -2,8 +2,9 @@ package mffs.common.tileentity;
 
 import icbm.api.RadarRegistry;
 import mffs.api.IForceEnergyItems;
-import mffs.api.IForceEnergyStorageBlock;
+import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
+import mffs.common.Fortron;
 import mffs.common.FrequencyGrid;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.card.ItemCardSecurityLink;
@@ -16,29 +17,34 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
+import net.minecraftforge.liquids.LiquidTank;
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
 
-public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacketReceiver, IForceEnergyStorageBlock
+public class TileEntityCapacitor extends TileEntityFortron implements IFortronStorage
 {
 	private int forcePower = 0;
 	private short linkedProjector = 0;
 	private int capacity = 0;
-	private int linkMode = 0;
+	private int distributionMode = 0;
 	private int transmissionRange = 0;
 
+	public TileEntityCapacitor()
+	{
+		this.fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), 500 * LiquidContainerRegistry.BUCKET_VOLUME, this);
+	}
+	
 	@Override
 	public void initiate()
 	{
 		super.initiate();
-		this.checkSlots();
 		RadarRegistry.register(this);
 	}
 
 	@Override
 	public void updateEntity()
-	{
+	{/*
 		if (!this.worldObj.isRemote)
 		{
 			if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone()))
@@ -77,27 +83,19 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 				}
 			}
 		}
-		super.updateEntity();
+		super.updateEntity();*/
 	}
 
 	@Override
 	public void invalidate()
 	{
 		RadarRegistry.unregister(this);
-		FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
-	}
-
-	@Override
-	public int getPowerStorageID()
-	{
-		return getDeviceID();
 	}
 
 	public void setTransmitRange(int transmitRange)
 	{
 		this.transmissionRange = transmitRange;
-		//NetworkHandlerServer.updateTileEntityField(this, "transmissionRange");
         PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 	}
 
@@ -108,28 +106,12 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 
 	public int getPowerLinkMode()
 	{
-		return this.linkMode;
+		return this.distributionMode;
 	}
 
 	public void setPowerLinkMode(int powerLinkMode)
 	{
-		this.linkMode = powerLinkMode;
-	}
-
-	@Override
-	public int getPercentageStorageCapacity()
-	{
-		return this.capacity;
-	}
-
-	public void setCapacity(int capacity)
-	{
-		if (getPercentageStorageCapacity() != capacity)
-		{
-			this.capacity = capacity;
-			//NetworkHandlerServer.updateTileEntityField(this, "capacity");
-            
-		}
+		this.distributionMode = powerLinkMode;
 	}
 
 	@Override
@@ -148,15 +130,15 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 		if (this.linkedProjector != linketprojektor.shortValue())
 		{
 			this.linkedProjector = linketprojektor.shortValue();
-			//NetworkHandlerServer.updateTileEntityField(this, "linkedProjector");
 		}
 	}
-
+	
+/*
 	@Override
 	public int getStorageAvailablePower()
 	{
 		return this.forcePower;
-	}
+	}*/
 
 	public void setForcePower(int f)
 	{
@@ -184,7 +166,7 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 		}
 		return 0;
 	}
-
+/*
 	@Override
 	public int getStorageMaxPower()
 	{
@@ -202,8 +184,8 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 			setForcePower(10000000);
 		}
 		return 10000000;
-	}
-
+	}*/
+/*
 	private void checkSlots()
 	{
 		if (getStackInSlot(1) != null)
@@ -305,53 +287,23 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 					setPowerLinkMode(0);
 			}
 		}
-	}
+	}*/
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
+	public void readFromNBT(NBTTagCompound nbt)
 	{
-		super.readFromNBT(nbttagcompound);
-
-		this.forcePower = nbttagcompound.getInteger("forcePower");
-		this.linkMode = nbttagcompound.getInteger("powerLinkMode");
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++)
-		{
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
-
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.inventory.length))
-			{
-				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
+		super.readFromNBT(nbt);
+		this.distributionMode = nbt.getInteger("distributionMode");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
-
-		nbttagcompound.setInteger("forcePower", this.forcePower);
-		nbttagcompound.setInteger("powerLinkMode", this.linkMode);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.inventory.length; i++)
-		{
-			if (this.inventory[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				this.inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
+		nbttagcompound.setInteger("distributionMode", this.distributionMode);
 	}
 
+	/*
 	private void powerTransfer()
 	{
 		if (hasPowerSource())
@@ -422,7 +374,7 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 					break;
 			}
 		}
-	}
+	}*/
 
 	@Override
 	public ItemStack getStackInSlot(int i)
@@ -537,7 +489,7 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 		return NetworkedFields;
 	}
     */
-
+/*
 	@Override
 	public int getFreeStorageAmount()
 	{
@@ -579,33 +531,33 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 			setForcePower(0);
 		}
 		return true;
-	}
+	}*/
 
 	@Override
-	public boolean isItemValid(ItemStack par1ItemStack, int Slot)
+	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		switch (Slot)
+		switch (slotID)
 		{
 			case 0:
-				if ((par1ItemStack.getItem() instanceof ItemUpgradeCapacity))
+				if ((itemStack.getItem() instanceof ItemUpgradeCapacity))
 				{
 					return true;
 				}
 				break;
 			case 1:
-				if ((par1ItemStack.getItem() instanceof ItemUpgradeRange))
+				if ((itemStack.getItem() instanceof ItemUpgradeRange))
 				{
 					return true;
 				}
 				break;
 			case 2:
-				if (((par1ItemStack.getItem() instanceof IForceEnergyItems)) || ((par1ItemStack.getItem() instanceof IPowerLinkItem)))
+				if (((itemStack.getItem() instanceof IForceEnergyItems)) || ((itemStack.getItem() instanceof IPowerLinkItem)))
 				{
 					return true;
 				}
 				break;
 			case 4:
-				if ((par1ItemStack.getItem() instanceof ItemCardSecurityLink))
+				if ((itemStack.getItem() instanceof ItemCardSecurityLink))
 				{
 					return true;
 				}
@@ -615,16 +567,5 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 		return false;
 	}
 	
-	@Override
-	public ItemStack getPowerLinkStack()
-	{
-		return getStackInSlot(getPowerLinkSlot());
-	}
-
-	@Override
-	public int getPowerLinkSlot()
-	{
-		return 2;
-	}
 
 }

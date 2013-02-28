@@ -533,11 +533,11 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 			{
 				onToggle();
 			}
-			if ((getStatusValue()) && (hasPowerSource()) && (getForcePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
+			//if ((getStatusValue()) && (hasPowerSource()) && (getForcePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
 			{
 				setActive(true);
 			}
-			if (((!getStatusValue()) || (!hasPowerSource()) || (getForcePower() < MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
+			//if (((!getStatusValue()) || (!hasPowerSource()) || (getForcePower() < MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
 			{
 				setActive(false);
 			}

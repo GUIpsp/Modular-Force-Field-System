@@ -1,10 +1,10 @@
 package mffs.common.tileentity;
 
-import mffs.api.IForcePower;
+import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 
-public abstract class TileEntityMFFSMachine extends TileEntityMFFSInventory implements IForcePower
+public abstract class TileEntityMFFSMachine extends TileEntityMFFSInventory
 {
 	public abstract ItemStack getPowerLinkStack();
 
@@ -30,23 +30,6 @@ public abstract class TileEntityMFFSMachine extends TileEntityMFFSInventory impl
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public double getForcePower()
-	{
-		ItemStack linkCard = getPowerLinkStack();
-		if (hasPowerSource())
-		{
-			return ((IPowerLinkItem) linkCard.getItem()).getAvailablePower(linkCard, this, this.worldObj);
-		}
-
-		return 0;
-	}
-
-	@Override
-	public void setForcePower(double joules)
-	{
 	}
 
 	public int getPowerSourceID()

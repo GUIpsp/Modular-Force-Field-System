@@ -58,10 +58,10 @@ public class ItemOptionAntibiotic extends ItemOptionBase
 						{
 							break;
 						}
-						if (projector.consumePower(10000, true))
+						//if (projector.consumePower(10000, true))
 						{
 							entityLiving.attackEntityFrom(ModularForceFieldSystem.fieldDefense, 10);
-							projector.consumePower(10000, false);
+						//	projector.consumePower(10000, false);
 						}
 					}
 				}

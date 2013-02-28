@@ -161,7 +161,6 @@ public abstract class TileEntityMFFSElectrical extends TileEntityFortron impleme
 	@Override
 	public void invalidate()
 	{
-		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
 		MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 		super.invalidate();
 	}
