@@ -1,6 +1,5 @@
 package mffs.common.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +35,6 @@ import mffs.common.upgrade.ItemModuleDistance;
 import mffs.common.upgrade.ItemModuleStrength;
 import mffs.common.upgrade.ItemProjectorFocusMatrix;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -44,8 +42,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -1177,13 +1173,4 @@ public class TileEntityProjector extends TileEntityMFFSMachine implements IModul
 	{
 		return this.worldObj;
 	}
-    
-    @Override
-    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
-    {
-        int x = data.readInt();
-        int y = data.readInt();
-        int z = data.readInt();
-        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
-    }
 }

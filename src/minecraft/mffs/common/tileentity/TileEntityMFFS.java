@@ -1,11 +1,11 @@
 package mffs.common.tileentity;
 
+import com.google.common.io.ByteArrayDataInput;
 import ic2.api.IWrenchable;
-
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import mffs.api.ISwitchable;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGrid;
@@ -25,12 +25,11 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.tile.TileEntityDisableable;
-
-import com.google.common.io.ByteArrayDataInput;
 
 public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IWrenchable, ISwitchable, IRotatable
 {
@@ -102,7 +101,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		}
 		catch (Exception e)
 		{
-			ModularForceFieldSystem.LOGGER.severe("Packet receiving failed: " + this.getClass().getSimpleName());
+			ModularForceFieldSystem.LOGGER.severe(MessageFormat.format("Packet receiving failed: {0}", this.getClass().getSimpleName()));
 			e.printStackTrace();
 		}
 	}
@@ -130,7 +129,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 			registerChunkLoading();
 		}
 
-		// NetworkHandlerClient.requestInitialData(this, true);
+        PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 	}
 
 	@Override
@@ -142,7 +141,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		{
 			if (this.ticks % 300 == 0)
 			{
-				// NetworkHandlerClient.requestInitialData(this, true);
+                PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 			}
 		}
 	}

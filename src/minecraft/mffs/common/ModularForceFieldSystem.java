@@ -1,10 +1,20 @@
 package mffs.common;
 
+import com.google.common.collect.Lists;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
@@ -66,34 +76,20 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
-
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
-
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.UEDamageSource;
+import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenBase;
 import universalelectricity.prefab.ore.OreGenReplaceStone;
 import universalelectricity.prefab.ore.OreGenerator;
 
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-
 // Use the Force, Luke.
 
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class, connectionHandler = ConnectionHandler.class)
 @ModstatInfo(prefix = "mffs")
 public class ModularForceFieldSystem
 {

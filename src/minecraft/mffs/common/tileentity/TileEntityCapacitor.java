@@ -1,6 +1,5 @@
 package mffs.common.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
 import icbm.api.RadarRegistry;
 import mffs.api.IForceEnergyItems;
 import mffs.api.IForceEnergyStorageBlock;
@@ -11,16 +10,15 @@ import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import mffs.common.upgrade.ItemUpgradeRange;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.IPacketReceiver;
+import universalelectricity.prefab.network.PacketManager;
 
 public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacketReceiver, IForceEnergyStorageBlock
 {
@@ -100,6 +98,7 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 	{
 		this.transmissionRange = transmitRange;
 		//NetworkHandlerServer.updateTileEntityField(this, "transmissionRange");
+        PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 	}
 
 	public int getTransmitRange()
@@ -129,6 +128,7 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 		{
 			this.capacity = capacity;
 			//NetworkHandlerServer.updateTileEntityField(this, "capacity");
+            
 		}
 	}
 
@@ -634,12 +634,4 @@ public class TileEntityCapacitor extends TileEntityMFFSMachine implements IPacke
 		return 2;
 	}
 
-    @Override
-    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
-    {
-        int x = data.readInt();
-        int y = data.readInt();
-        int z = data.readInt();
-        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
-    }
 }

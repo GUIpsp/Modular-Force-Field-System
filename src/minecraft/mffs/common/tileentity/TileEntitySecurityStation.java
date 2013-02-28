@@ -1,9 +1,6 @@
 package mffs.common.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
-
 import cpw.mods.fml.common.registry.LanguageRegistry;
-
 import java.util.List;
 import mffs.common.FrequencyGrid;
 import mffs.common.MFFSConfiguration;
@@ -11,7 +8,6 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
 import mffs.common.card.ItemAccessCard;
-import mffs.common.card.ItemCardEmpty;
 import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
@@ -24,8 +20,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntitySecurityStation extends TileEntityMFFSInventory
@@ -459,12 +453,4 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		return this;
 	}
     
-    @Override
-    public void handlePacketData(INetworkManager network, int packetType, Packet250CustomPayload packet, EntityPlayer player, ByteArrayDataInput data)
-    {
-        int x = data.readInt();
-        int y = data.readInt();
-        int z = data.readInt();
-        System.out.println("X: " + x + " Y: " + y + " Z: " + z);
-    }
 }
