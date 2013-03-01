@@ -5,7 +5,7 @@ import java.util.Set;
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionFieldFusion;
@@ -66,7 +66,7 @@ public class ItemModeTube extends ItemMode3D
 			tpz = distance;
 
 			y_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+			if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
 				if (projector.getDirection().ordinal() == 0)
 				{
@@ -86,7 +86,7 @@ public class ItemModeTube extends ItemMode3D
 			tpx = distance;
 
 			z_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+			if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
 				if (projector.getDirection().ordinal() == 2)
 				{
@@ -105,7 +105,7 @@ public class ItemModeTube extends ItemMode3D
 			tpx = Strength;
 
 			x_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+			if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 			{
 				if (projector.getDirection().ordinal() == 4)
 				{
@@ -155,7 +155,7 @@ public class ItemModeTube extends ItemMode3D
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item)
+	public static boolean supportsOption(ItemModule item)
 	{
 		if ((item instanceof ItemOptionCamoflage))
 		{

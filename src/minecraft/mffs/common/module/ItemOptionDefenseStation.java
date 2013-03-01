@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class ItemOptionDefenseStation extends ItemOptionBase
+public class ItemOptionDefenseStation extends ItemModule
 {
 
 	public ItemOptionDefenseStation(int i)

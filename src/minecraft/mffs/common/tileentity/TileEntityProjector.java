@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import mffs.api.IProjectorMode;
 import mffs.api.IProjector;
+import mffs.api.IProjectorMode;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldType;
@@ -21,23 +21,24 @@ import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
 import mffs.common.card.ItemCard;
 import mffs.common.container.ContainerProjector;
-import mffs.common.mode.ItemProjectorMode;
 import mffs.common.mode.ItemMode3D;
-import mffs.common.module.IChecksOnAll;
+import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.IInteriorCheck;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.IModule;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionFieldFusion;
 import mffs.common.module.ItemOptionJammer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
+import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.network.PacketManager;
 
 public class TileEntityProjector extends TileEntityFortron implements IProjector
 {
@@ -48,9 +49,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	private static final int MODULE_SLOT_ID = 5;
 
-	protected Stack field_queue = new Stack();
-	protected Set field_interior = new HashSet();
-	protected Set<PointXYZ> field_def = new HashSet();
+	protected Stack fieldQueue = new Stack();
+	protected Set<Vector3> fieldDefinition = new HashSet();
+	protected Set<Vector3> fieldInterior = new HashSet();
 
 	private short forcefieldblock_meta = ((short) ForceFieldType.Default.ordinal());
 
@@ -90,38 +91,27 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 		if (!this.worldObj.isRemote)
 		{
-
-			if (this.getFortronEnergy() > FORTRON_CONSUMPTION)
+			if (this.isActive())
 			{
-				this.consumeFortron(1, true);
+				if (this.getFortronEnergy() > FORTRON_CONSUMPTION)
+				{
+					if (this.ticks % 20 == 0)
+					{
+						this.generateField(false);
+					}
+
+					this.consumeFortron(1, true);
+				}
 			}
 
-			/*
-			 * if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone())) {
-			 * onToggle(); } if ((getStatusMode() == 1) && (getStatusValue()) &&
-			 * (!isPoweredByRedstone())) { onToggle(); }
-			 * 
-			 * if ((getStatusValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) &&
-			 * (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5))) { if (isActive() != true)
-			 * { setActive(true); this.switchDelay = 0; if (calculateField(true)) {
-			 * fieldGenerate(true); } this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-			 * this.zCoord); } } if (((!getStatusValue()) && (this.switchDelay >= 40)) ||
-			 * (!hasValidTypeMod()) || (!hasPowerSource()) || (this.burnout) || (getLinkPower() <=
-			 * forcePowerNeed(1))) { if (isActive()) { setActive(false); this.switchDelay = 0;
-			 * destroyField(); this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-			 * this.zCoord); } }
-			 * 
-			 * if (this.ticks % 20 == 0) { if (isActive()) { fieldGenerate(false);
-			 * 
-			 * if (hasOption(ModularForceFieldSystem.itemOptionAntibiotic, true)) {
-			 * ItemOptionAntibiotic.ProjectorNPCDefence(this, this.worldObj); }
-			 * 
-			 * if (hasOption(ModularForceFieldSystem.itemOptionDefenseeStation, true)) {
-			 * ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj); } } }
+			/**
+			 * Packet Update for Client only when GUI is open.
 			 */
-
+			if (this.ticks % 4 == 0 && this.playersUsing > 0)
+			{
+				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
+			}
 		}
-		// this.switchDelay += 1;
 	}
 
 	@Override
@@ -136,6 +126,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return this.isPoweredByRedstone();
 	}
 
 	public int getAccessType()
@@ -257,7 +253,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public void onInventoryChanged()
 	{
-		getLinkedSecurityStation();
+		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 		// checkslots();
 	}
 
@@ -371,13 +367,13 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	private void updateForceFieldTexture()
 	{
-		if ((isActive()) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
+		if ((isActive()) && (hasModule(ModularForceFieldSystem.itemOptionCamouflage, true)))
 		{
-			for (PointXYZ png : this.field_def)
+			for (Vector3 vector : this.fieldDefinition)
 			{
-				if (this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded)
+				if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 				{
-					TileEntity tileEntity = this.worldObj.getBlockTileEntity(png.X, png.Y, png.Z);
+					TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 
 					if ((tileEntity != null) && ((tileEntity instanceof TileEntityForceField)))
 					{
@@ -390,32 +386,25 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	private boolean calculateField(boolean addtoMap)
 	{
-		this.field_def.clear();
-		this.field_interior.clear();
+		this.fieldDefinition.clear();
+		this.fieldInterior.clear();
 
 		if (this.getMode() != null)
 		{
-			Set<PointXYZ> tField = new HashSet();
-			Set<PointXYZ> tFieldInt = new HashSet();
+			Set<Vector3> blockDef = new HashSet();
+			Set<Vector3> blockInterior = new HashSet();
 
-			if ((getMode() instanceof ItemMode3D))
-			{
-				((ItemMode3D) getMode()).calculateField(this, tField, tFieldInt);
-			}
-			else
-			{
-				getMode().calculateField(this, tField);
-			}
+			this.getMode().calculateField(this, blockDef, blockInterior);
 
-			for (PointXYZ pnt : tField)
+			for (Vector3 vector : blockDef)
 			{
-				if (pnt.Y + this.yCoord < 255)
+				if (vector.intY() + this.yCoord < this.worldObj.getHeight())
 				{
-					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y + this.yCoord, pnt.Z + this.zCoord, this.worldObj);
+					Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
 
-					if (forceFieldDefine(tp, addtoMap))
+					if (forceFieldDefine(fieldPoint, addtoMap))
 					{
-						this.field_def.add(tp);
+						this.fieldDefinition.add(fieldPoint);
 					}
 					else
 					{
@@ -423,15 +412,16 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 					}
 				}
 			}
-			for (PointXYZ pnt : tFieldInt)
-			{
-				if (pnt.Y + this.yCoord < 255)
-				{
-					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y + this.yCoord, pnt.Z + this.zCoord, this.worldObj);
 
-					if (calculateBlock(tp))
+			for (Vector3 vector : blockInterior)
+			{
+				if (vector.intY() + this.yCoord < this.worldObj.getHeight())
+				{
+					Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
+
+					if (calculateBlock(fieldPoint))
 					{
-						this.field_interior.add(tp);
+						this.fieldInterior.add(fieldPoint);
 					}
 					else
 					{
@@ -446,9 +436,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return false;
 	}
 
-	public boolean calculateBlock(PointXYZ pnt)
+	public boolean calculateBlock(Vector3 pnt)
 	{
-		for (ItemOptionBase opt : getOptions(true))
+		for (IModule opt : getModules(true))
 		{
 			if ((opt instanceof IInteriorCheck))
 			{
@@ -458,23 +448,23 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return true;
 	}
 
-	public boolean forceFieldDefine(PointXYZ png, boolean addtoMap)
+	public boolean forceFieldDefine(Vector3 vector, boolean addtoMap)
 	{
-		for (ItemOptionBase opt : getOptions(true))
+		for (IModule opt : getModules(true))
 		{
-			if (((opt instanceof ItemOptionJammer)) && (((ItemOptionJammer) opt).CheckJammerinfluence(png, this.worldObj, this)))
+			if (((opt instanceof ItemOptionJammer)) && (((ItemOptionJammer) opt).CheckJammerinfluence(vector, this.worldObj, this)))
 			{
 				return false;
 			}
 
-			if (((opt instanceof ItemOptionFieldFusion)) && (((ItemOptionFieldFusion) opt).checkFieldFusioninfluence(png, this.worldObj, this)))
+			if (((opt instanceof ItemOptionFieldFusion)) && (((ItemOptionFieldFusion) opt).checkFieldFusioninfluence(vector, this.worldObj, this)))
 			{
 				return true;
 			}
 
 		}
 
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getorcreateFFStackMap(png.X, png.Y, png.Z, this.worldObj);
+		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getorcreateFFStackMap(vector.intX(), vector.intY(), vector.intZ(), this.worldObj);
 
 		if (!ffworldmap.isEmpty())
 		{
@@ -490,12 +480,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			ffworldmap.setSync(false);
 		}
 
-		this.field_queue.push(Integer.valueOf(png.hashCode()));
+		this.fieldQueue.push(Integer.valueOf(vector.hashCode()));
 
 		return true;
 	}
 
-	public void fieldGenerate(boolean init)
+	public void generateField(boolean init)
 	{
 		int cost = 0;
 
@@ -517,32 +507,33 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 		this.blockCounter = 0;
 
-		for (PointXYZ pnt : this.field_def)
+		for (PointXYZ pnt : this.fieldDefinition)
 		{
-			if (this.blockCounter == MFFSConfiguration.forcefieldmaxblockpeerTick)
+			if (this.blockCounter == MFFSConfiguration.maxForceFieldPerTick)
 			{
 				break;
 			}
-			ForceFieldBlockStack ffb = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(pnt.hashCode()));
 
-			if (ffb != null)
+			ForceFieldBlockStack blockStack = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(pnt.hashCode()));
+
+			if (blockStack != null)
 			{
-				if (!ffb.isSync())
+				if (!blockStack.isSync())
 				{
-					PointXYZ png = ffb.getPoint();
+					PointXYZ png = blockStack.getPoint();
 
-					if ((this.worldObj.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded) && (!ffb.isEmpty()) && (ffb.getProjectorID() == getDeviceID()))
+					if ((this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded) && (!blockStack.isEmpty()) && (blockStack.getProjectorID() == getDeviceID()))
 					{
-						if (hasOption(ModularForceFieldSystem.itemOptionCutter, true))
+						if (hasModule(ModularForceFieldSystem.itemOptionCutter, true))
 						{
-							int blockid = this.worldObj.getBlockId(png.X, png.Y, png.Z);
-							TileEntity entity = this.worldObj.getBlockTileEntity(png.X, png.Y, png.Z);
+							int blockid = this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ());
+							TileEntity entity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 
 							if ((blockid != ModularForceFieldSystem.blockForceField.blockID) && (blockid != 0) && (blockid != Block.bedrock.blockID) && (entity == null))
 							{
-								ArrayList stacks = Functions.getItemStackFromBlock(this.worldObj, png.X, png.Y, png.Z);
+								ArrayList stacks = Functions.getItemStackFromBlock(this.worldObj, vector.intX(), vector.intY(), vector.intZ());
 
-								this.worldObj.setBlockWithNotify(png.X, png.Y, png.Z, 0);
+								this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
 
 								if ((ProjectorTypes.typeFromItem(getMode()).blockDropper && (stacks != null)))
 								{
@@ -556,15 +547,15 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 						}
 
-						if ((this.worldObj.getBlockMaterial(png.X, png.Y, png.Z).isLiquid()) || (this.worldObj.isAirBlock(png.X, png.Y, png.Z)) || (this.worldObj.getBlockId(png.X, png.Y, png.Z) == ModularForceFieldSystem.blockForceField.blockID))
+						if ((this.worldObj.getBlockMaterial(vector.intX(), vector.intY(), vector.intZ()).isLiquid()) || (this.worldObj.isAirBlock(vector.intX(), vector.intY(), vector.intZ())) || (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) == ModularForceFieldSystem.blockForceField.blockID))
 						{
-							if (this.worldObj.getBlockId(png.X, png.Y, png.Z) != ModularForceFieldSystem.blockForceField.blockID)
+							if (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) != ModularForceFieldSystem.blockForceField.blockID)
 							{
-								this.worldObj.setBlockAndMetadataWithNotify(png.X, png.Y, png.Z, ModularForceFieldSystem.blockForceField.blockID, ffb.getTyp());
+								this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, blockStack.getTyp());
 
 								this.blockCounter += 1;
 							}
-							ffb.setSync(true);
+							blockStack.setSync(true);
 						}
 					}
 				}
@@ -574,9 +565,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public void destroyField()
 	{
-		while (!this.field_queue.isEmpty())
+		while (!this.fieldQueue.isEmpty())
 		{
-			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap((Integer) this.field_queue.pop());
+			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap((Integer) this.fieldQueue.pop());
 
 			if (!ffworldmap.isEmpty())
 			{
@@ -587,8 +578,8 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 					if (ffworldmap.isSync())
 					{
 						PointXYZ png = ffworldmap.getPoint();
-						this.worldObj.removeBlockTileEntity(png.X, png.Y, png.Z);
-						this.worldObj.setBlockWithNotify(png.X, png.Y, png.Z, 0);
+						this.worldObj.removeBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
+						this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
 					}
 
 					ffworldmap.setSync(false);
@@ -623,9 +614,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public int forcePowerNeed(int factor)
 	{
-		if (!this.field_def.isEmpty())
+		if (!this.fieldDefinition.isEmpty())
 		{
-			return this.field_def.size() * MFFSConfiguration.forcefieldblockcost;
+			return this.fieldDefinition.size() * MFFSConfiguration.forcefieldblockcost;
 		}
 
 		int forcepower = 0;
@@ -812,12 +803,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public Set<PointXYZ> getInteriorPoints()
 	{
-		return this.field_interior;
+		return this.fieldInterior;
 	}
 
 	public Set<PointXYZ> getFieldQueue()
 	{
-		return this.field_def;
+		return this.fieldDefinition;
 	}
 
 	public int getSecStation_ID()
@@ -830,40 +821,35 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return 0;
 	}
 
-	public boolean hasOption(Item item, boolean includeCheckAll)
+	public boolean hasModule(IModule item, boolean includeCheckAll)
 	{
-		for (ItemOptionBase opt : getOptions(includeCheckAll))
+		for (IModule opt : getModules(includeCheckAll))
 		{
 			if (opt == item)
 				return true;
-
 		}
+
 		return false;
 	}
 
-	public List<ItemOptionBase> getOptions(boolean includeCheckAll)
+	public List<IModule> getModules(boolean includeCheckAll)
 	{
-		List ret = new ArrayList();
-		for (int place = 2; place < 5; place++)
-		{
-			if ((getStackInSlot(place) != null) && ((getStackInSlot(place).getItem() instanceof ItemOptionBase)))
-			{
-				ret.add((ItemOptionBase) getStackInSlot(place).getItem());
-			}
+		List<IModule> modules = new ArrayList();
 
-			if (includeCheckAll)
+		for (int slotID = 1; slotID < 9; slotID++)
+		{
+			ItemStack itemStack = this.getStackInSlot(slotID);
+
+			if (itemStack != null)
 			{
-				for (ItemOptionBase opt : ItemOptionBase.get_instances())
+				if (itemStack.getItem() instanceof ItemModule)
 				{
-					if (((opt instanceof IChecksOnAll)) && (!ret.contains(opt)))
-					{
-						ret.add(opt);
-					}
+					modules.add((ItemModule) itemStack.getItem());
 				}
 			}
 		}
 
-		return ret;
+		return modules;
 	}
 
 	/*

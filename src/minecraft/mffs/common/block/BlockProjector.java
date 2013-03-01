@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 public class BlockProjector extends BlockMFFSMachine
 {
 
-	public BlockProjector(int i)
+	public BlockProjector(int id)
 	{
-		super(i, "forceFieldProjector");
+		super(id, "forceFieldProjector");
 		this.setTextureFile(ModularForceFieldSystem.TEXTURE_DIRECTORY + "projector.png");
 	}
 

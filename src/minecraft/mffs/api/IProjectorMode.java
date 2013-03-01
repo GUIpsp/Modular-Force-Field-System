@@ -4,10 +4,11 @@ import java.util.Set;
 
 import mffs.common.ForceFieldType;
 import net.minecraft.item.Item;
+import universalelectricity.core.vector.Vector3;
 
 public interface IProjectorMode
 {
-	public void calculateField(IProjector modularProjector, Set paramSet);
+	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior);
 
 	public boolean supportsDistance();
 

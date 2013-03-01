@@ -18,12 +18,11 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public abstract class ItemOptionBase extends ItemMFFS
+public abstract class ItemModule extends ItemMFFS implements IModule
 {
-
 	private static List instances = new ArrayList();
 
-	public ItemOptionBase(int i, String name)
+	public ItemModule(int i, String name)
 	{
 		super(i, name);
 		setMaxStackSize(8);
@@ -31,7 +30,7 @@ public abstract class ItemOptionBase extends ItemMFFS
 		this.setNoRepair();
 	}
 
-	public static List<ItemOptionBase> get_instances()
+	public static List<ItemModule> get_instances()
 	{
 		return instances;
 	}

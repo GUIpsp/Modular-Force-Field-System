@@ -1,6 +1,6 @@
 package mffs.common.module;
 
-public class ItemOptionCutter extends ItemOptionBase
+public class ItemOptionCutter extends ItemModule
 {
 
 	public ItemOptionCutter(int i)

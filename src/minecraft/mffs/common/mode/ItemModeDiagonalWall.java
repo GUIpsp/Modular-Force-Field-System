@@ -15,7 +15,7 @@ public class ItemModeDiagonalWall extends ItemModeWall
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs)
+	public void calculateField(IProjector projector, Set ffLocs,Set interior)
 	{
 		int tpx = 0;
 		int tpy = 0;

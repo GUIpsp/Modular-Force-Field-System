@@ -1,11 +1,10 @@
 package mffs.common.module;
 
-import mffs.api.PointXYZ;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
-public abstract interface IInteriorCheck
+public interface IInteriorCheck
 {
-
-	public abstract void checkInteriorBlock(PointXYZ paramPointXYZ, World paramWorld, TileEntityProjector paramTileEntityProjector);
+	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector projector);
 }

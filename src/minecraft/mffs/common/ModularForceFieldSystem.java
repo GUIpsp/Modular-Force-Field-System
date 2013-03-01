@@ -36,6 +36,7 @@ import mffs.common.mode.ItemModeDiagonalWall;
 import mffs.common.mode.ItemModeSphere;
 import mffs.common.mode.ItemModeTube;
 import mffs.common.mode.ItemModeWall;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionAntibiotic;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
@@ -152,20 +153,22 @@ public class ModularForceFieldSystem
 	public static Item itemUpgradeBoost;
 	public static Item itemUpgradeRange;
 	public static Item itemUpgradeCapacity;
-	/**
-	 * Module/Options
-	 */
-	public static Item itemOptionShock;
-	public static Item itemOptionSponge;
-	public static Item itemOptionFieldManipulator;
-	public static Item itemOptionCutter;
-	public static Item itemOptionAntibiotic;
-	public static Item itemOptionDefenseeStation;
-	public static Item itemOptionJammer;
-	public static Item itemOptionCamouflage;
-	public static Item itemOptionFieldFusion;
+	
 	/**
 	 * Modules
+	 */
+	public static ItemModule itemOptionShock;
+	public static ItemModule itemOptionSponge;
+	public static ItemModule itemOptionFieldManipulator;
+	public static ItemModule itemOptionCutter;
+	public static ItemModule itemOptionAntibiotic;
+	public static ItemModule itemOptionDefenseeStation;
+	public static ItemModule itemOptionJammer;
+	public static ItemModule itemOptionCamouflage;
+	public static ItemModule itemOptionFieldFusion;
+	
+	/**
+	 * Modes
 	 */
 	public static Item itemModuleSphere;
 	public static Item itemModuleCube;

@@ -5,7 +5,7 @@ import java.util.Set;
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.module.ItemOptionAntibiotic;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionDefenseStation;
@@ -116,7 +116,7 @@ public class ItemModeContainment extends ItemMode3D
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item)
+	public static boolean supportsOption(ItemModule item)
 	{
 		if ((item instanceof ItemOptionCamoflage))
 		{

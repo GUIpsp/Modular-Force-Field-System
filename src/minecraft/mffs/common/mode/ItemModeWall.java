@@ -4,7 +4,7 @@ import java.util.Set;
 
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionShock;
@@ -38,7 +38,7 @@ public class ItemModeWall extends ItemProjectorMode
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs)
+	public void calculateField(IProjector projector, Set ffLocs, Set interior)
 	{
 		int tpx = 0;
 		int tpy = 0;
@@ -100,7 +100,7 @@ public class ItemModeWall extends ItemProjectorMode
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item)
+	public static boolean supportsOption(ItemModule item)
 	{
 		if ((item instanceof ItemOptionCutter))
 		{

@@ -5,7 +5,7 @@ import mffs.common.MFFSConfiguration;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 
-public class ItemOptionSponge extends ItemOptionBase implements IInteriorCheck
+public class ItemOptionSponge extends ItemModule implements IInteriorCheck
 {
 
 	public ItemOptionSponge(int i)

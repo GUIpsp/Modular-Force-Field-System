@@ -1,6 +1,6 @@
 package mffs.common.module;
 
-public class ItemOptionCamoflage extends ItemOptionBase
+public class ItemOptionCamoflage extends ItemModule
 {
 
 	public ItemOptionCamoflage(int i)

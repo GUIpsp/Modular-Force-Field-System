@@ -6,7 +6,7 @@ import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemOptionAntibiotic;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionDefenseStation;
@@ -107,7 +107,7 @@ public class ItemModeAdvancedCube extends ItemMode3D
 
 					if ((y1 == 0) || (y1 == Strength) || (x1 == 0 - xMout) || (x1 == xPout) || (z1 == 0 - zPout) || (z1 == zMout))
 					{
-						if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+						if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 						{
 							switch (((TileEntityProjector) projector).getDirection().ordinal())
 							{
@@ -154,7 +154,7 @@ public class ItemModeAdvancedCube extends ItemMode3D
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item)
+	public static boolean supportsOption(ItemModule item)
 	{
 		if ((item instanceof ItemOptionCamoflage))
 		{

@@ -75,7 +75,7 @@ public class MFFSConfiguration
 	public static int forcefieldblockcreatemodifier;
 	public static int forcefieldblockzappermodifier;
 	public static int forcefieldtransportcost;
-	public static int forcefieldmaxblockpeerTick;
+	public static int maxForceFieldPerTick;
 	public static boolean forcefieldremoveonlywaterandlava;
 	public static boolean influencedbyothermods;
 	public static boolean adventureMap;
@@ -152,7 +152,7 @@ public class MFFSConfiguration
 
 		Property maxFFGenPerTick = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldmaxblockpeerTick", 5000);
 		maxFFGenPerTick.comment = "How many field blocks can be generated per tick?";
-		forcefieldmaxblockpeerTick = maxFFGenPerTick.getInt(5000);
+		maxForceFieldPerTick = maxFFGenPerTick.getInt(5000);
 
 		Property fcWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceciumWorkCylce", 250);
 		fcWorkCycle.comment = "Forcillium Work Cycle used inside a Extractor.";

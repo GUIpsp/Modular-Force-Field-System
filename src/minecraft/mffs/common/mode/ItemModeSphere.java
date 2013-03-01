@@ -6,7 +6,7 @@ import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemOptionAntibiotic;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionDefenseStation;
@@ -51,37 +51,37 @@ public class ItemModeSphere extends ItemMode3D
 
 		int yDown = radius;
 
-		if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+		if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 		{
 			yDown = 0;
 		}
-
-		for (int y1 = -yDown; y1 <= radius; y1++)
+		
+		for (int x = -radius; x <= radius; x++)
 		{
-			for (int x1 = -radius; x1 <= radius; x1++)
+			for (int y = -yDown; y <= radius; y++)
 			{
-				for (int z1 = -radius; z1 <= radius; z1++)
+				for (int z = -radius; z <= radius; z++)
 				{
-					int dx = x1;
-					int dy = y1;
-					int dz = z1;
+					int dx = x;
+					int dy = y;
+					int dz = z;
 
 					int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
 
 					if ((dist <= radius) && (dist > radius - (projector.countItemsInSlot(IProjector.Slots.Strength) + 1)))
 					{
-						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
+						ffLocs.add(new PointXYZ(x, y, z, 0));
 					}
 					else if (dist <= radius)
 					{
-						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
+						ffInterior.add(new PointXYZ(x, y, z, 0));
 					}
 				}
 			}
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item)
+	public static boolean supportsOption(ItemModule item)
 	{
 		if ((item instanceof ItemOptionCamoflage))
 		{

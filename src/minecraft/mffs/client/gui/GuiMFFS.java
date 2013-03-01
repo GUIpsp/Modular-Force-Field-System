@@ -318,7 +318,7 @@ public class GuiMFFS extends GuiContainer
 
 				var6 = x + 12;
 				var7 = y - 12;
-				;
+				
 				int var9 = 8;
 
 				if (toolTips.length > 1)
@@ -350,12 +350,6 @@ public class GuiMFFS extends GuiContainer
 					String var14 = toolTips[var13];
 
 					this.fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
-
-					if (var13 == 0)
-					{
-						var7 += 2;
-					}
-
 					var7 += 10;
 				}
 

@@ -1,6 +1,7 @@
 package mffs.common.module;
 
 import java.util.Map;
+import java.util.Set;
 
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
@@ -9,17 +10,17 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
-public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCheck
+public class ItemOptionFieldFusion extends ItemModule implements IInteriorCheck
 {
-
 	public ItemOptionFieldFusion(int i)
 	{
 		super(i, "optionFieldFusion");
 		setIconIndex(43);
 	}
 
-	public boolean checkFieldFusioninfluence(PointXYZ png, World world, TileEntityProjector Proj)
+	public boolean checkFieldFusioninfluence(Vector3 point, World world, TileEntityProjector Proj)
 	{
 		Map<Integer, TileEntityProjector> InnerMap = null;
 		InnerMap = FrequencyGridOld.getWorldMap(world).getFieldFusion();
@@ -34,7 +35,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 			{
 				for (PointXYZ tpng : tileentity.getInteriorPoints())
 				{
-					if ((tpng.X == png.X) && (tpng.Y == png.Y) && (tpng.Z == png.Z))
+					if ((tpng.X == point.intX()) && (tpng.Y == point.intY()) && (tpng.Z == point.intZ()))
 					{
 						return true;
 					}
@@ -45,7 +46,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 	}
 
 	@Override
-	public void checkInteriorBlock(PointXYZ png, World world, TileEntityProjector Proj)
+	public void checkInteriorBlock(Vector3 png, World world, TileEntityProjector Proj,Set interior)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(png.X, png.Y, png.Z, world);
 
@@ -57,7 +58,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 
 				if (Projector != null)
 				{
-					if (Projector.hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
+					if (Projector.hasModule(ModularForceFieldSystem.itemOptionFieldFusion, true))
 					{
 						Projector.getFieldQueue().remove(png);
 						ffworldmap.removebyProjector(Projector.getDeviceID());

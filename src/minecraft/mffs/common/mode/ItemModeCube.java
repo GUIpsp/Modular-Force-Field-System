@@ -6,7 +6,7 @@ import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemOptionAntibiotic;
-import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionDefenseStation;
@@ -58,7 +58,7 @@ public class ItemModeCube extends ItemMode3D
 			yTop = 255 - te.yCoord;
 		}
 
-		if (((TileEntityProjector) te).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+		if (((TileEntityProjector) te).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 		{
 			yDown = 0;
 		}
@@ -82,7 +82,7 @@ public class ItemModeCube extends ItemMode3D
 		}
 	}
 
-	public static boolean supportsOption(ItemOptionBase item)
+	public static boolean supportsOption(ItemModule item)
 	{
 		if ((item instanceof ItemOptionCamoflage))
 		{

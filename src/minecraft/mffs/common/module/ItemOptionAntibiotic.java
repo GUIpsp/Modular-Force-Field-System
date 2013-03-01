@@ -14,7 +14,7 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class ItemOptionAntibiotic extends ItemOptionBase
+public class ItemOptionAntibiotic extends ItemModule
 {
 
 	public ItemOptionAntibiotic(int i)

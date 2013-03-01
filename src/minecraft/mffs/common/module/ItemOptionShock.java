@@ -1,6 +1,6 @@
 package mffs.common.module;
 
-public class ItemOptionShock extends ItemOptionBase
+public class ItemOptionShock extends ItemModule
 {
 
 	public ItemOptionShock(int i)
