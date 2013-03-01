@@ -1,30 +1,29 @@
-package mffs.common.modules;
+package mffs.common.mode;
 
 import java.util.Set;
 
-import mffs.api.IModularProjector;
+import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.options.ItemOptionAntibiotic;
-import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionCamoflage;
-import mffs.common.options.ItemOptionCutter;
-import mffs.common.options.ItemOptionDefenseStation;
-import mffs.common.options.ItemOptionFieldFusion;
-import mffs.common.options.ItemOptionFieldManipulator;
-import mffs.common.options.ItemOptionJammer;
-import mffs.common.options.ItemOptionSponge;
+import mffs.common.module.ItemOptionAntibiotic;
+import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemOptionCamoflage;
+import mffs.common.module.ItemOptionCutter;
+import mffs.common.module.ItemOptionDefenseStation;
+import mffs.common.module.ItemOptionFieldFusion;
+import mffs.common.module.ItemOptionFieldManipulator;
+import mffs.common.module.ItemOptionJammer;
+import mffs.common.module.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 
-public class ItemModuleCube extends ItemModule3DBase
+public class ItemModeSphere extends ItemMode3D
 {
 
-	public ItemModuleCube(int i)
+	public ItemModeSphere(int i)
 	{
-		super(i, "moduleCube");
-		setIconIndex(53);
+		super(i, "moduleSphere");
+		setIconIndex(52);
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class ItemModuleCube extends ItemModule3DBase
 	@Override
 	public boolean supportsStrength()
 	{
-		return false;
+		return true;
 	}
 
 	@Override
@@ -46,34 +45,34 @@ public class ItemModuleCube extends ItemModule3DBase
 	}
 
 	@Override
-	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
+	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
 	{
-		int radius = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4;
-		TileEntity te = (TileEntity) projector;
+		int radius = projector.countItemsInSlot(IProjector.Slots.Distance) + 4;
 
 		int yDown = radius;
-		int yTop = radius;
-		if (te.yCoord + radius > 255)
-		{
-			yTop = 255 - te.yCoord;
-		}
 
-		if (((TileEntityProjector) te).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+		if (((TileEntityProjector) projector).hasOption(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 		{
 			yDown = 0;
 		}
 
-		for (int y1 = -yDown; y1 <= yTop; y1++)
+		for (int y1 = -yDown; y1 <= radius; y1++)
 		{
 			for (int x1 = -radius; x1 <= radius; x1++)
 			{
 				for (int z1 = -radius; z1 <= radius; z1++)
 				{
-					if ((x1 == -radius) || (x1 == radius) || (y1 == -radius) || (y1 == yTop) || (z1 == -radius) || (z1 == radius))
+					int dx = x1;
+					int dy = y1;
+					int dz = z1;
+
+					int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
+
+					if ((dist <= radius) && (dist > radius - (projector.countItemsInSlot(IProjector.Slots.Strength) + 1)))
 					{
 						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
 					}
-					else
+					else if (dist <= radius)
 					{
 						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
 					}

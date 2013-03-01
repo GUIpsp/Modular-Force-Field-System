@@ -1,4 +1,4 @@
-package mffs.common.options;
+package mffs.common.module;
 
 import mffs.api.PointXYZ;
 import mffs.common.MFFSConfiguration;

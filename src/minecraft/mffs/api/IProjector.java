@@ -6,19 +6,22 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import universalelectricity.prefab.implement.IRotatable;
 
-public abstract interface IModularProjector extends IInventory, IRotatable
+public abstract interface IProjector extends IInventory, IRotatable
 {
-	public abstract World getWorldObj();
+	public int countItemsInSlot(Slots paramSlots);
 
-	public abstract int countItemsInSlot(Slots paramSlots);
+	public int getDeviceID();
 
-	public abstract int getDeviceID();
+	public Set getInteriorPoints();
 
-	public abstract Set getInteriorPoints();
+	public void setBurnedOut(boolean paramBoolean);
 
-	public abstract void setBurnedOut(boolean paramBoolean);
-
-	public abstract boolean isActive();
+	public boolean isActive();
+	
+	/**
+	 * Gets the mode of the projector, mainly the shape and size of it.
+	 */
+	public IProjectorMode getMode();
 
 	public static enum Slots
 	{

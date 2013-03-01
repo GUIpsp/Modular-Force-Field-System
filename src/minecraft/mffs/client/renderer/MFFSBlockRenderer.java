@@ -1,6 +1,6 @@
 package mffs.client.renderer;
 
-import mffs.common.ForceFieldTyps;
+import mffs.common.ForceFieldType;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityForceField;
 import net.minecraft.block.Block;
@@ -18,14 +18,14 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 	{
 		if (block == ModularForceFieldSystem.blockForceField)
 		{
-			if (world.getBlockMetadata(x, y, z) == ForceFieldTyps.Camouflage.ordinal())
+			if (world.getBlockMetadata(x, y, z) == ForceFieldType.Camouflage.ordinal())
 			{
 				TileEntity te = world.getBlockTileEntity(x, y, z);
 				if ((te instanceof TileEntityForceField))
 				{
 					if (((TileEntityForceField) te).getForcefieldCamoblockid() != -1)
 					{
-						if ((ForceFieldTyps.Camouflage.ordinal() == ((TileEntityForceField) te).getForcefieldCamoblockmeta()) && (((TileEntityForceField) te).getForcefieldCamoblockid() != 327) && (((TileEntityForceField) te).getForcefieldCamoblockid() != 326))
+						if ((ForceFieldType.Camouflage.ordinal() == ((TileEntityForceField) te).getForcefieldCamoblockmeta()) && (((TileEntityForceField) te).getForcefieldCamoblockid() != 327) && (((TileEntityForceField) te).getForcefieldCamoblockid() != 326))
 						{
 							Block customblock = Block.blocksList[((TileEntityForceField) te).getForcefieldCamoblockid()];
 							if (customblock != null)

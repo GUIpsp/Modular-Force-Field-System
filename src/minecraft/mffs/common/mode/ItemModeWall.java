@@ -1,19 +1,19 @@
-package mffs.common.modules;
+package mffs.common.mode;
 
 import java.util.Set;
 
-import mffs.api.IModularProjector;
+import mffs.api.IProjector;
 import mffs.api.PointXYZ;
-import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionCamoflage;
-import mffs.common.options.ItemOptionCutter;
-import mffs.common.options.ItemOptionShock;
+import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemOptionCamoflage;
+import mffs.common.module.ItemOptionCutter;
+import mffs.common.module.ItemOptionShock;
 import net.minecraft.item.Item;
 
-public class ItemModuleWall extends ItemModuleBase
+public class ItemModeWall extends ItemProjectorMode
 {
 
-	public ItemModuleWall(int i)
+	public ItemModeWall(int i)
 	{
 		super(i, "moduleWall");
 		setIconIndex(49);
@@ -38,55 +38,55 @@ public class ItemModuleWall extends ItemModuleBase
 	}
 
 	@Override
-	public void calculateField(IModularProjector projector, Set ffLocs)
+	public void calculateField(IProjector projector, Set ffLocs)
 	{
 		int tpx = 0;
 		int tpy = 0;
 		int tpz = 0;
 
-		for (int x1 = 0 - projector.countItemsInSlot(IModularProjector.Slots.FocusLeft); x1 < projector.countItemsInSlot(IModularProjector.Slots.FocusRight) + 1; x1++)
+		for (int x1 = 0 - projector.countItemsInSlot(IProjector.Slots.FocusLeft); x1 < projector.countItemsInSlot(IProjector.Slots.FocusRight) + 1; x1++)
 		{
-			for (int z1 = 0 - projector.countItemsInSlot(IModularProjector.Slots.FocusDown); z1 < projector.countItemsInSlot(IModularProjector.Slots.FocusUp) + 1; z1++)
+			for (int z1 = 0 - projector.countItemsInSlot(IProjector.Slots.FocusDown); z1 < projector.countItemsInSlot(IProjector.Slots.FocusUp) + 1; z1++)
 			{
-				for (int y1 = 1; y1 < projector.countItemsInSlot(IModularProjector.Slots.Strength) + 1 + 1; y1++)
+				for (int y1 = 1; y1 < projector.countItemsInSlot(IProjector.Slots.Strength) + 1 + 1; y1++)
 				{
 					if (projector.getDirection().ordinal() == 0)
 					{
-						tpy = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
+						tpy = y1 - y1 - y1 - projector.countItemsInSlot(IProjector.Slots.Distance);
 						tpx = x1;
 						tpz = z1 - z1 - z1;
 					}
 
 					if (projector.getDirection().ordinal() == 1)
 					{
-						tpy = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
+						tpy = y1 + projector.countItemsInSlot(IProjector.Slots.Distance);
 						tpx = x1;
 						tpz = z1 - z1 - z1;
 					}
 
 					if (projector.getDirection().ordinal() == 2)
 					{
-						tpz = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
+						tpz = y1 - y1 - y1 - projector.countItemsInSlot(IProjector.Slots.Distance);
 						tpx = x1 - x1 - x1;
 						tpy = z1;
 					}
 
 					if (projector.getDirection().ordinal() == 3)
 					{
-						tpz = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
+						tpz = y1 + projector.countItemsInSlot(IProjector.Slots.Distance);
 						tpx = x1;
 						tpy = z1;
 					}
 
 					if (projector.getDirection().ordinal() == 4)
 					{
-						tpx = y1 - y1 - y1 - projector.countItemsInSlot(IModularProjector.Slots.Distance);
+						tpx = y1 - y1 - y1 - projector.countItemsInSlot(IProjector.Slots.Distance);
 						tpz = x1;
 						tpy = z1;
 					}
 					if (projector.getDirection().ordinal() == 5)
 					{
-						tpx = y1 + projector.countItemsInSlot(IModularProjector.Slots.Distance);
+						tpx = y1 + projector.countItemsInSlot(IProjector.Slots.Distance);
 						tpz = x1 - x1 - x1;
 						tpy = z1;
 					}

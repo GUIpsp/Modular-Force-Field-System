@@ -1,25 +1,25 @@
-package mffs.common.modules;
+package mffs.common.mode;
 
 import java.util.Set;
 
-import mffs.api.IModularProjector;
+import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionCamoflage;
-import mffs.common.options.ItemOptionCutter;
-import mffs.common.options.ItemOptionFieldFusion;
-import mffs.common.options.ItemOptionFieldManipulator;
-import mffs.common.options.ItemOptionJammer;
-import mffs.common.options.ItemOptionShock;
-import mffs.common.options.ItemOptionSponge;
+import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemOptionCamoflage;
+import mffs.common.module.ItemOptionCutter;
+import mffs.common.module.ItemOptionFieldFusion;
+import mffs.common.module.ItemOptionFieldManipulator;
+import mffs.common.module.ItemOptionJammer;
+import mffs.common.module.ItemOptionShock;
+import mffs.common.module.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
-public class ItemModuleTube extends ItemModule3DBase
+public class ItemModeTube extends ItemMode3D
 {
 
-	public ItemModuleTube(int i)
+	public ItemModeTube(int i)
 	{
 		super(i, "moduleTube");
 		setIconIndex(51);
@@ -44,7 +44,7 @@ public class ItemModuleTube extends ItemModule3DBase
 	}
 
 	@Override
-	public void calculateField(IModularProjector projector, Set ffLocs, Set ffInterior)
+	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
 	{
 		int tpx = 0;
 		int tpy = 0;
@@ -56,8 +56,8 @@ public class ItemModuleTube extends ItemModule3DBase
 		int y_offset_e = 0;
 		int z_offset_e = 0;
 
-		int distance = projector.countItemsInSlot(IModularProjector.Slots.Distance) + 2;
-		int Strength = projector.countItemsInSlot(IModularProjector.Slots.Strength);
+		int distance = projector.countItemsInSlot(IProjector.Slots.Distance) + 2;
+		int Strength = projector.countItemsInSlot(IProjector.Slots.Strength);
 
 		if ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1))
 		{

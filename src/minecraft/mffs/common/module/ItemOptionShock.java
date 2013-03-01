@@ -1,4 +1,4 @@
-package mffs.common.options;
+package mffs.common.module;
 
 public class ItemOptionShock extends ItemOptionBase
 {

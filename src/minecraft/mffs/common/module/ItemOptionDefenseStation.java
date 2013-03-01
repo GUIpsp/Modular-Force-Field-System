@@ -1,12 +1,12 @@
-package mffs.common.options;
+package mffs.common.module;
 
 import java.util.List;
 
-import mffs.api.IModularProjector;
+import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
-import mffs.common.modules.ItemModuleSphere;
+import mffs.common.mode.ItemModeSphere;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.EntityLiving;
@@ -52,7 +52,7 @@ public class ItemOptionDefenseStation extends ItemOptionBase
 
 				if ((entityLiving instanceof EntityPlayer))
 				{
-					if ((!(projector.getType() instanceof ItemModuleSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.countItemsInSlot(IModularProjector.Slots.Distance) + 4))
+					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.countItemsInSlot(IProjector.Slots.Distance) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{

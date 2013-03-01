@@ -1,26 +1,25 @@
-package mffs.common.modules;
+package mffs.common.mode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import mffs.api.IModularProjector;
-import mffs.common.ForceFieldTyps;
+import mffs.api.IProjector;
+import mffs.api.IProjectorMode;
+import mffs.common.ForceFieldType;
 import mffs.common.Functions;
 import mffs.common.ProjectorTypes;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.item.ItemMFFS;
-import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public abstract class ItemModuleBase extends ItemMFFS
+public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMode
 {
-
 	private static List instances = new ArrayList();
 
 	public static List get_instances()
@@ -28,7 +27,7 @@ public abstract class ItemModuleBase extends ItemMFFS
 		return instances;
 	}
 
-	public ItemModuleBase(int i, String name)
+	public ItemProjectorMode(int i, String name)
 	{
 		super(i, name);
 		this.setMaxStackSize(8);
@@ -36,29 +35,21 @@ public abstract class ItemModuleBase extends ItemMFFS
 		this.setNoRepair();
 	}
 
-	public abstract boolean supportsDistance();
-
-	public abstract boolean supportsStrength();
-
-	public abstract boolean supportsMatrix();
-
-	public abstract void calculateField(IModularProjector modularProjector, Set paramSet);
-
 	@Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float hitX, float hitY, float hitZ)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
 
-		if ((!world.isRemote) && ((tileEntity instanceof IModularProjector)))
+		if ((!world.isRemote) && ((tileEntity instanceof IProjector)))
 		{
 			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
 			{
 				return false;
 			}
-			if (((IModularProjector) tileEntity).getStackInSlot(1) == null)
+			if (((IProjector) tileEntity).getStackInSlot(1) == null)
 			{
-				((IModularProjector) tileEntity).setInventorySlotContents(1, itemstack.splitStack(1));
-				Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.typeFromItem(((IModularProjector) tileEntity).getStackInSlot(1).getItem()).displayName + "> installed");
+				((IProjector) tileEntity).setInventorySlotContents(1, itemstack.splitStack(1));
+				Functions.ChattoPlayer(entityplayer, "[Projector] Success: <Projector Module " + ProjectorTypes.typeFromItem(((IProjector) tileEntity).getMode()).displayName + "> installed");
 				//((TileEntityProjector) tileEntity).checkslots();
 				return true;
 			}
@@ -69,11 +60,10 @@ public abstract class ItemModuleBase extends ItemMFFS
 
 		return false;
 	}
-
-	public ForceFieldTyps getForceFieldTyps()
+	
+	@Override
+	public ForceFieldType getForceFieldType()
 	{
-		return ForceFieldTyps.Default;
+		return ForceFieldType.Default;
 	}
-
-	public abstract boolean supportsOption(Item paramItem);
 }

@@ -3,9 +3,12 @@ package mffs.common.block;
 import java.util.Random;
 
 import mffs.common.ModularForceFieldSystem;
+import mffs.common.ProjectorTypes;
+import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockProjector extends BlockMFFSMachine
@@ -37,17 +40,21 @@ public class BlockProjector extends BlockMFFSMachine
 	}
 
 	@Override
-	public void randomDisplayTick(World world, int i, int j, int k, Random random)
+	public int getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
 	{
-		TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
+		TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
 
-		if (tileentity.isBurnout())
+		if (t instanceof TileEntityProjector)
 		{
-			double d = i + Math.random();
-			double d1 = j + Math.random();
-			double d2 = k + Math.random();
+			TileEntityProjector tileEntity = (TileEntityProjector) t;
 
-			world.spawnParticle("smoke", d, d1, d2, 0.0D, 0.0D, 0.0D);
+			if (tileEntity.getMode() != null)
+			{
+				return (ProjectorTypes.typeFromItem(tileEntity.getMode()).ordinal() + 1) * 16 + super.getBlockTexture(iBlockAccess, x, y, z, side);
+			}
+
 		}
+
+		return super.getBlockTexture(iBlockAccess, x, y, z, side);
 	}
 }

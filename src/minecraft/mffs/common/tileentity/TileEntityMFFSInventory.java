@@ -1,6 +1,6 @@
 package mffs.common.tileentity;
 
-import mffs.api.IModularProjector;
+import mffs.api.IProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -108,7 +108,7 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		return 64;
 	}
 
-	public int countItemsInSlot(IModularProjector.Slots slt)
+	public int countItemsInSlot(IProjector.Slots slt)
 	{
 		if (getStackInSlot(slt.slot) != null)
 		{

@@ -7,10 +7,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import mffs.api.IModularProjector;
+import mffs.api.IProjectorMode;
+import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.ForceFieldTyps;
+import mffs.common.ForceFieldType;
 import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
 import mffs.common.InventoryHelper;
@@ -20,13 +21,13 @@ import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
 import mffs.common.card.ItemCard;
 import mffs.common.container.ContainerProjector;
-import mffs.common.modules.ItemModule3DBase;
-import mffs.common.modules.ItemModuleBase;
-import mffs.common.options.IChecksOnAll;
-import mffs.common.options.IInteriorCheck;
-import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionFieldFusion;
-import mffs.common.options.ItemOptionJammer;
+import mffs.common.mode.ItemProjectorMode;
+import mffs.common.mode.ItemMode3D;
+import mffs.common.module.IChecksOnAll;
+import mffs.common.module.IInteriorCheck;
+import mffs.common.module.ItemOptionBase;
+import mffs.common.module.ItemOptionFieldFusion;
+import mffs.common.module.ItemOptionJammer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -38,18 +39,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 
-public class TileEntityProjector extends TileEntityFortron implements IModularProjector
+public class TileEntityProjector extends TileEntityFortron implements IProjector
 {
 	/**
 	 * The amount of fortron energy to consume per second.
 	 */
 	public static final int FORTRON_CONSUMPTION = 1;
 
+	private static final int MODULE_SLOT_ID = 5;
+
 	protected Stack field_queue = new Stack();
 	protected Set field_interior = new HashSet();
 	protected Set<PointXYZ> field_def = new HashSet();
 
-	private short forcefieldblock_meta = ((short) ForceFieldTyps.Default.ordinal());
+	private short forcefieldblock_meta = ((short) ForceFieldType.Default.ordinal());
 
 	private String forceFieldTextureIDs = "-76/-76/-76/-76/-76/-76";
 	private String forceFieldTextureFile = "/terrain.png";
@@ -61,7 +64,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	private int forceFieldCamoblockMeta;
 	private int blockCounter;
 	private int accessType = 0;
-	private int projectorType = 0;
 	private int linkPower = 0;
 	private int switchDelay = 0;
 
@@ -130,7 +132,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 			case 0:
 				return itemStack.getItem() instanceof ItemCard;
 			case 5:
-				return itemStack.getItem() instanceof ItemModuleBase;
+				return itemStack.getItem() instanceof ItemProjectorMode;
 		}
 
 		return false;
@@ -190,17 +192,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 		// NetworkHandlerServer.updateTileEntityField(this, "forceFieldTextureIDs");
 	}
 
-	public int getProjectorType()
-	{
-		return this.projectorType;
-	}
-
-	public void setProjectorType(int projectorType)
-	{
-		this.projectorType = projectorType;
-		// NetworkHandlerServer.updateTileEntityField(this, "projectorType");
-	}
-
 	public int getBlockCounter()
 	{
 		return this.blockCounter;
@@ -250,7 +241,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 		this.accessType = nbttagcompound.getInteger("accessType");
 		this.burnout = nbttagcompound.getBoolean("burnout");
-		this.projectorType = nbttagcompound.getInteger("ProjectorType");
 		this.forcefieldblock_meta = nbttagcompound.getShort("forceFieldblockMeta");
 	}
 
@@ -261,7 +251,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 		nbttagcompound.setInteger("accessType", this.accessType);
 		nbttagcompound.setBoolean("burnout", this.burnout);
-		nbttagcompound.setInteger("ProjectorType", this.projectorType);
 		nbttagcompound.setShort("forceFieldblockMeta", this.forcefieldblock_meta);
 	}
 
@@ -272,195 +261,113 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 		// checkslots();
 	}
 
-	public void checkslots()
-	{
-		if (hasValidTypeMod())
-		{
-			if (getProjectorType() != ProjectorTypes.typeFromItem(getType()).ProTyp)
-			{
-				setProjectorType(ProjectorTypes.typeFromItem(getType()).ProTyp);
-			}
-			if (getforcefieldblock_meta() != getType().getForceFieldTyps().ordinal())
-			{
-				setforcefieldblock_meta(getType().getForceFieldTyps().ordinal());
-			}
-			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-		}
-		else
-		{
-			if (getProjectorType() != 0)
-			{
-				setProjectorType(0);
-			}
-			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-		}
-
-		if (hasValidTypeMod())
-		{
-			for (int place = 7; place < 11; place++)
-			{
-				if (getStackInSlot(place) != null)
-				{
-					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix)
-					{
-						switch (ProjectorTypes.typeFromItem(getType()).ProTyp)
-						{
-							case 6:
-								this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 1);
-								break;
-							case 7:
-								this.focusmatrix[(place - 7)] = (getStackInSlot(place).stackSize + 2);
-								break;
-							default:
-								this.focusmatrix[(place - 7)] = getStackInSlot(place).stackSize;
-								break;
-						}
-					}
-				}
-				else
-				{
-					switch (ProjectorTypes.typeFromItem(getType()).ProTyp)
-					{
-						case 6:
-							this.focusmatrix[(place - 7)] = 1;
-							break;
-						case 7:
-							this.focusmatrix[(place - 7)] = 2;
-							break;
-						default:
-							this.focusmatrix[(place - 7)] = 0;
-					}
-				}
-
-			}
-
-		}
-
-		if (getStackInSlot(11) != null)
-		{
-			if (getStackInSlot(11).itemID < 4095)
-			{
-
-				String textureFile;
-				String forceFieldTextureTemp;
-
-				int[] index = new int[6];
-				for (int side = 0; side < 6; side++)
-				{
-					index[side] = Block.blocksList[getStackInSlot(11).itemID].getBlockTextureFromSideAndMetadata(side, getStackInSlot(11).getItemDamage());
-				}
-				forceFieldTextureTemp = index[0] + "/" + index[1] + "/" + index[2] + "/" + index[3] + "/" + index[4] + "/" + index[5];
-				textureFile = Block.blocksList[getStackInSlot(11).itemID].getTextureFile();
-
-				if ((!forceFieldTextureTemp.equalsIgnoreCase(this.forceFieldTextureIDs)) || (!this.forceFieldTextureFile.equalsIgnoreCase(getForceFieldTextureFile())))
-				{
-					if (getStackInSlot(11).getItem() == Item.bucketLava)
-					{
-						setForceFieldTextureID("237/237/239/254/255/255");
-					}
-					if (getStackInSlot(11).getItem() == Item.bucketWater)
-					{
-						setForceFieldTextureID("205/205/207/222/223/223");
-					}
-					if ((getStackInSlot(11).getItem() != Item.bucketLava) && (getStackInSlot(11).getItem() != Item.bucketWater))
-					{
-						setForceFieldTextureID(forceFieldTextureTemp);
-					}
-					setForceFieldCamoblockMeta(getStackInSlot(11).getItemDamage());
-					setForceFieldCamoblockID(getStackInSlot(11).itemID);
-					setForceFieldTextureFile(textureFile);
-					updateForceFieldTexture();
-				}
-
-			}
-			else
-			{
-				// dropPlugins(11, this);
-			}
-
-		}
-		else if ((!this.forceFieldTextureIDs.equalsIgnoreCase("-76/-76/-76/-76/-76/-76")) || (getForceFieldCamoblockID() != -1))
-		{
-			setForceFieldCamoblockMeta(0);
-			setForceFieldCamoblockID(-1);
-			setForceFieldTextureID("-76/-76/-76/-76/-76/-76");
-			setForceFieldTextureFile("/terrain.png");
-			updateForceFieldTexture();
-		}
-
-		if ((hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Camouflage.ordinal()))
-		{
-			setforcefieldblock_meta((short) ForceFieldTyps.Camouflage.ordinal());
-		}
-
-		if ((hasOption(ModularForceFieldSystem.itemOptionShock, true)) && (getforcefieldblock_meta() != ForceFieldTyps.Zapper.ordinal()))
-		{
-			setforcefieldblock_meta((short) ForceFieldTyps.Zapper.ordinal());
-		}
-
-		if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
-		{
-			if (!FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
-			{
-				FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
-			}
-		}
-		else if (FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
-		{
-			FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
-		}
-
-		if (hasOption(ModularForceFieldSystem.itemOptionJammer, false))
-		{
-			if (!FrequencyGridOld.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
-			{
-				FrequencyGridOld.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
-			}
-		}
-		else if (FrequencyGridOld.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
-		{
-			FrequencyGridOld.getWorldMap(this.worldObj).getJammer().remove(Integer.valueOf(getDeviceID()));
-		}
-
-		if (hasValidTypeMod())
-		{
-			ItemModuleBase modType = getType();
-			/*
-			 * if (!modType.supportsStrength()) { dropPlugins(6, this); } if
-			 * (!modType.supportsDistance()) { dropPlugins(5, this); } if
-			 * (!modType.supportsMatrix()) { dropPlugins(7, this); dropPlugins(8, this);
-			 * dropPlugins(9, this); dropPlugins(10, this); }
-			 * 
-			 * for (int spot = 2; spot <= 4; spot++) { if ((getStackInSlot(spot) != null) &&
-			 * (!modType.supportsOption(getStackInSlot(spot).getItem()))) { dropPlugins(spot, this);
-			 * }
-			 * 
-			 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-			 * ItemOptionJammer)) && (isPowersourceItem())) { dropPlugins(spot, this); }
-			 * 
-			 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-			 * ItemOptionFieldFusion)) && (isPowersourceItem())) { dropPlugins(spot, this); }
-			 * 
-			 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-			 * ItemOptionDefenseStation)) && (isPowersourceItem())) { dropPlugins(spot, this); }
-			 * 
-			 * }
-			 * 
-			 * if ((getStackInSlot(12) != null) && ((getStackInSlot(12).getItem() instanceof
-			 * ItemCardSecurityLink)) && (isPowersourceItem())) { dropPlugins(12, this); }
-			 * 
-			 * if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) { dropPlugins(11,
-			 * this); }
-			 */
-		}
-		else
-		{
-			for (int spot = 2; spot <= 10; spot++)
-			{
-				// dropPlugins(spot, this);
-			}
-		}
-	}
+	/*
+	 * public void checkslots() { if (hasValidTypeMod()) { if (getProjectorType() !=
+	 * ProjectorTypes.typeFromItem(getModule()).ProTyp) { } if (getforcefieldblock_meta() !=
+	 * getModule().getForceFieldType().ordinal()) {
+	 * setforcefieldblock_meta(getModule().getForceFieldType().ordinal()); }
+	 * this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord); } else { if
+	 * (getProjectorType() != 0) { } this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
+	 * this.zCoord); }
+	 * 
+	 * if (hasValidTypeMod()) { for (int place = 7; place < 11; place++) { if (getStackInSlot(place)
+	 * != null) { if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix) {
+	 * switch (ProjectorTypes.typeFromItem(getModule()).ProTyp) { case 6: this.focusmatrix[(place -
+	 * 7)] = (getStackInSlot(place).stackSize + 1); break; case 7: this.focusmatrix[(place - 7)] =
+	 * (getStackInSlot(place).stackSize + 2); break; default: this.focusmatrix[(place - 7)] =
+	 * getStackInSlot(place).stackSize; break; } } } else { switch
+	 * (ProjectorTypes.typeFromItem(getModule()).ProTyp) { case 6: this.focusmatrix[(place - 7)] =
+	 * 1; break; case 7: this.focusmatrix[(place - 7)] = 2; break; default: this.focusmatrix[(place
+	 * - 7)] = 0; } }
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * if (getStackInSlot(11) != null) { if (getStackInSlot(11).itemID < 4095) {
+	 * 
+	 * String textureFile; String forceFieldTextureTemp;
+	 * 
+	 * int[] index = new int[6]; for (int side = 0; side < 6; side++) { index[side] =
+	 * Block.blocksList[getStackInSlot(11).itemID].getBlockTextureFromSideAndMetadata(side,
+	 * getStackInSlot(11).getItemDamage()); } forceFieldTextureTemp = index[0] + "/" + index[1] +
+	 * "/" + index[2] + "/" + index[3] + "/" + index[4] + "/" + index[5]; textureFile =
+	 * Block.blocksList[getStackInSlot(11).itemID].getTextureFile();
+	 * 
+	 * if ((!forceFieldTextureTemp.equalsIgnoreCase(this.forceFieldTextureIDs)) ||
+	 * (!this.forceFieldTextureFile.equalsIgnoreCase(getForceFieldTextureFile()))) { if
+	 * (getStackInSlot(11).getItem() == Item.bucketLava) {
+	 * setForceFieldTextureID("237/237/239/254/255/255"); } if (getStackInSlot(11).getItem() ==
+	 * Item.bucketWater) { setForceFieldTextureID("205/205/207/222/223/223"); } if
+	 * ((getStackInSlot(11).getItem() != Item.bucketLava) && (getStackInSlot(11).getItem() !=
+	 * Item.bucketWater)) { setForceFieldTextureID(forceFieldTextureTemp); }
+	 * setForceFieldCamoblockMeta(getStackInSlot(11).getItemDamage());
+	 * setForceFieldCamoblockID(getStackInSlot(11).itemID); setForceFieldTextureFile(textureFile);
+	 * updateForceFieldTexture(); }
+	 * 
+	 * } else { // dropPlugins(11, this); }
+	 * 
+	 * } else if ((!this.forceFieldTextureIDs.equalsIgnoreCase("-76/-76/-76/-76/-76/-76")) ||
+	 * (getForceFieldCamoblockID() != -1)) { setForceFieldCamoblockMeta(0);
+	 * setForceFieldCamoblockID(-1); setForceFieldTextureID("-76/-76/-76/-76/-76/-76");
+	 * setForceFieldTextureFile("/terrain.png"); updateForceFieldTexture(); }
+	 * 
+	 * if ((hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) &&
+	 * (getforcefieldblock_meta() != ForceFieldType.Camouflage.ordinal())) {
+	 * setforcefieldblock_meta((short) ForceFieldType.Camouflage.ordinal()); }
+	 * 
+	 * if ((hasOption(ModularForceFieldSystem.itemOptionShock, true)) && (getforcefieldblock_meta()
+	 * != ForceFieldType.Zapper.ordinal())) { setforcefieldblock_meta((short)
+	 * ForceFieldType.Zapper.ordinal()); }
+	 * 
+	 * if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true)) { if
+	 * (!FrequencyGridOld.getWorldMap
+	 * (this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID()))) {
+	 * FrequencyGridOld
+	 * .getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this); } }
+	 * else if
+	 * (FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf
+	 * (getDeviceID()))) {
+	 * FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().remove(Integer
+	 * .valueOf(getDeviceID())); }
+	 * 
+	 * if (hasOption(ModularForceFieldSystem.itemOptionJammer, false)) { if
+	 * (!FrequencyGridOld.getWorldMap
+	 * (this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID()))) {
+	 * FrequencyGridOld.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()),
+	 * this); } } else if
+	 * (FrequencyGridOld.getWorldMap(this.worldObj).getJammer().containsKey(Integer
+	 * .valueOf(getDeviceID()))) {
+	 * FrequencyGridOld.getWorldMap(this.worldObj).getJammer().remove(Integer
+	 * .valueOf(getDeviceID())); }
+	 * 
+	 * if (hasValidTypeMod()) { ItemModule modType = getModule(); /* if
+	 * (!modType.supportsStrength()) { dropPlugins(6, this); } if (!modType.supportsDistance()) {
+	 * dropPlugins(5, this); } if (!modType.supportsMatrix()) { dropPlugins(7, this); dropPlugins(8,
+	 * this); dropPlugins(9, this); dropPlugins(10, this); }
+	 * 
+	 * for (int spot = 2; spot <= 4; spot++) { if ((getStackInSlot(spot) != null) &&
+	 * (!modType.supportsOption(getStackInSlot(spot).getItem()))) { dropPlugins(spot, this); }
+	 * 
+	 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
+	 * ItemOptionJammer)) && (isPowersourceItem())) { dropPlugins(spot, this); }
+	 * 
+	 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
+	 * ItemOptionFieldFusion)) && (isPowersourceItem())) { dropPlugins(spot, this); }
+	 * 
+	 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
+	 * ItemOptionDefenseStation)) && (isPowersourceItem())) { dropPlugins(spot, this); }
+	 * 
+	 * }
+	 * 
+	 * if ((getStackInSlot(12) != null) && ((getStackInSlot(12).getItem() instanceof
+	 * ItemCardSecurityLink)) && (isPowersourceItem())) { dropPlugins(12, this); }
+	 * 
+	 * if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) { dropPlugins(11, this);
+	 * }
+	 * 
+	 * } else { for (int spot = 2; spot <= 10; spot++) { // dropPlugins(spot, this); } } }
+	 */
 
 	private void updateForceFieldTexture()
 	{
@@ -485,18 +392,19 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	{
 		this.field_def.clear();
 		this.field_interior.clear();
-		if (hasValidTypeMod())
+
+		if (this.getMode() != null)
 		{
 			Set<PointXYZ> tField = new HashSet();
 			Set<PointXYZ> tFieldInt = new HashSet();
 
-			if ((getType() instanceof ItemModule3DBase))
+			if ((getMode() instanceof ItemMode3D))
 			{
-				((ItemModule3DBase) getType()).calculateField(this, tField, tFieldInt);
+				((ItemMode3D) getMode()).calculateField(this, tField, tFieldInt);
 			}
 			else
 			{
-				getType().calculateField(this, tField);
+				getMode().calculateField(this, tField);
 			}
 
 			for (PointXYZ pnt : tField)
@@ -636,7 +544,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 								this.worldObj.setBlockWithNotify(png.X, png.Y, png.Z, 0);
 
-								if ((ProjectorTypes.typeFromItem(getType()).Blockdropper) && (stacks != null))
+								if ((ProjectorTypes.typeFromItem(getMode()).blockDropper && (stacks != null)))
 								{
 									IInventory inventory = InventoryHelper.findAttachedInventory(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 									if ((inventory != null) && (inventory.getSizeInventory() > 0))
@@ -725,28 +633,28 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 		int tmplength = 1;
 
-		if (countItemsInSlot(IModularProjector.Slots.Strength) != 0)
+		if (countItemsInSlot(IProjector.Slots.Strength) != 0)
 		{
-			tmplength = countItemsInSlot(IModularProjector.Slots.Strength);
+			tmplength = countItemsInSlot(IProjector.Slots.Strength);
 		}
 
-		switch (getProjectorType())
+		switch (ProjectorTypes.typeFromItem(this.getMode()).ordinal())
 		{
 			case 1:
-				blocks = (countItemsInSlot(IModularProjector.Slots.FocusDown) + countItemsInSlot(IModularProjector.Slots.FocusLeft) + countItemsInSlot(IModularProjector.Slots.FocusRight) + countItemsInSlot(IModularProjector.Slots.FocusUp) + 1) * tmplength;
+				blocks = (countItemsInSlot(IProjector.Slots.FocusDown) + countItemsInSlot(IProjector.Slots.FocusLeft) + countItemsInSlot(IProjector.Slots.FocusRight) + countItemsInSlot(IProjector.Slots.FocusUp) + 1) * tmplength;
 
 				break;
 			case 2:
-				blocks = (countItemsInSlot(IModularProjector.Slots.FocusDown) + countItemsInSlot(IModularProjector.Slots.FocusUp) + 1) * (countItemsInSlot(IModularProjector.Slots.FocusLeft) + countItemsInSlot(IModularProjector.Slots.FocusRight) + 1);
+				blocks = (countItemsInSlot(IProjector.Slots.FocusDown) + countItemsInSlot(IProjector.Slots.FocusUp) + 1) * (countItemsInSlot(IProjector.Slots.FocusLeft) + countItemsInSlot(IProjector.Slots.FocusRight) + 1);
 
 				break;
 			case 3:
-				blocks = ((countItemsInSlot(IModularProjector.Slots.Distance) + 2 + countItemsInSlot(IModularProjector.Slots.Distance) + 2) * 4 + 4) * (countItemsInSlot(IModularProjector.Slots.Strength) + 1);
+				blocks = ((countItemsInSlot(IProjector.Slots.Distance) + 2 + countItemsInSlot(IProjector.Slots.Distance) + 2) * 4 + 4) * (countItemsInSlot(IProjector.Slots.Strength) + 1);
 
 				break;
 			case 4:
 			case 5:
-				blocks = countItemsInSlot(IModularProjector.Slots.Distance) * countItemsInSlot(IModularProjector.Slots.Distance) * 6;
+				blocks = countItemsInSlot(IProjector.Slots.Distance) * countItemsInSlot(IProjector.Slots.Distance) * 6;
 		}
 
 		forcepower = blocks * MFFSConfiguration.forcefieldblockcost;
@@ -886,21 +794,18 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	 * return false; }
 	 */
 
-	public boolean hasValidTypeMod()
+	@Override
+	public IProjectorMode getMode()
 	{
-		if ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemModuleBase)))
+		ItemStack itemStack = this.getStackInSlot(MODULE_SLOT_ID);
+		if (itemStack != null)
 		{
-			return true;
+			if (itemStack.getItem() instanceof IProjectorMode)
+			{
+				return (IProjectorMode) itemStack.getItem();
+			}
 		}
-		return false;
-	}
 
-	public ItemModuleBase getType()
-	{
-		if (hasValidTypeMod())
-		{
-			return (ItemModuleBase) getStackInSlot(1).getItem();
-		}
 		return null;
 	}
 

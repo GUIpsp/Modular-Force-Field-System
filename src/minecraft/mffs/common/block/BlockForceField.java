@@ -5,7 +5,7 @@ import java.util.Random;
 import mffs.api.IForceFieldBlock;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.ForceFieldTyps;
+import mffs.common.ForceFieldType;
 import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
 import mffs.common.MFFSConfiguration;
@@ -55,7 +55,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass()
 	{
-		if (ModularForceFieldSystem.proxy.getClientWorld().getBlockMetadata(this.posx, this.posy, this.posz) == ForceFieldTyps.Camouflage.ordinal())
+		if (ModularForceFieldSystem.proxy.getClientWorld().getBlockMetadata(this.posx, this.posy, this.posz) == ForceFieldType.Camouflage.ordinal())
 		{
 			TileEntityForceField ForceField = (TileEntityForceField) ModularForceFieldSystem.proxy.getClientWorld().getBlockTileEntity(this.posx, this.posy, this.posz);
 
@@ -192,7 +192,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
 	{
-		if (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal())
+		if (world.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal())
 		{
 			float f = 0.0625F;
 			return AxisAlignedBB.getBoundingBox(i + f, j + f, k + f, i + 1 - f, j + 1 - f, k + 1 - f);
@@ -210,7 +210,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity)
 	{
-		if (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal())
+		if (world.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal())
 		{
 			if ((entity instanceof EntityLiving))
 			{
@@ -314,18 +314,18 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 			return ((TileEntityForceField) tileEntity).getTexturid(l);
 		}
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldTyps.Camouflage.ordinal())
+		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Camouflage.ordinal())
 		{
 			return 180;
 		}
 
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldTyps.Default.ordinal())
+		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Default.ordinal())
 			return 0;
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal())
+		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal())
 			return 1;
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldTyps.Area.ordinal())
+		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Area.ordinal())
 			return 2;
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldTyps.Containment.ordinal())
+		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Containment.ordinal())
 			return 3;
 
 		return 5;
@@ -355,7 +355,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if ((MFFSConfiguration.advancedParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldTyps.Zapper.ordinal()))
+		if ((MFFSConfiguration.advancedParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal()))
 		{
 			double d = i + Math.random() + 0.2D;
 			double d1 = j + Math.random() + 0.2D;
@@ -399,7 +399,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public TileEntity createTileEntity(World world, int meta)
 	{
-		if (meta == ForceFieldTyps.Camouflage.ordinal())
+		if (meta == ForceFieldType.Camouflage.ordinal())
 		{
 			return new TileEntityForceField();
 		}

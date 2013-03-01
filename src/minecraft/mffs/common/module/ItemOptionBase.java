@@ -1,18 +1,18 @@
-package mffs.common.options;
+package mffs.common.module;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mffs.common.ProjectorTypes;
 import mffs.common.item.ItemMFFS;
-import mffs.common.modules.ItemModuleAdvancedCube;
-import mffs.common.modules.ItemModuleContainment;
-import mffs.common.modules.ItemModuleCube;
-import mffs.common.modules.ItemModuleDeflector;
-import mffs.common.modules.ItemModuleDiagonalWall;
-import mffs.common.modules.ItemModuleSphere;
-import mffs.common.modules.ItemModuleTube;
-import mffs.common.modules.ItemModuleWall;
+import mffs.common.mode.ItemModeAdvancedCube;
+import mffs.common.mode.ItemModeContainment;
+import mffs.common.mode.ItemModeCube;
+import mffs.common.mode.ItemModeDeflector;
+import mffs.common.mode.ItemModeDiagonalWall;
+import mffs.common.mode.ItemModeSphere;
+import mffs.common.mode.ItemModeTube;
+import mffs.common.mode.ItemModeWall;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -43,35 +43,35 @@ public abstract class ItemOptionBase extends ItemMFFS
 		{
 			info.add("compatible with:");
 
-			if (ItemModuleWall.supportsOption(this))
+			if (ItemModeWall.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.wall));
 			}
-			if (ItemModuleDiagonalWall.supportsOption(this))
+			if (ItemModeDiagonalWall.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallywall));
 			}
-			if (ItemModuleDeflector.supportsOption(this))
+			if (ItemModeDeflector.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.deflector));
 			}
-			if (ItemModuleTube.supportsOption(this))
+			if (ItemModeTube.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.tube));
 			}
-			if (ItemModuleSphere.supportsOption(this))
+			if (ItemModeSphere.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.sphere));
 			}
-			if (ItemModuleCube.supportsOption(this))
+			if (ItemModeCube.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.cube));
 			}
-			if (ItemModuleAdvancedCube.supportsOption(this))
+			if (ItemModeAdvancedCube.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.AdvCube));
 			}
-			if (ItemModuleContainment.supportsOption(this))
+			if (ItemModeContainment.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.containment));
 			}

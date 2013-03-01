@@ -8,7 +8,7 @@ import mffs.common.SecurityRight;
 import mffs.common.card.ItemCardEmpty;
 import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.modules.ItemModuleBase;
+import mffs.common.mode.ItemProjectorMode;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityMFFS;
@@ -68,7 +68,7 @@ public abstract class BlockMFFSMachine extends BlockMachine
 			return false;
 		}
 
-		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemModuleBase)))
+		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemProjectorMode)))
 		{
 			return false;
 		}
@@ -156,50 +156,41 @@ public abstract class BlockMFFSMachine extends BlockMachine
 	}
 
 	@Override
-	public int getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int l)
+	public int getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
 	{
-		int typ = 0;
-
 		TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
 
 		if (t instanceof TileEntityMFFS)
 		{
 			TileEntityMFFS tileEntity = (TileEntityMFFS) t;
 
-			int facing = (tileEntity instanceof TileEntityMFFS) ? ((TileEntityMFFS) tileEntity).getDirection().ordinal() : 1;
-
-			ForgeDirection blockfacing = ForgeDirection.getOrientation(l);
-			ForgeDirection TileEntityfacing = ForgeDirection.getOrientation(facing);
-
-			if ((tileEntity instanceof TileEntityProjector))
-			{
-				typ = ((TileEntityProjector) tileEntity).getProjectorType();
-			}
+			ForgeDirection blockfacing = ForgeDirection.getOrientation(side);
+			ForgeDirection facingDirection = tileEntity.getDirection();
 
 			if (tileEntity.isActive())
 			{
-				if (blockfacing.equals(TileEntityfacing))
+				if (blockfacing.equals(facingDirection))
 				{
-					return this.blockIndexInTexture + typ * 16 + 3 + 1;
+					return this.blockIndexInTexture + 3 + 1;
 				}
-				if (blockfacing.equals(TileEntityfacing.getOpposite()))
+				if (blockfacing.equals(facingDirection.getOpposite()))
 				{
-					return this.blockIndexInTexture + typ * 16 + 3 + 2;
+					return this.blockIndexInTexture + 3 + 2;
 				}
-				return this.blockIndexInTexture + typ * 16 + 3;
+				return this.blockIndexInTexture + 3;
 			}
 
-			if (blockfacing.equals(TileEntityfacing))
+			if (blockfacing.equals(facingDirection))
 			{
-				return this.blockIndexInTexture + typ * 16 + 1;
+				return this.blockIndexInTexture + 1;
 			}
-			if (blockfacing.equals(TileEntityfacing.getOpposite()))
+			if (blockfacing.equals(facingDirection.getOpposite()))
 			{
-				return this.blockIndexInTexture + typ * 16 + 2;
+				return this.blockIndexInTexture + 2;
 			}
 		}
 
-		return this.blockIndexInTexture + typ * 16;
+		return this.blockIndexInTexture;
 	}
 
 	@Override

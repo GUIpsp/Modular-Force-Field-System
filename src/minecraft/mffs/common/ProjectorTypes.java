@@ -1,5 +1,6 @@
 package mffs.common;
 
+import mffs.api.IProjectorMode;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public enum ProjectorTypes
 	public String recipe;
 	public Item item;
 	public int ProTyp;
-	public boolean Blockdropper;
+	public boolean blockDropper;
 
 	private ProjectorTypes(int ProTyp, String dispNm, String recipe, Item item, boolean Blockdropper)
 	{
@@ -29,10 +30,10 @@ public enum ProjectorTypes
 		this.recipe = recipe;
 		this.item = item;
 		this.ProTyp = ProTyp;
-		this.Blockdropper = Blockdropper;
+		this.blockDropper = Blockdropper;
 	}
 
-	public static ProjectorTypes typeFromItem(Item item)
+	public static ProjectorTypes typeFromItem(IProjectorMode item)
 	{
 		for (ProjectorTypes mach : values())
 		{
