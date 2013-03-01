@@ -3,12 +3,17 @@ package mffs.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import mffs.common.Fortron;
 import mffs.common.ModularForceFieldSystem;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -265,10 +270,11 @@ public class GuiMFFS extends GuiContainer
 		}
 	}
 
-	protected void drawMeter(int x, int y, float scale, float r, float g, float b)
+	protected void drawMeter(int x, int y, float scale, LiquidStack liquidStack)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png", 0);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
 		/**
 		 * Draw the background meter.
 		 */
@@ -277,14 +283,11 @@ public class GuiMFFS extends GuiContainer
 		/**
 		 * Draw liquid/gas inside
 		 */
-		GL11.glColor4f(r, g, b, 1.0F);
-		int actualScale = (int) ((METER_HEIGHT - 1) * scale);
-		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y + (METER_HEIGHT - 1 - actualScale), 40, 49, METER_WIDTH - 1, actualScale);
-
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.displayGauge(this.containerWidth + x, this.containerHeight + y, 0, 0, (int) ((METER_HEIGHT - 1) * scale), liquidStack);
 		/**
 		 * Draw measurement lines
 		 */
+		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png", 0);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 40, 49 * 2, METER_WIDTH, METER_HEIGHT);
 	}
 
@@ -368,7 +371,6 @@ public class GuiMFFS extends GuiContainer
 
 	public void drawPatch(String texture, int x, int y, int width, int height)
 	{
-
 		if (width >= 16 && height >= 16)
 		{
 			int patch = this.mc.renderEngine.getTexture(texture);
@@ -397,5 +399,56 @@ public class GuiMFFS extends GuiContainer
 			}
 		}
 
+	}
+
+	protected void displayGauge(int x, int y, int line, int col, int scale, LiquidStack liquidStack)
+	{
+		int liquidId = liquidStack.itemID;
+		int liquidMeta = liquidStack.itemMeta;
+		int liquidImgIndex = 0;
+
+		if (liquidId <= 0)
+			return;
+		if (liquidId < Block.blocksList.length && Block.blocksList[liquidId] != null)
+		{
+			ForgeHooksClient.bindTexture(Block.blocksList[liquidId].getTextureFile(), 0);
+			liquidImgIndex = Block.blocksList[liquidId].blockIndexInTexture;
+		}
+		else if (Item.itemsList[liquidId] != null)
+		{
+			ForgeHooksClient.bindTexture(Item.itemsList[liquidId].getTextureFile(), 0);
+			liquidImgIndex = Item.itemsList[liquidId].getIconFromDamage(liquidMeta);
+		}
+		else
+			return;
+
+		int imgLine = liquidImgIndex / 16;
+		int imgColumn = liquidImgIndex - imgLine * 16;
+
+		int start = 0;
+
+		while (true)
+		{
+			int a = 0;
+
+			if (scale > 16)
+			{
+				a = 16;
+				scale -= 16;
+			}
+			else
+			{
+				a = scale;
+				scale = 0;
+			}
+
+			this.drawTexturedModalRect(x + col, y + line + 58 - a - start, imgColumn * 16, imgLine * 16 + (16 - a), 16, 16 - (16 - a));
+			start = start + 16;
+
+			if (a == 0 || scale == 0)
+			{
+				break;
+			}
+		}
 	}
 }

@@ -16,6 +16,7 @@ public class ClientProxy extends CommonProxy
 	{
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
+		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "project.png");
 		RenderingRegistry.registerBlockHandler(new MFFSBlockRenderer());
 	}
 

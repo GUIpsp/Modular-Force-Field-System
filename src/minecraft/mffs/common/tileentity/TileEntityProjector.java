@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import mffs.api.IModularProjector;
-import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldTyps;
@@ -19,22 +18,15 @@ import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
-import mffs.common.card.ItemCardSecurityLink;
+import mffs.common.card.ItemCard;
 import mffs.common.container.ContainerProjector;
 import mffs.common.modules.ItemModule3DBase;
 import mffs.common.modules.ItemModuleBase;
 import mffs.common.options.IChecksOnAll;
 import mffs.common.options.IInteriorCheck;
-import mffs.common.options.ItemOptionAntibiotic;
 import mffs.common.options.ItemOptionBase;
-import mffs.common.options.ItemOptionCamoflage;
-import mffs.common.options.ItemOptionDefenseStation;
 import mffs.common.options.ItemOptionFieldFusion;
 import mffs.common.options.ItemOptionJammer;
-import mffs.common.options.ItemOptionShock;
-import mffs.common.upgrade.ItemModuleDistance;
-import mffs.common.upgrade.ItemModuleStrength;
-import mffs.common.upgrade.ItemProjectorFocusMatrix;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -42,10 +34,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 
 public class TileEntityProjector extends TileEntityFortron implements IModularProjector
@@ -84,7 +74,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	public void initiate()
 	{
 		super.initiate();
-		checkslots();
+		// checkslots();
 		if (isActive())
 		{
 			calculateField(true);
@@ -98,6 +88,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 		if (!this.worldObj.isRemote)
 		{
+
 			if (this.getFortronEnergy() > FORTRON_CONSUMPTION)
 			{
 				this.consumeFortron(1, true);
@@ -129,6 +120,20 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 		}
 		// this.switchDelay += 1;
+	}
+
+	@Override
+	public boolean isItemValid(int slotID, ItemStack itemStack)
+	{
+		switch (slotID)
+		{
+			case 0:
+				return itemStack.getItem() instanceof ItemCard;
+			case 5:
+				return itemStack.getItem() instanceof ItemModuleBase;
+		}
+
+		return false;
 	}
 
 	public int getAccessType()
@@ -247,19 +252,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 		this.burnout = nbttagcompound.getBoolean("burnout");
 		this.projectorType = nbttagcompound.getInteger("ProjectorType");
 		this.forcefieldblock_meta = nbttagcompound.getShort("forceFieldblockMeta");
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++)
-		{
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
-
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.inventory.length))
-			{
-				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
 	}
 
 	@Override
@@ -271,27 +263,13 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 		nbttagcompound.setBoolean("burnout", this.burnout);
 		nbttagcompound.setInteger("ProjectorType", this.projectorType);
 		nbttagcompound.setShort("forceFieldblockMeta", this.forcefieldblock_meta);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.inventory.length; i++)
-		{
-			if (this.inventory[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				this.inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
 	@Override
 	public void onInventoryChanged()
 	{
 		getLinkedSecurityStation();
-		checkslots();
+		// checkslots();
 	}
 
 	public void checkslots()
@@ -820,7 +798,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	@Override
 	public int getSizeInventory()
 	{
-		return 1 + 4 + 9;
+		return 1 + 3 * 3;
 	}
 
 	@Override
@@ -851,105 +829,62 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	 * 
 	 * return NetworkedFields; }
 	 */
-
-	@Override
-	public boolean isItemValid(int slotID, ItemStack itemStack)
-	{
-		if ((slotID == 1) && ((itemStack.getItem() instanceof ItemModuleBase)))
-			return true;
-
-		if ((slotID == 0) && ((itemStack.getItem() instanceof IPowerLinkItem)))
-			return true;
-
-		if ((slotID == 11) && (itemStack.itemID < 4096) && (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)))
-			return true;
-
-		if (hasValidTypeMod())
-		{
-			ItemModuleBase modType = getType();
-
-			switch (slotID)
-			{
-				case 12:
-					// if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) &&
-					// (isPowersourceItem()))
-					// return false;
-
-					// if (((itemStack.getItem() instanceof ItemCardSecurityLink)) &&
-					// (isPowersourceItem()))
-					// return false;
-
-					if ((itemStack.getItem() instanceof ItemCardSecurityLink))
-						return true;
-
-					break;
-				case 5:
-					if ((itemStack.getItem() instanceof ItemModuleDistance))
-						return modType.supportsDistance();
-
-					break;
-				case 6:
-					if ((itemStack.getItem() instanceof ItemModuleStrength))
-					{
-						return modType.supportsStrength();
-					}
-
-					break;
-				case 7:
-				case 8:
-				case 9:
-				case 10:
-					if ((itemStack.getItem() instanceof ItemProjectorFocusMatrix))
-						return modType.supportsMatrix();
-
-					break;
-				case 2:
-				case 3:
-				case 4:
-					if (isActive())
-						return false;
-
-					if ((itemStack.getItem() instanceof ItemOptionShock))
-					{
-						for (int spot = 2; spot <= 4; spot++)
-						{
-							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionCamoflage)))
-								return false;
-						}
-					}
-
-					if ((itemStack.getItem() instanceof ItemOptionCamoflage))
-					{
-						for (int spot = 2; spot <= 4; spot++)
-						{
-							if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof ItemOptionShock)))
-								return false;
-						}
-
-					}
-
-					if (!hasPowerSource())
-						return false;
-
-					// if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) &&
-					// (isPowersourceItem()))
-					// return false;
-
-					// if (((itemStack.getItem() instanceof ItemOptionFieldFusion)) &&
-					// (isPowersourceItem()))
-					// return false;
-
-					// if (((itemStack.getItem() instanceof ItemOptionJammer)) &&
-					// (isPowersourceItem()))
-					// return false;
-
-					if ((itemStack.getItem() instanceof ItemOptionBase))
-						return modType.supportsOption(itemStack.getItem());
-			}
-		}
-
-		return false;
-	}
+	/*
+	 * @Override public boolean isItemValid(int slotID, ItemStack itemStack) { if ((slotID == 1) &&
+	 * ((itemStack.getItem() instanceof ItemModuleBase))) return true;
+	 * 
+	 * if ((slotID == 0) && ((itemStack.getItem() instanceof IPowerLinkItem))) return true;
+	 * 
+	 * if ((slotID == 11) && (itemStack.itemID < 4096) &&
+	 * (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))) return true;
+	 * 
+	 * if (hasValidTypeMod()) { ItemModuleBase modType = getType();
+	 * 
+	 * switch (slotID) { case 12: // if (((itemStack.getItem() instanceof ItemOptionDefenseStation))
+	 * && // (isPowersourceItem())) // return false;
+	 * 
+	 * // if (((itemStack.getItem() instanceof ItemCardSecurityLink)) && // (isPowersourceItem()))
+	 * // return false;
+	 * 
+	 * if ((itemStack.getItem() instanceof ItemCardSecurityLink)) return true;
+	 * 
+	 * break; case 5: if ((itemStack.getItem() instanceof ItemModuleDistance)) return
+	 * modType.supportsDistance();
+	 * 
+	 * break; case 6: if ((itemStack.getItem() instanceof ItemModuleStrength)) { return
+	 * modType.supportsStrength(); }
+	 * 
+	 * break; case 7: case 8: case 9: case 10: if ((itemStack.getItem() instanceof
+	 * ItemProjectorFocusMatrix)) return modType.supportsMatrix();
+	 * 
+	 * break; case 2: case 3: case 4: if (isActive()) return false;
+	 * 
+	 * if ((itemStack.getItem() instanceof ItemOptionShock)) { for (int spot = 2; spot <= 4; spot++)
+	 * { if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
+	 * ItemOptionCamoflage))) return false; } }
+	 * 
+	 * if ((itemStack.getItem() instanceof ItemOptionCamoflage)) { for (int spot = 2; spot <= 4;
+	 * spot++) { if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
+	 * ItemOptionShock))) return false; }
+	 * 
+	 * }
+	 * 
+	 * if (!hasPowerSource()) return false;
+	 * 
+	 * // if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && //
+	 * (isPowersourceItem())) // return false;
+	 * 
+	 * // if (((itemStack.getItem() instanceof ItemOptionFieldFusion)) && // (isPowersourceItem()))
+	 * // return false;
+	 * 
+	 * // if (((itemStack.getItem() instanceof ItemOptionJammer)) && // (isPowersourceItem())) //
+	 * return false;
+	 * 
+	 * if ((itemStack.getItem() instanceof ItemOptionBase)) return
+	 * modType.supportsOption(itemStack.getItem()); } }
+	 * 
+	 * return false; }
+	 */
 
 	public boolean hasValidTypeMod()
 	{

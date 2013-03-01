@@ -14,6 +14,7 @@ public class ContainerMFFS extends Container
 	public ContainerMFFS(IInventory inventory)
 	{
 		this.inventory = inventory;
+		this.slotCount = inventory.getSizeInventory();
 		this.inventory.openChest();
 	}
 
@@ -57,6 +58,7 @@ public class ContainerMFFS extends Container
 			if (par1 >= slotCount)
 			{
 				boolean didTry = false;
+				
 				for (int i = 0; i < slotCount; i++)
 				{
 					if (this.getSlot(i).isItemValid(itemStack))
@@ -65,6 +67,7 @@ public class ContainerMFFS extends Container
 						{
 							return null;
 						}
+						
 						didTry = true;
 					}
 				}
@@ -78,7 +81,7 @@ public class ContainerMFFS extends Container
 							return null;
 						}
 					}
-					else if (par1 >= 27 + slotCount && par1 < 36 + slotCount && !this.mergeItemStack(itemStack, 4, 30, false))
+					else if (par1 >= 27 + slotCount && par1 < 36 + slotCount && !this.mergeItemStack(itemStack, slotCount, 27 + slotCount, false))
 					{
 						return null;
 					}

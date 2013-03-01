@@ -57,7 +57,7 @@ public class GuiProjector extends GuiMFFS
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
-		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
 		//this.drawTextWithTooltip("upgrade", 120, 30, x, y);
 		//this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		//this.textFieldFrequency.drawTextBox();
@@ -75,11 +75,11 @@ public class GuiProjector extends GuiMFFS
 		/**
 		 * Upgrade Slots
 		 */
-		for (int drawX = 0; drawX < 4; drawX++)
+		for (int drawX = 0; drawX < 3; drawX++)
 		{
-			for (int drawY = 0; drawY < 4; drawY++)
+			for (int drawY = 0; drawY < 3; drawY++)
 			{
-				this.drawSlot(drawX * 18 + 60, drawY * 18 + 20);
+				this.drawSlot(drawX * 18 + 61, drawY * 18 + 30);
 			}
 		}
 
@@ -87,7 +87,7 @@ public class GuiProjector extends GuiMFFS
 		 * Frequency Card Slot
 		 */
 		//this.drawSlot(8, 73);
-
+		
 		this.drawForce(8, 115, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 
 		/*

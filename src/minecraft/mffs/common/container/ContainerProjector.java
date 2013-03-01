@@ -16,28 +16,18 @@ public class ContainerProjector extends ContainerMFFS
 		/**
 		 * Frequency Card
 		 */
-		addSlotToContainer(new SlotHelper(this.tileEntity, 0, 11, 61));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 0, 11, 61));
 
 		/**
-		 * Matrix & Direction
+		 * Force Field Manipulation Matrix. Center slot is the module.
 		 */
-		addSlotToContainer(new SlotHelper(this.tileEntity, 1, 11, 38));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 2, 120, 82));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 3, 138, 82));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 4, 156, 82));
-
-		/**
-		 * Upgrades
-		 */
-		addSlotToContainer(new SlotHelper(this.tileEntity, 5, 119, 64));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 6, 155, 64));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 7, 137, 28));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 8, 137, 62));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 9, 154, 45));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 10, 120, 45));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 11, 137, 45));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 12, 92, 38));
-		addSlotToContainer(new SlotHelper(this.tileEntity, 13, 92, 38));
+		for (int drawX = 0; drawX < 3; drawX++)
+		{
+			for (int drawY = 0; drawY < 3; drawY++)
+			{
+				this.addSlotToContainer(new SlotHelper(this.tileEntity, drawX * 3 + drawY + 1, drawX * 18 + 62, drawY * 18 + 31));
+			}
+		}
 
 		this.addPlayerInventory(player);
 	}
