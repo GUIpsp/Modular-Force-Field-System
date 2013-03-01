@@ -29,6 +29,8 @@ public abstract interface IProjector extends IInventory, IRotatable
 
 	public ItemStack getModule(IModule module);
 
+	public int getModuleCount(IModule module, int... slots);
+
 	public List<IModule> getModules();
 
 	public static enum Slots

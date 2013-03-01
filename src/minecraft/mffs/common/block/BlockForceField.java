@@ -22,6 +22,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -228,8 +230,10 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 				entity.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
 			}
 		}
-		else if ((entity instanceof EntityPlayer))
+		else if (entity instanceof EntityPlayer)
 		{
+			((EntityPlayer) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 60));
+			
 			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(i, j, k, world);
 
 			if (ffworldmap != null)

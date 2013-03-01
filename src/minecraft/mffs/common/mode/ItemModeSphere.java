@@ -47,7 +47,7 @@ public class ItemModeSphere extends ItemMode3D
 	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		int radius = projector.getModule(ModularForceFieldSystem.itemModuleDistance).stackSize + 4;
+		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance) + 4;
 
 		int yDown = radius;
 
@@ -58,14 +58,15 @@ public class ItemModeSphere extends ItemMode3D
 
 		for (int x = -radius; x <= radius; x++)
 		{
-			for (int y = -yDown; y <= radius; y++)
+			for (int z = -radius; z <= radius; z++)
 			{
-				for (int z = -radius; z <= radius; z++)
+				for (int y = -yDown; y <= radius; y++)
 				{
+
 					Vector3 checkPosition = new Vector3(x, y, z);
 					double distance = Vector3.distance(new Vector3(), checkPosition);
 
-					if (distance < radius && distance > radius - 1)
+					if (distance <= radius && distance > radius - 1)
 					{
 						blockDef.add(checkPosition);
 					}

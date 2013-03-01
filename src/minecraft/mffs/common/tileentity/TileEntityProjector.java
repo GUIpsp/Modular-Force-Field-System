@@ -51,7 +51,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	 */
 	protected Set<Vector3> forceFields = new HashSet();
 
-	protected Set<Vector3> fieldDefinition = new HashSet();
+	protected Set<Vector3> calculatedField = new HashSet();
 	protected Set<Vector3> fieldInterior = new HashSet();
 
 	private short forcefieldblock_meta = ((short) ForceFieldType.Default.ordinal());
@@ -78,7 +78,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void initiate()
 	{
 		super.initiate();
-		this.calculateField(true);
+		this.calculateForceField();
 	}
 
 	@Override
@@ -88,13 +88,26 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 		if (!this.worldObj.isRemote)
 		{
+			if (this.isPoweredByRedstone())
+			{
+				if (!this.isActive())
+				{
+					this.calculateForceField();
+					this.setActive(true);
+				}
+			}
+			else
+			{
+				this.setActive(false);
+			}
+
 			if (this.isActive())
 			{
 				if (this.getFortronEnergy() > FORTRON_CONSUMPTION)
 				{
-					if (this.ticks % 20 == 0)
+					if (this.ticks % 10 == 0)
 					{
-						this.generateField(false);
+						this.projectField();
 					}
 
 					this.consumeFortron(1, true);
@@ -131,12 +144,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			default:
 				return itemStack.getItem() instanceof IModule;
 		}
-	}
-
-	@Override
-	public boolean isActive()
-	{
-		return this.isPoweredByRedstone();
 	}
 
 	public int getAccessType()
@@ -259,8 +266,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void onInventoryChanged()
 	{
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-		this.calculateField(false);
-		// checkslots();
 	}
 
 	/*
@@ -375,7 +380,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		if ((isActive()) && (hasModule(ModularForceFieldSystem.itemOptionCamouflage, true)))
 		{
-			for (Vector3 vector : this.fieldDefinition)
+			for (Vector3 vector : this.calculatedField)
 			{
 				if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 				{
@@ -390,9 +395,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		}
 	}
 
-	private boolean calculateField(boolean addtoMap)
+	private boolean calculateForceField()
 	{
-		this.fieldDefinition.clear();
+		this.calculatedField.clear();
 		this.fieldInterior.clear();
 
 		if (this.getMode() != null)
@@ -408,9 +413,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				{
 					Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
 
-					if (forceFieldDefine(fieldPoint, addtoMap))
+					if (forceFieldDefine(fieldPoint))
 					{
-						this.fieldDefinition.add(fieldPoint);
+						this.calculatedField.add(fieldPoint);
 					}
 				}
 			}
@@ -451,7 +456,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return true;
 	}
 
-	public boolean forceFieldDefine(Vector3 vector, boolean addtoMap)
+	public boolean forceFieldDefine(Vector3 vector)
 	{
 		for (IModule opt : getModules())
 		{
@@ -491,7 +496,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	/**
 	 * Projects a force field based on the calculations made.
 	 */
-	public void generateField(boolean init)
+	public void projectField()
 	{
 		/*
 		 * int cost = 0;
@@ -506,7 +511,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 		this.blockCount = 0;
 
-		for (Vector3 vector : this.fieldDefinition)
+		for (Vector3 vector : this.calculatedField)
 		{
 			if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
 			{
@@ -575,43 +580,37 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public void destroyField()
 	{
-		while (!this.fieldQueue.isEmpty())
+		for (Vector3 vector : this.calculatedField)
 		{
-			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap((Integer) this.fieldQueue.pop());
+			Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-			if (!ffworldmap.isEmpty())
+			if (block == ModularForceFieldSystem.blockForceField)
 			{
-				if (ffworldmap.getProjectorID() == getDeviceID())
-				{
-					ffworldmap.removebyProjector(getDeviceID());
-
-					if (ffworldmap.isSync())
-					{
-						Vector3 vector = ffworldmap.getPoint();
-						this.worldObj.removeBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
-						this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
-					}
-
-					ffworldmap.setSync(false);
-				}
-				else
-				{
-					ffworldmap.removebyProjector(getDeviceID());
-				}
+				vector.setBlockWithNotify(this.worldObj, 0);
 			}
+
 		}
 
-		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion();
-		for (TileEntityProjector tileentity : FieldFusion.values())
-		{
-			// if (tileentity.getPowerSourceID() == getPowerSourceID())
-			{
-				if (tileentity.isActive())
-				{
-					tileentity.calculateField(false);
-				}
-			}
-		}
+		/*
+		 * while (!this.fieldQueue.isEmpty()) { ForceFieldBlockStack ffworldmap =
+		 * WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap((Integer)
+		 * this.fieldQueue.pop());
+		 * 
+		 * if (!ffworldmap.isEmpty()) { if (ffworldmap.getProjectorID() == getDeviceID()) {
+		 * ffworldmap.removebyProjector(getDeviceID());
+		 * 
+		 * if (ffworldmap.isSync()) { Vector3 vector = ffworldmap.getPoint();
+		 * this.worldObj.removeBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
+		 * this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0); }
+		 * 
+		 * ffworldmap.setSync(false); } else { ffworldmap.removebyProjector(getDeviceID()); } } }
+		 * 
+		 * Map<Integer, TileEntityProjector> FieldFusion =
+		 * FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion(); for (TileEntityProjector
+		 * tileentity : FieldFusion.values()) { // if (tileentity.getPowerSourceID() ==
+		 * getPowerSourceID()) { if (tileentity.isActive()) { tileentity.calculateField(false); } }
+		 * }
+		 */
 	}
 
 	@Override
@@ -624,9 +623,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public int forcePowerNeed(int factor)
 	{
-		if (!this.fieldDefinition.isEmpty())
+		if (!this.calculatedField.isEmpty())
 		{
-			return this.fieldDefinition.size() * MFFSConfiguration.forcefieldblockcost;
+			return this.calculatedField.size() * MFFSConfiguration.forcefieldblockcost;
 		}
 
 		int forcepower = 0;
@@ -829,7 +828,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public Set<Vector3> getFieldQueue()
 	{
-		return this.fieldDefinition;
+		return this.calculatedField;
 	}
 
 	public int getSecStation_ID()
@@ -859,6 +858,38 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return returnStack;
 	}
 
+	@Override
+	public int getModuleCount(IModule module, int... slots)
+	{
+		int count = 0;
+
+		if (slots != null && slots.length > 0)
+		{
+			for (int slotID : slots)
+			{
+				if (this.getStackInSlot(slotID) != null)
+				{
+					if (this.getStackInSlot(slotID).getItem() == module)
+					{
+						count += this.getStackInSlot(slotID).stackSize;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (ItemStack itemStack : getModuleStacks())
+			{
+				if (itemStack.getItem() == module)
+				{
+					count += itemStack.stackSize;
+				}
+			}
+		}
+
+		return count;
+	}
+
 	public boolean hasModule(IModule item, boolean includeCheckAll)
 	{
 		for (IModule opt : getModules())
@@ -868,6 +899,26 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		}
 
 		return false;
+	}
+
+	public List<ItemStack> getModuleStacks()
+	{
+		List<ItemStack> modules = new ArrayList();
+
+		for (int slotID = 1; slotID < 9; slotID++)
+		{
+			ItemStack itemStack = this.getStackInSlot(slotID);
+
+			if (itemStack != null)
+			{
+				if (itemStack.getItem() instanceof ItemModule)
+				{
+					modules.add(itemStack);
+				}
+			}
+		}
+
+		return modules;
 	}
 
 	@Override
