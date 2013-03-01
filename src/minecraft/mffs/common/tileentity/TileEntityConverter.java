@@ -314,19 +314,6 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 	{
 		return null;
 	}
-
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 1;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 1;
-	}
-
 	/*
 	 * @Override public void onNetworkHandlerUpdate(String field) {
 	 * this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord); }

@@ -2,11 +2,11 @@ package mffs.common.tileentity;
 
 import mffs.api.IModularProjector;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
 import universalelectricity.prefab.TranslationHelper;
 
 /**
@@ -15,7 +15,7 @@ import universalelectricity.prefab.TranslationHelper;
  * @author Calclavia
  * 
  */
-public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements ISidedInventory
+public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements IInventory
 {
 	/**
 	 * The inventory of the TileEntity.
@@ -71,18 +71,6 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 			return itemstack1;
 		}
 		return null;
-	}
-
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 1;
 	}
 
 	@Override

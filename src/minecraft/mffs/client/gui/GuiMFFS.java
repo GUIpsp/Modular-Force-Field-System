@@ -18,7 +18,6 @@ import universalelectricity.prefab.TranslationHelper;
 
 public class GuiMFFS extends GuiContainer
 {
-
 	public enum SlotType
 	{
 		NONE, BATTERY, LIQUID
@@ -81,7 +80,7 @@ public class GuiMFFS extends GuiContainer
 	}
 
 	@Override
-	public void mouseClicked(int par1, int par2, int par3)
+	protected void mouseClicked(int par1, int par2, int par3)
 	{
 		super.mouseClicked(par1, par2, par3);
 		this.textFieldFrequency.mouseClicked(par1 - containerWidth, par2 - containerHeight, par3);

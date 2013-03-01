@@ -54,7 +54,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 			if (!this.isDisabled())
 			{
 				/**
-				 * Spread Fortrons to nearby Fortron Capacitors
+				 * Spread Fortron to nearby Fortron Capacitors
 				 */
 				for (int i = 0; i < 6; i++)
 				{

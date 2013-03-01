@@ -16,7 +16,7 @@ public class ContainerCapacitor extends ContainerMFFS
 		this.addSlotToContainer(new SlotHelper(this.tileEntity, 0, 154, 47));
 		this.addSlotToContainer(new SlotHelper(this.tileEntity, 1, 154, 67));
 		this.addSlotToContainer(new SlotHelper(this.tileEntity, 2, 9, 74));
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 4, 154, 87));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 3, 154, 87));
 
 		this.addPlayerInventory(player);
 	}

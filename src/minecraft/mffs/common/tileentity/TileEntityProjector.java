@@ -46,9 +46,15 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
 
 public class TileEntityProjector extends TileEntityFortron implements IModularProjector
 {
+	/**
+	 * The amount of fortron energy to consume per second.
+	 */
+	public static final int FORTRON_CONSUMPTION = 1;
+
 	protected Stack field_queue = new Stack();
 	protected Set field_interior = new HashSet();
 	protected Set<PointXYZ> field_def = new HashSet();
@@ -65,19 +71,64 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	private int forceFieldCamoblockMeta;
 	private int blockCounter;
 	private int accessType = 0;
-	private int capacity = 0;
 	private int projectorType = 0;
 	private int linkPower = 0;
 	private int switchDelay = 0;
 
-	public int getFortronCapacity()
+	public TileEntityProjector()
 	{
-		return this.capacity;
+		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}
 
-	public void setCapacity(int Capacity)
+	@Override
+	public void initiate()
 	{
-		this.capacity = Capacity;
+		super.initiate();
+		checkslots();
+		if (isActive())
+		{
+			calculateField(true);
+		}
+	}
+
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+
+		if (!this.worldObj.isRemote)
+		{
+			if (this.getFortronEnergy() > FORTRON_CONSUMPTION)
+			{
+				this.consumeFortron(1, true);
+			}
+
+			/*
+			 * if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone())) {
+			 * onToggle(); } if ((getStatusMode() == 1) && (getStatusValue()) &&
+			 * (!isPoweredByRedstone())) { onToggle(); }
+			 * 
+			 * if ((getStatusValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) &&
+			 * (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5))) { if (isActive() != true)
+			 * { setActive(true); this.switchDelay = 0; if (calculateField(true)) {
+			 * fieldGenerate(true); } this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
+			 * this.zCoord); } } if (((!getStatusValue()) && (this.switchDelay >= 40)) ||
+			 * (!hasValidTypeMod()) || (!hasPowerSource()) || (this.burnout) || (getLinkPower() <=
+			 * forcePowerNeed(1))) { if (isActive()) { setActive(false); this.switchDelay = 0;
+			 * destroyField(); this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
+			 * this.zCoord); } }
+			 * 
+			 * if (this.ticks % 20 == 0) { if (isActive()) { fieldGenerate(false);
+			 * 
+			 * if (hasOption(ModularForceFieldSystem.itemOptionAntibiotic, true)) {
+			 * ItemOptionAntibiotic.ProjectorNPCDefence(this, this.worldObj); }
+			 * 
+			 * if (hasOption(ModularForceFieldSystem.itemOptionDefenseeStation, true)) {
+			 * ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj); } } }
+			 */
+
+		}
+		// this.switchDelay += 1;
 	}
 
 	public int getAccessType()
@@ -452,92 +503,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 		}
 	}
 
-	@Override
-	public void initiate()
-	{
-		super.initiate();
-		checkslots();
-		if (isActive())
-		{
-			calculateField(true);
-		}
-	}
-
-	@Override
-	public void updateEntity()
-	{
-		if (!this.worldObj.isRemote)
-		{
-			if (hasPowerSource())
-			{
-				setLinkPower((int) getFortronEnergy());
-
-				// if ((isPowersourceItem()) && (getAccessType() != 0))
-				{
-					setAccessType(0);
-				}
-			}
-			else
-			{
-				setLinkPower(0);
-			}
-
-			if ((getStatusMode() == 1) && (!getStatusValue()) && (isPoweredByRedstone()))
-			{
-				onToggle();
-			}
-			if ((getStatusMode() == 1) && (getStatusValue()) && (!isPoweredByRedstone()))
-			{
-				onToggle();
-			}
-
-			if ((getStatusValue()) && (this.switchDelay >= 40) && (hasValidTypeMod()) && (hasPowerSource()) && (getLinkPower() > forcePowerNeed(5)))
-			{
-				if (isActive() != true)
-				{
-					setActive(true);
-					this.switchDelay = 0;
-					if (calculateField(true))
-					{
-						fieldGenerate(true);
-					}
-					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-				}
-			}
-			if (((!getStatusValue()) && (this.switchDelay >= 40)) || (!hasValidTypeMod()) || (!hasPowerSource()) || (this.burnout) || (getLinkPower() <= forcePowerNeed(1)))
-			{
-				if (isActive())
-				{
-					setActive(false);
-					this.switchDelay = 0;
-					destroyField();
-					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-				}
-			}
-
-			if (this.ticks % 20 == 0)
-			{
-				if (isActive())
-				{
-					fieldGenerate(false);
-
-					if (hasOption(ModularForceFieldSystem.itemOptionAntibiotic, true))
-					{
-						ItemOptionAntibiotic.ProjectorNPCDefence(this, this.worldObj);
-					}
-
-					if (hasOption(ModularForceFieldSystem.itemOptionDefenseeStation, true))
-					{
-						ItemOptionDefenseStation.ProjectorPlayerDefence(this, this.worldObj);
-					}
-				}
-			}
-
-		}
-		this.switchDelay += 1;
-		super.updateEntity();
-	}
-
 	private boolean calculateField(boolean addtoMap)
 	{
 		this.field_def.clear();
@@ -853,33 +818,15 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	}
 
 	@Override
-	public String getInvName()
-	{
-		return "Projektor";
-	}
-
-	@Override
 	public int getSizeInventory()
 	{
-		return 13;
+		return 1 + 4 + 9;
 	}
 
 	@Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
 		return new ContainerProjector(inventoryplayer.player, this);
-	}
-
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 11;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 1;
 	}
 
 	/*
@@ -1031,24 +978,6 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	public Set<PointXYZ> getFieldQueue()
 	{
 		return this.field_def;
-	}
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{
-		TileEntitySecurityStation sec = ItemCardSecurityLink.getLinkedSecurityStation(this, 12, this.worldObj);
-		if (sec != null)
-		{
-			// if ((getAccessType() != 3) && (!isPowersourceItem()))
-			setAccessType(3);
-
-			return sec;
-		}
-
-		if (getAccessType() == 3)
-			setAccessType(0);
-
-		return null;
 	}
 
 	public int getSecStation_ID()

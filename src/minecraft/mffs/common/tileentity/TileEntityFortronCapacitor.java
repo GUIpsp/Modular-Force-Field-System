@@ -125,11 +125,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 		return this.distributionMode;
 	}
 
-	public void setPowerLinkMode(int powerLinkMode)
-	{
-		this.distributionMode = powerLinkMode;
-	}
-
 	@Override
 	public Container getContainer(InventoryPlayer inventoryplayer)
 	{
@@ -143,13 +138,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	@Override
 	public int getSizeInventory()
 	{
-		return 5;
-	}
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 4, this.worldObj);
+		return 4;
 	}
 
 	public int getSecStation_ID()
@@ -267,55 +256,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	 * emitPower(freeStorageAmount, false); consumePowerFromStorage(freeStorageAmount, false); } }
 	 * break; } } }
 	 */
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inventory[i];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if (this.inventory[i] != null)
-		{
-			if (this.inventory[i].stackSize <= j)
-			{
-				ItemStack itemstack = this.inventory[i];
-				this.inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = this.inventory[i].splitStack(j);
-			if (this.inventory[i].stackSize == 0)
-			{
-				this.inventory[i] = null;
-			}
-			return itemstack1;
-		}
-		return null;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inventory[i] = itemstack;
-		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
-		{
-			itemstack.stackSize = getInventoryStackLimit();
-		}
-	}
-
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
 
 	/*
 	 * @Override public void onNetworkHandlerEvent(int key, String value) { if (key == 1) { if

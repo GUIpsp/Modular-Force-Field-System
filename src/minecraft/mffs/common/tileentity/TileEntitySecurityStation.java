@@ -340,18 +340,6 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		return this.inventory;
 	}
 
-	@Override
-	public int getStartInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side)
-	{
-		return 0;
-	}
-
 	/*
 	 * @Override public List getFieldsForUpdate() { List NetworkedFields = new LinkedList();
 	 * NetworkedFields.clear();
