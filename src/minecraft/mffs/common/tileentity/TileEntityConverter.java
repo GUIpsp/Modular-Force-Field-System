@@ -496,5 +496,4 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 		}*/
 		return null;
 	}
-
 }

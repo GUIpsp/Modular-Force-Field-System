@@ -1,18 +1,13 @@
 package mffs.common.tileentity;
 
-import ic2.api.energy.event.EnergyTileUnloadEvent;
-
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.api.IFortronStorage;
+import mffs.api.FortronGrid;
+import mffs.api.IFortronFrequency;
 import mffs.common.Fortron;
-import mffs.common.FrequencyGridOld;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
@@ -27,15 +22,21 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronStorage
+public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronFrequency
 {
 	protected LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
 
 	@Override
+	public void initiate()
+	{
+		FortronGrid.INSTANCE.register(this);
+		super.initiate();
+	}
+
+	@Override
 	public void invalidate()
 	{
-		// TODO:FIXTHIS
-		FrequencyGridOld.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
+		FortronGrid.INSTANCE.unregister(this);
 		super.invalidate();
 	}
 
@@ -152,5 +153,19 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public int consumeFortron(int joules, boolean doUse)
 	{
 		return Fortron.getAmount(this.fortronTank.drain(joules, doUse));
+	}
+
+	@Override
+	public int getFrequency()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setFrequency(int frequency)
+	{
+		// TODO Auto-generated method stub
+
 	}
 }
