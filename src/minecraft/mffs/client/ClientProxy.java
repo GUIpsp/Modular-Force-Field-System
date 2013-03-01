@@ -1,6 +1,6 @@
 package mffs.client;
 
-import mffs.client.renderer.MFFSBlockRenderer;
+import mffs.client.renderer.RenderForceField;
 import mffs.common.CommonProxy;
 import mffs.common.ModularForceFieldSystem;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "project.png");
-		RenderingRegistry.registerBlockHandler(new MFFSBlockRenderer());
+		RenderingRegistry.registerBlockHandler(new RenderForceField());
 	}
 
 	@Override

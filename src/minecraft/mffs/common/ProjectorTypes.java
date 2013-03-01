@@ -15,8 +15,8 @@ public enum ProjectorTypes
 	cube(4, "Cube", "B B A B B", ModularForceFieldSystem.itemModuleCube, false),
 	sphere(5, "Sphere", " B BAB B ", ModularForceFieldSystem.itemModuleSphere, false),
 	containment(6, "Containment", "BBBBABBBB", ModularForceFieldSystem.itemModuleContainment, false),
-	AdvCube(7, "Adv.Cube", "AAAACAAAA", ModularForceFieldSystem.itemModuleAdvancedCube, false),
-	diagonallywall(8, "diagonal Wall", "A A B A A", ModularForceFieldSystem.itemModuleDiagonalWall, true);
+	AdvCube(7, "Adv.Cube", "AAAACAAAA", ModularForceFieldSystem.itemModeAdvancedCube, false),
+	diagonallywall(8, "diagonal Wall", "A A B A A", ModularForceFieldSystem.itemModeDiagonalWall, true);
 
 	public String displayName;
 	public String recipe;

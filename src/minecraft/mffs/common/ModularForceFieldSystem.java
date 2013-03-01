@@ -36,6 +36,7 @@ import mffs.common.mode.ItemModeDiagonalWall;
 import mffs.common.mode.ItemModeSphere;
 import mffs.common.mode.ItemModeTube;
 import mffs.common.mode.ItemModeWall;
+import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionAntibiotic;
 import mffs.common.module.ItemOptionCamoflage;
@@ -108,7 +109,6 @@ public class ModularForceFieldSystem
 	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
 	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
 	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
-	public static int RENDER_ID = 2908;
 	/**
 	 * Machines
 	 */
@@ -153,7 +153,7 @@ public class ModularForceFieldSystem
 	public static Item itemUpgradeBoost;
 	public static Item itemUpgradeRange;
 	public static Item itemUpgradeCapacity;
-	
+
 	/**
 	 * Modules
 	 */
@@ -166,20 +166,20 @@ public class ModularForceFieldSystem
 	public static ItemModule itemOptionJammer;
 	public static ItemModule itemOptionCamouflage;
 	public static ItemModule itemOptionFieldFusion;
-	
+	public static ItemModule itemModuleDistance;
+	public static ItemModule itemModuleStrength;
+
 	/**
 	 * Modes
 	 */
-	public static Item itemModuleSphere;
-	public static Item itemModuleCube;
-	public static Item itemModuleWall;
-	public static Item itemModuleDeflector;
-	public static Item itemModuleTube;
-	public static Item itemModuleContainment;
-	public static Item itemModuleAdvancedCube;
-	public static Item itemModuleDiagonalWall;
-	public static Item itemModuleDistance;
-	public static Item itemModuleStrength;
+	public static ItemProjectorMode itemModuleSphere;
+	public static ItemProjectorMode itemModuleCube;
+	public static ItemProjectorMode itemModuleWall;
+	public static ItemProjectorMode itemModuleDeflector;
+	public static ItemProjectorMode itemModuleTube;
+	public static ItemProjectorMode itemModuleContainment;
+	public static ItemProjectorMode itemModeAdvancedCube;
+	public static ItemProjectorMode itemModeDiagonalWall;
 
 	public static OreGenBase monaziteOreGeneration;
 
@@ -249,19 +249,20 @@ public class ModularForceFieldSystem
 
 			itemModuleDistance = new ItemModuleDistance(MFFSConfiguration.item_AltDistance_ID);
 			itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
+
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
 			itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
 			itemForcillium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
 			itemForcilliumCell = new ItemForcilliumCell(MFFSConfiguration.item_ForciciumCell_ID);
 
-			itemModuleDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
+			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
 			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.item_ModSphere_ID);
 			itemModuleCube = new ItemModeCube(MFFSConfiguration.item_ModCube_ID);
 			itemModuleWall = new ItemModeWall(MFFSConfiguration.item_ModWall_ID);
 			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.item_ModDeflector_ID);
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.item_ModTube_ID);
 			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.item_ModContainment_ID);
-			itemModuleAdvancedCube = new ItemModeAdvancedCube(MFFSConfiguration.item_ModAdvCube_ID);
+			itemModeAdvancedCube = new ItemModeAdvancedCube(MFFSConfiguration.item_ModAdvCube_ID);
 
 			itemOptionShock = new ItemOptionShock(MFFSConfiguration.item_OptTouchHurt_ID);
 			itemOptionSponge = new ItemOptionSponge(MFFSConfiguration.item_OptSponge_ID);

@@ -3,20 +3,18 @@ package mffs.common.upgrade;
 import java.util.List;
 
 import mffs.common.MachineTypes;
-import mffs.common.item.ItemMFFS;
+import mffs.common.module.ItemModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemModuleDistance extends ItemMFFS
+public class ItemModuleDistance extends ItemModule
 {
-
 	public ItemModuleDistance(int i)
 	{
 		super(i, "moduleDistance");
-		setIconIndex(64);
-
+		this.setIconIndex(64);
 	}
 
 	@Override

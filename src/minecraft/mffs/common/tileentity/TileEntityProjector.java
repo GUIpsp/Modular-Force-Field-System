@@ -9,7 +9,6 @@ import java.util.Stack;
 
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
-import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldType;
 import mffs.common.FrequencyGridOld;
@@ -21,8 +20,6 @@ import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
 import mffs.common.card.ItemCard;
 import mffs.common.container.ContainerProjector;
-import mffs.common.mode.ItemMode3D;
-import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
 import mffs.common.module.ItemModule;
@@ -32,6 +29,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -50,6 +48,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	private static final int MODULE_SLOT_ID = 5;
 
 	protected Stack fieldQueue = new Stack();
+
+	/**
+	 * A set containinig all positions of all force field blocks.
+	 */
+	protected Set<Vector3> forceFields = new HashSet();
+
 	protected Set<Vector3> fieldDefinition = new HashSet();
 	protected Set<Vector3> fieldInterior = new HashSet();
 
@@ -63,7 +67,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	private int[] focusmatrix = { 0, 0, 0, 0 };
 	private int forceFieldCamoblockID;
 	private int forceFieldCamoblockMeta;
-	private int blockCounter;
+	private int blockCount;
 	private int accessType = 0;
 	private int linkPower = 0;
 	private int switchDelay = 0;
@@ -102,6 +106,14 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 					this.consumeFortron(1, true);
 				}
+				else
+				{
+					this.destroyField();
+				}
+			}
+			else
+			{
+				this.destroyField();
 			}
 
 			/**
@@ -122,10 +134,10 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			case 0:
 				return itemStack.getItem() instanceof ItemCard;
 			case 5:
-				return itemStack.getItem() instanceof ItemProjectorMode;
+				return itemStack.getItem() instanceof IProjectorMode;
+			default:
+				return itemStack.getItem() instanceof IModule;
 		}
-
-		return false;
 	}
 
 	@Override
@@ -190,7 +202,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public int getBlockCounter()
 	{
-		return this.blockCounter;
+		return this.blockCount;
 	}
 
 	public int getforcefieldblock_meta()
@@ -254,6 +266,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void onInventoryChanged()
 	{
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+		this.calculateField(false);
 		// checkslots();
 	}
 
@@ -438,9 +451,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public boolean calculateBlock(Vector3 pnt)
 	{
-		for (IModule opt : getModules(true))
+		for (IModule opt : this.getModules())
 		{
-			if ((opt instanceof IInteriorCheck))
+			if (opt instanceof IInteriorCheck)
 			{
 				((IInteriorCheck) opt).checkInteriorBlock(pnt, this.worldObj, this);
 			}
@@ -450,7 +463,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	public boolean forceFieldDefine(Vector3 vector, boolean addtoMap)
 	{
-		for (IModule opt : getModules(true))
+		for (IModule opt : getModules())
 		{
 			if (((opt instanceof ItemOptionJammer)) && (((ItemOptionJammer) opt).CheckJammerinfluence(vector, this.worldObj, this)))
 			{
@@ -485,81 +498,86 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return true;
 	}
 
+	/**
+	 * Projects a force field based on the calculations made.
+	 */
 	public void generateField(boolean init)
 	{
-		int cost = 0;
+		/*
+		 * int cost = 0;
+		 * 
+		 * if (init) { cost = MFFSConfiguration.forcefieldblockcost *
+		 * MFFSConfiguration.forcefieldblockcreatemodifier; } else { cost =
+		 * MFFSConfiguration.forcefieldblockcost; }
+		 * 
+		 * if (getforcefieldblock_meta() == 1) { cost *=
+		 * MFFSConfiguration.forcefieldblockzappermodifier; }
+		 */
 
-		if (init)
-		{
-			cost = MFFSConfiguration.forcefieldblockcost * MFFSConfiguration.forcefieldblockcreatemodifier;
-		}
-		else
-		{
-			cost = MFFSConfiguration.forcefieldblockcost;
-		}
-
-		if (getforcefieldblock_meta() == 1)
-		{
-			cost *= MFFSConfiguration.forcefieldblockzappermodifier;
-		}
-
-		// consumePower(cost * this.field_def.size(), false);
-
-		this.blockCounter = 0;
-
+		this.blockCount = 0;
+		System.out.println("TESt"+fieldDefinition.size());
 		for (Vector3 vector : this.fieldDefinition)
 		{
-			if (this.blockCounter == MFFSConfiguration.maxForceFieldPerTick)
+			if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
 			{
 				break;
 			}
 
-			ForceFieldBlockStack blockStack = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(vector.hashCode()));
-
-			if (blockStack != null)
+			if (this.worldObj.getBlockMaterial(vector.intX(), vector.intY(), vector.intZ()).isLiquid() || this.worldObj.isAirBlock(vector.intX(), vector.intY(), vector.intZ()) || this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) == ModularForceFieldSystem.blockForceField.blockID)
 			{
-				if (!blockStack.isSync())
+				if (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) != ModularForceFieldSystem.blockForceField.blockID)
 				{
-					Vector3 point = blockStack.getPoint();
-
-					if ((this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded) && (!blockStack.isEmpty()) && (blockStack.getProjectorID() == getDeviceID()))
+					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 					{
-						if (hasModule(ModularForceFieldSystem.itemOptionCutter, true))
-						{
-							int blockid = this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ());
-							TileEntity entity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
-
-							if ((blockid != ModularForceFieldSystem.blockForceField.blockID) && (blockid != 0) && (blockid != Block.bedrock.blockID) && (entity == null))
-							{
-								ArrayList stacks = Functions.getItemStackFromBlock(this.worldObj, vector.intX(), vector.intY(), vector.intZ());
-
-								this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
-
-								if ((ProjectorTypes.typeFromItem(getMode()).blockDropper && (stacks != null)))
-								{
-									IInventory inventory = InventoryHelper.findAttachedInventory(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
-									if ((inventory != null) && (inventory.getSizeInventory() > 0))
-									{
-										InventoryHelper.addStacksToInventory(inventory, stacks);
-									}
-								}
-							}
-
-						}
-
-						if ((this.worldObj.getBlockMaterial(vector.intX(), vector.intY(), vector.intZ()).isLiquid()) || (this.worldObj.isAirBlock(vector.intX(), vector.intY(), vector.intZ())) || (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) == ModularForceFieldSystem.blockForceField.blockID))
-						{
-							if (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) != ModularForceFieldSystem.blockForceField.blockID)
-							{
-								this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, blockStack.getTyp());
-
-								this.blockCounter += 1;
-							}
-							blockStack.setSync(true);
-						}
+						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0);
 					}
+
+					this.forceFields.add(vector);
+					this.blockCount++;
 				}
 			}
+
+			/*
+			 * ForceFieldBlockStack blockStack =
+			 * WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap
+			 * (Integer.valueOf(vector.hashCode()));
+			 * 
+			 * if (blockStack != null) { if (!blockStack.isSync()) { Vector3 point =
+			 * blockStack.getPoint();
+			 * 
+			 * if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded
+			 * && !blockStack.isEmpty() && blockStack.getProjectorID() == getDeviceID()) { if
+			 * (hasModule(ModularForceFieldSystem.itemOptionCutter, true)) { int blockid =
+			 * this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()); TileEntity
+			 * entity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(),
+			 * vector.intZ());
+			 * 
+			 * if ((blockid != ModularForceFieldSystem.blockForceField.blockID) && (blockid != 0) &&
+			 * (blockid != Block.bedrock.blockID) && (entity == null)) { ArrayList stacks =
+			 * Functions.getItemStackFromBlock(this.worldObj, vector.intX(), vector.intY(),
+			 * vector.intZ());
+			 * 
+			 * this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
+			 * 
+			 * if ((ProjectorTypes.typeFromItem(getMode()).blockDropper && (stacks != null))) {
+			 * IInventory inventory = InventoryHelper.findAttachedInventory(this.worldObj,
+			 * this.xCoord, this.yCoord, this.zCoord); if ((inventory != null) &&
+			 * (inventory.getSizeInventory() > 0)) { InventoryHelper.addStacksToInventory(inventory,
+			 * stacks); } } } }
+			 * 
+			 * if ((this.worldObj.getBlockMaterial(vector.intX(), vector.intY(),
+			 * vector.intZ()).isLiquid()) || (this.worldObj.isAirBlock(vector.intX(), vector.intY(),
+			 * vector.intZ())) || (this.worldObj.getBlockId(vector.intX(), vector.intY(),
+			 * vector.intZ()) == ModularForceFieldSystem.blockForceField.blockID)) { if
+			 * (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) !=
+			 * ModularForceFieldSystem.blockForceField.blockID) {
+			 * this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(),
+			 * vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, blockStack.getTyp());
+			 * 
+			 * this.blockCount += 1; }
+			 * 
+			 * blockStack.setSync(true); } } } }
+			 */
 		}
 	}
 
@@ -788,12 +806,23 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public IProjectorMode getMode()
 	{
+		if (this.getModeStack() != null)
+		{
+			return (IProjectorMode) this.getModeStack().getItem();
+		}
+
+		return null;
+	}
+
+	@Override
+	public ItemStack getModeStack()
+	{
 		ItemStack itemStack = this.getStackInSlot(MODULE_SLOT_ID);
 		if (itemStack != null)
 		{
 			if (itemStack.getItem() instanceof IProjectorMode)
 			{
-				return (IProjectorMode) itemStack.getItem();
+				return itemStack;
 			}
 		}
 
@@ -821,9 +850,26 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return 0;
 	}
 
+	@Override
+	public ItemStack getModule(IModule module)
+	{
+		ItemStack returnStack = new ItemStack((Item) module, 0);
+
+		for (IModule comparedModule : getModules())
+		{
+			if (comparedModule == module)
+			{
+				// TODO:This is wrong.
+				returnStack.stackSize++;
+			}
+		}
+
+		return returnStack;
+	}
+
 	public boolean hasModule(IModule item, boolean includeCheckAll)
 	{
-		for (IModule opt : getModules(includeCheckAll))
+		for (IModule opt : getModules())
 		{
 			if (opt == item)
 				return true;
@@ -832,7 +878,8 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return false;
 	}
 
-	public List<IModule> getModules(boolean includeCheckAll)
+	@Override
+	public List<IModule> getModules()
 	{
 		List<IModule> modules = new ArrayList();
 

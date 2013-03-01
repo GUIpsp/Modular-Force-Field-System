@@ -65,7 +65,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		modules.add(ModularForceFieldSystem.itemModuleDeflector);
 		modules.add(ModularForceFieldSystem.itemModuleTube);
 		modules.add(ModularForceFieldSystem.itemModuleContainment);
-		modules.add(ModularForceFieldSystem.itemModuleAdvancedCube);
+		modules.add(ModularForceFieldSystem.itemModeAdvancedCube);
 
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);

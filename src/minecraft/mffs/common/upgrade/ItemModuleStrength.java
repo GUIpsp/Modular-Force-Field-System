@@ -3,19 +3,19 @@ package mffs.common.upgrade;
 import java.util.List;
 
 import mffs.common.MachineTypes;
-import mffs.common.item.ItemMFFS;
+import mffs.common.module.ItemModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemModuleStrength extends ItemMFFS
+public class ItemModuleStrength extends ItemModule
 {
 
 	public ItemModuleStrength(int i)
 	{
 		super(i, "moduleStrength");
-		setIconIndex(65);
+		this.setIconIndex(65);
 
 	}
 

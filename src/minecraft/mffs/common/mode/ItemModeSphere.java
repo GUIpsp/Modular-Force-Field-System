@@ -3,10 +3,9 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.module.ItemOptionAntibiotic;
 import mffs.common.module.ItemModule;
+import mffs.common.module.ItemOptionAntibiotic;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionDefenseStation;
@@ -16,6 +15,7 @@ import mffs.common.module.ItemOptionJammer;
 import mffs.common.module.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
+import universalelectricity.core.vector.Vector3;
 
 public class ItemModeSphere extends ItemMode3D
 {
@@ -45,9 +45,9 @@ public class ItemModeSphere extends ItemMode3D
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
+	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		int radius = projector.countItemsInSlot(IProjector.Slots.Distance) + 4;
+		int radius = projector.getModule(ModularForceFieldSystem.itemModuleDistance).stackSize + 4;
 
 		int yDown = radius;
 
@@ -55,7 +55,7 @@ public class ItemModeSphere extends ItemMode3D
 		{
 			yDown = 0;
 		}
-		
+
 		for (int x = -radius; x <= radius; x++)
 		{
 			for (int y = -yDown; y <= radius; y++)
@@ -68,13 +68,13 @@ public class ItemModeSphere extends ItemMode3D
 
 					int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
 
-					if ((dist <= radius) && (dist > radius - (projector.countItemsInSlot(IProjector.Slots.Strength) + 1)))
+					if (dist > radius - 1 && dist < radius)
 					{
-						ffLocs.add(new PointXYZ(x, y, z, 0));
+						blockDef.add(new Vector3(x, y, z));
 					}
 					else if (dist <= radius)
 					{
-						ffInterior.add(new PointXYZ(x, y, z, 0));
+						blockInterior.add(new Vector3(x, y, z));
 					}
 				}
 			}

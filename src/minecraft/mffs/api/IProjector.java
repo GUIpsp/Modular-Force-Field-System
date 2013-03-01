@@ -1,9 +1,11 @@
 package mffs.api;
 
+import java.util.List;
 import java.util.Set;
 
+import mffs.common.module.IModule;
 import net.minecraft.inventory.IInventory;
-import universalelectricity.core.vector.Vector3;
+import net.minecraft.item.ItemStack;
 import universalelectricity.prefab.implement.IRotatable;
 
 public abstract interface IProjector extends IInventory, IRotatable
@@ -22,6 +24,12 @@ public abstract interface IProjector extends IInventory, IRotatable
 	 * Gets the mode of the projector, mainly the shape and size of it.
 	 */
 	public IProjectorMode getMode();
+
+	public ItemStack getModeStack();
+
+	public ItemStack getModule(IModule module);
+
+	public List<IModule> getModules();
 
 	public static enum Slots
 	{

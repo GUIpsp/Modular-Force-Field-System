@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mffs.api.IForceFieldBlock;
 import mffs.api.PointXYZ;
+import mffs.client.renderer.RenderForceField;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldType;
 import mffs.common.FrequencyGridOld;
@@ -30,53 +31,40 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockForceField extends BlockContainer implements IForceFieldBlock
 {
-	public static int renderer;
-	public int posx;
-	public int posy;
-	public int posz;
-
-	public BlockForceField(int i)
+	public BlockForceField(int id)
 	{
-		super(i, i, Material.glass);
+		super(id, 5, Material.glass);
 		setBlockUnbreakable();
 		setResistance(999.0F);
 		setTickRandomly(true);
-	}
-
-	@Override
-	public void onBlockAdded(World world, int i, int j, int k)
-	{
-		this.posx = i;
-		this.posy = j;
-		this.posz = k;
+		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass()
 	{
-		if (ModularForceFieldSystem.proxy.getClientWorld().getBlockMetadata(this.posx, this.posy, this.posz) == ForceFieldType.Camouflage.ordinal())
-		{
-			TileEntityForceField ForceField = (TileEntityForceField) ModularForceFieldSystem.proxy.getClientWorld().getBlockTileEntity(this.posx, this.posy, this.posz);
-
-			if (ForceField != null)
-			{
-				if ((ForceField.getTexturid(1) == 67) || (ForceField.getTexturid(1) == 205))
-				{
-					return 1;
-				}
-				return 0;
-			}
-
-		}
+		/*
+		 * if (ModularForceFieldSystem.proxy.getClientWorld().getBlockMetadata(this.posx, this.posy,
+		 * this.posz) == ForceFieldType.Camouflage.ordinal()) { TileEntityForceField ForceField =
+		 * (TileEntityForceField)
+		 * ModularForceFieldSystem.proxy.getClientWorld().getBlockTileEntity(this.posx, this.posy,
+		 * this.posz);
+		 * 
+		 * if (ForceField != null) { if ((ForceField.getTexturid(1) == 67) ||
+		 * (ForceField.getTexturid(1) == 205)) { return 1; } return 0; }
+		 * 
+		 * }
+		 */
 
 		return 0;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public int getRenderType()
 	{
-		return ModularForceFieldSystem.RENDER_ID;
+		return RenderForceField.RENDER_ID;
 	}
 
 	@Override
@@ -202,9 +190,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	}
 
 	@Override
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
 	{
-		return AxisAlignedBB.getBoundingBox(i, j, k, i + 0, j + 0, k + 0);
+		return AxisAlignedBB.getBoundingBox(x, y, z, x, y, z);
 	}
 
 	@Override
@@ -307,13 +295,14 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	{
 		TileEntity tileEntity = iblockaccess.getBlockTileEntity(i, j, k);
 
-		if ((tileEntity != null) && ((tileEntity instanceof TileEntityForceField)))
+		if (tileEntity instanceof TileEntityForceField)
 		{
 			if ((l < 0) || (l > 5))
 				return 0;
 
 			return ((TileEntityForceField) tileEntity).getTexturid(l);
 		}
+
 		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Camouflage.ordinal())
 		{
 			return 180;

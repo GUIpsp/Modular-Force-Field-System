@@ -9,9 +9,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
+@SideOnly(Side.CLIENT)
+public class RenderForceField implements ISimpleBlockRenderingHandler
 {
+	public static int RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
@@ -20,14 +25,15 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 		{
 			if (world.getBlockMetadata(x, y, z) == ForceFieldType.Camouflage.ordinal())
 			{
-				TileEntity te = world.getBlockTileEntity(x, y, z);
-				if ((te instanceof TileEntityForceField))
+				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+				
+				if (tileEntity instanceof TileEntityForceField)
 				{
-					if (((TileEntityForceField) te).getForcefieldCamoblockid() != -1)
+					if (((TileEntityForceField) tileEntity).getForcefieldCamoblockID() != -1)
 					{
-						if ((ForceFieldType.Camouflage.ordinal() == ((TileEntityForceField) te).getForcefieldCamoblockmeta()) && (((TileEntityForceField) te).getForcefieldCamoblockid() != 327) && (((TileEntityForceField) te).getForcefieldCamoblockid() != 326))
+						if ((ForceFieldType.Camouflage.ordinal() == ((TileEntityForceField) tileEntity).getForcefieldCamoblockmeta()) && (((TileEntityForceField) tileEntity).getForcefieldCamoblockID() != 327) && (((TileEntityForceField) tileEntity).getForcefieldCamoblockID() != 326))
 						{
-							Block customblock = Block.blocksList[((TileEntityForceField) te).getForcefieldCamoblockid()];
+							Block customblock = Block.blocksList[((TileEntityForceField) tileEntity).getForcefieldCamoblockID()];
 							if (customblock != null)
 							{
 								ForgeHooksClient.bindTexture(customblock.getTextureFile(), 1);
@@ -36,9 +42,9 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 							}
 						}
 					}
-					if (((TileEntityForceField) te).getTexturefile() != null)
+					if (((TileEntityForceField) tileEntity).getTextureFile() != null)
 					{
-						ForgeHooksClient.bindTexture(((TileEntityForceField) te).getTexturefile(), 0);
+						ForgeHooksClient.bindTexture(((TileEntityForceField) tileEntity).getTextureFile(), 0);
 						renderer.renderStandardBlock(block, x, y, z);
 						return true;
 					}
@@ -69,7 +75,7 @@ public class MFFSBlockRenderer implements ISimpleBlockRenderingHandler
 	@Override
 	public int getRenderId()
 	{
-		return ModularForceFieldSystem.RENDER_ID;
+		return RenderForceField.RENDER_ID;
 	}
 
 	@Override
