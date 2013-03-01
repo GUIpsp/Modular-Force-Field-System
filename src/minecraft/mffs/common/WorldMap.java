@@ -5,6 +5,7 @@ import java.util.Map;
 
 import mffs.api.PointXYZ;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
 import com.google.common.collect.MapMaker;
 
@@ -34,12 +35,12 @@ public final class WorldMap
 
 		public ForceFieldBlockStack getorcreateFFStackMap(int x, int y, int z, World world)
 		{
-			PointXYZ png = new PointXYZ(x, y, z, world);
-			if (ForceFieldStackMap.get(Integer.valueOf(png.hashCode())) == null)
+			Vector3 vector = new Vector3(x, y, z);
+			if (ForceFieldStackMap.get(Integer.valueOf(vector.hashCode())) == null)
 			{
-				ForceFieldStackMap.put(Integer.valueOf(png.hashCode()), new ForceFieldBlockStack(png));
+				ForceFieldStackMap.put(Integer.valueOf(vector.hashCode()), new ForceFieldBlockStack(vector));
 			}
-			return (ForceFieldBlockStack) ForceFieldStackMap.get(Integer.valueOf(png.hashCode()));
+			return (ForceFieldBlockStack) ForceFieldStackMap.get(Integer.valueOf(vector.hashCode()));
 		}
 
 		public ForceFieldBlockStack getForceFieldStackMap(Integer hasher)

@@ -13,6 +13,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
 public class ItemOptionAntibiotic extends ItemModule
 {
@@ -34,14 +35,14 @@ public class ItemOptionAntibiotic extends ItemModule
 			int fieldzmin = projector.zCoord;
 			int fieldzmax = projector.zCoord;
 
-			for (PointXYZ png : projector.getFieldQueue())
+			for (Vector3 position : projector.getFieldQueue())
 			{
-				fieldxmax = Math.max(fieldxmax, png.X);
-				fieldxmin = Math.min(fieldxmin, png.X);
-				fieldymax = Math.max(fieldymax, png.Y);
-				fieldymin = Math.min(fieldymin, png.Y);
-				fieldzmax = Math.max(fieldzmax, png.Z);
-				fieldzmin = Math.min(fieldzmin, png.Z);
+				fieldxmax = Math.max(fieldxmax, position.intX());
+				fieldxmin = Math.min(fieldxmin, position.intX());
+				fieldymax = Math.max(fieldymax, position.intY());
+				fieldymin = Math.min(fieldymin, position.intY());
+				fieldzmax = Math.max(fieldzmax, position.intZ());
+				fieldzmin = Math.min(fieldzmin, position.intZ());
 			}
 
 			List LivingEntitylist = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(fieldxmin, fieldymin, fieldzmin, fieldxmax, fieldymax, fieldzmax));

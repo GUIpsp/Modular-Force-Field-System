@@ -30,9 +30,9 @@ public class ItemOptionJammer extends ItemModule implements IChecksOnAll
 
 			if ((logicswitch) && (tileentity.isActive()))
 			{
-				for (PointXYZ tpng : tileentity.getInteriorPoints())
+				for (Vector3 position : tileentity.getInteriorPoints())
 				{
-					if ((tpng.X == point.intX()) && (tpng.Y == point.intY()) && (tpng.Z == point.intZ()))
+					if ((position.intX() == point.intX()) && (position.intY() == point.intY()) && (position.intZ() == point.intZ()))
 					{
 						Projector.projectorBurnout();
 						return true;

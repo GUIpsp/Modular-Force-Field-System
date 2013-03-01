@@ -466,6 +466,12 @@ public class Vector3 extends Vector2 implements Cloneable
 	}
 
 	@Override
+	public int hashCode()
+	{
+		return ("X: " + this.x + " Y: " + this.y + " Z: " + this.z).hashCode();
+	}
+
+	@Override
 	public String toString()
 	{
 		return "Vector3 [" + this.x + "," + this.y + "," + this.z + "]";

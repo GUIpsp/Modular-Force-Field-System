@@ -1,7 +1,6 @@
 package mffs.common.module;
 
 import java.util.Map;
-import java.util.Set;
 
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
@@ -33,9 +32,9 @@ public class ItemOptionFieldFusion extends ItemModule implements IInteriorCheck
 			 */
 			if ((logicswitch) && (tileentity.isActive()))
 			{
-				for (PointXYZ tpng : tileentity.getInteriorPoints())
+				for (Vector3 position : tileentity.getInteriorPoints())
 				{
-					if ((tpng.X == point.intX()) && (tpng.Y == point.intY()) && (tpng.Z == point.intZ()))
+					if ((position.intX() == point.intX()) && (position.intY() == point.intY()) && (position.intZ() == point.intZ()))
 					{
 						return true;
 					}
@@ -46,9 +45,9 @@ public class ItemOptionFieldFusion extends ItemModule implements IInteriorCheck
 	}
 
 	@Override
-	public void checkInteriorBlock(Vector3 png, World world, TileEntityProjector Proj,Set interior)
+	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector Proj)
 	{
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(png.X, png.Y, png.Z, world);
+		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(position.intX(), position.intY(), position.intZ(), world);
 
 		if (!ffworldmap.isEmpty())
 		{
@@ -60,15 +59,15 @@ public class ItemOptionFieldFusion extends ItemModule implements IInteriorCheck
 				{
 					if (Projector.hasModule(ModularForceFieldSystem.itemOptionFieldFusion, true))
 					{
-						Projector.getFieldQueue().remove(png);
+						Projector.getFieldQueue().remove(position);
 						ffworldmap.removebyProjector(Projector.getDeviceID());
 
-						PointXYZ ffpng = ffworldmap.getPoint();
+						Vector3 point = ffworldmap.getPoint();
 
-						if (world.getBlockId(ffpng.X, ffpng.Y, ffpng.Z) == ModularForceFieldSystem.blockForceField.blockID)
+						if (world.getBlockId(position.intX(), position.intY(), position.intZ()) == ModularForceFieldSystem.blockForceField.blockID)
 						{
-							world.removeBlockTileEntity(ffpng.X, ffpng.Y, ffpng.Z);
-							world.setBlockWithNotify(ffpng.X, ffpng.Y, ffpng.Z, 0);
+							world.removeBlockTileEntity(position.intX(), position.intY(), position.intZ());
+							world.setBlockWithNotify(position.intX(), position.intY(), position.intZ(), 0);
 						}
 					}
 				}

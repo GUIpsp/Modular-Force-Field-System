@@ -1,9 +1,9 @@
 package mffs.common.module;
 
-import mffs.api.PointXYZ;
 import mffs.common.MFFSConfiguration;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
 public class ItemOptionSponge extends ItemModule implements IInteriorCheck
 {
@@ -15,17 +15,17 @@ public class ItemOptionSponge extends ItemModule implements IInteriorCheck
 	}
 
 	@Override
-	public void checkInteriorBlock(PointXYZ png, World world, TileEntityProjector Projector)
+	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector Projector)
 	{
-		if (world.getBlockMaterial(png.X, png.Y, png.Z).isLiquid())
+		if (world.getBlockMaterial(position.intX(), position.intY(), position.intZ()).isLiquid())
 		{
 			if (!MFFSConfiguration.forcefieldremoveonlywaterandlava)
 			{
-				world.setBlockWithNotify(png.X, png.Y, png.Z, 0);
+				world.setBlockWithNotify(position.intX(), position.intY(), position.intZ(), 0);
 			}
-			else if ((world.getBlockId(png.X, png.Y, png.Z) == 8) || (world.getBlockId(png.X, png.Y, png.Z) == 9) || (world.getBlockId(png.X, png.Y, png.Z) == 10) || (world.getBlockId(png.X, png.Y, png.Z) == 11))
+			else if ((world.getBlockId(position.intX(), position.intY(), position.intZ()) == 8) || (world.getBlockId(position.intX(), position.intY(), position.intZ()) == 9) || (world.getBlockId(position.intX(), position.intY(), position.intZ()) == 10) || (world.getBlockId(position.intX(), position.intY(), position.intZ()) == 11))
 			{
-				world.setBlockWithNotify(png.X, png.Y, png.Z, 0);
+				world.setBlockWithNotify(position.intX(), position.intY(), position.intZ(), 0);
 			}
 		}
 	}

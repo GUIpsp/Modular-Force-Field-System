@@ -3,7 +3,7 @@ package mffs.api;
 import java.util.Set;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
 
 public abstract interface IProjector extends IInventory, IRotatable
@@ -17,7 +17,7 @@ public abstract interface IProjector extends IInventory, IRotatable
 	public void setBurnedOut(boolean paramBoolean);
 
 	public boolean isActive();
-	
+
 	/**
 	 * Gets the mode of the projector, mainly the shape and size of it.
 	 */

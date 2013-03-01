@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import mffs.api.PointXYZ;
+import universalelectricity.core.vector.Vector3;
 
 public class ForceFieldBlockStack
 {
-
-	private PointXYZ png;
+	private Vector3 position;
 	private boolean sync;
 	public Queue<ForceFieldBlock> blocks = new LinkedList();
 
-	public ForceFieldBlockStack(PointXYZ png)
+	public ForceFieldBlockStack(Vector3 png)
 	{
-		this.png = png;
+		this.position = png;
 		this.sync = false;
 	}
 
@@ -101,8 +100,8 @@ public class ForceFieldBlockStack
 		this.blocks.offer(new ForceFieldBlock(Generator_Id, Projektor_ID, typ));
 	}
 
-	public PointXYZ getPoint()
+	public Vector3 getPoint()
 	{
-		return this.png;
+		return this.position;
 	}
 }

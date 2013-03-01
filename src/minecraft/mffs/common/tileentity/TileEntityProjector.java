@@ -507,20 +507,20 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 		this.blockCounter = 0;
 
-		for (PointXYZ pnt : this.fieldDefinition)
+		for (Vector3 vector : this.fieldDefinition)
 		{
 			if (this.blockCounter == MFFSConfiguration.maxForceFieldPerTick)
 			{
 				break;
 			}
 
-			ForceFieldBlockStack blockStack = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(pnt.hashCode()));
+			ForceFieldBlockStack blockStack = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(vector.hashCode()));
 
 			if (blockStack != null)
 			{
 				if (!blockStack.isSync())
 				{
-					PointXYZ png = blockStack.getPoint();
+					Vector3 point = blockStack.getPoint();
 
 					if ((this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded) && (!blockStack.isEmpty()) && (blockStack.getProjectorID() == getDeviceID()))
 					{
@@ -577,7 +577,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 					if (ffworldmap.isSync())
 					{
-						PointXYZ png = ffworldmap.getPoint();
+						Vector3 vector = ffworldmap.getPoint();
 						this.worldObj.removeBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 						this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
 					}
@@ -801,12 +801,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public Set<PointXYZ> getInteriorPoints()
+	public Set<Vector3> getInteriorPoints()
 	{
 		return this.fieldInterior;
 	}
 
-	public Set<PointXYZ> getFieldQueue()
+	public Set<Vector3> getFieldQueue()
 	{
 		return this.fieldDefinition;
 	}
