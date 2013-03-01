@@ -2,7 +2,6 @@ package mffs.common.module;
 
 import java.util.Map;
 
-import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGridOld;
 import mffs.common.ModularForceFieldSystem;

@@ -1,7 +1,7 @@
 package mffs.client.renderer;
 
-import mffs.common.ForceFieldType;
 import mffs.common.ModularForceFieldSystem;
+import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.tileentity.TileEntityForceField;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

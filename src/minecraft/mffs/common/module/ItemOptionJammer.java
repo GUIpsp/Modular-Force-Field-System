@@ -2,7 +2,6 @@ package mffs.common.module;
 
 import java.util.Map;
 
-import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;

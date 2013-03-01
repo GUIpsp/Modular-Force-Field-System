@@ -20,7 +20,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TileEntitySecurityStation extends TileEntityMFFSInventory

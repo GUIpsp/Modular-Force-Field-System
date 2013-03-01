@@ -2,7 +2,7 @@ package mffs.api;
 
 import java.util.Set;
 
-import mffs.common.ForceFieldType;
+import mffs.common.block.BlockForceField.ForceFieldType;
 import net.minecraft.item.Item;
 import universalelectricity.core.vector.Vector3;
 

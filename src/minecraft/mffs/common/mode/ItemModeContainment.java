@@ -4,8 +4,8 @@ import java.util.Set;
 
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
-import mffs.common.module.ItemOptionAntibiotic;
 import mffs.common.module.ItemModule;
+import mffs.common.module.ItemOptionAntibiotic;
 import mffs.common.module.ItemOptionCamoflage;
 import mffs.common.module.ItemOptionCutter;
 import mffs.common.module.ItemOptionDefenseStation;

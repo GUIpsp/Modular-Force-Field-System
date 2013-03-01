@@ -1,12 +1,12 @@
 package mffs.common.block;
 
+import java.util.List;
 import java.util.Random;
 
 import mffs.api.IForceFieldBlock;
 import mffs.api.PointXYZ;
 import mffs.client.renderer.RenderForceField;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.ForceFieldType;
 import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
 import mffs.common.MFFSConfiguration;
@@ -31,6 +31,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockForceField extends BlockContainer implements IForceFieldBlock
 {
+	public enum ForceFieldType
+	{
+		Default(1), Camouflage(2), Zapper(3), Area(1), Containment(1);
+
+		int cost;
+
+		private ForceFieldType(int cost)
+		{
+			this.cost = cost;
+		}
+	}
+
 	public BlockForceField(int id)
 	{
 		super(id, 2, Material.glass);
@@ -178,15 +190,26 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
-		if (world.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal())
+		/**
+		 * Allow creative players who are holding shift to go through the force field.
+		 */
+		List<EntityPlayer> entities = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.9, z + 1));
+
+		for (EntityPlayer entityPlayer : entities)
 		{
-			float f = 0.0625F;
-			return AxisAlignedBB.getBoundingBox(i + f, j + f, k + f, i + 1 - f, j + 1 - f, k + 1 - f);
+			if (entityPlayer != null)
+			{
+				if (entityPlayer.capabilities.isCreativeMode && entityPlayer.isSneaking())
+				{
+					return null;
+				}
+			}
 		}
 
-		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1);
+		float f = 0.0625F;
+		return AxisAlignedBB.getBoundingBox(x + f, y + f, z + f, x + 1 - f, y + 1 - f, z + 1 - f);
 	}
 
 	@Override
@@ -294,29 +317,23 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side)
 	{
 		return this.blockIndexInTexture;
-/*
-		TileEntity tileEntity = iblockaccess.getBlockTileEntity(i, j, k);
-
-		if (tileEntity instanceof TileEntityForceField)
-		{
-			return ((TileEntityForceField) tileEntity).getTexturID(side);
-		}
-
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Camouflage.ordinal())
-		{
-			return 180;
-		}
-
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Default.ordinal())
-			return 0;
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal())
-			return 1;
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Area.ordinal())
-			return 2;
-		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Containment.ordinal())
-			return 3;
-
-		return this.blockIndexInTexture;*/
+		/*
+		 * TileEntity tileEntity = iblockaccess.getBlockTileEntity(i, j, k);
+		 * 
+		 * if (tileEntity instanceof TileEntityForceField) { return ((TileEntityForceField)
+		 * tileEntity).getTexturID(side); }
+		 * 
+		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Camouflage.ordinal()) {
+		 * return 180; }
+		 * 
+		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Default.ordinal()) return 0;
+		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal()) return 1;
+		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Area.ordinal()) return 2; if
+		 * (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Containment.ordinal()) return
+		 * 3;
+		 * 
+		 * return this.blockIndexInTexture;
+		 */
 	}
 
 	@Override

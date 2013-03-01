@@ -1,9 +1,6 @@
 package mffs.common.mode;
 
-import java.util.Set;
-
-import mffs.api.IProjector;
-import mffs.common.ForceFieldType;
+import mffs.common.block.BlockForceField.ForceFieldType;
 
 public abstract class ItemMode3D extends ItemProjectorMode
 {
