@@ -1,8 +1,6 @@
 package mffs.client;
 
 import mffs.client.renderer.MFFSBlockRenderer;
-import mffs.client.renderer.RenderFortronCapacitor;
-import mffs.client.renderer.RenderForcilliumExtractor;
 import mffs.common.CommonProxy;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
@@ -21,9 +19,6 @@ public class ClientProxy extends CommonProxy
 	{
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 		MinecraftForgeClient.preloadTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFortronCapacitor.class, new RenderFortronCapacitor());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityForcilliumExtractor.class, new RenderForcilliumExtractor());
-
 		RenderingRegistry.registerBlockHandler(new MFFSBlockRenderer());
 	}
 

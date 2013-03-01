@@ -1,10 +1,10 @@
 package mffs.common;
 
 import mffs.common.tileentity.TileEntityMFFSInventory;
-import net.minecraft.inventory.slotID;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SlotHelper extends slotID
+public class SlotHelper extends Slot
 {
 	private TileEntityMFFSInventory tileEntity;
 

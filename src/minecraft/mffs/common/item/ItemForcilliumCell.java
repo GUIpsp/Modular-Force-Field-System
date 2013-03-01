@@ -7,7 +7,7 @@ import mffs.common.NBTTagCompoundHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.slotID;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -43,8 +43,8 @@ public class ItemForcilliumCell extends ItemMFFS
 				{
 					if ((entity instanceof EntityPlayer))
 					{
-						List<slotID> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
-						for (slotID slot : slots)
+						List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
+						for (Slot slot : slots)
 						{
 							if ((slot.getStack() != null) && (slot.getStack().getItem() == ModularForceFieldSystem.itemForcillium))
 							{

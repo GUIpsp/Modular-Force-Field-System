@@ -5,7 +5,7 @@ import mffs.common.tileentity.TileEntityConverter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.slotID;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerConverter extends Container
@@ -41,14 +41,14 @@ public class ContainerConverter extends Container
 		{
 			for (int var4 = 0; var4 < 9; var4++)
 			{
-				addSlotToContainer(new slotID(player.inventory, var4 + var3 * 9 + 9, 50 + var4 * 18, 133 + var3 * 18));
+				addSlotToContainer(new Slot(player.inventory, var4 + var3 * 9 + 9, 50 + var4 * 18, 133 + var3 * 18));
 			}
 
 		}
 
 		for (var3 = 0; var3 < 9; var3++)
 		{
-			addSlotToContainer(new slotID(player.inventory, var3, 50 + var3 * 18, 191));
+			addSlotToContainer(new Slot(player.inventory, var3, 50 + var3 * 18, 191));
 		}
 	}
 
@@ -157,7 +157,7 @@ public class ContainerConverter extends Container
 	public ItemStack transferStackInSlot(EntityPlayer p, int i)
 	{
 		ItemStack itemstack = null;
-		slotID slot = (slotID) this.inventorySlots.get(i);
+		Slot slot = (Slot) this.inventorySlots.get(i);
 		if ((slot != null) && (slot.getHasStack()))
 		{
 			ItemStack itemstack1 = slot.getStack();

@@ -1,7 +1,7 @@
 package universalelectricity.prefab;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.slotID;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
  * @author Calclavia
  * 
  */
-public class SlotSpecific extends slotID
+public class SlotSpecific extends Slot
 {
 	public ItemStack[] validItemStacks = new ItemStack[0];
 	public Class[] validClasses = new Class[0];

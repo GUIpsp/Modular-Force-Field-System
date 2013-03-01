@@ -20,10 +20,12 @@ public class ItemMultitool extends ItemMFFS {
 		super(id, "itemMultiTool");
 		setIconIndex(1);
 		setMaxStackSize(1);
-		setMaxDamage(100);
+		setMaxDamage(0);
 		this.hasSubtypes = true;
 		
 		ToolRegistry.appendMode(new MultitoolSwitch());
+		ToolRegistry.appendMode(new MultitoolWrench());
+		ToolRegistry.appendMode(new MultitoolReader());
 	}
 	
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
@@ -37,11 +39,15 @@ public class ItemMultitool extends ItemMFFS {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
 
-		if (player.isSneaking() && ToolRegistry.getMode(itemstack.getItemDamage()) != null) {
+		if (player.isSneaking() && ToolRegistry.getMode(itemstack.getItemDamage() + 1) != null) {
 			ItemStack newStack = itemstack.copy();
 			newStack.setItemDamage(itemstack.getItemDamage() + 1);
 			return newStack;
-		}else{
+		}else if(player.isSneaking()) {
+			ItemStack newStack = itemstack.copy();
+			newStack.setItemDamage(0);
+			return newStack;
+		}else {
 			ToolRegistry.getMode(itemstack.getItemDamage()).onItemRightClick(itemstack, world, player);
 			return player.getCurrentEquippedItem();
 		}

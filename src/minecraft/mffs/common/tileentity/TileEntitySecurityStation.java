@@ -16,7 +16,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.slotID;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -263,8 +263,8 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		EntityPlayer player = this.worldObj.getPlayerEntityByName(username);
 		if (player != null)
 		{
-			List<slotID> slots = player.inventoryContainer.inventorySlots;
-			for (slotID slot : slots)
+			List<Slot> slots = player.inventoryContainer.inventorySlots;
+			for (Slot slot : slots)
 			{
 				ItemStack stack = slot.getStack();
 				if (stack != null)
