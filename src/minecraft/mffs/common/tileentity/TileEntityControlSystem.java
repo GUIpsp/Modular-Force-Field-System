@@ -36,28 +36,20 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 		this.inventory = new ItemStack[40];
 	}
 
-    /*
-	@Override
-	public List getFieldsForUpdate()
-	{
-		List NetworkedFields = new LinkedList();
-		NetworkedFields.clear();
+	/*
+	 * @Override public List getFieldsForUpdate() { List NetworkedFields = new LinkedList();
+	 * NetworkedFields.clear();
+	 * 
+	 * NetworkedFields.addAll(super.getFieldsForUpdate()); NetworkedFields.add("RemoteDeviceName");
+	 * NetworkedFields.add("RemoteDeviceTyp"); NetworkedFields.add("RemoteActive");
+	 * NetworkedFields.add("RemoteSwitchModi"); NetworkedFields.add("RemoteSwitchValue");
+	 * NetworkedFields.add("RemoteSecurityStationlink");
+	 * NetworkedFields.add("RemotehasPowersource"); NetworkedFields.add("RemotePowerleft");
+	 * NetworkedFields.add("RemoteGUIinRange");
+	 * 
+	 * return NetworkedFields; }
+	 */
 
-		NetworkedFields.addAll(super.getFieldsForUpdate());
-		NetworkedFields.add("RemoteDeviceName");
-		NetworkedFields.add("RemoteDeviceTyp");
-		NetworkedFields.add("RemoteActive");
-		NetworkedFields.add("RemoteSwitchModi");
-		NetworkedFields.add("RemoteSwitchValue");
-		NetworkedFields.add("RemoteSecurityStationlink");
-		NetworkedFields.add("RemotehasPowersource");
-		NetworkedFields.add("RemotePowerleft");
-		NetworkedFields.add("RemoteGUIinRange");
-
-		return NetworkedFields;
-	}
-    */
-    
 	@Override
 	public void invalidate()
 	{
@@ -230,34 +222,22 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 		return false;
 	}
 
-    /*
-	@Override
-	public void onNetworkHandlerEvent(int key, String value)
-	{
-		if ((key == 103) && (this.remote != null) && (getRemoteGUIinRange()))
-		{
-			EntityPlayer player = this.worldObj.getPlayerEntityByName(value);
-			if (player != null)
-			{
-				player.openGui(ModularForceFieldSystem.instance, 0, this.worldObj, this.remote.xCoord, this.remote.yCoord, this.remote.zCoord);
-			}
+	/*
+	 * @Override public void onNetworkHandlerEvent(int key, String value) { if ((key == 103) &&
+	 * (this.remote != null) && (getRemoteGUIinRange())) { EntityPlayer player =
+	 * this.worldObj.getPlayerEntityByName(value); if (player != null) {
+	 * player.openGui(ModularForceFieldSystem.instance, 0, this.worldObj, this.remote.xCoord,
+	 * this.remote.yCoord, this.remote.zCoord); }
+	 * 
+	 * }
+	 * 
+	 * if ((key == 102) && (this.remote != null)) { this.remote.onSwitch(); }
+	 * 
+	 * if ((key == 101) && (this.remote != null)) { this.remote.toogleSwitchMode(); }
+	 * 
+	 * super.onNetworkHandlerEvent(key, value); }
+	 */
 
-		}
-
-		if ((key == 102) && (this.remote != null))
-		{
-			this.remote.onSwitch();
-		}
-
-		if ((key == 101) && (this.remote != null))
-		{
-			this.remote.toogleSwitchMode();
-		}
-
-		super.onNetworkHandlerEvent(key, value);
-	}
-    */
-    
 	private void refreshRemoteData()
 	{
 		refreshRemoteData(1);
@@ -363,7 +343,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteGUIinRange(boolean b)
 	{
 		this.RemoteGUIinRange = b;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteGUIinRange");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteGUIinRange");
 	}
 
 	public int getRemotePowerleft()
@@ -374,7 +354,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemotePowerleft(int i)
 	{
 		this.RemotePowerleft = i;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemotePowerleft");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemotePowerleft");
 	}
 
 	public boolean getRemotehasPowersource()
@@ -385,7 +365,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemotehasPowersource(boolean b)
 	{
 		this.RemotehasPowersource = b;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemotehasPowersource");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemotehasPowersource");
 	}
 
 	public boolean getRemoteSecurityStationlink()
@@ -396,7 +376,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteSecurityStationlink(boolean b)
 	{
 		this.RemoteSecurityStationlink = b;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteSecurityStationlink");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteSecurityStationlink");
 	}
 
 	public boolean getRemoteSwitchValue()
@@ -407,7 +387,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteSwitchValue(boolean b)
 	{
 		this.RemoteSwitchValue = b;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchValue");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchValue");
 	}
 
 	public short getRemoteSwitchModi()
@@ -418,7 +398,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteSwitchModi(short s)
 	{
 		this.RemoteSwitchModi = s;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchModi");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteSwitchModi");
 	}
 
 	public boolean getRemoteActive()
@@ -429,7 +409,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteActive(boolean b)
 	{
 		this.RemoteActive = b;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteActive");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteActive");
 	}
 
 	public String getRemoteDeviceTyp()
@@ -440,7 +420,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteDeviceTyp(String s)
 	{
 		this.RemoteDeviceTyp = s;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceTyp");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceTyp");
 	}
 
 	public String getRemoteDeviceName()
@@ -451,7 +431,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	public void setRemoteDeviceName(String s)
 	{
 		this.RemoteDeviceName = s;
-		//NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceName");
+		// NetworkHandlerServer.updateTileEntityField(this, "RemoteDeviceName");
 	}
 
 }

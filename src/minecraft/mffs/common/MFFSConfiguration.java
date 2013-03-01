@@ -25,7 +25,7 @@ public class MFFSConfiguration
 	/**
 	 * Items
 	 */
-	//TODO: Make all IDs based on the ID prefix + a specific value. -- Calclavia.
+	// TODO: Make all IDs based on the ID prefix + a specific value. -- Calclavia.
 	public static int ITEM_ID_PREFIX = 11130;
 	public static int item_AltDistance_ID = ITEM_ID_PREFIX + 1;
 	public static int item_AltStrength_ID = 11132;

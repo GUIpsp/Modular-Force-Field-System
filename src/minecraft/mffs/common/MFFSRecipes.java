@@ -51,7 +51,8 @@ public class MFFSRecipes
 			MFFSRecipes.addRecipe(" E ExE E ", 1, 1, null, ModularForceFieldSystem.itemUpgradeCapacity);
 			MFFSRecipes.addRecipe("HHHEIEEDE", 1, 1, null, ModularForceFieldSystem.itemUpgradeRange);
 			MFFSRecipes.addRecipe("AlAlilAlA", 64, 1, null, ModularForceFieldSystem.itemFocusMatix);
-			MFFSRecipes.addRecipe("ooooCoooo", 1, 1, null, ModularForceFieldSystem.itemCardEmpty);		}
+			MFFSRecipes.addRecipe("ooooCoooo", 1, 1, null, ModularForceFieldSystem.itemCardEmpty);
+		}
 
 		if (MFFSConfiguration.MODULE_UE)
 		{

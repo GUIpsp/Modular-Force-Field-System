@@ -8,6 +8,5 @@ public class ItemForcillium extends ItemMFFS
 		this.setIconIndex(97);
 		this.setMaxStackSize(64);
 	}
-	
-	
+
 }

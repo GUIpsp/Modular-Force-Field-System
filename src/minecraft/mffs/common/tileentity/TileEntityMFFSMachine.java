@@ -1,6 +1,5 @@
 package mffs.common.tileentity;
 
-import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 

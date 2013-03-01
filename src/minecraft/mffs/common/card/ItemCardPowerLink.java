@@ -8,10 +8,10 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.Entity;
@@ -44,12 +44,10 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 				TileEntityFortronCapacitor cap = (TileEntityFortronCapacitor) FrequencyGridOld.getWorldMap(world).getCapacitor().get(Integer.valueOf(Cap_ID));
 				if (cap != null)
 				{/*
-					if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
-					{
-						setforArea(itemStack, cap.getDeviceName());
-					}
-					*/
-					//TODO: REMOVED NAME
+				 * if (!cap.getDeviceName().equals(getforAreaname(itemStack))) {
+				 * setforArea(itemStack, cap.getDeviceName()); }
+				 */
+					// TODO: REMOVED NAME
 				}
 			}
 
@@ -131,19 +129,16 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 						TileEntityFortronCapacitor cap = (TileEntityFortronCapacitor) world.getBlockTileEntity(png.X, png.Y, png.Z);
 						if (cap != null)
 						{
-							/*if ((cap.getPowerStorageID() == getValuefromKey("CapacitorID", itemStack)) && getValuefromKey("CapacitorID", itemStack) >= 0)
-							{
-								if (!cap.getDeviceName().equals(getforAreaname(itemStack)))
-								{
-									setforArea(itemStack, cap.getDeviceName());
-								}//TODO: REMOVED NAME
-
-								if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
-								{
-									return cap;
-								}
-								return null;
-							}*/
+							/*
+							 * if ((cap.getPowerStorageID() == getValuefromKey("CapacitorID",
+							 * itemStack)) && getValuefromKey("CapacitorID", itemStack) >= 0) { if
+							 * (!cap.getDeviceName().equals(getforAreaname(itemStack))) {
+							 * setforArea(itemStack, cap.getDeviceName()); }//TODO: REMOVED NAME
+							 * 
+							 * if (cap.getTransmitRange() >=
+							 * PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint())) {
+							 * return cap; } return null; }
+							 */
 						}
 					}
 					else
@@ -157,7 +152,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 								setInformation(itemStack, cap.getMachinePoint(), "CapacitorID", Cap_ID);
 								if (cap.getTransmitRange() >= PointXYZ.distance(tem.getMachinePoint(), cap.getMachinePoint()))
 								{
-								//	return cap;
+									// return cap;
 								}
 								return null;
 							}

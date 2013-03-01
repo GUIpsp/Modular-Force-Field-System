@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiControlSystem extends GuiContainer
@@ -41,11 +42,12 @@ public class GuiControlSystem extends GuiContainer
 
 			if (i == 14)
 			{
-				//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 12, "");
+				// NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 11, String.valueOf(c));
+				// NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 11,
+				// String.valueOf(c));
 			}
 		}
 		else
@@ -71,7 +73,7 @@ public class GuiControlSystem extends GuiContainer
 		}
 		else if ((x >= 115) && (y >= 5) && (x <= 234) && (y <= 19))
 		{
-			//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 10, "null");
+			// NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, 10, "null");
 			this.editMode = true;
 		}
 	}
@@ -92,11 +94,12 @@ public class GuiControlSystem extends GuiContainer
 	{
 		if (guibutton.id == 103)
 		{
-			//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, this.player.username);
+			// NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id,
+			// this.player.username);
 		}
 		else
 		{
-			//NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, "");
+			// NetworkHandlerClient.fireTileEntityEvent(this.ControlSystem, guibutton.id, "");
 		}
 	}
 
@@ -114,8 +117,8 @@ public class GuiControlSystem extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		this.fontRenderer.drawString("MFFS Control System", 8, 9, 4210752);
-		//this.fontRenderer.drawString(this.ControlSystem.getDeviceName(), 123, 9, 4210752);
-		//TODO: REMOVED NAME
+		// this.fontRenderer.drawString(this.ControlSystem.getDeviceName(), 123, 9, 4210752);
+		// TODO: REMOVED NAME
 		this.fontRenderer.drawString("DataLink", 190, 54, 4210752);
 		this.fontRenderer.drawString("Reader", 190, 65, 4210752);
 

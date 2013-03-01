@@ -121,7 +121,7 @@ public abstract class BlockMFFSMachine extends BlockMachine
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
 	{
 		TileEntity tile = world.getBlockTileEntity(i, j, k);
-		
+
 		if (tile instanceof TileEntityMFFS)
 		{
 			TileEntityMFFS tileEntity = (TileEntityMFFS) tile;

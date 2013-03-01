@@ -1,7 +1,6 @@
 package mffs.client.gui;
 
 import mffs.client.GraphicButton;
-import mffs.common.Fortron;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.GuiButton;

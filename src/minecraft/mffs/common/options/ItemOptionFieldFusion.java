@@ -27,10 +27,9 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 		{
 			boolean logicswitch = false;
 			/*
-			if (!Proj.isPowersourceItem())
-			{
-				logicswitch = (tileentity.getPowerSourceID() == Proj.getPowerSourceID()) && (tileentity.getDeviceID() != Proj.getDeviceID());
-			}*/
+			 * if (!Proj.isPowersourceItem()) { logicswitch = (tileentity.getPowerSourceID() ==
+			 * Proj.getPowerSourceID()) && (tileentity.getDeviceID() != Proj.getDeviceID()); }
+			 */
 			if ((logicswitch) && (tileentity.isActive()))
 			{
 				for (PointXYZ tpng : tileentity.getInteriorPoints())
@@ -52,7 +51,7 @@ public class ItemOptionFieldFusion extends ItemOptionBase implements IInteriorCh
 
 		if (!ffworldmap.isEmpty())
 		{
-		//	if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
+			// if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
 			{
 				TileEntityProjector Projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 

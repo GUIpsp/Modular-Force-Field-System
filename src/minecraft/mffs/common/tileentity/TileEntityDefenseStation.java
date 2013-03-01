@@ -3,6 +3,7 @@ package mffs.common.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
@@ -177,6 +178,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 		nbttagcompound.setTag("Items", nbttaglist);
 	}
+
 	public void scanner()
 	{
 		try
@@ -533,11 +535,14 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 			{
 				onToggle();
 			}
-			//if ((getStatusValue()) && (hasPowerSource()) && (getForcePower() > 0) && (getLinkedSecurityStation() != null) && (!isActive()))
+			// if ((getStatusValue()) && (hasPowerSource()) && (getForcePower() > 0) &&
+			// (getLinkedSecurityStation() != null) && (!isActive()))
 			{
 				setActive(true);
 			}
-			//if (((!getStatusValue()) || (!hasPowerSource()) || (getForcePower() < MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance()) || (getLinkedSecurityStation() == null)) && (isActive()))
+			// if (((!getStatusValue()) || (!hasPowerSource()) || (getForcePower() <
+			// MFFSConfiguration.DefenceStationScannForceEnergy * getInfoDistance()) ||
+			// (getLinkedSecurityStation() == null)) && (isActive()))
 			{
 				setActive(false);
 			}
@@ -629,52 +634,18 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 		return 20;
 	}
 
-    /*
-	@Override
-	public void onNetworkHandlerEvent(int key, String value)
-	{
-		if (!isActive())
-		{
-			switch (key)
-			{
-				case 100:
-					if (getcontratyp() == 0)
-					{
-						setcontratyp(1);
-					}
-					else
-					{
-						setcontratyp(0);
-					}
-					break;
-				case 101:
-					if (getActionmode() == 5)
-					{
-						setActionmode(0);
-					}
-					else
-					{
-						setActionmode(getActionmode() + 1);
-					}
+	/*
+	 * @Override public void onNetworkHandlerEvent(int key, String value) { if (!isActive()) {
+	 * switch (key) { case 100: if (getcontratyp() == 0) { setcontratyp(1); } else {
+	 * setcontratyp(0); } break; case 101: if (getActionmode() == 5) { setActionmode(0); } else {
+	 * setActionmode(getActionmode() + 1); }
+	 * 
+	 * break; case 102: if (getScanmode() == 0) { setScanmode(1); } else { setScanmode(0); } break;
+	 * } }
+	 * 
+	 * super.onNetworkHandlerEvent(key, value); }
+	 */
 
-					break;
-				case 102:
-					if (getScanmode() == 0)
-					{
-						setScanmode(1);
-					}
-					else
-					{
-						setScanmode(0);
-					}
-					break;
-			}
-		}
-
-		super.onNetworkHandlerEvent(key, value);
-	}
-    */
-    
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{

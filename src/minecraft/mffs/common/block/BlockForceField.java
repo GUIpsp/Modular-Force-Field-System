@@ -13,8 +13,8 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.WorldMap;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityForceField;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -134,10 +134,15 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 					world.markBlockForUpdate(i, j, k);
 					ffworldmap.setSync(true);
 
-					if (ffworldmap.getTyp() == 1){}
-//						Projector.consumePower(MFFSConfiguration.forcefieldblockcost * MFFSConfiguration.forcefieldblockcreatemodifier, false) >0;
-					
-//						Projector.consumePower(MFFSConfiguration.forcefieldblockcost * MFFSConfiguration.forcefieldblockcreatemodifier * MFFSConfiguration.forcefieldblockzappermodifier, false)>0;
+					if (ffworldmap.getTyp() == 1)
+					{
+					}
+					// Projector.consumePower(MFFSConfiguration.forcefieldblockcost *
+					// MFFSConfiguration.forcefieldblockcreatemodifier, false) >0;
+
+					// Projector.consumePower(MFFSConfiguration.forcefieldblockcost *
+					// MFFSConfiguration.forcefieldblockcreatemodifier *
+					// MFFSConfiguration.forcefieldblockzappermodifier, false)>0;
 				}
 		}
 	}
@@ -337,7 +342,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 			if (((tileEntity instanceof TileEntityProjector)) && (tileEntity != null))
 			{
-			//	((TileEntityProjector) tileEntity).consumePower(MFFSConfiguration.forcefieldblockcost * MFFSConfiguration.forcefieldblockcreatemodifier, false);
+				// ((TileEntityProjector)
+				// tileEntity).consumePower(MFFSConfiguration.forcefieldblockcost *
+				// MFFSConfiguration.forcefieldblockcreatemodifier, false);
 			}
 
 		}

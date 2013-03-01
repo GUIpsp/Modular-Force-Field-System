@@ -25,7 +25,7 @@ public class ItemOptionJammer extends ItemOptionBase implements IChecksOnAll
 		{
 			boolean logicswitch = false;
 
-			logicswitch = true;//tileentity.getPowerSourceID() != Projector.getPowerSourceID();
+			logicswitch = true;// tileentity.getPowerSourceID() != Projector.getPowerSourceID();
 
 			if ((logicswitch) && (tileentity.isActive()))
 			{

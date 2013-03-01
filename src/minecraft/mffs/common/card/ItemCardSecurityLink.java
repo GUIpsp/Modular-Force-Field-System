@@ -6,9 +6,9 @@ import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -41,11 +41,10 @@ public class ItemCardSecurityLink extends ItemCard
 				TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
 				if (sec != null)
 				{/*
-					if (!sec.getDeviceName().equals(getforAreaname(itemStack)))
-					{
-						setforArea(itemStack, sec.getDeviceName());
-					}*/
-					//TODO: REMOVED NAME
+				 * if (!sec.getDeviceName().equals(getforAreaname(itemStack))) {
+				 * setforArea(itemStack, sec.getDeviceName()); }
+				 */
+					// TODO: REMOVED NAME
 				}
 			}
 
@@ -76,11 +75,13 @@ public class ItemCardSecurityLink extends ItemCard
 						{
 							if ((sec.getDeviceID() == card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot))) && (card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot)) != 0))
 							{
-								/*if (!sec.getDeviceName().equals(getforAreaname(inventiory.getStackInSlot(slot))))
-								{
-									setforArea(inventiory.getStackInSlot(slot), sec.getDeviceName());
-								}*/
-								//TODO: REMOVED NAME
+								/*
+								 * if
+								 * (!sec.getDeviceName().equals(getforAreaname(inventiory.getStackInSlot
+								 * (slot)))) { setforArea(inventiory.getStackInSlot(slot),
+								 * sec.getDeviceName()); }
+								 */
+								// TODO: REMOVED NAME
 								return sec;
 							}
 						}

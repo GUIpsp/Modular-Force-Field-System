@@ -366,31 +366,37 @@ public class GuiMFFS extends GuiContainer
 			}
 		}
 	}
-	
-	public void drawPatch(String texture, int x, int y, int width, int height) {
-		
-		if(width >= 16 && height >= 16) {
+
+	public void drawPatch(String texture, int x, int y, int width, int height)
+	{
+
+		if (width >= 16 && height >= 16)
+		{
 			int patch = this.mc.renderEngine.getTexture(texture);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, patch);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.drawTexturedModalRect(x, y, 0, 0, 8, 8);
-			this.drawTexturedModalRect(x+width-8, y, 9, 0, 8, 8);
-			this.drawTexturedModalRect(x, y+height-8, 0, 9, 8, 8);
-			this.drawTexturedModalRect(x+width-8, y+height-8, 9, 9, 8, 8);
-			for(int var1 = 8; var1 < width - 8; var1++){
-				this.drawTexturedModalRect(x+var1, y, 8, 0, 1, 8);
-				this.drawTexturedModalRect(x+var1, y+height-8, 8, 9, 1, 8);
+			this.drawTexturedModalRect(x + width - 8, y, 9, 0, 8, 8);
+			this.drawTexturedModalRect(x, y + height - 8, 0, 9, 8, 8);
+			this.drawTexturedModalRect(x + width - 8, y + height - 8, 9, 9, 8, 8);
+			for (int var1 = 8; var1 < width - 8; var1++)
+			{
+				this.drawTexturedModalRect(x + var1, y, 8, 0, 1, 8);
+				this.drawTexturedModalRect(x + var1, y + height - 8, 8, 9, 1, 8);
 			}
-			for(int var1 = 8; var1 < height - 8; var1++){
-				this.drawTexturedModalRect(x, y+var1, 0, 8, 8, 1);
-				this.drawTexturedModalRect(x+width-8, y+var1, 9, 8, 8, 1);
+			for (int var1 = 8; var1 < height - 8; var1++)
+			{
+				this.drawTexturedModalRect(x, y + var1, 0, 8, 8, 1);
+				this.drawTexturedModalRect(x + width - 8, y + var1, 9, 8, 8, 1);
 			}
-			for(int var1 = 8; var1 < width - 8; var1++){
-				for(int var2 = 8; var2 < height - 8; var2++){
-					this.drawTexturedModalRect(x+var1, y+var2, 9, 9, 1, 1);
+			for (int var1 = 8; var1 < width - 8; var1++)
+			{
+				for (int var2 = 8; var2 < height - 8; var2++)
+				{
+					this.drawTexturedModalRect(x + var1, y + var2, 9, 9, 1, 1);
 				}
 			}
 		}
-		
+
 	}
 }

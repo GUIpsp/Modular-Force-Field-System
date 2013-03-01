@@ -22,6 +22,7 @@ public interface IFortronStorage
 
 	/**
 	 * Called to use and consume fortron energy from this storage unit.
+	 * 
 	 * @param joules - Amount of fortron energy to use.
 	 * @param doUse - True if actually using, false if just simulating.
 	 */

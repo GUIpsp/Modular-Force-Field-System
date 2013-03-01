@@ -2,7 +2,6 @@ package mffs.common;
 
 import java.lang.reflect.Constructor;
 
-import mffs.common.container.ContainerDummy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

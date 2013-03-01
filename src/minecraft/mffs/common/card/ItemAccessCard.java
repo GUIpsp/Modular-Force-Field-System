@@ -48,11 +48,11 @@ public class ItemAccessCard extends ItemCardPersonalID
 					TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(SEC_ID));
 					if (sec != null)
 					{
-						/*if (!sec.getDeviceName().equals(getforAreaname(itemStack)))
-						{
-							setforArea(itemStack, sec);
-						}*/
-						//TODO: REMOVED NAME
+						/*
+						 * if (!sec.getDeviceName().equals(getforAreaname(itemStack))) {
+						 * setforArea(itemStack, sec); }
+						 */
+						// TODO: REMOVED NAME
 					}
 				}
 			}
@@ -102,8 +102,8 @@ public class ItemAccessCard extends ItemCardPersonalID
 		if (sec != null)
 		{
 			NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		//	nbtTagCompound.setString("Areaname", sec.getDeviceName());
-			//TODO: REMOVED NAME
+			// nbtTagCompound.setString("Areaname", sec.getDeviceName());
+			// TODO: REMOVED NAME
 		}
 	}
 

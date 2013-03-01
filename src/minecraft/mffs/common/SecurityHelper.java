@@ -1,10 +1,10 @@
 package mffs.common;
 
-import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -152,21 +152,19 @@ public class SecurityHelper
 			switch (((TileEntityProjector) tileEntity).getAccessType())
 			{
 				case 2:
-				//	TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector) tileEntity).getPowerSourceID()));
-					/*if (cap != null)
-					{
-						TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
-						if (sec != null)
-						{
-							if (sec.isAccessGranted(entityplayer.username, right))
-								return true;
-
-							if (!suppresswarning)
-								Functions.ChattoPlayer(entityplayer, "[Field Security] Fail: access denied");
-
-							return false;
-						}
-					}*/
+					// TileEntityCapacitor cap = (TileEntityCapacitor)
+					// FrequencyGrid.getWorldMap(world).getCapacitor().get(Integer.valueOf(((TileEntityProjector)
+					// tileEntity).getPowerSourceID()));
+					/*
+					 * if (cap != null) { TileEntitySecurityStation sec =
+					 * cap.getLinkedSecurityStation(); if (sec != null) { if
+					 * (sec.isAccessGranted(entityplayer.username, right)) return true;
+					 * 
+					 * if (!suppresswarning) Functions.ChattoPlayer(entityplayer,
+					 * "[Field Security] Fail: access denied");
+					 * 
+					 * return false; } }
+					 */
 
 					break;
 				case 3:

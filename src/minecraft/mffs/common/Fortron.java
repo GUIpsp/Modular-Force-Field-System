@@ -35,7 +35,7 @@ public class Fortron
 		{
 			return getAmount(fortronTank.getLiquid());
 		}
-		
+
 		return 0;
 	}
 }

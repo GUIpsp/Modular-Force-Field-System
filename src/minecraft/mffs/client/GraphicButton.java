@@ -1,10 +1,10 @@
 package mffs.client;
 
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.Minecraft;

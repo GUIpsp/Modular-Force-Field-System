@@ -1,16 +1,7 @@
 package mffs.common.tileentity;
 
 import mffs.api.IModularProjector;
-import mffs.common.ModularForceFieldSystem;
-import mffs.common.card.ItemCardDataLink;
-import mffs.common.card.ItemCardPersonalID;
-import mffs.common.card.ItemCardPowerLink;
-import mffs.common.card.ItemCardSecurityLink;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

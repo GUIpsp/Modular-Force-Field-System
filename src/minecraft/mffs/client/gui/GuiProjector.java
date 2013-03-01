@@ -8,6 +8,7 @@ import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiProjector extends GuiContainer
@@ -37,11 +38,11 @@ public class GuiProjector extends GuiContainer
 
 			if (i == 14)
 			{
-				//NetworkHandlerClient.fireTileEntityEvent(this.projector, 12, "");
+				// NetworkHandlerClient.fireTileEntityEvent(this.projector, 12, "");
 			}
 			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
 			{
-				//NetworkHandlerClient.fireTileEntityEvent(this.projector, 11, String.valueOf(c));
+				// NetworkHandlerClient.fireTileEntityEvent(this.projector, 11, String.valueOf(c));
 			}
 		}
 		else
@@ -67,7 +68,7 @@ public class GuiProjector extends GuiContainer
 		}
 		else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19))
 		{
-			//NetworkHandlerClient.fireTileEntityEvent(this.projector, 10, "null");
+			// NetworkHandlerClient.fireTileEntityEvent(this.projector, 10, "null");
 			this.editMode = true;
 		}
 	}
@@ -120,7 +121,7 @@ public class GuiProjector extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton guibutton)
 	{
-		//NetworkHandlerClient.fireTileEntityEvent(this.projector, guibutton.id, "");
+		// NetworkHandlerClient.fireTileEntityEvent(this.projector, guibutton.id, "");
 	}
 
 	@Override
@@ -135,7 +136,7 @@ public class GuiProjector extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-	//	this.fontRenderer.drawString(this.projector.getDeviceName(), 12, 9, 4210752);
+		// this.fontRenderer.drawString(this.projector.getDeviceName(), 12, 9, 4210752);
 		this.fontRenderer.drawString("MFFS Projector", 12, 24, 4210752);
 		this.fontRenderer.drawString("Typ-Mode", 34, 44, 4210752);
 		this.fontRenderer.drawString("PowerLink", 34, 66, 4210752);

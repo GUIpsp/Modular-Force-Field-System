@@ -1,6 +1,7 @@
 package mffs.common.tileentity;
 
 import java.util.Random;
+
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGridOld;
@@ -92,7 +93,7 @@ public class TileEntityForceField extends TileEntity
 			{
 				if ((this.texturid[0] == -76) || (this.texturfile == null))
 				{
-					//ForceFieldClientUpdatehandler.addto(this.xCoord, this.yCoord, this.zCoord);
+					// ForceFieldClientUpdatehandler.addto(this.xCoord, this.yCoord, this.zCoord);
 				}
 
 				setTicker(0);
@@ -131,7 +132,9 @@ public class TileEntityForceField extends TileEntity
 				this.texturid[4] = Integer.parseInt(textur[4].trim());
 				this.texturid[5] = Integer.parseInt(textur[5].trim());
 
-				//ForceFieldServerUpdatehandler.getWorldMap(this.worldObj).addto(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId, proj.xCoord, proj.yCoord, proj.zCoord);
+				// ForceFieldServerUpdatehandler.getWorldMap(this.worldObj).addto(this.xCoord,
+				// this.yCoord, this.zCoord, this.worldObj.provider.dimensionId, proj.xCoord,
+				// proj.yCoord, proj.zCoord);
 			}
 		}
 		catch (Exception ex)

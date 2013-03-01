@@ -2,20 +2,24 @@ package mffs.common.multitool;
 
 import com.google.common.collect.ObjectArrays;
 
-public class ToolRegistry {
+public class ToolRegistry
+{
 
 	private static IMultiTool[] modes = new IMultiTool[16];
-	
-	public static void appendMode(IMultiTool tool) {
+
+	public static void appendMode(IMultiTool tool)
+	{
 		modes = ObjectArrays.concat(tool, modes);
 	}
-			
-	public static IMultiTool getMode(int mode) {
+
+	public static IMultiTool getMode(int mode)
+	{
 		return modes[mode];
 	}
-	
-	public static int getLength() {
+
+	public static int getLength()
+	{
 		return modes.length;
 	}
-	
+
 }

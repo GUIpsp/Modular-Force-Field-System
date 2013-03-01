@@ -1,11 +1,12 @@
 package mffs.common.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
 import ic2.api.IWrenchable;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import mffs.api.IStatusToggle;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
@@ -30,6 +31,8 @@ import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.tile.TileEntityDisableable;
+
+import com.google.common.io.ByteArrayDataInput;
 
 public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IWrenchable, IStatusToggle, IRotatable
 {

@@ -5,10 +5,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public interface IMultiTool {
-	
+public interface IMultiTool
+{
+
 	public String getName();
-	
+
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player);
 
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity);

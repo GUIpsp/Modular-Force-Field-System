@@ -460,18 +460,12 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 		}
 		return true;
 	}
-/*
-	@Override
-	public ItemStack getPowerLinkStack()
-	{
-		return getStackInSlot(getPowerLinkSlot());
-	}
 
-	@Override
-	public int getPowerLinkSlot()
-	{
-		return 0;
-	}*/
+	/*
+	 * @Override public ItemStack getPowerLinkStack() { return getStackInSlot(getPowerLinkSlot()); }
+	 * 
+	 * @Override public int getPowerLinkSlot() { return 0; }
+	 */
 
 	public void setUEwireConnection()
 	{
@@ -485,15 +479,12 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 	@Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
-		/*TileEntityCapacitor cap = (TileEntityCapacitor) FrequencyGrid.getWorldMap(this.worldObj).getCapacitor().get(Integer.valueOf(getPowerSourceID()));
-		if (cap != null)
-		{
-			TileEntitySecurityStation sec = cap.getLinkedSecurityStation();
-			if (sec != null)
-			{
-				return sec;
-			}
-		}*/
+		/*
+		 * TileEntityCapacitor cap = (TileEntityCapacitor)
+		 * FrequencyGrid.getWorldMap(this.worldObj).getCapacitor
+		 * ().get(Integer.valueOf(getPowerSourceID())); if (cap != null) { TileEntitySecurityStation
+		 * sec = cap.getLinkedSecurityStation(); if (sec != null) { return sec; } }
+		 */
 		return null;
 	}
 }

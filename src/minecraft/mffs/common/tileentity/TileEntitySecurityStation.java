@@ -1,7 +1,7 @@
 package mffs.common.tileentity;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.List;
+
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TileEntitySecurityStation extends TileEntityMFFSInventory
 {

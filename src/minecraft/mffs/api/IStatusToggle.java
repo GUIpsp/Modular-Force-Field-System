@@ -2,8 +2,9 @@ package mffs.api;
 
 /**
  * Applied to TileEntites that can have different toggle status.
+ * 
  * @author Calclavia
- *
+ * 
  */
 public interface IStatusToggle
 {

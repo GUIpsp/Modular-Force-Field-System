@@ -1,7 +1,5 @@
 package mffs.api;
 
-import icbm.api.IBlockFrequency;
-
 import java.util.HashSet;
 import java.util.Set;
 

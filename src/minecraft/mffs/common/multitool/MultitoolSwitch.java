@@ -10,7 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class MultitoolSwitch implements IMultiTool {
+public class MultitoolSwitch implements IMultiTool
+{
 
 	@Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
@@ -26,7 +27,8 @@ public class MultitoolSwitch implements IMultiTool {
 		{
 			if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
 			{
-				if (((IStatusToggle) tileentity).canToggle()) {
+				if (((IStatusToggle) tileentity).canToggle())
+				{
 					((IStatusToggle) tileentity).onToggle();
 					return true;
 				}
@@ -41,18 +43,21 @@ public class MultitoolSwitch implements IMultiTool {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer){
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	{
 		return null;
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "Switch";
 	}
 
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
+	{
 		return false;
 	}
-	
+
 }

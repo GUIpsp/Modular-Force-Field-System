@@ -21,6 +21,7 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	{
 		this.inventory = new ItemStack[60];
 	}
+
 	@Override
 	public TileEntitySecurityStation getLinkedSecurityStation()
 	{
@@ -48,7 +49,7 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	{
 		return 3;
 	}
-	
+
 	public short getMinSwitchMode()
 	{
 		return 2;
@@ -213,5 +214,5 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 				break;
 		}
 		return true;
-    }
+	}
 }

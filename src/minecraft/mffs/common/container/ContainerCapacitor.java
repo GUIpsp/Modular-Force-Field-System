@@ -3,7 +3,6 @@ package mffs.common.container;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 
 public class ContainerCapacitor extends ContainerMFFS
 {
