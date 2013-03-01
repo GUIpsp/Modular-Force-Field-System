@@ -62,19 +62,12 @@ public class ItemModeSphere extends ItemMode3D
 			{
 				for (int z = -radius; z <= radius; z++)
 				{
-					int dx = x;
-					int dy = y;
-					int dz = z;
+					Vector3 checkPosition = new Vector3(x, y, z);
+					double distance = Vector3.distance(new Vector3(), checkPosition);
 
-					int dist = (int) Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
-
-					if (dist > radius - 1 && dist < radius)
+					if (distance < radius && distance > radius - 1)
 					{
-						blockDef.add(new Vector3(x, y, z));
-					}
-					else if (dist <= radius)
-					{
-						blockInterior.add(new Vector3(x, y, z));
+						blockDef.add(checkPosition);
 					}
 				}
 			}

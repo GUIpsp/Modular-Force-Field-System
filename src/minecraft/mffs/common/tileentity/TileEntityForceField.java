@@ -17,7 +17,7 @@ public class TileEntityForceField extends TileEntityAdvanced
 	private int camoID;
 	private int camoMeta;
 
-	private int[] texturid = { -76, -76, -76, -76, -76, -76 };
+	private int[] texturID = { -76, -76, -76, -76, -76, -76 };
 
 	public int getForcefieldCamoblockmeta()
 	{
@@ -51,12 +51,12 @@ public class TileEntityForceField extends TileEntityAdvanced
 
 	public int[] getTexturid()
 	{
-		return this.texturid;
+		return this.texturID;
 	}
 
-	public int getTexturid(int l)
+	public int getTexturID(int side)
 	{
-		return this.texturid[l];
+		return this.texturID[side];
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class TileEntityForceField extends TileEntityAdvanced
 		{
 			if (this.ticks % 20 == 0)
 			{
-				if ((this.texturid[0] == -76) || (this.textureFile == null))
+				if ((this.texturID[0] == -76) || (this.textureFile == null))
 				{
 					this.updateTexture();
 				}
@@ -79,7 +79,7 @@ public class TileEntityForceField extends TileEntityAdvanced
 		{
 			if (this.ticks % 40 == 0)
 			{
-				if ((this.texturid[0] == -76) || (this.textureFile == null))
+				if ((this.texturID[0] == -76) || (this.textureFile == null))
 				{
 					// ForceFieldClientUpdatehandler.addto(this.xCoord, this.yCoord, this.zCoord);
 				}
@@ -91,12 +91,12 @@ public class TileEntityForceField extends TileEntityAdvanced
 	{
 		String[] textur = remotetextu.split("/");
 
-		this.texturid[0] = Integer.parseInt(textur[0].trim());
-		this.texturid[1] = Integer.parseInt(textur[1].trim());
-		this.texturid[2] = Integer.parseInt(textur[2].trim());
-		this.texturid[3] = Integer.parseInt(textur[3].trim());
-		this.texturid[4] = Integer.parseInt(textur[4].trim());
-		this.texturid[5] = Integer.parseInt(textur[5].trim());
+		this.texturID[0] = Integer.parseInt(textur[0].trim());
+		this.texturID[1] = Integer.parseInt(textur[1].trim());
+		this.texturID[2] = Integer.parseInt(textur[2].trim());
+		this.texturID[3] = Integer.parseInt(textur[3].trim());
+		this.texturID[4] = Integer.parseInt(textur[4].trim());
+		this.texturID[5] = Integer.parseInt(textur[5].trim());
 
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
@@ -105,15 +105,15 @@ public class TileEntityForceField extends TileEntityAdvanced
 	{
 		try
 		{
-			if (!texturid.equalsIgnoreCase(this.texturid[0] + "/" + this.texturid[1] + "/" + this.texturid[2] + "/" + this.texturid[3] + "/" + this.texturid[4] + "/" + this.texturid[5]))
+			if (!texturid.equalsIgnoreCase(this.texturID[0] + "/" + this.texturID[1] + "/" + this.texturID[2] + "/" + this.texturID[3] + "/" + this.texturID[4] + "/" + this.texturID[5]))
 			{
 				String[] textur = texturid.split("/");
-				this.texturid[0] = Integer.parseInt(textur[0].trim());
-				this.texturid[1] = Integer.parseInt(textur[1].trim());
-				this.texturid[2] = Integer.parseInt(textur[2].trim());
-				this.texturid[3] = Integer.parseInt(textur[3].trim());
-				this.texturid[4] = Integer.parseInt(textur[4].trim());
-				this.texturid[5] = Integer.parseInt(textur[5].trim());
+				this.texturID[0] = Integer.parseInt(textur[0].trim());
+				this.texturID[1] = Integer.parseInt(textur[1].trim());
+				this.texturID[2] = Integer.parseInt(textur[2].trim());
+				this.texturID[3] = Integer.parseInt(textur[3].trim());
+				this.texturID[4] = Integer.parseInt(textur[4].trim());
+				this.texturID[5] = Integer.parseInt(textur[5].trim());
 
 				// ForceFieldServerUpdatehandler.getWorldMap(this.worldObj).addto(this.xCoord,
 				// this.yCoord, this.zCoord, this.worldObj.provider.dimensionId, proj.xCoord,

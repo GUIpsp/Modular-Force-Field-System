@@ -42,6 +42,7 @@ public class RenderForceField implements ISimpleBlockRenderingHandler
 							}
 						}
 					}
+					
 					if (((TileEntityForceField) tileEntity).getTextureFile() != null)
 					{
 						ForgeHooksClient.bindTexture(((TileEntityForceField) tileEntity).getTextureFile(), 0);
@@ -51,7 +52,7 @@ public class RenderForceField implements ISimpleBlockRenderingHandler
 
 				}
 
-				ForgeHooksClient.bindTexture("/terrain.png", 0);
+				ForgeHooksClient.bindTexture(block.getTextureFile(), 0);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 			else

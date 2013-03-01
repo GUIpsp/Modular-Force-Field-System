@@ -33,7 +33,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 {
 	public BlockForceField(int id)
 	{
-		super(id, 5, Material.glass);
+		super(id, 2, Material.glass);
 		setBlockUnbreakable();
 		setResistance(999.0F);
 		setTickRandomly(true);
@@ -291,16 +291,15 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	}
 
 	@Override
-	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l)
+	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side)
 	{
+		return this.blockIndexInTexture;
+/*
 		TileEntity tileEntity = iblockaccess.getBlockTileEntity(i, j, k);
 
 		if (tileEntity instanceof TileEntityForceField)
 		{
-			if ((l < 0) || (l > 5))
-				return 0;
-
-			return ((TileEntityForceField) tileEntity).getTexturid(l);
+			return ((TileEntityForceField) tileEntity).getTexturID(side);
 		}
 
 		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Camouflage.ordinal())
@@ -317,7 +316,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Containment.ordinal())
 			return 3;
 
-		return 5;
+		return this.blockIndexInTexture;*/
 	}
 
 	@Override

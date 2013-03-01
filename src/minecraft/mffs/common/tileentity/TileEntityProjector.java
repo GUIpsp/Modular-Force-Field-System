@@ -81,11 +81,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void initiate()
 	{
 		super.initiate();
-		// checkslots();
-		if (isActive())
-		{
-			calculateField(true);
-		}
+		this.calculateField(true);
 	}
 
 	@Override
@@ -419,10 +415,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 					{
 						this.fieldDefinition.add(fieldPoint);
 					}
-					else
-					{
-						return false;
-					}
 				}
 			}
 
@@ -446,6 +438,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 			return true;
 		}
+
 		return false;
 	}
 
@@ -515,7 +508,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		 */
 
 		this.blockCount = 0;
-		System.out.println("TESt"+fieldDefinition.size());
+
 		for (Vector3 vector : this.fieldDefinition)
 		{
 			if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
@@ -523,9 +516,11 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				break;
 			}
 
-			if (this.worldObj.getBlockMaterial(vector.intX(), vector.intY(), vector.intZ()).isLiquid() || this.worldObj.isAirBlock(vector.intX(), vector.intY(), vector.intZ()) || this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) == ModularForceFieldSystem.blockForceField.blockID)
+			Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+
+			if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ModularForceFieldSystem.blockForceField)
 			{
-				if (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) != ModularForceFieldSystem.blockForceField.blockID)
+				if (block != ModularForceFieldSystem.blockForceField)
 				{
 					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 					{
