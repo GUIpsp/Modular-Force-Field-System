@@ -1,7 +1,7 @@
 package mffs.common.tileentity;
 
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.MachineTypes;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
@@ -61,7 +61,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	@Override
 	public void invalidate()
 	{
-		FrequencyGrid.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 
@@ -344,7 +344,7 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 			}
 			if (DeviceID != 0)
 			{
-				TileEntityMFFS device = FrequencyGrid.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
+				TileEntityMFFS device = FrequencyGridOld.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
 				if (device != null)
 				{
 					return device;

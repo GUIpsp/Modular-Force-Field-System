@@ -10,7 +10,7 @@ import mffs.api.IForceEnergyItems;
 import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
 import mffs.common.Fortron;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;

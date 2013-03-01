@@ -79,6 +79,10 @@ import universalelectricity.prefab.ore.OreGenerator;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
+import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -86,8 +90,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-
-// Use the Force, Luke.
 
 @Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class, connectionHandler = ConnectionHandler.class)
@@ -185,11 +187,11 @@ public class ModularForceFieldSystem
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
 
-	@Mod.Instance(ModularForceFieldSystem.ID)
+	@Instance(ModularForceFieldSystem.ID)
 	public static ModularForceFieldSystem instance;
 	public static final Logger LOGGER = Logger.getLogger(NAME);
 
-	@Mod.PreInit
+	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		LOGGER.setParent(FMLLog.getLogger());
@@ -303,12 +305,12 @@ public class ModularForceFieldSystem
 		}
 	}
 
-	@Mod.Init
+	@Init
 	public void load(FMLInitializationEvent evt)
 	{
 		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "language/", new String[] { "en_US" }));
 
-		GameRegistry.registerBlock(blockFortronite, "MFFSMonaziteOre");
+		GameRegistry.registerBlock(blockFortronite, "MFFSFortonite");
 		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
 		GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
 
@@ -321,7 +323,7 @@ public class ModularForceFieldSystem
 		proxy.init();
 	}
 
-	@Mod.PostInit
+	@PostInit
 	public void postInit(FMLPostInitializationEvent evt)
 	{
 		MFFSRecipes.init();

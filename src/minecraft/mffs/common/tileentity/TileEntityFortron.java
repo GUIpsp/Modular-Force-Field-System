@@ -7,7 +7,7 @@ import java.util.List;
 
 import mffs.api.IFortronStorage;
 import mffs.common.Fortron;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
@@ -35,7 +35,7 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public void invalidate()
 	{
 		// TODO:FIXTHIS
-		FrequencyGrid.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getExtractor().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 

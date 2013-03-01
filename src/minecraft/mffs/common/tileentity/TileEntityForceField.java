@@ -3,7 +3,7 @@ package mffs.common.tileentity;
 import java.util.Random;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.WorldMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -149,7 +149,7 @@ public class TileEntityForceField extends TileEntity
 			{
 				if (!ffworldmap.isEmpty())
 				{
-					TileEntityProjector projector = (TileEntityProjector) FrequencyGrid.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+					TileEntityProjector projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 					if (projector != null)
 					{

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 import mffs.api.IStatusToggle;
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -117,7 +117,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		super.initiate();
 
-		this.deviceID = FrequencyGrid.getWorldMap(this.worldObj).refreshID(this, this.deviceID);
+		this.deviceID = FrequencyGridOld.getWorldMap(this.worldObj).refreshID(this, this.deviceID);
 
 		if (MFFSConfiguration.chunckLoader)
 		{

@@ -12,7 +12,7 @@ public final class ForceFieldOptions
 
 	public static boolean BlockProtected(World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		Map ProjectorinrangeMap = FrequencyGrid.getWorldMap(world).getProjector();
+		Map ProjectorinrangeMap = FrequencyGridOld.getWorldMap(world).getProjector();
 		for (Iterator i$ = ProjectorinrangeMap.values().iterator(); i$.hasNext();)
 		{
 			TileEntityProjector tileentity = (TileEntityProjector) i$.next();
@@ -26,7 +26,7 @@ public final class ForceFieldOptions
 			if ((dist <= 64) && (tileentity.isActive()) && (tileentity.getProjectorType() != 1) && (tileentity.getProjectorType() != 2))
 			{
 				Map<Integer, TileEntityProjector> InnerMap = null;
-				InnerMap = FrequencyGrid.getWorldMap(world).getProjector();
+				InnerMap = FrequencyGridOld.getWorldMap(world).getProjector();
 
 				for (TileEntityProjector tileentity2 : InnerMap.values())
 				{

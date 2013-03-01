@@ -2,7 +2,7 @@ package mffs.common.tileentity;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.List;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
@@ -74,7 +74,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 	@Override
 	public void invalidate()
 	{
-		FrequencyGrid.getWorldMap(this.worldObj).getSecStation().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getSecStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 

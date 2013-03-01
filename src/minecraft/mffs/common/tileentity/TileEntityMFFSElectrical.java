@@ -7,7 +7,7 @@ import ic2.api.energy.tile.IEnergySink;
 
 import java.util.EnumSet;
 
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

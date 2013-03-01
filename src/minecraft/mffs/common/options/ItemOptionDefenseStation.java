@@ -4,7 +4,7 @@ import java.util.List;
 
 import mffs.api.IModularProjector;
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.modules.ItemModuleSphere;

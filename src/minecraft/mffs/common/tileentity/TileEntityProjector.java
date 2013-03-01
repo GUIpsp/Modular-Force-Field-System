@@ -12,7 +12,7 @@ import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.ForceFieldTyps;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
 import mffs.common.InventoryHelper;
 import mffs.common.MFFSConfiguration;
@@ -370,26 +370,26 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 
 		if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true))
 		{
-			if (!FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
+			if (!FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
 			{
-				FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
+				FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this);
 			}
 		}
-		else if (FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
+		else if (FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID())))
 		{
-			FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
+			FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().remove(Integer.valueOf(getDeviceID()));
 		}
 
 		if (hasOption(ModularForceFieldSystem.itemOptionJammer, false))
 		{
-			if (!FrequencyGrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
+			if (!FrequencyGridOld.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
 			{
-				FrequencyGrid.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
+				FrequencyGridOld.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()), this);
 			}
 		}
-		else if (FrequencyGrid.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
+		else if (FrequencyGridOld.getWorldMap(this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID())))
 		{
-			FrequencyGrid.getWorldMap(this.worldObj).getJammer().remove(Integer.valueOf(getDeviceID()));
+			FrequencyGridOld.getWorldMap(this.worldObj).getJammer().remove(Integer.valueOf(getDeviceID()));
 		}
 
 		if (hasValidTypeMod())
@@ -771,7 +771,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 			}
 		}
 
-		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGrid.getWorldMap(this.worldObj).getFieldFusion();
+		Map<Integer, TileEntityProjector> FieldFusion = FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion();
 		for (TileEntityProjector tileentity : FieldFusion.values())
 		{
 			//if (tileentity.getPowerSourceID() == getPowerSourceID())
@@ -787,7 +787,7 @@ public class TileEntityProjector extends TileEntityFortron implements IModularPr
 	@Override
 	public void invalidate()
 	{
-		FrequencyGrid.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
 		destroyField();
 		super.invalidate();
 	}

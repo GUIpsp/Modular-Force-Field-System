@@ -1,6 +1,6 @@
 package mffs.common.tileentity;
 
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecStorage;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -30,7 +30,7 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	@Override
 	public void invalidate()
 	{
-		FrequencyGrid.getWorldMap(this.worldObj).getSecStorage().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getSecStorage().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 

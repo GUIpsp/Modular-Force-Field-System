@@ -1,7 +1,7 @@
 package mffs.common.card;
 
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
@@ -38,7 +38,7 @@ public class ItemCardSecurityLink extends ItemCard
 			int Sec_ID = getValuefromKey("Secstation_ID", itemStack);
 			if (Sec_ID != 0)
 			{
-				TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGrid.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
+				TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
 				if (sec != null)
 				{/*
 					if (!sec.getDeviceName().equals(getforAreaname(itemStack)))
@@ -90,7 +90,7 @@ public class ItemCardSecurityLink extends ItemCard
 						int Sec_ID = card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot));
 						if (Sec_ID != 0)
 						{
-							TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGrid.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
+							TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
 							if (sec != null)
 							{
 								card.setInformation(inventiory.getStackInSlot(slot), sec.getMachinePoint(), "Secstation_ID", Sec_ID);

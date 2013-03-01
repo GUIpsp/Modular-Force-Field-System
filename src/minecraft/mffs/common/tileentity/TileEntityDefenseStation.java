@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.InventoryHelper;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
@@ -131,7 +131,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 	@Override
 	public void invalidate()
 	{
-		FrequencyGrid.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 

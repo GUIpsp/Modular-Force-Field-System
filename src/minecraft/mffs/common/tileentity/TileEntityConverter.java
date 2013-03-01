@@ -10,7 +10,7 @@ import ic2.api.energy.tile.IEnergySource;
 import java.util.EnumSet;
 
 import mffs.api.IPowerLinkItem;
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.container.ContainerConverter;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -418,7 +418,7 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 			this.addedToEnergyNet = false;
 		}
-		FrequencyGrid.getWorldMap(this.worldObj).getConverter().remove(Integer.valueOf(getDeviceID()));
+		FrequencyGridOld.getWorldMap(this.worldObj).getConverter().remove(Integer.valueOf(getDeviceID()));
 		super.invalidate();
 	}
 

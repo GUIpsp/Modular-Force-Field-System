@@ -2,7 +2,7 @@ package mffs.common.card;
 
 import java.util.List;
 
-import mffs.common.FrequencyGrid;
+import mffs.common.FrequencyGridOld;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
@@ -45,7 +45,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 				int SEC_ID = getlinkID(itemStack);
 				if (SEC_ID != 0)
 				{
-					TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGrid.getWorldMap(world).getSecStation().get(Integer.valueOf(SEC_ID));
+					TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(SEC_ID));
 					if (sec != null)
 					{
 						/*if (!sec.getDeviceName().equals(getforAreaname(itemStack)))
