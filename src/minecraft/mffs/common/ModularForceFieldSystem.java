@@ -67,6 +67,7 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
@@ -297,6 +298,8 @@ public class ModularForceFieldSystem
 			monaziteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
 			monaziteOreGeneration.shouldGenerate = MFFSConfiguration.CONFIGURATION.get("Ore Generation", "Generate Fortronite", false).getBoolean(false);
 			OreGenerator.addOre(monaziteOreGeneration);
+			
+			OreDictionary.registerOre("itemForcillium", itemForcillium);
 		}
 		catch (Exception e)
 		{
