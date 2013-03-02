@@ -25,12 +25,12 @@ public class ContainerProjector extends ContainerMFFS
 		{
 			for (int drawX = 0; drawX < 3; drawX++)
 			{
-				this.addSlotToContainer(new SlotHelper(this.tileEntity, drawX + drawY * 3 + 1, drawX * 18 + 116, drawY * 18 + 31));
+				this.addSlotToContainer(new SlotHelper(this.tileEntity, drawX + drawY * 3 + 1, drawX * 18 + 81, drawY * 18 + 31));
 			}
 		}
 
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 10, 91, 31));
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 11, 91, 51));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 10, 56, 41));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 11, 56, 61));
 
 		this.addPlayerInventory(player);
 	}

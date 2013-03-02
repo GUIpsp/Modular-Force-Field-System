@@ -11,10 +11,9 @@ import org.lwjgl.input.Keyboard;
 
 public class ItemModuleTranslate extends ItemModule
 {
-	public ItemModuleTranslate(int i)
+	public ItemModuleTranslate(int id)
 	{
-		super(i, "moduleTranslate");
+		super(id, "moduleTranslate");
 		this.setIconIndex(65);
-
 	}
 }

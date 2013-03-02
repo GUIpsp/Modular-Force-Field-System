@@ -26,31 +26,9 @@ public class GuiProjector extends GuiMFFS
 	}
 
 	@Override
-	protected void mouseClicked(int i, int j, int k)
-	{
-		super.mouseClicked(i, j, k);
-
-		int xMin = (this.width - this.xSize) / 2;
-		int yMin = (this.height - this.ySize) / 2;
-
-		int x = i - xMin;
-		int y = j - yMin;
-
-		if (this.editMode)
-		{
-			this.editMode = false;
-		}
-		else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19))
-		{
-			// NetworkHandlerClient.fireTileEntityEvent(this.projector, 10, "null");
-			this.editMode = true;
-		}
-	}
-
-	@Override
 	public void initGui()
 	{
-		this.textFieldPos = new Vector2(30, 76);
+		this.textFieldPos = new Vector2(100, 91);
 		super.initGui();
 	}
 
@@ -58,12 +36,11 @@ public class GuiProjector extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
-		this.drawTextWithTooltip("matrix", 120, 20, x, y);
-		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
+		this.drawTextWithTooltip("matrix", 75, 20, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 92, x, y);
 		this.textFieldFrequency.drawTextBox();
-		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 105, 4210752);
-		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
-
+		
+		this.drawTextWithTooltip("fortron", "%1: "+ElectricInfo.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 110, x, y);
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
@@ -72,6 +49,11 @@ public class GuiProjector extends GuiMFFS
 	{
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 
+		/**
+		 * Frequency Card Slot
+		 */
+		this.drawSlot(75, 88);
+		
 		/**
 		 * Matrix Slots
 		 */
@@ -98,18 +80,20 @@ public class GuiProjector extends GuiMFFS
 					type = SlotType.ARR_DOWN;
 				}
 
-				this.drawSlot(drawX * 18 + 115, drawY * 18 + 30, type);
+				this.drawSlot(drawX * 18 + 80, drawY * 18 + 30, type);
 			}
 		}
 
-		this.drawSlot(90, 30, SlotType.ARR_UP);
-		this.drawSlot(90, 50, SlotType.ARR_DOWN);
+		/**
+		 * Up and Down
+		 */
+		this.drawSlot(55, 40, SlotType.ARR_UP);
+		this.drawSlot(55, 60, SlotType.ARR_DOWN);
 
 		/**
-		 * Frequency Card Slot
+		 * Fortron Bar
 		 */
-		this.drawSlot(8, 73);
-		this.drawForce(8, 115, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
+		this.drawForce(8, 120, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 	}
 
 }

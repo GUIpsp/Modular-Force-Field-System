@@ -21,9 +21,9 @@ import universalelectricity.prefab.TranslationHelper;
 
 public abstract class ItemModule extends ItemMFFS implements IModule
 {
-	public ItemModule(int i, String name)
+	public ItemModule(int id, String name)
 	{
-		super(i, name);
+		super(id, name);
 	}
 
 	@Override
