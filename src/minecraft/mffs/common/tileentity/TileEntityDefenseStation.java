@@ -13,7 +13,7 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerAreaDefenseStation;
-import mffs.common.upgrade.ItemModuleDistance;
+import mffs.common.upgrade.ItemModuleScale;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
@@ -665,7 +665,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 				break;
 			case 2:
 			case 3:
-				if ((itemStack.getItem() instanceof ItemModuleDistance))
+				if ((itemStack.getItem() instanceof ItemModuleScale))
 				{
 					return true;
 				}

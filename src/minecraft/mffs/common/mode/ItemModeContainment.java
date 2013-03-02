@@ -5,13 +5,13 @@ import java.util.Set;
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.module.ItemModule;
-import mffs.common.module.ItemOptionAntibiotic;
-import mffs.common.module.ItemOptionCamoflage;
-import mffs.common.module.ItemOptionCutter;
-import mffs.common.module.ItemOptionDefenseStation;
-import mffs.common.module.ItemOptionFieldFusion;
-import mffs.common.module.ItemOptionJammer;
-import mffs.common.module.ItemOptionSponge;
+import mffs.common.module.ItemModuleAntibiotic;
+import mffs.common.module.ItemModuleCamoflage;
+import mffs.common.module.ItemModuleDisintegration;
+import mffs.common.module.ItemModuleDefenseStation;
+import mffs.common.module.ItemModuleFusion;
+import mffs.common.module.ItemModuleJammer;
+import mffs.common.module.ItemModuleSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
@@ -19,7 +19,7 @@ public class ItemModeContainment extends ItemProjectorMode
 {
 	public ItemModeContainment(int i)
 	{
-		super(i, "moduleContainment");
+		super(i, "modeContainment");
 		this.setIconIndex(54);
 	}
 
@@ -117,31 +117,31 @@ public class ItemModeContainment extends ItemProjectorMode
 
 	public static boolean supportsOption(ItemModule item)
 	{
-		if ((item instanceof ItemOptionCamoflage))
+		if ((item instanceof ItemModuleCamoflage))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionDefenseStation))
+		if ((item instanceof ItemModuleDefenseStation))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldFusion))
+		if ((item instanceof ItemModuleFusion))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionJammer))
+		if ((item instanceof ItemModuleJammer))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionAntibiotic))
+		if ((item instanceof ItemModuleAntibiotic))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionSponge))
+		if ((item instanceof ItemModuleSponge))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCutter))
+		if ((item instanceof ItemModuleDisintegration))
 		{
 			return true;
 		}
@@ -152,31 +152,31 @@ public class ItemModeContainment extends ItemProjectorMode
 	@Override
 	public boolean supportsOption(Item item)
 	{
-		if ((item instanceof ItemOptionCamoflage))
+		if ((item instanceof ItemModuleCamoflage))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionDefenseStation))
+		if ((item instanceof ItemModuleDefenseStation))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldFusion))
+		if ((item instanceof ItemModuleFusion))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionJammer))
+		if ((item instanceof ItemModuleJammer))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionAntibiotic))
+		if ((item instanceof ItemModuleAntibiotic))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionSponge))
+		if ((item instanceof ItemModuleSponge))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCutter))
+		if ((item instanceof ItemModuleDisintegration))
 		{
 			return true;
 		}

@@ -23,8 +23,8 @@ import mffs.common.container.ContainerProjector;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
 import mffs.common.module.ItemModule;
-import mffs.common.module.ItemOptionFieldFusion;
-import mffs.common.module.ItemOptionJammer;
+import mffs.common.module.ItemModuleFusion;
+import mffs.common.module.ItemModuleJammer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -61,8 +61,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	private String forceFieldTextureIDs = "-76/-76/-76/-76/-76/-76";
 	private String forceFieldTextureFile = "/terrain.png";
-
-	private boolean burnout = false;
 
 	private int[] focusmatrix = { 0, 0, 0, 0 };
 	private int forceFieldCamoblockID;
@@ -246,30 +244,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		this.linkPower = linkPower;
 	}
 
-	public void projectorBurnout()
-	{
-		setBurnedOut(true);
-	}
-
-	public boolean isBurnout()
-	{
-		return this.burnout;
-	}
-
-	@Override
-	public void setBurnedOut(boolean b)
-	{
-		this.burnout = b;
-		// NetworkHandlerServer.updateTileEntityField(this, "burnout");
-	}
-
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
 
 		this.accessType = nbttagcompound.getInteger("accessType");
-		this.burnout = nbttagcompound.getBoolean("burnout");
 		this.forcefieldblock_meta = nbttagcompound.getShort("forceFieldblockMeta");
 	}
 
@@ -279,124 +259,27 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		super.writeToNBT(nbttagcompound);
 
 		nbttagcompound.setInteger("accessType", this.accessType);
-		nbttagcompound.setBoolean("burnout", this.burnout);
 		nbttagcompound.setShort("forceFieldblockMeta", this.forcefieldblock_meta);
 	}
 
 	@Override
 	public void onInventoryChanged()
 	{
+		this.setActive(false);
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
-	/*
-	 * public void checkslots() { if (hasValidTypeMod()) { if (getProjectorType() !=
-	 * ProjectorTypes.typeFromItem(getModule()).ProTyp) { } if (getforcefieldblock_meta() !=
-	 * getModule().getForceFieldType().ordinal()) {
-	 * setforcefieldblock_meta(getModule().getForceFieldType().ordinal()); }
-	 * this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord); } else { if
-	 * (getProjectorType() != 0) { } this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord,
-	 * this.zCoord); }
-	 * 
-	 * if (hasValidTypeMod()) { for (int place = 7; place < 11; place++) { if (getStackInSlot(place)
-	 * != null) { if (getStackInSlot(place).getItem() == ModularForceFieldSystem.itemFocusMatix) {
-	 * switch (ProjectorTypes.typeFromItem(getModule()).ProTyp) { case 6: this.focusmatrix[(place -
-	 * 7)] = (getStackInSlot(place).stackSize + 1); break; case 7: this.focusmatrix[(place - 7)] =
-	 * (getStackInSlot(place).stackSize + 2); break; default: this.focusmatrix[(place - 7)] =
-	 * getStackInSlot(place).stackSize; break; } } } else { switch
-	 * (ProjectorTypes.typeFromItem(getModule()).ProTyp) { case 6: this.focusmatrix[(place - 7)] =
-	 * 1; break; case 7: this.focusmatrix[(place - 7)] = 2; break; default: this.focusmatrix[(place
-	 * - 7)] = 0; } }
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * if (getStackInSlot(11) != null) { if (getStackInSlot(11).itemID < 4095) {
-	 * 
-	 * String textureFile; String forceFieldTextureTemp;
-	 * 
-	 * int[] index = new int[6]; for (int side = 0; side < 6; side++) { index[side] =
-	 * Block.blocksList[getStackInSlot(11).itemID].getBlockTextureFromSideAndMetadata(side,
-	 * getStackInSlot(11).getItemDamage()); } forceFieldTextureTemp = index[0] + "/" + index[1] +
-	 * "/" + index[2] + "/" + index[3] + "/" + index[4] + "/" + index[5]; textureFile =
-	 * Block.blocksList[getStackInSlot(11).itemID].getTextureFile();
-	 * 
-	 * if ((!forceFieldTextureTemp.equalsIgnoreCase(this.forceFieldTextureIDs)) ||
-	 * (!this.forceFieldTextureFile.equalsIgnoreCase(getForceFieldTextureFile()))) { if
-	 * (getStackInSlot(11).getItem() == Item.bucketLava) {
-	 * setForceFieldTextureID("237/237/239/254/255/255"); } if (getStackInSlot(11).getItem() ==
-	 * Item.bucketWater) { setForceFieldTextureID("205/205/207/222/223/223"); } if
-	 * ((getStackInSlot(11).getItem() != Item.bucketLava) && (getStackInSlot(11).getItem() !=
-	 * Item.bucketWater)) { setForceFieldTextureID(forceFieldTextureTemp); }
-	 * setForceFieldCamoblockMeta(getStackInSlot(11).getItemDamage());
-	 * setForceFieldCamoblockID(getStackInSlot(11).itemID); setForceFieldTextureFile(textureFile);
-	 * updateForceFieldTexture(); }
-	 * 
-	 * } else { // dropPlugins(11, this); }
-	 * 
-	 * } else if ((!this.forceFieldTextureIDs.equalsIgnoreCase("-76/-76/-76/-76/-76/-76")) ||
-	 * (getForceFieldCamoblockID() != -1)) { setForceFieldCamoblockMeta(0);
-	 * setForceFieldCamoblockID(-1); setForceFieldTextureID("-76/-76/-76/-76/-76/-76");
-	 * setForceFieldTextureFile("/terrain.png"); updateForceFieldTexture(); }
-	 * 
-	 * if ((hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) &&
-	 * (getforcefieldblock_meta() != ForceFieldType.Camouflage.ordinal())) {
-	 * setforcefieldblock_meta((short) ForceFieldType.Camouflage.ordinal()); }
-	 * 
-	 * if ((hasOption(ModularForceFieldSystem.itemOptionShock, true)) && (getforcefieldblock_meta()
-	 * != ForceFieldType.Zapper.ordinal())) { setforcefieldblock_meta((short)
-	 * ForceFieldType.Zapper.ordinal()); }
-	 * 
-	 * if (hasOption(ModularForceFieldSystem.itemOptionFieldFusion, true)) { if
-	 * (!FrequencyGridOld.getWorldMap
-	 * (this.worldObj).getFieldFusion().containsKey(Integer.valueOf(getDeviceID()))) {
-	 * FrequencyGridOld
-	 * .getWorldMap(this.worldObj).getFieldFusion().put(Integer.valueOf(getDeviceID()), this); } }
-	 * else if
-	 * (FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().containsKey(Integer.valueOf
-	 * (getDeviceID()))) {
-	 * FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion().remove(Integer
-	 * .valueOf(getDeviceID())); }
-	 * 
-	 * if (hasOption(ModularForceFieldSystem.itemOptionJammer, false)) { if
-	 * (!FrequencyGridOld.getWorldMap
-	 * (this.worldObj).getJammer().containsKey(Integer.valueOf(getDeviceID()))) {
-	 * FrequencyGridOld.getWorldMap(this.worldObj).getJammer().put(Integer.valueOf(getDeviceID()),
-	 * this); } } else if
-	 * (FrequencyGridOld.getWorldMap(this.worldObj).getJammer().containsKey(Integer
-	 * .valueOf(getDeviceID()))) {
-	 * FrequencyGridOld.getWorldMap(this.worldObj).getJammer().remove(Integer
-	 * .valueOf(getDeviceID())); }
-	 * 
-	 * if (hasValidTypeMod()) { ItemModule modType = getModule(); /* if
-	 * (!modType.supportsStrength()) { dropPlugins(6, this); } if (!modType.supportsDistance()) {
-	 * dropPlugins(5, this); } if (!modType.supportsMatrix()) { dropPlugins(7, this); dropPlugins(8,
-	 * this); dropPlugins(9, this); dropPlugins(10, this); }
-	 * 
-	 * for (int spot = 2; spot <= 4; spot++) { if ((getStackInSlot(spot) != null) &&
-	 * (!modType.supportsOption(getStackInSlot(spot).getItem()))) { dropPlugins(spot, this); }
-	 * 
-	 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-	 * ItemOptionJammer)) && (isPowersourceItem())) { dropPlugins(spot, this); }
-	 * 
-	 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-	 * ItemOptionFieldFusion)) && (isPowersourceItem())) { dropPlugins(spot, this); }
-	 * 
-	 * if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-	 * ItemOptionDefenseStation)) && (isPowersourceItem())) { dropPlugins(spot, this); }
-	 * 
-	 * }
-	 * 
-	 * if ((getStackInSlot(12) != null) && ((getStackInSlot(12).getItem() instanceof
-	 * ItemCardSecurityLink)) && (isPowersourceItem())) { dropPlugins(12, this); }
-	 * 
-	 * if (!hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) { dropPlugins(11, this);
-	 * }
-	 * 
-	 * } else { for (int spot = 2; spot <= 10; spot++) { // dropPlugins(spot, this); } } }
-	 */
+	@Override
+	public void setActive(boolean flag)
+	{
+		super.setActive(flag);
 
+		if (!this.isActive())
+		{
+			this.destroyField();
+		}
+	}
+	
 	private void updateForceFieldTexture()
 	{
 		if ((isActive()) && (hasModule(ModularForceFieldSystem.itemOptionCamouflage, true)))
@@ -481,12 +364,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		for (IModule opt : getModules())
 		{
-			if (((opt instanceof ItemOptionJammer)) && (((ItemOptionJammer) opt).CheckJammerinfluence(vector, this.worldObj, this)))
+			if (((opt instanceof ItemModuleJammer)) && (((ItemModuleJammer) opt).checkJammerinfluence(vector, this.worldObj, this)))
 			{
 				return false;
 			}
 
-			if (((opt instanceof ItemOptionFieldFusion)) && (((ItemOptionFieldFusion) opt).checkFieldFusioninfluence(vector, this.worldObj, this)))
+			if (((opt instanceof ItemModuleFusion)) && (((ItemModuleFusion) opt).checkFieldFusioninfluence(vector, this.worldObj, this)))
 			{
 				return true;
 			}

@@ -37,20 +37,20 @@ import mffs.common.mode.ItemModeTube;
 import mffs.common.mode.ItemModeWall;
 import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.ItemModule;
-import mffs.common.module.ItemOptionAntibiotic;
-import mffs.common.module.ItemOptionCamoflage;
-import mffs.common.module.ItemOptionCutter;
-import mffs.common.module.ItemOptionDefenseStation;
-import mffs.common.module.ItemOptionFieldFusion;
-import mffs.common.module.ItemOptionFieldManipulator;
-import mffs.common.module.ItemOptionJammer;
-import mffs.common.module.ItemOptionShock;
-import mffs.common.module.ItemOptionSponge;
+import mffs.common.module.ItemModuleAntibiotic;
+import mffs.common.module.ItemModuleCamoflage;
+import mffs.common.module.ItemModuleDisintegration;
+import mffs.common.module.ItemModuleDefenseStation;
+import mffs.common.module.ItemModuleFusion;
+import mffs.common.module.ItemModuleManipulator;
+import mffs.common.module.ItemModuleJammer;
+import mffs.common.module.ItemModuleShock;
+import mffs.common.module.ItemModuleSponge;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.upgrade.ItemModuleDistance;
-import mffs.common.upgrade.ItemModuleStrength;
+import mffs.common.upgrade.ItemModuleScale;
+import mffs.common.upgrade.ItemModuleTranslate;
 import mffs.common.upgrade.ItemProjectorFocusMatrix;
 import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
@@ -247,8 +247,8 @@ public class ModularForceFieldSystem
 			blockSecurityStation = new BlockSecurityStation(MFFSConfiguration.block_SecurityStation_ID, 16);
 			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
-			itemModuleDistance = new ItemModuleDistance(MFFSConfiguration.item_AltDistance_ID);
-			itemModuleStrength = new ItemModuleStrength(MFFSConfiguration.item_AltStrength_ID);
+			itemModuleDistance = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
+			itemModuleStrength = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
 
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
 			itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
@@ -263,15 +263,15 @@ public class ModularForceFieldSystem
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.item_ModTube_ID);
 			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.item_ModContainment_ID);
 
-			itemOptionShock = new ItemOptionShock(MFFSConfiguration.item_OptTouchHurt_ID);
-			itemOptionSponge = new ItemOptionSponge(MFFSConfiguration.item_OptSponge_ID);
-			itemOptionFieldManipulator = new ItemOptionFieldManipulator(MFFSConfiguration.item_OptManipulator_ID);
-			itemOptionCutter = new ItemOptionCutter(MFFSConfiguration.item_OptBlockBreaker_ID);
-			itemOptionDefenseeStation = new ItemOptionDefenseStation(MFFSConfiguration.item_OptDefense_ID);
-			itemOptionAntibiotic = new ItemOptionAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
-			itemOptionJammer = new ItemOptionJammer(MFFSConfiguration.item_OptJammer_ID);
-			itemOptionCamouflage = new ItemOptionCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
-			itemOptionFieldFusion = new ItemOptionFieldFusion(MFFSConfiguration.item_OptFusion_ID);
+			itemOptionShock = new ItemModuleShock(MFFSConfiguration.item_OptTouchHurt_ID);
+			itemOptionSponge = new ItemModuleSponge(MFFSConfiguration.item_OptSponge_ID);
+			itemOptionFieldManipulator = new ItemModuleManipulator(MFFSConfiguration.item_OptManipulator_ID);
+			itemOptionCutter = new ItemModuleDisintegration(MFFSConfiguration.item_OptBlockBreaker_ID);
+			itemOptionDefenseeStation = new ItemModuleDefenseStation(MFFSConfiguration.item_OptDefense_ID);
+			itemOptionAntibiotic = new ItemModuleAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
+			itemOptionJammer = new ItemModuleJammer(MFFSConfiguration.item_OptJammer_ID);
+			itemOptionCamouflage = new ItemModuleCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
+			itemOptionFieldFusion = new ItemModuleFusion(MFFSConfiguration.item_OptFusion_ID);
 
 			itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
 			itemCardPowerLink = new ItemCardPowerLink(MFFSConfiguration.item_CardPowerLink_ID);

@@ -7,16 +7,15 @@ import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemOptionJammer extends ItemModule implements IChecksOnAll
+public class ItemModuleJammer extends ItemModule
 {
-
-	public ItemOptionJammer(int i)
+	public ItemModuleJammer(int i)
 	{
-		super(i, "optionJammer");
+		super(i, "moduleJammer");
 		setIconIndex(41);
 	}
 
-	public boolean CheckJammerinfluence(Vector3 point, World world, TileEntityProjector Projector)
+	public boolean checkJammerinfluence(Vector3 point, World world, TileEntityProjector projector)
 	{
 		Map<Integer, TileEntityProjector> InnerMap = null;
 		InnerMap = FrequencyGridOld.getWorldMap(world).getJammer();
@@ -33,7 +32,7 @@ public class ItemOptionJammer extends ItemModule implements IChecksOnAll
 				{
 					if ((position.intX() == point.intX()) && (position.intY() == point.intY()) && (position.intZ() == point.intZ()))
 					{
-						Projector.projectorBurnout();
+						projector.onDisable(20 * 10);
 						return true;
 					}
 				}

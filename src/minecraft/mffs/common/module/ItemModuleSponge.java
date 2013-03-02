@@ -5,12 +5,11 @@ import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemOptionSponge extends ItemModule implements IInteriorCheck
+public class ItemModuleSponge extends ItemModule implements IInteriorCheck
 {
-
-	public ItemOptionSponge(int i)
+	public ItemModuleSponge(int i)
 	{
-		super(i, "optionSponge");
+		super(i, "moduleSponge");
 		setIconIndex(35);
 	}
 

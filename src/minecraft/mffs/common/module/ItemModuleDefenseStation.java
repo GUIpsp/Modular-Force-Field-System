@@ -15,12 +15,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemOptionDefenseStation extends ItemModule
+public class ItemModuleDefenseStation extends ItemModule
 {
-
-	public ItemOptionDefenseStation(int i)
+	public ItemModuleDefenseStation(int i)
 	{
-		super(i, "optionDefenseStation");
+		super(i, "moduleDefenseStation");
 		setIconIndex(39);
 	}
 

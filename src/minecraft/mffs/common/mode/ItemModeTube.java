@@ -6,22 +6,21 @@ import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemModule;
-import mffs.common.module.ItemOptionCamoflage;
-import mffs.common.module.ItemOptionCutter;
-import mffs.common.module.ItemOptionFieldFusion;
-import mffs.common.module.ItemOptionFieldManipulator;
-import mffs.common.module.ItemOptionJammer;
-import mffs.common.module.ItemOptionShock;
-import mffs.common.module.ItemOptionSponge;
+import mffs.common.module.ItemModuleCamoflage;
+import mffs.common.module.ItemModuleDisintegration;
+import mffs.common.module.ItemModuleFusion;
+import mffs.common.module.ItemModuleManipulator;
+import mffs.common.module.ItemModuleJammer;
+import mffs.common.module.ItemModuleShock;
+import mffs.common.module.ItemModuleSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
 public class ItemModeTube extends ItemProjectorMode
 {
-
 	public ItemModeTube(int i)
 	{
-		super(i, "moduleTube");
+		super(i, "modeTube");
 		setIconIndex(51);
 	}
 
@@ -157,31 +156,31 @@ public class ItemModeTube extends ItemProjectorMode
 
 	public static boolean supportsOption(ItemModule item)
 	{
-		if ((item instanceof ItemOptionCamoflage))
+		if ((item instanceof ItemModuleCamoflage))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldFusion))
+		if ((item instanceof ItemModuleFusion))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldManipulator))
+		if ((item instanceof ItemModuleManipulator))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionJammer))
+		if ((item instanceof ItemModuleJammer))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionSponge))
+		if ((item instanceof ItemModuleSponge))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCutter))
+		if ((item instanceof ItemModuleDisintegration))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionShock))
+		if ((item instanceof ItemModuleShock))
 		{
 			return true;
 		}
@@ -192,31 +191,31 @@ public class ItemModeTube extends ItemProjectorMode
 	@Override
 	public boolean supportsOption(Item item)
 	{
-		if ((item instanceof ItemOptionCamoflage))
+		if ((item instanceof ItemModuleCamoflage))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldFusion))
+		if ((item instanceof ItemModuleFusion))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionFieldManipulator))
+		if ((item instanceof ItemModuleManipulator))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionJammer))
+		if ((item instanceof ItemModuleJammer))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionSponge))
+		if ((item instanceof ItemModuleSponge))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCutter))
+		if ((item instanceof ItemModuleDisintegration))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionShock))
+		if ((item instanceof ItemModuleShock))
 		{
 			return true;
 		}

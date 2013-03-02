@@ -15,12 +15,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemOptionAntibiotic extends ItemModule
+public class ItemModuleAntibiotic extends ItemModule
 {
-
-	public ItemOptionAntibiotic(int i)
+	public ItemModuleAntibiotic(int i)
 	{
-		super(i, "optionAntibiotic");
+		super(i, "moduleAntibiotic");
 		setIconIndex(40);
 	}
 

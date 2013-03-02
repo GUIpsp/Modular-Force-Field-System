@@ -7,10 +7,9 @@ import mffs.api.PointXYZ;
 
 public class ItemModeDiagonalWall extends ItemModeWall
 {
-
 	public ItemModeDiagonalWall(int i)
 	{
-		super(i);
+		super(i, "modeDiagonalWall");
 		setIconIndex(56);
 	}
 

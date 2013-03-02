@@ -10,11 +10,11 @@ import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemOptionFieldFusion extends ItemModule implements IInteriorCheck
+public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 {
-	public ItemOptionFieldFusion(int i)
+	public ItemModuleFusion(int i)
 	{
-		super(i, "optionFieldFusion");
+		super(i, "moduleFusion");
 		setIconIndex(43);
 	}
 

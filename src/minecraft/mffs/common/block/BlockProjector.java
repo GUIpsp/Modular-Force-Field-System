@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 
 public class BlockProjector extends BlockMFFSMachine
 {
-
 	public BlockProjector(int id)
 	{
 		super(id, "forceFieldProjector");
@@ -31,7 +30,7 @@ public class BlockProjector extends BlockMFFSMachine
 	{
 		TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
 
-		if (tileentity.isBurnout())
+		if (tileentity.isDisabled())
 		{
 			return false;
 		}

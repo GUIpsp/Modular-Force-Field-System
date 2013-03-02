@@ -79,14 +79,14 @@ public class GuiProjector extends GuiMFFS
 		{
 			for (int drawY = 0; drawY < 3; drawY++)
 			{
-				this.drawSlot(drawX * 18 + 61, drawY * 18 + 30);
+				this.drawSlot(drawX * 18 + 115, drawY * 18 + 30);
 			}
 		}
 
 		/**
 		 * Frequency Card Slot
 		 */
-		//this.drawSlot(8, 73);
+		this.drawSlot(8, 73);
 		
 		this.drawForce(8, 115, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 

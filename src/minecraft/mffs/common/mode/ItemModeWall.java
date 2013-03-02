@@ -5,9 +5,9 @@ import java.util.Set;
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.module.ItemModule;
-import mffs.common.module.ItemOptionCamoflage;
-import mffs.common.module.ItemOptionCutter;
-import mffs.common.module.ItemOptionShock;
+import mffs.common.module.ItemModuleCamoflage;
+import mffs.common.module.ItemModuleDisintegration;
+import mffs.common.module.ItemModuleShock;
 import net.minecraft.item.Item;
 
 public class ItemModeWall extends ItemProjectorMode
@@ -20,7 +20,7 @@ public class ItemModeWall extends ItemProjectorMode
 	
 	public ItemModeWall(int i)
 	{
-		this(i, "moduleWall");
+		this(i, "modeWall");
 	}
 
 	@Override
@@ -106,15 +106,15 @@ public class ItemModeWall extends ItemProjectorMode
 
 	public static boolean supportsOption(ItemModule item)
 	{
-		if ((item instanceof ItemOptionCutter))
+		if ((item instanceof ItemModuleDisintegration))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCamoflage))
+		if ((item instanceof ItemModuleCamoflage))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionShock))
+		if ((item instanceof ItemModuleShock))
 		{
 			return true;
 		}
@@ -125,15 +125,15 @@ public class ItemModeWall extends ItemProjectorMode
 	@Override
 	public boolean supportsOption(Item item)
 	{
-		if ((item instanceof ItemOptionCutter))
+		if ((item instanceof ItemModuleDisintegration))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionCamoflage))
+		if ((item instanceof ItemModuleCamoflage))
 		{
 			return true;
 		}
-		if ((item instanceof ItemOptionShock))
+		if ((item instanceof ItemModuleShock))
 		{
 			return true;
 		}

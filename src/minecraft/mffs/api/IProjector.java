@@ -6,17 +6,16 @@ import java.util.Set;
 import mffs.common.module.IModule;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import universalelectricity.core.implement.IDisableable;
 import universalelectricity.prefab.implement.IRotatable;
 
-public abstract interface IProjector extends IInventory, IRotatable
+public abstract interface IProjector extends IInventory, IRotatable, IDisableable
 {
 	public int countItemsInSlot(Slots paramSlots);
 
 	public int getDeviceID();
 
 	public Set getInteriorPoints();
-
-	public void setBurnedOut(boolean paramBoolean);
 
 	public boolean isActive();
 
