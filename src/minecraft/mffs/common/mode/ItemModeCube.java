@@ -53,20 +53,20 @@ public class ItemModeCube extends ItemProjectorMode
 
 		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
 		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
-
+		
 		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
 		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
 		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(ForgeDirection.UP));
 		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
-		for (int x = -xDisplaceNeg; x < zDisplacePos + 1; x++)
+		for (int x = -xDisplaceNeg; x < xDisplacePos + 1; x++)
 		{
 			for (int z = -zDisplaceNeg; z < zDisplacePos + 1; z++)
 			{
 				for (int y = -yDisplaceNeg; y <= yDisplacePos; y++)
 				{
-					if (y == -yDisplaceNeg || y == yDisplacePos || x == -xDisplaceNeg || x == zDisplacePos || z == -zDisplaceNeg || z == zDisplacePos)
+					if (y == -yDisplaceNeg || y == yDisplacePos || x == -xDisplaceNeg || x == xDisplacePos || z == -zDisplaceNeg || z == zDisplacePos)
 					{
 						blockDef.add(new Vector3(x, y, z));
 					}

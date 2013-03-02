@@ -82,6 +82,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		super.initiate();
 		this.calculateForceField();
+		this.destroyField();
 	}
 
 	@Override
@@ -973,14 +974,13 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			case DOWN:
 				return new int[] { 7, 9 };
 			case NORTH:
-				return new int[] { 6 };
-			case SOUTH:
-				return new int[] { 4 };
-			case WEST:
 				return new int[] { 8 };
-			case EAST:
+			case SOUTH:
 				return new int[] { 2 };
-
+			case WEST:
+				return new int[] { 4 };
+			case EAST:
+				return new int[] { 6 };
 		}
 	}
 }
