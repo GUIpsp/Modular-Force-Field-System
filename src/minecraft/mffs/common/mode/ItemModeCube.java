@@ -2,10 +2,7 @@ package mffs.common.mode;
 
 import java.util.Set;
 
-import universalelectricity.core.vector.Vector3;
-
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionAntibiotic;
@@ -18,7 +15,8 @@ import mffs.common.module.ItemOptionJammer;
 import mffs.common.module.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 
 public class ItemModeCube extends ItemProjectorMode
 {
@@ -52,15 +50,16 @@ public class ItemModeCube extends ItemProjectorMode
 	{
 		TileEntityProjector tileEntity = (TileEntityProjector) projector;
 		
-		//TODO: Make this relative to the direction the projector is facing.
-		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 6);
-		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 4);
+		ForgeDirection direction = tileEntity.getDirection();
 		
+		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, getSlotBasedOnDirection(Vector3.getOrientationFromSide(direction,  ForgeDirection.NORTH)));
+		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, getSlotBasedOnDirection(Vector3.getOrientationFromSide(direction,ForgeDirection.SOUTH)));
+		
+		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, getSlotBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, getSlotBasedOnDirection(Vector3.getOrientationFromSide(direction,  ForgeDirection.EAST)));
+
 		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 1,3);
 		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 7,9);
-
-		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 2);
-		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 8);
 
 		for (int x = - xDisplaceNeg; x < zDisplacePos + 1; x++)
 		{
@@ -201,6 +200,23 @@ public class ItemModeCube extends ItemProjectorMode
 		 * == -radius) || (y1 == yTop) || (z1 == -radius) || (z1 == radius)) { blockDef.add(new
 		 * Vector3(x1, y1, z1)); } else { blockInterior.add(new Vector3(x1, y1, z1)); } } } }
 		 */
+	}
+	
+	public static int getSlotBasedOnDirection(ForgeDirection direction)
+	{
+		switch(direction)
+		{
+		default:
+			return -1;
+		case NORTH:
+			return 6;
+		case SOUTH:
+			return 4;
+		case WEST:
+			return 8;
+		case EAST:
+			return 2;
+		}
 	}
 
 	public static boolean supportsOption(ItemModule item)
