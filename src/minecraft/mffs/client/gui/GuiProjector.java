@@ -57,6 +57,15 @@ public class GuiProjector extends GuiMFFS
 		/**
 		 * Matrix Slots
 		 */
+		
+		//Mode
+		this.drawSlot(1 * 18 + 80, 1 * 18 + 30);
+
+		//Up
+		this.drawSlot(1 * 18 + 80, 0 * 18 + 30,  SlotType.ARR_UP);
+		this.drawSlot(1 * 18 + 80, 0 * 18 + 30,  SlotType.ARR_UP);
+
+		/*
 		for (int drawX = 0; drawX < 3; drawX++)
 		{
 			for (int drawY = 0; drawY < 3; drawY++)
@@ -82,7 +91,7 @@ public class GuiProjector extends GuiMFFS
 
 				this.drawSlot(drawX * 18 + 80, drawY * 18 + 30, type);
 			}
-		}
+		}*/
 
 		/**
 		 * Up and Down

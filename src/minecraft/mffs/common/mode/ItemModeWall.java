@@ -3,12 +3,15 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleCamoflage;
 import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleShock;
+import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 
 public class ItemModeWall extends ItemProjectorMode
 {
@@ -17,7 +20,7 @@ public class ItemModeWall extends ItemProjectorMode
 		super(i, name);
 		this.setIconIndex(49);
 	}
-	
+
 	public ItemModeWall(int i)
 	{
 		this(i, "modeWall");
@@ -42,62 +45,30 @@ public class ItemModeWall extends ItemProjectorMode
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs, Set interior)
+	public void calculateField(IProjector projector, Set fieldDefinition, Set interior)
 	{
-		int tpx = 0;
-		int tpy = 0;
-		int tpz = 0;
+		TileEntityProjector tileEntity = (TileEntityProjector) projector;
 
-		for (int x1 = 0 - projector.countItemsInSlot(IProjector.Slots.FocusLeft); x1 < projector.countItemsInSlot(IProjector.Slots.FocusRight) + 1; x1++)
+		ForgeDirection direction = tileEntity.getDirection();
+
+		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+
+		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
+
+		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+
+		for (int x = -xDisplaceNeg; x < xDisplacePos + 1; x++)
 		{
-			for (int z1 = 0 - projector.countItemsInSlot(IProjector.Slots.FocusDown); z1 < projector.countItemsInSlot(IProjector.Slots.FocusUp) + 1; z1++)
+			for (int z = -zDisplaceNeg; z < zDisplacePos + 1; z++)
 			{
-				for (int y1 = 1; y1 < projector.countItemsInSlot(IProjector.Slots.Strength) + 1 + 1; y1++)
+				for (int y = -yDisplaceNeg; y <= yDisplacePos; y++)
 				{
-					if (projector.getDirection().ordinal() == 0)
+					if (((projector.getDirection().ordinal() != 0) && (projector.getDirection().ordinal() != 1)) || (((x == 0) && (z != 0)) || ((z == 0) && (x != 0)) || ((z == 0) && (x == 0)) || (((projector.getDirection().ordinal() != 2) && (projector.getDirection().ordinal() != 3)) || (((x == 0) && (y != 0)) || ((y == 0) && (x != 0)) || ((y == 0) && (x == 0)) || (((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)) && (((z == 0) && (y != 0)) || ((y == 0) && (z != 0)) || ((y == 0) && (z == 0))))))))
 					{
-						tpy = y1 - y1 - y1 - projector.countItemsInSlot(IProjector.Slots.Distance);
-						tpx = x1;
-						tpz = z1 - z1 - z1;
-					}
-
-					if (projector.getDirection().ordinal() == 1)
-					{
-						tpy = y1 + projector.countItemsInSlot(IProjector.Slots.Distance);
-						tpx = x1;
-						tpz = z1 - z1 - z1;
-					}
-
-					if (projector.getDirection().ordinal() == 2)
-					{
-						tpz = y1 - y1 - y1 - projector.countItemsInSlot(IProjector.Slots.Distance);
-						tpx = x1 - x1 - x1;
-						tpy = z1;
-					}
-
-					if (projector.getDirection().ordinal() == 3)
-					{
-						tpz = y1 + projector.countItemsInSlot(IProjector.Slots.Distance);
-						tpx = x1;
-						tpy = z1;
-					}
-
-					if (projector.getDirection().ordinal() == 4)
-					{
-						tpx = y1 - y1 - y1 - projector.countItemsInSlot(IProjector.Slots.Distance);
-						tpz = x1;
-						tpy = z1;
-					}
-					if (projector.getDirection().ordinal() == 5)
-					{
-						tpx = y1 + projector.countItemsInSlot(IProjector.Slots.Distance);
-						tpz = x1 - x1 - x1;
-						tpy = z1;
-					}
-
-					if (((projector.getDirection().ordinal() != 0) && (projector.getDirection().ordinal() != 1)) || (((tpx == 0) && (tpz != 0)) || ((tpz == 0) && (tpx != 0)) || ((tpz == 0) && (tpx == 0)) || (((projector.getDirection().ordinal() != 2) && (projector.getDirection().ordinal() != 3)) || (((tpx == 0) && (tpy != 0)) || ((tpy == 0) && (tpx != 0)) || ((tpy == 0) && (tpx == 0)) || (((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)) && (((tpz == 0) && (tpy != 0)) || ((tpy == 0) && (tpz != 0)) || ((tpy == 0) && (tpz == 0))))))))
-					{
-						ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
+						fieldDefinition.add(new Vector3(x, y, z));
 					}
 				}
 			}

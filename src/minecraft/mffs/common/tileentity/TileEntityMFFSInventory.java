@@ -107,15 +107,6 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		return 64;
 	}
 
-	public int countItemsInSlot(IProjector.Slots slt)
-	{
-		if (getStackInSlot(slt.slot) != null)
-		{
-			return getStackInSlot(slt.slot).stackSize;
-		}
-		return 0;
-	}
-
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
 		return true;

@@ -52,7 +52,7 @@ public class ItemModuleAntibiotic extends ItemModule
 
 				if (((entityLiving instanceof EntityMob)) || ((entityLiving instanceof EntitySlime)) || ((entityLiving instanceof EntityGhast)))
 				{
-					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.countItemsInSlot(IProjector.Slots.Distance) + 4))
+					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{

@@ -43,7 +43,7 @@ public class ItemModeContainment extends ItemProjectorMode
 
 	@Override
 	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
-	{
+	{/*
 		int tpx = 0;
 		int tpy = 0;
 		int tpz = 0;
@@ -112,7 +112,7 @@ public class ItemModeContainment extends ItemProjectorMode
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	public static boolean supportsOption(ItemModule item)

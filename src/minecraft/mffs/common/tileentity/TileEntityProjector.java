@@ -439,49 +439,14 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		super.invalidate();
 	}
 
-	public int forcePowerNeed(int factor)
+	public int fortronRequest()
 	{
 		if (!this.calculatedField.isEmpty())
 		{
-			return this.calculatedField.size() * MFFSConfiguration.forcefieldblockcost;
+			return this.calculatedField.size() * MFFSConfiguration.forceFieldBlockCost;
 		}
 
-		int forcepower = 0;
-		int blocks = 0;
-
-		int tmplength = 1;
-
-		if (countItemsInSlot(IProjector.Slots.Strength) != 0)
-		{
-			tmplength = countItemsInSlot(IProjector.Slots.Strength);
-		}
-
-		switch (ProjectorTypes.typeFromItem(this.getMode()).ordinal())
-		{
-			case 1:
-				blocks = (countItemsInSlot(IProjector.Slots.FocusDown) + countItemsInSlot(IProjector.Slots.FocusLeft) + countItemsInSlot(IProjector.Slots.FocusRight) + countItemsInSlot(IProjector.Slots.FocusUp) + 1) * tmplength;
-
-				break;
-			case 2:
-				blocks = (countItemsInSlot(IProjector.Slots.FocusDown) + countItemsInSlot(IProjector.Slots.FocusUp) + 1) * (countItemsInSlot(IProjector.Slots.FocusLeft) + countItemsInSlot(IProjector.Slots.FocusRight) + 1);
-
-				break;
-			case 3:
-				blocks = ((countItemsInSlot(IProjector.Slots.Distance) + 2 + countItemsInSlot(IProjector.Slots.Distance) + 2) * 4 + 4) * (countItemsInSlot(IProjector.Slots.Strength) + 1);
-
-				break;
-			case 4:
-			case 5:
-				blocks = countItemsInSlot(IProjector.Slots.Distance) * countItemsInSlot(IProjector.Slots.Distance) * 6;
-		}
-
-		forcepower = blocks * MFFSConfiguration.forcefieldblockcost;
-		if (factor != 1)
-		{
-			forcepower = forcepower * MFFSConfiguration.forcefieldblockcreatemodifier + forcepower * 5;
-		}
-
-		return forcepower;
+		return 0;
 	}
 
 	@Override
@@ -532,12 +497,11 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		ItemStack returnStack = new ItemStack((Item) module, 0);
 
-		for (IModule comparedModule : getModules())
+		for (ItemStack comparedModule : getModuleStacks())
 		{
-			if (comparedModule == module)
+			if (comparedModule.getItem() == module)
 			{
-				// TODO:This is wrong.
-				returnStack.stackSize++;
+				returnStack.stackSize += comparedModule.stackSize;
 			}
 		}
 
@@ -574,6 +538,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		}
 
 		return count;
+	}
+
+	@Override
+	public int getModuleCount(IModule module, ForgeDirection direction)
+	{
+		return this.getModuleCount(module, this.getSlotsBasedOnDirection(direction));
 	}
 
 	@Override

@@ -55,64 +55,64 @@ public class ItemModeTube extends ItemProjectorMode
 		int y_offset_e = 0;
 		int z_offset_e = 0;
 
-		int distance = projector.countItemsInSlot(IProjector.Slots.Distance) + 2;
-		int Strength = projector.countItemsInSlot(IProjector.Slots.Strength);
+		int scale = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 2;
+		int translation = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation);
 
 		if ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1))
 		{
-			tpy = Strength;
-			tpx = distance;
-			tpz = distance;
+			tpy = translation;
+			tpx = scale;
+			tpz = scale;
 
-			y_offset_s = Strength - Strength;
+			y_offset_s = translation - translation;
 			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection().ordinal() == 0)
 				{
-					y_offset_e = Strength;
+					y_offset_e = translation;
 				}
 				if (projector.getDirection().ordinal() == 1)
 				{
-					y_offset_s = Strength;
+					y_offset_s = translation;
 				}
 			}
 		}
 
 		if ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3))
 		{
-			tpy = distance;
-			tpz = Strength;
-			tpx = distance;
+			tpy = scale;
+			tpz = translation;
+			tpx = scale;
 
-			z_offset_s = Strength - Strength;
+			z_offset_s = translation - translation;
 			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection().ordinal() == 2)
 				{
-					z_offset_e = Strength;
+					z_offset_e = translation;
 				}
 				if (projector.getDirection().ordinal() == 3)
 				{
-					z_offset_s = Strength;
+					z_offset_s = translation;
 				}
 			}
 		}
 		if ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5))
 		{
-			tpy = distance;
-			tpz = distance;
-			tpx = Strength;
+			tpy = scale;
+			tpz = scale;
+			tpx = translation;
 
-			x_offset_s = Strength - Strength;
+			x_offset_s = translation - translation;
 			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection().ordinal() == 4)
 				{
-					x_offset_e = Strength;
+					x_offset_e = translation;
 				}
 				if (projector.getDirection().ordinal() == 5)
 				{
-					x_offset_s = Strength;
+					x_offset_s = translation;
 				}
 			}
 
@@ -128,15 +128,15 @@ public class ItemModeTube extends ItemProjectorMode
 					int tpy_temp = tpy;
 					int tpz_temp = tpz;
 
-					if ((tpx == Strength) && ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)))
+					if ((tpx == translation) && ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)))
 					{
 						tpx_temp++;
 					}
-					if ((tpy == Strength) && ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1)))
+					if ((tpy == translation) && ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1)))
 					{
 						tpy_temp++;
 					}
-					if ((tpz == Strength) && ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3)))
+					if ((tpz == translation) && ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3)))
 					{
 						tpz_temp++;
 					}

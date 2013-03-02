@@ -167,7 +167,7 @@ public class ModularForceFieldSystem
 	public static ItemModule itemModuleCamouflage;
 	public static ItemModule itemModuleFusion;
 	public static ItemModule itemModuleScale;
-	public static ItemModule itemModuleStrength;
+	public static ItemModule itemModuleTranslation;
 
 	/**
 	 * Modes
@@ -248,7 +248,7 @@ public class ModularForceFieldSystem
 			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
-			itemModuleStrength = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
+			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
 
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
 			itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);

@@ -20,7 +20,7 @@ public class MFFSRecipes
 		OreDictionary.registerOre("MonazitOre", ModularForceFieldSystem.blockFortronite);
 
 		MFFSRecipes.addRecipe("uuuuiuuuu", 1, 0, null, ModularForceFieldSystem.itemPowerCrystal);
-		MFFSRecipes.addRecipe("vvvvvvvvv", 1, 0, null, ModularForceFieldSystem.itemModuleStrength);
+		MFFSRecipes.addRecipe("vvvvvvvvv", 1, 0, null, ModularForceFieldSystem.itemModuleTranslation);
 		MFFSRecipes.addRecipe("vvv   vvv", 1, 0, null, ModularForceFieldSystem.itemModuleScale);
 
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ModularForceFieldSystem.itemCardEmpty), new Object[] { new ItemStack(ModularForceFieldSystem.itemCardPowerLink) });

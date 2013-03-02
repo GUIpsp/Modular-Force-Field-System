@@ -25,8 +25,6 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 		}
 	}
 
-	public int countItemsInSlot(Slots paramSlots);
-
 	public int getDeviceID();
 
 	public Set getInteriorPoints();
@@ -44,6 +42,8 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 
 	public int getModuleCount(IModule module, int... slots);
 
+	public int getModuleCount(IModule module, ForgeDirection direction);
+
 	public List<IModule> getModules();
 
 	public void projectField();
@@ -53,4 +53,5 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 	public List<ItemStack> getModuleStacks();
 
 	public int[] getSlotsBasedOnDirection(ForgeDirection direction);
+
 }

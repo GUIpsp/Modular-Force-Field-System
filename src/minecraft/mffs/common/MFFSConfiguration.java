@@ -70,7 +70,7 @@ public class MFFSConfiguration
 	public static boolean defenseStationNPCNotification;
 	public static boolean advancedParticles;
 	public static boolean uumatterEnabled;
-	public static int forcefieldblockcost;
+	public static int forceFieldBlockCost;
 	public static int forcefieldblockcreatemodifier;
 	public static int forcefieldblockzappermodifier;
 	public static int forcefieldtransportcost;
@@ -139,7 +139,7 @@ public class MFFSConfiguration
 
 		Property feFieldBlockCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockcost", 1);
 		feFieldBlockCost.comment = "How much upkeep FE cost a default Force Field Block per second?";
-		forcefieldblockcost = feFieldBlockCost.getInt(1);
+		forceFieldBlockCost = feFieldBlockCost.getInt(1);
 
 		Property BlockCreateMod = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockcreatemodifier", 10);
 		BlockCreateMod.comment = "Energy needed to create a Force Field Block (forcefieldblockcost*forcefieldblockcreatemodifier).";

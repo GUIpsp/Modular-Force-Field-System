@@ -39,6 +39,7 @@ public class ItemModeDeflector extends ItemProjectorMode
 	@Override
 	public void calculateField(IProjector projector, Set ffLocs, Set interior)
 	{
+		/*
 		int tpx = 0;
 		int tpy = 0;
 		int tpz = 0;
@@ -90,7 +91,7 @@ public class ItemModeDeflector extends ItemProjectorMode
 
 				ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
 			}
-		}
+		}*/
 	}
 
 	public static boolean supportsOption(ItemModule item)

@@ -52,7 +52,7 @@ public class ItemModuleDefenseStation extends ItemModule
 
 				if ((entityLiving instanceof EntityPlayer))
 				{
-					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.countItemsInSlot(IProjector.Slots.Distance) + 4))
+					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{
