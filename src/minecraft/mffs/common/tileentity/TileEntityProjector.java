@@ -910,7 +910,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		List<ItemStack> modules = new ArrayList();
 
-		for (int slotID = 1; slotID < 9; slotID++)
+		for (int slotID = 1; slotID <= 9; slotID++)
 		{
 			ItemStack itemStack = this.getStackInSlot(slotID);
 

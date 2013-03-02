@@ -277,7 +277,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 					{
 						((EntityPlayer) entity).attackEntityFrom(ModularForceFieldSystem.fieldShock, 1);
 					}
-					Functions.ChattoPlayer((EntityPlayer) entity, "[Force Field] Attention High Energy Field");
+					//Functions.ChattoPlayer((EntityPlayer) entity, "[Force Field] Attention High Energy Field");
 				}
 			}
 		}
