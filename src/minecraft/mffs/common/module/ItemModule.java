@@ -2,6 +2,7 @@ package mffs.common.module;
 
 import java.util.List;
 
+import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
 import mffs.common.item.ItemMFFS;
 import mffs.common.mode.ItemModeContainment;
@@ -32,27 +33,7 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 
 		if (tooltip != null && tooltip.length() > 0)
 		{
-			info.add(tooltip);
+			info.addAll(ModularForceFieldSystem.splitStringPerWord(tooltip, 5));
 		}
-
-		/*
-		 * if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54))) { info.add("compatible with:");
-		 * 
-		 * if (ItemModeWall.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.wall)); } if
-		 * (ItemModeDiagonalWall.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallWall)); } if
-		 * (ItemModeDeflector.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.deflector)); } if
-		 * (ItemModeTube.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.tube)); } if
-		 * (ItemModeSphere.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.sphere)); } if
-		 * (ItemModeCube.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.cube)); } if
-		 * (ItemModeContainment.supportsOption(this)) {
-		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.containment)); } } else {
-		 * info.add("compatible with: (Hold Shift)"); }
-		 */
 	}
 }

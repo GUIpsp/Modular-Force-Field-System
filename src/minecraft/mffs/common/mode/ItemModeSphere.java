@@ -21,7 +21,7 @@ public class ItemModeSphere extends ItemProjectorMode
 {
 	public ItemModeSphere(int i)
 	{
-		super(i, "moduleSphere");
+		super(i, "modeSphere");
 		this.setIconIndex(52);
 	}
 
