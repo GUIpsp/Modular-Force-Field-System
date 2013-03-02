@@ -43,75 +43,68 @@ public abstract class BlockMFFSMachine extends BlockMachine
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
+	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
 	{
-		if (entityplayer.isSneaking())
-		{
-			return false;
-		}
-
-		if (world.isRemote)
-		{
-			return true;
-		}
-
-		TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(i, j, k);
-		ItemStack equippedItem = entityplayer.getCurrentEquippedItem();
-
-		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemMultitool)))
-		{
-			return false;
-		}
-
-		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardEmpty)))
-		{
-			return false;
-		}
-
-		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemProjectorMode)))
-		{
-			return false;
-		}
-
-		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardPowerLink)))
-		{
-			return false;
-		}
-
-		if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardSecurityLink)))
-		{
-			return false;
-		}
-
-		if ((equippedItem != null) && (equippedItem.itemID == Block.lever.blockID))
-		{
-			return false;
-		}
-
-		if ((tileEntity instanceof TileEntitySecurityStation) && (tileEntity.isActive()))
-		{
-			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
-			{
-				return true;
-			}
-		}
-
-		if (tileEntity instanceof TileEntityControlSystem)
-		{
-			if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.UCS))
-			{
-				return true;
-			}
-		}
-
-		if (!SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
-		{
-			return true;
-		}
-
 		if (!world.isRemote)
 		{
-			entityplayer.openGui(ModularForceFieldSystem.instance, 0, world, i, j, k);
+			TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(x, y, z);
+			ItemStack equippedItem = entityPlayer.getCurrentEquippedItem();
+
+			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemMultitool)))
+			{
+				return false;
+			}
+
+			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardEmpty)))
+			{
+				return false;
+			}
+
+			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemProjectorMode)))
+			{
+				return false;
+			}
+
+			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardPowerLink)))
+			{
+				return false;
+			}
+
+			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardSecurityLink)))
+			{
+				return false;
+			}
+
+			if ((equippedItem != null) && (equippedItem.itemID == Block.lever.blockID))
+			{
+				return false;
+			}
+
+			if ((tileEntity instanceof TileEntitySecurityStation) && (tileEntity.isActive()))
+			{
+				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.CSR))
+				{
+					return true;
+				}
+			}
+
+			if (tileEntity instanceof TileEntityControlSystem)
+			{
+				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.UCS))
+				{
+					return true;
+				}
+			}
+
+			if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.EB))
+			{
+				return true;
+			}
+
+			if (!world.isRemote)
+			{
+				entityPlayer.openGui(ModularForceFieldSystem.instance, 0, world, x, y, z);
+			}
 		}
 
 		return true;

@@ -126,71 +126,28 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	}
 
 	@Override
-	public void breakBlock(World world, int i, int j, int k, int a, int b)
+	public void breakBlock(World world, int x, int y, int z, int a, int b)
 	{
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(i, j, k, world).hashCode()));
-
-		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
-		{
-			TileEntityProjector Projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-
-			if (Projector != null)
-				if (!Projector.isActive())
-				{
-					ffworldmap.removebyProjector(ffworldmap.getProjectorID());
-				}
-				else
-				{
-					world.setBlockAndMetadataWithNotify(i, j, k, ModularForceFieldSystem.blockForceField.blockID, ffworldmap.getTyp());
-					world.markBlockForUpdate(i, j, k);
-					ffworldmap.setSync(true);
-
-					if (ffworldmap.getTyp() == 1)
-					{
-					}
-					// Projector.consumePower(MFFSConfiguration.forcefieldblockcost *
-					// MFFSConfiguration.forcefieldblockcreatemodifier, false) >0;
-
-					// Projector.consumePower(MFFSConfiguration.forcefieldblockcost *
-					// MFFSConfiguration.forcefieldblockcreatemodifier *
-					// MFFSConfiguration.forcefieldblockzappermodifier, false)>0;
-				}
-		}
+		/**
+		 * TODO: Checks the Projector to see if breaking this is legit.
+		 */
+		super.breakBlock(world, x, y, z, a, b);
 	}
 
 	@Override
-	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
-	{/*
-	 * if (par1World.isRemote) { return; }
-	 * 
-	 * ForceFieldBlockStack ffworldmap =
-	 * WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new
-	 * PointXYZ(par2, par3, par4, par1World).hashCode()));
-	 * 
-	 * if ((ffworldmap != null) && (!MFFSConfiguration.adventureMap)) { TileEntityProjector
-	 * projector = (TileEntityProjector)
-	 * FrequencyGridOld.getWorldMap(par1World).getProjector().get(Integer
-	 * .valueOf(ffworldmap.getProjectorID())); if (projector != null) { switch
-	 * (projector.getAccessType()) { case 0:
-	 * par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
-	 * Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field"); break;
-	 * case 2: case 3: if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer, par1World,
-	 * SecurityRight.SR)) { par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock,
-	 * 10); Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field"); }
-	 * break; case 1: } } if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer,
-	 * par1World, SecurityRight.SR)) {
-	 * par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
-	 * Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field"); } }
-	 * 
-	 * Random random = null; updateTick(par1World, par2, par3, par4, random);
-	 */
+	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer entityPlayer)
+	{
+		/**
+		 * TODO: Check if shock mode is on, if so, hurt entity
+		 */
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
 		/**
-		 * Allow creative players who are holding shift to go through the force field.
+		 * Allow creative players who are holding shift to go through the force field. TODO: Allow
+		 * security bypassing.
 		 */
 		List<EntityPlayer> entities = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.9, z + 1));
 
@@ -218,57 +175,13 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity)
 	{
-		if (world.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal())
+		/**
+		 * TODO: Check if shock mode is on, if so, hurt entity
+		 * entity.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
+		 */
+		if (entity instanceof EntityLiving)
 		{
-			if ((entity instanceof EntityLiving))
-			{
-				entity.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
-			}
-		}
-		else if (entity instanceof EntityPlayer)
-		{
-			((EntityPlayer) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 60));
-
-			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(i, j, k, world);
-
-			if (ffworldmap != null)
-			{
-				TileEntityProjector projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-
-				if (projector != null)
-				{
-					boolean passtrue = false;
-
-					switch (projector.getAccessType())
-					{
-						case 0:
-							passtrue = false;
-							if (MFFSConfiguration.Admin.equals(((EntityPlayer) entity).username))
-								passtrue = true;
-							break;
-						case 1:
-							passtrue = true;
-							break;
-						case 2:
-							TileEntityFortronCapacitor generator = (TileEntityFortronCapacitor) FrequencyGridOld.getWorldMap(world).getCapacitor().get(Integer.valueOf(ffworldmap.getGenratorID()));
-							passtrue = SecurityHelper.isAccessGranted(generator, (EntityPlayer) entity, world, SecurityRight.FFB);
-							break;
-						case 3:
-							passtrue = SecurityHelper.isAccessGranted(projector, (EntityPlayer) entity, world, SecurityRight.FFB);
-					}
-
-					if (!passtrue)
-					{
-						((EntityPlayer) entity).attackEntityFrom(ModularForceFieldSystem.fieldShock, 20);
-					}
-					else
-					{
-						((EntityPlayer) entity).attackEntityFrom(ModularForceFieldSystem.fieldShock, 1);
-					}
-					// Functions.ChattoPlayer((EntityPlayer) entity,
-					// "[Force Field] Attention High Energy Field");
-				}
-			}
+			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 3));
 		}
 	}
 
@@ -310,11 +223,12 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		{
 			return false;
 		}
+		
 		return super.shouldSideBeRendered(iblockaccess, x, y, z, side);
 	}
 
 	@Override
-	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side)
+	public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side)
 	{
 		return this.blockIndexInTexture;
 		/*
@@ -337,9 +251,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	}
 
 	@Override
-	public float getExplosionResistance(Entity entity, World world, int i, int j, int k, double d, double d1, double d2)
+	public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double d, double d1, double d2)
 	{
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(i, j, k, world).hashCode()));
+		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(x, y, z, world).hashCode()));
 
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{

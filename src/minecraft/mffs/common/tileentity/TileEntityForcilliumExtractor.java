@@ -13,6 +13,7 @@ import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -216,7 +217,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 			switch (slotID)
 			{
 				case 0:
-					if (itemStack.getItem() instanceof ItemForcillium || itemStack.getItem() instanceof ItemForcilliumCell)
+					if (itemStack.getItem() instanceof ItemForcillium || itemStack.isItemEqual(new ItemStack(Item.dyePowder, 1, 4)))
 						return true;
 				case 1:
 					if (itemStack.getItem() instanceof IPowerLinkItem)
