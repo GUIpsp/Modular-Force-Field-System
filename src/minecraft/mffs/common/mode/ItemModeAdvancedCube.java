@@ -2,10 +2,7 @@ package mffs.common.mode;
 
 import java.util.Set;
 
-import universalelectricity.core.vector.Vector3;
-
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemOptionAntibiotic;
@@ -18,8 +15,9 @@ import mffs.common.module.ItemOptionJammer;
 import mffs.common.module.ItemOptionSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
+import universalelectricity.core.vector.Vector3;
 
-public class ItemModeAdvancedCube extends ItemMode3D
+public class ItemModeAdvancedCube extends ItemProjectorMode
 {
 
 	public ItemModeAdvancedCube(int i)

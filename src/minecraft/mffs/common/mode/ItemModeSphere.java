@@ -17,7 +17,7 @@ import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemModeSphere extends ItemMode3D
+public class ItemModeSphere extends ItemProjectorMode
 {
 
 	public ItemModeSphere(int i)

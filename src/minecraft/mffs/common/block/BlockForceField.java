@@ -131,6 +131,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
 			TileEntityProjector Projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+			
 			if (Projector != null)
 				if (!Projector.isActive())
 				{

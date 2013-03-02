@@ -20,19 +20,9 @@ import org.lwjgl.input.Keyboard;
 
 public abstract class ItemModule extends ItemMFFS implements IModule
 {
-	private static List instances = new ArrayList();
-
 	public ItemModule(int i, String name)
 	{
 		super(i, name);
-		setMaxStackSize(8);
-		instances.add(this);
-		this.setNoRepair();
-	}
-
-	public static List<ItemModule> get_instances()
-	{
-		return instances;
 	}
 
 	@Override

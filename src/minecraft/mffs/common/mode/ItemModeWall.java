@@ -12,11 +12,15 @@ import net.minecraft.item.Item;
 
 public class ItemModeWall extends ItemProjectorMode
 {
-
+	public ItemModeWall(int i, String name)
+	{
+		super(i, name);
+		this.setIconIndex(49);
+	}
+	
 	public ItemModeWall(int i)
 	{
-		super(i, "moduleWall");
-		setIconIndex(49);
+		this(i, "moduleWall");
 	}
 
 	@Override

@@ -3,9 +3,10 @@ package mffs.common.tileentity;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
+import com.google.common.io.ByteArrayDataInput;
 
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
@@ -17,6 +18,7 @@ import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
 import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.card.ItemCard;
+import mffs.common.card.ItemCardPower;
 import mffs.common.container.ContainerProjector;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
@@ -108,7 +110,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 			if (this.isActive())
 			{
-				if (this.getFortronEnergy() > FORTRON_CONSUMPTION)
+				if (this.getFortronEnergy() > FORTRON_CONSUMPTION || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ModularForceFieldSystem.itemCardInfinite.itemID))
 				{
 					if (this.ticks % 10 == 0)
 					{
@@ -138,12 +140,24 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	}
 
 	@Override
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	{
+		final boolean prevActivate = this.isActive();
+		super.onReceivePacket(packetID, dataStream);
+		
+		if(prevActivate!= this.isActive())
+		{
+			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+		}
+	}
+	
+	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
 		switch (slotID)
 		{
 			case 0:
-				return itemStack.getItem() instanceof ItemCard;
+				return itemStack.getItem() instanceof ItemCard ||itemStack.getItem() instanceof  ItemCardPower;
 			case 5:
 				return itemStack.getItem() instanceof IProjectorMode;
 			default:
@@ -413,11 +427,11 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			this.getMode().calculateField(this, blockDef, blockInterior);
 
 			for (Vector3 vector : blockDef)
-			{
-				if (vector.intY() + this.yCoord < this.worldObj.getHeight())
-				{
-					Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
+			{					
+				Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
 
+				if (fieldPoint.intY() < this.worldObj.getHeight())
+				{
 					if (forceFieldDefine(fieldPoint))
 					{
 						this.calculatedField.add(fieldPoint);
@@ -515,7 +529,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		 */
 
 		this.blockCount = 0;
-
 		for (Vector3 vector : this.calculatedField)
 		{
 			if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
@@ -530,8 +543,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				if (block != ModularForceFieldSystem.blockForceField)
 				{
 					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
-					{
-						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0);
+					{	this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0);
 					}
 
 					this.forceFields.add(vector);

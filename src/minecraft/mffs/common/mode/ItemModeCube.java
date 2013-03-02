@@ -20,7 +20,7 @@ import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 
-public class ItemModeCube extends ItemMode3D
+public class ItemModeCube extends ItemProjectorMode
 {
 
 	public ItemModeCube(int i)
@@ -51,8 +51,32 @@ public class ItemModeCube extends ItemMode3D
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
 		TileEntityProjector tileEntity = (TileEntityProjector) projector;
+		
+		//TODO: Make this relative to the direction the projector is facing.
+		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 6);
+		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 4);
+		
+		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 1,3);
+		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 7,9);
 
-		int tpx = 0;
+		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 2);
+		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, 8);
+
+		for (int x = - xDisplaceNeg; x < zDisplacePos + 1; x++)
+		{
+			for (int z =  -zDisplaceNeg; z < zDisplacePos + 1; z++)
+			{	
+				for (int y = -yDisplaceNeg; y <= yDisplacePos; y++)
+				{
+					if (y == -yDisplaceNeg || y == yDisplacePos || x == - xDisplaceNeg || x == zDisplacePos || z == -zDisplaceNeg || z == zDisplacePos)
+					{
+						blockDef.add( new Vector3(x,y,z));
+					}
+				}
+			}
+		}
+		
+/*		int tpx = 0;
 		int tpy = 0;
 		int tpz = 0;
 
