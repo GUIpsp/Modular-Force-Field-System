@@ -21,11 +21,11 @@ public class ContainerProjector extends ContainerMFFS
 		/**
 		 * Force Field Manipulation Matrix. Center slot is the module.
 		 */
-		for (int drawX = 0; drawX < 3; drawX++)
+		for (int drawY = 0; drawY < 3; drawY++)
 		{
-			for (int drawY = 0; drawY < 3; drawY++)
+			for (int drawX = 0; drawX < 3; drawX++)
 			{
-				this.addSlotToContainer(new SlotHelper(this.tileEntity, drawX * 3 + drawY + 1, drawX * 18 + 62, drawY * 18 + 31));
+				this.addSlotToContainer(new SlotHelper(this.tileEntity, drawX + drawY * 3 + 1, drawX * 18 + 62, drawY * 18 + 31));
 			}
 		}
 

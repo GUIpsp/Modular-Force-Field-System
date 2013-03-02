@@ -1,11 +1,9 @@
 package mffs.common.module;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mffs.common.ProjectorTypes;
 import mffs.common.item.ItemMFFS;
-import mffs.common.mode.ItemModeAdvancedCube;
 import mffs.common.mode.ItemModeContainment;
 import mffs.common.mode.ItemModeCube;
 import mffs.common.mode.ItemModeDeflector;
@@ -38,7 +36,7 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 			}
 			if (ItemModeDiagonalWall.supportsOption(this))
 			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallywall));
+				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallWall));
 			}
 			if (ItemModeDeflector.supportsOption(this))
 			{
@@ -55,10 +53,6 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 			if (ItemModeCube.supportsOption(this))
 			{
 				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.cube));
-			}
-			if (ItemModeAdvancedCube.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.AdvCube));
 			}
 			if (ItemModeContainment.supportsOption(this))
 			{

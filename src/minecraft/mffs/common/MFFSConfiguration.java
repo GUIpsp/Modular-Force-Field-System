@@ -33,7 +33,6 @@ public class MFFSConfiguration
 	public static int item_FPCrystal_ID = 11145;
 	public static int item_Forcicium_ID = 11144;
 	public static int item_ForciciumCell_ID = 11146;
-	public static int item_ModAdvCube_ID = 11142;
 	public static int item_ModContainment_ID = 11140;
 	public static int item_ModDeflector_ID = 11125;
 	public static int item_ModDiag_ID = 11113;

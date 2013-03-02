@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
@@ -144,20 +145,20 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		final boolean prevActivate = this.isActive();
 		super.onReceivePacket(packetID, dataStream);
-		
-		if(prevActivate!= this.isActive())
+
+		if (prevActivate != this.isActive())
 		{
 			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 		}
 	}
-	
+
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
 		switch (slotID)
 		{
 			case 0:
-				return itemStack.getItem() instanceof ItemCard ||itemStack.getItem() instanceof  ItemCardPower;
+				return itemStack.getItem() instanceof ItemCard || itemStack.getItem() instanceof ItemCardPower;
 			case 5:
 				return itemStack.getItem() instanceof IProjectorMode;
 			default:
@@ -427,7 +428,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			this.getMode().calculateField(this, blockDef, blockInterior);
 
 			for (Vector3 vector : blockDef)
-			{					
+			{
 				Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
 
 				if (fieldPoint.intY() < this.worldObj.getHeight())
@@ -517,17 +518,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	 */
 	public void projectField()
 	{
-		/*
-		 * int cost = 0;
-		 * 
-		 * if (init) { cost = MFFSConfiguration.forcefieldblockcost *
-		 * MFFSConfiguration.forcefieldblockcreatemodifier; } else { cost =
-		 * MFFSConfiguration.forcefieldblockcost; }
-		 * 
-		 * if (getforcefieldblock_meta() == 1) { cost *=
-		 * MFFSConfiguration.forcefieldblockzappermodifier; }
-		 */
-
 		this.blockCount = 0;
 		for (Vector3 vector : this.calculatedField)
 		{
@@ -543,7 +533,8 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				if (block != ModularForceFieldSystem.blockForceField)
 				{
 					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
-					{	this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0);
+					{
+						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0);
 					}
 
 					this.forceFields.add(vector);
@@ -969,5 +960,27 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public World getWorldObj()
 	{
 		return this.worldObj;
+	}
+
+	public static int[] getSlotsBasedOnDirection(ForgeDirection direction)
+	{
+		switch (direction)
+		{
+			default:
+				return null;
+			case UP:
+				return new int[] { 1, 3 };
+			case DOWN:
+				return new int[] { 7, 9 };
+			case NORTH:
+				return new int[] { 6 };
+			case SOUTH:
+				return new int[] { 4 };
+			case WEST:
+				return new int[] { 8 };
+			case EAST:
+				return new int[] { 2 };
+
+		}
 	}
 }

@@ -17,11 +17,10 @@ import net.minecraft.item.Item;
 
 public class ItemModeContainment extends ItemProjectorMode
 {
-
 	public ItemModeContainment(int i)
 	{
 		super(i, "moduleContainment");
-		setIconIndex(54);
+		this.setIconIndex(54);
 	}
 
 	@Override

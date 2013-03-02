@@ -28,7 +28,6 @@ import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemForcilliumCell;
 import mffs.common.item.ItemFortronCrystal;
 import mffs.common.item.ItemMFFS;
-import mffs.common.mode.ItemModeAdvancedCube;
 import mffs.common.mode.ItemModeContainment;
 import mffs.common.mode.ItemModeCube;
 import mffs.common.mode.ItemModeDeflector;
@@ -263,7 +262,6 @@ public class ModularForceFieldSystem
 			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.item_ModDeflector_ID);
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.item_ModTube_ID);
 			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.item_ModContainment_ID);
-			itemModeAdvancedCube = new ItemModeAdvancedCube(MFFSConfiguration.item_ModAdvCube_ID);
 
 			itemOptionShock = new ItemOptionShock(MFFSConfiguration.item_OptTouchHurt_ID);
 			itemOptionSponge = new ItemOptionSponge(MFFSConfiguration.item_OptSponge_ID);
