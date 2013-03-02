@@ -452,7 +452,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public int getSizeInventory()
 	{
-		return 1 + 3 * 3 + 2;
+		return 1 + 1 + 2 * 6 + 2;
 	}
 
 	@Override
@@ -596,17 +596,17 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			default:
 				return null;
 			case UP:
-				return new int[] { 10 };
+				return new int[] { 10, 11 };
 			case DOWN:
-				return new int[] { 11 };
+				return new int[] { 12, 13 };
 			case NORTH:
-				return new int[] { 8 };
+				return new int[] { 7, 8 };
 			case SOUTH:
-				return new int[] { 2 };
+				return new int[] { 1, 2 };
 			case WEST:
-				return new int[] { 4 };
+				return new int[] { 3, 4 };
 			case EAST:
-				return new int[] { 6 };
+				return new int[] { 5, 6 };
 		}
 	}
 }
