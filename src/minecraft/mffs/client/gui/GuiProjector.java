@@ -1,15 +1,8 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
-import mffs.common.ModularForceFieldSystem;
-import mffs.common.ProjectorTypes;
 import mffs.common.container.ContainerProjector;
 import mffs.common.tileentity.TileEntityProjector;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-
-import org.lwjgl.opengl.GL11;
-
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
@@ -21,7 +14,7 @@ public class GuiProjector extends GuiMFFS
 
 	public GuiProjector(EntityPlayer player, TileEntityProjector tileEntity)
 	{
-		super(new ContainerProjector(player, tileEntity));
+		super(new ContainerProjector(player, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;
 	}
 
