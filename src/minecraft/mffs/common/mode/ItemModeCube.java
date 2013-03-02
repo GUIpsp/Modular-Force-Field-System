@@ -47,28 +47,37 @@ public class ItemModeCube extends ItemProjectorMode
 	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		TileEntityProjector tileEntity = (TileEntityProjector) projector;
+		ForgeDirection direction = projector.getDirection();
 
-		ForgeDirection direction = tileEntity.getDirection();
+		int zScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
-		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
-		
-		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
-		for (int x = -xDisplaceNeg; x < xDisplacePos + 1; x++)
+		int zTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+
+		int xTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
+
+		int yTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+
+		Vector3 translation = new Vector3(xTranslationPos - xTranslationNeg, yTranslationPos - yTranslationNeg, zTranslationPos - zTranslationNeg);
+
+		for (int x = -xScaleNeg; x < xScalePos + 1; x++)
 		{
-			for (int z = -zDisplaceNeg; z < zDisplacePos + 1; z++)
+			for (int z = -zScaleNeg; z < zScalePos + 1; z++)
 			{
-				for (int y = -yDisplaceNeg; y <= yDisplacePos; y++)
+				for (int y = -yScaleNeg; y <= yScalePos; y++)
 				{
-					if (y == -yDisplaceNeg || y == yDisplacePos || x == -xDisplaceNeg || x == xDisplacePos || z == -zDisplaceNeg || z == zDisplacePos)
+					if (y == -yScaleNeg || y == yScalePos || x == -xScaleNeg || x == xScalePos || z == -zScaleNeg || z == zScalePos)
 					{
-						blockDef.add(new Vector3(x, y, z));
+						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
 				}
 			}

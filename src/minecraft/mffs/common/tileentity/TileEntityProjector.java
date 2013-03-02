@@ -594,7 +594,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		switch (direction)
 		{
 			default:
-				return null;
+				return new int[]{};
 			case UP:
 				return new int[] { 10, 11 };
 			case DOWN:

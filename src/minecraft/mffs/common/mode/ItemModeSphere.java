@@ -15,6 +15,7 @@ import mffs.common.module.ItemModuleJammer;
 import mffs.common.module.ItemModuleSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 
 public class ItemModeSphere extends ItemProjectorMode
@@ -46,7 +47,20 @@ public class ItemModeSphere extends ItemProjectorMode
 	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 4;
+		ForgeDirection direction = projector.getDirection();
+
+		int zTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+
+		int xTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
+
+		int yTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+
+		Vector3 translation = new Vector3(xTranslationPos - xTranslationNeg, yTranslationPos - yTranslationNeg, zTranslationPos - zTranslationNeg);
+
+		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, 14, 15) + 4;
 
 		int yDown = radius;
 
@@ -67,7 +81,7 @@ public class ItemModeSphere extends ItemProjectorMode
 
 					if (distance <= radius && distance > radius - 1)
 					{
-						blockDef.add(checkPosition);
+						blockDef.add(Vector3.add(translation, checkPosition));
 					}
 				}
 			}
