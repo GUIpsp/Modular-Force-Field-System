@@ -9,6 +9,7 @@ LICENSE
 /src/minecraft/*
 
 !/src/minecraft/mffs/
+!/src/minecraft/dan200/
 !/src/minecraft/buildcraft/
 !/src/minecraft/icbm/
 !/src/minecraft/com/
