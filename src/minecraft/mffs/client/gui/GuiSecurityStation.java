@@ -1,5 +1,9 @@
 package mffs.client.gui;
 
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.container.ContainerSecurityStation;
@@ -46,7 +50,7 @@ public class GuiSecurityStation extends GuiMFFS
 			this.drawSlot(8 + var4 * 18 - 1, 110);
 		}
 
-		this.drawPatch(ModularForceFieldSystem.GUI_DIRECTORY + "sub_patch.png", this.containerWidth + 35, this.containerHeight + 20, 125, 63);
+		this.drawPatch(ModularForceFieldSystem.GUI_DIRECTORY + "sub_patch.png", this.containerWidth + 35, this.containerHeight + 20, 129, 63);
 
 	}
 
@@ -56,7 +60,15 @@ public class GuiSecurityStation extends GuiMFFS
 
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
 
-		this.fontRenderer.drawString("Player Rights", 37, 22, 0);
+		this.drawTextWithTooltip("rights", "%1", 85, 22, x, y, 0);
+		
+		if(this.tileEntity.getStackInSlot(0) != null) {
+			this.fontRenderer.drawString("Bypass Force Field", 40, 32, 0);
+			this.fontRenderer.drawString("Excempt from Defence", 40, 42, 0);
+			this.fontRenderer.drawString("Access Security Blocks", 40, 52, 0);
+			this.fontRenderer.drawString("Access Fortron Blocks", 40, 62, 0);
+			this.fontRenderer.drawString("Access Secure Storage", 40, 72, 0);
+		}
 		
 		this.textFieldFrequency.drawTextBox();
 

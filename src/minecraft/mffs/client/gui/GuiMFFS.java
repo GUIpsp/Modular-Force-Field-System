@@ -145,11 +145,14 @@ public class GuiMFFS extends GuiContainer
 		// GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
-	{
+	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY) {
+		this.drawTextWithTooltip(textName, format, x, y, mouseX, mouseY, 4210752);
+	}
+	
+	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color) {
 		String name = TranslationHelper.getLocal("gui." + textName + ".name");
 		String text = format.replaceAll("%1", name);
-		this.fontRenderer.drawString(text, x, y, 4210752);
+		this.fontRenderer.drawString(text, x, y, color);
 
 		String tooltip = TranslationHelper.getLocal("gui." + textName + ".tooltip");
 
@@ -160,8 +163,8 @@ public class GuiMFFS extends GuiContainer
 				this.tooltip = tooltip;
 			}
 		}
-
 	}
+
 
 	protected void drawTextWithTooltip(String textName, int x, int y, int mouseX, int mouseY)
 	{
