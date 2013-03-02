@@ -20,7 +20,7 @@ public class GuiSecurityStation extends GuiMFFS
 
 	public GuiSecurityStation(EntityPlayer player, TileEntitySecurityStation tileentity)
 	{
-		super(new ContainerSecurityStation(player, tileentity));
+		super(new ContainerSecurityStation(player, tileentity), null);
 		this.tileEntity = tileentity;
 		this.controlList.clear();
 	}

@@ -5,9 +5,7 @@ import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
-
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
@@ -19,7 +17,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 
 	public GuiForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
 	{
-		super(new ContainerForcilliumExtractor(player, tileentity));
+		super(new ContainerForcilliumExtractor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
 	}
 

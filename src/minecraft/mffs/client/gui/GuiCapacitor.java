@@ -5,9 +5,7 @@ import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
-
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
@@ -19,7 +17,7 @@ public class GuiCapacitor extends GuiMFFS
 
 	public GuiCapacitor(EntityPlayer player, TileEntityFortronCapacitor tileentity)
 	{
-		super(new ContainerCapacitor(player, tileentity));
+		super(new ContainerCapacitor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
 	}
 

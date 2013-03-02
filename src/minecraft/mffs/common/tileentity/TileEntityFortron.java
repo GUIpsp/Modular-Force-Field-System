@@ -1,20 +1,15 @@
 package mffs.common.tileentity;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import com.google.common.io.ByteArrayDataInput;
 import mffs.api.FortronGrid;
 import mffs.api.IFortronFrequency;
 import mffs.common.Fortron;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.liquids.ILiquidTank;
-import net.minecraftforge.liquids.ITankContainer;
-import net.minecraftforge.liquids.LiquidContainerRegistry;
-import net.minecraftforge.liquids.LiquidStack;
-import net.minecraftforge.liquids.LiquidTank;
+import net.minecraftforge.liquids.*;
 
-import com.google.common.io.ByteArrayDataInput;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A TileEntity that is powered by fortron.
@@ -25,7 +20,7 @@ import com.google.common.io.ByteArrayDataInput;
 public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronFrequency
 {
 	protected LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
-	private int frequency = 0;
+	private int frequency;
 
 	@Override
 	public void initiate()
@@ -47,9 +42,10 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	@Override
 	public List getPacketUpdate()
 	{
-		List objects = new LinkedList();
-		objects.addAll(super.getPacketUpdate());
+        List objects = new LinkedList();
+        objects.addAll(super.getPacketUpdate());
 		objects.add(Fortron.getAmount(this.fortronTank.getLiquid()));
+        objects.add(getFrequency());
 		return objects;
 	}
 
@@ -58,6 +54,7 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	{
 		super.onReceivePacket(packetID, dataStream);
 		this.fortronTank.setLiquid(Fortron.getFortron(dataStream.readInt()));
+        setFrequencyServer(dataStream.readInt());
 	}
 
 	/**
@@ -67,7 +64,8 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		nbt.getInteger("frequency");
+        System.out.println("READING FREQUENCY: " + nbt.getInteger("frequency")); // DEBUG
+		setFrequency(nbt.getInteger("frequency"));
 		this.fortronTank.setLiquid(LiquidStack.loadLiquidStackFromNBT(nbt.getCompoundTag("fortron")));
 	}
 
@@ -76,7 +74,9 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	{
 		super.writeToNBT(nbt);
 
-		nbt.setInteger("frequency", frequency);
+        // TODO: Stop making this write 0 somehow
+        System.out.println("WRITING: " + this.frequency); // DEBUG
+		nbt.setInteger("frequency", getFrequency());
 
 		if (this.fortronTank.getLiquid() != null)
 		{
@@ -169,6 +169,17 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	@Override
 	public void setFrequency(int frequency)
 	{
+        System.out.println("Setting new frequency: " + frequency); // DEBUG
 		this.frequency = frequency;
 	}
+
+    /*
+     * A little information, this is just to differentiate between a packet update and normal setFrequency update for now
+     * This method WILL BE REMOVED when debugging is complete for why NBT is writing 0
+     */
+    public void setFrequencyServer(int frequency) // DEBUG method
+    {
+        System.out.println("[Server] Setting new frequency: " + frequency); // DEBUG
+        this.frequency = frequency;
+    }
 }

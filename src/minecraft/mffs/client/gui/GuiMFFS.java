@@ -1,10 +1,7 @@
 package mffs.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mffs.common.Fortron;
 import mffs.common.ModularForceFieldSystem;
+import mffs.common.tileentity.TileEntityFortron;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -14,12 +11,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.liquids.LiquidStack;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
 import universalelectricity.core.vector.Vector2;
+import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.TranslationHelper;
+import universalelectricity.prefab.network.PacketManager;
 
 public class GuiMFFS extends GuiContainer
 {
@@ -35,11 +32,13 @@ public class GuiMFFS extends GuiContainer
 	protected String tooltip = "";
 	protected int containerWidth;
 	protected int containerHeight;
+    protected TileEntityFortron entity;
 
-	public GuiMFFS(Container par1Container)
+	public GuiMFFS(Container par1Container, TileEntityFortron entity)
 	{
 		super(par1Container);
 		this.ySize = 217;
+        this.entity = entity;
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class GuiMFFS extends GuiContainer
 		super.initGui();
 		this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 60, 12);
 		this.textFieldFrequency.setMaxStringLength(4);
-		this.textFieldFrequency.setText("0");
+		this.textFieldFrequency.setText(entity.getFrequency() + "");
 	}
 
 	@Override
@@ -60,6 +59,9 @@ public class GuiMFFS extends GuiContainer
 			return;
 		}
 
+        if (!Character.isDigit(par1)) // Make sure its a number
+            return;
+
 		/**
 		 * Everytime a key is typed, try to reset the frequency.
 		 */
@@ -67,8 +69,12 @@ public class GuiMFFS extends GuiContainer
 
 		try
 		{
+
 			int newFrequency = Math.max(0, Integer.parseInt(this.textFieldFrequency.getText()));
 			this.textFieldFrequency.setText(newFrequency + "");
+
+            this.entity.setFrequency(newFrequency);
+            PacketManager.sendPacketToClients(this.entity.getDescriptionPacket(), this.entity.worldObj, new Vector3(this.entity), 15);
 
 			/**
 			 * if (((IItemFrequency) this.itemStack.getItem()).getFrequency(this.itemStack) !=

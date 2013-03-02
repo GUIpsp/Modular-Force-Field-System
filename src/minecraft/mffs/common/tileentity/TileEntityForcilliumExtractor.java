@@ -1,14 +1,11 @@
 package mffs.common.tileentity;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import com.google.common.io.ByteArrayDataInput;
 import mffs.api.IPowerLinkItem;
 import mffs.common.Fortron;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.item.ItemForcillium;
-import mffs.common.item.ItemForcilliumCell;
 import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,7 +20,8 @@ import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
 
-import com.google.common.io.ByteArrayDataInput;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A TileEntity that extract forcillium into fortrons.
@@ -233,4 +231,5 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 
 		return false;
 	}
+
 }
