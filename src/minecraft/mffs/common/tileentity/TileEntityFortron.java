@@ -173,6 +173,10 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 		this.frequency = frequency;
 	}
 
+    /*
+     * A little information, this is just to differentiate between a packet update and normal setFrequency update for now
+     * This method WILL BE REMOVED when debugging is complete for why NBT is writing 0
+     */
     public void setFrequencyServer(int frequency) // DEBUG method
     {
         System.out.println("[Server] Setting new frequency: " + frequency); // DEBUG
