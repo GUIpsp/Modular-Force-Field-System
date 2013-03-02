@@ -95,7 +95,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 	public int getActionDistance()
 	{
-		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemModuleDistance))
+		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemModuleScale))
 		{
 			return getStackInSlot(3).stackSize;
 		}
@@ -105,7 +105,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 	public int getInfoDistance()
 	{
-		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemModuleDistance))
+		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemModuleScale))
 		{
 			return getActionDistance() + (getStackInSlot(2).stackSize + 3);
 		}

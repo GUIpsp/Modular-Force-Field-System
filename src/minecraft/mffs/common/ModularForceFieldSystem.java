@@ -157,16 +157,16 @@ public class ModularForceFieldSystem
 	/**
 	 * Modules
 	 */
-	public static ItemModule itemOptionShock;
-	public static ItemModule itemOptionSponge;
-	public static ItemModule itemOptionFieldManipulator;
-	public static ItemModule itemOptionCutter;
-	public static ItemModule itemOptionAntibiotic;
-	public static ItemModule itemOptionDefenseeStation;
-	public static ItemModule itemOptionJammer;
-	public static ItemModule itemOptionCamouflage;
-	public static ItemModule itemOptionFieldFusion;
-	public static ItemModule itemModuleDistance;
+	public static ItemModule itemModuleShock;
+	public static ItemModule itemModuleSponge;
+	public static ItemModule itemModuleManipulator;
+	public static ItemModule itemModuleDisintegration;
+	public static ItemModule itemModuleAntibiotic;
+	public static ItemModule itemModuleDefenseeStation;
+	public static ItemModule itemModuleJammer;
+	public static ItemModule itemModuleCamouflage;
+	public static ItemModule itemModuleFusion;
+	public static ItemModule itemModuleScale;
 	public static ItemModule itemModuleStrength;
 
 	/**
@@ -247,7 +247,7 @@ public class ModularForceFieldSystem
 			blockSecurityStation = new BlockSecurityStation(MFFSConfiguration.block_SecurityStation_ID, 16);
 			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
-			itemModuleDistance = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
+			itemModuleScale = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
 			itemModuleStrength = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
 
 			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
@@ -263,15 +263,15 @@ public class ModularForceFieldSystem
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.item_ModTube_ID);
 			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.item_ModContainment_ID);
 
-			itemOptionShock = new ItemModuleShock(MFFSConfiguration.item_OptTouchHurt_ID);
-			itemOptionSponge = new ItemModuleSponge(MFFSConfiguration.item_OptSponge_ID);
-			itemOptionFieldManipulator = new ItemModuleManipulator(MFFSConfiguration.item_OptManipulator_ID);
-			itemOptionCutter = new ItemModuleDisintegration(MFFSConfiguration.item_OptBlockBreaker_ID);
-			itemOptionDefenseeStation = new ItemModuleDefenseStation(MFFSConfiguration.item_OptDefense_ID);
-			itemOptionAntibiotic = new ItemModuleAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
-			itemOptionJammer = new ItemModuleJammer(MFFSConfiguration.item_OptJammer_ID);
-			itemOptionCamouflage = new ItemModuleCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
-			itemOptionFieldFusion = new ItemModuleFusion(MFFSConfiguration.item_OptFusion_ID);
+			itemModuleShock = new ItemModuleShock(MFFSConfiguration.item_OptTouchHurt_ID);
+			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.item_OptSponge_ID);
+			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.item_OptManipulator_ID);
+			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.item_OptBlockBreaker_ID);
+			itemModuleDefenseeStation = new ItemModuleDefenseStation(MFFSConfiguration.item_OptDefense_ID);
+			itemModuleAntibiotic = new ItemModuleAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
+			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.item_OptJammer_ID);
+			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
+			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.item_OptFusion_ID);
 
 			itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
 			itemCardPowerLink = new ItemCardPowerLink(MFFSConfiguration.item_CardPowerLink_ID);
@@ -296,7 +296,7 @@ public class ModularForceFieldSystem
 			monaziteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
 			monaziteOreGeneration.shouldGenerate = MFFSConfiguration.CONFIGURATION.get("Ore Generation", "Generate Fortronite", false).getBoolean(false);
 			OreGenerator.addOre(monaziteOreGeneration);
-			
+
 			OreDictionary.registerOre("itemForcillium", itemForcillium);
 		}
 		catch (Exception e)
@@ -347,6 +347,26 @@ public class ModularForceFieldSystem
 			LOGGER.log(Level.INFO, MessageFormat.format("Module not loaded: {0}", modname));
 			return false;
 		}
+	}
+
+	public static List<String> splitStringPerWord(String string, int wordsPerLine)
+	{
+		String[] words = string.split(" ");
+		List<String> lines = new ArrayList<String>();
+
+		for (int lineCount = 0; lineCount < Math.ceil((float) words.length / (float) wordsPerLine); lineCount++)
+		{
+			String stringInLine = "";
+
+			for (int i = lineCount * wordsPerLine; i < Math.min(wordsPerLine + lineCount * wordsPerLine, words.length); i++)
+			{
+				stringInLine += words[i] + " ";
+			}
+
+			lines.add(stringInLine.trim());
+		}
+
+		return lines;
 	}
 
 	public class ChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback

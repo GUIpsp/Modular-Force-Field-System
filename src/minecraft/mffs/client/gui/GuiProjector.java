@@ -58,9 +58,9 @@ public class GuiProjector extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
-		//this.drawTextWithTooltip("upgrade", 120, 30, x, y);
-		//this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
-		//this.textFieldFrequency.drawTextBox();
+		this.drawTextWithTooltip("matrix", 120, 20, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
+		this.textFieldFrequency.drawTextBox();
 		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 105, 4210752);
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
 
@@ -73,59 +73,43 @@ public class GuiProjector extends GuiMFFS
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 
 		/**
-		 * Upgrade Slots
+		 * Matrix Slots
 		 */
 		for (int drawX = 0; drawX < 3; drawX++)
 		{
 			for (int drawY = 0; drawY < 3; drawY++)
 			{
-				this.drawSlot(drawX * 18 + 115, drawY * 18 + 30);
+				SlotType type = SlotType.NONE;
+
+				if (drawX == 2 && drawY == 1)
+				{
+					type = SlotType.ARR_RIGHT;
+				}
+				else if (drawX == 0 && drawY == 1)
+				{
+					type = SlotType.ARR_LEFT;
+				}
+				else if (drawX == 1 && drawY == 0)
+				{
+					type = SlotType.ARR_UP;
+				}
+				else if (drawX == 1 && drawY == 2)
+				{
+					type = SlotType.ARR_DOWN;
+				}
+
+				this.drawSlot(drawX * 18 + 115, drawY * 18 + 30, type);
 			}
 		}
+
+		this.drawSlot(90, 30, SlotType.ARR_UP);
+		this.drawSlot(90, 50, SlotType.ARR_DOWN);
 
 		/**
 		 * Frequency Card Slot
 		 */
 		this.drawSlot(8, 73);
-		
 		this.drawForce(8, 115, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
-
-		/*
-		 * int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY +
-		 * "GuiProjector.png");
-		 * 
-		 * GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F); this.mc.renderEngine.bindTexture(textur);
-		 * 
-		 * int w = (this.width - this.xSize) / 2; int k = (this.height - this.ySize) / 2;
-		 * 
-		 * drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize); int i1 = 79 *
-		 * this.tileEntity.getFortronCapacity() / 100; drawTexturedModalRect(w + 8, k + 91, 176, 0,
-		 * i1 + 1, 79);
-		 * 
-		 * if (this.tileEntity.hasValidTypeMod()) { if
-		 * (ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp != 7) {
-		 * drawTexturedModalRect(w + 119, k + 63, 177, 143, 16, 16); }
-		 * 
-		 * if ((ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp != 4) &&
-		 * (ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp != 2)) {
-		 * drawTexturedModalRect(w + 155, k + 63, 177, 143, 16, 16); }
-		 * 
-		 * if ((ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp == 1) ||
-		 * (ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp == 2) ||
-		 * (ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp == 6) ||
-		 * (ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp == 7) ||
-		 * (ProjectorTypes.typeFromItem(this.tileEntity.getType()).ProTyp == 8)) {
-		 * drawTexturedModalRect(w + 137, k + 28, 177, 143, 16, 16);
-		 * 
-		 * drawTexturedModalRect(w + 137, k + 62, 177, 143, 16, 16);
-		 * 
-		 * drawTexturedModalRect(w + 154, k + 45, 177, 143, 16, 16);
-		 * 
-		 * drawTexturedModalRect(w + 120, k + 45, 177, 143, 16, 16); }
-		 * 
-		 * if (this.tileEntity.hasOption(ModularForceFieldSystem.itemOptionCamouflage, true)) {
-		 * drawTexturedModalRect(w + 137, k + 45, 177, 143, 16, 16); } }
-		 */
 	}
 
 }

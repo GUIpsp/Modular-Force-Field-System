@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
+import universalelectricity.prefab.TranslationHelper;
+
 public abstract class ItemModule extends ItemMFFS implements IModule
 {
 	public ItemModule(int i, String name)
@@ -26,42 +28,31 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
-		{
-			info.add("compatible with:");
+		String tooltip = TranslationHelper.getLocal(this.getItemName() + ".tooltip");
 
-			if (ItemModeWall.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.wall));
-			}
-			if (ItemModeDiagonalWall.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallWall));
-			}
-			if (ItemModeDeflector.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.deflector));
-			}
-			if (ItemModeTube.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.tube));
-			}
-			if (ItemModeSphere.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.sphere));
-			}
-			if (ItemModeCube.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.cube));
-			}
-			if (ItemModeContainment.supportsOption(this))
-			{
-				info.add(ProjectorTypes.getdisplayName(ProjectorTypes.containment));
-			}
-		}
-		else
+		if (tooltip != null && tooltip.length() > 0)
 		{
-			info.add("compatible with: (Hold Shift)");
+			info.add(tooltip);
 		}
+
+		/*
+		 * if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54))) { info.add("compatible with:");
+		 * 
+		 * if (ItemModeWall.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.wall)); } if
+		 * (ItemModeDiagonalWall.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.diagonallWall)); } if
+		 * (ItemModeDeflector.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.deflector)); } if
+		 * (ItemModeTube.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.tube)); } if
+		 * (ItemModeSphere.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.sphere)); } if
+		 * (ItemModeCube.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.cube)); } if
+		 * (ItemModeContainment.supportsOption(this)) {
+		 * info.add(ProjectorTypes.getdisplayName(ProjectorTypes.containment)); } } else {
+		 * info.add("compatible with: (Hold Shift)"); }
+		 */
 	}
 }

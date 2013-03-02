@@ -44,7 +44,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 	}
 
 	@Override
-	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector Proj)
+	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector projector)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(position.intX(), position.intY(), position.intZ(), world);
 
@@ -52,14 +52,14 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 		{
 			// if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
 			{
-				TileEntityProjector Projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TileEntityProjector tileEntityProjector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
-				if (Projector != null)
+				if (tileEntityProjector != null)
 				{
-					if (Projector.hasModule(ModularForceFieldSystem.itemOptionFieldFusion, true))
+					if (tileEntityProjector.getModuleCount(ModularForceFieldSystem.itemModuleFusion) > 0)
 					{
-						Projector.getFieldQueue().remove(position);
-						ffworldmap.removebyProjector(Projector.getDeviceID());
+						tileEntityProjector.getFieldQueue().remove(position);
+						ffworldmap.removebyProjector(tileEntityProjector.getDeviceID());
 
 						Vector3 point = ffworldmap.getPoint();
 

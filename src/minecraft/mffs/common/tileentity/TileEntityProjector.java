@@ -96,7 +96,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				{
 					this.calculateForceField();
 					this.setActive(true);
-					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
 			else
@@ -104,29 +103,21 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				if (this.isActive())
 				{
 					this.setActive(false);
-					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
 
-			if (this.isActive())
+			if (this.isActive() && this.getFortronEnergy() > FORTRON_CONSUMPTION || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ModularForceFieldSystem.itemCardInfinite.itemID))
 			{
-				if (this.getFortronEnergy() > FORTRON_CONSUMPTION || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ModularForceFieldSystem.itemCardInfinite.itemID))
+				if (this.ticks % 10 == 0)
 				{
-					if (this.ticks % 10 == 0)
-					{
-						this.projectField();
-					}
+					this.projectField();
+				}
 
-					this.consumeFortron(1, true);
-				}
-				else
-				{
-					this.destroyField();
-				}
+				this.consumeFortron(1, true);
 			}
 			else
 			{
-				this.destroyField();
+				// this.destroyField();
 			}
 
 			/**
@@ -183,7 +174,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void setForceFieldCamoblockMeta(int forcefieldCamoblockmeta)
 	{
 		this.forceFieldCamoblockMeta = forcefieldCamoblockmeta;
-		// NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockMeta");
 	}
 
 	public int getForceFieldCamoblockID()
@@ -194,7 +184,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void setForceFieldCamoblockID(int forcefieldCamoblockid)
 	{
 		this.forceFieldCamoblockID = forcefieldCamoblockid;
-		// NetworkHandlerServer.updateTileEntityField(this, "ForceFieldCamoblockID");
 	}
 
 	public String getForceFieldTextureFile()
@@ -205,7 +194,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void setForceFieldTextureFile(String forceFieldTexturfile)
 	{
 		this.forceFieldTextureFile = forceFieldTexturfile;
-		// NetworkHandlerServer.updateTileEntityField(this, "ForceFieldTextureFile");
 	}
 
 	public String getForceFieldTextureID()
@@ -216,7 +204,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public void setForceFieldTextureID(String forceFieldTextureIDs)
 	{
 		this.forceFieldTextureIDs = forceFieldTextureIDs;
-		// NetworkHandlerServer.updateTileEntityField(this, "forceFieldTextureIDs");
 	}
 
 	public int getBlockCounter()
@@ -278,11 +265,13 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		{
 			this.destroyField();
 		}
+
+		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
-	
+
 	private void updateForceFieldTexture()
 	{
-		if ((isActive()) && (hasModule(ModularForceFieldSystem.itemOptionCamouflage, true)))
+		if ((isActive()) && (this.getModuleCount(ModularForceFieldSystem.itemModuleCamouflage) > 0))
 		{
 			for (Vector3 vector : this.calculatedField)
 			{
@@ -400,6 +389,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	/**
 	 * Projects a force field based on the calculations made.
 	 */
+	@Override
 	public void projectField()
 	{
 		this.blockCount = 0;
@@ -425,51 +415,10 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 					this.blockCount++;
 				}
 			}
-
-			/*
-			 * ForceFieldBlockStack blockStack =
-			 * WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap
-			 * (Integer.valueOf(vector.hashCode()));
-			 * 
-			 * if (blockStack != null) { if (!blockStack.isSync()) { Vector3 point =
-			 * blockStack.getPoint();
-			 * 
-			 * if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded
-			 * && !blockStack.isEmpty() && blockStack.getProjectorID() == getDeviceID()) { if
-			 * (hasModule(ModularForceFieldSystem.itemOptionCutter, true)) { int blockid =
-			 * this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()); TileEntity
-			 * entity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(),
-			 * vector.intZ());
-			 * 
-			 * if ((blockid != ModularForceFieldSystem.blockForceField.blockID) && (blockid != 0) &&
-			 * (blockid != Block.bedrock.blockID) && (entity == null)) { ArrayList stacks =
-			 * Functions.getItemStackFromBlock(this.worldObj, vector.intX(), vector.intY(),
-			 * vector.intZ());
-			 * 
-			 * this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0);
-			 * 
-			 * if ((ProjectorTypes.typeFromItem(getMode()).blockDropper && (stacks != null))) {
-			 * IInventory inventory = InventoryHelper.findAttachedInventory(this.worldObj,
-			 * this.xCoord, this.yCoord, this.zCoord); if ((inventory != null) &&
-			 * (inventory.getSizeInventory() > 0)) { InventoryHelper.addStacksToInventory(inventory,
-			 * stacks); } } } }
-			 * 
-			 * if ((this.worldObj.getBlockMaterial(vector.intX(), vector.intY(),
-			 * vector.intZ()).isLiquid()) || (this.worldObj.isAirBlock(vector.intX(), vector.intY(),
-			 * vector.intZ())) || (this.worldObj.getBlockId(vector.intX(), vector.intY(),
-			 * vector.intZ()) == ModularForceFieldSystem.blockForceField.blockID)) { if
-			 * (this.worldObj.getBlockId(vector.intX(), vector.intY(), vector.intZ()) !=
-			 * ModularForceFieldSystem.blockForceField.blockID) {
-			 * this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(),
-			 * vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, blockStack.getTyp());
-			 * 
-			 * this.blockCount += 1; }
-			 * 
-			 * blockStack.setSync(true); } } } }
-			 */
 		}
 	}
 
+	@Override
 	public void destroyField()
 	{
 		for (Vector3 vector : this.calculatedField)
@@ -480,36 +429,13 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			{
 				vector.setBlockWithNotify(this.worldObj, 0);
 			}
-
 		}
-
-		/*
-		 * while (!this.fieldQueue.isEmpty()) { ForceFieldBlockStack ffworldmap =
-		 * WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap((Integer)
-		 * this.fieldQueue.pop());
-		 * 
-		 * if (!ffworldmap.isEmpty()) { if (ffworldmap.getProjectorID() == getDeviceID()) {
-		 * ffworldmap.removebyProjector(getDeviceID());
-		 * 
-		 * if (ffworldmap.isSync()) { Vector3 vector = ffworldmap.getPoint();
-		 * this.worldObj.removeBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
-		 * this.worldObj.setBlockWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0); }
-		 * 
-		 * ffworldmap.setSync(false); } else { ffworldmap.removebyProjector(getDeviceID()); } } }
-		 * 
-		 * Map<Integer, TileEntityProjector> FieldFusion =
-		 * FrequencyGridOld.getWorldMap(this.worldObj).getFieldFusion(); for (TileEntityProjector
-		 * tileentity : FieldFusion.values()) { // if (tileentity.getPowerSourceID() ==
-		 * getPowerSourceID()) { if (tileentity.isActive()) { tileentity.calculateField(false); } }
-		 * }
-		 */
 	}
 
 	@Override
 	public void invalidate()
 	{
-		FrequencyGridOld.getWorldMap(this.worldObj).getProjector().remove(Integer.valueOf(getDeviceID()));
-		destroyField();
+		this.destroyField();
 		super.invalidate();
 	}
 
@@ -559,132 +485,10 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if (this.inventory[i] != null)
-		{
-			if (this.inventory[i].stackSize <= j)
-			{
-				ItemStack itemstack = this.inventory[i];
-				this.inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = this.inventory[i].splitStack(j);
-			if (this.inventory[i].stackSize == 0)
-			{
-				this.inventory[i] = null;
-			}
-			return itemstack1;
-		}
-		return null;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inventory[i] = itemstack;
-		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
-		{
-			itemstack.stackSize = getInventoryStackLimit();
-		}
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inventory[i];
-	}
-
-	@Override
 	public int getSizeInventory()
 	{
-		return 1 + 3 * 3;
+		return 1 + 3 * 3 + 2;
 	}
-
-	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerProjector(inventoryplayer.player, this);
-	}
-
-	/*
-	 * @Override public void onNetworkHandlerEvent(int key, String value) { if (!isActive()) {
-	 * switch (key) { case 1: if (!isPowersourceItem()) { if (getAccessType() != 3) { if
-	 * (getAccessType() == 2) { setAccessType(0); } else { setAccessType(getAccessType() + 1); } } }
-	 * break; }
-	 * 
-	 * }
-	 * 
-	 * super.onNetworkHandlerEvent(key, value); }
-	 * 
-	 * @Override public List getFieldsForUpdate() { List NetworkedFields = new LinkedList();
-	 * NetworkedFields.clear();
-	 * 
-	 * NetworkedFields.addAll(super.getFieldsForUpdate());
-	 * 
-	 * NetworkedFields.add("ProjektorTyp"); NetworkedFields.add("burnout");
-	 * NetworkedFields.add("camoflage"); NetworkedFields.add("ForceFieldTexturfile");
-	 * NetworkedFields.add("ForceFieldTexturids"); NetworkedFields.add("ForcefieldCamoblockid");
-	 * NetworkedFields.add("ForcefieldCamoblockmeta");
-	 * 
-	 * return NetworkedFields; }
-	 */
-	/*
-	 * @Override public boolean isItemValid(int slotID, ItemStack itemStack) { if ((slotID == 1) &&
-	 * ((itemStack.getItem() instanceof ItemModuleBase))) return true;
-	 * 
-	 * if ((slotID == 0) && ((itemStack.getItem() instanceof IPowerLinkItem))) return true;
-	 * 
-	 * if ((slotID == 11) && (itemStack.itemID < 4096) &&
-	 * (hasOption(ModularForceFieldSystem.itemOptionCamouflage, true))) return true;
-	 * 
-	 * if (hasValidTypeMod()) { ItemModuleBase modType = getType();
-	 * 
-	 * switch (slotID) { case 12: // if (((itemStack.getItem() instanceof ItemOptionDefenseStation))
-	 * && // (isPowersourceItem())) // return false;
-	 * 
-	 * // if (((itemStack.getItem() instanceof ItemCardSecurityLink)) && // (isPowersourceItem()))
-	 * // return false;
-	 * 
-	 * if ((itemStack.getItem() instanceof ItemCardSecurityLink)) return true;
-	 * 
-	 * break; case 5: if ((itemStack.getItem() instanceof ItemModuleDistance)) return
-	 * modType.supportsDistance();
-	 * 
-	 * break; case 6: if ((itemStack.getItem() instanceof ItemModuleStrength)) { return
-	 * modType.supportsStrength(); }
-	 * 
-	 * break; case 7: case 8: case 9: case 10: if ((itemStack.getItem() instanceof
-	 * ItemProjectorFocusMatrix)) return modType.supportsMatrix();
-	 * 
-	 * break; case 2: case 3: case 4: if (isActive()) return false;
-	 * 
-	 * if ((itemStack.getItem() instanceof ItemOptionShock)) { for (int spot = 2; spot <= 4; spot++)
-	 * { if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-	 * ItemOptionCamoflage))) return false; } }
-	 * 
-	 * if ((itemStack.getItem() instanceof ItemOptionCamoflage)) { for (int spot = 2; spot <= 4;
-	 * spot++) { if ((getStackInSlot(spot) != null) && ((getStackInSlot(spot).getItem() instanceof
-	 * ItemOptionShock))) return false; }
-	 * 
-	 * }
-	 * 
-	 * if (!hasPowerSource()) return false;
-	 * 
-	 * // if (((itemStack.getItem() instanceof ItemOptionDefenseStation)) && //
-	 * (isPowersourceItem())) // return false;
-	 * 
-	 * // if (((itemStack.getItem() instanceof ItemOptionFieldFusion)) && // (isPowersourceItem()))
-	 * // return false;
-	 * 
-	 * // if (((itemStack.getItem() instanceof ItemOptionJammer)) && // (isPowersourceItem())) //
-	 * return false;
-	 * 
-	 * if ((itemStack.getItem() instanceof ItemOptionBase)) return
-	 * modType.supportsOption(itemStack.getItem()); } }
-	 * 
-	 * return false; }
-	 */
 
 	@Override
 	public IProjectorMode getMode()
@@ -721,16 +525,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public Set<Vector3> getFieldQueue()
 	{
 		return this.calculatedField;
-	}
-
-	public int getSecStation_ID()
-	{
-		TileEntitySecurityStation sec = getLinkedSecurityStation();
-		if (sec != null)
-		{
-			return sec.getDeviceID();
-		}
-		return 0;
 	}
 
 	@Override
@@ -782,17 +576,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return count;
 	}
 
-	public boolean hasModule(IModule item, boolean includeCheckAll)
-	{
-		for (IModule opt : getModules())
-		{
-			if (opt == item)
-				return true;
-		}
-
-		return false;
-	}
-
+	@Override
 	public List<ItemStack> getModuleStacks()
 	{
 		List<ItemStack> modules = new ArrayList();
@@ -834,28 +618,17 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		return modules;
 	}
 
-	/*
-	 * @Override public ItemStack getPowerLinkStack() { return getStackInSlot(getPowerLinkSlot()); }
-	 * 
-	 * @Override public int getPowerLinkSlot() { return 0; }
-	 */
-
 	@Override
-	public World getWorldObj()
-	{
-		return this.worldObj;
-	}
-
-	public static int[] getSlotsBasedOnDirection(ForgeDirection direction)
+	public int[] getSlotsBasedOnDirection(ForgeDirection direction)
 	{
 		switch (direction)
 		{
 			default:
 				return null;
 			case UP:
-				return new int[] { 1, 3 };
+				return new int[] { 10 };
 			case DOWN:
-				return new int[] { 7, 9 };
+				return new int[] { 11 };
 			case NORTH:
 				return new int[] { 8 };
 			case SOUTH:

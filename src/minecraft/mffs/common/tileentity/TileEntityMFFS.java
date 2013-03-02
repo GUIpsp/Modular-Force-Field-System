@@ -130,20 +130,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 	}
 
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-
-		if (this.worldObj.isRemote && this.deviceID == 0)
-		{
-			if (this.ticks % 300 == 0)
-			{
-				PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
-			}
-		}
-	}
-
 	public void toogleSwitchMode()
 	{
 		if (getStatusMode() >= this.maxSwitchMode)

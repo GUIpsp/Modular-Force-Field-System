@@ -65,7 +65,7 @@ public class ItemModeTube extends ItemProjectorMode
 			tpz = distance;
 
 			y_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection().ordinal() == 0)
 				{
@@ -85,7 +85,7 @@ public class ItemModeTube extends ItemProjectorMode
 			tpx = distance;
 
 			z_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection().ordinal() == 2)
 				{
@@ -104,7 +104,7 @@ public class ItemModeTube extends ItemProjectorMode
 			tpx = Strength;
 
 			x_offset_s = Strength - Strength;
-			if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection().ordinal() == 4)
 				{

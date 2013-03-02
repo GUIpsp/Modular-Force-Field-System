@@ -46,17 +46,17 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		upgrades.add(ModularForceFieldSystem.itemUpgradeRange);
 		upgrades.add(ModularForceFieldSystem.itemUpgradeCapacity);
 
-		upgrades.add(ModularForceFieldSystem.itemOptionShock);
-		upgrades.add(ModularForceFieldSystem.itemOptionSponge);
-		upgrades.add(ModularForceFieldSystem.itemOptionFieldManipulator);
-		upgrades.add(ModularForceFieldSystem.itemOptionCutter);
-		upgrades.add(ModularForceFieldSystem.itemOptionDefenseeStation);
-		upgrades.add(ModularForceFieldSystem.itemOptionAntibiotic);
-		upgrades.add(ModularForceFieldSystem.itemOptionJammer);
-		upgrades.add(ModularForceFieldSystem.itemOptionCamouflage);
-		upgrades.add(ModularForceFieldSystem.itemOptionFieldFusion);
+		upgrades.add(ModularForceFieldSystem.itemModuleShock);
+		upgrades.add(ModularForceFieldSystem.itemModuleSponge);
+		upgrades.add(ModularForceFieldSystem.itemModuleManipulator);
+		upgrades.add(ModularForceFieldSystem.itemModuleDisintegration);
+		upgrades.add(ModularForceFieldSystem.itemModuleDefenseeStation);
+		upgrades.add(ModularForceFieldSystem.itemModuleAntibiotic);
+		upgrades.add(ModularForceFieldSystem.itemModuleJammer);
+		upgrades.add(ModularForceFieldSystem.itemModuleCamouflage);
+		upgrades.add(ModularForceFieldSystem.itemModuleFusion);
 
-		upgrades.add(ModularForceFieldSystem.itemModuleDistance);
+		upgrades.add(ModularForceFieldSystem.itemModuleScale);
 		upgrades.add(ModularForceFieldSystem.itemModuleStrength);
 
 		modules.add(ModularForceFieldSystem.itemModuleSphere);

@@ -6,11 +6,25 @@ import java.util.Set;
 import mffs.common.module.IModule;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.implement.IDisableable;
 import universalelectricity.prefab.implement.IRotatable;
 
 public abstract interface IProjector extends IInventory, IRotatable, IDisableable
 {
+	public static enum Slots
+	{
+
+		Linkcard(0), TypeMod(1), Option1(2), Option2(3), Option3(4), Distance(5), Strength(6),
+		FocusUp(7), FocusDown(8), FocusRight(9), FocusLeft(10), Centerslot(11), SecCard(12);
+		public int slot;
+
+		private Slots(int num)
+		{
+			this.slot = num;
+		}
+	}
+
 	public int countItemsInSlot(Slots paramSlots);
 
 	public int getDeviceID();
@@ -32,16 +46,11 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 
 	public List<IModule> getModules();
 
-	public static enum Slots
-	{
+	public void projectField();
 
-		Linkcard(0), TypeMod(1), Option1(2), Option2(3), Option3(4), Distance(5), Strength(6),
-		FocusUp(7), FocusDown(8), FocusRight(9), FocusLeft(10), Centerslot(11), SecCard(12);
-		public int slot;
+	public void destroyField();
 
-		private Slots(int num)
-		{
-			this.slot = num;
-		}
-	}
+	public List<ItemStack> getModuleStacks();
+
+	public int[] getSlotsBasedOnDirection(ForgeDirection direction);
 }

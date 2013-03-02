@@ -19,11 +19,10 @@ import universalelectricity.core.vector.Vector3;
 
 public class ItemModeSphere extends ItemProjectorMode
 {
-
 	public ItemModeSphere(int i)
 	{
 		super(i, "moduleSphere");
-		setIconIndex(52);
+		this.setIconIndex(52);
 	}
 
 	@Override
@@ -47,11 +46,11 @@ public class ItemModeSphere extends ItemProjectorMode
 	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance) + 4;
+		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 4;
 
 		int yDown = radius;
 
-		if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+		if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 		{
 			yDown = 0;
 		}

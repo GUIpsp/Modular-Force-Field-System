@@ -22,10 +22,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -48,9 +50,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	public BlockForceField(int id)
 	{
 		super(id, 2, Material.glass);
-		setBlockUnbreakable();
-		setResistance(999.0F);
-		setTickRandomly(true);
+		this.setBlockUnbreakable();
+		this.setResistance(999.0F);
+		this.setTickRandomly(true);
 		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 	}
 
@@ -131,7 +133,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
 			TileEntityProjector Projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-			
+
 			if (Projector != null)
 				if (!Projector.isActive())
 				{
@@ -159,44 +161,29 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
 	{/*
-		if (par1World.isRemote)
-		{
-			return;
-		}
-		
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new PointXYZ(par2, par3, par4, par1World).hashCode()));
-
-		if ((ffworldmap != null) && (!MFFSConfiguration.adventureMap))
-		{
-			TileEntityProjector projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(par1World).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-			if (projector != null)
-			{
-				switch (projector.getAccessType())
-				{
-					case 0:
-						par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
-						Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field");
-						break;
-					case 2:
-					case 3:
-						if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer, par1World, SecurityRight.SR))
-						{
-							par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
-							Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field");
-						}
-						break;
-					case 1:
-				}
-			}
-			if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer, par1World, SecurityRight.SR))
-			{
-				par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
-				Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field");
-			}
-		}
-
-		Random random = null;
-		updateTick(par1World, par2, par3, par4, random);*/
+	 * if (par1World.isRemote) { return; }
+	 * 
+	 * ForceFieldBlockStack ffworldmap =
+	 * WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new
+	 * PointXYZ(par2, par3, par4, par1World).hashCode()));
+	 * 
+	 * if ((ffworldmap != null) && (!MFFSConfiguration.adventureMap)) { TileEntityProjector
+	 * projector = (TileEntityProjector)
+	 * FrequencyGridOld.getWorldMap(par1World).getProjector().get(Integer
+	 * .valueOf(ffworldmap.getProjectorID())); if (projector != null) { switch
+	 * (projector.getAccessType()) { case 0:
+	 * par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
+	 * Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field"); break;
+	 * case 2: case 3: if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer, par1World,
+	 * SecurityRight.SR)) { par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock,
+	 * 10); Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field"); }
+	 * break; case 1: } } if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer,
+	 * par1World, SecurityRight.SR)) {
+	 * par5EntityPlayer.attackEntityFrom(ModularForceFieldSystem.fieldShock, 10);
+	 * Functions.ChattoPlayer(par5EntityPlayer, "[Force Field] Attention High Energy Field"); } }
+	 * 
+	 * Random random = null; updateTick(par1World, par2, par3, par4, random);
+	 */
 	}
 
 	@Override
@@ -278,7 +265,8 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 					{
 						((EntityPlayer) entity).attackEntityFrom(ModularForceFieldSystem.fieldShock, 1);
 					}
-					//Functions.ChattoPlayer((EntityPlayer) entity, "[Force Field] Attention High Energy Field");
+					// Functions.ChattoPlayer((EntityPlayer) entity,
+					// "[Force Field] Attention High Energy Field");
 				}
 			}
 		}
@@ -383,37 +371,6 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	}
 
 	@Override
-	public boolean canConnectRedstone(IBlockAccess iba, int i, int j, int k, int dir)
-	{
-		return false;
-	}
-
-	@Override
-	public void updateTick(World world, int x, int y, int z, Random random)
-	{
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(x, y, z, world).hashCode()));
-
-		if (ffworldmap != null)
-		{
-			if (!ffworldmap.isEmpty())
-			{
-				TileEntityProjector Projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-				if ((Projector != null) && (!Projector.isActive()))
-				{
-					ffworldmap.removebyProjector(ffworldmap.getProjectorID());
-				}
-			}
-
-		}
-
-		if ((ffworldmap == null) || (ffworldmap.isEmpty()))
-		{
-			world.removeBlockTileEntity(x, y, z);
-			world.setBlockWithNotify(x, y, z, 0);
-		}
-	}
-
-	@Override
 	public TileEntity createTileEntity(World world, int meta)
 	{
 		if (meta == ForceFieldType.Camouflage.ordinal())
@@ -437,5 +394,11 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		{
 			world.setBlockWithNotify(x, y, z, 0);
 		}
+	}
+
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
+	{
+		return null;
 	}
 }

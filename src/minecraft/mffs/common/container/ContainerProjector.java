@@ -29,6 +29,9 @@ public class ContainerProjector extends ContainerMFFS
 			}
 		}
 
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 10, 91, 31));
+		this.addSlotToContainer(new SlotHelper(this.tileEntity, 11, 91, 51));
+
 		this.addPlayerInventory(player);
 	}
 }

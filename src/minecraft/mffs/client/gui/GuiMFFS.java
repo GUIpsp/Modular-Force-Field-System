@@ -25,7 +25,7 @@ public class GuiMFFS extends GuiContainer
 {
 	public enum SlotType
 	{
-		NONE, BATTERY, LIQUID
+		NONE, BATTERY, LIQUID, ARR_UP, ARR_DOWN, ARR_LEFT, ARR_RIGHT
 	}
 
 	public static final int METER_HEIGHT = 49;
@@ -104,23 +104,7 @@ public class GuiMFFS extends GuiContainer
 
 		if (this.tooltip != null && this.tooltip != "")
 		{
-			String[] words = this.tooltip.split(" ");
-			List<String> displayLines = new ArrayList<String>();
-			int wordsPerLine = 5;
-
-			for (int lineCount = 0; lineCount < Math.ceil((float) words.length / (float) wordsPerLine); lineCount++)
-			{
-				String stringInLine = "";
-
-				for (int i = lineCount * wordsPerLine; i < Math.min(wordsPerLine + lineCount * wordsPerLine, words.length); i++)
-				{
-					stringInLine += words[i] + " ";
-				}
-
-				displayLines.add(stringInLine.trim());
-			}
-
-			this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop, displayLines.toArray(new String[] {}));
+			this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop, ModularForceFieldSystem.splitStringPerWord(this.tooltip, 5).toArray(new String[] {}));
 		}
 
 		this.tooltip = "";
@@ -205,6 +189,18 @@ public class GuiMFFS extends GuiContainer
 				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 2, 18, 18);
 				break;
 			}
+			case ARR_UP:
+				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 5, 18, 18);
+				break;
+			case ARR_DOWN:
+				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 6, 18, 18);
+				break;
+			case ARR_LEFT:
+				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 7, 18, 18);
+				break;
+			case ARR_RIGHT:
+				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 8, 18, 18);
+				break;
 		}
 	}
 
@@ -318,7 +314,7 @@ public class GuiMFFS extends GuiContainer
 
 				var6 = x + 12;
 				var7 = y - 12;
-				
+
 				int var9 = 8;
 
 				if (toolTips.length > 1)

@@ -51,14 +51,14 @@ public class ItemModeCube extends ItemProjectorMode
 
 		ForgeDirection direction = tileEntity.getDirection();
 
-		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 		
-		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance, TileEntityProjector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
 		for (int x = -xDisplaceNeg; x < xDisplacePos + 1; x++)
 		{
