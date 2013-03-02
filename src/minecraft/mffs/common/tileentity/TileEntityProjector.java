@@ -94,11 +94,16 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				{
 					this.calculateForceField();
 					this.setActive(true);
+					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 				}
 			}
 			else
 			{
-				this.setActive(false);
+				if (this.isActive())
+				{
+					this.setActive(false);
+					this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+				}
 			}
 
 			if (this.isActive())

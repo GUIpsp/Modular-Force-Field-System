@@ -2,6 +2,8 @@ package mffs.common.mode;
 
 import java.util.Set;
 
+import universalelectricity.core.vector.Vector3;
+
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
@@ -46,19 +48,20 @@ public class ItemModeCube extends ItemMode3D
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
+	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		int radius = projector.countItemsInSlot(IProjector.Slots.Distance) + 4;
-		TileEntity te = (TileEntity) projector;
+		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleDistance) + 4;
+		TileEntityProjector tileEntity = (TileEntityProjector) projector;
 
 		int yDown = radius;
 		int yTop = radius;
-		if (te.yCoord + radius > 255)
+
+		if (tileEntity.yCoord + radius > tileEntity.worldObj.getHeight())
 		{
-			yTop = 255 - te.yCoord;
+			yTop = 255 - tileEntity.yCoord;
 		}
 
-		if (((TileEntityProjector) te).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
+		if (projector.getModuleCount(ModularForceFieldSystem.itemOptionFieldManipulator) > 0)
 		{
 			yDown = 0;
 		}
@@ -71,11 +74,11 @@ public class ItemModeCube extends ItemMode3D
 				{
 					if ((x1 == -radius) || (x1 == radius) || (y1 == -radius) || (y1 == yTop) || (z1 == -radius) || (z1 == radius))
 					{
-						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
+						blockDef.add(new Vector3(x1, y1, z1));
 					}
 					else
 					{
-						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
+						blockInterior.add(new Vector3(x1, y1, z1));
 					}
 				}
 			}

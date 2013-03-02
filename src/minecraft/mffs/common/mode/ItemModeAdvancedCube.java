@@ -2,6 +2,8 @@ package mffs.common.mode;
 
 import java.util.Set;
 
+import universalelectricity.core.vector.Vector3;
+
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
@@ -45,7 +47,7 @@ public class ItemModeAdvancedCube extends ItemMode3D
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
+	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
 		int tpx = 0;
 		int tpy = 0;
@@ -56,9 +58,9 @@ public class ItemModeAdvancedCube extends ItemMode3D
 		int zMout = projector.countItemsInSlot(IProjector.Slots.FocusDown);
 		int zPout = projector.countItemsInSlot(IProjector.Slots.FocusUp);
 		int distance = projector.countItemsInSlot(IProjector.Slots.Distance);
-		int Strength = projector.countItemsInSlot(IProjector.Slots.Strength) + 2;
+		int strength = projector.countItemsInSlot(IProjector.Slots.Strength) + 2;
 
-		for (int y1 = 0; y1 <= Strength; y1++)
+		for (int y1 = 0; y1 <= strength; y1++)
 		{
 			for (int x1 = 0 - xMout; x1 < xPout + 1; x1++)
 			{
@@ -105,7 +107,7 @@ public class ItemModeAdvancedCube extends ItemMode3D
 						tpz = x1 - x1 - x1;
 					}
 
-					if ((y1 == 0) || (y1 == Strength) || (x1 == 0 - xMout) || (x1 == xPout) || (z1 == 0 - zPout) || (z1 == zMout))
+					if ((y1 == 0) || (y1 == strength) || (x1 == 0 - xMout) || (x1 == xPout) || (z1 == 0 - zPout) || (z1 == zMout))
 					{
 						if (((TileEntityProjector) projector).hasModule(ModularForceFieldSystem.itemOptionFieldManipulator, true))
 						{
@@ -143,11 +145,11 @@ public class ItemModeAdvancedCube extends ItemMode3D
 									}
 							}
 						}
-						ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
+						blockDef.add(new Vector3(tpx, tpy, tpz));
 					}
 					else
 					{
-						ffInterior.add(new PointXYZ(tpx, tpy, tpz, 0));
+						blockInterior.add(new Vector3(tpx, tpy, tpz));
 					}
 				}
 			}

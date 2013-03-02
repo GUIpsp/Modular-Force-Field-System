@@ -105,8 +105,11 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		if (blockid != ModularForceFieldSystem.blockForceField.blockID)
 		{
 			for (int x1 = -1; x1 <= 1; x1++)
+			{
 				for (int y1 = -1; y1 <= 1; y1++)
+				{
 					for (int z1 = -1; z1 <= 1; z1++)
+					{
 						if (world.getBlockId(x + x1, y + y1, z + z1) != ModularForceFieldSystem.blockForceField.blockID)
 						{
 							if (world.getBlockId(x + x1, y + y1, z + z1) == 0)
@@ -114,6 +117,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 								breakBlock(world, x + x1, y + y1, z + z1, 0, 0);
 							}
 						}
+					}
+				}
+			}
 		}
 	}
 
@@ -151,11 +157,12 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	@Override
 	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
-	{
+	{/*
 		if (par1World.isRemote)
 		{
 			return;
 		}
+		
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(par1World).getForceFieldStackMap(Integer.valueOf(new PointXYZ(par2, par3, par4, par1World).hashCode()));
 
 		if ((ffworldmap != null) && (!MFFSConfiguration.adventureMap))
@@ -188,7 +195,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		}
 
 		Random random = null;
-		updateTick(par1World, par2, par3, par4, random);
+		updateTick(par1World, par2, par3, par4, random);*/
 	}
 
 	@Override
@@ -233,7 +240,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		else if (entity instanceof EntityPlayer)
 		{
 			((EntityPlayer) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 60));
-			
+
 			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(i, j, k, world);
 
 			if (ffworldmap != null)
