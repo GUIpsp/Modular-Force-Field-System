@@ -56,6 +56,8 @@ public class GuiSecurityStation extends GuiMFFS
 
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
 
+		this.fontRenderer.drawString("Player Rights", 37, 22, 0);
+		
 		this.textFieldFrequency.drawTextBox();
 
 		this.drawTextWithTooltip("master", 28, 90 + (this.fontRenderer.FONT_HEIGHT / 2), x, y);
