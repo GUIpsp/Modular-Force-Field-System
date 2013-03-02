@@ -25,6 +25,7 @@ import com.google.common.io.ByteArrayDataInput;
 public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronFrequency
 {
 	protected LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
+	private int frequency = 0;
 
 	@Override
 	public void initiate()
@@ -66,6 +67,7 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
+		nbt.getInteger("frequency");
 		this.fortronTank.setLiquid(LiquidStack.loadLiquidStackFromNBT(nbt.getCompoundTag("fortron")));
 	}
 
@@ -73,6 +75,9 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
+
+		nbt.setInteger("frequency", frequency);
+
 		if (this.fortronTank.getLiquid() != null)
 		{
 			NBTTagCompound fortronCompound = new NBTTagCompound();
@@ -158,14 +163,12 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	@Override
 	public int getFrequency()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return this.frequency;
 	}
 
 	@Override
 	public void setFrequency(int frequency)
 	{
-		// TODO Auto-generated method stub
-
+		this.frequency = frequency;
 	}
 }
