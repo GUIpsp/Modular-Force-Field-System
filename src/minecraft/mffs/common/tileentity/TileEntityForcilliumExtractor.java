@@ -1,6 +1,8 @@
 package mffs.common.tileentity;
 
-import com.google.common.io.ByteArrayDataInput;
+import java.util.LinkedList;
+import java.util.List;
+
 import mffs.api.IPowerLinkItem;
 import mffs.common.Fortron;
 import mffs.common.ModularForceFieldSystem;
@@ -20,8 +22,7 @@ import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
 
-import java.util.LinkedList;
-import java.util.List;
+import com.google.common.io.ByteArrayDataInput;
 
 /**
  * A TileEntity that extract forcillium into fortrons.
@@ -182,7 +183,10 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
 		super.onReceivePacket(packetID, dataStream);
-		this.processTime = dataStream.readInt();
+		if (packetID == 1)
+		{
+			this.processTime = dataStream.readInt();
+		}
 	}
 
 	@Override

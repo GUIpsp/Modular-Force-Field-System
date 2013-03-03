@@ -3,7 +3,6 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 
 public class ItemModeDiagonalWall extends ItemModeWall
 {

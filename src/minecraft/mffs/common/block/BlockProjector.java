@@ -1,10 +1,7 @@
 package mffs.common.block;
 
-import java.util.Random;
-
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.ProjectorTypes;
-import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

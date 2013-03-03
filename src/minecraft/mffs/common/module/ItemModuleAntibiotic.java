@@ -2,7 +2,6 @@ package mffs.common.module;
 
 import java.util.List;
 
-import mffs.api.IProjector;
 import mffs.api.PointXYZ;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.mode.ItemModeSphere;

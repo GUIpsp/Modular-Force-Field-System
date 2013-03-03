@@ -3,16 +3,14 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleAntibiotic;
 import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleDefenseStation;
+import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleFusion;
 import mffs.common.module.ItemModuleJammer;
 import mffs.common.module.ItemModuleSponge;
-import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 
 public class ItemModeContainment extends ItemProjectorMode

@@ -109,10 +109,13 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	 */
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
-		this.isActive = dataStream.readBoolean();
-		this.deviceID = dataStream.readInt();
-		this.switchMode = dataStream.readShort();
-		this.switchValue = dataStream.readBoolean();
+		if (packetID == 1)
+		{
+			this.isActive = dataStream.readBoolean();
+			this.deviceID = dataStream.readInt();
+			this.switchMode = dataStream.readShort();
+			this.switchValue = dataStream.readBoolean();
+		}
 	}
 
 	@Override

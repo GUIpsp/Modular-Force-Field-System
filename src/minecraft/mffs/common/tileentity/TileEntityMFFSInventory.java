@@ -1,6 +1,5 @@
 package mffs.common.tileentity;
 
-import mffs.api.IProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

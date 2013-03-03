@@ -49,7 +49,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 				/**
 				 * Transmit fortrons in frequency network, evenly distributing them.
 				 */
-				
+
 				/**
 				 * Packet Update for Client only when GUI is open.
 				 */
@@ -59,29 +59,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 				}
 			}
 		}
-
-		/*
-		 * if (!this.worldObj.isRemote) { if ((getStatusMode() == 1) && (!getStatusValue()) &&
-		 * (isPoweredByRedstone())) onToggle();
-		 * 
-		 * if ((getStatusMode() == 1) && (getStatusValue()) && (!isPoweredByRedstone())) onToggle();
-		 * 
-		 * if (getStatusValue()) { if (isActive() != true) setActive(true);
-		 * 
-		 * } else if (isActive()) { setActive(false); }
-		 * 
-		 * if (this.ticks % 10 == 0) { if (getLinkedProjector().shortValue() != (short)
-		 * FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this, getTransmitRange()))
-		 * { setLinketprojektor(Short.valueOf((short)
-		 * FrequencyGrid.getWorldMap(this.worldObj).connectedtoCapacitor(this,
-		 * getTransmitRange()))); } if (getPercentageStorageCapacity() != getStorageAvailablePower()
-		 * / 1000 * 100 / (getStorageMaxPower() / 1000)) { setCapacity(getStorageAvailablePower() /
-		 * 1000 * 100 / (getStorageMaxPower() / 1000)); }
-		 * 
-		 * checkSlots();
-		 * 
-		 * if (isActive()) { powerTransfer(); } } } super.updateEntity();
-		 */
 	}
 
 	/**
@@ -101,8 +78,12 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
 		super.onReceivePacket(packetID, dataStream);
-		this.distributionMode = dataStream.readInt();
-		this.transmissionRange = dataStream.readInt();
+		
+		if (packetID == 1)
+		{
+			this.distributionMode = dataStream.readInt();
+			this.transmissionRange = dataStream.readInt();
+		}
 	}
 
 	@Override

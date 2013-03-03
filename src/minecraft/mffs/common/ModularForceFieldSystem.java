@@ -39,11 +39,11 @@ import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleAntibiotic;
 import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleDefenseStation;
+import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleFusion;
-import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleJammer;
+import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
 import mffs.common.multitool.ItemMultitool;
@@ -109,6 +109,7 @@ public class ModularForceFieldSystem
 	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
 	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
 	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
+
 	/**
 	 * Machines
 	 */
@@ -133,10 +134,12 @@ public class ModularForceFieldSystem
 	public static Item itemCompactForcicium;
 	public static Item itemDepletedForcicium;
 	public static Item itemFocusMatix;
+
 	/**
 	 * Multitool
 	 */
 	public static Item itemMultiTool;
+
 	/**
 	 * Cards
 	 */
@@ -178,7 +181,6 @@ public class ModularForceFieldSystem
 	public static ItemProjectorMode itemModuleDeflector;
 	public static ItemProjectorMode itemModuleTube;
 	public static ItemProjectorMode itemModuleContainment;
-	public static ItemProjectorMode itemModeAdvancedCube;
 	public static ItemProjectorMode itemModeDiagonalWall;
 
 	public static OreGenBase monaziteOreGeneration;

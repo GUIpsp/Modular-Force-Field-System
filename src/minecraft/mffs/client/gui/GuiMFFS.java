@@ -1,7 +1,7 @@
 package mffs.client.gui;
 
+import icbm.api.IBlockFrequency;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.tileentity.TileEntityFortron;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -9,14 +9,18 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.liquids.LiquidStack;
+
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
 import universalelectricity.core.vector.Vector2;
-import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.network.PacketManager;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class GuiMFFS extends GuiContainer
 {
@@ -32,61 +36,67 @@ public class GuiMFFS extends GuiContainer
 	protected String tooltip = "";
 	protected int containerWidth;
 	protected int containerHeight;
-    protected TileEntityFortron entity;
+	protected IBlockFrequency frequencyTile;
 
-	public GuiMFFS(Container par1Container, TileEntityFortron entity)
+	public GuiMFFS(Container par1Container, IBlockFrequency frequencyTile)
 	{
 		super(par1Container);
 		this.ySize = 217;
-        this.entity = entity;
+		this.frequencyTile = frequencyTile;
 	}
 
 	@Override
 	public void initGui()
 	{
 		super.initGui();
+		Keyboard.enableRepeatEvents(true);
 		this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 60, 12);
-		this.textFieldFrequency.setMaxStringLength(4);
-		this.textFieldFrequency.setText(entity.getFrequency() + "");
+		this.textFieldFrequency.setMaxStringLength(6);
+		this.textFieldFrequency.setText(frequencyTile.getFrequency() + "");
+	}
+
+	@Override
+	public void onGuiClosed()
+	{
+		Keyboard.enableRepeatEvents(false);
+		super.onGuiClosed();
 	}
 
 	@Override
 	public void keyTyped(char par1, int par2)
 	{
-		if (par2 == 1)// esc
+		// Escape
+		if (par2 == 1)
 		{
 			this.mc.thePlayer.closeScreen();
 			return;
 		}
 
-        if (!Character.isDigit(par1)) // Make sure its a number
-            return;
-
 		/**
-		 * Everytime a key is typed, try to reset the frequency.
+		 * Every time a key is typed, try to reset the frequency.
 		 */
 		this.textFieldFrequency.textboxKeyTyped(par1, par2);
 
 		try
 		{
-
 			int newFrequency = Math.max(0, Integer.parseInt(this.textFieldFrequency.getText()));
-			this.textFieldFrequency.setText(newFrequency + "");
-
-            this.entity.setFrequency(newFrequency);
-            PacketManager.sendPacketToClients(this.entity.getDescriptionPacket(), this.entity.worldObj, new Vector3(this.entity), 15);
-
-			/**
-			 * if (((IItemFrequency) this.itemStack.getItem()).getFrequency(this.itemStack) !=
-			 * newFrequency) { ((IItemFrequency)
-			 * this.itemStack.getItem()).setFrequency(newFrequency, this.itemStack);
-			 * PacketDispatcher .sendPacketToServer(PacketManager
-			 * .getPacketWithID(ZhuYaoWanYi.CHANNEL, WanYiPacketType.HUO_LUAN.ordinal(),
-			 * newFrequency)); }
-			 */
+			this.frequencyTile.setFrequency(newFrequency);
+			this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
+			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, (TileEntity) this.frequencyTile, 2, this.frequencyTile.getFrequency()));
 		}
 		catch (NumberFormatException e)
 		{
+		}
+	}
+
+	@Override
+	public void updateScreen()
+	{
+		super.updateScreen();
+
+		if (!this.textFieldFrequency.isFocused())
+		{
+			this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
 		}
 	}
 
@@ -151,11 +161,13 @@ public class GuiMFFS extends GuiContainer
 		// GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY) {
+	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
+	{
 		this.drawTextWithTooltip(textName, format, x, y, mouseX, mouseY, 4210752);
 	}
-	
-	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color) {
+
+	protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color)
+	{
 		String name = TranslationHelper.getLocal("gui." + textName + ".name");
 		String text = format.replaceAll("%1", name);
 		this.fontRenderer.drawString(text, x, y, color);
@@ -170,7 +182,6 @@ public class GuiMFFS extends GuiContainer
 			}
 		}
 	}
-
 
 	protected void drawTextWithTooltip(String textName, int x, int y, int mouseX, int mouseY)
 	{

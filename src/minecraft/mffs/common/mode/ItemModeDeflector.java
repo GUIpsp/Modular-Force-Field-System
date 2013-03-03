@@ -3,7 +3,6 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleCamoflage;
 import mffs.common.module.ItemModuleDisintegration;

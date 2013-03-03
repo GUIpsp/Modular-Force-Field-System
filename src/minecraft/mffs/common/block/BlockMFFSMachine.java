@@ -12,7 +12,6 @@ import mffs.common.mode.ItemProjectorMode;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

@@ -17,18 +17,18 @@ public class CommonProxy implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-
-		TileEntity te = world.getBlockTileEntity(x, y, z);
-		if (te == null)
+		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		
+		if (tileEntity == null)
 		{
 			return null;
 		}
 
-		MachineTypes machType = MachineTypes.fromTE(te);
+		MachineTypes machType = MachineTypes.fromTE(tileEntity);
 		try
 		{
 			Constructor mkGui = machType.gui.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
-			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(te) });
+			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(tileEntity) });
 		}
 		catch (Exception ex)
 		{
@@ -41,17 +41,17 @@ public class CommonProxy implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		TileEntity te = world.getBlockTileEntity(x, y, z);
-		if (te == null)
+		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		if (tileEntity == null)
 		{
 			return null;
 		}
 
-		MachineTypes machType = MachineTypes.fromTE(te);
+		MachineTypes machType = MachineTypes.fromTE(tileEntity);
 		try
 		{
 			Constructor mkGui = machType.container.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
-			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(te) });
+			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(tileEntity) });
 		}
 		catch (Exception ex)
 		{

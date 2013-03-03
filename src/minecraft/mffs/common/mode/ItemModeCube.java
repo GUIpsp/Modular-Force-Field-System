@@ -1,3 +1,4 @@
+
 package mffs.common.mode;
 
 import java.util.Set;
@@ -7,13 +8,12 @@ import mffs.common.ModularForceFieldSystem;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleAntibiotic;
 import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleDefenseStation;
+import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleFusion;
-import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleJammer;
+import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleSponge;
-import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
@@ -58,6 +58,16 @@ public class ItemModeCube extends ItemProjectorMode
 		int yScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
 		int yScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
+		int overAllIncrease = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, 14,15);
+		zScaleNeg += overAllIncrease;
+		zScalePos += overAllIncrease;
+		
+		xScaleNeg += overAllIncrease;
+		xScalePos += overAllIncrease;
+		
+		yScalePos += overAllIncrease;
+		yScaleNeg += overAllIncrease;
+		
 		int zTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.NORTH)));
 		int zTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(Vector3.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 

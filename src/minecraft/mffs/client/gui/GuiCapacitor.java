@@ -5,7 +5,9 @@ import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+
 import org.lwjgl.opengl.GL11;
+
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;

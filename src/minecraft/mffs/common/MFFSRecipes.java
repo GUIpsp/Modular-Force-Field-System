@@ -2,26 +2,27 @@ package mffs.common;
 
 import ic2.api.Ic2Recipes;
 import ic2.api.Items;
+
+import java.util.HashMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import thermalexpansion.api.crafting.CraftingManagers;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MFFSRecipes
 {
+	public static final HashMap<String, ItemStack> RECIPE_CHARACTERS = new HashMap<String, ItemStack>();
 
 	public static void init()
 	{
-		OreDictionary.registerOre("ForciciumItem", ModularForceFieldSystem.itemForcillium);
-		OreDictionary.registerOre("MonazitOre", ModularForceFieldSystem.blockFortronite);
-
 		MFFSRecipes.addRecipe("uuuuiuuuu", 1, 0, null, ModularForceFieldSystem.itemPowerCrystal);
 		MFFSRecipes.addRecipe("vvvvvvvvv", 1, 0, null, ModularForceFieldSystem.itemModuleTranslation);
 		MFFSRecipes.addRecipe("vvv   vvv", 1, 0, null, ModularForceFieldSystem.itemModuleScale);
+		MFFSRecipes.addRecipe("  A EA  A", 1, 0, null, ModularForceFieldSystem.itemMultiTool);
 
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ModularForceFieldSystem.itemCardEmpty), new Object[] { new ItemStack(ModularForceFieldSystem.itemCardPowerLink) });
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ModularForceFieldSystem.itemCardEmpty), new Object[] { new ItemStack(ModularForceFieldSystem.itemCardID) });
@@ -43,7 +44,7 @@ public class MFFSRecipes
 
 			if (MFFSConfiguration.uumatterEnabled)
 			{
-				Ic2Recipes.addCraftingRecipe(new ItemStack(ModularForceFieldSystem.itemForcillium, 8), new Object[] { " RR", "R  ", " R ", Character.valueOf('R'), Items.getItem("matter") });
+				Ic2Recipes.addCraftingRecipe(new ItemStack(ModularForceFieldSystem.itemForcillium, 8), new Object[] { " RR", "R  ", " R ", 'R', Items.getItem("matter") });
 			}
 
 			MFFSRecipes.addRecipe("AAAAxAADA", 1, 1, null, ModularForceFieldSystem.itemForcilliumCell);
@@ -69,7 +70,7 @@ public class MFFSRecipes
 	{
 		if (((forMod > 2) && (forMod < 0)) || (count < 0) || ((block == null) && (item == null)) || ((block != null) && (item != null)) || (Recipe.length() != 9))
 		{
-			System.out.println("[ModularForceFieldSystem] Recipes generating Fail for :" + block + "/" + item);
+			ModularForceFieldSystem.LOGGER.severe("Recipes generating failed for :" + block + "/" + item);
 			return false;
 		}
 
@@ -89,22 +90,19 @@ public class MFFSRecipes
 		switch (forMod)
 		{
 			case 0:
-				GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, Character.valueOf('a'), Item.enderPearl, Character.valueOf('b'), Item.pickaxeSteel, Character.valueOf('c'), Item.bucketEmpty, Character.valueOf('d'), Item.bucketLava, Character.valueOf('e'), Item.bucketWater, Character.valueOf('f'), Item.bone, Character.valueOf('g'), Item.blazeRod, Character.valueOf('h'), Item.rottenFlesh, Character.valueOf('i'), Item.diamond, Character.valueOf('j'), Item.spiderEye, Character.valueOf('k'), Block.obsidian, Character.valueOf('l'), Block.glass, Character.valueOf('m'), Item.redstone, Character.valueOf('n'), Block.lever, Character.valueOf('o'), Item.paper, Character.valueOf('u'), ModularForceFieldSystem.itemForcillium, Character.valueOf('v'), ModularForceFieldSystem.itemFocusMatix, Character.valueOf('w'), ModularForceFieldSystem.itemModuleCube, Character.valueOf('x'), new ItemStack(ModularForceFieldSystem.itemPowerCrystal, 1, -1), Character.valueOf('y'), ModularForceFieldSystem.itemFocusMatix, Character.valueOf('z'), ModularForceFieldSystem.itemCardID });
-
+				GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ModularForceFieldSystem.itemForcillium, 'v', ModularForceFieldSystem.itemFocusMatix, 'w', ModularForceFieldSystem.itemModuleCube, 'x', new ItemStack(ModularForceFieldSystem.itemPowerCrystal, 1, -1), 'y', ModularForceFieldSystem.itemFocusMatix, 'z', ModularForceFieldSystem.itemCardID });
 				return true;
 			case 1:
 				if (MFFSConfiguration.MODULE_IC2)
 				{
-					GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, Character.valueOf('a'), Item.enderPearl, Character.valueOf('b'), Item.pickaxeSteel, Character.valueOf('c'), Item.bucketEmpty, Character.valueOf('d'), Item.bucketLava, Character.valueOf('e'), Item.bucketWater, Character.valueOf('f'), Item.bone, Character.valueOf('g'), Item.blazeRod, Character.valueOf('h'), Item.rottenFlesh, Character.valueOf('i'), Item.diamond, Character.valueOf('j'), Item.spiderEye, Character.valueOf('k'), Block.obsidian, Character.valueOf('l'), Block.glass, Character.valueOf('m'), Item.redstone, Character.valueOf('n'), Block.lever, Character.valueOf('o'), Item.paper, Character.valueOf('u'), ModularForceFieldSystem.itemForcillium, Character.valueOf('v'), ModularForceFieldSystem.itemFocusMatix, Character.valueOf('w'), ModularForceFieldSystem.itemModuleCube, Character.valueOf('x'), new ItemStack(ModularForceFieldSystem.itemPowerCrystal, 1, -1), Character.valueOf('y'), ModularForceFieldSystem.itemFocusMatix, Character.valueOf('z'), ModularForceFieldSystem.itemCardID, Character.valueOf('A'), Items.getItem("refinedIronIngot"), Character.valueOf('B'), Items.getItem("overclockerUpgrade"), Character.valueOf('C'), Items.getItem("electronicCircuit"), Character.valueOf('D'), Items.getItem("advancedCircuit"), Character.valueOf('E'), Items.getItem("carbonPlate"), Character.valueOf('F'), Items.getItem("advancedMachine"), Character.valueOf('G'), Items.getItem("extractor"), Character.valueOf('H'), Items.getItem("copperCableItem"), Character.valueOf('I'), Items.getItem("insulatedCopperCableItem"), Character.valueOf('J'), Items.getItem("frequencyTransmitter"), Character.valueOf('K'), Items.getItem("advancedAlloy"), Character.valueOf('M'), Items.getItem("glassFiberCableItem"), Character.valueOf('N'), Items.getItem("lvTransformer"), Character.valueOf('O'), Items.getItem("mvTransformer"), Character.valueOf('P'), Items.getItem("hvTransformer"), Character.valueOf('Q'), Items.getItem("teslaCoil"), Character.valueOf('R'), Items.getItem("matter"), Character.valueOf('S'), Items.getItem("wrench") });
-
+					GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ModularForceFieldSystem.itemForcillium, 'v', ModularForceFieldSystem.itemFocusMatix, 'w', ModularForceFieldSystem.itemModuleCube, 'x', new ItemStack(ModularForceFieldSystem.itemPowerCrystal, 1, -1), 'y', ModularForceFieldSystem.itemFocusMatix, 'z', ModularForceFieldSystem.itemCardID, 'A', Items.getItem("refinedIronIngot"), 'B', Items.getItem("overclockerUpgrade"), 'C', Items.getItem("electronicCircuit"), 'D', Items.getItem("advancedCircuit"), 'E', Items.getItem("carbonPlate"), 'F', Items.getItem("advancedMachine"), 'G', Items.getItem("extractor"), 'H', Items.getItem("copperCableItem"), 'I', Items.getItem("insulatedCopperCableItem"), 'J', Items.getItem("frequencyTransmitter"), 'K', Items.getItem("advancedAlloy"), 'M', Items.getItem("glassFiberCableItem"), 'N', Items.getItem("lvTransformer"), 'O', Items.getItem("mvTransformer"), 'P', Items.getItem("hvTransformer"), 'Q', Items.getItem("teslaCoil"), 'R', Items.getItem("matter"), 'S', Items.getItem("wrench") });
 					return true;
 				}
 				break;
 			case 2:
 				if (MFFSConfiguration.MODULE_UE)
 				{
-					GameRegistry.addRecipe(new ShapedOreRecipe(itemstack, new Object[] { recipeSplit, Character.valueOf('a'), Item.enderPearl, Character.valueOf('b'), Item.pickaxeSteel, Character.valueOf('c'), Item.bucketEmpty, Character.valueOf('d'), Item.bucketLava, Character.valueOf('e'), Item.bucketWater, Character.valueOf('f'), Item.bone, Character.valueOf('g'), Item.blazeRod, Character.valueOf('h'), Item.rottenFlesh, Character.valueOf('i'), Item.diamond, Character.valueOf('j'), Item.spiderEye, Character.valueOf('k'), Block.obsidian, Character.valueOf('l'), Block.glass, Character.valueOf('m'), Item.redstone, Character.valueOf('n'), Block.lever, Character.valueOf('o'), Item.paper, Character.valueOf('u'), ModularForceFieldSystem.itemForcillium, Character.valueOf('v'), ModularForceFieldSystem.itemFocusMatix, Character.valueOf('w'), ModularForceFieldSystem.itemModuleCube, Character.valueOf('x'), new ItemStack(ModularForceFieldSystem.itemPowerCrystal, 1, -1), Character.valueOf('y'), ModularForceFieldSystem.itemFocusMatix, Character.valueOf('z'), ModularForceFieldSystem.itemCardID, Character.valueOf('A'), "ingotSteel", Character.valueOf('B'), "plateBronze", Character.valueOf('C'), "plateSteel", Character.valueOf('D'), "plateTin", Character.valueOf('E'), "basicCircuit", Character.valueOf('F'), "advancedCircuit", Character.valueOf('G'), "eliteCircuit", Character.valueOf('H'), "motor", Character.valueOf('I'), "copperWire", Character.valueOf('J'), "batteryBox", Character.valueOf('K'), "coalGenerator", Character.valueOf('M'), "electricFurnace", Character.valueOf('N'), "ingotCopper", Character.valueOf('O'), "wrench" }));
-
+					GameRegistry.addRecipe(new ShapedOreRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ModularForceFieldSystem.itemForcillium, 'v', ModularForceFieldSystem.itemFocusMatix, 'w', ModularForceFieldSystem.itemModuleCube, 'x', new ItemStack(ModularForceFieldSystem.itemPowerCrystal, 1, -1), 'y', ModularForceFieldSystem.itemFocusMatix, 'z', ModularForceFieldSystem.itemCardID, 'A', "ingotSteel", 'B', "plateBronze", 'C', "plateSteel", 'D', "plateTin", 'E', "basicCircuit", 'F', "advancedCircuit", 'G', "eliteCircuit", 'H', "motor", 'I', "copperWire", 'J', "batteryBox", 'K', "coalGenerator", 'M', "electricFurnace", 'N', "ingotCopper", 'O', "wrench" }));
 					return true;
 				}
 

@@ -1,9 +1,5 @@
 package mffs.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.registry.LanguageRegistry;
-
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
 import mffs.common.container.ContainerSecurityStation;

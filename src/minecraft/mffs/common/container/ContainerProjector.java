@@ -1,6 +1,5 @@
 package mffs.common.container;
 
-import mffs.client.gui.GuiMFFS.SlotType;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;

@@ -6,37 +6,31 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import com.google.common.io.ByteArrayDataInput;
-
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.ProjectorTypes;
 import mffs.common.WorldMap;
 import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.card.ItemCard;
 import mffs.common.card.ItemCardPower;
-import mffs.common.container.ContainerProjector;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleFusion;
 import mffs.common.module.ItemModuleJammer;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
+
+import com.google.common.io.ByteArrayDataInput;
 
 public class TileEntityProjector extends TileEntityFortron implements IProjector
 {
@@ -133,13 +127,15 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
+		if (packetID == 1)
+		{
 		final boolean prevActivate = this.isActive();
 		super.onReceivePacket(packetID, dataStream);
 
 		if (prevActivate != this.isActive())
 		{
 			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-		}
+		}}
 	}
 
 	@Override

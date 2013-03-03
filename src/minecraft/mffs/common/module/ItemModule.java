@@ -3,20 +3,9 @@ package mffs.common.module;
 import java.util.List;
 
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.ProjectorTypes;
 import mffs.common.item.ItemMFFS;
-import mffs.common.mode.ItemModeContainment;
-import mffs.common.mode.ItemModeCube;
-import mffs.common.mode.ItemModeDeflector;
-import mffs.common.mode.ItemModeDiagonalWall;
-import mffs.common.mode.ItemModeSphere;
-import mffs.common.mode.ItemModeTube;
-import mffs.common.mode.ItemModeWall;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
-import org.lwjgl.input.Keyboard;
-
 import universalelectricity.prefab.TranslationHelper;
 
 public abstract class ItemModule extends ItemMFFS implements IModule
