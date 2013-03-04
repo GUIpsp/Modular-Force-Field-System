@@ -5,15 +5,10 @@ import mffs.common.MFFSCreativeTab;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
-import mffs.common.card.ItemCardEmpty;
-import mffs.common.card.ItemCardPowerLink;
-import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.mode.ItemProjectorMode;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntitySecurityStation;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +20,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.BlockMachine;
+import universalelectricity.prefab.tile.TileEntityAdvanced;
+import buildcraft.api.tools.IToolWrench;
 
 public abstract class BlockMFFSMachine extends BlockMachine
 {
@@ -49,34 +46,9 @@ public abstract class BlockMFFSMachine extends BlockMachine
 			TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(x, y, z);
 			ItemStack equippedItem = entityPlayer.getCurrentEquippedItem();
 
-			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemMultitool)))
+			if (equippedItem != null && (equippedItem.getItem() instanceof ItemMultitool || equippedItem.getItem() instanceof IToolWrench))
 			{
-				return false;
-			}
-
-			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardEmpty)))
-			{
-				return false;
-			}
-
-			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemProjectorMode)))
-			{
-				return false;
-			}
-
-			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardPowerLink)))
-			{
-				return false;
-			}
-
-			if ((equippedItem != null) && ((equippedItem.getItem() instanceof ItemCardSecurityLink)))
-			{
-				return false;
-			}
-
-			if ((equippedItem != null) && (equippedItem.itemID == Block.lever.blockID))
-			{
-				return false;
+				return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
 			}
 
 			if ((tileEntity instanceof TileEntitySecurityStation) && (tileEntity.isActive()))
@@ -145,6 +117,46 @@ public abstract class BlockMFFSMachine extends BlockMachine
 				tileEntity.setDirection(ForgeDirection.getOrientation(4));
 			}
 		}
+	}
+
+	@Override
+	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float hitX, float hitY, float hitZ)
+	{
+		// Reorient the block
+		switch (world.getBlockMetadata(x, y, z))
+		{
+			case 0:
+				world.setBlockMetadata(x, y, z, 1);
+				break;
+			case 1:
+				world.setBlockMetadata(x, y, z, 2);
+				break;
+			case 2:
+				world.setBlockMetadata(x, y, z, 5);
+				break;
+			case 5:
+				world.setBlockMetadata(x, y, z, 3);
+				break;
+
+			case 3:
+				world.setBlockMetadata(x, y, z, 4);
+				break;
+
+			case 4:
+				world.setBlockMetadata(x, y, z, 0);
+				break;
+		}
+
+		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+
+		if (tileEntity instanceof TileEntityAdvanced)
+		{
+			((TileEntityAdvanced) tileEntity).initiate();
+			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override

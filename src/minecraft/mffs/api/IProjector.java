@@ -42,7 +42,7 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 
 	public int getModuleCount(IModule module, int... slots);
 
-	public int getModuleCount(IModule module, ForgeDirection direction);
+	public int getSidedModuleCount(IModule module, ForgeDirection... direction);
 
 	public List<IModule> getModules();
 
@@ -52,6 +52,14 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 
 	public List<ItemStack> getModuleStacks();
 
+	/**
+	 * Gets the slot IDs based on the direction given.
+	 */
 	public int[] getSlotsBasedOnDirection(ForgeDirection direction);
+	
+	/**
+	 * Gets the unspecified, direction-unspecific module slots on the left side of the GUI.
+	 */
+	public int[] getModuleSlots();
 
 }

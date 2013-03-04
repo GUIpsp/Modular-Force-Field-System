@@ -219,15 +219,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		nbttagcompound.setInteger("deviceID", this.deviceID);
 	}
 
-	public boolean wrenchCanManipulate(EntityPlayer entityPlayer, int side)
-	{
-		if (!SecurityHelper.isAccessGranted(this, entityPlayer, this.worldObj, SecurityRight.EB))
-		{
-			return false;
-		}
-		return true;
-	}
-
 	public boolean isActive()
 	{
 		return this.isActive;
@@ -241,24 +232,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
 	{
-		if (side == getFacing())
-		{
-			return false;
-		}
-		if ((this instanceof TileEntitySecStorage))
-		{
-			return false;
-		}
-		if ((this instanceof TileEntitySecurityStation))
-		{
-			return false;
-		}
-		if (this.isActive)
-		{
-			return false;
-		}
-
-		return wrenchCanManipulate(entityPlayer, side);
+		return true;
 	}
 
 	@Override
@@ -276,11 +250,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	@Override
 	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
 	{
-		if (this.isActive)
-		{
-			return false;
-		}
-		return wrenchCanManipulate(entityPlayer, 0);
+		return false;
 	}
 
 	@Override
@@ -330,7 +300,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
 	{
-		return new ItemStack(net.minecraft.block.Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)]);
+		return null;
 	}
 
 	/**

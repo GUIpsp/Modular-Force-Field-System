@@ -58,7 +58,7 @@ public class ItemModeCube extends ItemProjectorMode
 		int yScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
 		int yScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
-		int overAllIncrease = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, 14,15);
+		int overAllIncrease = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getModuleSlots());
 		zScaleNeg += overAllIncrease;
 		zScalePos += overAllIncrease;
 		

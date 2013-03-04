@@ -129,13 +129,14 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	{
 		if (packetID == 1)
 		{
-		final boolean prevActivate = this.isActive();
-		super.onReceivePacket(packetID, dataStream);
+			final boolean prevActivate = this.isActive();
+			super.onReceivePacket(packetID, dataStream);
 
-		if (prevActivate != this.isActive())
-		{
-			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-		}}
+			if (prevActivate != this.isActive())
+			{
+				this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+			}
+		}
 	}
 
 	@Override
@@ -537,9 +538,27 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public int getModuleCount(IModule module, ForgeDirection direction)
+	public int getSidedModuleCount(IModule module, ForgeDirection... direction)
 	{
-		return this.getModuleCount(module, this.getSlotsBasedOnDirection(direction));
+		int count = 0;
+
+		if (direction != null && direction.length > 0)
+		{
+			for (ForgeDirection checkDir : direction)
+			{
+				count += this.getModuleCount(module, this.getSlotsBasedOnDirection(checkDir));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				ForgeDirection checkDir = ForgeDirection.getOrientation(i);
+				count += this.getModuleCount(module, this.getSlotsBasedOnDirection(checkDir));
+			}
+		}
+
+		return count;
 	}
 
 	@Override
@@ -590,7 +609,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		switch (direction)
 		{
 			default:
-				return new int[]{};
+				return new int[] {};
 			case UP:
 				return new int[] { 10, 11 };
 			case DOWN:
@@ -604,5 +623,11 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			case EAST:
 				return new int[] { 5, 6 };
 		}
+	}
+
+	@Override
+	public int[] getModuleSlots()
+	{
+		return new int[] { 14, 15 };
 	}
 }
