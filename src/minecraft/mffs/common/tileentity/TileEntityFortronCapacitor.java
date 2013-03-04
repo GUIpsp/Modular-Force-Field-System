@@ -2,10 +2,14 @@ package mffs.common.tileentity;
 
 import icbm.api.RadarRegistry;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import mffs.api.FortronGrid;
 import mffs.api.IForceEnergyItems;
+import mffs.api.IFortronFrequency;
 import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
 import mffs.common.card.ItemCardSecurityLink;
@@ -25,7 +29,7 @@ import com.google.common.io.ByteArrayDataInput;
 public class TileEntityFortronCapacitor extends TileEntityFortron implements IFortronStorage
 {
 	private int distributionMode = 0;
-	private int transmissionRange = 0;
+	private int transmissionRange = 20;
 
 	public TileEntityFortronCapacitor()
 	{
@@ -42,13 +46,55 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	@Override
 	public void updateEntity()
 	{
+		super.updateEntity();
+
 		if (!this.worldObj.isRemote)
 		{
 			if (!this.isDisabled())
 			{
 				/**
-				 * Transmit fortrons in frequency network, evenly distributing them.
+				 * Transmit Fortrons in frequency network, evenly distributing them.
 				 */
+				if (this.isPoweredByRedstone() && this.ticks % 20 == 0)
+				{
+					Set<IFortronFrequency> machines = FortronGrid.INSTANCE.get(this.worldObj, new Vector3(this), this.transmissionRange, this.getFrequency());
+
+					/**
+					 * Check spread mode. Equal, Give All, Take All
+					 */
+					int totalFortron = 0;
+					int totalCapacity = 0;
+
+					HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
+
+					for (IFortronFrequency machine : machines)
+					{
+						if (machine != null)
+						{
+							totalFortron += machine.getFortronEnergy();
+							totalCapacity += machine.getFortronCapacity();
+						}
+					}
+
+					if (totalFortron > 0 && totalCapacity > 0)
+					{
+						for (IFortronFrequency machine : machines)
+						{
+							if (machine != null)
+							{
+								double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+								int amountToSet = (int) (totalFortron * capacityPercentage);
+								machine.setFortronEnergy(amountToSet);
+							}
+						}
+					}
+
+					this.setActive(true);
+				}
+				else
+				{
+					this.setActive(false);
+				}
 
 				/**
 				 * Packet Update for Client only when GUI is open.
@@ -78,7 +124,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
 		super.onReceivePacket(packetID, dataStream);
-		
+
 		if (packetID == 1)
 		{
 			this.distributionMode = dataStream.readInt();

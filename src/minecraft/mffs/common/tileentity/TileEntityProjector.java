@@ -127,10 +127,11 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
+		super.onReceivePacket(packetID, dataStream);
+
 		if (packetID == 1)
 		{
 			final boolean prevActivate = this.isActive();
-			super.onReceivePacket(packetID, dataStream);
 
 			if (prevActivate != this.isActive())
 			{
