@@ -30,8 +30,8 @@ public class GuiFortronCapacitor extends GuiMFFS
 		super.initGui();
 
 		this.controlList.clear();
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
-		this.controlList.add(new GuiButtonMFFS(1, this.width / 2 + 5, this.height / 2 - 35, this.tileEntity, 1));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
+		this.controlList.add(new GuiButtonMFFS(1, this.width / 2 + 5, this.height / 2 - 35, this, 1));
 
 	}
 

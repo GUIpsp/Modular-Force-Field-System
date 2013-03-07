@@ -19,10 +19,10 @@ public class GuiControlSystem extends GuiMFFS
 	private boolean editMode = false;
 	private EntityPlayer player;
 
-	public GuiControlSystem(EntityPlayer player, TileEntityControlSystem tileentity)
+	public GuiControlSystem(EntityPlayer player, TileEntityControlSystem tileEntity)
 	{
-		super(new ContainerControlSystem(player, tileentity));
-		this.ControlSystem = tileentity;
+		super(new ContainerControlSystem(player, tileEntity), tileEntity);
+		this.ControlSystem = tileEntity;
 		this.xSize = 256;
 		this.ySize = 216;
 		this.player = player;

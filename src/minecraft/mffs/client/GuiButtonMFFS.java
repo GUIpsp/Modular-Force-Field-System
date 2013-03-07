@@ -10,6 +10,7 @@ import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
@@ -30,8 +31,12 @@ public class GuiButtonMFFS extends GuiButton
 	{
 		if (this.drawButton)
 		{
-			GL11.glBindTexture(3553, minecraft.renderEngine.getTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE));
+			ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_BUTTON + "", 0);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			drawTexturedModalRect(this.xPosition, this.yPosition, 0,0, this.width, this.height);
+			
+			/*
+
 
 			if (this.tileEntity instanceof TileEntityMFFS && this.type == 0)
 			{
@@ -117,7 +122,7 @@ public class GuiButtonMFFS extends GuiButton
 				{
 					drawTexturedModalRect(this.xPosition, this.yPosition, 0 + ((TileEntityProjector) this.tileEntity).getAccessType() * 16, 80, this.width, this.height);
 				}
-			}
+			}*/
 		}
 	}
 

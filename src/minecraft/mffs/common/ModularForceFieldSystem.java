@@ -109,6 +109,9 @@ public class ModularForceFieldSystem
 	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
 	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
 	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
+	public static final String GUI_BASE_DIRECTORY = GUI_DIRECTORY + "gui_base.png";
+	public static final String GUI_COMPONENTS = GUI_DIRECTORY + "gui_components.png";
+	public static final String GUI_BUTTON = GUI_DIRECTORY + "button/";
 
 	/**
 	 * Machines

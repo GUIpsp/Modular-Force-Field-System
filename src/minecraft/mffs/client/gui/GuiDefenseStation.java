@@ -1,55 +1,24 @@
 package mffs.client.gui;
 
-import mffs.client.GuiButtonMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiAreaDefenseStation extends GuiContainer
+public class GuiDefenseStation extends GuiMFFS
 {
-
 	private TileEntityDefenseStation DefenceStation;
 	private boolean editMode = false;
 
-	public GuiAreaDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
+	public GuiDefenseStation(EntityPlayer player, TileEntityDefenseStation tileEntity)
 	{
-		super(new ContainerAreaDefenseStation(player, tileentity));
-		this.DefenceStation = tileentity;
+		super(new ContainerAreaDefenseStation(player, tileEntity));
+		this.DefenceStation = tileEntity;
 		this.xSize = 256;
 		this.ySize = 216;
-	}
-
-	@Override
-	protected void keyTyped(char c, int i)
-	{
-		if ((i != 1) && (this.editMode))
-		{
-			if (c == '\r')
-			{
-				this.editMode = false;
-				return;
-			}
-
-			if (i == 14)
-			{
-				// NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 12, "");
-			}
-
-			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
-			{
-				// NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 11,
-				// String.valueOf(c));
-			}
-		}
-		else
-		{
-			super.keyTyped(c, i);
-		}
 	}
 
 	@Override
@@ -95,11 +64,13 @@ public class GuiAreaDefenseStation extends GuiContainer
 
 	@Override
 	public void initGui()
-	{
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104, this.DefenceStation, 0));
-		this.controlList.add(new GuiButtonMFFS(100, this.width / 2 + 47, this.height / 2 - 38, this.DefenceStation, 1));
-		this.controlList.add(new GuiButtonMFFS(101, this.width / 2 - 36, this.height / 2 - 58, this.DefenceStation, 2));
-		this.controlList.add(new GuiButtonMFFS(102, this.width / 2 + 20, this.height / 2 - 58, this.DefenceStation, 3));
+	{/*
+	 * this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104,
+	 * this.DefenceStation, 0)); this.controlList.add(new GuiButtonMFFS(100, this.width / 2 + 47,
+	 * this.height / 2 - 38, this.DefenceStation, 1)); this.controlList.add(new GuiButtonMFFS(101,
+	 * this.width / 2 - 36, this.height / 2 - 58, this.DefenceStation, 2)); this.controlList.add(new
+	 * GuiButtonMFFS(102, this.width / 2 + 20, this.height / 2 - 58, this.DefenceStation, 3));
+	 */
 		super.initGui();
 	}
 
@@ -168,11 +139,11 @@ public class GuiAreaDefenseStation extends GuiContainer
 			this.fontRenderer.drawString("banned", 200, 82, 16711680);
 		}
 
-		if (this.DefenceStation.getPowerSourceID() != 0)
+		// if (this.DefenceStation.getPowerSourceID() != 0)
 		{
 			this.fontRenderer.drawString("FE: " + this.DefenceStation.getCapacity() + " %", 35, 31, 4210752);
 		}
-		else
+		// else
 		{
 			this.fontRenderer.drawString("No Link/OOR", 35, 31, 16711680);
 		}

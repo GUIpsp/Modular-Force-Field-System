@@ -3,6 +3,7 @@ package mffs.common.tileentity;
 import mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 
+@Deprecated
 public abstract class TileEntityMFFSMachine extends TileEntityMFFSInventory
 {
 	public abstract ItemStack getPowerLinkStack();

@@ -8,9 +8,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerAreaDefenseStation extends Container
+public class ContainerAreaDefenseStation extends ContainerMFFS
 {
-
 	private int capacity = -1;
 	private int contratyp = -1;
 	private int actionmode = -1;
@@ -20,7 +19,7 @@ public class ContainerAreaDefenseStation extends Container
 
 	public ContainerAreaDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
 	{
-
+		super(tileentity);
 		this.defstation = tileentity;
 		this.player = player;
 

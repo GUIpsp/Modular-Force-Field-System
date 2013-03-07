@@ -29,7 +29,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		this.textFieldPos = new Vector2(30, 43);
 		super.initGui();
 		this.controlList.clear();
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
 	}
 
 	@Override

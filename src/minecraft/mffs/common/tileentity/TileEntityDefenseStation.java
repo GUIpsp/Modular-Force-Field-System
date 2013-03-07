@@ -32,7 +32,6 @@ import net.minecraftforge.common.ISidedInventory;
 
 public class TileEntityDefenseStation extends TileEntityMFFSMachine implements ISidedInventory
 {
-
 	private int capacity;
 	private int distance;
 	private int contratyp;
@@ -121,12 +120,6 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 		}
 
 		return false;
-	}
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 1, this.worldObj);
 	}
 
 	@Override

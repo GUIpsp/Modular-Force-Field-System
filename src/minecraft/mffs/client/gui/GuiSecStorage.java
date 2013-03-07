@@ -10,44 +10,16 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiSecStorage extends GuiContainer
+public class GuiSecStorage extends GuiMFFS
 {
-
 	private TileEntitySecStorage SecStorage;
-	private boolean editMode = false;
 
-	public GuiSecStorage(EntityPlayer player, TileEntitySecStorage tileentity)
+	public GuiSecStorage(EntityPlayer player, TileEntitySecStorage tileEntity)
 	{
-		super(new ContainerSecStorage(player, tileentity));
-		this.SecStorage = tileentity;
+		super(new ContainerSecStorage(player, tileEntity));
+		this.SecStorage = tileEntity;
 		this.xSize = 185;
 		this.ySize = 238;
-	}
-
-	@Override
-	protected void keyTyped(char c, int i)
-	{
-		if ((i != 1) && (this.editMode))
-		{
-			if (c == '\r')
-			{
-				this.editMode = false;
-				return;
-			}
-
-			if (i == 14)
-			{
-				// NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 12, "");
-			}
-			if ((i != 54) && (i != 42) && (i != 58) && (i != 14))
-			{
-				// NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 11, String.valueOf(c));
-			}
-		}
-		else
-		{
-			super.keyTyped(c, i);
-		}
 	}
 
 	@Override
@@ -59,30 +31,8 @@ public class GuiSecStorage extends GuiContainer
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113, this.SecStorage, 0));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113, this, 0));
 		super.initGui();
-	}
-
-	@Override
-	protected void mouseClicked(int i, int j, int k)
-	{
-		super.mouseClicked(i, j, k);
-
-		int xMin = (this.width - this.xSize) / 2;
-		int yMin = (this.height - this.ySize) / 2;
-
-		int x = i - xMin;
-		int y = j - yMin;
-
-		if (this.editMode)
-		{
-			this.editMode = false;
-		}
-		else if ((x >= 10) && (y >= 5) && (x <= 141) && (y <= 19))
-		{
-			// NetworkHandlerClient.fireTileEntityEvent(this.SecStorage, 10, "null");
-			this.editMode = true;
-		}
 	}
 
 	@Override

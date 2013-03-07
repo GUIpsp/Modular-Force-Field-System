@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiConverter extends GuiContainer
 {
-
 	private TileEntityConverter Converter;
 	private boolean NameeditMode = false;
 
@@ -140,17 +139,17 @@ public class GuiConverter extends GuiContainer
 
 	@Override
 	public void initGui()
-	{
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104, this.Converter, 0));
+	{/*
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104, this, 0));
 
 		if (MFFSConfiguration.MODULE_IC2)
 		{
-			this.controlList.add(new GuiButtonMFFS(100, this.width / 2 - 25, this.height / 2 - 80, this.Converter, 1));
+			this.controlList.add(new GuiButtonMFFS(100, this.width / 2 - 25, this.height / 2 - 80, this, 1));
 		}
 		if (MFFSConfiguration.MODULE_UE)
 		{
-			this.controlList.add(new GuiButtonMFFS(101, this.width / 2 + 50, this.height / 2 - 80, this.Converter, 2));
-		}
+			this.controlList.add(new GuiButtonMFFS(101, this.width / 2 + 50, this.height / 2 - 80, this, 2));
+		}*/
 		super.initGui();
 	}
 

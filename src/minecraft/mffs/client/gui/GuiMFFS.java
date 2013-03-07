@@ -38,10 +38,15 @@ public class GuiMFFS extends GuiContainer
 	protected int containerHeight;
 	protected IBlockFrequency frequencyTile;
 
-	public GuiMFFS(Container container, IBlockFrequency frequencyTile)
+	public GuiMFFS(Container container)
 	{
 		super(container);
 		this.ySize = 217;
+	}
+
+	public GuiMFFS(Container container, IBlockFrequency frequencyTile)
+	{
+		this(container);
 		this.frequencyTile = frequencyTile;
 	}
 
@@ -76,20 +81,23 @@ public class GuiMFFS extends GuiContainer
 			return;
 		}
 
-		/**
-		 * Every time a key is typed, try to reset the frequency.
-		 */
-		this.textFieldFrequency.textboxKeyTyped(par1, par2);
+		if (this.textFieldFrequency != null)
+		{
+			/**
+			 * Every time a key is typed, try to reset the frequency.
+			 */
+			this.textFieldFrequency.textboxKeyTyped(par1, par2);
 
-		try
-		{
-			int newFrequency = Math.max(0, Integer.parseInt(this.textFieldFrequency.getText()));
-			this.frequencyTile.setFrequency(newFrequency);
-			this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
-			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, (TileEntity) this.frequencyTile, 2, this.frequencyTile.getFrequency()));
-		}
-		catch (NumberFormatException e)
-		{
+			try
+			{
+				int newFrequency = Math.max(0, Integer.parseInt(this.textFieldFrequency.getText()));
+				this.frequencyTile.setFrequency(newFrequency);
+				this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
+				PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, (TileEntity) this.frequencyTile, 2, this.frequencyTile.getFrequency()));
+			}
+			catch (NumberFormatException e)
+			{
+			}
 		}
 	}
 
@@ -97,10 +105,12 @@ public class GuiMFFS extends GuiContainer
 	public void updateScreen()
 	{
 		super.updateScreen();
-
-		if (!this.textFieldFrequency.isFocused())
+		if (this.textFieldFrequency != null)
 		{
-			this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
+			if (!this.textFieldFrequency.isFocused())
+			{
+				this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
+			}
 		}
 	}
 
@@ -108,7 +118,10 @@ public class GuiMFFS extends GuiContainer
 	protected void mouseClicked(int par1, int par2, int par3)
 	{
 		super.mouseClicked(par1, par2, par3);
-		this.textFieldFrequency.mouseClicked(par1 - containerWidth, par2 - containerHeight, par3);
+		if (this.textFieldFrequency != null)
+		{
+			this.textFieldFrequency.mouseClicked(par1 - containerWidth, par2 - containerHeight, par3);
+		}
 	}
 
 	@Override
@@ -137,7 +150,7 @@ public class GuiMFFS extends GuiContainer
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_base.png");
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_BASE_DIRECTORY);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
@@ -145,7 +158,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, ItemStack itemStack)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
@@ -194,7 +207,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, SlotType type)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
@@ -235,7 +248,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawBar(int x, int y, float scale)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		/**
@@ -254,7 +267,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawForce(int x, int y, float scale)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		/**
@@ -273,7 +286,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawElectricity(int x, int y, float scale)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png");
+		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(hua);
 		/**
@@ -292,7 +305,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawMeter(int x, int y, float scale, LiquidStack liquidStack)
 	{
-		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png", 0);
+		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_COMPONENTS, 0);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -307,7 +320,7 @@ public class GuiMFFS extends GuiContainer
 		/**
 		 * Draw measurement lines
 		 */
-		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_DIRECTORY + "gui_components.png", 0);
+		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_COMPONENTS, 0);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 40, 49 * 2, METER_WIDTH, METER_HEIGHT);
 	}
 
