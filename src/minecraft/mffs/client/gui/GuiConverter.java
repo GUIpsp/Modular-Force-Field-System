@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
+import mffs.client.GuiButtonMFFS;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerConverter;
@@ -141,15 +141,15 @@ public class GuiConverter extends GuiContainer
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 107, this.height / 2 - 104, this.Converter, 0));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104, this.Converter, 0));
 
 		if (MFFSConfiguration.MODULE_IC2)
 		{
-			this.controlList.add(new GraphicButton(100, this.width / 2 - 25, this.height / 2 - 80, this.Converter, 1));
+			this.controlList.add(new GuiButtonMFFS(100, this.width / 2 - 25, this.height / 2 - 80, this.Converter, 1));
 		}
 		if (MFFSConfiguration.MODULE_UE)
 		{
-			this.controlList.add(new GraphicButton(101, this.width / 2 + 50, this.height / 2 - 80, this.Converter, 2));
+			this.controlList.add(new GuiButtonMFFS(101, this.width / 2 + 50, this.height / 2 - 80, this.Converter, 2));
 		}
 		super.initGui();
 	}

@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
 /**
- * A grid MFFS uses to search for machines with frequencies that can be linked and spread fortron
+ * A grid MFFS uses to search for machines with frequencies that can be linked and spread Fortron
  * energy.
  * 
  * @author Calclavia
@@ -16,13 +16,16 @@ import universalelectricity.core.vector.Vector3;
  */
 public class FortronGrid
 {
-	public static final FortronGrid INSTANCE = new FortronGrid();
+	public static FortronGrid INSTANCE = new FortronGrid();
 
-	private final HashSet<IFortronFrequency> frequencyGrid = new HashSet<IFortronFrequency>();
+	private final Set<IFortronFrequency> frequencyGrid = new HashSet<IFortronFrequency>();
 
 	public void register(IFortronFrequency tileEntity)
 	{
-		this.frequencyGrid.add(tileEntity);
+		if (!((TileEntity) tileEntity).worldObj.isRemote)
+		{
+			this.frequencyGrid.add(tileEntity);
+		}
 	}
 
 	public void unregister(IFortronFrequency tileEntity)
@@ -46,9 +49,12 @@ public class FortronGrid
 
 		for (IFortronFrequency tile : this.get())
 		{
-			if (tile.getFrequency() == frequency)
+			if (tile != null && !((TileEntity) tile).isInvalid())
 			{
-				set.add(tile);
+				if (tile.getFrequency() == frequency)
+				{
+					set.add(tile);
+				}
 			}
 		}
 
@@ -59,13 +65,16 @@ public class FortronGrid
 	{
 		Set<IFortronFrequency> set = new HashSet<IFortronFrequency>();
 
-		for (IFortronFrequency tile : this.get(frequency))
+		for (IFortronFrequency tileEntity : this.get(frequency))
 		{
-			if (Vector3.distance(new Vector3((TileEntity) tile), position) <= radius)
+			if (Vector3.distance(new Vector3((TileEntity) tileEntity), position) <= radius)
 			{
-				set.add(tile);
+				set.add(tileEntity);
 			}
 		}
+
+//		System.out.println(world.isRemote + "------: " + set.size() + " vs " + frequencyGrid.size());
+
 		return set;
 
 	}

@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
+import mffs.client.GuiButtonMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerSecStorage;
 import mffs.common.tileentity.TileEntitySecStorage;
@@ -59,7 +59,7 @@ public class GuiSecStorage extends GuiContainer
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 113, this.SecStorage, 0));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113, this.SecStorage, 0));
 		super.initGui();
 	}
 

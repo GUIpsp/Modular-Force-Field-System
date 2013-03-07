@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
+import mffs.client.GuiButtonMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
@@ -96,10 +96,10 @@ public class GuiAreaDefenseStation extends GuiContainer
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 107, this.height / 2 - 104, this.DefenceStation, 0));
-		this.controlList.add(new GraphicButton(100, this.width / 2 + 47, this.height / 2 - 38, this.DefenceStation, 1));
-		this.controlList.add(new GraphicButton(101, this.width / 2 - 36, this.height / 2 - 58, this.DefenceStation, 2));
-		this.controlList.add(new GraphicButton(102, this.width / 2 + 20, this.height / 2 - 58, this.DefenceStation, 3));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104, this.DefenceStation, 0));
+		this.controlList.add(new GuiButtonMFFS(100, this.width / 2 + 47, this.height / 2 - 38, this.DefenceStation, 1));
+		this.controlList.add(new GuiButtonMFFS(101, this.width / 2 - 36, this.height / 2 - 58, this.DefenceStation, 2));
+		this.controlList.add(new GuiButtonMFFS(102, this.width / 2 + 20, this.height / 2 - 58, this.DefenceStation, 3));
 		super.initGui();
 	}
 

@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
+import mffs.client.GuiButtonMFFS;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.GuiButton;
@@ -29,7 +29,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		this.textFieldPos = new Vector2(30, 43);
 		super.initGui();
 		this.controlList.clear();
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityControlSystem extends TileEntityMFFSInventory implements ISidedInventory
+public class TileEntityControlSystem extends TileEntityFortron implements ISidedInventory
 {
 
 	private TileEntityMFFS remote = null;
@@ -49,13 +49,6 @@ public class TileEntityControlSystem extends TileEntityMFFSInventory implements 
 	 * 
 	 * return NetworkedFields; }
 	 */
-
-	@Override
-	public void invalidate()
-	{
-		FrequencyGridOld.getWorldMap(this.worldObj).getControlSystem().remove(Integer.valueOf(getDeviceID()));
-		super.invalidate();
-	}
 
 	@Override
 	public void updateEntity()

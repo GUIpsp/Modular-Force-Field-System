@@ -3,29 +3,29 @@ package mffs.common.container;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityControlSystem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerControlSystem extends Container
+public class ContainerControlSystem extends ContainerMFFS
 {
 
 	private EntityPlayer player;
-	private TileEntityControlSystem Control;
+	private TileEntityControlSystem tileEntity;
 
-	public ContainerControlSystem(EntityPlayer player, TileEntityControlSystem tileentity)
+	public ContainerControlSystem(EntityPlayer player, TileEntityControlSystem tileEntity)
 	{
-		this.Control = tileentity;
+		super(tileEntity);
+		this.tileEntity = tileEntity;
 		this.player = player;
 
-		addSlotToContainer(new SlotHelper(this.Control, 0, 236, 4));
-		addSlotToContainer(new SlotHelper(this.Control, 1, 203, 30));
+		addSlotToContainer(new SlotHelper(this.tileEntity, 0, 236, 4));
+		addSlotToContainer(new SlotHelper(this.tileEntity, 1, 203, 30));
 		int var3 = 0;
 		for (var3 = 0; var3 < 7; var3++)
 		{
 			for (int var4 = 0; var4 < 4; var4++)
 			{
-				addSlotToContainer(new SlotHelper(this.Control, var4 + var3 * 4 + 4, 176 + var4 * 18, 80 + var3 * 18));
+				addSlotToContainer(new SlotHelper(this.tileEntity, var4 + var3 * 4 + 4, 176 + var4 * 18, 80 + var3 * 18));
 			}
 
 		}
@@ -53,7 +53,7 @@ public class ContainerControlSystem extends Container
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
-		return this.Control.isUseableByPlayer(entityplayer);
+		return this.tileEntity.isUseableByPlayer(entityplayer);
 	}
 
 	@Override

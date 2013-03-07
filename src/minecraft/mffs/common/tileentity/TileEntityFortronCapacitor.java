@@ -9,6 +9,7 @@ import java.util.Set;
 
 import mffs.api.FortronGrid;
 import mffs.api.IForceEnergyItems;
+import mffs.api.IFortronCapacitor;
 import mffs.api.IFortronFrequency;
 import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
@@ -26,7 +27,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public class TileEntityFortronCapacitor extends TileEntityFortron implements IFortronStorage
+public class TileEntityFortronCapacitor extends TileEntityFortron implements IFortronStorage, IFortronCapacitor
 {
 	public enum TransferMode
 	{
@@ -35,8 +36,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 
 	private int distributionMode = 0;
 	private int transmissionRange = 20;
-	
-	private TransferMode transferMode = TransferMode.EQUIALIZE;
+	private TransferMode transferMode = TransferMode.EQUALIZE;
 
 	public TileEntityFortronCapacitor()
 	{
@@ -64,75 +64,80 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 				 */
 				if (this.isPoweredByRedstone() && this.ticks % 20 == 0)
 				{
-					Set<IFortronFrequency> machines = FortronGrid.INSTANCE.get(this.worldObj, new Vector3(this), this.transmissionRange, this.getFrequency());
+					Set<IFortronFrequency> machines = this.getLinkedDevices();
 
-					/**
-					 * Check spread mode. Equal, Give All, Take All
-					 */
-					int totalFortron = 0;
-					int totalCapacity = 0;
-
-					HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
-
-					for (IFortronFrequency machine : machines)
+					if (machines.size() > 1)
 					{
-						if (machine != null)
+						/**
+						 * Check spread mode. Equal, Give All, Take All
+						 */
+						int totalFortron = 0;
+						int totalCapacity = 0;
+
+						HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
+
+						for (IFortronFrequency machine : machines)
 						{
-							totalFortron += machine.getFortronEnergy();
-							totalCapacity += machine.getFortronCapacity();
+							if (machine != null)
+							{
+								totalFortron += machine.getFortronEnergy();
+								totalCapacity += machine.getFortronCapacity();
+							}
+						}
+
+						if (totalFortron > 0 && totalCapacity > 0)
+						{
+							switch (this.transferMode)
+							{
+								case EQUALIZE:
+								{
+									for (IFortronFrequency machine : machines)
+									{
+										if (machine != null)
+										{
+											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+											int amountToSet = (int) (totalFortron * capacityPercentage);
+											machine.setFortronEnergy(amountToSet);
+										}
+									}
+
+									break;
+								}
+								case DISTRIBUTE:
+								{
+
+									for (IFortronFrequency machine : machines)
+									{
+										if (machine != null)
+										{
+											int amountToSet = (int) (totalFortron / machines.size());
+											machine.setFortronEnergy(amountToSet);
+										}
+									}
+									break;
+								}
+								case DRAIN:
+								{
+									int remainingFortron = totalFortron;
+
+									for (IFortronFrequency machine : machines)
+									{
+										if (machine != null)
+										{
+											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+											int amountToSet = (int) (totalFortron * capacityPercentage);
+											machine.setFortronEnergy(amountToSet);
+											remainingFortron -= amountToSet;
+										}
+									}
+									break;
+								}
+								case FILL:
+									break;
+							}
 						}
 					}
 
-					if (totalFortron > 0 && totalCapacity > 0)
-					{
-						switch(this.transferMode)
-						{
-							case EQUALIZE:
-							{
-								for (IFortronFrequency machine : machines)
-								{
-									if (machine != null)
-									{
-										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-										int amountToSet = (int) (totalFortron * capacityPercentage);
-										machine.setFortronEnergy(amountToSet);
-									}
-								}
-							
-								break;
-							}
-							case DISTRIBUTE:
-							{
-							
-								for (IFortronFrequency machine : machines)
-								{
-									if (machine != null)
-									{
-										int amountToSet = (int) (totalFortron / machines.size());
-										machine.setFortronEnergy(amountToSet);
-									}
-								}
-								break;
-							}
-							case DRAIN:
-							{
-								int remainingFortron = totalFortron;
-							
-								for (IFortronFrequency machine : machines)
-								{
-									if (machine != null)
-									{
-										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-										int amountToSet = (int) (totalFortron * capacityPercentage);
-										machine.setFortronEnergy(amountToSet);
-										remainingFortron -= amountToSet;
-									}
-								}						
-								break;
-							}
-						}
-					}
-					
 					this.setActive(true);
 				}
 				else
@@ -205,10 +210,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 		return new ContainerCapacitor(inventoryplayer.player, this);
 	}
 
-	/*
-	 * @Override public int getStorageAvailablePower() { return this.forcePower; }
-	 */
-
 	@Override
 	public int getSizeInventory()
 	{
@@ -225,74 +226,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 		return 0;
 	}
 
-	/*
-	 * @Override public int getStorageMaxPower() { if ((getStackInSlot(0) != null) &&
-	 * (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemUpgradeCapacity)) { if
-	 * (this.forcePower > 10000000 + 2000000 * getStackInSlot(0).stackSize) { setForcePower(10000000
-	 * + 2000000 * getStackInSlot(0).stackSize); } return 10000000 + 2000000 *
-	 * getStackInSlot(0).stackSize; }
-	 * 
-	 * if (this.forcePower > 10000000) { setForcePower(10000000); } return 10000000; }
-	 */
-	/*
-	 * private void checkSlots() { if (getStackInSlot(1) != null) { if (getStackInSlot(1).getItem()
-	 * == ModularForceFieldSystem.itemUpgradeRange) { setTransmitRange(8 *
-	 * (getStackInSlot(1).stackSize + 1)); } } else { setTransmitRange(8); }
-	 * 
-	 * if (getStackInSlot(2) != null) { if ((getStackInSlot(2).getItem() instanceof
-	 * IForceEnergyItems)) { if ((getPowerLinkMode() != 3) && (getPowerLinkMode() != 4))
-	 * setPowerLinkMode(3);
-	 * 
-	 * IForceEnergyItems ForceEnergyItem = (IForceEnergyItems) getStackInSlot(2).getItem();
-	 * 
-	 * switch (getPowerLinkMode()) { case 3: if
-	 * (ForceEnergyItem.getAvailablePower(getStackInSlot(2)) <
-	 * ForceEnergyItem.getMaximumPower(null)) { int maxtransfer =
-	 * ForceEnergyItem.getPowerTransferrate(); int freeeamount =
-	 * ForceEnergyItem.getMaximumPower(null) - ForceEnergyItem.getAvailablePower(getStackInSlot(2));
-	 * 
-	 * if (getStorageAvailablePower() > 0) { if (getStorageAvailablePower() > maxtransfer) { if
-	 * (freeeamount > maxtransfer) { ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) + maxtransfer);
-	 * setForcePower(getStorageAvailablePower() - maxtransfer); } else {
-	 * ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) + freeeamount);
-	 * setForcePower(getStorageAvailablePower() - freeeamount); } } else if (freeeamount >
-	 * getStorageAvailablePower()) { ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) + getStorageAvailablePower());
-	 * setForcePower(getStorageAvailablePower() - getStorageAvailablePower()); } else {
-	 * ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) + freeeamount);
-	 * setForcePower(getStorageAvailablePower() - freeeamount); }
-	 * 
-	 * getStackInSlot(2).setItemDamage(ForceEnergyItem.getItemDamage(getStackInSlot(2))); } } break;
-	 * case 4: if (ForceEnergyItem.getAvailablePower(getStackInSlot(2)) > 0) { int maxtransfer =
-	 * ForceEnergyItem.getPowerTransferrate(); int freeeamount = getStorageMaxPower() -
-	 * getStorageAvailablePower(); int amountleft =
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2));
-	 * 
-	 * if (freeeamount >= amountleft) { if (amountleft >= maxtransfer) {
-	 * ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) - maxtransfer);
-	 * setForcePower(getStorageAvailablePower() + maxtransfer); } else {
-	 * ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) - amountleft);
-	 * setForcePower(getStorageAvailablePower() + amountleft); } } else {
-	 * ForceEnergyItem.setAvailablePower(getStackInSlot(2),
-	 * ForceEnergyItem.getAvailablePower(getStackInSlot(2)) - freeeamount);
-	 * setForcePower(getStorageAvailablePower() + freeeamount); }
-	 * 
-	 * getStackInSlot(2).setItemDamage(ForceEnergyItem.getItemDamage(getStackInSlot(2))); }
-	 * 
-	 * break; }
-	 * 
-	 * }
-	 * 
-	 * if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemCardPowerLink) { if
-	 * ((getPowerLinkMode() != 0) && (getPowerLinkMode() != 1) && (getPowerLinkMode() != 2))
-	 * setPowerLinkMode(0); } } }
-	 */
-
 	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
@@ -307,71 +240,11 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 		nbttagcompound.setInteger("distributionMode", this.distributionMode);
 	}
 
-	/*
-	 * private void powerTransfer() { if (hasPowerSource()) { int powerTransferRate =
-	 * getMaximumPower() / 120; int freeStorageAmount = (int) (getMaximumPower() - getForcePower());
-	 * int balanceLevel = (int) (getStorageAvailablePower() - getForcePower());
-	 * 
-	 * switch (getPowerLinkMode()) { case 0: if ((getPercentageStorageCapacity() >= 95) &&
-	 * (getPercentageCapacity() != 100)) { if (freeStorageAmount > powerTransferRate) {
-	 * emitPower(powerTransferRate, false); consumePowerFromStorage(powerTransferRate, false); }
-	 * else { emitPower(freeStorageAmount, false); consumePowerFromStorage(freeStorageAmount,
-	 * false); } } break; case 1: if (getPercentageCapacity() < getPercentageStorageCapacity()) { if
-	 * (balanceLevel > powerTransferRate) { emitPower(powerTransferRate, false);
-	 * consumePowerFromStorage(powerTransferRate, false); } else { emitPower(balanceLevel, false);
-	 * consumePowerFromStorage(balanceLevel, false); } } break; case 2: if
-	 * ((getStorageAvailablePower() > 0) && (getPercentageCapacity() != 100)) { if
-	 * (getStorageAvailablePower() > powerTransferRate) { if (freeStorageAmount > powerTransferRate)
-	 * { emitPower(powerTransferRate, false); consumePowerFromStorage(powerTransferRate, false); }
-	 * else { emitPower(freeStorageAmount, false); consumePowerFromStorage(freeStorageAmount,
-	 * false); } } else if (freeStorageAmount > getStorageAvailablePower()) {
-	 * emitPower(getStorageAvailablePower(), false);
-	 * consumePowerFromStorage(getStorageAvailablePower(), false); } else {
-	 * emitPower(freeStorageAmount, false); consumePowerFromStorage(freeStorageAmount, false); } }
-	 * break; } } }
-	 */
-
-	/*
-	 * @Override public void onNetworkHandlerEvent(int key, String value) { if (key == 1) { if
-	 * (getStackInSlot(2) != null) { if ((getStackInSlot(2).getItem() instanceof IForceEnergyItems))
-	 * { if (getPowerLinkMode() == 4) { setPowerLinkMode(3); } else { setPowerLinkMode(4); }
-	 * 
-	 * return; } if (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemCardPowerLink) { if
-	 * (getPowerLinkMode() < 2) { setPowerLinkMode(getPowerLinkMode() + 1); } else {
-	 * setPowerLinkMode(0); }
-	 * 
-	 * return; } }
-	 * 
-	 * if (getPowerLinkMode() != 4) { setPowerLinkMode(getPowerLinkMode() + 1); } else {
-	 * setPowerLinkMode(0); } }
-	 * 
-	 * super.onNetworkHandlerEvent(key, value); }
-	 * 
-	 * @Override public List getFieldsForUpdate() { List NetworkedFields = new LinkedList();
-	 * NetworkedFields.clear();
-	 * 
-	 * NetworkedFields.addAll(super.getFieldsForUpdate());
-	 * 
-	 * NetworkedFields.add("linkedProjector"); NetworkedFields.add("capacity");
-	 * NetworkedFields.add("transmissionRange");
-	 * 
-	 * return NetworkedFields; }
-	 */
-	/*
-	 * @Override public int getFreeStorageAmount() { return getStorageMaxPower() -
-	 * getStorageAvailablePower(); }
-	 * 
-	 * @Override public boolean insertPowerToStorage(int powerAmount, boolean simulation) { if
-	 * (simulation) { if (getStorageAvailablePower() + powerAmount <= getStorageMaxPower()) { return
-	 * true; } return false; } setForcePower(getStorageAvailablePower() + powerAmount); return true;
-	 * }
-	 * 
-	 * @Override public boolean consumePowerFromStorage(int powerAmount, boolean simulation) { if
-	 * (simulation) { if (getStorageAvailablePower() >= powerAmount) { return true; } return false;
-	 * } if (getStorageAvailablePower() - powerAmount >= 0) {
-	 * setForcePower(getStorageAvailablePower() - powerAmount); } else { setForcePower(0); } return
-	 * true; }
-	 */
+	@Override
+	public Set<IFortronFrequency> getLinkedDevices()
+	{
+		return FortronGrid.INSTANCE.get(this.worldObj, new Vector3(this), this.transmissionRange, this.getFrequency());
+	}
 
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)

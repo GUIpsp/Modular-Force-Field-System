@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
+import mffs.client.GuiButtonMFFS;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
@@ -12,12 +12,11 @@ import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 
-public class GuiCapacitor extends GuiMFFS
+public class GuiFortronCapacitor extends GuiMFFS
 {
-
 	private TileEntityFortronCapacitor tileEntity;
 
-	public GuiCapacitor(EntityPlayer player, TileEntityFortronCapacitor tileentity)
+	public GuiFortronCapacitor(EntityPlayer player, TileEntityFortronCapacitor tileentity)
 	{
 		super(new ContainerCapacitor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
@@ -31,8 +30,8 @@ public class GuiCapacitor extends GuiMFFS
 		super.initGui();
 
 		this.controlList.clear();
-		this.controlList.add(new GraphicButton(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
-		this.controlList.add(new GraphicButton(1, this.width / 2 + 5, this.height / 2 - 35, this.tileEntity, 1));
+		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this.tileEntity, 0));
+		this.controlList.add(new GuiButtonMFFS(1, this.width / 2 + 5, this.height / 2 - 35, this.tileEntity, 1));
 
 	}
 
@@ -46,8 +45,8 @@ public class GuiCapacitor extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		// this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedProjector(),
-		// 8, 30, x, y);
+		//TODO: Might not work multiplayer
+		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 30, x, y);
 		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();

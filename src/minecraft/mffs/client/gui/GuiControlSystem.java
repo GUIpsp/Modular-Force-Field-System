@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.client.GraphicButton;
+import mffs.client.GuiButtonMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.tileentity.TileEntityControlSystem;
@@ -13,9 +13,8 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiControlSystem extends GuiContainer
+public class GuiControlSystem extends GuiMFFS
 {
-
 	private TileEntityControlSystem ControlSystem;
 	private boolean editMode = false;
 	private EntityPlayer player;
@@ -106,9 +105,9 @@ public class GuiControlSystem extends GuiContainer
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GraphicButton(100, this.width / 2 - 115, this.height / 2 - 45, this.ControlSystem, 1));
-		this.controlList.add(new GraphicButton(101, this.width / 2 - 115, this.height / 2 - 25, this.ControlSystem, 2));
-		this.controlList.add(new GraphicButton(102, this.width / 2 - 115, this.height / 2 - 5, this.ControlSystem, 3));
+		this.controlList.add(new GuiButtonMFFS(100, this.width / 2 - 115, this.height / 2 - 45, this, 1));
+		this.controlList.add(new GuiButtonMFFS(101, this.width / 2 - 115, this.height / 2 - 25, this, 2));
+		this.controlList.add(new GuiButtonMFFS(102, this.width / 2 - 115, this.height / 2 - 5, this, 3));
 		this.controlList.add(new GuiButton(103, this.width / 2 + -65, this.height / 2 - 8, 100, 20, "Open Remote Gui"));
 		super.initGui();
 	}

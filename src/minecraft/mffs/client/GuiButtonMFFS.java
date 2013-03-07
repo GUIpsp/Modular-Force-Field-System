@@ -1,5 +1,6 @@
 package mffs.client;
 
+import mffs.client.gui.GuiMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
@@ -9,28 +10,27 @@ import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-public class GraphicButton extends GuiButton
+public class GuiButtonMFFS extends GuiButton
 {
-	private TileEntity tileEntity;
+	private GuiMFFS mainGui;
 	private int type;
 
-	public GraphicButton(int par1, int par2, int par3, TileEntity tileEntity, int typ)
+	public GuiButtonMFFS(int par1, int par2, int par3, GuiMFFS mainGui, int type)
 	{
 		super(par1, par2, par3, 16, 16, "");
-		this.tileEntity = tileEntity;
-		this.type = typ;
+		this.mainGui = mainGui;
+		this.type = type;
 	}
 
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3)
+	public void drawButton(Minecraft minecraft, int x, int y)
 	{
 		if (this.drawButton)
 		{
-			GL11.glBindTexture(3553, par1Minecraft.renderEngine.getTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE));
+			GL11.glBindTexture(3553, minecraft.renderEngine.getTexture(ModularForceFieldSystem.ITEM_TEXTURE_FILE));
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 			if (this.tileEntity instanceof TileEntityMFFS && this.type == 0)
@@ -119,5 +119,11 @@ public class GraphicButton extends GuiButton
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void mouseDragged(Minecraft minecraft, int x, int y)
+	{
+		System.out.println("DRAGGED!");
 	}
 }

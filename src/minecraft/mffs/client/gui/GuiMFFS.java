@@ -38,9 +38,9 @@ public class GuiMFFS extends GuiContainer
 	protected int containerHeight;
 	protected IBlockFrequency frequencyTile;
 
-	public GuiMFFS(Container par1Container, IBlockFrequency frequencyTile)
+	public GuiMFFS(Container container, IBlockFrequency frequencyTile)
 	{
-		super(par1Container);
+		super(container);
 		this.ySize = 217;
 		this.frequencyTile = frequencyTile;
 	}
@@ -50,9 +50,13 @@ public class GuiMFFS extends GuiContainer
 	{
 		super.initGui();
 		Keyboard.enableRepeatEvents(true);
-		this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 60, 12);
-		this.textFieldFrequency.setMaxStringLength(6);
-		this.textFieldFrequency.setText(frequencyTile.getFrequency() + "");
+
+		if (this.frequencyTile != null)
+		{
+			this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 60, 12);
+			this.textFieldFrequency.setMaxStringLength(6);
+			this.textFieldFrequency.setText(frequencyTile.getFrequency() + "");
+		}
 	}
 
 	@Override
@@ -63,7 +67,7 @@ public class GuiMFFS extends GuiContainer
 	}
 
 	@Override
-	public void keyTyped(char par1, int par2)
+	protected void keyTyped(char par1, int par2)
 	{
 		// Escape
 		if (par2 == 1)

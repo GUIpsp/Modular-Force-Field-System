@@ -2,7 +2,7 @@ package mffs.common;
 
 import ic2.api.ExplosionWhitelist;
 import mffs.client.gui.GuiAreaDefenseStation;
-import mffs.client.gui.GuiCapacitor;
+import mffs.client.gui.GuiFortronCapacitor;
 import mffs.client.gui.GuiControlSystem;
 import mffs.client.gui.GuiConverter;
 import mffs.client.gui.GuiForcilliumExtractor;
@@ -37,7 +37,7 @@ public enum MachineTypes
 
 	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
 	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TileEntityFortronCapacitor.class, GuiCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
 	DefenceStation(TileEntityDefenseStation.class, GuiAreaDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.blockDefenceStation, " J aFa E ", " a EKE C "),
 	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ModularForceFieldSystem.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
