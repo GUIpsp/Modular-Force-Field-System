@@ -28,8 +28,15 @@ import com.google.common.io.ByteArrayDataInput;
 
 public class TileEntityFortronCapacitor extends TileEntityFortron implements IFortronStorage
 {
+	public enum TransferMode
+	{
+		EQUALIZE, DISTRIBUTE, DRAIN, FILL
+	}
+
 	private int distributionMode = 0;
 	private int transmissionRange = 20;
+	
+	private TransferMode transferMode = TransferMode.EQUIALIZE;
 
 	public TileEntityFortronCapacitor()
 	{
@@ -78,17 +85,54 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 
 					if (totalFortron > 0 && totalCapacity > 0)
 					{
-						for (IFortronFrequency machine : machines)
+						switch(this.transferMode)
 						{
-							if (machine != null)
+							case EQUALIZE:
 							{
-								double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-								int amountToSet = (int) (totalFortron * capacityPercentage);
-								machine.setFortronEnergy(amountToSet);
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null)
+									{
+										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+										int amountToSet = (int) (totalFortron * capacityPercentage);
+										machine.setFortronEnergy(amountToSet);
+									}
+								}
+							
+								break;
+							}
+							case DISTRIBUTE:
+							{
+							
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null)
+									{
+										int amountToSet = (int) (totalFortron / machines.size());
+										machine.setFortronEnergy(amountToSet);
+									}
+								}
+								break;
+							}
+							case DRAIN:
+							{
+								int remainingFortron = totalFortron;
+							
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null)
+									{
+										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+										int amountToSet = (int) (totalFortron * capacityPercentage);
+										machine.setFortronEnergy(amountToSet);
+										remainingFortron -= amountToSet;
+									}
+								}						
+								break;
 							}
 						}
 					}
-
+					
 					this.setActive(true);
 				}
 				else
