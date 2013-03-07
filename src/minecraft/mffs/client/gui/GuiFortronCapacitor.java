@@ -1,5 +1,6 @@
 package mffs.client.gui;
 
+import mffs.client.GuiButtonClickable;
 import mffs.client.GuiButtonMFFS;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
@@ -31,7 +32,7 @@ public class GuiFortronCapacitor extends GuiMFFS
 
 		this.controlList.clear();
 		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
-		this.controlList.add(new GuiButtonMFFS(1, this.width / 2 + 5, this.height / 2 - 35, this, 1));
+		this.controlList.add(new GuiButtonClickable(1, this.width / 2 + 5, this.height / 2 - 35, this, "distribute"));
 
 	}
 

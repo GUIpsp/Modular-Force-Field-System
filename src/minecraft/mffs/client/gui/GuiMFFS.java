@@ -33,7 +33,7 @@ public class GuiMFFS extends GuiContainer
 	public static final int METER_WIDTH = 14;
 	protected GuiTextField textFieldFrequency;
 	Vector2 textFieldPos = new Vector2();
-	protected String tooltip = "";
+	public String tooltip = "";
 	protected int containerWidth;
 	protected int containerHeight;
 	protected IBlockFrequency frequencyTile;

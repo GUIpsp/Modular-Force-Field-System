@@ -19,9 +19,9 @@ public class GuiButtonMFFS extends GuiButton
 	private GuiMFFS mainGui;
 	private int type;
 
-	public GuiButtonMFFS(int par1, int par2, int par3, GuiMFFS mainGui, int type)
+	public GuiButtonMFFS(int id, int x, int y, GuiMFFS mainGui, int type)
 	{
-		super(par1, par2, par3, 16, 16, "");
+		super(id, x, y, 16, 16, "");
 		this.mainGui = mainGui;
 		this.type = type;
 	}
@@ -33,10 +33,9 @@ public class GuiButtonMFFS extends GuiButton
 		{
 			ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_BUTTON + "", 0);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			drawTexturedModalRect(this.xPosition, this.yPosition, 0,0, this.width, this.height);
-			
+			this.drawTexturedModalRect(this.xPosition, this.yPosition, 0,0, this.width, this.height);
+            this.mouseDragged(minecraft, x, y);
 			/*
-
 
 			if (this.tileEntity instanceof TileEntityMFFS && this.type == 0)
 			{
@@ -129,6 +128,18 @@ public class GuiButtonMFFS extends GuiButton
 	@Override
 	protected void mouseDragged(Minecraft minecraft, int x, int y)
 	{
-		System.out.println("DRAGGED!");
+		if(this.isPointInRegion(this.xPosition, this.yPosition, this.width, this.height, x, y))
+		{
+			this.mainGui.tooltip = this.displayString;
+		}
 	}
+
+    protected boolean isPointInRegion(int x, int y, int width, int height, int checkX, int checkY)
+    {
+        int var7 = 0;;
+        int var8 = 0;
+        checkX -= var7;
+        checkY -= var8;
+        return checkX >= x - 1 && checkX < x + width + 1 && checkY >= y - 1 && checkY < y + height + 1;
+    }
 }
