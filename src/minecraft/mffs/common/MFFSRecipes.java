@@ -19,7 +19,7 @@ public class MFFSRecipes
 
 	public static void init()
 	{
-		MFFSRecipes.addRecipe("uuuuiuuuu", 1, 0, null, ZhuYao.itemPowerCrystal);
+		//MFFSRecipes.addRecipe("uuuuiuuuu", 1, 0, null, ZhuYao.itemPowerCrystal);
 		MFFSRecipes.addRecipe("vvvvvvvvv", 1, 0, null, ZhuYao.itemModuleTranslation);
 		MFFSRecipes.addRecipe("vvv   vvv", 1, 0, null, ZhuYao.itemModuleScale);
 		MFFSRecipes.addRecipe("  A EA  A", 1, 0, null, ZhuYao.itemMultiTool);
@@ -48,7 +48,7 @@ public class MFFSRecipes
 			}
 
 			MFFSRecipes.addRecipe("AAAAxAADA", 1, 1, null, ZhuYao.itemFortronCell);
-			MFFSRecipes.addRecipe(" E EBE E ", 4, 1, null, ZhuYao.itemUpgradeBoost);
+			MFFSRecipes.addRecipe(" E EBE E ", 4, 1, null, ZhuYao.itemUpgradeSpeed);
 			MFFSRecipes.addRecipe(" E ExE E ", 1, 1, null, ZhuYao.itemUpgradeCapacity);
 			MFFSRecipes.addRecipe("HHHEIEEDE", 1, 1, null, ZhuYao.itemUpgradeRange);
 			MFFSRecipes.addRecipe("AlAlilAlA", 64, 1, null, ZhuYao.itemFocusMatix);
@@ -58,7 +58,7 @@ public class MFFSRecipes
 		if (MFFSConfiguration.MODULE_UE)
 		{
 			MFFSRecipes.addRecipe("AAAAxAAHA", 1, 2, null, ZhuYao.itemFortronCell);
-			MFFSRecipes.addRecipe("C C G C C", 9, 2, null, ZhuYao.itemUpgradeBoost);
+			MFFSRecipes.addRecipe("C C G C C", 9, 2, null, ZhuYao.itemUpgradeSpeed);
 			MFFSRecipes.addRecipe(" C CxC C ", 1, 2, null, ZhuYao.itemUpgradeCapacity);
 			MFFSRecipes.addRecipe("NNNCICCEC", 1, 2, null, ZhuYao.itemUpgradeRange);
 			MFFSRecipes.addRecipe("BlBlilBlB", 64, 2, null, ZhuYao.itemFocusMatix);
@@ -90,19 +90,19 @@ public class MFFSRecipes
 		switch (forMod)
 		{
 			case 0:
-				GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ZhuYao.itemForcillium, 'v', ZhuYao.itemFocusMatix, 'w', ZhuYao.itemModuleCube, 'x', new ItemStack(ZhuYao.itemPowerCrystal, 1, -1), 'y', ZhuYao.itemFocusMatix, 'z', ZhuYao.itemCardID });
+				GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ZhuYao.itemForcillium, 'v', ZhuYao.itemFocusMatix, 'w', ZhuYao.itemModuleCube, 'x', ZhuYao.itemFortronCell, 'y', ZhuYao.itemFocusMatix, 'z', ZhuYao.itemCardID });
 				return true;
 			case 1:
 				if (MFFSConfiguration.MODULE_IC2)
 				{
-					GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ZhuYao.itemForcillium, 'v', ZhuYao.itemFocusMatix, 'w', ZhuYao.itemModuleCube, 'x', new ItemStack(ZhuYao.itemPowerCrystal, 1, -1), 'y', ZhuYao.itemFocusMatix, 'z', ZhuYao.itemCardID, 'A', Items.getItem("refinedIronIngot"), 'B', Items.getItem("overclockerUpgrade"), 'C', Items.getItem("electronicCircuit"), 'D', Items.getItem("advancedCircuit"), 'E', Items.getItem("carbonPlate"), 'F', Items.getItem("advancedMachine"), 'G', Items.getItem("extractor"), 'H', Items.getItem("copperCableItem"), 'I', Items.getItem("insulatedCopperCableItem"), 'J', Items.getItem("frequencyTransmitter"), 'K', Items.getItem("advancedAlloy"), 'M', Items.getItem("glassFiberCableItem"), 'N', Items.getItem("lvTransformer"), 'O', Items.getItem("mvTransformer"), 'P', Items.getItem("hvTransformer"), 'Q', Items.getItem("teslaCoil"), 'R', Items.getItem("matter"), 'S', Items.getItem("wrench") });
+					GameRegistry.addRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ZhuYao.itemForcillium, 'v', ZhuYao.itemFocusMatix, 'w', ZhuYao.itemModuleCube, 'x', ZhuYao.itemFortronCell, 'y', ZhuYao.itemFocusMatix, 'z', ZhuYao.itemCardID, 'A', Items.getItem("refinedIronIngot"), 'B', Items.getItem("overclockerUpgrade"), 'C', Items.getItem("electronicCircuit"), 'D', Items.getItem("advancedCircuit"), 'E', Items.getItem("carbonPlate"), 'F', Items.getItem("advancedMachine"), 'G', Items.getItem("extractor"), 'H', Items.getItem("copperCableItem"), 'I', Items.getItem("insulatedCopperCableItem"), 'J', Items.getItem("frequencyTransmitter"), 'K', Items.getItem("advancedAlloy"), 'M', Items.getItem("glassFiberCableItem"), 'N', Items.getItem("lvTransformer"), 'O', Items.getItem("mvTransformer"), 'P', Items.getItem("hvTransformer"), 'Q', Items.getItem("teslaCoil"), 'R', Items.getItem("matter"), 'S', Items.getItem("wrench") });
 					return true;
 				}
 				break;
 			case 2:
 				if (MFFSConfiguration.MODULE_UE)
 				{
-					GameRegistry.addRecipe(new ShapedOreRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ZhuYao.itemForcillium, 'v', ZhuYao.itemFocusMatix, 'w', ZhuYao.itemModuleCube, 'x', new ItemStack(ZhuYao.itemPowerCrystal, 1, -1), 'y', ZhuYao.itemFocusMatix, 'z', ZhuYao.itemCardID, 'A', "ingotSteel", 'B', "plateBronze", 'C', "plateSteel", 'D', "plateTin", 'E', "basicCircuit", 'F', "advancedCircuit", 'G', "eliteCircuit", 'H', "motor", 'I', "copperWire", 'J', "batteryBox", 'K', "coalGenerator", 'M', "electricFurnace", 'N', "ingotCopper", 'O', "wrench" }));
+					GameRegistry.addRecipe(new ShapedOreRecipe(itemstack, new Object[] { recipeSplit, 'a', Item.enderPearl, 'b', Item.pickaxeSteel, 'c', Item.bucketEmpty, 'd', Item.bucketLava, 'e', Item.bucketWater, 'f', Item.bone, 'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i', Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian, 'l', Block.glass, 'm', Item.redstone, 'n', Block.lever, 'o', Item.paper, 'u', ZhuYao.itemForcillium, 'v', ZhuYao.itemFocusMatix, 'w', ZhuYao.itemModuleCube, 'x', ZhuYao.itemFortronCell, 'y', ZhuYao.itemFocusMatix, 'z', ZhuYao.itemCardID, 'A', "ingotSteel", 'B', "plateBronze", 'C', "plateSteel", 'D', "plateTin", 'E', "basicCircuit", 'F', "advancedCircuit", 'G', "eliteCircuit", 'H', "motor", 'I', "copperWire", 'J', "batteryBox", 'K', "coalGenerator", 'M', "electricFurnace", 'N', "ingotCopper", 'O', "wrench" }));
 					return true;
 				}
 

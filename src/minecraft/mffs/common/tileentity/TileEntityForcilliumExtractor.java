@@ -83,7 +83,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 							 */
 							if (getStackInSlot(3) != null)
 							{
-								if (this.getStackInSlot(3).itemID == ZhuYao.itemUpgradeBoost.itemID)
+								if (this.getStackInSlot(3).itemID == ZhuYao.itemUpgradeSpeed.itemID)
 								{
 									runTime /= 2;
 								}

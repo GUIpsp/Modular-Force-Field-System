@@ -6,7 +6,7 @@ public class ItemUpgradeSpeed extends ItemMFFS
 {
 	public ItemUpgradeSpeed(int i)
 	{
-		super(i, "upgradeSpped");
-		this.setMaxStackSize(19);
+		super(i, "upgradeSpeed");
+		this.setMaxStackSize(16);
 	}
 }

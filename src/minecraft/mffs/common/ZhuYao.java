@@ -47,7 +47,7 @@ import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.upgrade.ItemModuleFocusMatrix;
+import mffs.common.upgrade.ItemFocusMatrix;
 import mffs.common.upgrade.ItemModuleScale;
 import mffs.common.upgrade.ItemModuleTranslate;
 import mffs.common.upgrade.ItemUpgradeCapacity;
@@ -155,7 +155,7 @@ public class ZhuYao
 	/**
 	 * Upgrades
 	 */
-	public static Item itemUpgradeBoost;
+	public static Item itemUpgradeSpeed;
 	public static Item itemUpgradeRange;
 	public static Item itemUpgradeCapacity;
 
@@ -254,7 +254,7 @@ public class ZhuYao
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
 			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
 
-			itemFocusMatix = new ItemModuleFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
+			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
 			// itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
 			itemForcillium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
 			itemFortronCell = new ItemFortronCell(MFFSConfiguration.item_ForciciumCell_ID);
@@ -288,7 +288,7 @@ public class ZhuYao
 			// TODO: MFFS REMOVE THIS
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
-			itemUpgradeBoost = new ItemUpgradeSpeed(MFFSConfiguration.item_upgradeBoost_ID);
+			itemUpgradeSpeed = new ItemUpgradeSpeed(MFFSConfiguration.item_upgradeBoost_ID);
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
