@@ -15,7 +15,6 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 	public ItemModuleFusion(int i)
 	{
 		super(i, "moduleFusion");
-		setIconIndex(43);
 	}
 
 	public boolean checkFieldFusioninfluence(Vector3 point, World world, TileEntityProjector Proj)
@@ -66,7 +65,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 						if (world.getBlockId(position.intX(), position.intY(), position.intZ()) == ModularForceFieldSystem.blockForceField.blockID)
 						{
 							world.removeBlockTileEntity(position.intX(), position.intY(), position.intZ());
-							world.setBlockWithNotify(position.intX(), position.intY(), position.intZ(), 0);
+							world.setBlockAndMetadataWithNotify(position.intX(), position.intY(), position.intZ(), 0, 0, 2);
 						}
 					}
 				}

@@ -1,11 +1,9 @@
 package mffs.client.gui;
 
-import mffs.client.GuiButtonMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.tileentity.TileEntityControlSystem;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,9 +78,9 @@ public class GuiControlSystem extends GuiMFFS
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiControlSystem.png");
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiControlSystem.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(textur);
+
 		int w = (this.width - this.xSize) / 2;
 		int k = (this.height - this.ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);
@@ -105,10 +103,10 @@ public class GuiControlSystem extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GuiButtonMFFS(100, this.width / 2 - 115, this.height / 2 - 45, this, 1));
-		this.controlList.add(new GuiButtonMFFS(101, this.width / 2 - 115, this.height / 2 - 25, this, 2));
-		this.controlList.add(new GuiButtonMFFS(102, this.width / 2 - 115, this.height / 2 - 5, this, 3));
-		this.controlList.add(new GuiButton(103, this.width / 2 + -65, this.height / 2 - 8, 100, 20, "Open Remote Gui"));
+		this.buttonList.add(new GuiButtonMFFS(100, this.width / 2 - 115, this.height / 2 - 45, this, 1));
+		this.buttonList.add(new GuiButtonMFFS(101, this.width / 2 - 115, this.height / 2 - 25, this, 2));
+		this.buttonList.add(new GuiButtonMFFS(102, this.width / 2 - 115, this.height / 2 - 5, this, 3));
+		this.buttonList.add(new GuiButton(103, this.width / 2 + -65, this.height / 2 - 8, 100, 20, "Open Remote Gui"));
 		super.initGui();
 	}
 

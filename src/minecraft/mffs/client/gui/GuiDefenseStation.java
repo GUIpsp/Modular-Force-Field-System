@@ -48,9 +48,9 @@ public class GuiDefenseStation extends GuiMFFS
 	{
 		int xSize = 256;
 		int ySize = 216;
-		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiDefStation.png");
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiDefStation.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(textur);
+
 		int w = (this.width - xSize) / 2;
 		int k = (this.height - ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, xSize, ySize);

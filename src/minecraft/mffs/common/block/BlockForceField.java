@@ -45,31 +45,10 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public BlockForceField(int id)
 	{
-		super(id, 2, Material.glass);
+		super(id, Material.glass);
 		this.setBlockUnbreakable();
 		this.setResistance(999.0F);
 		this.setTickRandomly(true);
-		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderBlockPass()
-	{
-		/*
-		 * if (ModularForceFieldSystem.proxy.getClientWorld().getBlockMetadata(this.posx, this.posy,
-		 * this.posz) == ForceFieldType.Camouflage.ordinal()) { TileEntityForceField ForceField =
-		 * (TileEntityForceField)
-		 * ModularForceFieldSystem.proxy.getClientWorld().getBlockTileEntity(this.posx, this.posy,
-		 * this.posz);
-		 * 
-		 * if (ForceField != null) { if ((ForceField.getTexturid(1) == 67) ||
-		 * (ForceField.getTexturid(1) == 205)) { return 1; } return 0; }
-		 * 
-		 * }
-		 */
-
-		return 0;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -219,31 +198,8 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 		{
 			return false;
 		}
-		
-		return super.shouldSideBeRendered(iblockaccess, x, y, z, side);
-	}
 
-	@Override
-	public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side)
-	{
-		return this.blockIndexInTexture;
-		/*
-		 * TileEntity tileEntity = iblockaccess.getBlockTileEntity(i, j, k);
-		 * 
-		 * if (tileEntity instanceof TileEntityForceField) { return ((TileEntityForceField)
-		 * tileEntity).getTexturID(side); }
-		 * 
-		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Camouflage.ordinal()) {
-		 * return 180; }
-		 * 
-		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Default.ordinal()) return 0;
-		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal()) return 1;
-		 * if (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Area.ordinal()) return 2; if
-		 * (iblockaccess.getBlockMetadata(i, j, k) == ForceFieldType.Containment.ordinal()) return
-		 * 3;
-		 * 
-		 * return this.blockIndexInTexture;
-		 */
+		return super.shouldSideBeRendered(iblockaccess, x, y, z, side);
 	}
 
 	@Override
@@ -302,7 +258,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	{
 		if (MFFSConfiguration.influencedbyothermods)
 		{
-			world.setBlockWithNotify(x, y, z, 0);
+			world.setBlockAndMetadataWithNotify(x, y, z, 0, 0, 2);
 		}
 	}
 

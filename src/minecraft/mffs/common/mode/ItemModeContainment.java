@@ -18,7 +18,6 @@ public class ItemModeContainment extends ItemProjectorMode
 	public ItemModeContainment(int i)
 	{
 		super(i, "modeContainment");
-		this.setIconIndex(54);
 	}
 
 	@Override

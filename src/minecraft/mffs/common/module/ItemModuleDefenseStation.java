@@ -19,7 +19,6 @@ public class ItemModuleDefenseStation extends ItemModule
 	public ItemModuleDefenseStation(int i)
 	{
 		super(i, "moduleDefenseStation");
-		setIconIndex(39);
 	}
 
 	public static void ProjectorPlayerDefence(TileEntityProjector projector, World world)

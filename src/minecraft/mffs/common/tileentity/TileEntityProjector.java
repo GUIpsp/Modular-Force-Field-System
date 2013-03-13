@@ -406,7 +406,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				{
 					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 					{
-						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0);
+						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0, 2);
 					}
 
 					this.forceFields.add(vector);
@@ -425,7 +425,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 			if (block == ModularForceFieldSystem.blockForceField)
 			{
-				vector.setBlockWithNotify(this.worldObj, 0);
+				vector.setBlock(this.worldObj, 0);
 			}
 		}
 	}

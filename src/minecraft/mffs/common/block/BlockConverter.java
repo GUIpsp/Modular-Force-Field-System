@@ -10,7 +10,6 @@ public class BlockConverter extends BlockMFFSMachine
 	public BlockConverter(int i)
 	{
 		super(i, "mffsConverter");
-		this.blockIndexInTexture = 4 * 16;
 
 	}
 

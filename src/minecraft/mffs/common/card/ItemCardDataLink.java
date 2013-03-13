@@ -21,7 +21,6 @@ public class ItemCardDataLink extends ItemCard
 	{
 		super(id, "cardDataLink");
 		setMaxStackSize(1);
-		setIconIndex(22);
 	}
 
 	@Override

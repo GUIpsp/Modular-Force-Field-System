@@ -12,7 +12,6 @@ public class ItemModuleJammer extends ItemModule
 	public ItemModuleJammer(int i)
 	{
 		super(i, "moduleJammer");
-		setIconIndex(41);
 	}
 
 	public boolean checkJammerinfluence(Vector3 point, World world, TileEntityProjector projector)

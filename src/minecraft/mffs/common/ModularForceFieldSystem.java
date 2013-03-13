@@ -71,8 +71,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
 
+import universalelectricity.prefab.CustomDamageSource;
 import universalelectricity.prefab.TranslationHelper;
-import universalelectricity.prefab.UEDamageSource;
 import universalelectricity.prefab.network.ConnectionHandler;
 import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.ore.OreGenBase;
@@ -102,6 +102,7 @@ public class ModularForceFieldSystem
 	public static final String CHANNEL = "MFFS";
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
+	public static final String PREFIX = "mffs:";
 
 	public static final String VERSION = "3.0.0";
 	public static final String RESOURCE_DIRECTORY = "/mffs/";
@@ -188,9 +189,9 @@ public class ModularForceFieldSystem
 
 	public static OreGenBase monaziteOreGeneration;
 
-	public static DamageSource fieldShock = new UEDamageSource("fieldShock").setDamageBypassesArmor();
-	public static DamageSource areaDefense = new UEDamageSource("areaDefense").setDamageBypassesArmor();
-	public static DamageSource fieldDefense = new UEDamageSource("fieldDefense").setDamageBypassesArmor();
+	public static DamageSource fieldShock = new CustomDamageSource("fieldShock").setDamageBypassesArmor();
+	public static DamageSource areaDefense = new CustomDamageSource("areaDefense").setDamageBypassesArmor();
+	public static DamageSource fieldDefense = new CustomDamageSource("fieldDefense").setDamageBypassesArmor();
 
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -295,7 +296,7 @@ public class ModularForceFieldSystem
 			/**
 			 * The Fortron Liquid
 			 */
-			itemFortron = new ItemMFFS(MFFSConfiguration.itemFortronID, "fortron").setTextureFile(BLOCK_TEXTURE_FILE).setCreativeTab(null).setIconIndex(5);
+			itemFortron = new ItemMFFS(MFFSConfiguration.itemFortronID, "fortron").setCreativeTab(null);
 			Fortron.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemFortron, 0));
 
 			monaziteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);

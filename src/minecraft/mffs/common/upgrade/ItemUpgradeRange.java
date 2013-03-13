@@ -15,7 +15,6 @@ public class ItemUpgradeRange extends ItemMFFS
 	public ItemUpgradeRange(int i)
 	{
 		super(i, "upgradeRange");
-		setIconIndex(33);
 		setMaxStackSize(9);
 
 	}

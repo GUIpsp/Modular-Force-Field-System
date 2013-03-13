@@ -6,9 +6,6 @@ import ic2.api.energy.event.EnergyTileSourceEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergySource;
-
-import java.util.EnumSet;
-
 import mffs.api.IPowerLinkItem;
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
@@ -21,9 +18,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
-import universalelectricity.core.electricity.ElectricityConnections;
-import universalelectricity.core.electricity.ElectricityNetwork;
+import universalelectricity.core.electricity.ElectricityNetworkHelper;
+import universalelectricity.core.electricity.IElectricityNetwork;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.core.vector.VectorHelper;
 
 public class TileEntityConverter extends TileEntityFortron implements IEnergySource
 {
@@ -129,20 +127,6 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 	public void setCapacity(int Capacity)
 	{
 		this.capacity = Capacity;
-	}
-
-	@Override
-	public void initiate()
-	{
-		super.initiate();
-		setUEwireConnection();
-	}
-
-	@Override
-	public void setDirection(ForgeDirection facingDirection)
-	{
-		super.setDirection(facingDirection);
-		this.setUEwireConnection();
 	}
 
 	@Override
@@ -356,9 +340,9 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 	{
 		if ((MFFSConfiguration.MODULE_UE) && (hasPowerSource()))
 		{
-			ForgeDirection outputDirection = this.getDirection();
-			TileEntity outputTile = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), outputDirection);
-			ElectricityNetwork outputNetwork = ElectricityNetwork.getNetworkFromTileEntity(outputTile, outputDirection);
+			ForgeDirection outputDirection = this.getDirection(this.worldObj,this.xCoord,this.yCoord,this.zCoord);
+			TileEntity outputTile = VectorHelper.getTileEntityFromSide(this.worldObj, new Vector3(this), outputDirection);
+			IElectricityNetwork outputNetwork = ElectricityNetworkHelper.getNetworkFromTileEntity(outputTile, outputDirection);
 
 			if (outputNetwork != null)
 			{
@@ -446,32 +430,5 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 				break;
 		}
 		return true;
-	}
-
-	/*
-	 * @Override public ItemStack getPowerLinkStack() { return getStackInSlot(getPowerLinkSlot()); }
-	 * 
-	 * @Override public int getPowerLinkSlot() { return 0; }
-	 */
-
-	public void setUEwireConnection()
-	{
-		if (MFFSConfiguration.MODULE_UE)
-		{
-			ElectricityConnections.registerConnector(this, EnumSet.of(ForgeDirection.getOrientation(getFacing())));
-			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord));
-		}
-	}
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{
-		/*
-		 * TileEntityCapacitor cap = (TileEntityCapacitor)
-		 * FrequencyGrid.getWorldMap(this.worldObj).getCapacitor
-		 * ().get(Integer.valueOf(getPowerSourceID())); if (cap != null) { TileEntitySecurityStation
-		 * sec = cap.getLinkedSecurityStation(); if (sec != null) { return sec; } }
-		 */
-		return null;
 	}
 }

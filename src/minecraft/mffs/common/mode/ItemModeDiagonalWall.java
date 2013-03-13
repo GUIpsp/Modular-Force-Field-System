@@ -9,7 +9,6 @@ public class ItemModeDiagonalWall extends ItemModeWall
 	public ItemModeDiagonalWall(int i)
 	{
 		super(i, "modeDiagonalWall");
-		setIconIndex(56);
 	}
 
 	@Override

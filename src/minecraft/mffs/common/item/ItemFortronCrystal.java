@@ -16,11 +16,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFortronCrystal extends ItemMFFS implements IPowerLinkItem, IForceEnergyItems
 {
-
 	public ItemFortronCrystal(int i)
 	{
 		super(i, "fortronCrystal");
-		this.setIconIndex(96);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 	}
@@ -36,17 +34,7 @@ public class ItemFortronCrystal extends ItemMFFS implements IPowerLinkItem, IFor
 	{
 		return 100000;
 	}
-
-	@Override
-	public int getIconFromDamage(int dmg)
-	{
-		if (dmg == 0)
-		{
-			return 96;
-		}
-		return 112 + (100 - dmg) / 20;
-	}
-
+	
 	@Override
 	public int getItemDamage(ItemStack itemStack)
 	{

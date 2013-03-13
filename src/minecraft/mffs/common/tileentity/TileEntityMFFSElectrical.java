@@ -10,26 +10,26 @@ import java.util.EnumSet;
 import mffs.common.MFFSConfiguration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.UniversalElectricity;
-import universalelectricity.core.electricity.ElectricityConnections;
+import universalelectricity.core.block.IConnector;
+import universalelectricity.core.block.IVoltage;
 import universalelectricity.core.electricity.ElectricityNetwork;
+import universalelectricity.core.electricity.ElectricityNetworkHelper;
 import universalelectricity.core.electricity.ElectricityPack;
-import universalelectricity.core.implement.IItemElectric;
-import universalelectricity.core.implement.IVoltage;
+import universalelectricity.core.item.IItemElectric;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;
 
-public abstract class TileEntityMFFSElectrical extends TileEntityFortron implements IVoltage, IPowerReceptor, IEnergySink
+public abstract class TileEntityMFFSElectrical extends TileEntityFortron implements IConnector, IVoltage, IPowerReceptor, IEnergySink
 {
 	protected IPowerProvider powerProvider;
 
 	public TileEntityMFFSElectrical()
 	{
-		ElectricityConnections.registerConnector(this, EnumSet.allOf(ForgeDirection.class));
-
 		if (MFFSConfiguration.MODULE_BUILDCRAFT)
 		{
 			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
@@ -60,14 +60,20 @@ public abstract class TileEntityMFFSElectrical extends TileEntityFortron impleme
 			 */
 			if (!this.isDisabled())
 			{
-				ElectricityPack electricityPack = ElectricityNetwork.consumeFromMultipleSides(this, this.getConsumingSides(), this.getRequest());
+				ElectricityPack electricityPack = ElectricityNetworkHelper.consumeFromMultipleSides(this, this.getConsumingSides(), this.getRequest());
 				this.onReceive(electricityPack);
 			}
 			else
 			{
-				ElectricityNetwork.consumeFromMultipleSides(this, new ElectricityPack());
+				ElectricityNetworkHelper.consumeFromMultipleSides(this, new ElectricityPack());
 			}
 		}
+	}
+
+	@Override
+	public boolean canConnect(ForgeDirection direction)
+	{
+		return true;
 	}
 
 	/**
@@ -84,7 +90,7 @@ public abstract class TileEntityMFFSElectrical extends TileEntityFortron impleme
 	 */
 	protected EnumSet<ForgeDirection> getConsumingSides()
 	{
-		return ElectricityConnections.getDirections(this);
+		return ElectricityNetworkHelper.getDirections(this);
 	}
 
 	/**
@@ -120,7 +126,7 @@ public abstract class TileEntityMFFSElectrical extends TileEntityFortron impleme
 	}
 
 	@Override
-	public double getVoltage(Object... data)
+	public double getVoltage()
 	{
 		if (UniversalElectricity.isVoltageSensitive)
 		{
@@ -128,23 +134,6 @@ public abstract class TileEntityMFFSElectrical extends TileEntityFortron impleme
 		}
 
 		return 120;
-	}
-
-	public void decharge(ItemStack itemStack)
-	{
-		if (itemStack != null)
-		{
-			if (itemStack.getItem() instanceof IItemElectric)
-			{
-				IItemElectric electricItem = (IItemElectric) itemStack.getItem();
-
-				if (electricItem.canProduceElectricity())
-				{
-					double receivedElectricity = electricItem.onUse(Math.min(electricItem.getMaxJoules() * 0.005, this.getRequest().getWatts()), itemStack);
-					this.wattsReceived += receivedElectricity;
-				}
-			}
-		}
 	}
 
 	/**

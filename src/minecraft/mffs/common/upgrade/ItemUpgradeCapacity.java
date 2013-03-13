@@ -15,7 +15,6 @@ public class ItemUpgradeCapacity extends ItemMFFS
 	public ItemUpgradeCapacity(int i)
 	{
 		super(i, "upgradeCapacity");
-		setIconIndex(32);
 		setMaxStackSize(9);
 	}
 

@@ -10,7 +10,6 @@ public class BlockSecurityStation extends BlockMFFSMachine
 	public BlockSecurityStation(int i, int texture)
 	{
 		super(i, "securityStation");
-		this.blockIndexInTexture = texture;
 	}
 
 	@Override

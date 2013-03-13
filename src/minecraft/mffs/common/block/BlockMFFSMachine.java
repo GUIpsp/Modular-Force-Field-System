@@ -14,28 +14,26 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
-import universalelectricity.prefab.BlockMachine;
+import universalelectricity.prefab.block.BlockRotatable;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 import buildcraft.api.tools.IToolWrench;
 
-public abstract class BlockMFFSMachine extends BlockMachine
+public abstract class BlockMFFSMachine extends BlockRotatable
 {
 	public BlockMFFSMachine(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
-		this.setBlockName(name);
+		this.setUnlocalizedName(name);
 		this.setBlockUnbreakable();
-		this.setRequiresSelfNotify();
 		this.setResistance(100.0F);
 		this.setStepSound(soundMetalFootstep);
-		this.setRequiresSelfNotify();
 		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
-		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 	}
 
 	@Override
@@ -82,9 +80,9 @@ public abstract class BlockMFFSMachine extends BlockMachine
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityliving, ItemStack itemStack)
 	{
-		TileEntity tile = world.getBlockTileEntity(i, j, k);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
 
 		if (tile instanceof TileEntityMFFS)
 		{
@@ -94,27 +92,27 @@ public abstract class BlockMFFSMachine extends BlockMachine
 
 			if (height >= 65)
 			{
-				tileEntity.setDirection(ForgeDirection.getOrientation(1));
+				tileEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(1));
 			}
 			else if (height <= -65)
 			{
-				tileEntity.setDirection(ForgeDirection.getOrientation(0));
+				tileEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(0));
 			}
 			else if (side == 0)
 			{
-				tileEntity.setDirection(ForgeDirection.getOrientation(2));
+				tileEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(2));
 			}
 			else if (side == 1)
 			{
-				tileEntity.setDirection(ForgeDirection.getOrientation(5));
+				tileEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(5));
 			}
 			else if (side == 2)
 			{
-				tileEntity.setDirection(ForgeDirection.getOrientation(3));
+				tileEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(3));
 			}
 			else if (side == 3)
 			{
-				tileEntity.setDirection(ForgeDirection.getOrientation(4));
+				tileEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(4));
 			}
 		}
 	}
@@ -122,79 +120,40 @@ public abstract class BlockMFFSMachine extends BlockMachine
 	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float hitX, float hitY, float hitZ)
 	{
-		// Reorient the block
-		switch (world.getBlockMetadata(x, y, z))
-		{
-			case 0:
-				world.setBlockMetadata(x, y, z, 1);
-				break;
-			case 1:
-				world.setBlockMetadata(x, y, z, 2);
-				break;
-			case 2:
-				world.setBlockMetadata(x, y, z, 5);
-				break;
-			case 5:
-				world.setBlockMetadata(x, y, z, 3);
-				break;
-
-			case 3:
-				world.setBlockMetadata(x, y, z, 4);
-				break;
-
-			case 4:
-				world.setBlockMetadata(x, y, z, 0);
-				break;
-		}
-
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-
-		if (tileEntity instanceof TileEntityAdvanced)
-		{
-			((TileEntityAdvanced) tileEntity).initiate();
-			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
-			return true;
-		}
-
-		return false;
+		this.setDirection(world, x, y, z, ForgeDirection.getOrientation(ForgeDirection.ROTATION_MATRIX[0][this.getDirection(world, x, y, z).ordinal()]));
+		return true;
 	}
 
 	@Override
-	public int getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
+	public boolean onSneakUseWrench(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
 	{
-		TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
+		this.setDirection(world, x, y, z, ForgeDirection.getOrientation(ForgeDirection.ROTATION_MATRIX[2][this.getDirection(world, x, y, z).ordinal()]));
+		return true;
+	}
 
-		if (t instanceof TileEntityMFFS)
-		{
-			TileEntityMFFS tileEntity = (TileEntityMFFS) t;
-
-			ForgeDirection blockfacing = ForgeDirection.getOrientation(side);
-			ForgeDirection facingDirection = tileEntity.getDirection();
-
-			if (tileEntity.isActive())
-			{
-				if (blockfacing.equals(facingDirection))
-				{
-					return this.blockIndexInTexture + 3 + 1;
-				}
-				if (blockfacing.equals(facingDirection.getOpposite()))
-				{
-					return this.blockIndexInTexture + 3 + 2;
-				}
-				return this.blockIndexInTexture + 3;
-			}
-
-			if (blockfacing.equals(facingDirection))
-			{
-				return this.blockIndexInTexture + 1;
-			}
-			if (blockfacing.equals(facingDirection.getOpposite()))
-			{
-				return this.blockIndexInTexture + 2;
-			}
-		}
-
-		return this.blockIndexInTexture;
+	@Override
+	public Icon getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
+	{
+		/*
+		 * TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
+		 * 
+		 * if (t instanceof TileEntityMFFS) { TileEntityMFFS tileEntity = (TileEntityMFFS) t;
+		 * 
+		 * ForgeDirection blockfacing = ForgeDirection.getOrientation(side); ForgeDirection
+		 * facingDirection = tileEntity.getDirection();
+		 * 
+		 * if (tileEntity.isActive()) { if (blockfacing.equals(facingDirection)) { return
+		 * this.blockIndexInTexture + 3 + 1; } if
+		 * (blockfacing.equals(facingDirection.getOpposite())) { return this.blockIndexInTexture + 3
+		 * + 2; } return this.blockIndexInTexture + 3; }
+		 * 
+		 * if (blockfacing.equals(facingDirection)) { return this.blockIndexInTexture + 1; } if
+		 * (blockfacing.equals(facingDirection.getOpposite())) { return this.blockIndexInTexture +
+		 * 2; } }
+		 * 
+		 * return this.blockIndexInTexture;
+		 */
+		return null;
 	}
 
 	@Override

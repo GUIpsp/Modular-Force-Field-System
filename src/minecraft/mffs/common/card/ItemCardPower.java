@@ -17,7 +17,6 @@ public class ItemCardPower extends ItemMFFS implements IPowerLinkItem, IForceEne
 	{
 		super(id, "cardInfinite");
 		setMaxStackSize(1);
-		setIconIndex(21);
 	}
 
 	@Override

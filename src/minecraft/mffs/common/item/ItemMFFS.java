@@ -10,9 +10,8 @@ public class ItemMFFS extends Item
 	public ItemMFFS(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getItem(name, id).getInt(id));
-		this.setItemName(name);
+		this.setUnlocalizedName(ModularForceFieldSystem.PREFIX + name);
 		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
-		this.setTextureFile(ModularForceFieldSystem.ITEM_TEXTURE_FILE);
 		this.setNoRepair();
 	}
 }

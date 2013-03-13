@@ -10,7 +10,6 @@ public class ItemModuleSponge extends ItemModule implements IInteriorCheck
 	public ItemModuleSponge(int i)
 	{
 		super(i, "moduleSponge");
-		setIconIndex(35);
 	}
 
 	@Override
@@ -20,11 +19,11 @@ public class ItemModuleSponge extends ItemModule implements IInteriorCheck
 		{
 			if (!MFFSConfiguration.forcefieldremoveonlywaterandlava)
 			{
-				world.setBlockWithNotify(position.intX(), position.intY(), position.intZ(), 0);
+				world.setBlockAndMetadataWithNotify(position.intX(), position.intY(), position.intZ(), 0, 0, 2);
 			}
 			else if ((world.getBlockId(position.intX(), position.intY(), position.intZ()) == 8) || (world.getBlockId(position.intX(), position.intY(), position.intZ()) == 9) || (world.getBlockId(position.intX(), position.intY(), position.intZ()) == 10) || (world.getBlockId(position.intX(), position.intY(), position.intZ()) == 11))
 			{
-				world.setBlockWithNotify(position.intX(), position.intY(), position.intZ(), 0);
+				world.setBlockAndMetadataWithNotify(position.intX(), position.intY(), position.intZ(), 0, 0, 2);
 			}
 		}
 	}

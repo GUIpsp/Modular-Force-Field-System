@@ -12,8 +12,6 @@ import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ModularForceFieldSystem;
-import mffs.common.SecurityHelper;
-import mffs.common.SecurityRight;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -23,6 +21,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeDirection;
@@ -147,7 +146,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 
 	public boolean isPoweredByRedstone()
 	{
-		return ((this.worldObj.isBlockGettingPowered(this.xCoord, this.yCoord, this.zCoord)) || (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)));
+		return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	@Override
@@ -238,13 +237,13 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	@Override
 	public short getFacing()
 	{
-		return (short) this.getDirection().ordinal();
+		return (short) this.getDirection(this.worldObj, this.xCoord, this.yCoord, this.zCoord).ordinal();
 	}
 
 	@Override
 	public void setFacing(short facing)
 	{
-		this.setDirection(ForgeDirection.getOrientation(facing));
+		this.setDirection(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.getOrientation(facing));
 	}
 
 	@Override
@@ -307,14 +306,14 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	 * Direction Methods
 	 */
 	@Override
-	public ForgeDirection getDirection()
+	public ForgeDirection getDirection(World world, int x, int y, int z)
 	{
 		return ForgeDirection.getOrientation(this.getBlockMetadata());
 	}
 
 	@Override
-	public void setDirection(ForgeDirection facingDirection)
+	public void setDirection(World world, int x, int y, int z, ForgeDirection facingDirection)
 	{
-		this.worldObj.setBlockMetadata(this.xCoord, this.yCoord, this.zCoord, facingDirection.ordinal());
+		this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, facingDirection.ordinal(), 3);
 	}
 }

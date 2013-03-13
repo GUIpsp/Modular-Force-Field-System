@@ -21,6 +21,7 @@ public class RenderForceField implements ISimpleBlockRenderingHandler
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
 	{
+		/*
 		if (block == ModularForceFieldSystem.blockForceField)
 		{
 			if (world.getBlockMetadata(x, y, z) == ForceFieldType.Camouflage.ordinal())
@@ -62,7 +63,8 @@ public class RenderForceField implements ISimpleBlockRenderingHandler
 			}
 
 			return true;
-		}
+		}*/
+		renderer.renderStandardBlock(block, x, y, z);
 
 		return true;
 	}

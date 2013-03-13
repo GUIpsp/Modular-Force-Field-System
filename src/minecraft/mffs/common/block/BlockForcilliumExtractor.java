@@ -10,7 +10,6 @@ public class BlockForcilliumExtractor extends BlockMFFSMachine
 	public BlockForcilliumExtractor(int i)
 	{
 		super(i, "forcilliumExtractor");
-		this.blockIndexInTexture = 6 * 16;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.core.vector.VectorHelper;
 import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
@@ -58,7 +59,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 				 */
 				for (int i = 0; i < 6; i++)
 				{
-					TileEntity tileEntity = Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.getOrientation(i));
+					TileEntity tileEntity = VectorHelper.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.getOrientation(i));
 
 					if (tileEntity instanceof TileEntityFortronCapacitor)
 					{

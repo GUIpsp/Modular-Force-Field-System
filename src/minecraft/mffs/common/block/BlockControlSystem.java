@@ -3,14 +3,13 @@ package mffs.common.block;
 import mffs.common.tileentity.TileEntityControlSystem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class BlockControlSystem extends BlockMFFSMachine
 {
-
 	public BlockControlSystem(int i)
 	{
 		super(i, "controlSystem");
-		this.blockIndexInTexture = 3 * 16;
 	}
 
 	@Override

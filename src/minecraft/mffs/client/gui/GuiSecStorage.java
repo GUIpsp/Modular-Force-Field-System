@@ -1,11 +1,9 @@
 package mffs.client.gui;
 
-import mffs.client.GuiButtonMFFS;
 import mffs.common.ModularForceFieldSystem;
 import mffs.common.container.ContainerSecStorage;
 import mffs.common.tileentity.TileEntitySecStorage;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
@@ -31,16 +29,16 @@ public class GuiSecStorage extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113, this, 0));
+		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113, this, 0));
 		super.initGui();
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		int textur = this.mc.renderEngine.getTexture(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiSecStorage.png");
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiSecStorage.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(textur);
+
 		int w = (this.width - this.xSize) / 2;
 		int k = (this.height - this.ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, this.xSize, this.ySize);

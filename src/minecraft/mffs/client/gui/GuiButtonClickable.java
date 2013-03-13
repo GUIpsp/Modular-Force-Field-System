@@ -1,13 +1,12 @@
-package mffs.client;
+package mffs.client.gui;
 
+import mffs.common.ModularForceFieldSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
 import universalelectricity.prefab.TranslationHelper;
-import mffs.client.gui.GuiMFFS;
-import mffs.common.ModularForceFieldSystem;
 
 public class GuiButtonClickable extends GuiButtonMFFS
 {
@@ -25,7 +24,7 @@ public class GuiButtonClickable extends GuiButtonMFFS
 	{
 		if (this.drawButton)
 		{
-			ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_BUTTON + this.name + ".png", 0);
+			Minecraft.getMinecraft().renderEngine.func_98187_b(ModularForceFieldSystem.GUI_BUTTON + this.name + ".png");
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.drawTexturedModalRect(this.xPosition, this.yPosition, 16, 16, this.width, this.height);
 			this.mouseDragged(minecraft, x, y);

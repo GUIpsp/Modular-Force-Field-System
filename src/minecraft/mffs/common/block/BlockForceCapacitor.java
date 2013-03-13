@@ -10,7 +10,6 @@ public class BlockForceCapacitor extends BlockMFFSMachine
 	public BlockForceCapacitor(int i)
 	{
 		super(i, "forceCapacitor");
-		this.blockIndexInTexture = 2 * 16;
 	}
 
 	@Override

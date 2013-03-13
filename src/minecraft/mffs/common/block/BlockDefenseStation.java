@@ -10,7 +10,6 @@ public class BlockDefenseStation extends BlockMFFSMachine
 	public BlockDefenseStation(int i)
 	{
 		super(i, "defenseStation");
-		this.blockIndexInTexture = 5 * 16;
 	}
 
 	@Override

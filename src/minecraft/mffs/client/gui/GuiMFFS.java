@@ -150,17 +150,17 @@ public class GuiMFFS extends GuiContainer
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_BASE_DIRECTORY);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_BASE_DIRECTORY);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(hua);
+
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
 	}
 
 	protected void drawSlot(int x, int y, ItemStack itemStack)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(hua);
+
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
 
 		this.drawItemStack(itemStack, this.containerWidth + x, this.containerHeight + y);
@@ -207,9 +207,9 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, SlotType type)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(hua);
+
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
 
 		switch (type)
@@ -248,9 +248,9 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawBar(int x, int y, float scale)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(hua);
+
 		/**
 		 * Draw background progress bar/
 		 */
@@ -267,9 +267,9 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawForce(int x, int y, float scale)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(hua);
+
 		/**
 		 * Draw background progress bar/
 		 */
@@ -286,9 +286,9 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawElectricity(int x, int y, float scale)
 	{
-		int hua = this.mc.renderEngine.getTexture(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(hua);
+
 		/**
 		 * Draw background progress bar/
 		 */
@@ -305,7 +305,8 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawMeter(int x, int y, float scale, LiquidStack liquidStack)
 	{
-		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_COMPONENTS, 0);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -320,7 +321,7 @@ public class GuiMFFS extends GuiContainer
 		/**
 		 * Draw measurement lines
 		 */
-		ForgeHooksClient.bindTexture(ModularForceFieldSystem.GUI_COMPONENTS, 0);
+		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 40, 49 * 2, METER_WIDTH, METER_HEIGHT);
 	}
 
@@ -436,7 +437,8 @@ public class GuiMFFS extends GuiContainer
 
 		if (liquidId <= 0)
 			return;
-		if (liquidId < Block.blocksList.length && Block.blocksList[liquidId] != null)
+		
+		/*if (liquidId < Block.blocksList.length && Block.blocksList[liquidId] != null)
 		{
 			ForgeHooksClient.bindTexture(Block.blocksList[liquidId].getTextureFile(), 0);
 			liquidImgIndex = Block.blocksList[liquidId].blockIndexInTexture;
@@ -448,7 +450,7 @@ public class GuiMFFS extends GuiContainer
 		}
 		else
 			return;
-
+*/
 		int imgLine = liquidImgIndex / 16;
 		int imgColumn = liquidImgIndex - imgLine * 16;
 

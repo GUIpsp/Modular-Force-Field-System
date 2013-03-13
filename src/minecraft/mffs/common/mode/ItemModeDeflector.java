@@ -14,7 +14,6 @@ public class ItemModeDeflector extends ItemProjectorMode
 	public ItemModeDeflector(int i)
 	{
 		super(i, "modeDeflector");
-		setIconIndex(50);
 	}
 
 	@Override

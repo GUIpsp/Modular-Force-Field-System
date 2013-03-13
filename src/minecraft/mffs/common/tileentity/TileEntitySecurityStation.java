@@ -309,7 +309,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		{
 			return true;
 		}
-		String[] ops = MFFSConfiguration.Admin.split(";");
+		String[] ops = MFFSConfiguration.administrators.split(";");
 
 		for (int i = 0; i <= ops.length - 1; i++)
 		{

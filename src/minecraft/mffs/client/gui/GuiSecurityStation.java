@@ -18,7 +18,7 @@ public class GuiSecurityStation extends GuiMFFS
 	{
 		super(new ContainerSecurityStation(player, tileentity), null);
 		this.tileEntity = tileentity;
-		this.controlList.clear();
+		this.buttonList.clear();
 	}
 
 	@Override

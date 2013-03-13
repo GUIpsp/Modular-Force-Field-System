@@ -1,7 +1,5 @@
 package mffs.client.gui;
 
-import mffs.client.GuiButtonClickable;
-import mffs.client.GuiButtonMFFS;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
@@ -9,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-import universalelectricity.core.electricity.ElectricInfo;
-import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
+import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 
 public class GuiFortronCapacitor extends GuiMFFS
@@ -30,9 +28,9 @@ public class GuiFortronCapacitor extends GuiMFFS
 
 		super.initGui();
 
-		this.controlList.clear();
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
-		this.controlList.add(new GuiButtonClickable(1, this.width / 2 + 5, this.height / 2 - 35, this, "distribute"));
+		this.buttonList.clear();
+		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
+		this.buttonList.add(new GuiButtonClickable(1, this.width / 2 + 5, this.height / 2 - 35, this, "distribute"));
 
 	}
 
@@ -52,7 +50,7 @@ public class GuiFortronCapacitor extends GuiMFFS
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
-		this.fontRenderer.drawString(ElectricInfo.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricInfo.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 105, 4210752);
+		this.fontRenderer.drawString(ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 105, 4210752);
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
 

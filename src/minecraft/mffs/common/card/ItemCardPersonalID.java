@@ -17,7 +17,6 @@ public class ItemCardPersonalID extends Item
 	public ItemCardPersonalID(int i)
 	{
 		super(i);
-		setIconIndex(18);
 		setMaxStackSize(1);
 	}
 

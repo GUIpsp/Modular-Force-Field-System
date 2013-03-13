@@ -7,6 +7,5 @@ public class ItemModuleScale extends ItemModule
 	public ItemModuleScale(int i)
 	{
 		super(i, "moduleScale");
-		this.setIconIndex(64);
 	}
 }

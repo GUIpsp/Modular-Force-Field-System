@@ -5,6 +5,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.prefab.TranslationHelper;
 
 /**
@@ -37,7 +39,7 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	@Override
 	public String getInvName()
 	{
-		return TranslationHelper.getLocal(this.getBlockType().getBlockName() + ".name");
+		return this.getBlockType().getLocalizedName();
 	}
 
 	@Override
@@ -104,6 +106,18 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	public int getInventoryStackLimit()
 	{
 		return 64;
+	}
+
+	@Override
+	public boolean func_94042_c()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean func_94041_b(int i, ItemStack itemstack)
+	{
+		return false;
 	}
 
 	public boolean isItemValid(int slotID, ItemStack itemStack)

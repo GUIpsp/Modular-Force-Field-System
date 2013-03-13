@@ -1,11 +1,11 @@
 package mffs.common;
 
 import ic2.api.ExplosionWhitelist;
-import mffs.client.gui.GuiDefenseStation;
-import mffs.client.gui.GuiFortronCapacitor;
 import mffs.client.gui.GuiControlSystem;
 import mffs.client.gui.GuiConverter;
+import mffs.client.gui.GuiDefenseStation;
 import mffs.client.gui.GuiForcilliumExtractor;
+import mffs.client.gui.GuiFortronCapacitor;
 import mffs.client.gui.GuiProjector;
 import mffs.client.gui.GuiSecStorage;
 import mffs.client.gui.GuiSecurityStation;
@@ -64,14 +64,14 @@ public enum MachineTypes
 
 	public String getName()
 	{
-		return TranslationHelper.getLocal(this.block.getBlockName() + ".name");
+		return TranslationHelper.getLocal(this.block.getUnlocalizedName() + ".name");
 	}
 
 	public static MachineTypes get(String name)
 	{
 		for (MachineTypes machine : values())
 		{
-			if (machine.block.getBlockName().equals(name))
+			if (machine.block.getUnlocalizedName().equals(name))
 			{
 				return machine;
 			}
@@ -96,8 +96,8 @@ public enum MachineTypes
 	{
 		for (MachineTypes mach : values())
 		{
-			GameRegistry.registerBlock(mach.block, mach.block.getBlockName());
-			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getBlockName());
+			GameRegistry.registerBlock(mach.block, mach.block.getUnlocalizedName());
+			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getUnlocalizedName());
 
 			if (MFFSConfiguration.MODULE_IC2)
 				MFFSRecipes.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);

@@ -17,25 +17,15 @@ import org.lwjgl.input.Keyboard;
 
 public class ItemAccessCard extends ItemCardPersonalID
 {
-
-	private int Tick;
-
 	public ItemAccessCard(int i)
 	{
 		super(i);
-		setIconIndex(20);
-		setMaxStackSize(1);
-	}
-
-	@Override
-	public String getTextureFile()
-	{
-		return ModularForceFieldSystem.ITEM_TEXTURE_FILE;
+		this.setMaxStackSize(1);
 	}
 
 	@Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
-	{
+	{/*
 		if (this.Tick > 1200)
 		{
 			if (getvalidity(itemStack) > 0)
@@ -48,18 +38,17 @@ public class ItemAccessCard extends ItemCardPersonalID
 					TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(SEC_ID));
 					if (sec != null)
 					{
-						/*
+						
 						 * if (!sec.getDeviceName().equals(getforAreaname(itemStack))) {
 						 * setforArea(itemStack, sec); }
-						 */
+						 
 						// TODO: REMOVED NAME
 					}
 				}
 			}
 
 			this.Tick = 0;
-		}
-		this.Tick += 1;
+		}*/
 	}
 
 	public static void setvalidity(ItemStack itemStack, int min)

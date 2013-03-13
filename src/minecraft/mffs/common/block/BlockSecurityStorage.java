@@ -15,7 +15,6 @@ public class BlockSecurityStorage extends BlockMFFSMachine
 	public BlockSecurityStorage(int i)
 	{
 		super(i, "securityStorage");
-		this.blockIndexInTexture = 7 * 16;
 	}
 
 	@Override

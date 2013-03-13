@@ -15,7 +15,6 @@ public class ItemProjectorFocusMatrix extends ItemMFFS
 	public ItemProjectorFocusMatrix(int i)
 	{
 		super(i, "moduleFocus");
-		setIconIndex(66);
 	}
 
 	@Override

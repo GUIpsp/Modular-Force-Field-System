@@ -19,7 +19,6 @@ public class ItemModuleAntibiotic extends ItemModule
 	public ItemModuleAntibiotic(int i)
 	{
 		super(i, "moduleAntibiotic");
-		setIconIndex(40);
 	}
 
 	public static void ProjectorNPCDefence(TileEntityProjector projector, World world)

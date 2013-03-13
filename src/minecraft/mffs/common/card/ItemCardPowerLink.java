@@ -22,13 +22,11 @@ import net.minecraft.world.World;
 
 public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 {
-
 	public IForceEnergyStorageBlock storage;
 
 	public ItemCardPowerLink(int i)
 	{
 		super(i, "cardPowerLink");
-		setIconIndex(17);
 	}
 
 	@Override

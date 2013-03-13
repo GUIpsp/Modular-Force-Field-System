@@ -7,7 +7,7 @@ import mffs.common.module.IModule;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.core.implement.IDisableable;
+import universalelectricity.prefab.implement.IDisableable;
 import universalelectricity.prefab.implement.IRotatable;
 
 public abstract interface IProjector extends IInventory, IRotatable, IDisableable

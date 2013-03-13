@@ -84,7 +84,7 @@ public class MFFSConfiguration
 	public static int DefenceStationKillForceEnergy;
 	public static int DefenceStationSearchForceEnergy;
 	public static int DefenceStationScannForceEnergy;
-	public static String Admin;
+	public static String administrators;
 
 	/**
 	 * Compatibility Modules
@@ -123,7 +123,7 @@ public class MFFSConfiguration
 
 		Property adminList = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceFieldMaster", "nobody");
 		adminList.comment = "Add users to this list to give them admin permissions, split by a semicolon.";
-		Admin = adminList.value;
+		administrators = adminList.getString();
 
 		Property influencedByOther = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "influencedbyothermods", true);
 		influencedByOther.comment = "Should MFFS be influenced by other mods? e.g. ICBM's EMP";

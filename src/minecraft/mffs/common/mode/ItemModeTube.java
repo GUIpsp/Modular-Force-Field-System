@@ -15,13 +15,13 @@ import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 
 public class ItemModeTube extends ItemProjectorMode
 {
 	public ItemModeTube(int i)
 	{
 		super(i, "modeTube");
-		setIconIndex(51);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class ItemModeTube extends ItemProjectorMode
 		int scale = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 2;
 		int translation = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation);
 
-		if ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1))
+		if ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 0) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 1))
 		{
 			tpy = translation;
 			tpx = scale;
@@ -67,18 +67,18 @@ public class ItemModeTube extends ItemProjectorMode
 			y_offset_s = translation - translation;
 			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
-				if (projector.getDirection().ordinal() == 0)
+				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 0)
 				{
 					y_offset_e = translation;
 				}
-				if (projector.getDirection().ordinal() == 1)
+				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 1)
 				{
 					y_offset_s = translation;
 				}
 			}
 		}
 
-		if ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3))
+		if ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 2) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 3))
 		{
 			tpy = scale;
 			tpz = translation;
@@ -87,17 +87,17 @@ public class ItemModeTube extends ItemProjectorMode
 			z_offset_s = translation - translation;
 			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
-				if (projector.getDirection().ordinal() == 2)
+				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 2)
 				{
 					z_offset_e = translation;
 				}
-				if (projector.getDirection().ordinal() == 3)
+				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 3)
 				{
 					z_offset_s = translation;
 				}
 			}
 		}
-		if ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5))
+		if ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 4) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 5))
 		{
 			tpy = scale;
 			tpz = scale;
@@ -106,11 +106,11 @@ public class ItemModeTube extends ItemProjectorMode
 			x_offset_s = translation - translation;
 			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
 			{
-				if (projector.getDirection().ordinal() == 4)
+				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 4)
 				{
 					x_offset_e = translation;
 				}
-				if (projector.getDirection().ordinal() == 5)
+				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 5)
 				{
 					x_offset_s = translation;
 				}
@@ -128,15 +128,15 @@ public class ItemModeTube extends ItemProjectorMode
 					int tpy_temp = tpy;
 					int tpz_temp = tpz;
 
-					if ((tpx == translation) && ((projector.getDirection().ordinal() == 4) || (projector.getDirection().ordinal() == 5)))
+					if ((tpx == translation) && ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 4) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 5)))
 					{
 						tpx_temp++;
 					}
-					if ((tpy == translation) && ((projector.getDirection().ordinal() == 0) || (projector.getDirection().ordinal() == 1)))
+					if ((tpy == translation) && ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 0) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 1)))
 					{
 						tpy_temp++;
 					}
-					if ((tpz == translation) && ((projector.getDirection().ordinal() == 2) || (projector.getDirection().ordinal() == 3)))
+					if ((tpz == translation) && ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 2) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 3)))
 					{
 						tpz_temp++;
 					}

@@ -15,7 +15,6 @@ public class ItemUpgradeBooster extends ItemMFFS
 	public ItemUpgradeBooster(int i)
 	{
 		super(i, "upgradeBooster");
-		setIconIndex(37);
 		setMaxStackSize(19);
 
 	}

@@ -18,7 +18,7 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		String tooltip = TranslationHelper.getLocal(this.getItemName() + ".tooltip");
+		String tooltip = TranslationHelper.getLocal(this.getUnlocalizedName() + ".tooltip");
 
 		if (tooltip != null && tooltip.length() > 0)
 		{

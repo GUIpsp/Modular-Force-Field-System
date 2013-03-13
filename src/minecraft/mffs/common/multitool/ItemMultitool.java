@@ -18,7 +18,6 @@ public class ItemMultitool extends ItemMFFS
 	public ItemMultitool(int id)
 	{
 		super(id, "itemMultiTool");
-		setIconIndex(1);
 		setMaxStackSize(1);
 		setMaxDamage(0);
 		this.hasSubtypes = true;

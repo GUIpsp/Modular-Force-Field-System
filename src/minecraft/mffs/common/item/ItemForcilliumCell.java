@@ -21,7 +21,6 @@ public class ItemForcilliumCell extends ItemMFFS
 	public ItemForcilliumCell(int id)
 	{
 		super(id, "forcilliumCell");
-		this.setIconIndex(98);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 		this.setNoRepair();

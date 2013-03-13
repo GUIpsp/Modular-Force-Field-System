@@ -1,6 +1,5 @@
 package mffs.client.gui;
 
-import mffs.client.GuiButtonMFFS;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.GuiButton;
@@ -8,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-import universalelectricity.core.electricity.ElectricInfo;
-import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
+import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 
 public class GuiForcilliumExtractor extends GuiMFFS
@@ -28,8 +27,8 @@ public class GuiForcilliumExtractor extends GuiMFFS
 	{
 		this.textFieldPos = new Vector2(30, 43);
 		super.initGui();
-		this.controlList.clear();
-		this.controlList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
+		this.buttonList.clear();
+		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
 	}
 
 	@Override
@@ -46,7 +45,7 @@ public class GuiForcilliumExtractor extends GuiMFFS
 		GL11.glPopMatrix();
 
 		this.drawTextWithTooltip("progress", "%1: " + (int) (100 - ((float) this.tileEntity.processTime / (float) this.tileEntity.REQUIRED_TIME) * 100) + "%", 8, 70, x, y);
-		this.drawTextWithTooltip("fortron", "%1: " + ElectricInfo.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES), 8, 105, x, y);
+		this.drawTextWithTooltip("fortron", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES), 8, 105, x, y);
 
 		super.drawGuiContainerForegroundLayer(x, y);
 	}

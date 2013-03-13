@@ -12,13 +12,12 @@ public class BlockFortronite extends Block
 {
 	public BlockFortronite(int id, String name)
 	{
-		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), 4, Material.rock);
-		this.setBlockName(name);
+		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), Material.rock);
+		this.setUnlocalizedName(ModularForceFieldSystem.PREFIX + name);
 		this.setHardness(3.0F);
 		this.setResistance(5.0F);
 		this.setStepSound(soundStoneFootstep);
 		this.setCreativeTab(MFFSCreativeTab.INSTANCE);
-		this.setTextureFile(ModularForceFieldSystem.BLOCK_TEXTURE_FILE);
 	}
 
 	@Override
