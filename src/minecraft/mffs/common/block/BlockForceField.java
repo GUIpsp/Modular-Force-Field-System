@@ -9,11 +9,10 @@ import mffs.client.renderer.RenderForceField;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
+import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityProjector;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -29,7 +28,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockForceField extends BlockContainer implements IForceFieldBlock
+public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 {
 	public enum ForceFieldType
 	{
@@ -45,9 +44,10 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 
 	public BlockForceField(int id)
 	{
-		super(id, Material.glass);
+		super(id, "forceField", Material.glass);
 		this.setBlockUnbreakable();
 		this.setResistance(999.0F);
+		this.setCreativeTab(null);
 		this.setTickRandomly(true);
 	}
 
@@ -79,7 +79,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, int blockid)
 	{
-		if (blockid != ModularForceFieldSystem.blockForceField.blockID)
+		if (blockid != ZhuYao.blockForceField.blockID)
 		{
 			for (int x1 = -1; x1 <= 1; x1++)
 			{
@@ -87,7 +87,7 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock
 				{
 					for (int z1 = -1; z1 <= 1; z1++)
 					{
-						if (world.getBlockId(x + x1, y + y1, z + z1) != ModularForceFieldSystem.blockForceField.blockID)
+						if (world.getBlockId(x + x1, y + y1, z + z1) != ZhuYao.blockForceField.blockID)
 						{
 							if (world.getBlockId(x + x1, y + y1, z + z1) == 0)
 							{

@@ -6,6 +6,6 @@ public class ItemModuleTranslate extends ItemModule
 {
 	public ItemModuleTranslate(int id)
 	{
-		super(id, "moduleTranslate");
+		super(id, "moduleTranslation");
 	}
 }

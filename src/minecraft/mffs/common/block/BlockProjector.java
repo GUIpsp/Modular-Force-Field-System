@@ -1,11 +1,8 @@
 package mffs.common.block;
 
-import mffs.common.ModularForceFieldSystem;
-import mffs.common.ProjectorTypes;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockProjector extends BlockMFFSMachine

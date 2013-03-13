@@ -4,12 +4,12 @@ import java.util.List;
 
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.card.ItemAccessCard;
+import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardPersonalID;
-import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerSecurityStation;
 import net.minecraft.entity.item.EntityItem;
@@ -51,9 +51,9 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 	{
 		if (getStackInSlot(slot) != null)
 		{
-			if (((getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((getStackInSlot(slot).getItem() instanceof ItemCardPowerLink)) || ((getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)))
+			if (((getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((getStackInSlot(slot).getItem() instanceof ItemCardFrequency)) || ((getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)))
 			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)));
+				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ZhuYao.itemCardEmpty, 1)));
 			}
 			else
 			{
@@ -147,7 +147,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 	{
 		if (getStackInSlot(0) != null)
 		{
-			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.itemCardID)
+			if (getStackInSlot(0).getItem() == ZhuYao.itemCardID)
 			{
 				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(0).getItem();
 
@@ -234,7 +234,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 	{
 		for (int a = 35; a >= 1; a--)
 		{
-			if ((getStackInSlot(a) != null) && (getStackInSlot(a).getItem() == ModularForceFieldSystem.itemCardID))
+			if ((getStackInSlot(a) != null) && (getStackInSlot(a).getItem() == ZhuYao.itemCardID))
 			{
 				String username_invtory = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(a)).getString("name");
 
@@ -290,7 +290,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 						else
 						{
 							player.sendChatToPlayer("[Security Station] expired validity <Access license>");
-							ItemStack Card = new ItemStack(ModularForceFieldSystem.itemCardEmpty, 1);
+							ItemStack Card = new ItemStack(ZhuYao.itemCardEmpty, 1);
 							slot.putStack(Card);
 							// NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot,
 							// Card);

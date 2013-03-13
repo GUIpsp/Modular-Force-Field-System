@@ -6,7 +6,6 @@ import net.minecraft.world.World;
 
 public class BlockDefenseStation extends BlockMFFSMachine
 {
-
 	public BlockDefenseStation(int i)
 	{
 		super(i, "defenseStation");

@@ -1,6 +1,6 @@
 package mffs.nei;
 
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 
 public class NEI_MFFS_Config// implements IConfigureNEI
 {
@@ -72,12 +72,12 @@ public class NEI_MFFS_Config// implements IConfigureNEI
 //	@Override
 	public String getName()
 	{
-		return ModularForceFieldSystem.NAME;
+		return ZhuYao.NAME;
 	}
 
 //	@Override
 	public String getVersion()
 	{
-		return ModularForceFieldSystem.VERSION;
+		return ZhuYao.VERSION;
 	}
 }

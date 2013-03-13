@@ -3,9 +3,9 @@ package mffs.common.card;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
@@ -101,7 +101,7 @@ public class ItemCardSecurityLink extends ItemCard
 
 					if (world.getChunkFromBlockCoords(png.X, png.Z).isChunkLoaded)
 					{
-						inventiory.setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
+						inventiory.setInventorySlotContents(slot, new ItemStack(ZhuYao.itemCardEmpty));
 					}
 				}
 			}

@@ -1,7 +1,7 @@
 package mffs.client.gui;
 
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerSecurityStation;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,7 +46,7 @@ public class GuiSecurityStation extends GuiMFFS
 			this.drawSlot(8 + var4 * 18 - 1, 110);
 		}
 
-		this.drawPatch(ModularForceFieldSystem.GUI_DIRECTORY + "sub_patch.png", this.containerWidth + 35, this.containerHeight + 20, 129, 63);
+		this.drawPatch(ZhuYao.GUI_DIRECTORY + "sub_patch.png", this.containerWidth + 35, this.containerHeight + 20, 129, 63);
 
 	}
 

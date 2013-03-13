@@ -9,8 +9,8 @@ import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.InventoryHelper;
 import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.upgrade.ItemModuleScale;
@@ -94,7 +94,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 	public int getActionDistance()
 	{
-		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ModularForceFieldSystem.itemModuleScale))
+		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ZhuYao.itemModuleScale))
 		{
 			return getStackInSlot(3).stackSize;
 		}
@@ -104,7 +104,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 	public int getInfoDistance()
 	{
-		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ModularForceFieldSystem.itemModuleScale))
+		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ZhuYao.itemModuleScale))
 		{
 			return getActionDistance() + (getStackInSlot(2).stackSize + 3);
 		}
@@ -114,7 +114,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 	public boolean hasSecurityCard()
 	{
-		if ((getStackInSlot(1) != null) && (getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardSecurityLink))
+		if ((getStackInSlot(1) != null) && (getStackInSlot(1).getItem() == ZhuYao.itemCardSecurityLink))
 		{
 			return true;
 		}
@@ -214,7 +214,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 									if ((!MFFSConfiguration.defenseStationNPCNotification) || (getActionmode() < 3))
 									{
 										player.addChatMessage("!!! [Security Station] Warning! You are in scanning range!");
-										player.attackEntityFrom(ModularForceFieldSystem.areaDefense, 1);
+										player.attackEntityFrom(ZhuYao.areaDefense, 1);
 									}
 								}
 							}
@@ -422,7 +422,7 @@ public class TileEntityDefenseStation extends TileEntityMFFSMachine implements I
 
 								this.actionlist.remove(player);
 								player.setEntityHealth(0);
-								player.attackEntityFrom(ModularForceFieldSystem.areaDefense, 20);
+								player.attackEntityFrom(ZhuYao.areaDefense, 20);
 								consumePower(MFFSConfiguration.DefenceStationKillForceEnergy, false);
 							}
 						}

@@ -3,7 +3,7 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleCamoflage;
 import mffs.common.module.ItemModuleDisintegration;
@@ -52,14 +52,14 @@ public class ItemModeWall extends ItemProjectorMode
 
 		ForgeDirection direction = tileEntity.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord);
 
-		int zDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+		int zDisplaceNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zDisplacePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
-		int xDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xDisplaceNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xDisplacePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yDisplacePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yDisplaceNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yDisplacePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yDisplaceNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
 		for (int x = -xDisplaceNeg; x < xDisplacePos + 1; x++)
 		{

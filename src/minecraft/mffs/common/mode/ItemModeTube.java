@@ -4,7 +4,7 @@ import java.util.Set;
 
 import mffs.api.IProjector;
 import mffs.api.PointXYZ;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleCamoflage;
 import mffs.common.module.ItemModuleDisintegration;
@@ -55,8 +55,8 @@ public class ItemModeTube extends ItemProjectorMode
 		int y_offset_e = 0;
 		int z_offset_e = 0;
 
-		int scale = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 2;
-		int translation = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation);
+		int scale = projector.getModuleCount(ZhuYao.itemModuleScale) + 2;
+		int translation = projector.getModuleCount(ZhuYao.itemModuleTranslation);
 
 		if ((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 0) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 1))
 		{
@@ -65,7 +65,7 @@ public class ItemModeTube extends ItemProjectorMode
 			tpz = scale;
 
 			y_offset_s = translation - translation;
-			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
+			if (projector.getModuleCount(ZhuYao.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 0)
 				{
@@ -85,7 +85,7 @@ public class ItemModeTube extends ItemProjectorMode
 			tpx = scale;
 
 			z_offset_s = translation - translation;
-			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
+			if (projector.getModuleCount(ZhuYao.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 2)
 				{
@@ -104,7 +104,7 @@ public class ItemModeTube extends ItemProjectorMode
 			tpx = translation;
 
 			x_offset_s = translation - translation;
-			if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
+			if (projector.getModuleCount(ZhuYao.itemModuleManipulator) > 0)
 			{
 				if (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 4)
 				{

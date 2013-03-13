@@ -2,8 +2,8 @@ package mffs.common.item;
 
 import java.util.List;
 
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
+import mffs.common.ZhuYao;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,13 +14,13 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemForcilliumCell extends ItemMFFS
+public class ItemFortronCell extends ItemMFFS
 {
 	private boolean isAbsorbingFocillium = false;
 
-	public ItemForcilliumCell(int id)
+	public ItemFortronCell(int id)
 	{
-		super(id, "forcilliumCell");
+		super(id, "fortronCell");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 		this.setNoRepair();
@@ -45,13 +45,13 @@ public class ItemForcilliumCell extends ItemMFFS
 						List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
 						for (Slot slot : slots)
 						{
-							if ((slot.getStack() != null) && (slot.getStack().getItem() == ModularForceFieldSystem.itemForcillium))
+							if ((slot.getStack() != null) && (slot.getStack().getItem() == ZhuYao.itemForcillium))
 							{
 								setForceciumlevel(itemStack, getForceciumlevel(itemStack) + 1);
 
 								if (slot.getStack().stackSize > 1)
 								{
-									ItemStack forcecium = new ItemStack(ModularForceFieldSystem.itemForcillium, slot.getStack().stackSize - 1);
+									ItemStack forcecium = new ItemStack(ZhuYao.itemForcillium, slot.getStack().stackSize - 1);
 									slot.putStack(forcecium);
 									break;
 								}

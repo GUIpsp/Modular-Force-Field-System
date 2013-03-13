@@ -3,8 +3,8 @@ package mffs.common.module;
 import java.util.List;
 
 import mffs.api.PointXYZ;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.mode.ItemModeSphere;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -50,7 +50,7 @@ public class ItemModuleDefenseStation extends ItemModule
 
 				if ((entityLiving instanceof EntityPlayer))
 				{
-					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ModularForceFieldSystem.itemModuleScale) + 4))
+					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ZhuYao.itemModuleScale) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{
@@ -89,7 +89,7 @@ public class ItemModuleDefenseStation extends ItemModule
 								// if (projector.consumePower(10000, true))
 								{
 									((EntityPlayer) entityLiving).addChatMessage("!!! [Area Defence] leave or die !!!");
-									((EntityPlayer) entityLiving).attackEntityFrom(ModularForceFieldSystem.fieldDefense, 10);
+									((EntityPlayer) entityLiving).attackEntityFrom(ZhuYao.fieldDefense, 10);
 									// projector.consumePower(10000, false);
 								}
 							}

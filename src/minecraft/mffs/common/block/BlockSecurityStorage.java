@@ -1,8 +1,8 @@
 package mffs.common.block;
 
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntitySecStorage;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,7 +43,7 @@ public class BlockSecurityStorage extends BlockMFFSMachine
 			{
 				if (!world.isRemote)
 				{
-					entityplayer.openGui(ModularForceFieldSystem.instance, 0, world, i, j, k);
+					entityplayer.openGui(ZhuYao.instance, 0, world, i, j, k);
 				}
 				return true;
 			}

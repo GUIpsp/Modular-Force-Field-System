@@ -4,6 +4,6 @@ public class ItemModuleManipulator extends ItemModule
 {
 	public ItemModuleManipulator(int i)
 	{
-		super(i, "optionManipulator");
+		super(i, "moduleManipulator");
 	}
 }

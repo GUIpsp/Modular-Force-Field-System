@@ -9,13 +9,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public enum ProjectorTypes
 {
 
-	wall(1, "Wall", "AA AA BB ", ModularForceFieldSystem.itemModuleWall, true),
-	deflector(2, "Deflector", "AAAABAAAA", ModularForceFieldSystem.itemModuleDeflector, true),
-	tube(3, "Tube", "AAA B AAA", ModularForceFieldSystem.itemModuleTube, false),
-	cube(4, "Cube", "B B A B B", ModularForceFieldSystem.itemModuleCube, false),
-	sphere(5, "Sphere", " B BAB B ", ModularForceFieldSystem.itemModuleSphere, false),
-	containment(6, "Containment", "BBBBABBBB", ModularForceFieldSystem.itemModuleContainment, false),
-	diagonallWall(8, "Diagonal Wall", "A A B A A", ModularForceFieldSystem.itemModeDiagonalWall, true);
+	wall(1, "Wall", "AA AA BB ", ZhuYao.itemModuleWall, true),
+	deflector(2, "Deflector", "AAAABAAAA", ZhuYao.itemModuleDeflector, true),
+	tube(3, "Tube", "AAA B AAA", ZhuYao.itemModuleTube, false),
+	cube(4, "Cube", "B B A B B", ZhuYao.itemModuleCube, false),
+	sphere(5, "Sphere", " B BAB B ", ZhuYao.itemModuleSphere, false),
+	containment(6, "Containment", "BBBBABBBB", ZhuYao.itemModuleContainment, false),
+	diagonallWall(8, "Diagonal Wall", "A A B A A", ZhuYao.itemModeDiagonalWall, true);
 
 	public String displayName;
 	public String recipe;
@@ -61,6 +61,6 @@ public enum ProjectorTypes
 	{
 		String[] recipeSplit = { mach.recipe.substring(0, 3), mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 
-		GameRegistry.addRecipe(new ItemStack(mach.item, 1), new Object[] { recipeSplit, Character.valueOf('C'), ModularForceFieldSystem.itemModuleCube, Character.valueOf('B'), Block.obsidian, Character.valueOf('A'), ModularForceFieldSystem.itemFocusMatix });
+		GameRegistry.addRecipe(new ItemStack(mach.item, 1), new Object[] { recipeSplit, Character.valueOf('C'), ZhuYao.itemModuleCube, Character.valueOf('B'), Block.obsidian, Character.valueOf('A'), ZhuYao.itemFocusMatix });
 	}
 }

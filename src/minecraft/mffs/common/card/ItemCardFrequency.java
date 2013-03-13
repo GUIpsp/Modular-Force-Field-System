@@ -5,9 +5,9 @@ import mffs.api.IPowerLinkItem;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.Functions;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityConverter;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
@@ -20,13 +20,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
+public class ItemCardFrequency extends ItemCard implements IPowerLinkItem
 {
 	public IForceEnergyStorageBlock storage;
 
-	public ItemCardPowerLink(int i)
+	public ItemCardFrequency(int i)
 	{
-		super(i, "cardPowerLink");
+		super(i, "cardFrequency");
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem
 					return true;
 				}
 
-				if (entityExtractor.getStackInSlot(1).getItem() == ModularForceFieldSystem.itemCardEmpty)
+				if (entityExtractor.getStackInSlot(1).getItem() == ZhuYao.itemCardEmpty)
 				{
 					ItemStack itemstackcopy = itemstack.copy();
 					entityExtractor.setInventorySlotContents(1, itemstackcopy);

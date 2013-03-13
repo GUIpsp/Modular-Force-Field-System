@@ -3,7 +3,7 @@ package mffs.common.module;
 import java.util.List;
 
 import mffs.api.PointXYZ;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.mode.ItemModeSphere;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.EntityLiving;
@@ -50,7 +50,7 @@ public class ItemModuleAntibiotic extends ItemModule
 
 				if (((entityLiving instanceof EntityMob)) || ((entityLiving instanceof EntitySlime)) || ((entityLiving instanceof EntityGhast)))
 				{
-					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation) + 4))
+					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ZhuYao.itemModuleTranslation) + 4))
 					{
 						if (projector.getLinkPower() < 10000)
 						{
@@ -58,7 +58,7 @@ public class ItemModuleAntibiotic extends ItemModule
 						}
 						// if (projector.consumePower(10000, true))
 						{
-							entityLiving.attackEntityFrom(ModularForceFieldSystem.fieldDefense, 10);
+							entityLiving.attackEntityFrom(ZhuYao.fieldDefense, 10);
 							// projector.consumePower(10000, false);
 						}
 					}

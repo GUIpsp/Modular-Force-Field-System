@@ -2,7 +2,7 @@ package mffs.common.multitool;
 
 import java.util.List;
 
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.item.ItemMFFS;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -71,7 +71,7 @@ public class ItemMultitool extends ItemMFFS
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int i, CreativeTabs tabs, List itemList)
 	{
-		itemList.add(new ItemStack(ModularForceFieldSystem.itemMultiTool, 1, 0));
+		itemList.add(new ItemStack(ZhuYao.itemMultiTool, 1, 0));
 	}
 
 }

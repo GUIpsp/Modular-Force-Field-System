@@ -35,14 +35,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public enum MachineTypes
 {
 
-	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ModularForceFieldSystem.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ModularForceFieldSystem.blockExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerCapacitor.class, ModularForceFieldSystem.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
-	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ModularForceFieldSystem.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
-	DefenceStation(TileEntityDefenseStation.class, GuiDefenseStation.class, ContainerAreaDefenseStation.class, ModularForceFieldSystem.blockDefenceStation, " J aFa E ", " a EKE C "),
-	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ModularForceFieldSystem.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
-	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ModularForceFieldSystem.blockSecurityStorage, "AAAACAAAA", "AAAAEAAAA"),
-	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ModularForceFieldSystem.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
+	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
+	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
+	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ZhuYao.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
+	DefenceStation(TileEntityDefenseStation.class, GuiDefenseStation.class, ContainerAreaDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
+	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
+	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ZhuYao.blockSecurityStorage, "AAAACAAAA", "AAAAEAAAA"),
+	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
 
 	public Class<? extends TileEntity> tileEntity;
 	public Class<? extends GuiScreen> gui;

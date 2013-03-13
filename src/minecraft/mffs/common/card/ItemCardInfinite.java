@@ -10,10 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemCardPower extends ItemMFFS implements IPowerLinkItem, IForceEnergyItems
+public class ItemCardInfinite extends ItemMFFS implements IPowerLinkItem, IForceEnergyItems
 {
-
-	public ItemCardPower(int id)
+	public ItemCardInfinite(int id)
 	{
 		super(id, "cardInfinite");
 		setMaxStackSize(1);

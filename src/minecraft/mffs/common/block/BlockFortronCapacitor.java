@@ -4,12 +4,11 @@ import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockForceCapacitor extends BlockMFFSMachine
+public class BlockFortronCapacitor extends BlockMFFSMachine
 {
-
-	public BlockForceCapacitor(int i)
+	public BlockFortronCapacitor(int i)
 	{
-		super(i, "forceCapacitor");
+		super(i, "fortronCapacitor");
 	}
 
 	@Override

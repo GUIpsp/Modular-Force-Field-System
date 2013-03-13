@@ -4,8 +4,8 @@ import java.util.Map;
 
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGridOld;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
+import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
@@ -55,14 +55,14 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 
 				if (tileEntityProjector != null)
 				{
-					if (tileEntityProjector.getModuleCount(ModularForceFieldSystem.itemModuleFusion) > 0)
+					if (tileEntityProjector.getModuleCount(ZhuYao.itemModuleFusion) > 0)
 					{
 						tileEntityProjector.getFieldQueue().remove(position);
 						ffworldmap.removebyProjector(tileEntityProjector.getDeviceID());
 
 						Vector3 point = ffworldmap.getPoint();
 
-						if (world.getBlockId(position.intX(), position.intY(), position.intZ()) == ModularForceFieldSystem.blockForceField.blockID)
+						if (world.getBlockId(position.intX(), position.intY(), position.intZ()) == ZhuYao.blockForceField.blockID)
 						{
 							world.removeBlockTileEntity(position.intX(), position.intY(), position.intZ());
 							world.setBlockAndMetadataWithNotify(position.intX(), position.intY(), position.intZ(), 0, 0, 2);

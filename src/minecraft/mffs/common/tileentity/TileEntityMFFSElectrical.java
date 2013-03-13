@@ -8,18 +8,14 @@ import ic2.api.energy.tile.IEnergySink;
 import java.util.EnumSet;
 
 import mffs.common.MFFSConfiguration;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.block.IConnector;
 import universalelectricity.core.block.IVoltage;
-import universalelectricity.core.electricity.ElectricityNetwork;
 import universalelectricity.core.electricity.ElectricityNetworkHelper;
 import universalelectricity.core.electricity.ElectricityPack;
-import universalelectricity.core.item.IItemElectric;
 import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerFramework;

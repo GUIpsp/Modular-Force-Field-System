@@ -3,8 +3,8 @@ package mffs.common.tileentity;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.MachineTypes;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
+import mffs.common.ZhuYao;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerControlSystem;
@@ -323,7 +323,7 @@ public class TileEntityControlSystem extends TileEntityFortron implements ISided
 					return device;
 				}
 			}
-			setInventorySlotContents(slot, new ItemStack(ModularForceFieldSystem.itemCardEmpty));
+			setInventorySlotContents(slot, new ItemStack(ZhuYao.itemCardEmpty));
 		}
 		return null;
 	}

@@ -9,12 +9,12 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemProjectorFocusMatrix extends ItemMFFS
+public class ItemModuleFocusMatrix extends ItemMFFS
 {
 
-	public ItemProjectorFocusMatrix(int i)
+	public ItemModuleFocusMatrix(int i)
 	{
-		super(i, "moduleFocus");
+		super(i, "moduleFocusMatrix");
 	}
 
 	@Override

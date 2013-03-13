@@ -2,8 +2,6 @@ package mffs.common.card;
 
 import java.util.List;
 
-import mffs.common.FrequencyGridOld;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
 import mffs.common.tileentity.TileEntitySecurityStation;
@@ -19,36 +17,27 @@ public class ItemAccessCard extends ItemCardPersonalID
 {
 	public ItemAccessCard(int i)
 	{
-		super(i);
+		super(i, "cardAccess");
 		this.setMaxStackSize(1);
 	}
 
 	@Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
 	{/*
-		if (this.Tick > 1200)
-		{
-			if (getvalidity(itemStack) > 0)
-			{
-				setvalidity(itemStack, getvalidity(itemStack) - 1);
-
-				int SEC_ID = getlinkID(itemStack);
-				if (SEC_ID != 0)
-				{
-					TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(SEC_ID));
-					if (sec != null)
-					{
-						
-						 * if (!sec.getDeviceName().equals(getforAreaname(itemStack))) {
-						 * setforArea(itemStack, sec); }
-						 
-						// TODO: REMOVED NAME
-					}
-				}
-			}
-
-			this.Tick = 0;
-		}*/
+	 * if (this.Tick > 1200) { if (getvalidity(itemStack) > 0) { setvalidity(itemStack,
+	 * getvalidity(itemStack) - 1);
+	 * 
+	 * int SEC_ID = getlinkID(itemStack); if (SEC_ID != 0) { TileEntitySecurityStation sec =
+	 * (TileEntitySecurityStation)
+	 * FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(SEC_ID)); if (sec !=
+	 * null) {
+	 * 
+	 * if (!sec.getDeviceName().equals(getforAreaname(itemStack))) { setforArea(itemStack, sec); }
+	 * 
+	 * // TODO: REMOVED NAME } } }
+	 * 
+	 * this.Tick = 0; }
+	 */
 	}
 
 	public static void setvalidity(ItemStack itemStack, int min)

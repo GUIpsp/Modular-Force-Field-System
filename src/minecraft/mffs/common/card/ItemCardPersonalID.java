@@ -5,19 +5,21 @@ import java.util.List;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemCardPersonalID extends Item
+public class ItemCardPersonalID extends ItemCard
 {
-
 	public ItemCardPersonalID(int i)
 	{
-		super(i);
-		setMaxStackSize(1);
+		super(i, "cardPersonalID");
+	}
+
+	public ItemCardPersonalID(int i, String name)
+	{
+		super(i, name);
 	}
 
 	@Override

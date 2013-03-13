@@ -2,7 +2,7 @@ package mffs.common.module;
 
 import java.util.List;
 
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 
 		if (tooltip != null && tooltip.length() > 0)
 		{
-			info.addAll(ModularForceFieldSystem.splitStringPerWord(tooltip, 5));
+			info.addAll(ZhuYao.splitStringPerWord(tooltip, 5));
 		}
 	}
 }

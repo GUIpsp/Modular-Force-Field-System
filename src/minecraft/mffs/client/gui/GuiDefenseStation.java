@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.client.gui.GuiButton;
@@ -48,7 +48,7 @@ public class GuiDefenseStation extends GuiMFFS
 	{
 		int xSize = 256;
 		int ySize = 216;
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiDefStation.png");
+		this.mc.renderEngine.func_98187_b(ZhuYao.TEXTURE_DIRECTORY + "GuiDefStation.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int w = (this.width - xSize) / 2;

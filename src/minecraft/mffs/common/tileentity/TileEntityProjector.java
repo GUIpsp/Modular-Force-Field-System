@@ -10,11 +10,11 @@ import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.WorldMap;
+import mffs.common.ZhuYao;
 import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.card.ItemCard;
-import mffs.common.card.ItemCardPower;
+import mffs.common.card.ItemCardInfinite;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
 import mffs.common.module.ItemModule;
@@ -100,7 +100,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				}
 			}
 
-			if (this.isActive() && this.getFortronEnergy() > FORTRON_CONSUMPTION || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ModularForceFieldSystem.itemCardInfinite.itemID))
+			if (this.isActive() && this.getFortronEnergy() > FORTRON_CONSUMPTION || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itemCardInfinite.itemID))
 			{
 				if (this.ticks % 10 == 0)
 				{
@@ -146,7 +146,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		switch (slotID)
 		{
 			case 0:
-				return itemStack.getItem() instanceof ItemCard || itemStack.getItem() instanceof ItemCardPower;
+				return itemStack.getItem() instanceof ItemCard || itemStack.getItem() instanceof ItemCardInfinite;
 			case 5:
 				return itemStack.getItem() instanceof IProjectorMode;
 			default:
@@ -269,7 +269,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	private void updateForceFieldTexture()
 	{
-		if ((isActive()) && (this.getModuleCount(ModularForceFieldSystem.itemModuleCamouflage) > 0))
+		if ((isActive()) && (this.getModuleCount(ZhuYao.itemModuleCamouflage) > 0))
 		{
 			for (Vector3 vector : this.calculatedField)
 			{
@@ -400,13 +400,13 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 			Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-			if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ModularForceFieldSystem.blockForceField)
+			if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
 			{
-				if (block != ModularForceFieldSystem.blockForceField)
+				if (block != ZhuYao.blockForceField)
 				{
 					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 					{
-						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForceField.blockID, 0, 2);
+						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 2);
 					}
 
 					this.forceFields.add(vector);
@@ -423,7 +423,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		{
 			Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-			if (block == ModularForceFieldSystem.blockForceField)
+			if (block == ZhuYao.blockForceField)
 			{
 				vector.setBlock(this.worldObj, 0);
 			}

@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.tileentity.TileEntityControlSystem;
 import net.minecraft.client.gui.GuiButton;
@@ -78,7 +78,7 @@ public class GuiControlSystem extends GuiMFFS
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiControlSystem.png");
+		this.mc.renderEngine.func_98187_b(ZhuYao.TEXTURE_DIRECTORY + "GuiControlSystem.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int w = (this.width - this.xSize) / 2;
@@ -125,8 +125,8 @@ public class GuiControlSystem extends GuiMFFS
 		{
 			RenderItem renderItem = new RenderItem();
 			RenderHelper.enableGUIStandardItemLighting();
-			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardSecurityLink), 40, 59);
-			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ModularForceFieldSystem.itemCardPowerLink), 100, 59);
+			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ZhuYao.itemCardSecurityLink), 40, 59);
+			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ZhuYao.itemCardPowerLink), 100, 59);
 			RenderHelper.disableStandardItemLighting();
 			if (this.ControlSystem.getRemoteSecurityStationlink())
 			{

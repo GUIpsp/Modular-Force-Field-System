@@ -1,16 +1,13 @@
 package mffs.client.gui;
 
 import icbm.api.IBlockFrequency;
-import mffs.common.ModularForceFieldSystem;
-import net.minecraft.block.Block;
+import mffs.common.ZhuYao;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.input.Keyboard;
@@ -93,7 +90,7 @@ public class GuiMFFS extends GuiContainer
 				int newFrequency = Math.max(0, Integer.parseInt(this.textFieldFrequency.getText()));
 				this.frequencyTile.setFrequency(newFrequency);
 				this.textFieldFrequency.setText(this.frequencyTile.getFrequency() + "");
-				PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, (TileEntity) this.frequencyTile, 2, this.frequencyTile.getFrequency()));
+				PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, (TileEntity) this.frequencyTile, 2, this.frequencyTile.getFrequency()));
 			}
 			catch (NumberFormatException e)
 			{
@@ -137,7 +134,7 @@ public class GuiMFFS extends GuiContainer
 
 		if (this.tooltip != null && this.tooltip != "")
 		{
-			this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop, ModularForceFieldSystem.splitStringPerWord(this.tooltip, 5).toArray(new String[] {}));
+			this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop, ZhuYao.splitStringPerWord(this.tooltip, 5).toArray(new String[] {}));
 		}
 
 		this.tooltip = "";
@@ -150,7 +147,7 @@ public class GuiMFFS extends GuiContainer
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_BASE_DIRECTORY);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_BASE_DIRECTORY);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
@@ -158,7 +155,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, ItemStack itemStack)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
@@ -207,7 +204,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, SlotType type)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
@@ -248,7 +245,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawBar(int x, int y, float scale)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -267,7 +264,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawForce(int x, int y, float scale)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -286,7 +283,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawElectricity(int x, int y, float scale)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -305,7 +302,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawMeter(int x, int y, float scale, LiquidStack liquidStack)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -321,7 +318,7 @@ public class GuiMFFS extends GuiContainer
 		/**
 		 * Draw measurement lines
 		 */
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.GUI_COMPONENTS);
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 40, 49 * 2, METER_WIDTH, METER_HEIGHT);
 	}
 

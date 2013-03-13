@@ -95,7 +95,7 @@ public class MFFSConfiguration
 	public static boolean MODULE_BUILDCRAFT = false;
 	public static boolean MODULE_THERMAL_EXPANSION = false;
 
-	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + ModularForceFieldSystem.NAME + ".cfg"));
+	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir(), "UniversalElectricity/" + ZhuYao.NAME + ".cfg"));
 
 	public static void initialize()
 	{

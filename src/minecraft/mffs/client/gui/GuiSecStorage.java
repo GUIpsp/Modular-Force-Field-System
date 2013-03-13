@@ -1,6 +1,6 @@
 package mffs.client.gui;
 
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerSecStorage;
 import mffs.common.tileentity.TileEntitySecStorage;
 import net.minecraft.client.gui.GuiButton;
@@ -36,7 +36,7 @@ public class GuiSecStorage extends GuiMFFS
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiSecStorage.png");
+		this.mc.renderEngine.func_98187_b(ZhuYao.TEXTURE_DIRECTORY + "GuiSecStorage.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int w = (this.width - this.xSize) / 2;

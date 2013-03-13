@@ -2,9 +2,9 @@ package mffs.common.card;
 
 import mffs.api.PointXYZ;
 import mffs.common.Functions;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +37,7 @@ public class ItemCardEmpty extends ItemCard
 			{
 				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))
 				{
-					ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardSecurityLink);
+					ItemStack newcard = new ItemStack(ZhuYao.itemCardSecurityLink);
 					((ItemCardSecurityLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i, j, k, world), "Secstation_ID", securityStation.getDeviceID());
 					// ItemCardSecurityLink.setforArea(newcard, securityStation.getDeviceName());
 					// TODO: REMOVED NAME
@@ -66,7 +66,7 @@ public class ItemCardEmpty extends ItemCard
 		{
 			if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB))
 			{
-				ItemStack newcard = new ItemStack(ModularForceFieldSystem.itemCardPowerLink);
+				ItemStack newcard = new ItemStack(ZhuYao.itemCardPowerLink);
 				// ((ItemCardPowerLink) newcard.getItem()).setInformation(newcard, new PointXYZ(i,
 				// j, k, world), "CapacitorID", ((TileEntityCapacitor)
 				// tileEntity).getPowerStorageID());

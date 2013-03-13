@@ -11,7 +11,7 @@ import mffs.api.IStatusToggle;
 import mffs.api.PointXYZ;
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -86,7 +86,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		return PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, this, this.getPacketUpdate().toArray());
+		return PacketManager.getPacket(ZhuYao.CHANNEL, this, this.getPacketUpdate().toArray());
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		}
 		catch (Exception e)
 		{
-			ModularForceFieldSystem.LOGGER.severe(MessageFormat.format("Packet receiving failed: {0}", this.getClass().getSimpleName()));
+			ZhuYao.LOGGER.severe(MessageFormat.format("Packet receiving failed: {0}", this.getClass().getSimpleName()));
 			e.printStackTrace();
 		}
 	}
@@ -273,11 +273,11 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		if (this.chunkTicket == null)
 		{
-			this.chunkTicket = ForgeChunkManager.requestTicket(ModularForceFieldSystem.instance, this.worldObj, ForgeChunkManager.Type.NORMAL);
+			this.chunkTicket = ForgeChunkManager.requestTicket(ZhuYao.instance, this.worldObj, ForgeChunkManager.Type.NORMAL);
 		}
 		if (this.chunkTicket == null)
 		{
-			ModularForceFieldSystem.LOGGER.fine("No free Chunkloaders available");
+			ZhuYao.LOGGER.fine("No free Chunkloaders available");
 			return;
 		}
 

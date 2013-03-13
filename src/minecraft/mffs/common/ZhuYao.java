@@ -9,24 +9,23 @@ import java.util.logging.Logger;
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
-import mffs.common.block.BlockForceCapacitor;
 import mffs.common.block.BlockForceField;
 import mffs.common.block.BlockForcilliumExtractor;
+import mffs.common.block.BlockFortronCapacitor;
 import mffs.common.block.BlockFortronite;
 import mffs.common.block.BlockProjector;
-import mffs.common.block.BlockSecurityStation;
+import mffs.common.block.BlockSecurityCenter;
 import mffs.common.block.BlockSecurityStorage;
 import mffs.common.card.ItemAccessCard;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardEmpty;
+import mffs.common.card.ItemCardFrequency;
+import mffs.common.card.ItemCardInfinite;
 import mffs.common.card.ItemCardPersonalID;
-import mffs.common.card.ItemCardPower;
-import mffs.common.card.ItemCardPowerLink;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.event.EE3Event;
 import mffs.common.item.ItemForcillium;
-import mffs.common.item.ItemForcilliumCell;
-import mffs.common.item.ItemFortronCrystal;
+import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
 import mffs.common.mode.ItemModeContainment;
 import mffs.common.mode.ItemModeCube;
@@ -46,15 +45,14 @@ import mffs.common.module.ItemModuleJammer;
 import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
-import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TileEntityMFFS;
+import mffs.common.upgrade.ItemModuleFocusMatrix;
 import mffs.common.upgrade.ItemModuleScale;
 import mffs.common.upgrade.ItemModuleTranslate;
-import mffs.common.upgrade.ItemProjectorFocusMatrix;
-import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import mffs.common.upgrade.ItemUpgradeRange;
+import mffs.common.upgrade.ItemUpgradeSpeed;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -93,22 +91,22 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = ModularForceFieldSystem.ID, name = ModularForceFieldSystem.NAME, version = ModularForceFieldSystem.VERSION, dependencies = "after:ThermalExpansion")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ModularForceFieldSystem.CHANNEL }, packetHandler = PacketManager.class, connectionHandler = ConnectionHandler.class)
+@Mod(modid = ZhuYao.ID, name = ZhuYao.NAME, version = ZhuYao.VERSION, dependencies = "after:ThermalExpansion")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ZhuYao.CHANNEL }, packetHandler = PacketManager.class, connectionHandler = ConnectionHandler.class)
 @ModstatInfo(prefix = "mffs")
-public class ModularForceFieldSystem
+public class ZhuYao
 {
-
 	public static final String CHANNEL = "MFFS";
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
 	public static final String PREFIX = "mffs:";
 
 	public static final String VERSION = "3.0.0";
-	public static final String RESOURCE_DIRECTORY = "/mffs/";
+	public static final String RESOURCE_DIRECTORY = "/mods/mffs/";
 	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
-	public static final String BLOCK_TEXTURE_FILE = TEXTURE_DIRECTORY + "blocks.png";
-	public static final String ITEM_TEXTURE_FILE = TEXTURE_DIRECTORY + "items.png";
+	public static final String BLOCK_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
+	public static final String ITEM_DIRECTORY = TEXTURE_DIRECTORY + "items/";
+	public static final String MODEL_DIRECTORY = TEXTURE_DIRECTORY + "models/";
 	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
 	public static final String GUI_BASE_DIRECTORY = GUI_DIRECTORY + "gui_base.png";
 	public static final String GUI_COMPONENTS = GUI_DIRECTORY + "gui_components.png";
@@ -132,7 +130,7 @@ public class ModularForceFieldSystem
 	 * Fortron related items
 	 */
 	public static Item itemFortron;
-	public static Item itemForcilliumCell;
+	public static Item itemFortronCell;
 	public static Item itemForcillium;
 	public static Item itemPowerCrystal;
 	public static Item itemCompactForcicium;
@@ -187,7 +185,7 @@ public class ModularForceFieldSystem
 	public static ItemProjectorMode itemModuleContainment;
 	public static ItemProjectorMode itemModeDiagonalWall;
 
-	public static OreGenBase monaziteOreGeneration;
+	public static OreGenBase fortroniteOreGeneration;
 
 	public static DamageSource fieldShock = new CustomDamageSource("fieldShock").setDamageBypassesArmor();
 	public static DamageSource areaDefense = new CustomDamageSource("areaDefense").setDamageBypassesArmor();
@@ -196,8 +194,8 @@ public class ModularForceFieldSystem
 	@SidedProxy(clientSide = "mffs.client.ClientProxy", serverSide = "mffs.common.CommonProxy")
 	public static CommonProxy proxy;
 
-	@Instance(ModularForceFieldSystem.ID)
-	public static ModularForceFieldSystem instance;
+	@Instance(ZhuYao.ID)
+	public static ZhuYao instance;
 	public static final Logger LOGGER = Logger.getLogger(NAME);
 
 	@PreInit
@@ -244,22 +242,22 @@ public class ModularForceFieldSystem
 
 			blockConverter = new BlockConverter(MFFSConfiguration.block_Converter_ID);
 			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.block_Extractor_ID);
-			blockFortronite = new BlockFortronite(MFFSConfiguration.blockFortronite_ID, "oreFortronite");
+			blockFortronite = new BlockFortronite(MFFSConfiguration.blockFortronite_ID, "fortronite");
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
-			blockCapacitor = new BlockForceCapacitor(MFFSConfiguration.block_Capacitor_ID);
+			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.block_Capacitor_ID);
 			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
 			blockForceField = new BlockForceField(MFFSConfiguration.block_Field_ID);
 			blockSecurityStorage = new BlockSecurityStorage(MFFSConfiguration.block_SecureStorage_ID);
-			blockSecurityStation = new BlockSecurityStation(MFFSConfiguration.block_SecurityStation_ID, 16);
+			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.block_SecurityStation_ID, 16);
 			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
 			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
 
-			itemFocusMatix = new ItemProjectorFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
-			itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
+			itemFocusMatix = new ItemModuleFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
+			// itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
 			itemForcillium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
-			itemForcilliumCell = new ItemForcilliumCell(MFFSConfiguration.item_ForciciumCell_ID);
+			itemFortronCell = new ItemFortronCell(MFFSConfiguration.item_ForciciumCell_ID);
 
 			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
 			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.item_ModSphere_ID);
@@ -280,16 +278,17 @@ public class ModularForceFieldSystem
 			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.item_OptFusion_ID);
 
 			itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
-			itemCardPowerLink = new ItemCardPowerLink(MFFSConfiguration.item_CardPowerLink_ID);
+			itemCardPowerLink = new ItemCardFrequency(MFFSConfiguration.item_CardPowerLink_ID);
 			itemCardID = new ItemCardPersonalID(MFFSConfiguration.item_CardPersonalID_ID);
 			itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
-			itemCardInfinite = new ItemCardPower(MFFSConfiguration.item_infPowerCard_ID);
+			itemCardInfinite = new ItemCardInfinite(MFFSConfiguration.item_infPowerCard_ID);
 			itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
 			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
-			itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
+			// TODO: MFFS REMOVE THIS
+			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
-			itemUpgradeBoost = new ItemUpgradeBooster(MFFSConfiguration.item_upgradeBoost_ID);
+			itemUpgradeBoost = new ItemUpgradeSpeed(MFFSConfiguration.item_upgradeBoost_ID);
 			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
 			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
 
@@ -299,9 +298,9 @@ public class ModularForceFieldSystem
 			itemFortron = new ItemMFFS(MFFSConfiguration.itemFortronID, "fortron").setCreativeTab(null);
 			Fortron.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemFortron, 0));
 
-			monaziteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
-			monaziteOreGeneration.shouldGenerate = MFFSConfiguration.CONFIGURATION.get("Ore Generation", "Generate Fortronite", false).getBoolean(false);
-			OreGenerator.addOre(monaziteOreGeneration);
+			fortroniteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
+			fortroniteOreGeneration.shouldGenerate = MFFSConfiguration.CONFIGURATION.get("Ore Generation", "Generate Fortronite", false).getBoolean(false);
+			OreGenerator.addOre(fortroniteOreGeneration);
 
 			OreDictionary.registerOre("itemForcillium", itemForcillium);
 		}
@@ -319,7 +318,7 @@ public class ModularForceFieldSystem
 	@Init
 	public void load(FMLInitializationEvent evt)
 	{
-		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "language/", new String[] { "en_US" }));
+		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "yuyan/", new String[] { "en_US" }));
 
 		GameRegistry.registerBlock(blockFortronite, "MFFSFortonite");
 		GameRegistry.registerBlock(blockForceField, "MFFSForceField");

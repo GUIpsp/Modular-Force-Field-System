@@ -1,7 +1,7 @@
 package mffs.client.gui;
 
 import mffs.common.MFFSConfiguration;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerConverter;
 import mffs.common.tileentity.TileEntityConverter;
 import net.minecraft.client.gui.GuiButton;
@@ -26,7 +26,7 @@ public class GuiConverter extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		this.mc.renderEngine.func_98187_b(ModularForceFieldSystem.TEXTURE_DIRECTORY + "GuiConvertor.png");
+		this.mc.renderEngine.func_98187_b(ZhuYao.TEXTURE_DIRECTORY + "GuiConvertor.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int w = (this.width - this.xSize) / 2;

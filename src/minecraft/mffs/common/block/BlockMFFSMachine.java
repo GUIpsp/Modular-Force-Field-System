@@ -2,13 +2,14 @@ package mffs.common.block;
 
 import mffs.common.MFFSConfiguration;
 import mffs.common.MFFSCreativeTab;
-import mffs.common.ModularForceFieldSystem;
 import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
+import mffs.common.ZhuYao;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntitySecurityStation;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,15 +22,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.block.BlockRotatable;
-import universalelectricity.prefab.tile.TileEntityAdvanced;
 import buildcraft.api.tools.IToolWrench;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockMFFSMachine extends BlockRotatable
 {
+	private Icon iconOn, iconMachineOn, iconMachineOff;
+
 	public BlockMFFSMachine(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName(ZhuYao.PREFIX + name);
 		this.setBlockUnbreakable();
 		this.setResistance(100.0F);
 		this.setStepSound(soundMetalFootstep);
@@ -72,7 +76,7 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 
 			if (!world.isRemote)
 			{
-				entityPlayer.openGui(ModularForceFieldSystem.instance, 0, world, x, y, z);
+				entityPlayer.openGui(ZhuYao.instance, 0, world, x, y, z);
 			}
 		}
 
@@ -131,29 +135,46 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void func_94332_a(IconRegister par1IconRegister)
+	{
+		this.field_94336_cN = par1IconRegister.func_94245_a(this.func_94330_A() + "_off");
+		this.iconOn = par1IconRegister.func_94245_a(this.func_94330_A() + "_on");
+		this.iconMachineOn = par1IconRegister.func_94245_a(ZhuYao.PREFIX + "machine_on");
+		this.iconMachineOff = par1IconRegister.func_94245_a(ZhuYao.PREFIX + "machine_off");
+	}
+
 	@Override
 	public Icon getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
 	{
-		/*
-		 * TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
-		 * 
-		 * if (t instanceof TileEntityMFFS) { TileEntityMFFS tileEntity = (TileEntityMFFS) t;
-		 * 
-		 * ForgeDirection blockfacing = ForgeDirection.getOrientation(side); ForgeDirection
-		 * facingDirection = tileEntity.getDirection();
-		 * 
-		 * if (tileEntity.isActive()) { if (blockfacing.equals(facingDirection)) { return
-		 * this.blockIndexInTexture + 3 + 1; } if
-		 * (blockfacing.equals(facingDirection.getOpposite())) { return this.blockIndexInTexture + 3
-		 * + 2; } return this.blockIndexInTexture + 3; }
-		 * 
-		 * if (blockfacing.equals(facingDirection)) { return this.blockIndexInTexture + 1; } if
-		 * (blockfacing.equals(facingDirection.getOpposite())) { return this.blockIndexInTexture +
-		 * 2; } }
-		 * 
-		 * return this.blockIndexInTexture;
-		 */
-		return null;
+		TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
+
+		if (t instanceof TileEntityMFFS)
+		{
+			TileEntityMFFS tileEntity = (TileEntityMFFS) t;
+
+			ForgeDirection blockfacing = ForgeDirection.getOrientation(side);
+			ForgeDirection facingDirection = tileEntity.getDirection(null, x, y, z);
+
+			if (blockfacing.equals(facingDirection))
+			{
+				if (tileEntity.isActive())
+				{
+					return this.iconMachineOn;
+				}
+				else
+				{
+					return this.iconMachineOff;
+				}
+			}
+
+			if (tileEntity.isActive())
+			{
+				return this.iconOn;
+			}
+		}
+
+		return this.field_94336_cN;
 	}
 
 	@Override

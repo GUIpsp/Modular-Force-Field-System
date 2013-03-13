@@ -5,11 +5,11 @@ import java.util.List;
 
 import mffs.api.IPowerLinkItem;
 import mffs.common.Fortron;
-import mffs.common.ModularForceFieldSystem;
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.item.ItemForcillium;
-import mffs.common.upgrade.ItemUpgradeBooster;
 import mffs.common.upgrade.ItemUpgradeCapacity;
+import mffs.common.upgrade.ItemUpgradeSpeed;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -83,7 +83,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 							 */
 							if (getStackInSlot(3) != null)
 							{
-								if (this.getStackInSlot(3).itemID == ModularForceFieldSystem.itemUpgradeBoost.itemID)
+								if (this.getStackInSlot(3).itemID == ZhuYao.itemUpgradeBoost.itemID)
 								{
 									runTime /= 2;
 								}
@@ -229,7 +229,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 					if (itemStack.getItem() instanceof ItemUpgradeCapacity)
 						return true;
 				case 3:
-					if (itemStack.getItem() instanceof ItemUpgradeBooster)
+					if (itemStack.getItem() instanceof ItemUpgradeSpeed)
 						return true;
 			}
 		}

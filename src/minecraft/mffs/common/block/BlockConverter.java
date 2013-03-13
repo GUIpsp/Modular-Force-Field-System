@@ -6,11 +6,9 @@ import net.minecraft.world.World;
 
 public class BlockConverter extends BlockMFFSMachine
 {
-
 	public BlockConverter(int i)
 	{
-		super(i, "mffsConverter");
-
+		super(i, "fortronConverter");
 	}
 
 	@Override
