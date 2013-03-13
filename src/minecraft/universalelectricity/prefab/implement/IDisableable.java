@@ -1,4 +1,4 @@
-package universalelectricity.core.implement;
+package universalelectricity.prefab.implement;
 
 /**
  * This class should be applied to all tile entities (mainly machines) that can be disabled (by

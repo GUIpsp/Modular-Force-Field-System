@@ -1,17 +1,14 @@
 package mffs.nei;
 
 import mffs.common.ModularForceFieldSystem;
-import codechicken.nei.MultiItemRange;
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
 
-public class NEI_MFFS_Config implements IConfigureNEI
+public class NEI_MFFS_Config// implements IConfigureNEI
 {
 
-	@Override
+	//@Override
 	public void loadConfig()
 	{
-		API.hideItem(ModularForceFieldSystem.itemMultiTool.itemID);
+		/*API.hideItem(ModularForceFieldSystem.itemMultiTool.itemID);
 
 		API.hideItem(ModularForceFieldSystem.itemCardPowerLink.itemID);
 		API.hideItem(ModularForceFieldSystem.itemCardID.itemID);
@@ -69,16 +66,16 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);
 		API.addSetRange("MFFS.Items", items);
-		API.addSetRange("MFFS.Blocks", blocks);
+		API.addSetRange("MFFS.Blocks", blocks);*/
 	}
 
-	@Override
+//	@Override
 	public String getName()
 	{
 		return ModularForceFieldSystem.NAME;
 	}
 
-	@Override
+//	@Override
 	public String getVersion()
 	{
 		return ModularForceFieldSystem.VERSION;
