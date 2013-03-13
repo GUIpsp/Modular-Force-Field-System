@@ -3,7 +3,6 @@
   "modid": "ModularForceFieldSystem",
   "name": "Modular Force Field System",
   "description": "Modular Force Field System is a Minecraft mod originally developed by Thunderdark based around the idea of force fields. Calclavia is now the lead developer of MFFS.",
-  "mcversion": "1.4.7",
   "url": "http://calclavia.com/universalelectricity/?m=mffs",
   "logoFile" : "/mffs_logo.png",
   "authors": [
