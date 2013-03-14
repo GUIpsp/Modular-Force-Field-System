@@ -1,9 +1,8 @@
 *.bat
 *.sh
-*.txt
 /*/
 CHANGELOG
-LICENSE
+LICENSE.txt
 Thumbs.db
 
 !/src/
