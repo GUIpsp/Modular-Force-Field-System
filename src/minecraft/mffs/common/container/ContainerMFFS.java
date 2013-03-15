@@ -55,20 +55,22 @@ public class ContainerMFFS extends Container
 			ItemStack itemStack = var3.getStack();
 			var2 = itemStack.copy();
 
-			if (par1 >= slotCount)
+			if (par1 >= this.slotCount)
 			{
 				boolean didTry = false;
-				
-				for (int i = 0; i < slotCount; i++)
+
+				for (int i = 0; i < this.slotCount; i++)
 				{
 					if (this.getSlot(i).isItemValid(itemStack))
 					{
+						didTry = true;
+
 						if (!this.mergeItemStack(itemStack, i, i + 1, false))
 						{
-							return null;
+							break;
+							// return null;
 						}
-						
-						didTry = true;
+
 					}
 				}
 

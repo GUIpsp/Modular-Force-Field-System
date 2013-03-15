@@ -3,7 +3,6 @@ package mffs.common.tileentity;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.api.IPowerLinkItem;
 import mffs.common.Fortron;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerForcilliumExtractor;
@@ -21,6 +20,7 @@ import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.core.vector.VectorHelper;
+import universalelectricity.prefab.modifier.IModifier;
 import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
@@ -217,20 +217,17 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	{
 		if (itemStack != null)
 		{
+			if (slotID >= 2 && slotID <= 4)
+			{
+				return itemStack.getItem() instanceof IModifier;
+			}
+
 			switch (slotID)
 			{
 				case 0:
 					if (itemStack.getItem() instanceof ItemForcillium || itemStack.isItemEqual(new ItemStack(Item.dyePowder, 1, 4)))
 						return true;
-				case 1:
-					if (itemStack.getItem() instanceof IPowerLinkItem)
-						return true;
-				case 2:
-					if (itemStack.getItem() instanceof ItemUpgradeCapacity)
-						return true;
-				case 3:
-					if (itemStack.getItem() instanceof ItemUpgradeSpeed)
-						return true;
+					break;
 			}
 		}
 

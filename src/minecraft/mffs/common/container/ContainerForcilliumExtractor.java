@@ -6,35 +6,27 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerForcilliumExtractor extends ContainerMFFS
 {
-	private TileEntityForcilliumExtractor tileEntity;
-	private int workCylce;
-	private int workdone;
-	private int forceEnergybuffer;
 
-	public ContainerForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
+	public ContainerForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileEntity)
 	{
-		super(tileentity);
-		this.tileEntity = tileentity;
-		this.workCylce = -1;
-		this.workdone = -1;
-		this.forceEnergybuffer = -1;
+		super(tileEntity);
 
 		/**
 		 * Focillium Input
 		 */
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 0, 9, 83));
+		this.addSlotToContainer(new SlotHelper(tileEntity, 0, 9, 83));
 
 		/**
 		 * Frequency Card
 		 */
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 1, 9, 41));
+		this.addSlotToContainer(new SlotHelper(tileEntity, 1, 9, 41));
 
 		/**
 		 * Upgrades
 		 */
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 2, 154, 67));
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 3, 154, 87));
-		this.addSlotToContainer(new SlotHelper(this.tileEntity, 4, 154, 47));
+		this.addSlotToContainer(new SlotHelper(tileEntity, 2, 154, 67));
+		this.addSlotToContainer(new SlotHelper(tileEntity, 3, 154, 87));
+		this.addSlotToContainer(new SlotHelper(tileEntity, 4, 154, 47));
 
 		this.slotCount = 5;
 

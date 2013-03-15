@@ -267,4 +267,11 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 	{
 		return null;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getRenderBlockPass()
+	{
+		return 1;
+	}
 }

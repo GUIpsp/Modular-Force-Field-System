@@ -1,7 +1,9 @@
 package mffs.common.tileentity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -9,6 +11,7 @@ import java.util.Stack;
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.ForceFieldBlockStack;
+import mffs.common.Fortron;
 import mffs.common.MFFSConfiguration;
 import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
@@ -123,23 +126,43 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 			 */
 			if (this.ticks % 4 == 0 && this.playersUsing > 0)
 			{
-				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
+				PacketManager.sendPacketToClients(super.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
 			}
 		}
 	}
 
 	@Override
+	public List getPacketUpdate()
+	{
+		List objects = new LinkedList();
+		objects.addAll(super.getPacketUpdate());
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		objects.add(nbt);
+		return objects;
+	}
+
+	@Override
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
+		final boolean prevActivate = this.isActive();
+
 		super.onReceivePacket(packetID, dataStream);
 
-		if (packetID == 1)
+		if (packetID == 1 && this.worldObj.isRemote)
 		{
-			final boolean prevActivate = this.isActive();
-
 			if (prevActivate != this.isActive())
 			{
 				this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+			}
+
+			try
+			{
+				this.readFromNBT(PacketManager.readNBTTagCompound(dataStream));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
 			}
 		}
 	}
@@ -640,9 +663,9 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox()
 	{
-		return INFINITE_EXTENT_AABB;
+		return AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 2, zCoord + 1);
 	}
-	
+
 	public long getTicks()
 	{
 		return this.ticks;

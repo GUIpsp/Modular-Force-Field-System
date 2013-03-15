@@ -103,9 +103,9 @@ public class GuiControlSystem extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.buttonList.add(new GuiButtonMFFS(100, this.width / 2 - 115, this.height / 2 - 45, this, 1));
-		this.buttonList.add(new GuiButtonMFFS(101, this.width / 2 - 115, this.height / 2 - 25, this, 2));
-		this.buttonList.add(new GuiButtonMFFS(102, this.width / 2 - 115, this.height / 2 - 5, this, 3));
+		this.buttonList.add(new GuiButtonMFFS(100, this.width / 2 - 115, this.height / 2 - 45));
+		this.buttonList.add(new GuiButtonMFFS(101, this.width / 2 - 115, this.height / 2 - 25));
+		this.buttonList.add(new GuiButtonMFFS(102, this.width / 2 - 115, this.height / 2 - 5));
 		this.buttonList.add(new GuiButton(103, this.width / 2 + -65, this.height / 2 - 8, 100, 20, "Open Remote Gui"));
 		super.initGui();
 	}

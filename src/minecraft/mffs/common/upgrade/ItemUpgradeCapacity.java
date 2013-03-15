@@ -9,13 +9,18 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-public class ItemUpgradeCapacity extends ItemMFFS
+public class ItemUpgradeCapacity extends ItemUpgrade
 {
-
 	public ItemUpgradeCapacity(int i)
 	{
 		super(i, "upgradeCapacity");
 		setMaxStackSize(9);
+	}
+
+	@Override
+	public String getName(ItemStack itemstack)
+	{
+		return "capacity";
 	}
 
 	@Override

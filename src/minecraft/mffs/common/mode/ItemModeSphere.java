@@ -72,12 +72,11 @@ public class ItemModeSphere extends ItemProjectorMode
 		GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(ticks * 3)) / 6, 0);
 		GL11.glRotatef(ticks * 4, 0, 1, 0);
 
-		float scale = 0.25f;
+		float scale = 0.06f;
 		GL11.glScalef(scale, scale, scale);
 		GL11.glRotatef(36f + ticks * 4, 0, 1, 1);
-		GL11.glColor4f(1, 1, 1, 0.8f);
 
-		int radius = 8;
+		int radius = 6;
 
 		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius));
 
@@ -89,6 +88,7 @@ public class ItemModeSphere extends ItemProjectorMode
 				double theta = Math.PI / steps * theta_n;
 
 				Vector3 vector = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi));
+				vector.multiply(radius);
 				GL11.glTranslated(vector.x, vector.y, vector.z);
 				ModelCube.INSTNACE.render();
 				GL11.glTranslated(-vector.x, -vector.y, -vector.z);

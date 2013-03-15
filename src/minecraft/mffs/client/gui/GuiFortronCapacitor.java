@@ -29,8 +29,9 @@ public class GuiFortronCapacitor extends GuiMFFS
 		super.initGui();
 
 		this.buttonList.clear();
-		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100, this, 0));
-		this.buttonList.add(new GuiButtonClickable(1, this.width / 2 + 5, this.height / 2 - 35, this, "distribute"));
+		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100,
+		// this, 0));
+		this.buttonList.add(new GuiButtonMFFS(1, this.width / 2 + 5, this.height / 2 - 36, new Vector2(0, 0)));
 
 	}
 
@@ -44,7 +45,7 @@ public class GuiFortronCapacitor extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		//TODO: Might not work multiplayer
+		// TODO: Might not work multiplayer
 		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 30, x, y);
 		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);

@@ -13,7 +13,7 @@ public class GuiButtonClickable extends GuiButtonMFFS
 
 	public GuiButtonClickable(int id, int x, int y, GuiMFFS mainGui, String name)
 	{
-		super(id, x, y, mainGui, 0);
+		super(id, x, y);
 		this.name = name;
 		this.displayString = TranslationHelper.getLocal("gui." + this.name + ".button");
 	}
@@ -23,9 +23,10 @@ public class GuiButtonClickable extends GuiButtonMFFS
 	{
 		if (this.drawButton)
 		{
+			System.out.println(ZhuYao.GUI_BUTTON + this.name + ".png");
 			Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.GUI_BUTTON + this.name + ".png");
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawTexturedModalRect(this.xPosition, this.yPosition, 16, 16, this.width, this.height);
+			GL11.glColor4f(1, 1, 1, 1);
+			this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 0, this.width, this.height);
 			this.mouseDragged(minecraft, x, y);
 		}
 	}

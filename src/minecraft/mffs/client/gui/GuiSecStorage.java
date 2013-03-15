@@ -29,7 +29,7 @@ public class GuiSecStorage extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113, this, 0));
+		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 113));
 		super.initGui();
 	}
 

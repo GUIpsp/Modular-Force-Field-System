@@ -81,9 +81,7 @@ public class ItemModeCube extends ItemProjectorMode
 		GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(ticks * 3)) / 6, 0);
 		GL11.glRotatef(ticks * 4, 0, 1, 0);
 		GL11.glRotatef(36f + ticks * 4, 0, 1, 1);
-		GL11.glColor4f(1, 1, 1, 0.8f);
-		GL11.glScalef(1.5f, 1.5f, 1.5f);
-		Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.BLOCK_DIRECTORY + "fortron.png");
+		GL11.glScalef(0.5f, 0.5f, 0.5f);
 		ModelCube.INSTNACE.render();
 	}
 }
