@@ -1,81 +1,84 @@
 package mffs.nei;
 
 import mffs.common.ZhuYao;
+import codechicken.nei.MultiItemRange;
+import codechicken.nei.api.API;
+import codechicken.nei.api.IConfigureNEI;
 
-public class NEI_MFFS_Config// implements IConfigureNEI
+public class NEI_MFFS_Config implements IConfigureNEI
 {
 
-	//@Override
+	// @Override
 	public void loadConfig()
 	{
-		/*API.hideItem(ModularForceFieldSystem.itemMultiTool.itemID);
+		API.hideItem(ZhuYao.itemMultiTool.itemID);
 
-		API.hideItem(ModularForceFieldSystem.itemCardPowerLink.itemID);
-		API.hideItem(ModularForceFieldSystem.itemCardID.itemID);
-		API.hideItem(ModularForceFieldSystem.itemCardSecurityLink.itemID);
-		API.hideItem(ModularForceFieldSystem.blockForceField.blockID);
-		API.hideItem(ModularForceFieldSystem.itemCardAccess.itemID);
-		API.hideItem(ModularForceFieldSystem.itemCardDataLink.itemID);
+		API.hideItem(ZhuYao.itemCardPowerLink.itemID);
+		API.hideItem(ZhuYao.itemCardID.itemID);
+		API.hideItem(ZhuYao.itemCardSecurityLink.itemID);
+		API.hideItem(ZhuYao.blockForceField.blockID);
+		API.hideItem(ZhuYao.itemCardAccess.itemID);
+		API.hideItem(ZhuYao.itemCardDataLink.itemID);
 
 		MultiItemRange blocks = new MultiItemRange();
 		MultiItemRange items = new MultiItemRange();
 		MultiItemRange upgrades = new MultiItemRange();
 		MultiItemRange modules = new MultiItemRange();
 
-		blocks.add(ModularForceFieldSystem.blockConverter);
-		blocks.add(ModularForceFieldSystem.blockExtractor);
-		blocks.add(ModularForceFieldSystem.blockDefenceStation);
-		blocks.add(ModularForceFieldSystem.blockSecurityStation);
-		blocks.add(ModularForceFieldSystem.blockCapacitor);
-		blocks.add(ModularForceFieldSystem.blockProjector);
-		blocks.add(ModularForceFieldSystem.blockSecurityStorage);
-		blocks.add(ModularForceFieldSystem.blockFortronite);
+		blocks.add(ZhuYao.blockConverter);
+		blocks.add(ZhuYao.blockExtractor);
+		blocks.add(ZhuYao.blockDefenceStation);
+		blocks.add(ZhuYao.blockSecurityStation);
+		blocks.add(ZhuYao.blockCapacitor);
+		blocks.add(ZhuYao.blockProjector);
+		blocks.add(ZhuYao.blockSecurityStorage);
+		blocks.add(ZhuYao.blockFortronite);
 
-		items.add(ModularForceFieldSystem.itemMultiTool);
-		items.add(ModularForceFieldSystem.itemCardEmpty);
-		items.add(ModularForceFieldSystem.itemPowerCrystal);
-		items.add(ModularForceFieldSystem.itemForcillium);
-		items.add(ModularForceFieldSystem.itemForcilliumCell);
-		items.add(ModularForceFieldSystem.itemFocusMatix);
-		items.add(ModularForceFieldSystem.itemCardInfinite);
+		items.add(ZhuYao.itemMultiTool);
+		items.add(ZhuYao.itemCardEmpty);
+		items.add(ZhuYao.itemPowerCrystal);
+		items.add(ZhuYao.itemForcillium);
+		items.add(ZhuYao.itemFortronCell);
+		items.add(ZhuYao.itemFocusMatix);
+		items.add(ZhuYao.itemCardInfinite);
 
-		upgrades.add(ModularForceFieldSystem.itemUpgradeBoost);
-		upgrades.add(ModularForceFieldSystem.itemUpgradeRange);
-		upgrades.add(ModularForceFieldSystem.itemUpgradeCapacity);
+		upgrades.add(ZhuYao.itemUpgradeSpeed);
+		upgrades.add(ZhuYao.itemUpgradeRange);
+		upgrades.add(ZhuYao.itemUpgradeCapacity);
 
-		upgrades.add(ModularForceFieldSystem.itemModuleShock);
-		upgrades.add(ModularForceFieldSystem.itemModuleSponge);
-		upgrades.add(ModularForceFieldSystem.itemModuleManipulator);
-		upgrades.add(ModularForceFieldSystem.itemModuleDisintegration);
-		upgrades.add(ModularForceFieldSystem.itemModuleDefenseeStation);
-		upgrades.add(ModularForceFieldSystem.itemModuleAntibiotic);
-		upgrades.add(ModularForceFieldSystem.itemModuleJammer);
-		upgrades.add(ModularForceFieldSystem.itemModuleCamouflage);
-		upgrades.add(ModularForceFieldSystem.itemModuleFusion);
+		upgrades.add(ZhuYao.itemModuleShock);
+		upgrades.add(ZhuYao.itemModuleSponge);
+		upgrades.add(ZhuYao.itemModuleManipulator);
+		upgrades.add(ZhuYao.itemModuleDisintegration);
+		upgrades.add(ZhuYao.itemModuleDefenseeStation);
+		upgrades.add(ZhuYao.itemModuleAntibiotic);
+		upgrades.add(ZhuYao.itemModuleJammer);
+		upgrades.add(ZhuYao.itemModuleCamouflage);
+		upgrades.add(ZhuYao.itemModuleFusion);
 
-		upgrades.add(ModularForceFieldSystem.itemModuleScale);
-		upgrades.add(ModularForceFieldSystem.itemModuleTranslation);
+		upgrades.add(ZhuYao.itemModuleScale);
+		upgrades.add(ZhuYao.itemModuleTranslation);
 
-		modules.add(ModularForceFieldSystem.itemModuleSphere);
-		modules.add(ModularForceFieldSystem.itemModuleCube);
-		modules.add(ModularForceFieldSystem.itemModuleWall);
-		modules.add(ModularForceFieldSystem.itemModuleDeflector);
-		modules.add(ModularForceFieldSystem.itemModuleTube);
-		modules.add(ModularForceFieldSystem.itemModuleContainment);
+		modules.add(ZhuYao.itemModuleSphere);
+		modules.add(ZhuYao.itemModuleCube);
+		modules.add(ZhuYao.itemModuleWall);
+		modules.add(ZhuYao.itemModuleDeflector);
+		modules.add(ZhuYao.itemModuleTube);
+		modules.add(ZhuYao.itemModuleContainment);
 
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);
 		API.addSetRange("MFFS.Items", items);
-		API.addSetRange("MFFS.Blocks", blocks);*/
+		API.addSetRange("MFFS.Blocks", blocks);
 	}
 
-//	@Override
+	@Override
 	public String getName()
 	{
 		return ZhuYao.NAME;
 	}
 
-//	@Override
+	@Override
 	public String getVersion()
 	{
 		return ZhuYao.VERSION;
