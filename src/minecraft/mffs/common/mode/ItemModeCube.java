@@ -1,48 +1,27 @@
-
 package mffs.common.mode;
 
 import java.util.Set;
 
 import mffs.api.IProjector;
+import mffs.client.model.ModelCube;
 import mffs.common.ZhuYao;
-import mffs.common.module.ItemModule;
-import mffs.common.module.ItemModuleAntibiotic;
-import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDefenseStation;
-import mffs.common.module.ItemModuleDisintegration;
-import mffs.common.module.ItemModuleFusion;
-import mffs.common.module.ItemModuleJammer;
-import mffs.common.module.ItemModuleManipulator;
-import mffs.common.module.ItemModuleSponge;
-import net.minecraft.item.Item;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.core.vector.VectorHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemModeCube extends ItemProjectorMode
 {
 	public ItemModeCube(int i)
 	{
 		super(i, "modeCube");
-	}
-
-	@Override
-	public boolean supportsDistance()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsStrength()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean supportsMatrix()
-	{
-		return false;
 	}
 
 	@Override
@@ -62,13 +41,13 @@ public class ItemModeCube extends ItemProjectorMode
 		int overAllIncrease = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getModuleSlots());
 		zScaleNeg += overAllIncrease;
 		zScalePos += overAllIncrease;
-		
+
 		xScaleNeg += overAllIncrease;
 		xScalePos += overAllIncrease;
-		
+
 		yScalePos += overAllIncrease;
 		yScaleNeg += overAllIncrease;
-		
+
 		int zTranslationNeg = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
 		int zTranslationPos = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
@@ -95,80 +74,14 @@ public class ItemModeCube extends ItemProjectorMode
 		}
 	}
 
-	public static boolean supportsOption(ItemModule item)
-	{
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDefenseStation))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleFusion))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleManipulator))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleJammer))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleAntibiotic))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleSponge))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
+	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean supportsOption(Item item)
+	public void render(IProjector projector, double x, double y, double z, float f, long ticks)
 	{
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDefenseStation))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleFusion))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleManipulator))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleJammer))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleAntibiotic))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleSponge))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-
-		return false;
+		GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(ticks * 3)) / 6, 0);
+		GL11.glRotatef(ticks * 4, 0, 1, 0);
+		GL11.glRotatef(36f + ticks * 4, 0, 1, 1);
+		GL11.glColor4f(1, 1, 1, 0.8f);
+		ModelCube.INSTNACE.render();
 	}
 }

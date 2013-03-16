@@ -17,24 +17,6 @@ public class ItemModeDeflector extends ItemProjectorMode
 	}
 
 	@Override
-	public boolean supportsDistance()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsStrength()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean supportsMatrix()
-	{
-		return true;
-	}
-
-	@Override
 	public void calculateField(IProjector projector, Set ffLocs, Set interior)
 	{
 		/*
@@ -90,42 +72,5 @@ public class ItemModeDeflector extends ItemProjectorMode
 				ffLocs.add(new PointXYZ(tpx, tpy, tpz, 0));
 			}
 		}*/
-	}
-
-	public static boolean supportsOption(ItemModule item)
-	{
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleShock))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean supportsOption(Item item)
-	{
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleShock))
-		{
-			return true;
-		}
-
-		return false;
 	}
 }

@@ -1,4 +1,4 @@
-package mffs.client.renderer;
+package mffs.client.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

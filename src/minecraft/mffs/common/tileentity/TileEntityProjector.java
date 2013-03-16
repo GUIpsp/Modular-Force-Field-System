@@ -25,12 +25,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityProjector extends TileEntityFortron implements IProjector
 {
@@ -44,7 +48,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	protected Stack fieldQueue = new Stack();
 
 	/**
-	 * A set containinig all positions of all force field blocks.
+	 * A set containing all positions of all force field blocks.
 	 */
 	protected Set<Vector3> forceFields = new HashSet();
 
@@ -630,5 +634,17 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	public int[] getModuleSlots()
 	{
 		return new int[] { 14, 15 };
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getRenderBoundingBox()
+	{
+		return INFINITE_EXTENT_AABB;
+	}
+	
+	public long getTicks()
+	{
+		return this.ticks;
 	}
 }

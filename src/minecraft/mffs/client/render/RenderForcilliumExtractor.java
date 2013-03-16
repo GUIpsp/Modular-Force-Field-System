@@ -1,39 +1,34 @@
-package mffs.client.renderer;
+package mffs.client.render;
 
-import mffs.common.tileentity.TileEntityFortronCapacitor;
+import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-public class RenderFortronCapacitor extends TileEntitySpecialRenderer
+public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 {
+
 	@Override
-	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
+	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)
 	{
-		if ((tileEntity instanceof TileEntityFortronCapacitor))
+		if (t instanceof TileEntityForcilliumExtractor)
 		{
-			TileEntityFortronCapacitor topview = (TileEntityFortronCapacitor) tileEntity;
+			TileEntityForcilliumExtractor tileEntity = (TileEntityForcilliumExtractor) t;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);
-			int side = topview.getDirection(tileEntity.worldObj, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord).ordinal();
+			int side = tileEntity.getDirection(tileEntity.worldObj, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord).ordinal();
 			float dx = 0.0625F;
 			float dz = 0.0625F;
 			float displayWidth = 0.875F;
 			float displayHeight = 0.875F;
 			GL11.glTranslatef((float) x, (float) y, (float) z);
-
-			// TODO: NEST THIS IN A CLASS AND ROTATE THE RENDER BASED ON WHERE THE PLAYER IS LOOKING
-			// AT THE TILE ENTITY FROM.
-
 			switch (side)
 			{
 				case 1:
-				{
 					break;
-				}
 				case 0:
 					GL11.glTranslatef(1.0F, 1.0F, 0.0F);
 					GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
@@ -69,7 +64,7 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			FontRenderer fontRenderer = getFontRenderer();
 			int maxWidth = 1;
-			String header = "Fortron Capacitor";
+			String header = tileEntity.getInvName();
 			maxWidth = Math.max(fontRenderer.getStringWidth(header), maxWidth);
 			maxWidth += 4;
 			int lineHeight = fontRenderer.FONT_HEIGHT + 2;
@@ -95,17 +90,15 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 				offsetX = (realWidth - maxWidth) / 2 + 2;
 				offsetY = 0;
 			}
+
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
-			fontRenderer.drawString("Capacity: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getFortronEnergy()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getFortronEnergy()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
-			fontRenderer.drawString("Range: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getTransmitRange()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getTransmitRange())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString("Linked Device: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
-			// fontRenderer.drawString(String.valueOf(topview.getLinkedProjector()), offsetX +
-			// realWidth / 2 - offsetX -
-			// fontRenderer.getStringWidth(String.valueOf(topview.getLinkedProjector())), offsetY -
-			// realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString("Process:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
+			fontRenderer.drawString((int) (100 - ((float) tileEntity.processTime / (float) tileEntity.REQUIRED_TIME) * 100) + "%", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.processTime / tileEntity.REQUIRED_TIME + " % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			fontRenderer.drawString("Fortrons:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString(tileEntity.getFortronEnergy() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.getFortronEnergy() + ""), offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString("Capacity:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
+			fontRenderer.drawString(tileEntity.getFortronCapacity() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.getFortronCapacity() + ""), offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			GL11.glEnable(2896);
 			GL11.glDepthMask(true);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

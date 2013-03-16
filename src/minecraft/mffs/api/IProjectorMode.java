@@ -2,22 +2,23 @@ package mffs.api;
 
 import java.util.Set;
 
-import mffs.common.block.BlockForceField.ForceFieldType;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+
 import universalelectricity.core.vector.Vector3;
 
 public interface IProjectorMode
 {
-	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior);
+	/**
+	 * Called when the force field projector calculates the shape of the module.
+	 * 
+	 * @param projector - The Projector Object. Can cast to TileEntity.
+	 * @param blockExterior - The blocks actually making up the force field
+	 * @param blockInterior - The interior blocks within the force field.
+	 */
+	public void calculateField(IProjector projector, Set<Vector3> blockExterior, Set<Vector3> blockInterior);
 
-	public boolean supportsDistance();
-
-	public boolean supportsStrength();
-
-	public boolean supportsMatrix();
-
-	public boolean supportsOption(Item item);
-
-	public ForceFieldType getForceFieldType();
-
+	/**
+	 * Called to render an object in front of the projection.
+	 */
+	public void render(IProjector projector, double x, double y, double z, float f, long ticks);
 }

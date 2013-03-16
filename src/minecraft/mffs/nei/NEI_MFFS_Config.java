@@ -11,7 +11,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	// @Override
 	public void loadConfig()
 	{
-		API.hideItem(ZhuYao.itemMultiTool.itemID);
+		//API.hideItem(ZhuYao.itemMultiTool.itemID);
 
 		API.hideItem(ZhuYao.itemCardPowerLink.itemID);
 		API.hideItem(ZhuYao.itemCardID.itemID);

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import mffs.api.IForceFieldBlock;
 import mffs.api.PointXYZ;
-import mffs.client.renderer.RenderForceField;
+import mffs.client.render.RenderForceField;
 import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;

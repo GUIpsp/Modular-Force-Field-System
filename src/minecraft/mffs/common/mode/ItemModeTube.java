@@ -25,24 +25,6 @@ public class ItemModeTube extends ItemProjectorMode
 	}
 
 	@Override
-	public boolean supportsDistance()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsStrength()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsMatrix()
-	{
-		return false;
-	}
-
-	@Override
 	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
 	{
 		int tpx = 0;
@@ -154,72 +136,4 @@ public class ItemModeTube extends ItemProjectorMode
 		}
 	}
 
-	public static boolean supportsOption(ItemModule item)
-	{
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleFusion))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleManipulator))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleJammer))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleSponge))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleShock))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean supportsOption(Item item)
-	{
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleFusion))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleManipulator))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleJammer))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleSponge))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleShock))
-		{
-			return true;
-		}
-
-		return false;
-	}
 }

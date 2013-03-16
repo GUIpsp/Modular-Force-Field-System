@@ -27,24 +27,6 @@ public class ItemModeSphere extends ItemProjectorMode
 	}
 
 	@Override
-	public boolean supportsDistance()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsStrength()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsMatrix()
-	{
-		return false;
-	}
-
-	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
 		ForgeDirection direction = projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord);
@@ -86,82 +68,5 @@ public class ItemModeSphere extends ItemProjectorMode
 				}
 			}
 		}
-	}
-
-	public static boolean supportsOption(ItemModule item)
-	{
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDefenseStation))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleFusion))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleManipulator))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleJammer))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleAntibiotic))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleSponge))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean supportsOption(Item item)
-	{
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDefenseStation))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleFusion))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleManipulator))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleJammer))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleAntibiotic))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleSponge))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-
-		return false;
 	}
 }

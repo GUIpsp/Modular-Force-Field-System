@@ -28,24 +28,6 @@ public class ItemModeWall extends ItemProjectorMode
 	}
 
 	@Override
-	public boolean supportsDistance()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsStrength()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean supportsMatrix()
-	{
-		return true;
-	}
-
-	@Override
 	public void calculateField(IProjector projector, Set fieldDefinition, Set interior)
 	{
 		TileEntityProjector tileEntity = (TileEntityProjector) projector;
@@ -74,42 +56,5 @@ public class ItemModeWall extends ItemProjectorMode
 				}
 			}
 		}
-	}
-
-	public static boolean supportsOption(ItemModule item)
-	{
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleShock))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean supportsOption(Item item)
-	{
-		if ((item instanceof ItemModuleDisintegration))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleCamoflage))
-		{
-			return true;
-		}
-		if ((item instanceof ItemModuleShock))
-		{
-			return true;
-		}
-
-		return false;
 	}
 }

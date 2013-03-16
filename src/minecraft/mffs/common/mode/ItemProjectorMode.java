@@ -1,8 +1,9 @@
 package mffs.common.mode;
 
+import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
-import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.item.ItemMFFS;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMode
 {
@@ -13,8 +14,8 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 	}
 
 	@Override
-	public ForceFieldType getForceFieldType()
+	public void render(IProjector projector, double x, double y, double z, float f, long ticks)
 	{
-		return ForceFieldType.Default;
+
 	}
 }
