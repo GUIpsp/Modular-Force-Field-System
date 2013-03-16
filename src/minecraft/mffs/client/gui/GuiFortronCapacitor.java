@@ -1,5 +1,6 @@
 package mffs.client.gui;
 
+import mffs.common.ZhuYao;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
@@ -7,9 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
+
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
+import universalelectricity.prefab.network.PacketManager;
 
 public class GuiFortronCapacitor extends GuiMFFS
 {
@@ -31,7 +35,7 @@ public class GuiFortronCapacitor extends GuiMFFS
 		this.buttonList.clear();
 		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100,
 		// this, 0));
-		this.buttonList.add(new GuiButtonMFFS(1, this.width / 2 + 5, this.height / 2 - 36, new Vector2(0, 0)));
+		this.buttonList.add(new GuiButtonTransferMode(1, this.width / 2 + 5, this.height / 2 - 37, this.tileEntity));
 
 	}
 
@@ -79,6 +83,6 @@ public class GuiFortronCapacitor extends GuiMFFS
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		super.actionPerformed(guibutton);
-		// NetworkHandlerClient.fireTileEntityEvent(this.tileEntity, guibutton.id, "");
+		PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.tileEntity, 3));
 	}
 }

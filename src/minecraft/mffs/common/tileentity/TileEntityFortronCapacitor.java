@@ -31,10 +31,20 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 {
 	public enum TransferMode
 	{
-		EQUALIZE, DISTRIBUTE, DRAIN, FILL
+		EQUALIZE, DISTRIBUTE, DRAIN, FILL;
+
+		public TransferMode toggle()
+		{
+			int newOrdinal = this.ordinal() + 1;
+
+			if (newOrdinal >= this.values().length)
+			{
+				newOrdinal = 0;
+			}
+			return this.values()[newOrdinal];
+		}
 	}
 
-	private int distributionMode = 0;
 	private int transmissionRange = 20;
 	private TransferMode transferMode = TransferMode.EQUALIZE;
 
@@ -164,7 +174,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	{
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
-		objects.add(this.distributionMode);
+		objects.add(this.transferMode.ordinal());
 		objects.add(this.transmissionRange);
 		return objects;
 	}
@@ -176,8 +186,12 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 
 		if (packetID == 1)
 		{
-			this.distributionMode = dataStream.readInt();
+			this.transferMode = TransferMode.values()[dataStream.readInt()];
 			this.transmissionRange = dataStream.readInt();
+		}
+		else if (packetID == 3)
+		{
+			this.transferMode = this.transferMode.toggle();
 		}
 	}
 
@@ -197,11 +211,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	public int getTransmitRange()
 	{
 		return this.transmissionRange;
-	}
-
-	public int getPowerLinkMode()
-	{
-		return this.distributionMode;
 	}
 
 	@Override
@@ -230,14 +239,14 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		this.distributionMode = nbt.getInteger("distributionMode");
+		this.transferMode = TransferMode.values()[nbt.getInteger("transferMode")];
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
-		nbttagcompound.setInteger("distributionMode", this.distributionMode);
+		nbttagcompound.setInteger("transferMode", this.transferMode.ordinal());
 	}
 
 	@Override
@@ -278,6 +287,11 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 			case 3:
 		}
 		return false;
+	}
+
+	public TransferMode getTransferMode()
+	{
+		return this.transferMode;
 	}
 
 }

@@ -10,7 +10,7 @@ import universalelectricity.core.vector.Vector2;
 
 public class GuiButtonMFFS extends GuiButton
 {
-	private Vector2 offset;
+	protected Vector2 offset = new Vector2();
 	private int type;
 
 	public GuiButtonMFFS(int id, int x, int y, Vector2 offset)
@@ -31,7 +31,7 @@ public class GuiButtonMFFS extends GuiButton
 		{
 			Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.GUI_BUTTON);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 0, this.width, this.height);
+			this.drawTexturedModalRect(this.xPosition, this.yPosition, this.offset.intX(), this.offset.intY(), this.width, this.height);
 			this.mouseDragged(minecraft, x, y);
 			/*
 			 * 
@@ -97,7 +97,7 @@ public class GuiButtonMFFS extends GuiButton
 	{
 		if (this.isPointInRegion(this.xPosition, this.yPosition, this.width, this.height, x, y))
 		{
-			//this.mainGui.tooltip = this.displayString;
+			// this.mainGui.tooltip = this.displayString;
 		}
 	}
 
