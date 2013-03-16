@@ -226,6 +226,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	public void setActive(boolean flag)
 	{
 		this.isActive = flag;
+		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	@Override

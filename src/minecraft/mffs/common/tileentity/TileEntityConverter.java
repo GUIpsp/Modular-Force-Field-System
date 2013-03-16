@@ -348,12 +348,12 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 			{
 				double outputWatts = Math.min(outputNetwork.getRequest().getWatts(), volt * amp);
 
-				if (consumeFortron((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true) > 0)
+				if (requestFortron((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), true) > 0)
 				{
 					if ((outputWatts > 0.0D) && (isActive()) && (getUE_Output() == 1))
 					{
 						outputNetwork.startProducing(this, outputWatts / volt, volt);
-						consumeFortron((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
+						requestFortron((int) (MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (outputWatts / 50.0D)), false);
 					}
 					else
 					{
@@ -370,11 +370,11 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 		{
 			while (packets > 0)
 			{
-				if (consumeFortron(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * amount, true) > 0)
+				if (requestFortron(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * amount, true) > 0)
 				{
 					EnergyTileSourceEvent event = new EnergyTileSourceEvent(this, amount);
 					MinecraftForge.EVENT_BUS.post(event);
-					consumeFortron(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
+					requestFortron(MFFSConfiguration.ExtractorPassForceEnergyGenerate / 4000 * (amount - event.amount), false);
 				}
 				packets--;
 			}

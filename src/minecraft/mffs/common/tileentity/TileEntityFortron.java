@@ -164,9 +164,15 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	}
 
 	@Override
-	public int consumeFortron(int joules, boolean doUse)
+	public int requestFortron(int joules, boolean doUse)
 	{
 		return Fortron.getAmount(this.fortronTank.drain(joules, doUse));
+	}
+
+	@Override
+	public int provideFortron(int joules, boolean doUse)
+	{
+		return this.fortronTank.fill(Fortron.getFortron(joules), doUse);
 	}
 
 	@Override

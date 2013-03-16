@@ -2,6 +2,8 @@ package mffs.common;
 
 import java.lang.reflect.Constructor;
 
+import universalelectricity.core.vector.Vector3;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -18,7 +20,7 @@ public class CommonProxy implements IGuiHandler
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		
+
 		if (tileEntity == null)
 		{
 			return null;
@@ -66,8 +68,8 @@ public class CommonProxy implements IGuiHandler
 		return null;
 	}
 
-	public boolean isClient()
+	public void renderBeam(World world, Vector3 position, Vector3 target, float red, float green, float blue, int age)
 	{
-		return false;
+
 	}
 }

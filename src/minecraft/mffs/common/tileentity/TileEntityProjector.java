@@ -114,7 +114,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 					this.projectField();
 				}
 
-				this.consumeFortron(1, true);
+				this.requestFortron(1, true);
 			}
 			else
 			{
@@ -290,8 +290,6 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 		{
 			this.destroyField();
 		}
-
-		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	private void updateForceFieldTexture()

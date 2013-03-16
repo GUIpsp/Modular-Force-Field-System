@@ -13,6 +13,7 @@ import mffs.api.IFortronCapacitor;
 import mffs.api.IFortronFrequency;
 import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
+import mffs.common.ZhuYao;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.upgrade.ItemUpgradeCapacity;
@@ -21,6 +22,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
@@ -65,103 +67,140 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	{
 		super.updateEntity();
 
-		if (!this.worldObj.isRemote)
+		if (!this.isDisabled())
 		{
-			if (!this.isDisabled())
+			/**
+			 * Transmit Fortrons in frequency network, evenly distributing them.
+			 */
+			if (!this.worldObj.isRemote)
 			{
-				/**
-				 * Transmit Fortrons in frequency network, evenly distributing them.
-				 */
-				if (this.isPoweredByRedstone() && this.ticks % 20 == 0)
+				if (this.isPoweredByRedstone())
 				{
-					Set<IFortronFrequency> machines = this.getLinkedDevices();
-
-					if (machines.size() > 1)
+					if (!this.isActive())
 					{
-						/**
-						 * Check spread mode. Equal, Give All, Take All
-						 */
-						int totalFortron = 0;
-						int totalCapacity = 0;
-
-						HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
-
-						for (IFortronFrequency machine : machines)
-						{
-							if (machine != null)
-							{
-								totalFortron += machine.getFortronEnergy();
-								totalCapacity += machine.getFortronCapacity();
-							}
-						}
-
-						if (totalFortron > 0 && totalCapacity > 0)
-						{
-							switch (this.transferMode)
-							{
-								case EQUALIZE:
-								{
-									for (IFortronFrequency machine : machines)
-									{
-										if (machine != null)
-										{
-											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-											int amountToSet = (int) (totalFortron * capacityPercentage);
-											machine.setFortronEnergy(amountToSet);
-										}
-									}
-
-									break;
-								}
-								case DISTRIBUTE:
-								{
-
-									for (IFortronFrequency machine : machines)
-									{
-										if (machine != null)
-										{
-											int amountToSet = (int) (totalFortron / machines.size());
-											machine.setFortronEnergy(amountToSet);
-										}
-									}
-									break;
-								}
-								case DRAIN:
-								{
-									int remainingFortron = totalFortron;
-
-									for (IFortronFrequency machine : machines)
-									{
-										if (machine != null)
-										{
-											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-											int amountToSet = (int) (totalFortron * capacityPercentage);
-											machine.setFortronEnergy(amountToSet);
-											remainingFortron -= amountToSet;
-										}
-									}
-									break;
-								}
-								case FILL:
-									break;
-							}
-						}
+						this.setActive(true);
 					}
-
-					this.setActive(true);
 				}
 				else
 				{
-					this.setActive(false);
+					if (this.isActive())
+					{
+						this.setActive(false);
+					}
 				}
+			}
 
-				/**
-				 * Packet Update for Client only when GUI is open.
-				 */
-				if (this.ticks % 4 == 0 && this.playersUsing > 0)
+			if (this.isActive() && this.ticks % 20 == 0)
+			{
+				Set<IFortronFrequency> machines = this.getLinkedDevices();
+
+				if (machines.size() > 1)
 				{
-					PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
+					/**
+					 * Check spread mode. Equal, Give All, Take All
+					 */
+					int totalFortron = 0;
+					int totalCapacity = 0;
+
+					HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
+
+					for (IFortronFrequency machine : machines)
+					{
+						if (machine != null)
+						{
+							totalFortron += machine.getFortronEnergy();
+							totalCapacity += machine.getFortronCapacity();
+						}
+					}
+
+					if (totalFortron > 0 && totalCapacity > 0)
+					{
+						switch (this.transferMode)
+						{
+							case EQUALIZE:
+							{
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null)
+									{
+										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+										int amountToSet = (int) (totalFortron * capacityPercentage);
+										machine.setFortronEnergy(amountToSet);
+
+										if (this.worldObj.isRemote)
+										{
+											ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+										}
+									}
+								}
+
+								break;
+							}
+							case DISTRIBUTE:
+							{
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null)
+									{
+										int amountToSet = (int) (totalFortron / machines.size());
+										machine.setFortronEnergy(amountToSet);
+									}
+								}
+
+								break;
+							}
+							case DRAIN:
+							{
+								int remainingFortron = totalFortron;
+
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null)
+									{
+										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+										int amountToSet = (int) (totalFortron * capacityPercentage);
+										machine.setFortronEnergy(amountToSet);
+										remainingFortron -= amountToSet;
+									}
+								}
+								break;
+							}
+							case FILL:
+							{
+								/**
+								 * Take total fortron energy and consume it, then distribute the
+								 * rest.
+								 */
+								// Remove this capacitor from the list.
+								totalFortron -= this.getFortronEnergy();
+								totalCapacity -= this.getFortronCapacity();
+								int remainingFortron = totalFortron - this.provideFortron(totalFortron, true);
+
+								for (IFortronFrequency machine : machines)
+								{
+									if (machine != null && machine != this)
+									{
+										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+										int amountToSet = (int) (remainingFortron * capacityPercentage);
+										machine.setFortronEnergy(amountToSet);
+									}
+								}
+								break;
+							}
+						}
+					}
 				}
+			}
+		}
+
+		if (!this.worldObj.isRemote)
+		{
+			/**
+			 * Packet Update for Client only when GUI is open.
+			 */
+			if (this.ticks % 4 == 0 && this.playersUsing > 0)
+			{
+				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
 			}
 		}
 	}

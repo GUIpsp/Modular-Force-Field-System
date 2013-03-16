@@ -25,6 +25,17 @@ public interface IFortronStorage
 	 * 
 	 * @param joules - Amount of fortron energy to use.
 	 * @param doUse - True if actually using, false if just simulating.
+	 * @return joules - The amount of energy that was actually provided.
 	 */
-	public int consumeFortron(int joules, boolean doUse);
+	public int requestFortron(int joules, boolean doUse);
+
+	/**
+	 * Called to use and give fortron energy from this storage unit.
+	 * 
+	 * @param joules - Amount of fortron energy to use.
+	 * @param doUse - True if actually using, false if just simulating.
+	 * 
+	 * @return joules - The amount of energy that was actually injected.
+	 */
+	public int provideFortron(int joules, boolean doUse);
 }

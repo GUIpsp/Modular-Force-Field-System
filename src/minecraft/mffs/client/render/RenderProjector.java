@@ -36,6 +36,7 @@ public class RenderProjector extends TileEntitySpecialRenderer
 				RenderHelper.disableStandardItemLighting();
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
 
+				GL11.glColor4f(1, 1, 1, (float) Math.sin((double) tileEntity.getTicks() / 10) / 2 + 1);
 				tileEntity.getMode().render(tileEntity, x, y, z, f, tileEntity.getTicks());
 
 				/**
