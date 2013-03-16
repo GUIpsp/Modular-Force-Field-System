@@ -36,7 +36,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 
 		//items.add(ZhuYao.itemMultiTool);
 		items.add(ZhuYao.itemCardEmpty);
-		items.add(ZhuYao.itemPowerCrystal);
+//		items.add(ZhuYao.itemPowerCrystal);
 		items.add(ZhuYao.itemForcillium);
 		items.add(ZhuYao.itemFortronCell);
 		items.add(ZhuYao.itemFocusMatix);

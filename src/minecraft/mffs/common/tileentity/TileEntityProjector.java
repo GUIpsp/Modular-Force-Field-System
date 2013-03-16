@@ -107,14 +107,12 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 				}
 			}
 
-			if (this.isActive() && this.getFortronEnergy() > FORTRON_CONSUMPTION || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itemCardInfinite.itemID))
+			if (this.isActive() && this.requestFortron(FORTRON_CONSUMPTION, true) > 0 || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itemCardInfinite.itemID))
 			{
 				if (this.ticks % 10 == 0)
 				{
 					this.projectField();
 				}
-
-				this.requestFortron(1, true);
 			}
 			else
 			{
@@ -458,7 +456,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 				if (block == ZhuYao.blockForceField)
 				{
-					vector.setBlock(this.worldObj, 0);
+					this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
 				}
 			}
 		}

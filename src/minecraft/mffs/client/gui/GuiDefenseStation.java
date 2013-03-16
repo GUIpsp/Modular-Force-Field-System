@@ -5,6 +5,7 @@ import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
@@ -22,33 +23,11 @@ public class GuiDefenseStation extends GuiMFFS
 	}
 
 	@Override
-	protected void mouseClicked(int i, int j, int k)
-	{
-		super.mouseClicked(i, j, k);
-
-		int xMin = (this.width - this.xSize) / 2;
-		int yMin = (this.height - this.ySize) / 2;
-
-		int x = i - xMin;
-		int y = j - yMin;
-
-		if (this.editMode)
-		{
-			this.editMode = false;
-		}
-		else if ((x >= 115) && (y >= 5) && (x <= 233) && (y <= 19))
-		{
-			// NetworkHandlerClient.fireTileEntityEvent(this.DefenceStation, 10, "null");
-			this.editMode = true;
-		}
-	}
-
-	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		int xSize = 256;
 		int ySize = 216;
-		this.mc.renderEngine.func_98187_b(ZhuYao.TEXTURE_DIRECTORY + "GuiDefStation.png");
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_DIRECTORY + "GuiDefStation.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int w = (this.width - xSize) / 2;
@@ -77,48 +56,48 @@ public class GuiDefenseStation extends GuiMFFS
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
-		this.fontRenderer.drawString("MFFS Defence Station", 7, 9, 4210752);
+		this.fontRenderer.drawString("Defense Station", 7, 9, 4210752);
 		// this.fontRenderer.drawString(this.DefenceStation.getDeviceName(), 120, 9, 4210752);
 		// TODO: REMOVED NAME
-		switch (this.DefenceStation.getActionmode())
+		switch (this.DefenceStation.actionMode)
 		{
-			case 0:
-				this.fontRenderer.drawString("inform", 110, 55, 4210752);
+			case WARN:
+				this.fontRenderer.drawString("Warn", 110, 55, 4210752);
 
 				this.fontRenderer.drawString(" send Info", 95, 85, 4210752);
 				this.fontRenderer.drawString(" to player ", 95, 95, 4210752);
 				this.fontRenderer.drawString(" without (SR)", 95, 105, 4210752);
 				this.fontRenderer.drawString(" Stay Right", 95, 115, 4210752);
 				break;
-			case 1:
-				this.fontRenderer.drawString("kill", 110, 55, 4210752);
+			case ASSASINATE:
+				this.fontRenderer.drawString("Assasination", 110, 55, 4210752);
 
 				this.fontRenderer.drawString(" kill player", 95, 85, 4210752);
 				this.fontRenderer.drawString(" without (SR)", 95, 95, 4210752);
 				this.fontRenderer.drawString(" gathers his", 95, 105, 4210752);
 				this.fontRenderer.drawString(" equipment", 95, 115, 4210752);
 				break;
-			case 2:
-				this.fontRenderer.drawString("search", 110, 55, 4210752);
+			case CONFISCATE:
+				this.fontRenderer.drawString("Confiscation", 110, 55, 4210752);
 
 				this.fontRenderer.drawString("scans player", 95, 85, 4210752);
 				this.fontRenderer.drawString("without (AAI)", 95, 95, 4210752);
 				this.fontRenderer.drawString("and remove", 95, 105, 4210752);
 				this.fontRenderer.drawString("banned items", 95, 115, 4210752);
 				break;
-			case 3:
+			case ANTIBIOTIC:
 				this.fontRenderer.drawString("NPC kill", 110, 55, 4210752);
 				this.fontRenderer.drawString("kill any NPC", 95, 85, 4210752);
 				this.fontRenderer.drawString("friendly or", 95, 95, 4210752);
 				this.fontRenderer.drawString("hostile", 95, 105, 4210752);
 				break;
-			case 4:
+			case ANTI_HOSTILE:
 				this.fontRenderer.drawString("NPC kill", 110, 55, 4210752);
 
 				this.fontRenderer.drawString("kill only", 95, 85, 4210752);
 				this.fontRenderer.drawString("hostile NPCs", 95, 95, 4210752);
 				break;
-			case 5:
+			case ANTI_FRIENDLY:
 				this.fontRenderer.drawString("NPC kill", 110, 55, 4210752);
 
 				this.fontRenderer.drawString("kill only", 95, 85, 4210752);
@@ -129,19 +108,18 @@ public class GuiDefenseStation extends GuiMFFS
 
 		this.fontRenderer.drawString("items", 205, 68, 2263842);
 
-		if (this.DefenceStation.getcontratyp() == 0)
+		if (this.DefenceStation.isBanMode())
 		{
 			this.fontRenderer.drawString("allowed", 200, 82, 2263842);
 		}
-
-		if (this.DefenceStation.getcontratyp() == 1)
+		else
 		{
 			this.fontRenderer.drawString("banned", 200, 82, 16711680);
 		}
 
 		// if (this.DefenceStation.getPowerSourceID() != 0)
 		{
-			this.fontRenderer.drawString("FE: " + this.DefenceStation.getCapacity() + " %", 35, 31, 4210752);
+			this.fontRenderer.drawString("FE: " + this.DefenceStation.getFortronCapacity() + " %", 35, 31, 4210752);
 		}
 		// else
 		{
@@ -154,11 +132,9 @@ public class GuiDefenseStation extends GuiMFFS
 		}
 
 		this.fontRenderer.drawString("warning", 35, 55, 139);
-		this.fontRenderer.drawString("perimeter: " + this.DefenceStation.getInfoDistance(), 12, 73, 4210752);
+		this.fontRenderer.drawString("Range: " + this.DefenceStation.getInfoDistance(), 12, 73, 4210752);
 
 		this.fontRenderer.drawString("action", 35, 91, 15612731);
-		this.fontRenderer.drawString("perimeter: " + this.DefenceStation.getActionDistance(), 12, 111, 4210752);
-
-		this.fontRenderer.drawString("inventory ", 180, 195, 4210752);
+		this.fontRenderer.drawString("Range: " + this.DefenceStation.getActionDistance(), 12, 111, 4210752);
 	}
 }

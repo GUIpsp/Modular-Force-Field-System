@@ -81,8 +81,8 @@ public class MFFSConfiguration
 	public static int ForcilliumWorkCylce;
 	public static int forceciumCellWorkCycle;
 	public static int ExtractorPassForceEnergyGenerate;
-	public static int DefenceStationKillForceEnergy;
-	public static int DefenceStationSearchForceEnergy;
+	public static int defenceStationKillForceEnergy;
+	public static int defenceStationSearchForceEnergy;
 	public static int DefenceStationScannForceEnergy;
 	public static String administrators;
 
@@ -168,11 +168,11 @@ public class MFFSConfiguration
 
 		Property defStationKillCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationKillForceEnergy", 10000);
 		defStationKillCost.comment = "How much FE does the Area Defense Station need when killing someone?";
-		DefenceStationKillForceEnergy = defStationKillCost.getInt(10000);
+		defenceStationKillForceEnergy = defStationKillCost.getInt(10000);
 
 		Property defStationSearchCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationSearchForceEnergy", 1000);
 		defStationSearchCost.comment = "How much FE does the Area Defense Station need when searching someone for banned items?";
-		DefenceStationSearchForceEnergy = defStationSearchCost.getInt(1000);
+		defenceStationSearchForceEnergy = defStationSearchCost.getInt(1000);
 
 		Property defStationScannCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationScannForceEnergy", 10);
 		defStationScannCost.comment = "How much FE does the Area Defense Station need when scanning for targets? (amount * range / tick)";
