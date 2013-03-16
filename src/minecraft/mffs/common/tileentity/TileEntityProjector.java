@@ -315,48 +315,51 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 
 	private boolean calculateForceField()
 	{
-		this.calculatedField.clear();
-		this.fieldInterior.clear();
-
-		if (this.getMode() != null)
+		if (!this.worldObj.isRemote)
 		{
-			Set<Vector3> blockDef = new HashSet();
-			Set<Vector3> blockInterior = new HashSet();
+			this.calculatedField.clear();
+			this.fieldInterior.clear();
 
-			this.getMode().calculateField(this, blockDef, blockInterior);
-
-			for (Vector3 vector : blockDef)
+			if (this.getMode() != null)
 			{
-				Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
+				Set<Vector3> blockDef = new HashSet();
+				Set<Vector3> blockInterior = new HashSet();
 
-				if (fieldPoint.intY() < this.worldObj.getHeight())
-				{
-					if (forceFieldDefine(fieldPoint))
-					{
-						this.calculatedField.add(fieldPoint);
-					}
-				}
-			}
+				this.getMode().calculateField(this, blockDef, blockInterior);
 
-			for (Vector3 vector : blockInterior)
-			{
-				if (vector.intY() + this.yCoord < this.worldObj.getHeight())
+				for (Vector3 vector : blockDef)
 				{
 					Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
 
-					if (calculateBlock(fieldPoint))
+					if (fieldPoint.intY() < this.worldObj.getHeight())
 					{
-						this.fieldInterior.add(fieldPoint);
-					}
-					else
-					{
-						return false;
+						if (forceFieldDefine(fieldPoint))
+						{
+							this.calculatedField.add(fieldPoint);
+						}
 					}
 				}
 
-			}
+				for (Vector3 vector : blockInterior)
+				{
+					if (vector.intY() + this.yCoord < this.worldObj.getHeight())
+					{
+						Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
 
-			return true;
+						if (calculateBlock(fieldPoint))
+						{
+							this.fieldInterior.add(fieldPoint);
+						}
+						else
+						{
+							return false;
+						}
+					}
+
+				}
+
+				return true;
+			}
 		}
 
 		return false;
@@ -417,27 +420,30 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public void projectField()
 	{
-		this.blockCount = 0;
-		for (Vector3 vector : this.calculatedField)
+		if (!this.worldObj.isRemote)
 		{
-			if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
+			this.blockCount = 0;
+			for (Vector3 vector : this.calculatedField)
 			{
-				break;
-			}
-
-			Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
-
-			if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
-			{
-				if (block != ZhuYao.blockForceField)
+				if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
 				{
-					if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
-					{
-						this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 2);
-					}
+					break;
+				}
 
-					this.forceFields.add(vector);
-					this.blockCount++;
+				Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+
+				if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
+				{
+					if (block != ZhuYao.blockForceField)
+					{
+						if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
+						{
+							this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
+						}
+
+						this.forceFields.add(vector);
+						this.blockCount++;
+					}
 				}
 			}
 		}
@@ -446,13 +452,16 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	@Override
 	public void destroyField()
 	{
-		for (Vector3 vector : this.calculatedField)
+		if (!this.worldObj.isRemote)
 		{
-			Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
-
-			if (block == ZhuYao.blockForceField)
+			for (Vector3 vector : this.calculatedField)
 			{
-				vector.setBlock(this.worldObj, 0);
+				Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+
+				if (block == ZhuYao.blockForceField)
+				{
+					vector.setBlock(this.worldObj, 0);
+				}
 			}
 		}
 	}

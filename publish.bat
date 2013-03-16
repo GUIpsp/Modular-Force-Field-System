@@ -32,7 +32,6 @@ cd reobf\minecraft\
 7z a "..\..\builds\%FILE_NAME%" "\ic2\"
 7z a "..\..\builds\%FILE_NAME%" "\icbm\"
 7z a "..\..\builds\%FILE_NAME%" "\org\"
-7z a "..\..\builds\%FILE_NAME%" "\railcraft\"
 7z a "..\..\builds\%FILE_NAME%" "\thermalexpansion\"
 7z a "..\..\builds\%FILE_NAME%" "\universalelectricity\"
 cd ..\..\
