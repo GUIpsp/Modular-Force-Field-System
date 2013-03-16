@@ -2,49 +2,67 @@ package mffs.common.tileentity;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import mffs.api.IPowerLinkItem;
-import mffs.common.FrequencyGridOld;
-import mffs.common.InventoryHelper;
 import mffs.common.MFFSConfiguration;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
+import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.container.ContainerAreaDefenseStation;
 import mffs.common.upgrade.ItemModuleScale;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.INpc;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.core.vector.VectorHelper;
+import universalelectricity.prefab.network.PacketManager;
+
+import com.google.common.io.ByteArrayDataInput;
 
 public class TileEntityDefenseStation extends TileEntityFortron
 {
 	public enum ActionMode
 	{
-		WARN, CONFISCATE, ASSASINATE, ANTI_HOSTILE, ANTI_FRIENDLY, ANTIBIOTIC
+		WARN, CONFISCATE, ASSASINATE, ANTI_HOSTILE, ANTI_FRIENDLY, ANTIBIOTIC;
+
+		public ActionMode toggle()
+		{
+			int newOrdinal = this.ordinal() + 1;
+
+			if (newOrdinal >= this.values().length)
+			{
+				newOrdinal = 0;
+			}
+			return this.values()[newOrdinal];
+		}
+
 	}
 
-	private static final int FORTRON_CONSUMPTION = 0;
+	private static final int FORTRON_CONSUMPTION = 2;
+
+	private static final int BAN_LIST_START = 4;
+	private static final int INVENTORY_START = 15;
 
 	/**
 	 * True if the current confiscation mode is for "banning selected items".
 	 */
 	private boolean isBanMode = true;
 	public ActionMode actionMode = ActionMode.WARN;
-	private int scanMode = 0;
-	private int distance = 0;
+
+	public TileEntityDefenseStation()
+	{
+		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
+	}
 
 	@Override
 	public void updateEntity()
@@ -79,17 +97,42 @@ public class TileEntityDefenseStation extends TileEntityFortron
 					}
 				}
 			}
+
+			if (this.playersUsing > 0)
+			{
+				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
+			}
 		}
 	}
 
-	public int getScanmode()
+	@Override
+	public List getPacketUpdate()
 	{
-		return this.scanMode;
+		List objects = new LinkedList();
+		objects.addAll(super.getPacketUpdate());
+		objects.add(this.isBanMode);
+		objects.add(this.actionMode.ordinal());
+		return objects;
 	}
 
-	public void setScanmode(int scanmode)
+	@Override
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
-		this.scanMode = scanmode;
+		super.onReceivePacket(packetID, dataStream);
+
+		if (packetID == 1)
+		{
+			this.isBanMode = dataStream.readBoolean();
+			this.actionMode = ActionMode.values()[dataStream.readInt()];
+		}
+		else if (packetID == 3)
+		{
+			this.actionMode = this.actionMode.toggle();
+		}
+		else if (packetID == 4)
+		{
+			this.isBanMode = !this.isBanMode;
+		}
 	}
 
 	public boolean isBanMode()
@@ -97,7 +140,7 @@ public class TileEntityDefenseStation extends TileEntityFortron
 		return this.isBanMode;
 	}
 
-	public int getActionDistance()
+	public int getActionRange()
 	{
 		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ZhuYao.itemModuleScale))
 		{
@@ -107,14 +150,14 @@ public class TileEntityDefenseStation extends TileEntityFortron
 		return 0;
 	}
 
-	public int getInfoDistance()
+	public int getWarnRange()
 	{
 		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ZhuYao.itemModuleScale))
 		{
-			return getActionDistance() + (getStackInSlot(2).stackSize + 3);
+			return getActionRange() + (getStackInSlot(2).stackSize + 3);
 		}
 
-		return getActionDistance() + 3;
+		return getActionRange() + 3;
 	}
 
 	public boolean hasSecurityCard()
@@ -127,76 +170,64 @@ public class TileEntityDefenseStation extends TileEntityFortron
 		return false;
 	}
 
-	@Override
-	public void invalidate()
-	{
-		FrequencyGridOld.getWorldMap(this.worldObj).getDefStation().remove(Integer.valueOf(getDeviceID()));
-		super.invalidate();
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbt)
-	{
-		super.readFromNBT(nbt);
-		this.isBanMode = nbt.getBoolean("isBanMode");
-		this.actionMode = ActionMode.values()[nbt.getInteger("actionMode")];
-		this.scanMode = nbt.getInteger("scanmode");
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound nbt)
-	{
-		super.writeToNBT(nbt);
-		nbt.setBoolean("isBanMode", this.isBanMode);
-		nbt.setInteger("actionMode", this.actionMode.ordinal());
-		nbt.setInteger("scanmode", this.scanMode);
-	}
-
 	public void scan()
 	{
 		try
 		{
 			TileEntitySecurityStation securityStation = this.getLinkedSecurityStation();
 
-			int xmininfo = this.xCoord - getInfoDistance();
-			int xmaxinfo = this.xCoord + getInfoDistance() + 1;
-			int ymininfo = this.yCoord - getInfoDistance();
-			int ymaxinfo = this.yCoord + getInfoDistance() + 1;
-			int zmininfo = this.zCoord - getInfoDistance();
-			int zmaxinfo = this.zCoord + getInfoDistance() + 1;
+			int xmininfo = this.xCoord - getWarnRange();
+			int xmaxinfo = this.xCoord + getWarnRange() + 1;
+			int ymininfo = this.yCoord - getWarnRange();
+			int ymaxinfo = this.yCoord + getWarnRange() + 1;
+			int zmininfo = this.zCoord - getWarnRange();
+			int zmaxinfo = this.zCoord + getWarnRange() + 1;
 
-			int xminaction = this.xCoord - getActionDistance();
-			int xmaxaction = this.xCoord + getActionDistance() + 1;
-			int yminaction = this.yCoord - getActionDistance();
-			int ymaxaction = this.yCoord + getActionDistance() + 1;
-			int zminaction = this.zCoord - getActionDistance();
-			int zmaxaction = this.zCoord + getActionDistance() + 1;
+			int xminaction = this.xCoord - getActionRange();
+			int xmaxaction = this.xCoord + getActionRange() + 1;
+			int yminaction = this.yCoord - getActionRange();
+			int ymaxaction = this.yCoord + getActionRange() + 1;
+			int zminaction = this.zCoord - getActionRange();
+			int zmaxaction = this.zCoord + getActionRange() + 1;
 
 			List<EntityLiving> infoLivinglist = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xmininfo, ymininfo, zmininfo, xmaxinfo, ymaxinfo, zmaxinfo));
 			List<EntityLiving> actionLivinglist = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xminaction, yminaction, zminaction, xmaxaction, ymaxaction, zmaxaction));
 
-			Set<EntityLiving> warnlist = new HashSet<EntityLiving>();
+			Set<EntityLiving> warnList = new HashSet<EntityLiving>();
 			Set<EntityLiving> actionList = new HashSet<EntityLiving>();
+
+			for (EntityLiving entityLiving : actionLivinglist)
+			{
+				double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
+				if (distance <= getActionRange())
+				{
+					if (entityLiving instanceof EntityPlayer)
+					{
+						EntityPlayer player = (EntityPlayer) entityLiving;
+						actionList.add(entityLiving);
+					}
+				}
+			}
 
 			for (EntityLiving entityLiving : infoLivinglist)
 			{
-				if ((entityLiving instanceof EntityPlayer))
+				if (entityLiving instanceof EntityPlayer && !actionList.contains(entityLiving))
 				{
 					EntityPlayer player = (EntityPlayer) entityLiving;
 					double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
 
-					if (distance <= getInfoDistance() || getScanmode() != 1)
+					if (distance <= getWarnRange())
 					{
-						if (!warnlist.contains(player))
+						if (!warnList.contains(player))
 						{
-							warnlist.add(player);
+							warnList.add(player);
 
 							boolean isGranted = false;
 
 							if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityRight.SR))
 							{
 								isGranted = true;
-								// TODO: CHECK MFFS NOTIFICATION SETTING < MOE 3
+								// TODO: CHECK MFFS NOTIFICATION SETTING < MODE 3
 							}
 
 							if (!isGranted)
@@ -205,20 +236,6 @@ public class TileEntityDefenseStation extends TileEntityFortron
 								player.attackEntityFrom(ZhuYao.areaDefense, 1);
 							}
 						}
-					}
-				}
-			}
-
-			for (EntityLiving entityLiving : actionLivinglist)
-			{
-				double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
-				if (distance <= getActionDistance() || getScanmode() != 1)
-				{
-					if (entityLiving instanceof EntityPlayer)
-					{
-						EntityPlayer player = (EntityPlayer) entityLiving;
-						actionList.add(entityLiving);
-
 					}
 				}
 			}
@@ -270,7 +287,7 @@ public class TileEntityDefenseStation extends TileEntityFortron
 			{
 				if (!hasPermission && entityLiving instanceof EntityPlayer)
 				{
-					((EntityPlayer) entityLiving).addChatMessage("!!! [Area Defence]  Get out immediately you have no right to be here!!!");
+					((EntityPlayer) entityLiving).addChatMessage("[" + this.getInvName() + "] Leave this zone immediately. You have no right to enter.");
 				}
 				break;
 			}
@@ -278,13 +295,12 @@ public class TileEntityDefenseStation extends TileEntityFortron
 			{
 				Set<ItemStack> controlledStacks = new HashSet<ItemStack>();
 
-				for (int i = 5; i < 15; i++)
+				for (int i = BAN_LIST_START; i < INVENTORY_START; i++)
 				{
 					if (getStackInSlot(i) != null)
 					{
 						controlledStacks.add(this.getStackInSlot(i));
 					}
-
 				}
 
 				int confiscationCount = 0;
@@ -307,25 +323,30 @@ public class TileEntityDefenseStation extends TileEntityFortron
 						// The ItemStack currently being checked.
 						ItemStack checkStack = inventory.getStackInSlot(i);
 
-						boolean stacksMatch = false;
-
-						for (ItemStack itemStack : controlledStacks)
+						if (checkStack != null)
 						{
-							if (itemStack.isItemEqual(checkStack))
+							boolean stacksMatch = false;
+
+							for (ItemStack itemStack : controlledStacks)
 							{
-								stacksMatch = true;
-								break;
+								if (itemStack != null)
+								{
+									if (itemStack.isItemEqual(checkStack))
+									{
+										stacksMatch = true;
+										break;
+									}
+								}
+							}
+
+							if ((isBanMode() && stacksMatch) || (!isBanMode() && !stacksMatch))
+							{
+								mergeIntoInventory(this, inventory.getStackInSlot(i), true);
+								inventory.setInventorySlotContents(i, null);
+								confiscationCount++;
+								this.requestFortron(MFFSConfiguration.defenceStationSearchForceEnergy, false);
 							}
 						}
-
-						if ((isBanMode() && stacksMatch) || (!isBanMode() && !stacksMatch))
-						{
-							mergeIntoInventory(this, inventory.getStackInSlot(i), true);
-							inventory.setInventorySlotContents(i, null);
-							confiscationCount++;
-							this.requestFortron(MFFSConfiguration.defenceStationSearchForceEnergy, false);
-						}
-
 					}
 
 					if (confiscationCount > 0 && entityLiving instanceof EntityPlayer)
@@ -341,7 +362,7 @@ public class TileEntityDefenseStation extends TileEntityFortron
 				if (!hasPermission && entityLiving instanceof EntityPlayer)
 				{
 					EntityPlayer player = (EntityPlayer) entityLiving;
-					player.addChatMessage("!!! [Area Defence] Fairwell.");
+					player.addChatMessage("[" + this.getInvName() + "] Fairwell.");
 
 					for (int i = 0; i < player.inventory.getSizeInventory(); i++)
 					{
@@ -385,66 +406,59 @@ public class TileEntityDefenseStation extends TileEntityFortron
 		// TODO: CONSUME ENERGY
 	}
 
-	public boolean mergeIntoInventory(IInventory inventory, ItemStack itemstacks, boolean loop)
+	public boolean mergeIntoInventory(IInventory inventory, ItemStack itemStack, boolean loop)
 	{
-		int count = 0;
-
-		if ((inventory instanceof TileEntitySecStorage))
+		if (itemStack != null)
 		{
-			count = 1;
-		}
-		if ((inventory instanceof TileEntityDefenseStation))
-		{
-			count = 15;
-		}
-		for (int a = count; a <= inventory.getSizeInventory() - 1; a++)
-		{
-			if (inventory.getStackInSlot(a) == null)
+			for (int i = INVENTORY_START; i < inventory.getSizeInventory(); i++)
 			{
-				inventory.setInventorySlotContents(a, itemstacks);
-				return true;
-			}
-			if ((inventory.getStackInSlot(a).getItem() == itemstacks.getItem()) && (inventory.getStackInSlot(a).getItemDamage() == itemstacks.getItemDamage()) && (inventory.getStackInSlot(a).stackSize < inventory.getStackInSlot(a).getMaxStackSize()))
-			{
-				int free = inventory.getStackInSlot(a).getMaxStackSize() - inventory.getStackInSlot(a).stackSize;
+				ItemStack checkStack = inventory.getStackInSlot(i);
 
-				if (free > itemstacks.stackSize)
+				if (checkStack == null)
 				{
-					inventory.getStackInSlot(a).stackSize += itemstacks.stackSize;
+					inventory.setInventorySlotContents(i, itemStack);
 					return true;
 				}
-				inventory.getStackInSlot(a).stackSize = inventory.getStackInSlot(a).getMaxStackSize();
-				itemstacks.stackSize -= free;
+				else if (checkStack.isItemEqual(itemStack))
+				{
+					int freeSpace = checkStack.getMaxStackSize() - checkStack.stackSize;
+
+					checkStack.stackSize += Math.min(itemStack.stackSize, freeSpace);
+					itemStack.stackSize -= freeSpace;
+
+					if (itemStack.stackSize <= 0)
+					{
+						itemStack = null;
+						return true;
+					}
+				}
 			}
 
+			if (loop)
+			{
+				for (int i = 0; i > 6; i++)
+				{
+					ForgeDirection direction = ForgeDirection.getOrientation(i);
+					TileEntity tileEntity = VectorHelper.getTileEntityFromSide(this.worldObj, new Vector3(this), direction);
+
+					if (tileEntity instanceof IInventory)
+					{
+						if (this.mergeIntoInventory((IInventory) tileEntity, itemStack, false))
+						{
+							return true;
+						}
+					}
+				}
+			}
 		}
 
-		if (loop)
-		{
-			addremoteInventory(itemstacks);
-		}
 		return false;
-	}
-
-	public void addremoteInventory(ItemStack itemstacks)
-	{
-		IInventory inv = InventoryHelper.findAttachedInventory(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
-		if (inv != null)
-		{
-			mergeIntoInventory(inv, itemstacks, false);
-		}
 	}
 
 	@Override
 	public int getSizeInventory()
 	{
-		return 36;
-	}
-
-	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerAreaDefenseStation(inventoryplayer.player, this);
+		return 38;
 	}
 
 	@Override
@@ -453,30 +467,37 @@ public class TileEntityDefenseStation extends TileEntityFortron
 		switch (slotID)
 		{
 			case 0:
-				if ((itemStack.getItem() instanceof IPowerLinkItem))
-				{
-					return true;
-				}
-				break;
+				return itemStack.getItem() instanceof ItemCardFrequency;
 			case 1:
-				if ((itemStack.getItem() instanceof ItemCardSecurityLink))
-				{
-					return true;
-				}
-				break;
+				return itemStack.getItem() instanceof ItemCardSecurityLink;
 			case 2:
+				return itemStack.getItem() instanceof ItemModuleScale;
 			case 3:
-				if ((itemStack.getItem() instanceof ItemModuleScale))
-				{
-					return true;
-				}
-				break;
+				return itemStack.getItem() instanceof ItemModuleScale;
 		}
-		if ((slotID >= 5) && (slotID <= 14))
+
+		if (slotID >= BAN_LIST_START)
 		{
 			return true;
 		}
 
 		return false;
 	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt)
+	{
+		super.readFromNBT(nbt);
+		this.isBanMode = nbt.getBoolean("isBanMode");
+		this.actionMode = ActionMode.values()[nbt.getInteger("actionMode")];
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+		super.writeToNBT(nbt);
+		nbt.setBoolean("isBanMode", this.isBanMode);
+		nbt.setInteger("actionMode", this.actionMode.ordinal());
+	}
+
 }

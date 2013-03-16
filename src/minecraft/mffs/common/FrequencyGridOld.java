@@ -16,7 +16,7 @@ import mffs.common.tileentity.TileEntitySecurityStation;
 import net.minecraft.world.World;
 
 import com.google.common.collect.MapMaker;
-
+@Deprecated
 public final class FrequencyGridOld
 {
 

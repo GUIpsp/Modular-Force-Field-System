@@ -9,7 +9,7 @@ import mffs.client.gui.GuiFortronCapacitor;
 import mffs.client.gui.GuiProjector;
 import mffs.client.gui.GuiSecStorage;
 import mffs.client.gui.GuiSecurityStation;
-import mffs.common.container.ContainerAreaDefenseStation;
+import mffs.common.container.ContainerDefenseStation;
 import mffs.common.container.ContainerCapacitor;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.container.ContainerConverter;
@@ -39,7 +39,7 @@ public enum MachineTypes
 	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
 	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ZhuYao.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
-	DefenceStation(TileEntityDefenseStation.class, GuiDefenseStation.class, ContainerAreaDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
+	DefenceStation(TileEntityDefenseStation.class, GuiDefenseStation.class, ContainerDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
 	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
 	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ZhuYao.blockSecurityStorage, "AAAACAAAA", "AAAAEAAAA"),
 	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");

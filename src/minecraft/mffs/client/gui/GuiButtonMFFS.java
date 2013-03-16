@@ -30,7 +30,7 @@ public class GuiButtonMFFS extends GuiButton
 		if (this.drawButton)
 		{
 			Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.GUI_BUTTON);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GL11.glColor4f(1, 1, 1, 1);
 			this.drawTexturedModalRect(this.xPosition, this.yPosition, this.offset.intX(), this.offset.intY(), this.width, this.height);
 			this.mouseDragged(minecraft, x, y);
 			/*

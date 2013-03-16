@@ -44,7 +44,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	/**
 	 * The amount of fortron energy to consume per second.
 	 */
-	public static final int FORTRON_CONSUMPTION = 1;
+	public static final int FORTRON_CONSUMPTION = 3;
 
 	private static final int MODULE_SLOT_ID = 5;
 

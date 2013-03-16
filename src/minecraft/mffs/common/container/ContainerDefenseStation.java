@@ -7,9 +7,9 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerAreaDefenseStation extends ContainerMFFS
+public class ContainerDefenseStation extends ContainerMFFS
 {
-	public ContainerAreaDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
+	public ContainerDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
 	{
 		super(tileentity);
 

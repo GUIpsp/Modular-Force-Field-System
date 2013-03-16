@@ -45,6 +45,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 			}
 			return this.values()[newOrdinal];
 		}
+
 	}
 
 	private int transmissionRange = 20;

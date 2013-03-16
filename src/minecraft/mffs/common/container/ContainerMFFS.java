@@ -76,20 +76,20 @@ public class ContainerMFFS extends Container
 
 				if (!didTry)
 				{
-					if (par1 < 27 + slotCount)
+					if (par1 < 27 + this.slotCount)
 					{
-						if (!this.mergeItemStack(itemStack, 27 + slotCount, 36 + slotCount, false))
+						if (!this.mergeItemStack(itemStack, 27 + this.slotCount, 36 + this.slotCount, false))
 						{
 							return null;
 						}
 					}
-					else if (par1 >= 27 + slotCount && par1 < 36 + slotCount && !this.mergeItemStack(itemStack, slotCount, 27 + slotCount, false))
+					else if (par1 >= 27 + this.slotCount && par1 < 36 + this.slotCount && !this.mergeItemStack(itemStack, slotCount, 27 + slotCount, false))
 					{
 						return null;
 					}
 				}
 			}
-			else if (!this.mergeItemStack(itemStack, slotCount, 36 + slotCount, false))
+			else if (!this.mergeItemStack(itemStack, this.slotCount, 36 + this.slotCount, false))
 			{
 				return null;
 			}

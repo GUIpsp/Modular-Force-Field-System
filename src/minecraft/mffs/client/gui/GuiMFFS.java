@@ -112,12 +112,13 @@ public class GuiMFFS extends GuiContainer
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3)
+	protected void mouseClicked(int x, int y, int par3)
 	{
-		super.mouseClicked(par1, par2, par3);
+		super.mouseClicked(x, y, par3);
+
 		if (this.textFieldFrequency != null)
 		{
-			this.textFieldFrequency.mouseClicked(par1 - containerWidth, par2 - containerHeight, par3);
+			this.textFieldFrequency.mouseClicked(x - containerWidth, y - containerHeight, par3);
 		}
 	}
 
@@ -434,20 +435,15 @@ public class GuiMFFS extends GuiContainer
 
 		if (liquidId <= 0)
 			return;
-		
-		/*if (liquidId < Block.blocksList.length && Block.blocksList[liquidId] != null)
-		{
-			ForgeHooksClient.bindTexture(Block.blocksList[liquidId].getTextureFile(), 0);
-			liquidImgIndex = Block.blocksList[liquidId].blockIndexInTexture;
-		}
-		else if (Item.itemsList[liquidId] != null)
-		{
-			ForgeHooksClient.bindTexture(Item.itemsList[liquidId].getTextureFile(), 0);
-			liquidImgIndex = Item.itemsList[liquidId].getIconFromDamage(liquidMeta);
-		}
-		else
-			return;
-*/
+
+		/*
+		 * if (liquidId < Block.blocksList.length && Block.blocksList[liquidId] != null) {
+		 * ForgeHooksClient.bindTexture(Block.blocksList[liquidId].getTextureFile(), 0);
+		 * liquidImgIndex = Block.blocksList[liquidId].blockIndexInTexture; } else if
+		 * (Item.itemsList[liquidId] != null) {
+		 * ForgeHooksClient.bindTexture(Item.itemsList[liquidId].getTextureFile(), 0);
+		 * liquidImgIndex = Item.itemsList[liquidId].getIconFromDamage(liquidMeta); } else return;
+		 */
 		int imgLine = liquidImgIndex / 16;
 		int imgColumn = liquidImgIndex - imgLine * 16;
 
