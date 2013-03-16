@@ -125,11 +125,25 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 									{
 										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
 										int amountToSet = (int) (totalFortron * capacityPercentage);
-										machine.setFortronEnergy(amountToSet);
 
-										if (this.worldObj.isRemote)
+										/**
+										 * Draw beam effect
+										 */
+										if (machine.getFortronEnergy() != amountToSet)
 										{
-											ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+											if (this.worldObj.isRemote)
+											{
+												if (machine.getFortronEnergy() > amountToSet)
+												{
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+												}
+												else
+												{
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+												}
+											}
+
+											machine.setFortronEnergy(amountToSet);
 										}
 									}
 								}
@@ -143,6 +157,21 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 									if (machine != null)
 									{
 										int amountToSet = (int) (totalFortron / machines.size());
+										/**
+										 * Draw beam effect
+										 */
+										if (this.worldObj.isRemote)
+										{
+											if (machine.getFortronEnergy() > amountToSet)
+											{
+												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+											}
+											else
+											{
+												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+											}
+										}
+
 										machine.setFortronEnergy(amountToSet);
 									}
 								}
@@ -159,6 +188,21 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 									{
 										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
 										int amountToSet = (int) (totalFortron * capacityPercentage);
+										/**
+										 * Draw beam effect
+										 */
+										if (this.worldObj.isRemote)
+										{
+											if (machine.getFortronEnergy() > amountToSet)
+											{
+												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+											}
+											else
+											{
+												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+											}
+										}
+
 										machine.setFortronEnergy(amountToSet);
 										remainingFortron -= amountToSet;
 									}
@@ -182,6 +226,21 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 									{
 										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
 										int amountToSet = (int) (remainingFortron * capacityPercentage);
+										/**
+										 * Draw beam effect
+										 */
+										if (this.worldObj.isRemote)
+										{
+											if (machine.getFortronEnergy() > amountToSet)
+											{
+												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+											}
+											else
+											{
+												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+											}
+										}
+
 										machine.setFortronEnergy(amountToSet);
 									}
 								}

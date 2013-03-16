@@ -165,10 +165,10 @@ public class FXBeam extends EntityFX
 			size = (float) (this.prevSize + (size - this.prevSize) * f);
 		}
 
-		float op = 0.4F;
+		float op = 0.5F;
 		if ((this.pulse) && (this.particleMaxAge - this.particleAge <= 4))
 		{
-			op = 0.4F - (4 - (this.particleMaxAge - this.particleAge)) * 0.1F;
+			op = 0.5F - (4 - (this.particleMaxAge - this.particleAge)) * 0.1F;
 		}
 
 		Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.BLOCK_DIRECTORY + "fortron.png");

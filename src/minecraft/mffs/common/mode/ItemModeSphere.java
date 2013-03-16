@@ -69,12 +69,8 @@ public class ItemModeSphere extends ItemProjectorMode
 	@Override
 	public void render(IProjector projector, double x1, double y1, double z1, float f, long ticks)
 	{
-		GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(ticks * 3)) / 6, 0);
-		GL11.glRotatef(ticks * 4, 0, 1, 0);
-
 		float scale = 0.06f;
 		GL11.glScalef(scale, scale, scale);
-		GL11.glRotatef(36f + ticks * 4, 0, 1, 1);
 
 		int radius = 6;
 

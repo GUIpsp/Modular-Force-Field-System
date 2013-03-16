@@ -9,7 +9,7 @@ public class BlockProjector extends BlockMFFSMachine
 {
 	public BlockProjector(int id)
 	{
-		super(id, "forceFieldProjector");
+		super(id, "projector");
 	}
 
 	@Override

@@ -78,9 +78,6 @@ public class ItemModeCube extends ItemProjectorMode
 	@Override
 	public void render(IProjector projector, double x, double y, double z, float f, long ticks)
 	{
-		GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(ticks * 3)) / 6, 0);
-		GL11.glRotatef(ticks * 4, 0, 1, 0);
-		GL11.glRotatef(36f + ticks * 4, 0, 1, 1);
 		GL11.glScalef(0.5f, 0.5f, 0.5f);
 		ModelCube.INSTNACE.render();
 	}

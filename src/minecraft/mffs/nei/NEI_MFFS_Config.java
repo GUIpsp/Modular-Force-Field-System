@@ -34,7 +34,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		blocks.add(ZhuYao.blockSecurityStorage);
 		blocks.add(ZhuYao.blockFortronite);
 
-		items.add(ZhuYao.itemMultiTool);
+		//items.add(ZhuYao.itemMultiTool);
 		items.add(ZhuYao.itemCardEmpty);
 		items.add(ZhuYao.itemPowerCrystal);
 		items.add(ZhuYao.itemForcillium);
