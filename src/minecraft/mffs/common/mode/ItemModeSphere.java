@@ -3,21 +3,17 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
+import mffs.client.model.ModelCube;
 import mffs.common.ZhuYao;
-import mffs.common.module.ItemModule;
-import mffs.common.module.ItemModuleAntibiotic;
-import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDefenseStation;
-import mffs.common.module.ItemModuleDisintegration;
-import mffs.common.module.ItemModuleFusion;
-import mffs.common.module.ItemModuleJammer;
-import mffs.common.module.ItemModuleManipulator;
-import mffs.common.module.ItemModuleSponge;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.core.vector.VectorHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemModeSphere extends ItemProjectorMode
 {
@@ -29,7 +25,7 @@ public class ItemModeSphere extends ItemProjectorMode
 	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
-		ForgeDirection direction = projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord);
+		ForgeDirection direction = projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord);
 
 		int zTranslationNeg = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
 		int zTranslationPos = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
@@ -57,7 +53,6 @@ public class ItemModeSphere extends ItemProjectorMode
 			{
 				for (int y = -yDown; y <= radius; y++)
 				{
-
 					Vector3 checkPosition = new Vector3(x, y, z);
 					double distance = Vector3.distance(new Vector3(), checkPosition);
 
@@ -66,6 +61,37 @@ public class ItemModeSphere extends ItemProjectorMode
 						blockDef.add(Vector3.add(translation, checkPosition));
 					}
 				}
+			}
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void render(IProjector projector, double x1, double y1, double z1, float f, long ticks)
+	{
+		GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(ticks * 3)) / 6, 0);
+		GL11.glRotatef(ticks * 4, 0, 1, 0);
+
+		float scale = 0.25f;
+		GL11.glScalef(scale, scale, scale);
+		GL11.glRotatef(36f + ticks * 4, 0, 1, 1);
+		GL11.glColor4f(1, 1, 1, 0.8f);
+
+		int radius = 8;
+
+		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius));
+
+		for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
+		{
+			for (int theta_n = 0; theta_n < steps; theta_n++)
+			{
+				double phi = Math.PI * 2 / steps * phi_n;
+				double theta = Math.PI / steps * theta_n;
+
+				Vector3 vector = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi));
+				GL11.glTranslated(vector.x, vector.y, vector.z);
+				ModelCube.INSTNACE.render();
+				GL11.glTranslated(-vector.x, -vector.y, -vector.z);
 			}
 		}
 	}
