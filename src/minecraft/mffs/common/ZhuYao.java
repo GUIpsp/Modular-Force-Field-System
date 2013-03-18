@@ -60,8 +60,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.OrderedLoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -202,6 +206,7 @@ public class ZhuYao
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		LOGGER.setParent(FMLLog.getLogger());
+		MinecraftForge.EVENT_BUS.register(this);
 
 		if (initiateModule("IC2"))
 		{
@@ -374,7 +379,25 @@ public class ZhuYao
 		return lines;
 	}
 
-	public class ChunkloadCallback implements ForgeChunkManager.OrderedLoadingCallback
+	/**
+	 * Prevent protected GUIs from opening.
+	 * 
+	 * @param evt
+	 */
+	@ForgeSubscribe
+	public void playerInteractEvent(PlayerInteractEvent evt)
+	{
+		if (evt.action == Action.RIGHT_CLICK_BLOCK)
+		{
+			if (evt.entityPlayer.worldObj.getBlockTileEntity(evt.x, evt.y, evt.z) != null)
+			{
+				//TODO: Work on this.
+				//evt.setCanceled(true);
+			}
+		}
+	}
+
+	public class ChunkloadCallback implements OrderedLoadingCallback
 	{
 		@Override
 		public void ticketsLoaded(List<Ticket> tickets, World world)
