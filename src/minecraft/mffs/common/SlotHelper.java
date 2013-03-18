@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class SlotHelper extends Slot
 {
-	private TileEntityMFFSInventory tileEntity;
+	protected TileEntityMFFSInventory tileEntity;
 
 	public SlotHelper(TileEntityMFFSInventory tileEntity, int id, int par4, int par5)
 	{

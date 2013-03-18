@@ -1,5 +1,6 @@
 package mffs.common.container;
 
+import mffs.common.SlotFrequency;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,7 @@ public class ContainerForcilliumExtractor extends ContainerMFFS
 		/**
 		 * Frequency Card
 		 */
-		this.addSlotToContainer(new SlotHelper(tileEntity, 1, 9, 41));
+		this.addSlotToContainer(new SlotFrequency(tileEntity, 1, 9, 41));
 
 		/**
 		 * Upgrades

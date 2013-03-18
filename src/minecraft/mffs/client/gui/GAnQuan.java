@@ -7,17 +7,14 @@ import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.vector.Vector2;
 
-public class GuiSecurityStation extends GuiMFFS
+public class GAnQuan extends GuiMFFS
 {
 	private TAnQuan tileEntity;
-	private SecurityRight hoverSR;
-	private boolean editMode = false;
 
-	public GuiSecurityStation(EntityPlayer player, TAnQuan tileEntity)
+	public GAnQuan(EntityPlayer player, TAnQuan tileEntity)
 	{
 		super(new ContainerSecurityStation(player, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;
-		this.buttonList.clear();
 	}
 
 	@Override
@@ -56,7 +53,8 @@ public class GuiSecurityStation extends GuiMFFS
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 
 		this.drawSlot(7, 30);
-
+		
+		this.drawSlot(7, 30);
 		this.drawSlot(7, 90);
 
 		// Internal Inventory
@@ -64,7 +62,5 @@ public class GuiSecurityStation extends GuiMFFS
 		{
 			this.drawSlot(8 + var4 * 18 - 1, 110);
 		}
-
-		this.drawPatch(ZhuYao.GUI_DIRECTORY + "sub_patch.png", this.containerWidth + 35, this.containerHeight + 20, 129, 63);
 	}
 }

@@ -22,18 +22,6 @@ public class ItemCardPersonalID extends ItemCard
 		super(i, name);
 	}
 
-	@Override
-	public boolean isRepairable()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isDamageable()
-	{
-		return true;
-	}
-
 	public static boolean hasRight(ItemStack itemStack, SecurityRight sr)
 	{
 		NBTTagCompound itemTag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);

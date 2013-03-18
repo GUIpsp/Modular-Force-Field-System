@@ -2,38 +2,40 @@ package mffs.common.tileentity;
 
 import java.util.List;
 
-import mffs.api.ISecurityStation;
+import mffs.api.ISecurityCenter;
 import mffs.common.MFFSConfiguration;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItemAccessCard;
+import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardPersonalID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public class TAnQuan extends TShengBuo implements ISecurityStation
+public class TAnQuan extends TShengBuo implements ISecurityCenter
 {
-	private String MainUser = "";
+	private String mainUser = "";
 
 	public String getMainUser()
 	{
-		return this.MainUser;
+		return this.mainUser;
 	}
 
 	public void setMainUser(String s)
 	{
-		if (!this.MainUser.equals(s))
+		if (!this.mainUser.equals(s))
 		{
-			this.MainUser = s;
+			this.mainUser = s;
 		}
 	}
 
 	@Override
 	public void updateEntity()
 	{
+		super.updateEntity();
+		
 		if (!this.worldObj.isRemote)
 		{
 			if (this.ticks % 10 == 0)
@@ -53,8 +55,6 @@ public class TAnQuan extends TShengBuo implements ISecurityStation
 				checkslots();
 			}
 		}
-
-		super.updateEntity();
 	}
 
 	public void checkslots()
@@ -92,50 +92,13 @@ public class TAnQuan extends TShengBuo implements ISecurityStation
 	@Override
 	public int getSizeInventory()
 	{
-		return 11;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inventory[i];
+		return 12;
 	}
 
 	@Override
 	public int getInventoryStackLimit()
 	{
 		return 1;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if (this.inventory[i] != null)
-		{
-			if (this.inventory[i].stackSize <= j)
-			{
-				ItemStack itemstack = this.inventory[i];
-				this.inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = this.inventory[i].splitStack(j);
-			if (this.inventory[i].stackSize == 0)
-			{
-				this.inventory[i] = null;
-			}
-			return itemstack1;
-		}
-		return null;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inventory[i] = itemstack;
-		if ((itemstack != null) && (itemstack.stackSize > getInventoryStackLimit()))
-		{
-			itemstack.stackSize = getInventoryStackLimit();
-		}
 	}
 
 	public boolean RemoteInventory(String username, SecurityRight right)
@@ -211,12 +174,14 @@ public class TAnQuan extends TShengBuo implements ISecurityStation
 		return false;
 	}
 
+	@Override
 	public boolean isAccessGranted(String username, SecurityRight sr)
 	{
 		if (!isActive())
 		{
 			return true;
 		}
+
 		String[] ops = MFFSConfiguration.administrators.split(";");
 
 		for (int i = 0; i <= ops.length - 1; i++)
@@ -226,10 +191,12 @@ public class TAnQuan extends TShengBuo implements ISecurityStation
 				return true;
 			}
 		}
-		if (this.MainUser.equals(username))
+
+		if (this.mainUser.equals(username))
 		{
 			return true;
 		}
+
 		if (RemoteInventory(username, sr))
 		{
 			return true;
@@ -242,41 +209,16 @@ public class TAnQuan extends TShengBuo implements ISecurityStation
 		return false;
 	}
 
-	public ItemStack[] getContents()
-	{
-		return this.inventory;
-	}
-
-	/*
-	 * @Override public List getFieldsForUpdate() { List NetworkedFields = new LinkedList();
-	 * NetworkedFields.clear();
-	 * 
-	 * NetworkedFields.addAll(super.getFieldsForUpdate()); NetworkedFields.add("MainUser");
-	 * 
-	 * return NetworkedFields; }
-	 */
-
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		if (slotID == 0 && itemStack.getItem() instanceof ItemAccessCard)
+		if (slotID == 0)
 		{
-			return true;
+			return itemStack.getItem() instanceof ItemCardFrequency;
 		}
-		else if (slotID != 0 && itemStack.getItem() instanceof ItemCardPersonalID)
+		else
 		{
-			return true;
+			return itemStack.getItem() instanceof ItemCardPersonalID;
 		}
-		return false;
-
-	}
-
-	public ItemStack getModCardStack()
-	{
-		if (getStackInSlot(1) != null)
-		{
-			return getStackInSlot(1);
-		}
-		return null;
 	}
 }
