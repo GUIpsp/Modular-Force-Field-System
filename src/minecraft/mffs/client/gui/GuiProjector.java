@@ -1,5 +1,8 @@
 package mffs.client.gui;
 
+import org.lwjgl.opengl.GL11;
+
+import mffs.client.gui.GuiMFFS.SlotType;
 import mffs.common.container.ContainerProjector;
 import mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,7 +55,7 @@ public class GuiProjector extends GuiMFFS
 		 */
 
 		// Mode
-		this.drawSlot(18 + 90, 18 + 25);
+		this.drawSlot(18 + 90, 18 + 25, SlotType.NONE, 1f, 0.4f, 0.4f);
 
 		// Up
 		this.drawSlot(18 + 80, 20, SlotType.ARR_UP);
@@ -89,5 +92,4 @@ public class GuiProjector extends GuiMFFS
 		 */
 		this.drawForce(8, 120, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 	}
-
 }

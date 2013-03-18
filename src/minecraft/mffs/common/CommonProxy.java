@@ -2,11 +2,10 @@ package mffs.common;
 
 import java.lang.reflect.Constructor;
 
-import universalelectricity.core.vector.Vector3;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IGuiHandler
@@ -21,22 +20,21 @@ public class CommonProxy implements IGuiHandler
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-		if (tileEntity == null)
+		if (tileEntity != null)
 		{
-			return null;
-		}
+			MachineTypes machType = MachineTypes.fromTE(tileEntity);
 
-		MachineTypes machType = MachineTypes.fromTE(tileEntity);
-		try
-		{
-			Constructor mkGui = machType.gui.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
-			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(tileEntity) });
+			try
+			{
+				Constructor mkGui = machType.gui.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
+				return mkGui.newInstance(player, machType.tileEntity.cast(tileEntity));
+			}
+			catch (Exception e)
+			{
+				ZhuYao.LOGGER.severe("Failed to open GUI");
+				e.printStackTrace();
+			}
 		}
-		catch (Exception ex)
-		{
-			System.out.println("Failed to open GUI: " + ex.getLocalizedMessage());
-		}
-
 		return null;
 	}
 
@@ -44,20 +42,21 @@ public class CommonProxy implements IGuiHandler
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (tileEntity == null)
-		{
-			return null;
-		}
 
-		MachineTypes machType = MachineTypes.fromTE(tileEntity);
-		try
+		if (tileEntity != null)
 		{
-			Constructor mkGui = machType.container.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
-			return mkGui.newInstance(new Object[] { player, machType.tileEntity.cast(tileEntity) });
-		}
-		catch (Exception ex)
-		{
-			System.out.println("Failed to open GUI: " + ex.getLocalizedMessage());
+			MachineTypes machineType = MachineTypes.fromTE(tileEntity);
+
+			try
+			{
+				Constructor mkGui = machineType.container.getConstructor(EntityPlayer.class, machineType.tileEntity);
+				return mkGui.newInstance(player, machineType.tileEntity.cast(tileEntity));
+			}
+			catch (Exception e)
+			{
+				ZhuYao.LOGGER.severe("Failed to open container: ");
+				e.printStackTrace();
+			}
 		}
 
 		return null;

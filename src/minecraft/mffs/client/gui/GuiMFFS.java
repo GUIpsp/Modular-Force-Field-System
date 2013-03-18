@@ -55,7 +55,7 @@ public class GuiMFFS extends GuiContainer
 
 		if (this.frequencyTile != null)
 		{
-			this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 60, 12);
+			this.textFieldFrequency = new GuiTextField(this.fontRenderer, this.textFieldPos.intX(), this.textFieldPos.intY(), 50, 12);
 			this.textFieldFrequency.setMaxStringLength(6);
 			this.textFieldFrequency.setText(frequencyTile.getFrequency() + "");
 		}
@@ -203,10 +203,10 @@ public class GuiMFFS extends GuiContainer
 		this.drawTextWithTooltip(textName, "%1", x, y, mouseX, mouseY);
 	}
 
-	protected void drawSlot(int x, int y, SlotType type)
+	protected void drawSlot(int x, int y, SlotType type, float r, float g, float b)
 	{
 		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glColor4f(r, g, b, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
 
@@ -237,6 +237,11 @@ public class GuiMFFS extends GuiContainer
 				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 8, 18, 18);
 				break;
 		}
+	}
+
+	protected void drawSlot(int x, int y, SlotType type)
+	{
+		this.drawSlot(x, y, type, 1, 1, 1);
 	}
 
 	protected void drawSlot(int x, int y)

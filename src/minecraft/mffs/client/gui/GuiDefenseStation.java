@@ -40,7 +40,7 @@ public class GuiDefenseStation extends GuiMFFS
 	protected void actionPerformed(GuiButton guiButton)
 	{
 		super.actionPerformed(guiButton);
-		
+
 		switch (guiButton.id)
 		{
 			case 1:
@@ -57,8 +57,11 @@ public class GuiDefenseStation extends GuiMFFS
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), 7, 9, 4210752);
 
+		this.drawTextWithTooltip("fortron", "%1: " + this.tileEntity.getFortronEnergy(), 90, 32, x, y);
+
 		switch (this.tileEntity.actionMode)
 		{
+
 			case WARN:
 				this.fontRenderer.drawString("Warn", 110, 55, 4210752);
 				this.fontRenderer.drawString(" send Info", 95, 85, 4210752);
@@ -129,7 +132,7 @@ public class GuiDefenseStation extends GuiMFFS
 	{
 		int xSize = 256;
 		int ySize = 216;
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_DIRECTORY + "GuiDefStation.png");
+		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_DIRECTORY + "gui_defense_station.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.containerWidth = (this.width - this.xSize) / 2;

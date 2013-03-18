@@ -30,7 +30,7 @@ public class ItemCardFrequency extends ItemCard implements IItemFrequency
 				itemStack.setTagCompound(new NBTTagCompound());
 			}
 
-			itemStack.getTagCompound().getInteger("frequency");
+			return itemStack.getTagCompound().getInteger("frequency");
 		}
 
 		return 0;

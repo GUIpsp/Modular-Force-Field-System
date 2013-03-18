@@ -31,7 +31,7 @@ public class GAnQuan extends GuiMFFS
 
 		this.drawTextWithTooltip("rights", "%1", 85, 22, x, y, 0);
 
-		if (this.tileEntity.getStackInSlot(0) != null)
+		if (this.tileEntity.getStackInSlot(1) != null)
 		{
 			this.fontRenderer.drawString("Bypass Force Field", 40, 32, 0);
 			this.fontRenderer.drawString("Excempt from Defence", 40, 42, 0);
@@ -52,8 +52,8 @@ public class GAnQuan extends GuiMFFS
 	{
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 
-		this.drawSlot(7, 30);
-		
+		this.drawSlot(87, 90);
+
 		this.drawSlot(7, 30);
 		this.drawSlot(7, 90);
 

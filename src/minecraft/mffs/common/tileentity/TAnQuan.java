@@ -16,31 +16,16 @@ import net.minecraft.item.ItemStack;
 
 public class TAnQuan extends TShengBuo implements ISecurityCenter
 {
-	private String mainUser = "";
-
-	public String getMainUser()
-	{
-		return this.mainUser;
-	}
-
-	public void setMainUser(String s)
-	{
-		if (!this.mainUser.equals(s))
-		{
-			this.mainUser = s;
-		}
-	}
-
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		
+
 		if (!this.worldObj.isRemote)
 		{
 			if (this.ticks % 10 == 0)
 			{
-				if (!getMainUser().equals(""))
+				if (!this.getOwner().equals("") || this.getOwner() == null)
 				{
 					if (isActive() != true)
 					{
@@ -51,42 +36,8 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 				{
 					setActive(false);
 				}
-
-				checkslots();
 			}
 		}
-	}
-
-	public void checkslots()
-	{
-		if (getStackInSlot(0) != null)
-		{
-			if (getStackInSlot(0).getItem() == ZhuYao.itemCardID)
-			{
-				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(0).getItem();
-
-				String name = Card.getUsername(getStackInSlot(0));
-
-				if (!getMainUser().equals(name))
-				{
-					setMainUser(name);
-				}
-
-				if (ItemCardPersonalID.hasRight(getStackInSlot(0), SecurityRight.CSR) != true)
-				{
-					ItemCardPersonalID.setRight(getStackInSlot(0), SecurityRight.CSR, true);
-				}
-			}
-			else
-			{
-				setMainUser("");
-			}
-		}
-		else
-		{
-			setMainUser("");
-		}
-
 	}
 
 	@Override
@@ -101,7 +52,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		return 1;
 	}
 
-	public boolean RemoteInventory(String username, SecurityRight right)
+	public boolean remoteInventory(String username, SecurityRight right)
 	{
 		for (int a = 35; a >= 1; a--)
 		{
@@ -129,7 +80,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		return false;
 	}
 
-	public boolean RemotePlayerInventory(String username, SecurityRight right)
+	public boolean remotePlayerInventory(String username, SecurityRight right)
 	{
 		EntityPlayer player = this.worldObj.getPlayerEntityByName(username);
 		if (player != null)
@@ -192,16 +143,16 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 			}
 		}
 
-		if (this.mainUser.equals(username))
+		if (this.getOwner().equals(username))
 		{
 			return true;
 		}
 
-		if (RemoteInventory(username, sr))
+		if (remoteInventory(username, sr))
 		{
 			return true;
 		}
-		if (RemotePlayerInventory(username, sr))
+		if (remotePlayerInventory(username, sr))
 		{
 			return true;
 		}
@@ -220,5 +171,21 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			return itemStack.getItem() instanceof ItemCardPersonalID;
 		}
+	}
+
+	@Override
+	public String getOwner()
+	{
+		ItemStack itemStack = this.getStackInSlot(1);
+
+		if (itemStack != null)
+		{
+			if (itemStack.getItem() instanceof ItemCardPersonalID)
+			{
+				return ((ItemCardPersonalID) itemStack.getItem()).getUsername(itemStack);
+			}
+		}
+
+		return null;
 	}
 }

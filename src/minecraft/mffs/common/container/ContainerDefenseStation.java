@@ -1,11 +1,10 @@
 package mffs.common.container;
 
+import mffs.common.SlotFrequency;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TileEntityDefenseStation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public class ContainerDefenseStation extends ContainerMFFS
 {
@@ -13,9 +12,8 @@ public class ContainerDefenseStation extends ContainerMFFS
 	{
 		super(tileentity);
 
-		this.addSlotToContainer(new SlotHelper(tileentity, 0, 13, 27));
+		this.addSlotToContainer(new SlotFrequency(tileentity, 0, 13, 27));
 		this.addSlotToContainer(new SlotHelper(tileentity, 1, 97, 27));
-
 		this.addSlotToContainer(new SlotHelper(tileentity, 2, 14, 51));
 		this.addSlotToContainer(new SlotHelper(tileentity, 3, 14, 88));
 

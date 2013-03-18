@@ -34,7 +34,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum MachineTypes
 {
-
 	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
 	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
 	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),

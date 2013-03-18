@@ -86,12 +86,11 @@ public class TileEntityDefenseStation extends TileEntityFortron
 				}
 			}
 
-			// TODO: FIX CONSUP
 			if (this.isActive() || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itemCardInfinite.itemID))
 			{
 				if (this.ticks % 10 == 0)
 				{
-					if (this.requestFortron(FORTRON_CONSUMPTION, true) >= 0)
+					if (this.requestFortron(FORTRON_CONSUMPTION, true) > 0)
 					{
 						this.scan();
 					}
