@@ -4,7 +4,7 @@ import java.util.List;
 
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -66,7 +66,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 		return 0;
 	}
 
-	public static void setlinkID(ItemStack itemStack, TileEntitySecurityStation sec)
+	public static void setlinkID(ItemStack itemStack, TAnQuan sec)
 	{
 		if (sec != null)
 		{
@@ -75,7 +75,7 @@ public class ItemAccessCard extends ItemCardPersonalID
 		}
 	}
 
-	public static void setforArea(ItemStack itemStack, TileEntitySecurityStation sec)
+	public static void setforArea(ItemStack itemStack, TAnQuan sec)
 	{
 		if (sec != null)
 		{

@@ -7,7 +7,7 @@ import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.mode.ItemModeSphere;
 import mffs.common.tileentity.TileEntityProjector;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -77,7 +77,7 @@ public class ItemModuleDefenseStation extends ItemModule
 							}
 							if (projector.getAccessType() == 3)
 							{
-								TileEntitySecurityStation SecurityStation = projector.getLinkedSecurityStation();
+								TAnQuan SecurityStation = projector.getLinkedSecurityStation();
 								if (SecurityStation != null)
 								{
 									killswitch = !SecurityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityRight.SR);

@@ -7,7 +7,7 @@ import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -24,7 +24,7 @@ public class SecurityHelper
 	{
 		if ((tileEntity instanceof TileEntitySecStorage))
 		{
-			TileEntitySecurityStation sec = ((TileEntitySecStorage) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TileEntitySecStorage) tileEntity).getLinkedSecurityStation();
 
 			if (sec != null)
 			{
@@ -45,7 +45,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityControlSystem))
 		{
-			TileEntitySecurityStation sec = ((TileEntityControlSystem) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TileEntityControlSystem) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -66,9 +66,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntitySecurityStation))
+		if ((tileEntity instanceof TAnQuan))
 		{
-			if (!((TileEntitySecurityStation) tileEntity).isAccessGranted(entityplayer.username, right))
+			if (!((TAnQuan) tileEntity).isAccessGranted(entityplayer.username, right))
 			{
 				if (!suppresswarning)
 					Functions.ChattoPlayer(entityplayer, "[Field Security] Fail: access denied");
@@ -80,7 +80,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityConverter))
 		{
-			TileEntitySecurityStation sec = ((TileEntityConverter) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TileEntityConverter) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -97,7 +97,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityFortronCapacitor))
 		{
-			TileEntitySecurityStation sec = ((TileEntityFortronCapacitor) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TileEntityFortronCapacitor) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -114,7 +114,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityForcilliumExtractor))
 		{
-			TileEntitySecurityStation sec = ((TileEntityForcilliumExtractor) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TileEntityForcilliumExtractor) tileEntity).getLinkedSecurityStation();
 			if (sec != null)
 			{
 				if (sec.isAccessGranted(entityplayer.username, right))
@@ -131,7 +131,7 @@ public class SecurityHelper
 
 		if ((tileEntity instanceof TileEntityDefenseStation))
 		{
-			TileEntitySecurityStation sec = ((TileEntityDefenseStation) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TileEntityDefenseStation) tileEntity).getLinkedSecurityStation();
 
 			if (sec != null)
 			{
@@ -168,7 +168,7 @@ public class SecurityHelper
 
 					break;
 				case 3:
-					TileEntitySecurityStation sec = ((TileEntityProjector) tileEntity).getLinkedSecurityStation();
+					TAnQuan sec = ((TileEntityProjector) tileEntity).getLinkedSecurityStation();
 					if (sec != null)
 					{
 						if (sec.isAccessGranted(entityplayer.username, right))

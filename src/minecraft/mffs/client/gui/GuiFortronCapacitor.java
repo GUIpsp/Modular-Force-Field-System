@@ -1,7 +1,7 @@
 package mffs.client.gui;
 
 import mffs.common.ZhuYao;
-import mffs.common.container.ContainerCapacitor;
+import mffs.common.container.ContainerFortronCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ public class GuiFortronCapacitor extends GuiMFFS
 
 	public GuiFortronCapacitor(EntityPlayer player, TileEntityFortronCapacitor tileentity)
 	{
-		super(new ContainerCapacitor(player, tileentity), tileentity);
+		super(new ContainerFortronCapacitor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
 	}
 

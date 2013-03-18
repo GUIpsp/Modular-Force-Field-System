@@ -67,7 +67,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		return false;
 	}
 
-	public TileEntitySecurityStation getLinkedSecurityStation()
+	public TAnQuan getLinkedSecurityStation()
 	{
 		return null;
 	}
@@ -185,16 +185,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	public void setDeviceID(int i)
 	{
 		this.deviceID = i;
-	}
-
-	public PointXYZ getMachinePoint()
-	{
-		return new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
-	}
-
-	public Container getContainer(InventoryPlayer paramInventoryPlayer)
-	{
-		return null;
 	}
 
 	@Override
@@ -316,5 +306,12 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	public void setDirection(World world, int x, int y, int z, ForgeDirection facingDirection)
 	{
 		this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, facingDirection.ordinal(), 3);
+	}
+
+	@Deprecated
+	public PointXYZ getMachinePoint()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

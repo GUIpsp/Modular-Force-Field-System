@@ -78,13 +78,7 @@ public class TileEntityControlSystem extends TileEntityFortron implements ISided
 	}
 
 	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerControlSystem(inventoryplayer.player, this);
-	}
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
+	public TAnQuan getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}

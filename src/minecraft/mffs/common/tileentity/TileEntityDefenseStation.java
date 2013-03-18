@@ -174,7 +174,7 @@ public class TileEntityDefenseStation extends TileEntityFortron
 	{
 		try
 		{
-			TileEntitySecurityStation securityStation = this.getLinkedSecurityStation();
+			TAnQuan securityStation = this.getLinkedSecurityStation();
 
 			int xmininfo = this.xCoord - getWarnRange();
 			int xmaxinfo = this.xCoord + getWarnRange() + 1;
@@ -269,7 +269,7 @@ public class TileEntityDefenseStation extends TileEntityFortron
 		{
 			EntityPlayer player = (EntityPlayer) entityLiving;
 
-			TileEntitySecurityStation securityStation = getLinkedSecurityStation();
+			TAnQuan securityStation = getLinkedSecurityStation();
 
 			if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityRight.SR))
 			{

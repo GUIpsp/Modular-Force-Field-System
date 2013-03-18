@@ -410,13 +410,6 @@ public class TileEntityConverter extends TileEntityFortron implements IEnergySou
 	{
 		return receiver instanceof IEnergyAcceptor;
 	}
-
-	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerConverter(inventoryplayer.player, this);
-	}
-
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{

@@ -23,7 +23,7 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 	}
 
 	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
+	public TAnQuan getLinkedSecurityStation()
 	{
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}
@@ -37,7 +37,7 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 
 	public int getSecStation_ID()
 	{
-		TileEntitySecurityStation sec = getLinkedSecurityStation();
+		TAnQuan sec = getLinkedSecurityStation();
 		if (sec != null)
 		{
 			return sec.getDeviceID();
@@ -194,13 +194,6 @@ public class TileEntitySecStorage extends TileEntityMFFSInventory implements ISi
 		}
 		return 54;
 	}
-
-	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerSecStorage(inventoryplayer.player, this);
-	}
-
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{

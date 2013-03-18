@@ -22,10 +22,9 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public abstract class TileEntityFortron extends TileEntityMFFSInventory implements ITankContainer, IFortronFrequency
+public abstract class TileEntityFortron extends TShengBuo implements ITankContainer, IFortronFrequency
 {
 	protected LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
-	private int frequency;
 
 	@Override
 	public void initiate()
@@ -50,22 +49,17 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
 		objects.add(Fortron.getAmount(this.fortronTank.getLiquid()));
-		objects.add(this.getFrequency());
 		return objects;
 	}
 
 	@Override
 	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
 	{
+		super.onReceivePacket(packetID, dataStream);
+
 		if (packetID == 1)
 		{
-			super.onReceivePacket(packetID, dataStream);
 			this.fortronTank.setLiquid(Fortron.getFortron(dataStream.readInt()));
-			this.setFrequency(dataStream.readInt());
-		}
-		else if (packetID == 2)
-		{
-			this.setFrequency(dataStream.readInt());
 		}
 	}
 
@@ -76,7 +70,6 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		setFrequency(nbt.getInteger("frequency"));
 		this.fortronTank.setLiquid(LiquidStack.loadLiquidStackFromNBT(nbt.getCompoundTag("fortron")));
 	}
 
@@ -84,8 +77,6 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-
-		nbt.setInteger("frequency", getFrequency());
 
 		if (this.fortronTank.getLiquid() != null)
 		{
@@ -173,17 +164,5 @@ public abstract class TileEntityFortron extends TileEntityMFFSInventory implemen
 	public int provideFortron(int joules, boolean doUse)
 	{
 		return this.fortronTank.fill(Fortron.getFortron(joules), doUse);
-	}
-
-	@Override
-	public int getFrequency()
-	{
-		return this.frequency;
-	}
-
-	@Override
-	public void setFrequency(int frequency)
-	{
-		this.frequency = frequency;
 	}
 }

@@ -14,8 +14,10 @@ import mffs.api.IFortronFrequency;
 import mffs.api.IFortronStorage;
 import mffs.api.IPowerLinkItem;
 import mffs.common.ZhuYao;
+import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.container.ContainerCapacitor;
+import mffs.common.container.ContainerFortronCapacitor;
+import mffs.common.upgrade.ItemUpgrade;
 import mffs.common.upgrade.ItemUpgradeCapacity;
 import mffs.common.upgrade.ItemUpgradeRange;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -313,12 +315,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	}
 
 	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerCapacitor(inventoryplayer.player, this);
-	}
-
-	@Override
 	public int getSizeInventory()
 	{
 		return 4;
@@ -326,7 +322,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 
 	public int getSecStation_ID()
 	{
-		TileEntitySecurityStation sec = getLinkedSecurityStation();
+		TAnQuan sec = getLinkedSecurityStation();
 		if (sec != null)
 		{
 			return sec.getDeviceID();
@@ -357,35 +353,14 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	@Override
 	public boolean isItemValid(int slotID, ItemStack itemStack)
 	{
-		switch (slotID)
+		if (slotID == 0)
 		{
-			case 0:
-				if ((itemStack.getItem() instanceof ItemUpgradeCapacity))
-				{
-					return true;
-				}
-				break;
-			case 1:
-				if ((itemStack.getItem() instanceof ItemUpgradeRange))
-				{
-					return true;
-				}
-				break;
-			case 2:
-				if (((itemStack.getItem() instanceof IForceEnergyItems)) || ((itemStack.getItem() instanceof IPowerLinkItem)))
-				{
-					return true;
-				}
-				break;
-			case 4:
-				if ((itemStack.getItem() instanceof ItemCardSecurityLink))
-				{
-					return true;
-				}
-				break;
-			case 3:
+			return itemStack.getItem() instanceof ItemCardFrequency;
 		}
-		return false;
+		else
+		{
+			return itemStack.getItem() instanceof ItemUpgrade;
+		}
 	}
 
 	public TransferMode getTransferMode()

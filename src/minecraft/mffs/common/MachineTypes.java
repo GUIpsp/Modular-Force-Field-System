@@ -10,7 +10,7 @@ import mffs.client.gui.GuiProjector;
 import mffs.client.gui.GuiSecStorage;
 import mffs.client.gui.GuiSecurityStation;
 import mffs.common.container.ContainerDefenseStation;
-import mffs.common.container.ContainerCapacitor;
+import mffs.common.container.ContainerFortronCapacitor;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.container.ContainerConverter;
 import mffs.common.container.ContainerForcilliumExtractor;
@@ -24,7 +24,7 @@ import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.Container;
@@ -37,10 +37,10 @@ public enum MachineTypes
 
 	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
 	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ZhuYao.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
 	DefenceStation(TileEntityDefenseStation.class, GuiDefenseStation.class, ContainerDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
-	SecurityStation(TileEntitySecurityStation.class, GuiSecurityStation.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
+	SecurityStation(TAnQuan.class, GuiSecurityStation.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
 	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ZhuYao.blockSecurityStorage, "AAAACAAAA", "AAAAEAAAA"),
 	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
 

@@ -5,10 +5,9 @@ import java.util.List;
 
 import mffs.common.Fortron;
 import mffs.common.ZhuYao;
+import mffs.common.card.ItemCardFrequency;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.item.ItemForcillium;
-import mffs.common.upgrade.ItemUpgradeCapacity;
-import mffs.common.upgrade.ItemUpgradeSpeed;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -189,13 +188,6 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 			this.processTime = dataStream.readInt();
 		}
 	}
-
-	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerForcilliumExtractor(inventoryplayer.player, this);
-	}
-
 	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
@@ -225,13 +217,12 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 			switch (slotID)
 			{
 				case 0:
-					if (itemStack.getItem() instanceof ItemForcillium || itemStack.isItemEqual(new ItemStack(Item.dyePowder, 1, 4)))
-						return true;
-					break;
+					return itemStack.getItem() instanceof ItemForcillium || itemStack.isItemEqual(new ItemStack(Item.dyePowder, 1, 4));
+				case 1:
+					return itemStack.getItem() instanceof ItemCardFrequency;
 			}
 		}
 
 		return false;
 	}
-
 }

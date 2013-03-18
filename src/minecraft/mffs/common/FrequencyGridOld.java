@@ -12,7 +12,7 @@ import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.world.World;
 
 import com.google.common.collect.MapMaker;
@@ -41,7 +41,7 @@ public final class FrequencyGridOld
 
 		private Map<Integer, TileEntityProjector> Projector = new Hashtable();
 		private Map<Integer, TileEntityFortronCapacitor> Capacitors = new Hashtable();
-		private Map<Integer, TileEntitySecurityStation> SecStation = new Hashtable();
+		private Map<Integer, TAnQuan> SecStation = new Hashtable();
 		private Map<Integer, TileEntityDefenseStation> DefStation = new Hashtable();
 		private Map<Integer, TileEntityForcilliumExtractor> Extractor = new Hashtable();
 		private Map<Integer, TileEntityConverter> Converter = new Hashtable();
@@ -130,7 +130,7 @@ public final class FrequencyGridOld
 				this.ControlSystem.put(Integer.valueOf(DeviceID), (TileEntityControlSystem) tileEntity);
 				return DeviceID;
 			}
-			if ((tileEntity instanceof TileEntitySecurityStation))
+			if ((tileEntity instanceof TAnQuan))
 			{
 				if (remDeviceID == 0)
 				{
@@ -140,7 +140,7 @@ public final class FrequencyGridOld
 					}
 				}
 				DeviceID = remDeviceID;
-				this.SecStation.put(Integer.valueOf(DeviceID), (TileEntitySecurityStation) tileEntity);
+				this.SecStation.put(Integer.valueOf(DeviceID), (TAnQuan) tileEntity);
 				return DeviceID;
 			}
 			if ((tileEntity instanceof TileEntityDefenseStation))

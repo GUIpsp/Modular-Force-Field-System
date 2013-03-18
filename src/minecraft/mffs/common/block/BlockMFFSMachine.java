@@ -8,7 +8,7 @@ import mffs.common.ZhuYao;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -53,7 +53,7 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 				return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
 			}
 
-			if ((tileEntity instanceof TileEntitySecurityStation) && (tileEntity.isActive()))
+			if ((tileEntity instanceof TAnQuan) && (tileEntity.isActive()))
 			{
 				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.CSR))
 				{

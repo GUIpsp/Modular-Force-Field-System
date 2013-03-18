@@ -6,7 +6,7 @@ import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -30,9 +30,9 @@ public class ItemCardEmpty extends ItemCard
 		}
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
 
-		if ((tileEntity instanceof TileEntitySecurityStation))
+		if ((tileEntity instanceof TAnQuan))
 		{
-			TileEntitySecurityStation securityStation = (TileEntitySecurityStation) tileEntity;
+			TAnQuan securityStation = (TAnQuan) tileEntity;
 			if (securityStation.isActive())
 			{
 				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.CSR))

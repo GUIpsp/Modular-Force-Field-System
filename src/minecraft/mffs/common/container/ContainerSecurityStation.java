@@ -1,15 +1,15 @@
 package mffs.common.container;
 
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerSecurityStation extends ContainerMFFS
 {
 
-	private TileEntitySecurityStation secStation;
+	private TAnQuan secStation;
 
-	public ContainerSecurityStation(EntityPlayer player, TileEntitySecurityStation tileentity)
+	public ContainerSecurityStation(EntityPlayer player, TAnQuan tileentity)
 	{
 
 		super(tileentity);

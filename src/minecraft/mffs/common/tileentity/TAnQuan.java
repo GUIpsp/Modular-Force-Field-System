@@ -2,36 +2,21 @@ package mffs.common.tileentity;
 
 import java.util.List;
 
-import mffs.common.FrequencyGridOld;
+import mffs.api.ISecurityStation;
 import mffs.common.MFFSConfiguration;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItemAccessCard;
-import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardPersonalID;
-import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.container.ContainerSecurityStation;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public class TileEntitySecurityStation extends TileEntityMFFSInventory
+public class TAnQuan extends TShengBuo implements ISecurityStation
 {
-
 	private String MainUser = "";
-	private ItemStack[] inventory;
-
-	public TileEntitySecurityStation()
-	{
-		this.inventory = new ItemStack[11];
-	}
 
 	public String getMainUser()
 	{
@@ -43,78 +28,7 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		if (!this.MainUser.equals(s))
 		{
 			this.MainUser = s;
-			// NetworkHandlerServer.updateTileEntityField(this, "MainUser");
 		}
-	}
-
-	public void dropplugins(int slot)
-	{
-		if (getStackInSlot(slot) != null)
-		{
-			if (((getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink)) || ((getStackInSlot(slot).getItem() instanceof ItemCardFrequency)) || ((getStackInSlot(slot).getItem() instanceof ItemCardPersonalID)))
-			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(ZhuYao.itemCardEmpty, 1)));
-			}
-			else
-			{
-				this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, getStackInSlot(slot)));
-			}
-
-			setInventorySlotContents(slot, null);
-			onInventoryChanged();
-		}
-	}
-
-	@Override
-	public Container getContainer(InventoryPlayer inventoryplayer)
-	{
-		return new ContainerSecurityStation(inventoryplayer.player, this);
-	}
-
-	@Override
-	public void invalidate()
-	{
-		FrequencyGridOld.getWorldMap(this.worldObj).getSecStation().remove(Integer.valueOf(getDeviceID()));
-		super.invalidate();
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
-	{
-		super.readFromNBT(nbttagcompound);
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-		this.inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++)
-		{
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
-
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if ((byte0 >= 0) && (byte0 < this.inventory.length))
-			{
-				this.inventory[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
-		super.writeToNBT(nbttagcompound);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < this.inventory.length; i++)
-		{
-			if (this.inventory[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				this.inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
 	}
 
 	@Override
@@ -222,12 +136,6 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		{
 			itemstack.stackSize = getInventoryStackLimit();
 		}
-	}
-
-	@Override
-	public String getInvName()
-	{
-		return LanguageRegistry.instance().getStringLocalization("tile.securityStation.name");
 	}
 
 	public boolean RemoteInventory(String username, SecurityRight right)
@@ -363,30 +271,6 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 
 	}
 
-	/*
-	 * @Override public void onNetworkHandlerEvent(int key, String value) { switch (key) { case 100:
-	 * if (getStackInSlot(1) != null) { SecurityRight sr = (SecurityRight)
-	 * SecurityRight.rights.get(value); if ((sr != null) && ((getStackInSlot(1).getItem() instanceof
-	 * ItemCardPersonalID))) { ItemCardPersonalID.setRight(getStackInSlot(1), sr,
-	 * !ItemCardPersonalID.hasRight(getStackInSlot(1), sr)); } } break; case 101: if
-	 * ((getStackInSlot(1) != null) && ((getStackInSlot(1).getItem() instanceof ItemAccessCard))) {
-	 * if (ItemAccessCard.getvalidity(getStackInSlot(1)) <= 5) { setInventorySlotContents(1, new
-	 * ItemStack(ModularForceFieldSystem.itemCardEmpty, 1)); } else {
-	 * ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) -
-	 * 5); } } break; case 102: if (getStackInSlot(1) != null) { if ((getStackInSlot(1).getItem()
-	 * instanceof ItemCardEmpty)) { setInventorySlotContents(1, new
-	 * ItemStack(ModularForceFieldSystem.itemCardAccess, 1)); if ((getStackInSlot(1).getItem()
-	 * instanceof ItemAccessCard)) { ItemAccessCard.setforArea(getStackInSlot(1), this);
-	 * ItemAccessCard.setvalidity(getStackInSlot(1), 5); ItemAccessCard.setlinkID(getStackInSlot(1),
-	 * this); }
-	 * 
-	 * } else if ((getStackInSlot(1).getItem() instanceof ItemAccessCard)) {
-	 * ItemAccessCard.setvalidity(getStackInSlot(1), ItemAccessCard.getvalidity(getStackInSlot(1)) +
-	 * 5); } } break; }
-	 * 
-	 * super.onNetworkHandlerEvent(key, value); }
-	 */
-
 	public ItemStack getModCardStack()
 	{
 		if (getStackInSlot(1) != null)
@@ -395,11 +279,4 @@ public class TileEntitySecurityStation extends TileEntityMFFSInventory
 		}
 		return null;
 	}
-
-	@Override
-	public TileEntitySecurityStation getLinkedSecurityStation()
-	{
-		return this;
-	}
-
 }

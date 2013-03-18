@@ -11,7 +11,7 @@ import mffs.common.tileentity.TileEntityDefenseStation;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityProjector;
 import mffs.common.tileentity.TileEntitySecStorage;
-import mffs.common.tileentity.TileEntitySecurityStation;
+import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -37,7 +37,7 @@ public class ItemCardSecurityLink extends ItemCard
 			int Sec_ID = getValuefromKey("Secstation_ID", itemStack);
 			if (Sec_ID != 0)
 			{
-				TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
+				TAnQuan sec = (TAnQuan) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
 				if (sec != null)
 				{/*
 				 * if (!sec.getDeviceName().equals(getforAreaname(itemStack))) {
@@ -52,7 +52,7 @@ public class ItemCardSecurityLink extends ItemCard
 		this.tick += 1;
 	}
 
-	public static TileEntitySecurityStation getLinkedSecurityStation(ISidedInventory inventiory, int slot, World world)
+	public static TAnQuan getLinkedSecurityStation(ISidedInventory inventiory, int slot, World world)
 	{
 		if (inventiory.getStackInSlot(slot) != null)
 		{
@@ -67,9 +67,9 @@ public class ItemCardSecurityLink extends ItemCard
 						return null;
 					}
 
-					if ((world.getBlockTileEntity(png.X, png.Y, png.Z) instanceof TileEntitySecurityStation))
+					if ((world.getBlockTileEntity(png.X, png.Y, png.Z) instanceof TAnQuan))
 					{
-						TileEntitySecurityStation sec = (TileEntitySecurityStation) world.getBlockTileEntity(png.X, png.Y, png.Z);
+						TAnQuan sec = (TAnQuan) world.getBlockTileEntity(png.X, png.Y, png.Z);
 						if (sec != null)
 						{
 							if ((sec.getDeviceID() == card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot))) && (card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot)) != 0))
@@ -90,7 +90,7 @@ public class ItemCardSecurityLink extends ItemCard
 						int Sec_ID = card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot));
 						if (Sec_ID != 0)
 						{
-							TileEntitySecurityStation sec = (TileEntitySecurityStation) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
+							TAnQuan sec = (TAnQuan) FrequencyGridOld.getWorldMap(world).getSecStation().get(Integer.valueOf(Sec_ID));
 							if (sec != null)
 							{
 								card.setInformation(inventiory.getStackInSlot(slot), sec.getMachinePoint(), "Secstation_ID", Sec_ID);
