@@ -156,6 +156,7 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 		 */
 		if (entity instanceof EntityLiving)
 		{
+			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 20, 3));
 			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 3));
 		}
 	}
