@@ -201,7 +201,7 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 	@Override
 	public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double d, double d1, double d2)
 	{
-		//TODO: DO SOMETHING
+		// TODO: DO SOMETHING
 
 		return Integer.MAX_VALUE;
 	}

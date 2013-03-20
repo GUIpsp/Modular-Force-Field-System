@@ -6,10 +6,7 @@ import java.util.List;
 import mffs.common.Fortron;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItemCardFrequency;
-import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.item.ItemForcillium;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,7 +27,7 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
+public class TChouQi extends TileEntityMFFSElectrical
 {
 	/**
 	 * The amount of watts this machine uses.
@@ -39,7 +36,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 	public static final int REQUIRED_TIME = 20 * 15;
 	public int processTime = 0;
 
-	public TileEntityForcilliumExtractor()
+	public TChouQi()
 	{
 		this.fortronTank.setCapacity(10 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}
@@ -188,6 +185,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 			this.processTime = dataStream.readInt();
 		}
 	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{

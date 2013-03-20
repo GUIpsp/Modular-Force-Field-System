@@ -1,7 +1,7 @@
 package mffs.common.multitool;
 
-import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TDianRong;
+import mffs.common.tileentity.TChouQi;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -32,9 +32,9 @@ public class MultitoolReader implements IMultiTool
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 
-		if (!player.isSneaking() && world.getBlockTileEntity(x, y, z) instanceof TileEntityForcilliumExtractor)
+		if (!player.isSneaking() && world.getBlockTileEntity(x, y, z) instanceof TChouQi)
 		{
-			TileEntityForcilliumExtractor tile = (TileEntityForcilliumExtractor) world.getBlockTileEntity(x, y, z);
+			TChouQi tile = (TChouQi) world.getBlockTileEntity(x, y, z);
 			player.sendChatToPlayer("[Multi-Tool] Forcillium Extractor:");
 			player.sendChatToPlayer("Process: " + (int) (100 - ((float) tile.processTime / (float) tile.REQUIRED_TIME) * 100) + "%");
 			player.sendChatToPlayer("Fortrons: " + tile.getFortronEnergy());

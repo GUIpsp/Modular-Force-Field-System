@@ -2,8 +2,6 @@ package mffs.api;
 
 import java.util.Set;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-
 import universalelectricity.core.vector.Vector3;
 
 public interface IProjectorMode

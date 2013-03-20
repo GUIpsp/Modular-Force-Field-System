@@ -1,8 +1,9 @@
 package mffs.common.card;
 
+import icbm.api.IItemFrequency;
+
 import java.util.List;
 
-import icbm.api.IItemFrequency;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

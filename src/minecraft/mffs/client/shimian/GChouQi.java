@@ -1,7 +1,7 @@
 package mffs.client.shimian;
 
 import mffs.common.container.ContainerForcilliumExtractor;
-import mffs.common.tileentity.TileEntityForcilliumExtractor;
+import mffs.common.tileentity.TChouQi;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -13,10 +13,10 @@ import universalelectricity.core.vector.Vector2;
 
 public class GChouQi extends GuiMFFS
 {
-	private TileEntityForcilliumExtractor tileEntity;
+	private TChouQi tileEntity;
 	private boolean editMode = false;
 
-	public GChouQi(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
+	public GChouQi(EntityPlayer player, TChouQi tileentity)
 	{
 		super(new ContainerForcilliumExtractor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
@@ -28,7 +28,7 @@ public class GChouQi extends GuiMFFS
 		this.textFieldPos = new Vector2(30, 43);
 		super.initGui();
 		this.buttonList.clear();
-	//	this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100));
+		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100));
 	}
 
 	@Override

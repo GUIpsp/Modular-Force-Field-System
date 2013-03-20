@@ -3,11 +3,11 @@ package mffs.common.module;
 import java.util.List;
 
 import mffs.api.PointXYZ;
-import mffs.common.SecurityRight;
+import mffs.api.SecurityPermission;
 import mffs.common.ZhuYao;
 import mffs.common.mode.ItemModeSphere;
-import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TAnQuan;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -80,7 +80,7 @@ public class ItemModuleDefenseStation extends ItemModule
 								TAnQuan SecurityStation = projector.getLinkedSecurityStation();
 								if (SecurityStation != null)
 								{
-									killswitch = !SecurityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityRight.SR);
+									killswitch = !SecurityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityPermission.DEFENSE_STATION_STAY);
 								}
 							}
 

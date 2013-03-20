@@ -5,8 +5,6 @@ import java.util.Set;
 import mffs.api.IProjector;
 import mffs.client.model.ModelCube;
 import mffs.common.ZhuYao;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 

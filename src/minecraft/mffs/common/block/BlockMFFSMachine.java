@@ -1,13 +1,12 @@
 package mffs.common.block;
 
 import mffs.api.SecurityHelper;
+import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
 import mffs.common.MFFSCreativeTab;
-import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TAnQuan;
-import mffs.common.tileentity.TKongZhi;
 import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -55,23 +54,10 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 
 			if ((tileEntity instanceof TAnQuan) && (tileEntity.isActive()))
 			{
-				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.CSR))
+				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityPermission.SECURITY_CENTER_CONFIGURE))
 				{
 					return true;
 				}
-			}
-
-			if (tileEntity instanceof TKongZhi)
-			{
-				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.UCS))
-				{
-					return true;
-				}
-			}
-
-			if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.EB))
-			{
-				return true;
 			}
 
 			if (!world.isRemote)

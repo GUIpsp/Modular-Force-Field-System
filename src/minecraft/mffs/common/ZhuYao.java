@@ -14,7 +14,7 @@ import mffs.common.block.BlockFortronCapacitor;
 import mffs.common.block.BlockFortronite;
 import mffs.common.block.BlockProjector;
 import mffs.common.block.BlockSecurityCenter;
-import mffs.common.card.ItemAccessCard;
+import mffs.common.card.ItemCardTemporaryID;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardEmpty;
 import mffs.common.card.ItemCardFrequency;
@@ -274,7 +274,7 @@ public class ZhuYao
 			itemCardID = new ItemCardPersonalID(MFFSConfiguration.item_CardPersonalID_ID);
 			itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
 			itemCardInfinite = new ItemCardInfinite(MFFSConfiguration.item_infPowerCard_ID);
-			itemCardAccess = new ItemAccessCard(MFFSConfiguration.item_CardAccess_ID);
+			itemCardAccess = new ItemCardTemporaryID(MFFSConfiguration.item_CardAccess_ID);
 			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 
 			// TODO: MFFS REMOVE THIS

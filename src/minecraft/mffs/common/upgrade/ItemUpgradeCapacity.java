@@ -3,7 +3,6 @@ package mffs.common.upgrade;
 import java.util.List;
 
 import mffs.common.MachineTypes;
-import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

@@ -23,7 +23,8 @@ public class MultitoolSwitch implements IMultiTool
 
 		if ((tileentity instanceof IStatusToggle))
 		{
-			//if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
+			// if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world,
+			// SecurityRight.EB))
 			{
 				if (((IStatusToggle) tileentity).canToggle())
 				{

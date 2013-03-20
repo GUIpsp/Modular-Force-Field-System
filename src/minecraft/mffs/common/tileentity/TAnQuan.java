@@ -3,13 +3,13 @@ package mffs.common.tileentity;
 import java.util.List;
 
 import mffs.api.ISecurityCenter;
+import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
 import mffs.common.NBTTagCompoundHelper;
-import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItemAccessCard;
 import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardPersonalID;
+import mffs.common.card.ItemCardTemporaryID;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -49,7 +49,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		return 1;
 	}
 
-	public boolean remoteInventory(String username, SecurityRight right)
+	public boolean remoteInventory(String username, SecurityPermission right)
 	{
 		for (int a = 35; a >= 1; a--)
 		{
@@ -59,16 +59,12 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 
 				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(a).getItem();
 
-				/*boolean access = ItemCardPersonalID.hasRight(getStackInSlot(a), right);
-
-				if (username_invtory.equals(username))
-				{
-					if (access)
-					{
-						return true;
-					}
-					return false;
-				}*/
+				/*
+				 * boolean access = ItemCardPersonalID.hasRight(getStackInSlot(a), right);
+				 * 
+				 * if (username_invtory.equals(username)) { if (access) { return true; } return
+				 * false; }
+				 */
 
 			}
 
@@ -77,7 +73,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		return false;
 	}
 
-	public boolean remotePlayerInventory(String username, SecurityRight right)
+	public boolean remotePlayerInventory(String username, SecurityPermission right)
 	{
 		EntityPlayer player = this.worldObj.getPlayerEntityByName(username);
 		if (player != null)
@@ -88,9 +84,9 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 				ItemStack stack = slot.getStack();
 				if (stack != null)
 				{
-					if ((stack.getItem() instanceof ItemAccessCard))
-					{
-						if (ItemAccessCard.getvalidity(stack) > 0)
+					if ((stack.getItem() instanceof ItemCardTemporaryID))
+					{/*
+						if (ItemCardTemporaryID.getvalidity(stack) > 0)
 						{
 						}
 						else
@@ -100,7 +96,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 							slot.putStack(Card);
 							// NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot,
 							// Card);
-						}
+						}*/
 					}
 				}
 			}
@@ -110,7 +106,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 	}
 
 	@Override
-	public boolean isAccessGranted(String username, SecurityRight sr)
+	public boolean isAccessGranted(String username, SecurityPermission sr)
 	{
 		if (!isActive())
 		{

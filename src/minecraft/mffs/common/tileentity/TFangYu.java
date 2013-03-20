@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
-import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardSecurityLink;
@@ -223,7 +223,7 @@ public class TFangYu extends TileEntityFortron
 
 							boolean isGranted = false;
 
-							if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityRight.SR))
+							if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.DEFENSE_STATION_STAY))
 							{
 								isGranted = true;
 								// TODO: CHECK MFFS NOTIFICATION SETTING < MODE 3
@@ -270,7 +270,7 @@ public class TFangYu extends TileEntityFortron
 
 			TAnQuan securityStation = getLinkedSecurityStation();
 
-			if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityRight.SR))
+			if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.DEFENSE_STATION_STAY))
 			{
 				hasPermission = true;
 			}

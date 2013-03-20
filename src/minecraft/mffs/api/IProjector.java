@@ -54,7 +54,7 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 	 * Gets the slot IDs based on the direction given.
 	 */
 	public int[] getSlotsBasedOnDirection(ForgeDirection direction);
-	
+
 	/**
 	 * Gets the unspecified, direction-unspecific module slots on the left side of the GUI.
 	 */

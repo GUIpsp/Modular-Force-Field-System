@@ -5,12 +5,10 @@ import java.util.List;
 import mffs.api.PointXYZ;
 import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 public class ItemCardDataLink extends ItemCard
 {

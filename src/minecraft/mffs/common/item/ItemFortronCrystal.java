@@ -34,7 +34,7 @@ public class ItemFortronCrystal extends ItemMFFS implements IPowerLinkItem, IFor
 	{
 		return 100000;
 	}
-	
+
 	@Override
 	public int getItemDamage(ItemStack itemStack)
 	{

@@ -18,6 +18,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
@@ -277,7 +278,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	 * Direction Methods
 	 */
 	@Override
-	public ForgeDirection getDirection(World world, int x, int y, int z)
+	public ForgeDirection getDirection(IBlockAccess world, int x, int y, int z)
 	{
 		return ForgeDirection.getOrientation(this.getBlockMetadata());
 	}

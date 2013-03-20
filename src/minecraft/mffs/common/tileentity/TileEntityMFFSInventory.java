@@ -94,9 +94,18 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
+	public ItemStack getStackInSlotOnClosing(int slotID)
 	{
-		return null;
+		if (this.inventory[slotID] != null)
+		{
+			ItemStack itemstack = this.inventory[slotID];
+			this.inventory[slotID] = null;
+			return itemstack;
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	@Override
@@ -112,9 +121,9 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	}
 
 	@Override
-	public boolean func_94041_b(int i, ItemStack itemstack)
+	public boolean func_94041_b(int slotID, ItemStack itemStack)
 	{
-		return false;
+		return this.isItemValid(slotID, itemStack);
 	}
 
 	public boolean isItemValid(int slotID, ItemStack itemStack)

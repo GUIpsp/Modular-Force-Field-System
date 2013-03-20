@@ -1,7 +1,7 @@
 package mffs.client.shimian.enniu;
 
-import net.minecraft.client.Minecraft;
 import mffs.common.tileentity.TDianRong;
+import net.minecraft.client.Minecraft;
 
 public class GuiButtonTransferMode extends GuiButtonMFFS
 {

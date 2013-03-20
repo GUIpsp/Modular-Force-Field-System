@@ -1,7 +1,5 @@
 package mffs.client.shimian;
 
-import mffs.common.SecurityRight;
-import mffs.common.ZhuYao;
 import mffs.common.container.ContainerSecurityStation;
 import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.player.EntityPlayer;

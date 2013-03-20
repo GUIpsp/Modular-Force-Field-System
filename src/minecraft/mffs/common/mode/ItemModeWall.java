@@ -4,12 +4,7 @@ import java.util.Set;
 
 import mffs.api.IProjector;
 import mffs.common.ZhuYao;
-import mffs.common.module.ItemModule;
-import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDisintegration;
-import mffs.common.module.ItemModuleShock;
 import mffs.common.tileentity.TFangYingJi;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
@@ -32,7 +27,7 @@ public class ItemModeWall extends ItemProjectorMode
 	{
 		TFangYingJi tileEntity = (TFangYingJi) projector;
 
-		ForgeDirection direction = tileEntity.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord);
+		ForgeDirection direction = tileEntity.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord);
 
 		int zDisplaceNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
 		int zDisplacePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
@@ -49,7 +44,7 @@ public class ItemModeWall extends ItemProjectorMode
 			{
 				for (int y = -yDisplaceNeg; y <= yDisplacePos; y++)
 				{
-					if (((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() != 0) && (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() != 1)) || (((x == 0) && (z != 0)) || ((z == 0) && (x != 0)) || ((z == 0) && (x == 0)) || (((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() != 2) && (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() != 3)) || (((x == 0) && (y != 0)) || ((y == 0) && (x != 0)) || ((y == 0) && (x == 0)) || (((projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 4) || (projector.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord).ordinal() == 5)) && (((z == 0) && (y != 0)) || ((y == 0) && (z != 0)) || ((y == 0) && (z == 0))))))))
+					if (((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() != 0) && (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() != 1)) || (((x == 0) && (z != 0)) || ((z == 0) && (x != 0)) || ((z == 0) && (x == 0)) || (((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() != 2) && (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() != 3)) || (((x == 0) && (y != 0)) || ((y == 0) && (x != 0)) || ((y == 0) && (x == 0)) || (((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 4) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 5)) && (((z == 0) && (y != 0)) || ((y == 0) && (z != 0)) || ((y == 0) && (z == 0))))))))
 					{
 						fieldDefinition.add(new Vector3(x, y, z));
 					}

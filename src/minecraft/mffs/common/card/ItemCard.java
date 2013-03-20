@@ -69,12 +69,12 @@ public abstract class ItemCard extends ItemMFFS
 	public int getValue(String key, ItemStack itemStack)
 	{
 		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		
+
 		if (tag.hasKey(key))
 		{
 			return tag.getInteger(key);
 		}
-		
+
 		return 0;
 	}
 

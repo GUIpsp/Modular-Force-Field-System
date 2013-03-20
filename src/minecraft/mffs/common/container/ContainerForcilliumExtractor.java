@@ -2,13 +2,13 @@ package mffs.common.container;
 
 import mffs.common.SlotFrequency;
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityForcilliumExtractor;
+import mffs.common.tileentity.TChouQi;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerForcilliumExtractor extends ContainerMFFS
 {
 
-	public ContainerForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileEntity)
+	public ContainerForcilliumExtractor(EntityPlayer player, TChouQi tileEntity)
 	{
 		super(tileEntity);
 

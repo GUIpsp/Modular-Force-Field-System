@@ -73,7 +73,8 @@ public class FortronGrid
 			}
 		}
 
-//		System.out.println(world.isRemote + "------: " + set.size() + " vs " + frequencyGrid.size());
+		// System.out.println(world.isRemote + "------: " + set.size() + " vs " +
+		// frequencyGrid.size());
 
 		return set;
 

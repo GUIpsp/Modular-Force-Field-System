@@ -3,7 +3,6 @@ package mffs.common.mode;
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.item.ItemMFFS;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMode
 {

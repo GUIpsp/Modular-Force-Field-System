@@ -1,7 +1,7 @@
 package mffs.common.upgrade;
 
-import net.minecraft.item.ItemStack;
 import mffs.common.item.ItemMFFS;
+import net.minecraft.item.ItemStack;
 import universalelectricity.prefab.modifier.IModifier;
 
 public abstract class ItemUpgrade extends ItemMFFS implements IModifier

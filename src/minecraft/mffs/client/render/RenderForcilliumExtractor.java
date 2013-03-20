@@ -1,6 +1,6 @@
 package mffs.client.render;
 
-import mffs.common.tileentity.TileEntityForcilliumExtractor;
+import mffs.common.tileentity.TChouQi;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -13,9 +13,9 @@ public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)
 	{
-		if (t instanceof TileEntityForcilliumExtractor)
+		if (t instanceof TChouQi)
 		{
-			TileEntityForcilliumExtractor tileEntity = (TileEntityForcilliumExtractor) t;
+			TChouQi tileEntity = (TChouQi) t;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);

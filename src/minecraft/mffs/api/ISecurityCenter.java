@@ -1,6 +1,5 @@
 package mffs.api;
 
-import mffs.common.SecurityRight;
 
 /**
  * Applied to security centers TileEntities.
@@ -14,7 +13,7 @@ public interface ISecurityCenter
 	 * @param permission - The permission.
 	 * @return
 	 */
-	public boolean isAccessGranted(String username, SecurityRight permission);
+	public boolean isAccessGranted(String username, SecurityPermission permission);
 
 	/**
 	 * Gets the owner of the security center.

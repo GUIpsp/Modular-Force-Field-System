@@ -1,6 +1,6 @@
 package mffs.common.block;
 
-import mffs.common.tileentity.TileEntityForcilliumExtractor;
+import mffs.common.tileentity.TChouQi;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -15,6 +15,6 @@ public class BlockForcilliumExtractor extends BlockMFFSMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TileEntityForcilliumExtractor();
+		return new TChouQi();
 	}
 }

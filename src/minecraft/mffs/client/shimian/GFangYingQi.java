@@ -1,8 +1,5 @@
 package mffs.client.shimian;
 
-import org.lwjgl.opengl.GL11;
-
-import mffs.client.shimian.GuiMFFS.SlotType;
 import mffs.common.container.ContainerProjector;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.player.EntityPlayer;
