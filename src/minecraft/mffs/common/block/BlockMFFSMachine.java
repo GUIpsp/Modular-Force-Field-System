@@ -1,14 +1,14 @@
 package mffs.common.block;
 
+import mffs.api.SecurityHelper;
 import mffs.common.MFFSConfiguration;
 import mffs.common.MFFSCreativeTab;
-import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.multitool.ItemMultitool;
+import mffs.common.tileentity.TAnQuan;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.tileentity.TAnQuan;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

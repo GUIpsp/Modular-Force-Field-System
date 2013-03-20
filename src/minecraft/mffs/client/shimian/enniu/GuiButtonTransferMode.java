@@ -1,13 +1,13 @@
 package mffs.client.shimian.enniu;
 
 import net.minecraft.client.Minecraft;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
+import mffs.common.tileentity.TDianRong;
 
 public class GuiButtonTransferMode extends GuiButtonMFFS
 {
-	private TileEntityFortronCapacitor tileEntity;
+	private TDianRong tileEntity;
 
-	public GuiButtonTransferMode(int id, int x, int y, TileEntityFortronCapacitor tileEntity)
+	public GuiButtonTransferMode(int id, int x, int y, TDianRong tileEntity)
 	{
 		super(id, x, y);
 		this.tileEntity = tileEntity;

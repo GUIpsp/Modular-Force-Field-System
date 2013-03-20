@@ -60,7 +60,7 @@ public class TileEntityForcilliumExtractor extends TileEntityMFFSElectrical
 				{
 					TileEntity tileEntity = VectorHelper.getTileEntityFromSide(this.worldObj, new Vector3(this), ForgeDirection.getOrientation(i));
 
-					if (tileEntity instanceof TileEntityFortronCapacitor)
+					if (tileEntity instanceof TDianRong)
 					{
 						// TODO:Finish this.
 						// ((TileEntityFortronCapacitor)tileEntity)

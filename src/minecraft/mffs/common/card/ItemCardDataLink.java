@@ -3,10 +3,8 @@ package mffs.common.card;
 import java.util.List;
 
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGridOld;
 import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
-import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -21,34 +19,6 @@ public class ItemCardDataLink extends ItemCard
 	{
 		super(id, "cardDataLink");
 		setMaxStackSize(1);
-	}
-
-	@Override
-	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
-	{
-		super.onUpdate(itemStack, world, entity, par4, par5);
-
-		if (this.tick > 600)
-		{
-			int DeviceID = getValuefromKey("DeviceID", itemStack);
-			if (DeviceID != 0)
-			{
-				TileEntityMFFS device = FrequencyGridOld.getWorldMap(world).getTileEntityMachines(getDeviceTyp(itemStack), DeviceID);
-				if (device != null)
-				{
-					/*
-					 * if (!device.getDeviceName().equals(getforAreaname(itemStack))) {
-					 * setforArea(itemStack, device.getDeviceName()); }
-					 */
-					// TODO :REMOVED NAME
-
-				}
-
-			}
-
-			this.tick = 0;
-		}
-		this.tick += 1;
 	}
 
 	public void setInformation(ItemStack itemStack, PointXYZ png, String key, int value, TileEntity tileentity)

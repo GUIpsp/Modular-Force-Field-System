@@ -3,7 +3,7 @@ package mffs.client.shimian;
 import mffs.client.shimian.enniu.GuiButtonTransferMode;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerFortronCapacitor;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
+import mffs.common.tileentity.TDianRong;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -18,9 +18,9 @@ import universalelectricity.prefab.network.PacketManager;
 
 public class GDianRong extends GuiMFFS
 {
-	private TileEntityFortronCapacitor tileEntity;
+	private TDianRong tileEntity;
 
-	public GDianRong(EntityPlayer player, TileEntityFortronCapacitor tileentity)
+	public GDianRong(EntityPlayer player, TDianRong tileentity)
 	{
 		super(new ContainerFortronCapacitor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;

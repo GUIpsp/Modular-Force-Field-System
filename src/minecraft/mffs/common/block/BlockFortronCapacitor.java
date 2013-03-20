@@ -1,6 +1,6 @@
 package mffs.common.block;
 
-import mffs.common.tileentity.TileEntityFortronCapacitor;
+import mffs.common.tileentity.TDianRong;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -14,6 +14,6 @@ public class BlockFortronCapacitor extends BlockMFFSMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TileEntityFortronCapacitor();
+		return new TDianRong();
 	}
 }

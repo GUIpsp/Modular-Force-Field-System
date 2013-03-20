@@ -2,8 +2,6 @@ package mffs.common.multitool;
 
 import mffs.api.IStatusToggle;
 import mffs.common.Functions;
-import mffs.common.SecurityHelper;
-import mffs.common.SecurityRight;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,7 +23,7 @@ public class MultitoolSwitch implements IMultiTool
 
 		if ((tileentity instanceof IStatusToggle))
 		{
-			if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
+			//if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world, SecurityRight.EB))
 			{
 				if (((IStatusToggle) tileentity).canToggle())
 				{

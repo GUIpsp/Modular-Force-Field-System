@@ -3,9 +3,7 @@ package mffs.common.module;
 import java.util.Map;
 
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.FrequencyGridOld;
 import mffs.common.WorldMap;
-import mffs.common.ZhuYao;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
@@ -20,7 +18,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 	public boolean checkFieldFusioninfluence(Vector3 point, World world, TFangYingJi Proj)
 	{
 		Map<Integer, TFangYingJi> InnerMap = null;
-		InnerMap = FrequencyGridOld.getWorldMap(world).getFieldFusion();
+		//InnerMap = FrequencyGridOld.getWorldMap(world).getFieldFusion();
 		for (TFangYingJi tileentity : InnerMap.values())
 		{
 			boolean logicswitch = false;
@@ -49,7 +47,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 
 		if (!ffworldmap.isEmpty())
 		{
-			// if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
+			/* if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
 			{
 				TFangYingJi tileEntityProjector = (TFangYingJi) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
@@ -69,7 +67,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 						}
 					}
 				}
-			}
+			}*/
 		}
 	}
 }

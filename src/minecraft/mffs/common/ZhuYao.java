@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import mffs.common.block.BlockControlSystem;
-import mffs.common.block.BlockConverter;
 import mffs.common.block.BlockDefenseStation;
 import mffs.common.block.BlockForceField;
 import mffs.common.block.BlockForcilliumExtractor;
@@ -15,7 +14,6 @@ import mffs.common.block.BlockFortronCapacitor;
 import mffs.common.block.BlockFortronite;
 import mffs.common.block.BlockProjector;
 import mffs.common.block.BlockSecurityCenter;
-import mffs.common.block.BlockSecurityStorage;
 import mffs.common.card.ItemAccessCard;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardEmpty;
@@ -23,7 +21,6 @@ import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardInfinite;
 import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.event.EE3Event;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
@@ -128,8 +125,6 @@ public class ZhuYao
 	public static Block blockForceField;
 	public static Block blockExtractor;
 	public static Block blockFortronite;
-	public static Block blockConverter;
-	public static Block blockSecurityStorage;
 	public static Block blockSecurityStation;
 	public static Block blockControlSystem;
 
@@ -223,10 +218,6 @@ public class ZhuYao
 		{
 			MFFSConfiguration.MODULE_BUILDCRAFT = true;
 		}
-		if (initiateModule("EE3"))
-		{
-			MFFSConfiguration.MODULE_EE = true;
-		}
 		if (initiateModule("ThermalExpansion"))
 		{
 			MFFSConfiguration.MODULE_THERMAL_EXPANSION = true;
@@ -237,25 +228,18 @@ public class ZhuYao
 
 		Modstats.instance().getReporter().registerMod(this);
 
-		if (MFFSConfiguration.MODULE_EE)
-		{
-			MinecraftForge.EVENT_BUS.register(new EE3Event());
-		}
-
 		try
 		{
 			MFFSConfiguration.initialize();
 
 			MFFSConfiguration.CONFIGURATION.load();
 
-			blockConverter = new BlockConverter(MFFSConfiguration.block_Converter_ID);
 			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.block_Extractor_ID);
 			blockFortronite = new BlockFortronite(MFFSConfiguration.blockFortronite_ID, "fortronite");
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
 			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.block_Capacitor_ID);
 			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
 			blockForceField = new BlockForceField(MFFSConfiguration.block_Field_ID);
-			blockSecurityStorage = new BlockSecurityStorage(MFFSConfiguration.block_SecureStorage_ID);
 			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.block_SecurityStation_ID, 16);
 			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 

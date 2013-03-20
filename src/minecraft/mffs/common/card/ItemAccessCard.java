@@ -71,7 +71,6 @@ public class ItemAccessCard extends ItemCardPersonalID
 		if (sec != null)
 		{
 			NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-			nbtTagCompound.setInteger("linkID", sec.getDeviceID());
 		}
 	}
 

@@ -11,7 +11,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	// @Override
 	public void loadConfig()
 	{
-		//API.hideItem(ZhuYao.itemMultiTool.itemID);
+		// API.hideItem(ZhuYao.itemMultiTool.itemID);
 
 		API.hideItem(ZhuYao.itemCardPowerLink.itemID);
 		API.hideItem(ZhuYao.itemCardID.itemID);
@@ -25,18 +25,15 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		MultiItemRange upgrades = new MultiItemRange();
 		MultiItemRange modules = new MultiItemRange();
 
-		blocks.add(ZhuYao.blockConverter);
 		blocks.add(ZhuYao.blockExtractor);
 		blocks.add(ZhuYao.blockDefenceStation);
 		blocks.add(ZhuYao.blockSecurityStation);
 		blocks.add(ZhuYao.blockCapacitor);
 		blocks.add(ZhuYao.blockProjector);
-		blocks.add(ZhuYao.blockSecurityStorage);
 		blocks.add(ZhuYao.blockFortronite);
 
-		//items.add(ZhuYao.itemMultiTool);
+		// items.add(ZhuYao.itemMultiTool);
 		items.add(ZhuYao.itemCardEmpty);
-//		items.add(ZhuYao.itemPowerCrystal);
 		items.add(ZhuYao.itemForcillium);
 		items.add(ZhuYao.itemFortronCell);
 		items.add(ZhuYao.itemFocusMatix);

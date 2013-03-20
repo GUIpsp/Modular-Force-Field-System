@@ -9,12 +9,9 @@ import java.util.Random;
 
 import mffs.api.IStatusToggle;
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -39,7 +36,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	 * Is the machine active and working?
 	 */
 	private boolean isActive = false;
-	protected int deviceID = 0;
 
 	/**
 	 * The switch mode determines the mode in which the machine is switched to. Used for determining
@@ -77,7 +73,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		List objects = new ArrayList();
 		objects.add(1);
 		objects.add(this.isActive);
-		objects.add(this.deviceID);
 		objects.add(this.switchMode);
 		objects.add(this.switchValue);
 		return objects;
@@ -111,7 +106,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		if (packetID == 1)
 		{
 			this.isActive = dataStream.readBoolean();
-			this.deviceID = dataStream.readInt();
 			this.switchMode = dataStream.readShort();
 			this.switchValue = dataStream.readBoolean();
 		}
@@ -122,14 +116,12 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		super.initiate();
 
-		this.deviceID = FrequencyGridOld.getWorldMap(this.worldObj).refreshID(this, this.deviceID);
-
 		if (MFFSConfiguration.chunckLoader)
 		{
-			registerChunkLoading();
+			this.registerChunkLoading();
 		}
 
-		PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
+		PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
 	}
 
 	public void toogleSwitchMode()
@@ -177,23 +169,12 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		this.switchValue = !this.switchValue;
 	}
 
-	public int getDeviceID()
-	{
-		return this.deviceID;
-	}
-
-	public void setDeviceID(int i)
-	{
-		this.deviceID = i;
-	}
-
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
 		this.isActive = nbttagcompound.getBoolean("isActive");
 		this.switchValue = nbttagcompound.getBoolean("switchValue");
-		this.deviceID = nbttagcompound.getInteger("deviceID");
 		this.switchMode = nbttagcompound.getShort("switchMode");
 	}
 
@@ -205,7 +186,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		nbttagcompound.setShort("switchMode", this.switchMode);
 		nbttagcompound.setBoolean("isActive", this.isActive);
 		nbttagcompound.setBoolean("switchValue", this.switchValue);
-		nbttagcompound.setInteger("deviceID", this.deviceID);
 	}
 
 	public boolean isActive()

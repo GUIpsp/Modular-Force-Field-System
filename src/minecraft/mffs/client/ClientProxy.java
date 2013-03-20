@@ -7,7 +7,7 @@ import mffs.client.render.RenderFortronCapacitor;
 import mffs.client.render.RenderProjector;
 import mffs.common.CommonProxy;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
+import mffs.common.tileentity.TDianRong;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
@@ -21,7 +21,7 @@ public class ClientProxy extends CommonProxy
 	public void init()
 	{
 		RenderingRegistry.registerBlockHandler(new RenderForceField());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFortronCapacitor.class, new RenderFortronCapacitor());
+		ClientRegistry.bindTileEntitySpecialRenderer(TDianRong.class, new RenderFortronCapacitor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityForcilliumExtractor.class, new RenderForcilliumExtractor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TFangYingJi.class, new RenderProjector());
 	}

@@ -25,8 +25,6 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 		}
 	}
 
-	public int getDeviceID();
-
 	public Set getInteriorPoints();
 
 	public boolean isActive();

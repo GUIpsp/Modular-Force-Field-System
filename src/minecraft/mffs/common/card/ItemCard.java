@@ -12,10 +12,6 @@ import net.minecraftforge.common.DimensionManager;
 
 public abstract class ItemCard extends ItemMFFS
 {
-
-	private StringBuffer info = new StringBuffer();
-	protected int tick = 0;
-
 	public ItemCard(int id, String name)
 	{
 		super(id, name);

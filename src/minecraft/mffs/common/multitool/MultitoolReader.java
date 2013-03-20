@@ -1,7 +1,7 @@
 package mffs.common.multitool;
 
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
-import mffs.common.tileentity.TileEntityFortronCapacitor;
+import mffs.common.tileentity.TDianRong;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -40,9 +40,9 @@ public class MultitoolReader implements IMultiTool
 			player.sendChatToPlayer("Fortrons: " + tile.getFortronEnergy());
 			player.sendChatToPlayer("Capacity: " + tile.getFortronCapacity());
 		}
-		if (!player.isSneaking() && world.getBlockTileEntity(x, y, z) instanceof TileEntityFortronCapacitor)
+		if (!player.isSneaking() && world.getBlockTileEntity(x, y, z) instanceof TDianRong)
 		{
-			TileEntityFortronCapacitor tile = (TileEntityFortronCapacitor) world.getBlockTileEntity(x, y, z);
+			TDianRong tile = (TDianRong) world.getBlockTileEntity(x, y, z);
 			player.sendChatToPlayer("[Multi-Tool] Fortron Capacitor:");
 			player.sendChatToPlayer("Capacity: " + String.valueOf(tile.getFortronEnergy()).concat(" % "));
 			player.sendChatToPlayer("Range: " + String.valueOf(tile.getTransmitRange()));

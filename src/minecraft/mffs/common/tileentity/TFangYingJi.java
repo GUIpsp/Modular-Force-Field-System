@@ -11,7 +11,6 @@ import java.util.Stack;
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.Fortron;
 import mffs.common.MFFSConfiguration;
 import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
@@ -387,22 +386,6 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 				return true;
 			}
 
-		}
-
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getorcreateFFStackMap(vector.intX(), vector.intY(), vector.intZ(), this.worldObj);
-
-		if (!ffworldmap.isEmpty())
-		{
-			if (ffworldmap.getProjectorID() != getDeviceID())
-			{
-				ffworldmap.removebyProjector(getDeviceID());
-				// ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
-			}
-		}
-		else
-		{
-			// ffworldmap.add(getPowerSourceID(), getDeviceID(), getforcefieldblock_meta());
-			ffworldmap.setSync(false);
 		}
 
 		this.fieldQueue.push(Integer.valueOf(vector.hashCode()));

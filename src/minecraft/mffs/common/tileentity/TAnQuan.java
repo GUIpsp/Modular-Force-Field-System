@@ -95,19 +95,6 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 					{
 						if (ItemAccessCard.getvalidity(stack) > 0)
 						{
-							if (ItemAccessCard.getlinkID(stack) == getDeviceID())
-							{
-								if (ItemAccessCard.hasRight(stack, right))
-								{
-									/*
-									 * if
-									 * (!ItemAccessCard.getforAreaname(stack).equals(getDeviceName
-									 * ())) { ItemAccessCard.setforArea(stack, this); }
-									 */
-									// TODO: REMOVED NAME
-									return true;
-								}
-							}
 						}
 						else
 						{

@@ -7,12 +7,11 @@ import mffs.api.IForceFieldBlock;
 import mffs.api.PointXYZ;
 import mffs.client.render.RenderForceField;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.FrequencyGridOld;
 import mffs.common.MFFSConfiguration;
 import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
-import mffs.common.tileentity.TileEntityForceField;
 import mffs.common.tileentity.TFangYingJi;
+import mffs.common.tileentity.TileEntityForceField;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -210,18 +209,20 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 
 		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
 		{
-			TileEntity tileEntity = (TileEntity) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-
-			if (((tileEntity instanceof TFangYingJi)) && (tileEntity != null))
-			{
-				// ((TileEntityProjector)
-				// tileEntity).consumePower(MFFSConfiguration.forcefieldblockcost *
-				// MFFSConfiguration.forcefieldblockcreatemodifier, false);
-			}
+			/*
+			 * TileEntity tileEntity = (TileEntity)
+			 * FrequencyGridOld.getWorldMap(world).getProjector(
+			 * ).get(Integer.valueOf(ffworldmap.getProjectorID()));
+			 * 
+			 * if (((tileEntity instanceof TFangYingJi)) && (tileEntity != null)) { //
+			 * ((TileEntityProjector) //
+			 * tileEntity).consumePower(MFFSConfiguration.forcefieldblockcost * //
+			 * MFFSConfiguration.forcefieldblockcreatemodifier, false); }
+			 */
 
 		}
 
-		return 999.0F;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override

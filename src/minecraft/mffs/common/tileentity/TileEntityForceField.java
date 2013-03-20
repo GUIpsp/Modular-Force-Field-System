@@ -4,7 +4,6 @@ import java.util.Random;
 
 import mffs.api.PointXYZ;
 import mffs.common.ForceFieldBlockStack;
-import mffs.common.FrequencyGridOld;
 import mffs.common.WorldMap;
 import net.minecraft.item.ItemStack;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
@@ -135,15 +134,7 @@ public class TileEntityForceField extends TileEntityAdvanced
 			{
 				if (!ffworldmap.isEmpty())
 				{
-					TFangYingJi projector = (TFangYingJi) FrequencyGridOld.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
-
-					if (projector != null)
-					{
-						setTextureID(projector.getForceFieldTextureID(), projector);
-						setTexturefile(projector.getForceFieldTextureFile());
-						setForcefieldCamoID(projector.getForceFieldCamoblockID());
-						setForcefieldCamoMeta(projector.getForceFieldCamoblockMeta());
-					}
+					
 				}
 			}
 		}

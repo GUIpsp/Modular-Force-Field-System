@@ -31,7 +31,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public class TileEntityFortronCapacitor extends TileEntityFortron implements IFortronStorage, IFortronCapacitor
+public class TDianRong extends TileEntityFortron implements IFortronStorage, IFortronCapacitor
 {
 	public enum TransferMode
 	{
@@ -53,7 +53,7 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	private int transmissionRange = 20;
 	private TransferMode transferMode = TransferMode.EQUALIZE;
 
-	public TileEntityFortronCapacitor()
+	public TDianRong()
 	{
 		this.fortronTank.setCapacity(500 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}
@@ -318,16 +318,6 @@ public class TileEntityFortronCapacitor extends TileEntityFortron implements IFo
 	public int getSizeInventory()
 	{
 		return 4;
-	}
-
-	public int getSecStation_ID()
-	{
-		TAnQuan sec = getLinkedSecurityStation();
-		if (sec != null)
-		{
-			return sec.getDeviceID();
-		}
-		return 0;
 	}
 
 	@Override

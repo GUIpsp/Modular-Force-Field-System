@@ -1,15 +1,11 @@
 package mffs.common.tileentity;
 
 import mffs.api.PointXYZ;
-import mffs.common.FrequencyGridOld;
 import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.container.ContainerControlSystem;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -311,11 +307,7 @@ public class TileEntityControlSystem extends TileEntityFortron implements ISided
 			}
 			if (DeviceID != 0)
 			{
-				TileEntityMFFS device = FrequencyGridOld.getWorldMap(this.worldObj).getTileEntityMachines(ItemCardDataLink.getDeviceTyp(getStackInSlot(slot)), DeviceID);
-				if (device != null)
-				{
-					return device;
-				}
+			
 			}
 			setInventorySlotContents(slot, new ItemStack(ZhuYao.itemCardEmpty));
 		}
