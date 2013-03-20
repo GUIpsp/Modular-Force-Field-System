@@ -1,14 +1,14 @@
 package mffs.common;
 
 import ic2.api.ExplosionWhitelist;
-import mffs.client.gui.GuiControlSystem;
-import mffs.client.gui.GuiConverter;
-import mffs.client.gui.GuiDefenseStation;
-import mffs.client.gui.GuiForcilliumExtractor;
-import mffs.client.gui.GuiFortronCapacitor;
-import mffs.client.gui.GuiProjector;
-import mffs.client.gui.GuiSecStorage;
-import mffs.client.gui.GAnQuan;
+import mffs.client.shimian.GAnQuan;
+import mffs.client.shimian.GFangYingQi;
+import mffs.client.shimian.GKongZhi;
+import mffs.client.shimian.GuiConverter;
+import mffs.client.shimian.GFangYu;
+import mffs.client.shimian.GChouQi;
+import mffs.client.shimian.GDianRong;
+import mffs.client.shimian.GuiSecStorage;
 import mffs.common.container.ContainerDefenseStation;
 import mffs.common.container.ContainerFortronCapacitor;
 import mffs.common.container.ContainerControlSystem;
@@ -19,10 +19,10 @@ import mffs.common.container.ContainerSecStorage;
 import mffs.common.container.ContainerSecurityStation;
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TAnQuan;
 import net.minecraft.block.Block;
@@ -34,14 +34,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum MachineTypes
 {
-	Projector(TileEntityProjector.class, GuiProjector.class, ContainerProjector.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TileEntityForcilliumExtractor.class, GuiForcilliumExtractor.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TileEntityFortronCapacitor.class, GuiFortronCapacitor.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Projector(TFangYingJi.class, GFangYingQi.class, ContainerProjector.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
+	Extractor(TileEntityForcilliumExtractor.class, GChouQi.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
+	Capacitor(TileEntityFortronCapacitor.class, GDianRong.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	Converter(TileEntityConverter.class, GuiConverter.class, ContainerConverter.class, ZhuYao.blockConverter, "ANAJOMAPA", "AKAaJIAMA"),
-	DefenceStation(TileEntityDefenseStation.class, GuiDefenseStation.class, ContainerDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
+	DefenceStation(TFangYu.class, GFangYu.class, ContainerDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
 	SecurityStation(TAnQuan.class, GAnQuan.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
 	SecurityStorage(TileEntitySecStorage.class, GuiSecStorage.class, ContainerSecStorage.class, ZhuYao.blockSecurityStorage, "AAAACAAAA", "AAAAEAAAA"),
-	ControlSystem(TileEntityControlSystem.class, GuiControlSystem.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
+	ControlSystem(TileEntityControlSystem.class, GKongZhi.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
 
 	public Class<? extends TileEntity> tileEntity;
 	public Class<? extends GuiScreen> gui;

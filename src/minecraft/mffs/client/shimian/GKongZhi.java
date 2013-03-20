@@ -1,5 +1,6 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
+import mffs.client.shimian.enniu.GuiButtonMFFS;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerControlSystem;
 import mffs.common.tileentity.TileEntityControlSystem;
@@ -11,13 +12,13 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-public class GuiControlSystem extends GuiMFFS
+public class GKongZhi extends GuiMFFS
 {
 	private TileEntityControlSystem ControlSystem;
 	private boolean editMode = false;
 	private EntityPlayer player;
 
-	public GuiControlSystem(EntityPlayer player, TileEntityControlSystem tileEntity)
+	public GKongZhi(EntityPlayer player, TileEntityControlSystem tileEntity)
 	{
 		super(new ContainerControlSystem(player, tileEntity), tileEntity);
 		this.ControlSystem = tileEntity;

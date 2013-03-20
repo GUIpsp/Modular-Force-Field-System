@@ -29,7 +29,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public class TileEntityDefenseStation extends TileEntityFortron
+public class TFangYu extends TileEntityFortron
 {
 	public enum ActionMode
 	{
@@ -59,7 +59,7 @@ public class TileEntityDefenseStation extends TileEntityFortron
 	private boolean isBanMode = true;
 	public ActionMode actionMode = ActionMode.WARN;
 
-	public TileEntityDefenseStation()
+	public TFangYu()
 	{
 		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}

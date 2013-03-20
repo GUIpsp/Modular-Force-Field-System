@@ -5,7 +5,7 @@ import java.util.List;
 import mffs.api.PointXYZ;
 import mffs.common.ZhuYao;
 import mffs.common.mode.ItemModeSphere;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
@@ -21,7 +21,7 @@ public class ItemModuleAntibiotic extends ItemModule
 		super(i, "moduleAntibiotic");
 	}
 
-	public static void ProjectorNPCDefence(TileEntityProjector projector, World world)
+	public static void ProjectorNPCDefence(TFangYingJi projector, World world)
 	{
 		if (projector.isActive())
 		{

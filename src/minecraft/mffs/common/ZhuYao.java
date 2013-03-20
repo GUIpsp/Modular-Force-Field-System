@@ -104,8 +104,11 @@ public class ZhuYao
 	public static final String ID = "ModularForceFieldSystem";
 	public static final String NAME = "Modular Force Field System";
 	public static final String PREFIX = "mffs:";
-
 	public static final String VERSION = "3.0.0";
+
+	/**
+	 * Directories.
+	 */
 	public static final String RESOURCE_DIRECTORY = "/mods/mffs/";
 	public static final String TEXTURE_DIRECTORY = RESOURCE_DIRECTORY + "textures/";
 	public static final String BLOCK_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
@@ -391,8 +394,8 @@ public class ZhuYao
 		{
 			if (evt.entityPlayer.worldObj.getBlockTileEntity(evt.x, evt.y, evt.z) != null)
 			{
-				//TODO: Work on this.
-				//evt.setCanceled(true);
+				// TODO: Work on this.
+				// evt.setCanceled(true);
 			}
 		}
 	}

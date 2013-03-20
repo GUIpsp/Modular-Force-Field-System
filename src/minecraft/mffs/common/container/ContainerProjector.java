@@ -1,14 +1,14 @@
 package mffs.common.container;
 
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerProjector extends ContainerMFFS
 {
-	private TileEntityProjector tileEntity;
+	private TFangYingJi tileEntity;
 
-	public ContainerProjector(EntityPlayer player, TileEntityProjector tileEntity)
+	public ContainerProjector(EntityPlayer player, TFangYingJi tileEntity)
 	{
 		super(tileEntity);
 		this.tileEntity = tileEntity;

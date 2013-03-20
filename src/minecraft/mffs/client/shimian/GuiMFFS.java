@@ -1,4 +1,4 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
 import icbm.api.IBlockFrequency;
 import mffs.common.ZhuYao;

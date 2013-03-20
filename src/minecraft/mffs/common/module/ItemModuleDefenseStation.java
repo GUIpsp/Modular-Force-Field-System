@@ -6,7 +6,7 @@ import mffs.api.PointXYZ;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.mode.ItemModeSphere;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ public class ItemModuleDefenseStation extends ItemModule
 		super(i, "moduleDefenseStation");
 	}
 
-	public static void ProjectorPlayerDefence(TileEntityProjector projector, World world)
+	public static void ProjectorPlayerDefence(TFangYingJi projector, World world)
 	{
 		if (projector.isActive())
 		{

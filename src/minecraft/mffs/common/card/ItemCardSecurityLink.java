@@ -7,9 +7,9 @@ import mffs.common.SecurityHelper;
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityControlSystem;
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.Entity;
@@ -134,7 +134,7 @@ public class ItemCardSecurityLink extends ItemCard
 
 			}
 
-			if (((tileEntity instanceof TileEntityDefenseStation)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
+			if (((tileEntity instanceof TFangYu)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 1, "<Security Station Link>");
 			}
@@ -144,7 +144,7 @@ public class ItemCardSecurityLink extends ItemCard
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 0, "<Security Station Link>");
 			}
 
-			if (((tileEntity instanceof TileEntityProjector)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
+			if (((tileEntity instanceof TFangYingJi)) && (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world, SecurityRight.EB)))
 			{
 				return Functions.setIteminSlot(itemstack, entityplayer, tileEntity, 12, "<Security Station Link>");
 			}

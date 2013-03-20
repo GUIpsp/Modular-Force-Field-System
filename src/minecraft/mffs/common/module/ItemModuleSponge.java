@@ -1,7 +1,7 @@
 package mffs.common.module;
 
 import mffs.common.MFFSConfiguration;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
@@ -13,7 +13,7 @@ public class ItemModuleSponge extends ItemModule implements IInteriorCheck
 	}
 
 	@Override
-	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector Projector)
+	public void checkInteriorBlock(Vector3 position, World world, TFangYingJi Projector)
 	{
 		if (world.getBlockMaterial(position.intX(), position.intY(), position.intZ()).isLiquid())
 		{

@@ -3,7 +3,7 @@ package mffs.common;
 import java.util.Iterator;
 import java.util.Map;
 
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -15,7 +15,7 @@ public final class ForceFieldOptions
 		Map ProjectorinrangeMap = FrequencyGridOld.getWorldMap(world).getProjector();
 		for (Iterator i$ = ProjectorinrangeMap.values().iterator(); i$.hasNext();)
 		{
-			TileEntityProjector tileentity = (TileEntityProjector) i$.next();
+			TFangYingJi tileentity = (TFangYingJi) i$.next();
 
 			int dx = tileentity.xCoord - x;
 			int dy = tileentity.yCoord - y;
@@ -25,10 +25,10 @@ public final class ForceFieldOptions
 
 			if ((dist <= 64) && (tileentity.isActive()) && (tileentity.getMode() != null) )
 			{
-				Map<Integer, TileEntityProjector> InnerMap = null;
+				Map<Integer, TFangYingJi> InnerMap = null;
 				InnerMap = FrequencyGridOld.getWorldMap(world).getProjector();
 
-				for (TileEntityProjector tileentity2 : InnerMap.values())
+				for (TFangYingJi tileentity2 : InnerMap.values())
 				{
 					boolean logicswitch = tileentity2.equals(tileentity);
 
@@ -49,7 +49,7 @@ public final class ForceFieldOptions
 				}
 			}
 		}
-		TileEntityProjector tileentity;
+		TFangYingJi tileentity;
 		return false;
 	}
 }

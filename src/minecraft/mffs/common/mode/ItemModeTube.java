@@ -13,7 +13,7 @@ import mffs.common.module.ItemModuleJammer;
 import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 
@@ -123,7 +123,7 @@ public class ItemModeTube extends ItemProjectorMode
 						tpz_temp++;
 					}
 
-					if (((x1 == 0 - tpx_temp) || (x1 == tpx_temp) || (y1 == 0 - tpy_temp) || (y1 == tpy_temp) || (z1 == 0 - tpz_temp) || (z1 == tpz_temp)) && (((TileEntityProjector) projector).yCoord + y1 >= 0))
+					if (((x1 == 0 - tpx_temp) || (x1 == tpx_temp) || (y1 == 0 - tpy_temp) || (y1 == tpy_temp) || (z1 == 0 - tpz_temp) || (z1 == tpz_temp)) && (((TFangYingJi) projector).yCoord + y1 >= 0))
 					{
 						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
 					}

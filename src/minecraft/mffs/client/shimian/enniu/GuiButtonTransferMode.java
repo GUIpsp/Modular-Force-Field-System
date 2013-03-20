@@ -1,4 +1,4 @@
-package mffs.client.gui;
+package mffs.client.shimian.enniu;
 
 import net.minecraft.client.Minecraft;
 import mffs.common.tileentity.TileEntityFortronCapacitor;

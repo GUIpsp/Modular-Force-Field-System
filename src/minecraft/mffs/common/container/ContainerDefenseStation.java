@@ -2,13 +2,13 @@ package mffs.common.container;
 
 import mffs.common.SlotFrequency;
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 
 public class ContainerDefenseStation extends ContainerMFFS
 {
-	public ContainerDefenseStation(EntityPlayer player, TileEntityDefenseStation tileentity)
+	public ContainerDefenseStation(EntityPlayer player, TFangYu tileentity)
 	{
 		super(tileentity);
 

@@ -1,8 +1,9 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
+import mffs.client.shimian.enniu.GuiButtonMFFS;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerDefenseStation;
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -12,12 +13,12 @@ import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.network.PacketManager;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class GuiDefenseStation extends GuiMFFS
+public class GFangYu extends GuiMFFS
 {
-	private TileEntityDefenseStation tileEntity;
+	private TFangYu tileEntity;
 	private boolean editMode = false;
 
-	public GuiDefenseStation(EntityPlayer player, TileEntityDefenseStation tileEntity)
+	public GFangYu(EntityPlayer player, TFangYu tileEntity)
 	{
 		super(new ContainerDefenseStation(player, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;

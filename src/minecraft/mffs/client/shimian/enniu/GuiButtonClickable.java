@@ -1,5 +1,6 @@
-package mffs.client.gui;
+package mffs.client.shimian.enniu;
 
+import mffs.client.shimian.GuiMFFS;
 import mffs.common.ZhuYao;
 import net.minecraft.client.Minecraft;
 

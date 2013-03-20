@@ -3,7 +3,7 @@ package mffs.common.module;
 import java.util.Map;
 
 import mffs.common.FrequencyGridOld;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
@@ -14,12 +14,12 @@ public class ItemModuleJammer extends ItemModule
 		super(i, "moduleJammer");
 	}
 
-	public boolean checkJammerinfluence(Vector3 point, World world, TileEntityProjector projector)
+	public boolean checkJammerinfluence(Vector3 point, World world, TFangYingJi projector)
 	{
-		Map<Integer, TileEntityProjector> InnerMap = null;
+		Map<Integer, TFangYingJi> InnerMap = null;
 		InnerMap = FrequencyGridOld.getWorldMap(world).getJammer();
 
-		for (TileEntityProjector tileentity : InnerMap.values())
+		for (TFangYingJi tileentity : InnerMap.values())
 		{
 			boolean logicswitch = false;
 

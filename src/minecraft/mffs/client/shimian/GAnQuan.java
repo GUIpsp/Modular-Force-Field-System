@@ -1,4 +1,4 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
 import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;

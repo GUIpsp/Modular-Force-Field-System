@@ -1,7 +1,7 @@
 package mffs.client.render;
 
 import mffs.common.ZhuYao;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -14,9 +14,9 @@ public class RenderProjector extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)
 	{
-		if (t instanceof TileEntityProjector)
+		if (t instanceof TFangYingJi)
 		{
-			TileEntityProjector tileEntity = (TileEntityProjector) t;
+			TFangYingJi tileEntity = (TFangYingJi) t;
 			this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + "force_cube.png");
 			GL11.glPushMatrix();
 			GL11.glTranslatef((float) x + 0.5f, (float) y + 1.4f, (float) z + 0.5f);

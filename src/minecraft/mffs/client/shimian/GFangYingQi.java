@@ -1,21 +1,20 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
 import org.lwjgl.opengl.GL11;
 
-import mffs.client.gui.GuiMFFS.SlotType;
+import mffs.client.shimian.GuiMFFS.SlotType;
 import mffs.common.container.ContainerProjector;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 
-public class GuiProjector extends GuiMFFS
+public class GFangYingQi extends GuiMFFS
 {
-	private TileEntityProjector tileEntity;
-	private boolean editMode = false;
+	private TFangYingJi tileEntity;
 
-	public GuiProjector(EntityPlayer player, TileEntityProjector tileEntity)
+	public GFangYingQi(EntityPlayer player, TFangYingJi tileEntity)
 	{
 		super(new ContainerProjector(player, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;

@@ -1,5 +1,6 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
+import mffs.client.shimian.enniu.GuiButtonMFFS;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerSecStorage;
 import mffs.common.tileentity.TileEntitySecStorage;

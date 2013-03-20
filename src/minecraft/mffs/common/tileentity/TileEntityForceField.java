@@ -101,7 +101,7 @@ public class TileEntityForceField extends TileEntityAdvanced
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
-	public void setTextureID(String texturid, TileEntityProjector proj)
+	public void setTextureID(String texturid, TFangYingJi proj)
 	{
 		try
 		{
@@ -135,7 +135,7 @@ public class TileEntityForceField extends TileEntityAdvanced
 			{
 				if (!ffworldmap.isEmpty())
 				{
-					TileEntityProjector projector = (TileEntityProjector) FrequencyGridOld.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+					TFangYingJi projector = (TFangYingJi) FrequencyGridOld.getWorldMap(this.worldObj).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 					if (projector != null)
 					{

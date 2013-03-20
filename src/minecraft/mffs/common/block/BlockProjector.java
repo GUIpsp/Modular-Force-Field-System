@@ -1,6 +1,6 @@
 package mffs.common.block;
 
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -15,13 +15,13 @@ public class BlockProjector extends BlockMFFSMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TileEntityProjector();
+		return new TFangYingJi();
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
 	{
-		TileEntityProjector tileentity = (TileEntityProjector) world.getBlockTileEntity(i, j, k);
+		TFangYingJi tileentity = (TFangYingJi) world.getBlockTileEntity(i, j, k);
 
 		if (tileentity.isDisabled())
 		{

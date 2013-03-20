@@ -39,7 +39,7 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityProjector extends TileEntityFortron implements IProjector
+public class TFangYingJi extends TileEntityFortron implements IProjector
 {
 	/**
 	 * The amount of fortron energy to consume per second.
@@ -71,7 +71,7 @@ public class TileEntityProjector extends TileEntityFortron implements IProjector
 	private int linkPower = 0;
 	private int switchDelay = 0;
 
-	public TileEntityProjector()
+	public TFangYingJi()
 	{
 		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
 	}

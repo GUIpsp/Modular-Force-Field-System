@@ -6,11 +6,11 @@ import java.util.Random;
 
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TAnQuan;
 import net.minecraft.world.World;
@@ -39,10 +39,10 @@ public final class FrequencyGridOld
 	public static class Worldlinknet
 	{
 
-		private Map<Integer, TileEntityProjector> Projector = new Hashtable();
+		private Map<Integer, TFangYingJi> Projector = new Hashtable();
 		private Map<Integer, TileEntityFortronCapacitor> Capacitors = new Hashtable();
 		private Map<Integer, TAnQuan> SecStation = new Hashtable();
-		private Map<Integer, TileEntityDefenseStation> DefStation = new Hashtable();
+		private Map<Integer, TFangYu> DefStation = new Hashtable();
 		private Map<Integer, TileEntityForcilliumExtractor> Extractor = new Hashtable();
 		private Map<Integer, TileEntityConverter> Converter = new Hashtable();
 		private Map Jammer = new Hashtable();
@@ -143,7 +143,7 @@ public final class FrequencyGridOld
 				this.SecStation.put(Integer.valueOf(DeviceID), (TAnQuan) tileEntity);
 				return DeviceID;
 			}
-			if ((tileEntity instanceof TileEntityDefenseStation))
+			if ((tileEntity instanceof TFangYu))
 			{
 				if (remDeviceID == 0)
 				{
@@ -153,7 +153,7 @@ public final class FrequencyGridOld
 					}
 				}
 				DeviceID = remDeviceID;
-				this.DefStation.put(Integer.valueOf(DeviceID), (TileEntityDefenseStation) tileEntity);
+				this.DefStation.put(Integer.valueOf(DeviceID), (TFangYu) tileEntity);
 				return DeviceID;
 			}
 			if ((tileEntity instanceof TileEntityFortronCapacitor))
@@ -195,7 +195,7 @@ public final class FrequencyGridOld
 				this.Extractor.put(Integer.valueOf(DeviceID), (TileEntityForcilliumExtractor) tileEntity);
 				return DeviceID;
 			}
-			if ((tileEntity instanceof TileEntityProjector))
+			if ((tileEntity instanceof TFangYingJi))
 			{
 				if (remDeviceID == 0)
 				{
@@ -205,7 +205,7 @@ public final class FrequencyGridOld
 					}
 				}
 				DeviceID = remDeviceID;
-				this.Projector.put(Integer.valueOf(DeviceID), (TileEntityProjector) tileEntity);
+				this.Projector.put(Integer.valueOf(DeviceID), (TFangYingJi) tileEntity);
 				return DeviceID;
 			}
 			return 0;
@@ -214,7 +214,7 @@ public final class FrequencyGridOld
 		public int connectedtoCapacitor(TileEntityFortronCapacitor Cap, int range)
 		{
 			int counter = 0;
-			for (TileEntityProjector tileentity : this.Projector.values())
+			for (TFangYingJi tileentity : this.Projector.values())
 			{
 				// if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >=
 				// PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))
@@ -234,7 +234,7 @@ public final class FrequencyGridOld
 
 			}
 
-			for (TileEntityDefenseStation tileentity : this.DefStation.values())
+			for (TFangYu tileentity : this.DefStation.values())
 			{
 				// if ((tileentity.getPowerSourceID() == Cap.getPowerStorageID()) && (range >=
 				// PointXYZ.distance(tileentity.getMachinePoint(), Cap.getMachinePoint())))

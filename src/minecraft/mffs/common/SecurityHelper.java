@@ -2,10 +2,10 @@ package mffs.common;
 
 import mffs.common.tileentity.TileEntityControlSystem;
 import mffs.common.tileentity.TileEntityConverter;
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TileEntitySecStorage;
 import mffs.common.tileentity.TAnQuan;
 import net.minecraft.entity.player.EntityPlayer;
@@ -129,9 +129,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntityDefenseStation))
+		if ((tileEntity instanceof TFangYu))
 		{
-			TAnQuan sec = ((TileEntityDefenseStation) tileEntity).getLinkedSecurityStation();
+			TAnQuan sec = ((TFangYu) tileEntity).getLinkedSecurityStation();
 
 			if (sec != null)
 			{
@@ -147,9 +147,9 @@ public class SecurityHelper
 			return true;
 		}
 
-		if ((tileEntity instanceof TileEntityProjector))
+		if ((tileEntity instanceof TFangYingJi))
 		{
-			switch (((TileEntityProjector) tileEntity).getAccessType())
+			switch (((TFangYingJi) tileEntity).getAccessType())
 			{
 				case 2:
 					// TileEntityCapacitor cap = (TileEntityCapacitor)
@@ -168,7 +168,7 @@ public class SecurityHelper
 
 					break;
 				case 3:
-					TAnQuan sec = ((TileEntityProjector) tileEntity).getLinkedSecurityStation();
+					TAnQuan sec = ((TFangYingJi) tileEntity).getLinkedSecurityStation();
 					if (sec != null)
 					{
 						if (sec.isAccessGranted(entityplayer.username, right))

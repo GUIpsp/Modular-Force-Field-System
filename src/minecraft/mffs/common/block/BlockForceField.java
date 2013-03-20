@@ -12,7 +12,7 @@ import mffs.common.MFFSConfiguration;
 import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
 import mffs.common.tileentity.TileEntityForceField;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -212,7 +212,7 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 		{
 			TileEntity tileEntity = (TileEntity) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
-			if (((tileEntity instanceof TileEntityProjector)) && (tileEntity != null))
+			if (((tileEntity instanceof TFangYingJi)) && (tileEntity != null))
 			{
 				// ((TileEntityProjector)
 				// tileEntity).consumePower(MFFSConfiguration.forcefieldblockcost *

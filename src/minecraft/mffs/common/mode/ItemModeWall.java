@@ -8,7 +8,7 @@ import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleCamoflage;
 import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleShock;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -30,7 +30,7 @@ public class ItemModeWall extends ItemProjectorMode
 	@Override
 	public void calculateField(IProjector projector, Set fieldDefinition, Set interior)
 	{
-		TileEntityProjector tileEntity = (TileEntityProjector) projector;
+		TFangYingJi tileEntity = (TFangYingJi) projector;
 
 		ForgeDirection direction = tileEntity.getDirection(((TileEntity)projector).worldObj,((TileEntity)projector).xCoord,((TileEntity)projector).yCoord,((TileEntity)projector).zCoord);
 

@@ -1,5 +1,6 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
+import mffs.client.shimian.enniu.GuiButtonTransferMode;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerFortronCapacitor;
 import mffs.common.tileentity.TileEntityFortronCapacitor;
@@ -15,11 +16,11 @@ import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.network.PacketManager;
 
-public class GuiFortronCapacitor extends GuiMFFS
+public class GDianRong extends GuiMFFS
 {
 	private TileEntityFortronCapacitor tileEntity;
 
-	public GuiFortronCapacitor(EntityPlayer player, TileEntityFortronCapacitor tileentity)
+	public GDianRong(EntityPlayer player, TileEntityFortronCapacitor tileentity)
 	{
 		super(new ContainerFortronCapacitor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;

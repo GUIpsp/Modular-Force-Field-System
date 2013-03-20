@@ -6,7 +6,7 @@ import mffs.common.ForceFieldBlockStack;
 import mffs.common.FrequencyGridOld;
 import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
-import mffs.common.tileentity.TileEntityProjector;
+import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
@@ -17,11 +17,11 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 		super(i, "moduleFusion");
 	}
 
-	public boolean checkFieldFusioninfluence(Vector3 point, World world, TileEntityProjector Proj)
+	public boolean checkFieldFusioninfluence(Vector3 point, World world, TFangYingJi Proj)
 	{
-		Map<Integer, TileEntityProjector> InnerMap = null;
+		Map<Integer, TFangYingJi> InnerMap = null;
 		InnerMap = FrequencyGridOld.getWorldMap(world).getFieldFusion();
-		for (TileEntityProjector tileentity : InnerMap.values())
+		for (TFangYingJi tileentity : InnerMap.values())
 		{
 			boolean logicswitch = false;
 			/*
@@ -43,7 +43,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 	}
 
 	@Override
-	public void checkInteriorBlock(Vector3 position, World world, TileEntityProjector projector)
+	public void checkInteriorBlock(Vector3 position, World world, TFangYingJi projector)
 	{
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getorcreateFFStackMap(position.intX(), position.intY(), position.intZ(), world);
 
@@ -51,7 +51,7 @@ public class ItemModuleFusion extends ItemModule implements IInteriorCheck
 		{
 			// if (ffworldmap.getGenratorID() == Proj.getPowerSourceID())
 			{
-				TileEntityProjector tileEntityProjector = (TileEntityProjector) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
+				TFangYingJi tileEntityProjector = (TFangYingJi) FrequencyGridOld.getWorldMap(world).getProjector().get(Integer.valueOf(ffworldmap.getProjectorID()));
 
 				if (tileEntityProjector != null)
 				{

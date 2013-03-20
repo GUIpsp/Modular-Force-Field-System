@@ -1,6 +1,6 @@
 package mffs.common.block;
 
-import mffs.common.tileentity.TileEntityDefenseStation;
+import mffs.common.tileentity.TFangYu;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -14,6 +14,6 @@ public class BlockDefenseStation extends BlockMFFSMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TileEntityDefenseStation();
+		return new TFangYu();
 	}
 }

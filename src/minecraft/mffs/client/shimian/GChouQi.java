@@ -1,4 +1,4 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
@@ -11,12 +11,12 @@ import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 
-public class GuiForcilliumExtractor extends GuiMFFS
+public class GChouQi extends GuiMFFS
 {
 	private TileEntityForcilliumExtractor tileEntity;
 	private boolean editMode = false;
 
-	public GuiForcilliumExtractor(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
+	public GChouQi(EntityPlayer player, TileEntityForcilliumExtractor tileentity)
 	{
 		super(new ContainerForcilliumExtractor(player, tileentity), tileentity);
 		this.tileEntity = tileentity;

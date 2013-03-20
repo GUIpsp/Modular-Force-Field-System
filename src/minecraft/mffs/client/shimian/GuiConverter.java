@@ -1,4 +1,4 @@
-package mffs.client.gui;
+package mffs.client.shimian;
 
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
