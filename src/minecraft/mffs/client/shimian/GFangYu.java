@@ -31,7 +31,7 @@ public class GFangYu extends GuiMFFS
 	{
 		this.textFieldPos = new Vector2(33, 29);
 		super.initGui();
-
+		this.buttonList.clear();
 		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104));
 		this.buttonList.add(new GuiButtonMFFS(1, this.width / 2 + 10, this.height / 2 - 58));
 		this.buttonList.add(new GuiButtonMFFS(2, this.width / 2 + 47, this.height / 2 - 38));
@@ -119,7 +119,7 @@ public class GFangYu extends GuiMFFS
 		}
 
 		this.fontRenderer.drawString("Warning", 35, 55, 139);
-		this.fontRenderer.drawString("Range: " + this.tileEntity.getWarnRange(), 12, 73, 4210752);
+		this.fontRenderer.drawString("Range: " + this.tileEntity.getWarningRange(), 12, 73, 4210752);
 
 		this.fontRenderer.drawString("Action", 35, 91, 15612731);
 		this.fontRenderer.drawString("Range: " + this.tileEntity.getActionRange(), 12, 111, 4210752);

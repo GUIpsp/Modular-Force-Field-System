@@ -15,6 +15,14 @@ public enum SecurityPermission
 	 * 
 	 * Remote Control - Allows the usage of a remote control to open GUIs remotely.
 	 */
-	FORCE_FIELD_WARP, BLOCK_ACCESS, SECURITY_CENTER_CONFIGURE, DEFENSE_STATION_STAY,
-	DEFENSE_STATION_CONFISCATION, REMOTE_CONTROL;
+	FORCE_FIELD_WARP("warp"), BLOCK_ACCESS("access"), SECURITY_CENTER_CONFIGURE("configure"),
+	DEFENSE_STATION_STAY("bypassDefense"), DEFENSE_STATION_CONFISCATION("bypassConfiscation"),
+	REMOTE_CONTROL("remoteControl");
+
+	public final String name;
+
+	private SecurityPermission(String name)
+	{
+		this.name = name;
+	}
 }

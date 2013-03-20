@@ -1,8 +1,9 @@
 package mffs.api;
 
-import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
 /**
  * A class to help and see if a block has security access allowed for it.
@@ -12,8 +13,19 @@ import net.minecraft.world.World;
  */
 public class SecurityHelper
 {
-	public static boolean isAccessGranted(TileEntityMFFS tileEntity, EntityPlayer entityPlayer, World world, SecurityPermission permission)
+	public static boolean isAccessGranted(EntityPlayer entityPlayer, World world, Vector3 position, SecurityPermission permission)
 	{
-		return true;
+		/*for (IFortronFrequency frequency : FortronGrid.INSTANCE.get())
+		{
+			if (frequency instanceof ISecurityCenter && ((TileEntity) frequency).worldObj == world)
+			{
+				if (Vector3.distance(position, new Vector3((TileEntity) frequency)) <= ((ISecurityCenter) frequency).getRange())
+				{
+					((ISecurityCenter) frequency).isAccessGranted(entityPlayer.username, permission);
+				}
+			}
+		}*/
+
+		return false;
 	}
 }

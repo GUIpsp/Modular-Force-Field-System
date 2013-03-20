@@ -2,20 +2,22 @@ package mffs.common.card;
 
 import java.util.List;
 
+import mffs.api.IIdentificationCard;
+import mffs.api.SecurityPermission;
 import mffs.common.NBTTagCompoundHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ItemCardPersonalID extends ItemCard
+public class ItCardIdentification extends ItemCard implements IIdentificationCard
 {
-	public ItemCardPersonalID(int i)
+	public ItCardIdentification(int i)
 	{
-		super(i, "cardPersonalID");
+		super(i, "cardIdentification");
 	}
 
-	public ItemCardPersonalID(int i, String name)
+	public ItCardIdentification(int i, String name)
 	{
 		super(i, name);
 	}
@@ -33,12 +35,14 @@ public class ItemCardPersonalID extends ItemCard
 		return itemStack;
 	}
 
-	public static void setUsername(ItemStack itemStack, String username)
+	@Override
+	public void setUsername(ItemStack itemStack, String username)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
 		nbtTagCompound.setString("name", username);
 	}
 
+	@Override
 	public String getUsername(ItemStack itemStack)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
@@ -49,5 +53,25 @@ public class ItemCardPersonalID extends ItemCard
 		}
 
 		return "Unknown";
+	}
+
+	@Override
+	public boolean hasPermission(ItemStack itemStack, SecurityPermission permission)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean addPermission(ItemStack itemStack, SecurityPermission permission)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removePermission(ItemStack itemStack, SecurityPermission permission)
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -1,6 +1,6 @@
 package mffs.common.card;
 
-public class ItemCardTemporaryID extends ItemCardPersonalID
+public class ItemCardTemporaryID extends ItCardIdentification
 {
 	public ItemCardTemporaryID(int i)
 	{

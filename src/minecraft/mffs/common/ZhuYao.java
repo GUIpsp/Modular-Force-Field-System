@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import mffs.api.SecurityHelper;
+import mffs.api.SecurityPermission;
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockDefenseStation;
 import mffs.common.block.BlockForceField;
@@ -14,13 +16,13 @@ import mffs.common.block.BlockFortronCapacitor;
 import mffs.common.block.BlockFortronite;
 import mffs.common.block.BlockProjector;
 import mffs.common.block.BlockSecurityCenter;
-import mffs.common.card.ItemCardTemporaryID;
+import mffs.common.card.ItCardIdentification;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardEmpty;
 import mffs.common.card.ItemCardFrequency;
 import mffs.common.card.ItemCardInfinite;
-import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardSecurityLink;
+import mffs.common.card.ItemCardTemporaryID;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
@@ -70,6 +72,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
 
+import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.network.ConnectionHandler;
@@ -149,7 +152,7 @@ public class ZhuYao
 	 */
 	public static Item itemCardEmpty;
 	public static Item itemCardPowerLink;
-	public static Item itemCardID;
+	public static ItCardIdentification itemCardID;
 	public static Item itemCardAccess;
 	public static Item itemCardSecurityLink;
 	public static Item itemCardInfinite;
@@ -271,7 +274,7 @@ public class ZhuYao
 
 			itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
 			itemCardPowerLink = new ItemCardFrequency(MFFSConfiguration.item_CardPowerLink_ID);
-			itemCardID = new ItemCardPersonalID(MFFSConfiguration.item_CardPersonalID_ID);
+			itemCardID = new ItCardIdentification(MFFSConfiguration.item_CardPersonalID_ID);
 			itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
 			itemCardInfinite = new ItemCardInfinite(MFFSConfiguration.item_infPowerCard_ID);
 			itemCardAccess = new ItemCardTemporaryID(MFFSConfiguration.item_CardAccess_ID);
@@ -376,10 +379,15 @@ public class ZhuYao
 	{
 		if (evt.action == Action.RIGHT_CLICK_BLOCK)
 		{
-			if (evt.entityPlayer.worldObj.getBlockTileEntity(evt.x, evt.y, evt.z) != null)
+			TileEntity tileEntity = evt.entityPlayer.worldObj.getBlockTileEntity(evt.x, evt.y, evt.z);
+
+			if (tileEntity != null)
 			{
-				// TODO: Work on this.
-				// evt.setCanceled(true);
+				if (SecurityHelper.isAccessGranted(evt.entityPlayer, evt.entityPlayer.worldObj, new Vector3(tileEntity), SecurityPermission.BLOCK_ACCESS))
+				{
+					evt.entityPlayer.sendChatToPlayer("You have no permission to interact with this block!");
+					evt.setCanceled(true);
+				}
 			}
 		}
 	}

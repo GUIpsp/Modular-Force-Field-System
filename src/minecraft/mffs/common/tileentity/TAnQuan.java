@@ -1,18 +1,17 @@
 package mffs.common.tileentity;
 
-import java.util.List;
-
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
+import mffs.common.card.ItCardIdentification;
 import mffs.common.card.ItemCardFrequency;
-import mffs.common.card.ItemCardPersonalID;
 import mffs.common.card.ItemCardTemporaryID;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import com.google.common.io.ByteArrayDataInput;
 
 public class TAnQuan extends TShengBuo implements ISecurityCenter
 {
@@ -38,6 +37,20 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 	}
 
 	@Override
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	{
+		super.onReceivePacket(packetID, dataStream);
+
+		if (packetID == 3)
+		{
+			if (this.getManipulatingCard() != null)
+			{
+				ZhuYao.itemCardID.addPermission(this.getManipulatingCard(), SecurityPermission.values()[dataStream.readInt()]);
+			}
+		}
+	}
+
+	@Override
 	public int getSizeInventory()
 	{
 		return 12;
@@ -49,64 +62,8 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		return 1;
 	}
 
-	public boolean remoteInventory(String username, SecurityPermission right)
-	{
-		for (int a = 35; a >= 1; a--)
-		{
-			if ((getStackInSlot(a) != null) && (getStackInSlot(a).getItem() == ZhuYao.itemCardID))
-			{
-				String username_invtory = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(a)).getString("name");
-
-				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(a).getItem();
-
-				/*
-				 * boolean access = ItemCardPersonalID.hasRight(getStackInSlot(a), right);
-				 * 
-				 * if (username_invtory.equals(username)) { if (access) { return true; } return
-				 * false; }
-				 */
-
-			}
-
-		}
-
-		return false;
-	}
-
-	public boolean remotePlayerInventory(String username, SecurityPermission right)
-	{
-		EntityPlayer player = this.worldObj.getPlayerEntityByName(username);
-		if (player != null)
-		{
-			List<Slot> slots = player.inventoryContainer.inventorySlots;
-			for (Slot slot : slots)
-			{
-				ItemStack stack = slot.getStack();
-				if (stack != null)
-				{
-					if ((stack.getItem() instanceof ItemCardTemporaryID))
-					{/*
-						if (ItemCardTemporaryID.getvalidity(stack) > 0)
-						{
-						}
-						else
-						{
-							player.sendChatToPlayer("[Security Station] expired validity <Access license>");
-							ItemStack Card = new ItemStack(ZhuYao.itemCardEmpty, 1);
-							slot.putStack(Card);
-							// NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot,
-							// Card);
-						}*/
-					}
-				}
-			}
-		}
-
-		return false;
-	}
-
 	@Override
-	public boolean isAccessGranted(String username, SecurityPermission sr)
+	public boolean isAccessGranted(String username, SecurityPermission permission)
 	{
 		if (!isActive())
 		{
@@ -123,21 +80,53 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 			}
 		}
 
-		if (this.getOwner().equals(username))
+		// Check if ID card is in this inventory.
+		for (int i = 0; i < this.getSizeInventory(); i++)
 		{
-			return true;
+			if ((getStackInSlot(i) != null) && (getStackInSlot(i).getItem() == ZhuYao.itemCardID))
+			{
+				String username_invtory = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(i)).getString("name");
+
+				ItCardIdentification Card = (ItCardIdentification) getStackInSlot(i).getItem();
+
+				if (username_invtory.equals(username))
+				{
+					if (ZhuYao.itemCardID.hasPermission(this.getStackInSlot(i), permission))
+					{
+						return true;
+					}
+
+					return false;
+				}
+
+			}
 		}
 
-		if (remoteInventory(username, sr))
+		// Check Temporary Card
+		EntityPlayer entityPlayer = this.worldObj.getPlayerEntityByName(username);
+
+		if (entityPlayer != null)
 		{
-			return true;
-		}
-		if (remotePlayerInventory(username, sr))
-		{
-			return true;
+			for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++)
+			{
+				ItemStack stack = entityPlayer.inventory.getStackInSlot(i);
+
+				if (stack != null)
+				{
+					if (stack.getItem() instanceof ItemCardTemporaryID)
+					{/*
+					 * if (ItemCardTemporaryID.getvalidity(stack) > 0) { } else {
+					 * player.sendChatToPlayer
+					 * ("[Security Station] expired validity <Access license>"); ItemStack Card =
+					 * new ItemStack(ZhuYao.itemCardEmpty, 1); slot.putStack(Card); //
+					 * NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, // Card); }
+					 */
+					}
+				}
+			}
 		}
 
-		return false;
+		return this.getOwner().equals(username);
 	}
 
 	@Override
@@ -149,23 +138,29 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		}
 		else
 		{
-			return itemStack.getItem() instanceof ItemCardPersonalID;
+			return itemStack.getItem() instanceof ItCardIdentification;
 		}
 	}
 
 	@Override
 	public String getOwner()
 	{
-		ItemStack itemStack = this.getStackInSlot(1);
+		ItemStack itemStack = this.getStackInSlot(2);
 
 		if (itemStack != null)
 		{
-			if (itemStack.getItem() instanceof ItemCardPersonalID)
+			if (itemStack.getItem() instanceof ItCardIdentification)
 			{
-				return ((ItemCardPersonalID) itemStack.getItem()).getUsername(itemStack);
+				return ((ItCardIdentification) itemStack.getItem()).getUsername(itemStack);
 			}
 		}
 
 		return null;
+	}
+
+	@Override
+	public ItemStack getManipulatingCard()
+	{
+		return this.getStackInSlot(1);
 	}
 }

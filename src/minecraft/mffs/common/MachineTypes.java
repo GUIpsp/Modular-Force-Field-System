@@ -12,7 +12,7 @@ import mffs.common.container.ContainerDefenseStation;
 import mffs.common.container.ContainerForcilliumExtractor;
 import mffs.common.container.ContainerFortronCapacitor;
 import mffs.common.container.ContainerProjector;
-import mffs.common.container.ContainerSecurityStation;
+import mffs.common.container.CAnQuan;
 import mffs.common.tileentity.TAnQuan;
 import mffs.common.tileentity.TDianRong;
 import mffs.common.tileentity.TFangYingJi;
@@ -32,7 +32,7 @@ public enum MachineTypes
 	Extractor(TChouQi.class, GChouQi.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
 	Capacitor(TDianRong.class, GDianRong.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	DefenceStation(TFangYu.class, GFangYu.class, ContainerDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
-	SecurityStation(TAnQuan.class, GAnQuan.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
+	SecurityStation(TAnQuan.class, GAnQuan.class, CAnQuan.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
 	ControlSystem(TKongZhi.class, GKongZhi.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
 
 	public Class<? extends TileEntity> tileEntity;

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import mffs.api.IDefenseStation;
 import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
@@ -29,7 +30,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public class TFangYu extends TileEntityFortron
+public class TFangYu extends TileEntityFortron implements IDefenseStation
 {
 	public enum ActionMode
 	{
@@ -139,6 +140,7 @@ public class TFangYu extends TileEntityFortron
 		return this.isBanMode;
 	}
 
+	@Override
 	public int getActionRange()
 	{
 		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ZhuYao.itemModuleScale))
@@ -149,7 +151,8 @@ public class TFangYu extends TileEntityFortron
 		return 0;
 	}
 
-	public int getWarnRange()
+	@Override
+	public int getWarningRange()
 	{
 		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ZhuYao.itemModuleScale))
 		{
@@ -175,12 +178,12 @@ public class TFangYu extends TileEntityFortron
 		{
 			TAnQuan securityStation = this.getLinkedSecurityStation();
 
-			int xmininfo = this.xCoord - getWarnRange();
-			int xmaxinfo = this.xCoord + getWarnRange() + 1;
-			int ymininfo = this.yCoord - getWarnRange();
-			int ymaxinfo = this.yCoord + getWarnRange() + 1;
-			int zmininfo = this.zCoord - getWarnRange();
-			int zmaxinfo = this.zCoord + getWarnRange() + 1;
+			int xmininfo = this.xCoord - getWarningRange();
+			int xmaxinfo = this.xCoord + getWarningRange() + 1;
+			int ymininfo = this.yCoord - getWarningRange();
+			int ymaxinfo = this.yCoord + getWarningRange() + 1;
+			int zmininfo = this.zCoord - getWarningRange();
+			int zmaxinfo = this.zCoord + getWarningRange() + 1;
 
 			int xminaction = this.xCoord - getActionRange();
 			int xmaxaction = this.xCoord + getActionRange() + 1;
@@ -215,7 +218,7 @@ public class TFangYu extends TileEntityFortron
 					EntityPlayer player = (EntityPlayer) entityLiving;
 					double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
 
-					if (distance <= getWarnRange())
+					if (distance <= getWarningRange())
 					{
 						if (!warnList.contains(player))
 						{
@@ -498,5 +501,4 @@ public class TFangYu extends TileEntityFortron
 		nbt.setBoolean("isBanMode", this.isBanMode);
 		nbt.setInteger("actionMode", this.actionMode.ordinal());
 	}
-
 }

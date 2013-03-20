@@ -1,5 +1,6 @@
 package mffs.api;
 
+import net.minecraft.item.ItemStack;
 
 /**
  * Applied to security centers TileEntities.
@@ -21,4 +22,11 @@ public interface ISecurityCenter
 	 * @return
 	 */
 	public String getOwner();
+
+	/**
+	 * Gets the card currently placed in the manipulating slot.
+	 * 
+	 * @return
+	 */
+	public ItemStack getManipulatingCard();
 }

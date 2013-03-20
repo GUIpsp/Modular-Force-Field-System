@@ -1,9 +1,18 @@
 package mffs.client.shimian;
 
-import mffs.common.container.ContainerSecurityStation;
+import java.util.List;
+
+import cpw.mods.fml.common.network.PacketDispatcher;
+
+import mffs.api.SecurityPermission;
+import mffs.client.shimian.enniu.GuiButtonMFFS;
+import mffs.common.ZhuYao;
+import mffs.common.container.CAnQuan;
 import mffs.common.tileentity.TAnQuan;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.vector.Vector2;
+import universalelectricity.prefab.network.PacketManager;
 
 public class GAnQuan extends GuiMFFS
 {
@@ -11,7 +20,7 @@ public class GAnQuan extends GuiMFFS
 
 	public GAnQuan(EntityPlayer player, TAnQuan tileEntity)
 	{
-		super(new ContainerSecurityStation(player, tileEntity), tileEntity);
+		super(new CAnQuan(player, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;
 	}
 
@@ -20,6 +29,22 @@ public class GAnQuan extends GuiMFFS
 	{
 		this.textFieldPos = new Vector2(109, 92);
 		super.initGui();
+		this.buttonList.clear();
+
+		int x = 0;
+		int y = 0;
+
+		for (int i = 0; i < SecurityPermission.values().length; i++)
+		{
+			x++;
+			this.buttonList.add(new GuiButtonMFFS(i, this.width / 2 - 50 + 20 * x, this.height / 2 - 75 + 20 * y, new Vector2(18, 18 * i), this, SecurityPermission.values()[i].name));
+
+			if (i % 3 == 0 && i != 0)
+			{
+				x = 0;
+				y++;
+			}
+		}
 	}
 
 	@Override
@@ -29,13 +54,36 @@ public class GAnQuan extends GuiMFFS
 
 		this.drawTextWithTooltip("rights", "%1", 85, 22, x, y, 0);
 
-		if (this.tileEntity.getStackInSlot(1) != null)
+		try
 		{
-			this.fontRenderer.drawString("Bypass Force Field", 40, 32, 0);
-			this.fontRenderer.drawString("Excempt from Defence", 40, 42, 0);
-			this.fontRenderer.drawString("Access Security Blocks", 40, 52, 0);
-			this.fontRenderer.drawString("Access Fortron Blocks", 40, 62, 0);
-			this.fontRenderer.drawString("Access Secure Storage", 40, 72, 0);
+			if (this.tileEntity.getManipulatingCard() != null)
+			{
+				for (int i = 0; i < this.buttonList.size(); i++)
+				{
+					GuiButtonMFFS button = (GuiButtonMFFS) this.buttonList.get(i);
+					button.drawButton = true;
+
+					if (this.tileEntity.isAccessGranted(ZhuYao.itemCardID.getUsername(this.tileEntity.getManipulatingCard()), SecurityPermission.values()[i]))
+					{
+						button.stuck = true;
+					}
+					else
+					{
+						button.stuck = false;
+					}
+				}
+			}
+			else
+			{
+				for (GuiButtonMFFS button : ((List<GuiButtonMFFS>) this.buttonList))
+				{
+					button.drawButton = false;
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 
 		this.textFieldFrequency.drawTextBox();
@@ -52,7 +100,7 @@ public class GAnQuan extends GuiMFFS
 
 		this.drawSlot(87, 90);
 
-		this.drawSlot(7, 30);
+		this.drawSlot(7, 34);
 		this.drawSlot(7, 90);
 
 		// Internal Inventory
@@ -60,5 +108,12 @@ public class GAnQuan extends GuiMFFS
 		{
 			this.drawSlot(8 + var4 * 18 - 1, 110);
 		}
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton guiButton)
+	{
+		super.actionPerformed(guiButton);
+		PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.tileEntity, 3, guiButton.id));
 	}
 }

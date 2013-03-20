@@ -1,5 +1,6 @@
 package mffs.client.shimian.enniu;
 
+import mffs.client.shimian.GuiMFFS;
 import mffs.common.ZhuYao;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -7,16 +8,30 @@ import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.opengl.GL11;
 
 import universalelectricity.core.vector.Vector2;
+import universalelectricity.prefab.TranslationHelper;
 
 public class GuiButtonMFFS extends GuiButton
 {
 	protected Vector2 offset = new Vector2();
+
+	/**
+	 * Stuck determines if the button is hard pressed done, or disabled looking.
+	 */
+	public boolean stuck = false;
 	private int type;
+	private GuiMFFS mainGui;
+	private String name;
+
+	public GuiButtonMFFS(int id, int x, int y, Vector2 offset, GuiMFFS mainGui, String name)
+	{
+		super(id, x, y, 18, 18, name);
+		this.offset = offset;
+		this.mainGui = mainGui;
+	}
 
 	public GuiButtonMFFS(int id, int x, int y, Vector2 offset)
 	{
-		super(id, x, y, 18, 18, "");
-		this.offset = offset;
+		this(id, x, y, offset, null, "");
 	}
 
 	public GuiButtonMFFS(int id, int x, int y)
@@ -30,7 +45,20 @@ public class GuiButtonMFFS extends GuiButton
 		if (this.drawButton)
 		{
 			Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.GUI_BUTTON);
-			GL11.glColor4f(1, 1, 1, 1);
+
+			if (this.stuck)
+			{
+				GL11.glColor4f(0.6f, 0.6f, 0.6f, 1);
+			}
+			else if (this.isPointInRegion(this.xPosition, this.yPosition, this.width, this.height, x, y))
+			{
+				GL11.glColor4f(0.85f, 0.85f, 0.85f, 1);
+			}
+			else
+			{
+				GL11.glColor4f(1, 1, 1, 1);
+			}
+
 			this.drawTexturedModalRect(this.xPosition, this.yPosition, this.offset.intX(), this.offset.intY(), this.width, this.height);
 			this.mouseDragged(minecraft, x, y);
 			/*
@@ -95,16 +123,18 @@ public class GuiButtonMFFS extends GuiButton
 	@Override
 	protected void mouseDragged(Minecraft minecraft, int x, int y)
 	{
-		if (this.isPointInRegion(this.xPosition, this.yPosition, this.width, this.height, x, y))
+		if (this.mainGui != null && this.displayString != null && this.displayString.length() > 0)
 		{
-			// this.mainGui.tooltip = this.displayString;
+			if (this.isPointInRegion(this.xPosition, this.yPosition, this.width, this.height, x, y))
+			{
+				this.mainGui.tooltip = TranslationHelper.getLocal("gui." + this.displayString + ".tooltip");
+			}
 		}
 	}
 
 	protected boolean isPointInRegion(int x, int y, int width, int height, int checkX, int checkY)
 	{
 		int var7 = 0;
-		;
 		int var8 = 0;
 		checkX -= var7;
 		checkY -= var8;
