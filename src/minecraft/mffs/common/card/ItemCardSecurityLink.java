@@ -9,7 +9,7 @@ import mffs.common.tileentity.TAnQuan;
 import mffs.common.tileentity.TDianRong;
 import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TFangYu;
-import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TKongZhi;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -45,7 +45,7 @@ public class ItemCardSecurityLink extends ItemCard
 					}
 					else
 					{
-						int Sec_ID = card.getValuefromKey("Secstation_ID", inventiory.getStackInSlot(slot));
+						int Sec_ID = card.getValue("Secstation_ID", inventiory.getStackInSlot(slot));
 						if (Sec_ID != 0)
 						{
 						}

@@ -3,12 +3,10 @@ package mffs.common.card;
 import java.util.List;
 
 import mffs.common.NBTTagCompoundHelper;
-import mffs.common.SecurityRight;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import org.lwjgl.input.Keyboard;
+import net.minecraft.world.World;
 
 public class ItemCardPersonalID extends ItemCard
 {
@@ -22,62 +20,34 @@ public class ItemCardPersonalID extends ItemCard
 		super(i, name);
 	}
 
-	public static boolean hasRight(ItemStack itemStack, SecurityRight sr)
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		NBTTagCompound itemTag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		NBTTagCompound rightsTag = itemTag.getCompoundTag("rights");
-
-		if (itemTag.hasKey(sr.rightKey))
-		{
-			setRight(itemStack, sr, itemTag.getBoolean(sr.rightKey));
-			itemTag.removeTag(sr.rightKey);
-		}
-		return rightsTag.getBoolean(sr.rightKey);
+		info.add("Owner: " + this.getUsername(itemStack));
 	}
 
-	public static void setRight(ItemStack itemStack, SecurityRight sr, boolean value)
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemStack, World par2World, EntityPlayer entityPlayer)
 	{
-		NBTTagCompound rightsTag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack).getCompoundTag("rights");
-		rightsTag.setBoolean(sr.rightKey, value);
-		NBTTagCompoundHelper.getTAGfromItemstack(itemStack).setCompoundTag("rights", rightsTag);
+		setUsername(itemStack, entityPlayer.username);
+		return itemStack;
 	}
 
-	public static void setOwner(ItemStack itemStack, String username)
+	public static void setUsername(ItemStack itemStack, String username)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
 		nbtTagCompound.setString("name", username);
 	}
 
-	public String getUsername(ItemStack itemstack)
+	public String getUsername(ItemStack itemStack)
 	{
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemstack);
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+
 		if (nbtTagCompound != null)
 		{
 			return nbtTagCompound.getString("name");
 		}
-		return "nobody";
-	}
 
-	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
-	{
-		String tooltip = String.format("Owner: %s ", new Object[] { NBTTagCompoundHelper.getTAGfromItemstack(itemStack).getString("name") });
-		info.add(tooltip);
-
-		if ((Keyboard.isKeyDown(42)) || (Keyboard.isKeyDown(54)))
-		{
-			info.add("Rights:");
-			for (SecurityRight sr : SecurityRight.rights.values())
-			{
-				if (hasRight(itemStack, sr))
-				{
-					info.add("-" + sr.name);
-				}
-			}
-		}
-		else
-		{
-			info.add("Rights: (Hold Shift)");
-		}
+		return "Unknown";
 	}
 }

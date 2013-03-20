@@ -3,7 +3,7 @@ package mffs.client.shimian;
 import mffs.client.shimian.enniu.GuiButtonMFFS;
 import mffs.common.ZhuYao;
 import mffs.common.container.ContainerControlSystem;
-import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TKongZhi;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -14,11 +14,11 @@ import org.lwjgl.opengl.GL11;
 
 public class GKongZhi extends GuiMFFS
 {
-	private TileEntityControlSystem ControlSystem;
+	private TKongZhi ControlSystem;
 	private boolean editMode = false;
 	private EntityPlayer player;
 
-	public GKongZhi(EntityPlayer player, TileEntityControlSystem tileEntity)
+	public GKongZhi(EntityPlayer player, TKongZhi tileEntity)
 	{
 		super(new ContainerControlSystem(player, tileEntity), tileEntity);
 		this.ControlSystem = tileEntity;

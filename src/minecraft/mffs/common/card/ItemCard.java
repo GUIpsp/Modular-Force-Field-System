@@ -18,12 +18,6 @@ public abstract class ItemCard extends ItemMFFS
 		this.setMaxStackSize(1);
 	}
 
-	public static void setforArea(ItemStack itemStack, String areaname)
-	{
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		nbtTagCompound.setString("Areaname", areaname);
-	}
-
 	public static String getforAreaname(ItemStack itemstack)
 	{
 		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemstack);
@@ -42,12 +36,6 @@ public abstract class ItemCard extends ItemMFFS
 			return tag.getBoolean("valid");
 		}
 		return false;
-	}
-
-	public void setinvalid(ItemStack itemStack)
-	{
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
-		nbtTagCompound.setBoolean("valid", false);
 	}
 
 	@Override
@@ -78,13 +66,15 @@ public abstract class ItemCard extends ItemMFFS
 		nbtTagCompound.setBoolean("valid", true);
 	}
 
-	public int getValuefromKey(String key, ItemStack itemStack)
+	public int getValue(String key, ItemStack itemStack)
 	{
 		NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		
 		if (tag.hasKey(key))
 		{
 			return tag.getInteger(key);
 		}
+		
 		return 0;
 	}
 

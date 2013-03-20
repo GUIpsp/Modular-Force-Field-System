@@ -10,9 +10,7 @@ import java.util.Stack;
 
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
-import mffs.common.ForceFieldBlockStack;
 import mffs.common.MFFSConfiguration;
-import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
 import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.card.ItemCard;
@@ -299,9 +297,9 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 				{
 					TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 
-					if ((tileEntity != null) && ((tileEntity instanceof TileEntityForceField)))
+					if ((tileEntity != null) && ((tileEntity instanceof TLiChang)))
 					{
-						((TileEntityForceField) tileEntity).updateTexture();
+						((TLiChang) tileEntity).updateTexture();
 					}
 				}
 			}

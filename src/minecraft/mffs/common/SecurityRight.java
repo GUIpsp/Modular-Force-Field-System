@@ -3,6 +3,7 @@ package mffs.common;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class SecurityRight
 {
 	public static Map<String, SecurityRight> rights = new HashMap();

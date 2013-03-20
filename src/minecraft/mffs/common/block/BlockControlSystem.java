@@ -1,6 +1,6 @@
 package mffs.common.block;
 
-import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TKongZhi;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -14,6 +14,6 @@ public class BlockControlSystem extends BlockMFFSMachine
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TileEntityControlSystem();
+		return new TKongZhi();
 	}
 }

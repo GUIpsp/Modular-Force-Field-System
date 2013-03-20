@@ -42,7 +42,7 @@ import mffs.common.module.ItemModuleJammer;
 import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
-import mffs.common.tileentity.TileEntityForceField;
+import mffs.common.tileentity.TLiChang;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.upgrade.ItemFocusMatrix;
 import mffs.common.upgrade.ItemModuleScale;
@@ -314,7 +314,7 @@ public class ZhuYao
 
 		GameRegistry.registerBlock(blockFortronite, "MFFSFortonite");
 		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
-		GameRegistry.registerTileEntity(TileEntityForceField.class, "MFFSForceField");
+		GameRegistry.registerTileEntity(TLiChang.class, "MFFSForceField");
 
 		MachineTypes.initialize();
 		ProjectorTypes.initialize();

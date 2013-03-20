@@ -10,14 +10,14 @@ public class NBTTagCompoundHelper
 	{
 		if (itemStack != null)
 		{
-			NBTTagCompound tag = itemStack.getTagCompound();
-			if (tag == null)
+			if (itemStack.getTagCompound() == null)
 			{
-				tag = new NBTTagCompound();
-				itemStack.setTagCompound(tag);
+				itemStack.setTagCompound(new NBTTagCompound());
 			}
-			return tag;
+
+			return itemStack.getTagCompound();
 		}
+
 		return null;
 	}
 }

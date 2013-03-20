@@ -25,16 +25,13 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			if (this.ticks % 10 == 0)
 			{
-				if (!this.getOwner().equals("") || this.getOwner() == null)
+				if (this.getOwner() != null)
 				{
-					if (isActive() != true)
-					{
-						setActive(true);
-					}
+					this.setActive(true);
 				}
-				else if (isActive())
+				else
 				{
-					setActive(false);
+					this.setActive(true);
 				}
 			}
 		}
@@ -62,7 +59,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 
 				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(a).getItem();
 
-				boolean access = ItemCardPersonalID.hasRight(getStackInSlot(a), right);
+				/*boolean access = ItemCardPersonalID.hasRight(getStackInSlot(a), right);
 
 				if (username_invtory.equals(username))
 				{
@@ -71,7 +68,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 						return true;
 					}
 					return false;
-				}
+				}*/
 
 			}
 

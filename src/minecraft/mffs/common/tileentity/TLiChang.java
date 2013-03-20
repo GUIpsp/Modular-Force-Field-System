@@ -2,13 +2,10 @@ package mffs.common.tileentity;
 
 import java.util.Random;
 
-import mffs.api.PointXYZ;
-import mffs.common.ForceFieldBlockStack;
-import mffs.common.WorldMap;
 import net.minecraft.item.ItemStack;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 
-public class TileEntityForceField extends TileEntityAdvanced
+public class TLiChang extends TileEntityAdvanced
 {
 
 	private Random random = new Random();
@@ -128,15 +125,15 @@ public class TileEntityForceField extends TileEntityAdvanced
 	{
 		if (!this.worldObj.isRemote)
 		{
-			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(new PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj).hashCode()));
-
-			if (ffworldmap != null)
-			{
-				if (!ffworldmap.isEmpty())
-				{
-					
-				}
-			}
+			/*
+			 * ForceFieldBlockStack ffworldmap =
+			 * WorldMap.getForceFieldWorld(this.worldObj).getForceFieldStackMap(Integer.valueOf(new
+			 * PointXYZ(this.xCoord, this.yCoord, this.zCoord, this.worldObj).hashCode()));
+			 * 
+			 * if (ffworldmap != null) { if (!ffworldmap.isEmpty()) {
+			 * 
+			 * } }
+			 */
 		}
 	}
 

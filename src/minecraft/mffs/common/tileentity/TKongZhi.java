@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
-public class TileEntityControlSystem extends TileEntityFortron implements ISidedInventory
+public class TKongZhi extends TileEntityFortron implements ISidedInventory
 {
 
 	private TileEntityMFFS remote = null;
@@ -27,7 +27,7 @@ public class TileEntityControlSystem extends TileEntityFortron implements ISided
 	protected int RemotePowerleft = 0;
 	private ItemStack[] inventory;
 
-	public TileEntityControlSystem()
+	public TKongZhi()
 	{
 		this.inventory = new ItemStack[40];
 	}

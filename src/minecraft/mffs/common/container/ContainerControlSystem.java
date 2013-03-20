@@ -1,7 +1,7 @@
 package mffs.common.container;
 
 import mffs.common.SlotHelper;
-import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TKongZhi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -10,9 +10,9 @@ public class ContainerControlSystem extends ContainerMFFS
 {
 
 	private EntityPlayer player;
-	private TileEntityControlSystem tileEntity;
+	private TKongZhi tileEntity;
 
-	public ContainerControlSystem(EntityPlayer player, TileEntityControlSystem tileEntity)
+	public ContainerControlSystem(EntityPlayer player, TKongZhi tileEntity)
 	{
 		super(tileEntity);
 		this.tileEntity = tileEntity;

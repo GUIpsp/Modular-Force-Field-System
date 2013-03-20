@@ -7,7 +7,7 @@ import mffs.common.SecurityRight;
 import mffs.common.ZhuYao;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TAnQuan;
-import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TKongZhi;
 import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -61,7 +61,7 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 				}
 			}
 
-			if (tileEntity instanceof TileEntityControlSystem)
+			if (tileEntity instanceof TKongZhi)
 			{
 				if (!SecurityHelper.isAccessGranted(tileEntity, entityPlayer, world, SecurityRight.UCS))
 				{

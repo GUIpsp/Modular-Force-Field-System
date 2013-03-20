@@ -4,14 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import mffs.api.IForceFieldBlock;
-import mffs.api.PointXYZ;
 import mffs.client.render.RenderForceField;
-import mffs.common.ForceFieldBlockStack;
 import mffs.common.MFFSConfiguration;
-import mffs.common.WorldMap;
 import mffs.common.ZhuYao;
-import mffs.common.tileentity.TFangYingJi;
-import mffs.common.tileentity.TileEntityForceField;
+import mffs.common.tileentity.TLiChang;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -205,22 +201,7 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 	@Override
 	public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double d, double d1, double d2)
 	{
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world).getForceFieldStackMap(Integer.valueOf(new PointXYZ(x, y, z, world).hashCode()));
-
-		if ((ffworldmap != null) && (!ffworldmap.isEmpty()))
-		{
-			/*
-			 * TileEntity tileEntity = (TileEntity)
-			 * FrequencyGridOld.getWorldMap(world).getProjector(
-			 * ).get(Integer.valueOf(ffworldmap.getProjectorID()));
-			 * 
-			 * if (((tileEntity instanceof TFangYingJi)) && (tileEntity != null)) { //
-			 * ((TileEntityProjector) //
-			 * tileEntity).consumePower(MFFSConfiguration.forcefieldblockcost * //
-			 * MFFSConfiguration.forcefieldblockcreatemodifier, false); }
-			 */
-
-		}
+		//TODO: DO SOMETHING
 
 		return Integer.MAX_VALUE;
 	}
@@ -243,7 +224,7 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 	{
 		if (meta == ForceFieldType.Camouflage.ordinal())
 		{
-			return new TileEntityForceField();
+			return new TLiChang();
 		}
 
 		return null;

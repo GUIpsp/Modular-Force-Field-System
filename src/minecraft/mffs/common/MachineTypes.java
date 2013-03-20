@@ -16,7 +16,7 @@ import mffs.common.container.ContainerSecurityStation;
 import mffs.common.tileentity.TAnQuan;
 import mffs.common.tileentity.TFangYingJi;
 import mffs.common.tileentity.TFangYu;
-import mffs.common.tileentity.TileEntityControlSystem;
+import mffs.common.tileentity.TKongZhi;
 import mffs.common.tileentity.TileEntityForcilliumExtractor;
 import mffs.common.tileentity.TDianRong;
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public enum MachineTypes
 	Capacitor(TDianRong.class, GDianRong.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	DefenceStation(TFangYu.class, GFangYu.class, ContainerDefenseStation.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
 	SecurityStation(TAnQuan.class, GAnQuan.class, ContainerSecurityStation.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC"),
-	ControlSystem(TileEntityControlSystem.class, GKongZhi.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
+	ControlSystem(TKongZhi.class, GKongZhi.class, ContainerControlSystem.class, ZhuYao.blockControlSystem, "aCaAFAACA", "aEaAKAAEA");
 
 	public Class<? extends TileEntity> tileEntity;
 	public Class<? extends GuiScreen> gui;

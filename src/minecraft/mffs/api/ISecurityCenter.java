@@ -7,11 +7,6 @@ import mffs.common.SecurityRight;
  */
 public interface ISecurityCenter
 {
-	public enum Permission
-	{
-
-	}
-
 	/**
 	 * Is access granted to this specific user?
 	 * 
