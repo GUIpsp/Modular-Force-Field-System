@@ -79,7 +79,7 @@ public class GKongZhi extends GuiMFFS
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.TEXTURE_DIRECTORY + "GuiControlSystem.png");
+		this.mc.renderEngine.bindTexture(ZhuYao.TEXTURE_DIRECTORY + "GuiControlSystem.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int w = (this.width - this.xSize) / 2;

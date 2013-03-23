@@ -43,7 +43,7 @@ public class MultitoolWrench implements IMultiTool
 			TileEntityMFFS tile = (TileEntityMFFS) world.getBlockTileEntity(x, y, z);
 			ItemStack drop = tile.getWrenchDrop(player);
 			Block.blocksList[world.getBlockId(x, y, z)].onBlockDestroyedByPlayer(world, x, y, z, world.getBlockMetadata(x, y, z));
-			world.setBlockAndMetadataWithNotify(x, y, z, 0, 0, 2);
+			world.setBlock(x, y, z, 0, 0, 2);
 			world.spawnEntityInWorld(new EntityItem(world, hitX, hitY, hitZ, drop));
 		}
 

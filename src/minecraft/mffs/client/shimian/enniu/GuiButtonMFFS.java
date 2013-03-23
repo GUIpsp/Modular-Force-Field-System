@@ -44,7 +44,7 @@ public class GuiButtonMFFS extends GuiButton
 	{
 		if (this.drawButton)
 		{
-			Minecraft.getMinecraft().renderEngine.func_98187_b(ZhuYao.GUI_BUTTON);
+			Minecraft.getMinecraft().renderEngine.bindTexture(ZhuYao.GUI_BUTTON);
 
 			if (this.stuck)
 			{

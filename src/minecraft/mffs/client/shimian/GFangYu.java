@@ -133,7 +133,7 @@ public class GFangYu extends GuiMFFS
 	{
 		int xSize = 256;
 		int ySize = 216;
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_DIRECTORY + "gui_defense_station.png");
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_DIRECTORY + "gui_defense_station.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.containerWidth = (this.width - this.xSize) / 2;

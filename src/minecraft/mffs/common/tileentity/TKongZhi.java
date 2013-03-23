@@ -184,7 +184,7 @@ public class TKongZhi extends TileEntityFortron implements ISidedInventory
 	}
 
 	@Override
-	public boolean isItemValid(int slotID, ItemStack itemStack)
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		switch (slotID)
 		{

@@ -333,7 +333,7 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 	}
 
 	@Override
-	public boolean isItemValid(int slotID, ItemStack itemStack)
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		if (slotID == 0)
 		{

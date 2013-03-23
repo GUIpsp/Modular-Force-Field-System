@@ -163,7 +163,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public boolean isItemValid(int slotID, ItemStack itemStack)
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		switch (slotID)
 		{
@@ -415,7 +415,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 					{
 						if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 						{
-							this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
+							this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
 						}
 
 						this.forceFields.add(vector);
@@ -437,7 +437,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 
 				if (block == ZhuYao.blockForceField)
 				{
-					this.worldObj.setBlockAndMetadataWithNotify(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
+					this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
 				}
 			}
 		}

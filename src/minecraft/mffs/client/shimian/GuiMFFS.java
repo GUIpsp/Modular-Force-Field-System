@@ -148,7 +148,7 @@ public class GuiMFFS extends GuiContainer
 		this.containerWidth = (this.width - this.xSize) / 2;
 		this.containerHeight = (this.height - this.ySize) / 2;
 
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_BASE_DIRECTORY);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_BASE_DIRECTORY);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, this.xSize, this.ySize);
@@ -156,7 +156,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, ItemStack itemStack)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
@@ -205,7 +205,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawSlot(int x, int y, SlotType type, float r, float g, float b)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(r, g, b, 1.0F);
 
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
@@ -251,7 +251,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawBar(int x, int y, float scale)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -270,7 +270,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawForce(int x, int y, float scale)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -289,7 +289,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawElectricity(int x, int y, float scale)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		/**
@@ -308,7 +308,7 @@ public class GuiMFFS extends GuiContainer
 
 	protected void drawMeter(int x, int y, float scale, LiquidStack liquidStack)
 	{
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -324,7 +324,7 @@ public class GuiMFFS extends GuiContainer
 		/**
 		 * Draw measurement lines
 		 */
-		this.mc.renderEngine.func_98187_b(ZhuYao.GUI_COMPONENTS);
+		this.mc.renderEngine.bindTexture(ZhuYao.GUI_COMPONENTS);
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 40, 49 * 2, METER_WIDTH, METER_HEIGHT);
 	}
 

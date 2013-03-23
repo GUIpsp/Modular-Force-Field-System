@@ -113,10 +113,10 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 	@SideOnly(Side.CLIENT)
 	public void func_94332_a(IconRegister par1IconRegister)
 	{
-		this.field_94336_cN = par1IconRegister.func_94245_a(this.func_94330_A() + "_off");
-		this.iconOn = par1IconRegister.func_94245_a(this.func_94330_A() + "_on");
-		this.iconMachineOn = par1IconRegister.func_94245_a(ZhuYao.PREFIX + "machine_on");
-		this.iconMachineOff = par1IconRegister.func_94245_a(ZhuYao.PREFIX + "machine_off");
+		this.blockIcon = par1IconRegister.registerIcon(this.getUnlocalizedName2() + "_off");
+		this.iconOn = par1IconRegister.registerIcon(this.getUnlocalizedName2() + "_on");
+		this.iconMachineOn = par1IconRegister.registerIcon(ZhuYao.PREFIX + "machine_on");
+		this.iconMachineOff = par1IconRegister.registerIcon(ZhuYao.PREFIX + "machine_off");
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 			}
 		}
 
-		return this.field_94336_cN;
+		return this.blockIcon;
 	}
 
 	@Override

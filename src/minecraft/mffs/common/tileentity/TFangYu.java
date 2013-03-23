@@ -464,7 +464,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	}
 
 	@Override
-	public boolean isItemValid(int slotID, ItemStack itemStack)
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		switch (slotID)
 		{

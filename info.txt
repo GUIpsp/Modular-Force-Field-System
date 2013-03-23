@@ -6,3 +6,4 @@ x MFFS_v3.0.0.7.jar MFFS_v3.0.0.7_api.zip
 Minecraft 1.4.7
 x MFFS_v3.0.0.10.jar MFFS_v3.0.0.10_api.zip
 x MFFS_v3.0.0.11.jar MFFS_v3.0.0.11_api.zip
+Minecraft 1.5

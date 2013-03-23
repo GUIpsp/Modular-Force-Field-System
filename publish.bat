@@ -27,7 +27,6 @@ cd reobf\minecraft\
 7z a "..\..\builds\%FILE_NAME%" "\mffs\"
 7z a "..\..\builds\%FILE_NAME%" "\buildcraft\"
 7z a "..\..\builds\%FILE_NAME%" "\basiccomponents\"
-7z a "..\..\builds\%FILE_NAME%" "\com\"
 7z a "..\..\builds\%FILE_NAME%" "\dan200\"
 7z a "..\..\builds\%FILE_NAME%" "\ic2\"
 7z a "..\..\builds\%FILE_NAME%" "\icbm\"

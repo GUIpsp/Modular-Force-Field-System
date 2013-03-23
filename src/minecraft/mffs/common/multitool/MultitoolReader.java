@@ -1,7 +1,7 @@
 package mffs.common.multitool;
 
-import mffs.common.tileentity.TDianRong;
 import mffs.common.tileentity.TChouQi;
+import mffs.common.tileentity.TDianRong;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

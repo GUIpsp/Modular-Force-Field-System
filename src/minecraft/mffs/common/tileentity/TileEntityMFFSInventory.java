@@ -115,18 +115,13 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	}
 
 	@Override
-	public boolean func_94042_c()
+	public boolean isInvNameLocalized()
 	{
-		return false;
+		return true;
 	}
 
 	@Override
-	public boolean func_94041_b(int slotID, ItemStack itemStack)
-	{
-		return this.isItemValid(slotID, itemStack);
-	}
-
-	public boolean isItemValid(int slotID, ItemStack itemStack)
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		return true;
 	}

@@ -241,7 +241,7 @@ public class BlockForceField extends BlockMFFS implements IForceFieldBlock
 	{
 		if (MFFSConfiguration.influencedbyothermods)
 		{
-			world.setBlockAndMetadataWithNotify(x, y, z, 0, 0, 2);
+			world.setBlock(x, y, z, 0, 0, 2);
 		}
 	}
 

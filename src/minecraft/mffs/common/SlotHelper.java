@@ -17,7 +17,7 @@ public class SlotHelper extends Slot
 	@Override
 	public boolean isItemValid(ItemStack itemStack)
 	{
-		return this.tileEntity.isItemValid(this.slotNumber, itemStack);
+		return this.tileEntity.isStackValidForSlot(this.slotNumber, itemStack);
 	}
 
 	@Override

@@ -146,7 +146,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 	{
 		if (!this.isDisabled())
 		{
-			if (this.isItemValid(0, this.getStackInSlot(0)))
+			if (this.isStackValidForSlot(0, this.getStackInSlot(0)))
 			{
 				return Fortron.getAmount(this.fortronTank) < this.fortronTank.getCapacity();
 			}
@@ -203,7 +203,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 	}
 
 	@Override
-	public boolean isItemValid(int slotID, ItemStack itemStack)
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		if (itemStack != null)
 		{

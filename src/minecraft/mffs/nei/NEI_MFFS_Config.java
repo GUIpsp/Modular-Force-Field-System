@@ -1,17 +1,14 @@
 package mffs.nei;
 
 import mffs.common.ZhuYao;
-import codechicken.nei.MultiItemRange;
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
 
-public class NEI_MFFS_Config implements IConfigureNEI
+public class NEI_MFFS_Config// implements IConfigureNEI
 {
 
 	// @Override
 	public void loadConfig()
-	{
-		// API.hideItem(ZhuYao.itemMultiTool.itemID);
+	{/*
+		API.hideItem(ZhuYao.itemMultiTool.itemID);
 
 		API.hideItem(ZhuYao.itemCardPowerLink.itemID);
 		API.hideItem(ZhuYao.itemCardID.itemID);
@@ -66,16 +63,16 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);
 		API.addSetRange("MFFS.Items", items);
-		API.addSetRange("MFFS.Blocks", blocks);
+		API.addSetRange("MFFS.Blocks", blocks);*/
 	}
 
-	@Override
+	//@Override
 	public String getName()
 	{
 		return ZhuYao.NAME;
 	}
 
-	@Override
+	//@Override
 	public String getVersion()
 	{
 		return ZhuYao.VERSION;

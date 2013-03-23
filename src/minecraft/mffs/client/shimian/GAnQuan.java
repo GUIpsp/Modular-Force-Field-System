@@ -2,8 +2,6 @@ package mffs.client.shimian;
 
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
-
 import mffs.api.SecurityPermission;
 import mffs.client.shimian.enniu.GuiButtonMFFS;
 import mffs.common.ZhuYao;
@@ -13,6 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.network.PacketManager;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class GAnQuan extends GuiMFFS
 {
