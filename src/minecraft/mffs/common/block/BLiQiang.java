@@ -144,39 +144,11 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int x, int y, int z, int side)
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
 	{
-		int xCord = x;
-		int yCord = y;
-		int zCord = z;
-
-		switch (side)
-		{
-			case 0:
-				yCord++;
-				break;
-			case 1:
-				yCord--;
-				break;
-			case 2:
-				zCord++;
-				break;
-			case 3:
-				zCord--;
-				break;
-			case 4:
-				xCord++;
-				break;
-			case 5:
-				xCord--;
-		}
-
-		if ((this.blockID == iblockaccess.getBlockId(x, y, z)) && (iblockaccess.getBlockMetadata(x, y, z) == iblockaccess.getBlockMetadata(xCord, yCord, zCord)))
-		{
-			return false;
-		}
-
-		return super.shouldSideBeRendered(iblockaccess, x, y, z, side);
+		int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
+		return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
 	}
 
 	@Override

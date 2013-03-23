@@ -47,6 +47,8 @@ public class ItKaLian extends ItKa
 	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		this.setLink(itemStack, new Vector3(x, y, z));
+		player.addChatMessage("Linked card to position: " + x + ", " + y + ", " + z);
+
 		return true;
 	}
 

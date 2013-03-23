@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import mffs.api.SecurityHelper;
 import mffs.api.SecurityPermission;
 import mffs.common.block.BLiQiang;
-import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockDefenseStation;
 import mffs.common.block.BlockForcilliumExtractor;
 import mffs.common.block.BlockFortronCapacitor;
@@ -127,7 +126,6 @@ public class ZhuYao
 	public static Block blockExtractor;
 	public static Block blockFortronite;
 	public static Block blockSecurityStation;
-	public static Block blockControlSystem;
 
 	/**
 	 * Fortron related items
@@ -240,7 +238,6 @@ public class ZhuYao
 			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
 			blockForceField = new BLiQiang(MFFSConfiguration.block_Field_ID);
 			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.block_SecurityStation_ID, 16);
-			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
 			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
