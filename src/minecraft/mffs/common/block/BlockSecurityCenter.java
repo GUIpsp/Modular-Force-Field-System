@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class BlockSecurityCenter extends BJiQi
 {
-	public BlockSecurityCenter(int i, int texture)
+	public BlockSecurityCenter(int i)
 	{
 		super(i, "securityCenter");
 	}

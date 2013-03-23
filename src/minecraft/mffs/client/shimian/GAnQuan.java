@@ -62,7 +62,7 @@ public class GAnQuan extends GuiMFFS
 					GuiButtonMFFS button = (GuiButtonMFFS) this.buttonList.get(i);
 					button.drawButton = true;
 
-					if (this.tileEntity.isAccessGranted(ZhuYao.itemCardID.getUsername(this.tileEntity.getManipulatingCard()), SecurityPermission.values()[i]))
+					if (this.tileEntity.isAccessGranted(ZhuYao.itKaShenFen.getUsername(this.tileEntity.getManipulatingCard()), SecurityPermission.values()[i]))
 					{
 						button.stuck = true;
 					}

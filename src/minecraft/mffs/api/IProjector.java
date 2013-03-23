@@ -1,6 +1,5 @@
 package mffs.api;
 
-import java.util.List;
 import java.util.Set;
 
 import mffs.common.module.IModule;

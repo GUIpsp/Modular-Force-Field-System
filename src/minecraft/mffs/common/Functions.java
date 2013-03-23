@@ -46,7 +46,7 @@ public class Functions
 			return true;
 		}
 
-		if (((IInventory) tileEntity).getStackInSlot(Slot).getItem() == ZhuYao.itemCardEmpty)
+		if (((IInventory) tileEntity).getStackInSlot(Slot).getItem() == ZhuYao.itKaKong)
 		{
 			ItemStack itemstackcopy = itemstack.copy();
 			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstackcopy);

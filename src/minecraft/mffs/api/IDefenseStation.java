@@ -1,6 +1,5 @@
 package mffs.api;
 
-import java.util.List;
 import java.util.Set;
 
 import net.minecraft.inventory.IInventory;

@@ -45,7 +45,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			if (this.getManipulatingCard() != null)
 			{
-				ZhuYao.itemCardID.addPermission(this.getManipulatingCard(), SecurityPermission.values()[dataStream.readInt()]);
+				ZhuYao.itKaShenFen.addPermission(this.getManipulatingCard(), SecurityPermission.values()[dataStream.readInt()]);
 			}
 		}
 	}
@@ -83,7 +83,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		// Check if ID card is in this inventory.
 		for (int i = 0; i < this.getSizeInventory(); i++)
 		{
-			if ((getStackInSlot(i) != null) && (getStackInSlot(i).getItem() == ZhuYao.itemCardID))
+			if ((getStackInSlot(i) != null) && (getStackInSlot(i).getItem() == ZhuYao.itKaShenFen))
 			{
 				String username_invtory = NBTTagCompoundHelper.get(getStackInSlot(i)).getString("name");
 
@@ -91,7 +91,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 
 				if (username_invtory.equals(username))
 				{
-					if (ZhuYao.itemCardID.hasPermission(this.getStackInSlot(i), permission))
+					if (ZhuYao.itKaShenFen.hasPermission(this.getStackInSlot(i), permission))
 					{
 						return true;
 					}

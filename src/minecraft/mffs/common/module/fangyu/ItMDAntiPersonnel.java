@@ -1,28 +1,16 @@
 package mffs.common.module.fangyu;
 
-import java.util.List;
-
 import mffs.api.IDefenseStation;
-import mffs.api.IDefenseStationModule;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
-import mffs.common.module.ItemModule;
-import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import universalelectricity.core.vector.Vector3;
 
-public class ItemModuleAntiPersonnel extends ItemModule implements IDefenseStationModule
+public class ItMDAntiPersonnel extends ItMD
 {
-	public ItemModuleAntiPersonnel(int i)
+	public ItMDAntiPersonnel(int i)
 	{
 		super(i, "moduleAntiPersonnel");
-		this.setMaxStackSize(1);
 	}
 
 	@Override

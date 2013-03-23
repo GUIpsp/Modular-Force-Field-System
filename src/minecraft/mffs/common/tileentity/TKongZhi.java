@@ -281,7 +281,7 @@ public class TKongZhi extends TileEntityFortron implements ISidedInventory
 			{
 
 			}
-			setInventorySlotContents(slot, new ItemStack(ZhuYao.itemCardEmpty));
+			setInventorySlotContents(slot, new ItemStack(ZhuYao.itKaKong));
 		}
 		return null;
 	}

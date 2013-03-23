@@ -3,20 +3,16 @@ package mffs.common.module.fangyu;
 import java.util.Set;
 
 import mffs.api.IDefenseStation;
-import mffs.api.IDefenseStationModule;
-import mffs.common.MFFSConfiguration;
-import mffs.common.module.ItemModule;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-public class ItemModuleConfiscate extends ItemModule implements IDefenseStationModule
+public class ItMDConfiscate extends ItMD
 {
-	public ItemModuleConfiscate(int i)
+	public ItMDConfiscate(int i)
 	{
 		super(i, "moduleConfiscate");
-		this.setMaxStackSize(1);
 	}
 
 	@Override

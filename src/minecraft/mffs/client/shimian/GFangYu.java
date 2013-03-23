@@ -1,15 +1,11 @@
 package mffs.client.shimian;
 
 import mffs.client.shimian.enniu.GuiButtonMFFS;
-import mffs.common.SlotHelper;
 import mffs.common.ZhuYao;
 import mffs.common.container.CFangYu;
 import mffs.common.tileentity.TFangYu;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-
-import org.lwjgl.opengl.GL11;
-
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;

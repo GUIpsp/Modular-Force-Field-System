@@ -253,10 +253,10 @@ public class ZhuYao
 
 			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.getNextItemID());
 
-			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.getNextItemID());
 			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.getNextItemID());
 			itemModuleCube = new ItemModeCube(MFFSConfiguration.getNextItemID());
 			itemModuleWall = new ItemModeWall(MFFSConfiguration.getNextItemID());
+			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.getNextItemID());
 			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.getNextItemID());
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.getNextItemID());
 			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.getNextItemID());

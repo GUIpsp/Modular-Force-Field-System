@@ -80,7 +80,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 				}
 			}
 
-			if (this.isActive() || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itemCardInfinite.itemID))
+			if (this.isActive() || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itKaWuXian.itemID))
 			{
 				if (this.ticks % 10 == 0)
 				{

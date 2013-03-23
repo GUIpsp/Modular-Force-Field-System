@@ -126,7 +126,7 @@ public class GKongZhi extends GuiMFFS
 		{
 			RenderItem renderItem = new RenderItem();
 			RenderHelper.enableGUIStandardItemLighting();
-			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ZhuYao.itemCardPowerLink), 100, 59);
+			renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, new ItemStack(ZhuYao.itKaShengBuo), 100, 59);
 			RenderHelper.disableStandardItemLighting();
 			if (this.ControlSystem.getRemoteSecurityStationlink())
 			{

@@ -1,10 +1,8 @@
 package mffs.common.container;
 
-import mffs.common.SlotFrequency;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TFangYu;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 
 public class CFangYu extends ContainerMFFS
 {
