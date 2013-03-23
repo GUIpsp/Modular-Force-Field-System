@@ -159,7 +159,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 	{
 		if (this.canUse())
 		{
-			this.fortronTank.fill(Fortron.getFortron(750 + this.worldObj.rand.nextInt(500)), true);
+			this.fortronTank.fill(Fortron.getFortron(1250 + this.worldObj.rand.nextInt(1000)), true);
 			this.decrStackSize(0, 1);
 		}
 	}

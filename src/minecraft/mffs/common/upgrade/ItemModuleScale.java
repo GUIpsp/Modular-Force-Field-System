@@ -12,6 +12,6 @@ public class ItemModuleScale extends ItemModule
 	@Override
 	public float getFortronCost()
 	{
-		return 5;
+		return 0.8f;
 	}
 }

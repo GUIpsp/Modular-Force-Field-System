@@ -85,7 +85,7 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 				}
 			}
 
-			if (this.isActive() && this.ticks % 20 == 0)
+			if (this.isActive() && this.ticks % 10 == 0)
 			{
 				Set<IFortronFrequency> machines = this.getLinkedDevices();
 

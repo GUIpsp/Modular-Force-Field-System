@@ -106,9 +106,12 @@ public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorag
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
 	{
 		// Add an uncharged version of the electric item
-		par3List.add(ElectricItemHelper.getUncharged(new ItemStack(this)));
+		ItemStack itemStack = new ItemStack(this);
+		this.setFortronEnergy(0, itemStack);
+		par3List.add(itemStack);
 		// Add an electric item to the creative list that is fully charged
 		ItemStack chargedItem = new ItemStack(this);
-		par3List.add(ElectricItemHelper.getWithCharge(chargedItem, this.getFortronCapacity(chargedItem)));
+		this.setFortronEnergy(this.getFortronCapacity(chargedItem), chargedItem);
+		par3List.add(chargedItem);
 	}
 }

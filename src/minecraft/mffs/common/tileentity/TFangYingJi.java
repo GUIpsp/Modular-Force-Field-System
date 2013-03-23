@@ -33,6 +33,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -105,7 +106,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 			}
 			else
 			{
-				// this.destroyField();
+				this.destroyField();
 			}
 
 			/**
@@ -228,9 +229,12 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	{
 		float cost = 2;
 
-		for (IModule module : this.getModules())
+		for (ItemStack itemStack : this.getModuleStacks())
 		{
-			cost += module.getFortronCost();
+			if (itemStack != null)
+			{
+				cost += itemStack.stackSize * ((IModule) itemStack.getItem()).getFortronCost();
+			}
 		}
 
 		return Math.round(cost);
@@ -547,7 +551,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	{
 		List<ItemStack> modules = new ArrayList();
 
-		for (int slotID = 1; slotID <= 9; slotID++)
+		for (int slotID = 1; slotID <= this.getSizeInventory() - 1; slotID++)
 		{
 			ItemStack itemStack = this.getStackInSlot(slotID);
 
@@ -568,7 +572,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	{
 		List<IModule> modules = new ArrayList();
 
-		for (int slotID = 1; slotID < 9; slotID++)
+		for (int slotID = 1; slotID < this.getSizeInventory() - 1; slotID++)
 		{
 			ItemStack itemStack = this.getStackInSlot(slotID);
 
