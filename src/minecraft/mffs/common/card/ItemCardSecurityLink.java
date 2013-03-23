@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISidedInventory;
 
-public class ItemCardSecurityLink extends ItemCard
+public class ItemCardSecurityLink extends ItKa
 {
 
 	public ItemCardSecurityLink(int i)

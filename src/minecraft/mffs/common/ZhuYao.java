@@ -20,7 +20,7 @@ import mffs.common.card.ItCardIdentification;
 import mffs.common.card.ItemCardDataLink;
 import mffs.common.card.ItemCardEmpty;
 import mffs.common.card.ItemCardFrequency;
-import mffs.common.card.ItemCardInfinite;
+import mffs.common.card.ItKaWuXian;
 import mffs.common.card.ItemCardSecurityLink;
 import mffs.common.card.ItemCardTemporaryID;
 import mffs.common.item.ItemForcillium;
@@ -273,7 +273,7 @@ public class ZhuYao
 			itemCardPowerLink = new ItemCardFrequency(MFFSConfiguration.item_CardPowerLink_ID);
 			itemCardID = new ItCardIdentification(MFFSConfiguration.item_CardPersonalID_ID);
 			itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
-			itemCardInfinite = new ItemCardInfinite(MFFSConfiguration.item_infPowerCard_ID);
+			itemCardInfinite = new ItKaWuXian(MFFSConfiguration.item_infPowerCard_ID);
 			itemCardAccess = new ItemCardTemporaryID(MFFSConfiguration.item_CardAccess_ID);
 			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
 

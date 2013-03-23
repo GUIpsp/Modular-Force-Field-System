@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 
-public abstract class ItemCard extends ItemMFFS
+public abstract class ItKa extends ItemMFFS
 {
-	public ItemCard(int id, String name)
+	public ItKa(int id, String name)
 	{
 		super(id, name);
 		this.setMaxStackSize(1);

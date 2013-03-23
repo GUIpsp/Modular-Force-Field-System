@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ItCardIdentification extends ItemCard implements IIdentificationCard
+public class ItCardIdentification extends ItKa implements IIdentificationCard
 {
 	public ItCardIdentification(int i)
 	{

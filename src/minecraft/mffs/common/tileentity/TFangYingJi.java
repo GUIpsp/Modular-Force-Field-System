@@ -13,8 +13,8 @@ import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItemCard;
-import mffs.common.card.ItemCardInfinite;
+import mffs.common.card.ItKa;
+import mffs.common.card.ItKaWuXian;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
 import mffs.common.module.ItemModule;
@@ -160,7 +160,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 		switch (slotID)
 		{
 			case 0:
-				return itemStack.getItem() instanceof ItemCard || itemStack.getItem() instanceof ItemCardInfinite;
+				return itemStack.getItem() instanceof ItKa || itemStack.getItem() instanceof ItKaWuXian;
 			case 5:
 				return itemStack.getItem() instanceof IProjectorMode;
 			default:

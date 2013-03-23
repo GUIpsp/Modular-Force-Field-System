@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class ItemCardDataLink extends ItemCard
+public class ItemCardDataLink extends ItKa
 {
 
 	public ItemCardDataLink(int id)
