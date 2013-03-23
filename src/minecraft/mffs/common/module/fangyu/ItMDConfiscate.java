@@ -69,9 +69,12 @@ public class ItMDConfiscate extends ItMD
 
 			if (confiscationCount > 0 && entityLiving instanceof EntityPlayer)
 			{
-				((EntityPlayer) entityLiving).addChatMessage("[" + defenseStation.getInvName() + "] " + confiscationCount + " of your items has been confiscated.");
+				((EntityPlayer) entityLiving).addChatMessage("[" + defenseStation.getInvName() + "] " + confiscationCount + " of your item(s) has been confiscated.");
 			}
+
+			defenseStation.requestFortron(confiscationCount, true);
 		}
+		
 		return false;
 	}
 }

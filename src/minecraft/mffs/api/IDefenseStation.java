@@ -22,6 +22,11 @@ public interface IDefenseStation extends IInventory, IFortronFrequency, IModuleA
 	 */
 	public int getActionRange();
 
+	/**
+	 * Merges an item into the defense station's safe keeping inventory.
+	 * @param itemStack
+	 * @return True if kept, false if dropped.
+	 */
 	public boolean mergeIntoInventory(ItemStack itemStack);
 
 	public Set<ItemStack> getFilteredItems();

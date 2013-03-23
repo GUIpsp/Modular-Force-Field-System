@@ -4,12 +4,10 @@ import net.minecraft.item.ItemStack;
 
 public class ItemUpgradeRange extends ItemUpgrade
 {
-
 	public ItemUpgradeRange(int i)
 	{
 		super(i, "upgradeRange");
-		setMaxStackSize(9);
-
+		this.setMaxStackSize(9);
 	}
 
 	@Override

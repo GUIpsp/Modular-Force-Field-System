@@ -239,9 +239,9 @@ public class ZhuYao
 		{
 			MFFSConfiguration.initialize();
 			MFFSConfiguration.CONFIGURATION.load();
-
-			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.getNextBlockID());
+			
 			blockFortronite = new BlockFortronite(MFFSConfiguration.getNextBlockID(), "fortronite");
+			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.getNextBlockID());
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.getNextBlockID());
 			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.getNextBlockID());
 			blockProjector = new BlockProjector(MFFSConfiguration.getNextBlockID());

@@ -105,9 +105,15 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		if (packetID == 1)
 		{
+			boolean prevActive = this.isActive;
 			this.isActive = dataStream.readBoolean();
 			this.switchMode = dataStream.readShort();
 			this.switchValue = dataStream.readBoolean();
+
+			if (prevActive != this.isActive)
+			{
+				this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+			}
 		}
 	}
 

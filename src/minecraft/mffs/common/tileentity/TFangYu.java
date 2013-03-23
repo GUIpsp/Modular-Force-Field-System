@@ -1,7 +1,6 @@
 package mffs.common.tileentity;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +9,10 @@ import mffs.api.IDefenseStation;
 import mffs.api.IDefenseStationModule;
 import mffs.api.SecurityPermission;
 import mffs.common.ZhuYao;
+import mffs.common.card.ItKa;
 import mffs.common.module.IModule;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -46,7 +47,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 
 	}
 
-	private static final int BAN_LIST_START = 4;
+	private static final int BAN_LIST_START = 8;
 
 	/**
 	 * True if the current confiscation mode is for "banning selected items".
@@ -84,8 +85,9 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 			{
 				if (this.ticks % 10 == 0)
 				{
-					if (this.requestFortron(this.getFortronCost(), true) > 0)
+					if (this.requestFortron(this.getFortronCost() * 10, false) > 0)
 					{
+						this.requestFortron(this.getFortronCost() * 10, true);
 						this.scan();
 					}
 				}
@@ -116,7 +118,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 		{
 			this.isBanMode = dataStream.readBoolean();
 		}
-		else if (packetID == 4)
+		else if (packetID == 3)
 		{
 			this.isBanMode = !this.isBanMode;
 		}
@@ -130,23 +132,13 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	@Override
 	public int getActionRange()
 	{
-		if ((getStackInSlot(3) != null) && (getStackInSlot(3).getItem() == ZhuYao.itemModuleScale))
-		{
-			return getStackInSlot(3).stackSize;
-		}
-
-		return 0;
+		return this.getModuleCount(ZhuYao.itemModuleScale);
 	}
 
 	@Override
 	public int getWarningRange()
 	{
-		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ZhuYao.itemModuleScale))
-		{
-			return this.getActionRange() + (getStackInSlot(2).stackSize + 3);
-		}
-
-		return this.getActionRange() + 3;
+		return this.getModuleCount(ZhuYao.itemModuleTranslation) + this.getActionRange() + 3;
 	}
 
 	public void scan()
@@ -172,60 +164,43 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 			List<EntityLiving> infoLivinglist = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xmininfo, ymininfo, zmininfo, xmaxinfo, ymaxinfo, zmaxinfo));
 			List<EntityLiving> actionLivinglist = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(xminaction, yminaction, zminaction, xmaxaction, ymaxaction, zmaxaction));
 
-			Set<EntityLiving> warnList = new HashSet<EntityLiving>();
-			Set<EntityLiving> actionList = new HashSet<EntityLiving>();
-
-			for (EntityLiving entityLiving : actionLivinglist)
-			{
-				double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
-				if (distance <= getActionRange())
-				{
-					if (entityLiving instanceof EntityPlayer)
-					{
-						EntityPlayer player = (EntityPlayer) entityLiving;
-						actionList.add(entityLiving);
-					}
-				}
-			}
-
 			for (EntityLiving entityLiving : infoLivinglist)
 			{
-				if (entityLiving instanceof EntityPlayer && !actionList.contains(entityLiving))
+				if (entityLiving instanceof EntityPlayer && !actionLivinglist.contains(entityLiving))
 				{
 					EntityPlayer player = (EntityPlayer) entityLiving;
 					double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
 
-					if (distance <= getWarningRange())
+					if (distance <= this.getWarningRange())
 					{
-						if (!warnList.contains(player))
+						boolean isGranted = false;
+
+						if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.DEFENSE_STATION_STAY))
 						{
-							warnList.add(player);
-
-							boolean isGranted = false;
-
-							if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.DEFENSE_STATION_STAY))
-							{
-								isGranted = true;
-								// TODO: CHECK MFFS NOTIFICATION SETTING < MODE 3
-							}
-
-							if (!isGranted)
-							{
-								player.addChatMessage("[" + this.getInvName() + "] Warning! You are in scanning range!");
-								player.attackEntityFrom(ZhuYao.areaDefense, 1);
-							}
+							isGranted = true;
+							// TODO: CHECK MFFS NOTIFICATION SETTING < MODE 3
 						}
+
+						if (!isGranted)
+						{
+							player.addChatMessage("[" + this.getInvName() + "] Warning! You are in scanning range!");
+							player.attackEntityFrom(ZhuYao.areaDefense, 1);
+						}
+
 					}
 				}
 			}
 
-			if (this.worldObj.rand.nextInt(5) == 0)
+			if (this.worldObj.rand.nextInt(3) == 0)
 			{
-				Iterator<EntityLiving> it = actionList.iterator();
-
-				while (it.hasNext())
+				for (EntityLiving entityLiving : actionLivinglist)
 				{
-					doDefense(it.next());
+					double distance = Vector3.distance(new Vector3(this), new Vector3(entityLiving));
+
+					if (distance <= this.getActionRange())
+					{
+						this.doDefense(entityLiving);
+					}
 				}
 			}
 
@@ -258,11 +233,14 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 
 		for (ItemStack itemStack : this.getModuleStacks())
 		{
-			IDefenseStationModule module = (IDefenseStationModule) itemStack.getItem();
-
-			if (module.onDefend(this, entityLiving) || entityLiving.isDead)
+			if (itemStack.getItem() instanceof IDefenseStationModule)
 			{
-				break;
+				IDefenseStationModule module = (IDefenseStationModule) itemStack.getItem();
+
+				if (module.onDefend(this, entityLiving) || entityLiving.isDead)
+				{
+					break;
+				}
 			}
 		}
 	}
@@ -305,13 +283,15 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 			}
 		}
 
+		this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.xCoord + 0.5, this.yCoord + 1, this.zCoord + 0.5, itemStack));
+
 		return false;
 	}
 
 	@Override
 	public int getSizeInventory()
 	{
-		return 2 + 9 * 3;
+		return 2 + 8 + 9 * 2;
 	}
 
 	@Override
@@ -404,13 +384,13 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	{
 		Set<ItemStack> modules = new HashSet<ItemStack>();
 
-		for (int slotID = 2; slotID <= this.getSizeInventory() - 1; slotID++)
+		for (int slotID = 2; slotID < BAN_LIST_START; slotID++)
 		{
 			ItemStack itemStack = this.getStackInSlot(slotID);
 
 			if (itemStack != null)
 			{
-				if (itemStack.getItem() instanceof IDefenseStationModule)
+				if (itemStack.getItem() instanceof IModule)
 				{
 					modules.add(itemStack);
 				}
@@ -425,7 +405,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	{
 		Set<IModule> modules = new HashSet<IModule>();
 
-		for (int slotID = 2; slotID < this.getSizeInventory() - 1; slotID++)
+		for (int slotID = 2; slotID < BAN_LIST_START; slotID++)
 		{
 			ItemStack itemStack = this.getStackInSlot(slotID);
 
@@ -444,12 +424,17 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	@Override
 	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
+		if (slotID == 0 || slotID == 1)
+		{
+			return itemStack.getItem() instanceof ItKa;
+		}
+
 		if (slotID >= BAN_LIST_START)
 		{
 			return true;
 		}
 
-		return itemStack.getItem() instanceof IDefenseStationModule;
+		return itemStack.getItem() instanceof IModule;
 	}
 
 	@Override

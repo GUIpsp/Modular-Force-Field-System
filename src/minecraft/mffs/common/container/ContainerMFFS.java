@@ -14,7 +14,7 @@ public class ContainerMFFS extends Container
 	public ContainerMFFS(IInventory inventory)
 	{
 		this.inventory = inventory;
-		this.slotCount = inventory.getSizeInventory();
+		this.slotCount = inventory.getSizeInventory() - 1;
 		this.inventory.openChest();
 	}
 

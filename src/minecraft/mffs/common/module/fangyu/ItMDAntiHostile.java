@@ -1,5 +1,6 @@
 package mffs.common.module.fangyu;
 
+import cpw.mods.fml.common.FMLLog;
 import mffs.api.IDefenseStation;
 import mffs.common.ZhuYao;
 import net.minecraft.entity.EntityLiving;
@@ -18,8 +19,10 @@ public class ItMDAntiHostile extends ItMD
 	{
 		if (entityLiving instanceof IMob && !(entityLiving instanceof INpc))
 		{
-			entityLiving.attackEntityFrom(ZhuYao.areaDefense, Integer.MAX_VALUE);
+
+			entityLiving.attackEntityFrom(ZhuYao.areaDefense, 20);
 		}
+
 		return false;
 	}
 }
