@@ -33,7 +33,6 @@ import mffs.common.mode.ItemModeTube;
 import mffs.common.mode.ItemModeWall;
 import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.ItemModule;
-import mffs.common.module.ItemModuleAntibiotic;
 import mffs.common.module.ItemModuleCamoflage;
 import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleFusion;
@@ -41,6 +40,11 @@ import mffs.common.module.ItemModuleJammer;
 import mffs.common.module.ItemModuleManipulator;
 import mffs.common.module.ItemModuleShock;
 import mffs.common.module.ItemModuleSponge;
+import mffs.common.module.fangyu.ItemModuleAntiFriendly;
+import mffs.common.module.fangyu.ItemModuleAntiHostile;
+import mffs.common.module.fangyu.ItemModuleAntiPersonnel;
+import mffs.common.module.fangyu.ItemModuleConfiscate;
+import mffs.common.module.fangyu.ItemModuleWarn;
 import mffs.common.tileentity.TLiChang;
 import mffs.common.tileentity.TileEntityMFFS;
 import mffs.common.upgrade.ItemFocusMatrix;
@@ -166,12 +170,17 @@ public class ZhuYao
 	public static ItemModule itemModuleSponge;
 	public static ItemModule itemModuleManipulator;
 	public static ItemModule itemModuleDisintegration;
-	public static ItemModule itemModuleAntibiotic;
 	public static ItemModule itemModuleJammer;
 	public static ItemModule itemModuleCamouflage;
 	public static ItemModule itemModuleFusion;
 	public static ItemModule itemModuleScale;
 	public static ItemModule itemModuleTranslation;
+
+	/**
+	 * Defense Station Modules
+	 */
+	public static ItemModule itemModuleAntiHostile, itemModuleAntiFriendly,
+			itemModuleAntiPersonnel, itemModuleConfiscate, itemModuleWarn;
 
 	/**
 	 * Modes
@@ -228,60 +237,63 @@ public class ZhuYao
 		try
 		{
 			MFFSConfiguration.initialize();
-
 			MFFSConfiguration.CONFIGURATION.load();
 
-			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.block_Extractor_ID);
-			blockFortronite = new BlockFortronite(MFFSConfiguration.blockFortronite_ID, "fortronite");
-			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
-			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.block_Capacitor_ID);
-			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
-			blockForceField = new BLiQiang(MFFSConfiguration.block_Field_ID);
-			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.block_SecurityStation_ID, 16);
+			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.BLOCK_ID_PREFIX + 0);
+			blockFortronite = new BlockFortronite(MFFSConfiguration.BLOCK_ID_PREFIX + 1, "fortronite");
+			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.BLOCK_ID_PREFIX + 2);
+			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.BLOCK_ID_PREFIX + 3);
+			blockProjector = new BlockProjector(MFFSConfiguration.BLOCK_ID_PREFIX + 4);
+			blockForceField = new BLiQiang(MFFSConfiguration.BLOCK_ID_PREFIX + 5);
+			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.BLOCK_ID_PREFIX + 6, 16);
 
-			itemModuleScale = new ItemModuleScale(MFFSConfiguration.item_AltDistance_ID);
-			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.item_AltStrength_ID);
+			itemModuleScale = new ItemModuleScale(MFFSConfiguration.ITEM_ID_PREFIX + 0);
+			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.ITEM_ID_PREFIX + 1);
 
-			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.item_FocusMatrix_ID);
-			// itemPowerCrystal = new ItemFortronCrystal(MFFSConfiguration.item_FPCrystal_ID);
-			itemForcillium = new ItemForcillium(MFFSConfiguration.item_Forcicium_ID);
-			itemFortronCell = new ItemFortronCell(MFFSConfiguration.item_ForciciumCell_ID);
+			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.ITEM_ID_PREFIX + 2);
+			itemForcillium = new ItemForcillium(MFFSConfiguration.ITEM_ID_PREFIX + 3);
+			itemFortronCell = new ItemFortronCell(MFFSConfiguration.ITEM_ID_PREFIX + 4);
 
-			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.item_ModDiag_ID);
-			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.item_ModSphere_ID);
-			itemModuleCube = new ItemModeCube(MFFSConfiguration.item_ModCube_ID);
-			itemModuleWall = new ItemModeWall(MFFSConfiguration.item_ModWall_ID);
-			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.item_ModDeflector_ID);
-			itemModuleTube = new ItemModeTube(MFFSConfiguration.item_ModTube_ID);
-			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.item_ModContainment_ID);
+			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.ITEM_ID_PREFIX + 5);
+			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.ITEM_ID_PREFIX + 6);
+			itemModuleCube = new ItemModeCube(MFFSConfiguration.ITEM_ID_PREFIX + 7);
+			itemModuleWall = new ItemModeWall(MFFSConfiguration.ITEM_ID_PREFIX + 8);
+			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.ITEM_ID_PREFIX + 9);
+			itemModuleTube = new ItemModeTube(MFFSConfiguration.ITEM_ID_PREFIX + 10);
+			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.ITEM_ID_PREFIX + 11);
 
-			itemModuleShock = new ItemModuleShock(MFFSConfiguration.item_OptTouchHurt_ID);
-			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.item_OptSponge_ID);
-			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.item_OptManipulator_ID);
-			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.item_OptBlockBreaker_ID);
-			itemModuleAntibiotic = new ItemModuleAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
-			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.item_OptJammer_ID);
-			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
-			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.item_OptFusion_ID);
+			itemModuleShock = new ItemModuleShock(MFFSConfiguration.ITEM_ID_PREFIX + 12);
+			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.ITEM_ID_PREFIX + 13);
+			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.ITEM_ID_PREFIX + 14);
+			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.ITEM_ID_PREFIX + 15);
+			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.ITEM_ID_PREFIX + 16);
+			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.ITEM_ID_PREFIX + 17);
+			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.ITEM_ID_PREFIX + 18);
 
-			itemCardEmpty = new ItKaKong(MFFSConfiguration.item_BlankCard_ID);
-			itemCardPowerLink = new ItKaShengBuo(MFFSConfiguration.item_CardPowerLink_ID);
-			itemCardID = new ItKaShenFen(MFFSConfiguration.item_CardPersonalID_ID);
-			itemCardInfinite = new ItKaWuXian(MFFSConfiguration.item_infPowerCard_ID);
-			itemCardAccess = new ItKaShenFenZhanShi(MFFSConfiguration.item_CardAccess_ID);
-			itemCardDataLink = new ItKaLian(MFFSConfiguration.item_CardDataLink_ID);
+			itemModuleAntiFriendly = new ItemModuleAntiFriendly(MFFSConfiguration.ITEM_ID_PREFIX + 19);
+			itemModuleAntiHostile = new ItemModuleAntiHostile(MFFSConfiguration.ITEM_ID_PREFIX + 20);
+			itemModuleAntiPersonnel = new ItemModuleAntiPersonnel(MFFSConfiguration.ITEM_ID_PREFIX + 21);
+			itemModuleConfiscate = new ItemModuleConfiscate(MFFSConfiguration.ITEM_ID_PREFIX + 22);
+			itemModuleWarn = new ItemModuleWarn(MFFSConfiguration.ITEM_ID_PREFIX + 23);
+
+			itemCardEmpty = new ItKaKong(MFFSConfiguration.ITEM_ID_PREFIX + 24);
+			itemCardPowerLink = new ItKaShengBuo(MFFSConfiguration.ITEM_ID_PREFIX + 25);
+			itemCardID = new ItKaShenFen(MFFSConfiguration.ITEM_ID_PREFIX + 26);
+			itemCardInfinite = new ItKaWuXian(MFFSConfiguration.ITEM_ID_PREFIX + 28);
+			itemCardAccess = new ItKaShenFenZhanShi(MFFSConfiguration.ITEM_ID_PREFIX + 29);
+			itemCardDataLink = new ItKaLian(MFFSConfiguration.ITEM_ID_PREFIX + 30);
 
 			// TODO: MFFS REMOVE THIS
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
-			itemUpgradeSpeed = new ItemUpgradeSpeed(MFFSConfiguration.item_upgradeBoost_ID);
-			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.item_upgradeRange_ID);
-			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.item_upgradeCap_ID);
+			itemUpgradeSpeed = new ItemUpgradeSpeed(MFFSConfiguration.ITEM_ID_PREFIX + 31);
+			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.ITEM_ID_PREFIX + 32);
+			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.ITEM_ID_PREFIX + 33);
 
 			/**
 			 * The Fortron Liquid
 			 */
-			itemFortron = new ItemMFFS(MFFSConfiguration.itemFortronID, "fortron").setCreativeTab(null);
+			itemFortron = new ItemMFFS(MFFSConfiguration.ITEM_ID_PREFIX + 34, "fortron").setCreativeTab(null);
 			Fortron.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemFortron, 0));
 
 			fortroniteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
