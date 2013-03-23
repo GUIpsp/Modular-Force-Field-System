@@ -4,8 +4,7 @@ import mffs.api.PointXYZ;
 import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItemCardDataLink;
-import mffs.common.card.ItemCardSecurityLink;
+import mffs.common.card.ItKaLian;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -71,12 +70,6 @@ public class TKongZhi extends TileEntityFortron implements ISidedInventory
 	public TileEntityMFFS getRemote()
 	{
 		return this.remote;
-	}
-
-	@Override
-	public TAnQuan getLinkedSecurityStation()
-	{
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, this.worldObj);
 	}
 
 	@Override
@@ -186,18 +179,8 @@ public class TKongZhi extends TileEntityFortron implements ISidedInventory
 	@Override
 	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
-		switch (slotID)
-		{
-			case 0:
-				if ((itemStack.getItem() instanceof ItemCardSecurityLink))
-				{
-					return true;
-				}
 
-				break;
-		}
-
-		if ((itemStack.getItem() instanceof ItemCardDataLink))
+		if ((itemStack.getItem() instanceof ItKaLian))
 		{
 			return true;
 		}
@@ -297,10 +280,10 @@ public class TKongZhi extends TileEntityFortron implements ISidedInventory
 
 	private TileEntityMFFS getTargetMaschine(int slot)
 	{
-		if ((getStackInSlot(slot) != null) && ((getStackInSlot(slot).getItem() instanceof ItemCardDataLink)))
+		if ((getStackInSlot(slot) != null) && ((getStackInSlot(slot).getItem() instanceof ItKaLian)))
 		{
 			int DeviceID = 0;
-			NBTTagCompound tag = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(slot));
+			NBTTagCompound tag = NBTTagCompoundHelper.get(getStackInSlot(slot));
 			if (tag.hasKey("DeviceID"))
 			{
 				DeviceID = tag.getInteger("DeviceID");

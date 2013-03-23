@@ -5,7 +5,6 @@ import java.util.Random;
 
 import mffs.api.ForceFieldType;
 import mffs.api.IForceFieldBlock;
-import mffs.client.render.RenderForceField;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
 import mffs.common.tileentity.TLiChang;
@@ -33,13 +32,6 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 		this.setResistance(999.0F);
 		this.setCreativeTab(null);
 		this.setTickRandomly(true);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getRenderType()
-	{
-		return RenderForceField.RENDER_ID;
 	}
 
 	@Override

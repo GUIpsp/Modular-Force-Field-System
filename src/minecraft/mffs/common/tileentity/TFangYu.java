@@ -10,8 +10,7 @@ import mffs.api.IDefenseStation;
 import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItemCardFrequency;
-import mffs.common.card.ItemCardSecurityLink;
+import mffs.common.card.ItKaShengBuo;
 import mffs.common.upgrade.ItemModuleScale;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.INpc;
@@ -160,16 +159,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 		}
 
 		return getActionRange() + 3;
-	}
-
-	public boolean hasSecurityCard()
-	{
-		if ((getStackInSlot(1) != null) && (getStackInSlot(1).getItem() == ZhuYao.itemCardSecurityLink))
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	public void scan()
@@ -469,9 +458,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 		switch (slotID)
 		{
 			case 0:
-				return itemStack.getItem() instanceof ItemCardFrequency;
-			case 1:
-				return itemStack.getItem() instanceof ItemCardSecurityLink;
+				return itemStack.getItem() instanceof ItKaShengBuo;
 			case 2:
 				return itemStack.getItem() instanceof ItemModuleScale;
 			case 3:

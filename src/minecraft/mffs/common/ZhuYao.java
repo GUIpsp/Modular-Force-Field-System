@@ -16,13 +16,12 @@ import mffs.common.block.BlockFortronCapacitor;
 import mffs.common.block.BlockFortronite;
 import mffs.common.block.BlockProjector;
 import mffs.common.block.BlockSecurityCenter;
-import mffs.common.card.ItCardIdentification;
-import mffs.common.card.ItemCardDataLink;
-import mffs.common.card.ItemCardEmpty;
-import mffs.common.card.ItemCardFrequency;
+import mffs.common.card.ItKaKong;
+import mffs.common.card.ItKaLian;
+import mffs.common.card.ItKaShenFen;
+import mffs.common.card.ItKaShenFenZhanShi;
+import mffs.common.card.ItKaShengBuo;
 import mffs.common.card.ItKaWuXian;
-import mffs.common.card.ItemCardSecurityLink;
-import mffs.common.card.ItemCardTemporaryID;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
@@ -151,9 +150,8 @@ public class ZhuYao
 	 */
 	public static Item itemCardEmpty;
 	public static Item itemCardPowerLink;
-	public static ItCardIdentification itemCardID;
+	public static ItKaShenFen itemCardID;
 	public static Item itemCardAccess;
-	public static Item itemCardSecurityLink;
 	public static Item itemCardInfinite;
 	public static Item itemCardDataLink;
 	/**
@@ -269,13 +267,12 @@ public class ZhuYao
 			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
 			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.item_OptFusion_ID);
 
-			itemCardEmpty = new ItemCardEmpty(MFFSConfiguration.item_BlankCard_ID);
-			itemCardPowerLink = new ItemCardFrequency(MFFSConfiguration.item_CardPowerLink_ID);
-			itemCardID = new ItCardIdentification(MFFSConfiguration.item_CardPersonalID_ID);
-			itemCardSecurityLink = new ItemCardSecurityLink(MFFSConfiguration.item_CardSecurityLink_ID);
+			itemCardEmpty = new ItKaKong(MFFSConfiguration.item_BlankCard_ID);
+			itemCardPowerLink = new ItKaShengBuo(MFFSConfiguration.item_CardPowerLink_ID);
+			itemCardID = new ItKaShenFen(MFFSConfiguration.item_CardPersonalID_ID);
 			itemCardInfinite = new ItKaWuXian(MFFSConfiguration.item_infPowerCard_ID);
-			itemCardAccess = new ItemCardTemporaryID(MFFSConfiguration.item_CardAccess_ID);
-			itemCardDataLink = new ItemCardDataLink(MFFSConfiguration.item_CardDataLink_ID);
+			itemCardAccess = new ItKaShenFenZhanShi(MFFSConfiguration.item_CardAccess_ID);
+			itemCardDataLink = new ItKaLian(MFFSConfiguration.item_CardDataLink_ID);
 
 			// TODO: MFFS REMOVE THIS
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);

@@ -5,9 +5,9 @@ import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItCardIdentification;
-import mffs.common.card.ItemCardFrequency;
-import mffs.common.card.ItemCardTemporaryID;
+import mffs.common.card.ItKaShenFen;
+import mffs.common.card.ItKaShengBuo;
+import mffs.common.card.ItKaShenFenZhanShi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -85,9 +85,9 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			if ((getStackInSlot(i) != null) && (getStackInSlot(i).getItem() == ZhuYao.itemCardID))
 			{
-				String username_invtory = NBTTagCompoundHelper.getTAGfromItemstack(getStackInSlot(i)).getString("name");
+				String username_invtory = NBTTagCompoundHelper.get(getStackInSlot(i)).getString("name");
 
-				ItCardIdentification Card = (ItCardIdentification) getStackInSlot(i).getItem();
+				ItKaShenFen Card = (ItKaShenFen) getStackInSlot(i).getItem();
 
 				if (username_invtory.equals(username))
 				{
@@ -113,7 +113,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 
 				if (stack != null)
 				{
-					if (stack.getItem() instanceof ItemCardTemporaryID)
+					if (stack.getItem() instanceof ItKaShenFenZhanShi)
 					{/*
 					 * if (ItemCardTemporaryID.getvalidity(stack) > 0) { } else {
 					 * player.sendChatToPlayer
@@ -134,11 +134,11 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 	{
 		if (slotID == 0)
 		{
-			return itemStack.getItem() instanceof ItemCardFrequency;
+			return itemStack.getItem() instanceof ItKaShengBuo;
 		}
 		else
 		{
-			return itemStack.getItem() instanceof ItCardIdentification;
+			return itemStack.getItem() instanceof ItKaShenFen;
 		}
 	}
 
@@ -149,9 +149,9 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 
 		if (itemStack != null)
 		{
-			if (itemStack.getItem() instanceof ItCardIdentification)
+			if (itemStack.getItem() instanceof ItKaShenFen)
 			{
-				return ((ItCardIdentification) itemStack.getItem()).getUsername(itemStack);
+				return ((ItKaShenFen) itemStack.getItem()).getUsername(itemStack);
 			}
 		}
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import mffs.common.Fortron;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItemCardFrequency;
+import mffs.common.card.ItKaShengBuo;
 import mffs.common.item.ItemForcillium;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -217,7 +217,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 				case 0:
 					return itemStack.getItem() instanceof ItemForcillium || itemStack.isItemEqual(new ItemStack(Item.dyePowder, 1, 4));
 				case 1:
-					return itemStack.getItem() instanceof ItemCardFrequency;
+					return itemStack.getItem() instanceof ItKaShengBuo;
 			}
 		}
 

@@ -19,6 +19,7 @@ public class ItemModuleAntibiotic extends ItemModule
 	public ItemModuleAntibiotic(int i)
 	{
 		super(i, "moduleAntibiotic");
+		this.setMaxStackSize(1);
 	}
 
 	public static void ProjectorNPCDefence(TFangYingJi projector, World world)

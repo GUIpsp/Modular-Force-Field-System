@@ -1,7 +1,6 @@
 package mffs.client;
 
 import mffs.client.render.FXBeam;
-import mffs.client.render.RenderForceField;
 import mffs.client.render.RenderForcilliumExtractor;
 import mffs.client.render.RenderFortronCapacitor;
 import mffs.client.render.RenderProjector;
@@ -13,14 +12,12 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy
 {
 	@Override
 	public void init()
 	{
-		RenderingRegistry.registerBlockHandler(new RenderForceField());
 		ClientRegistry.bindTileEntitySpecialRenderer(TDianRong.class, new RenderFortronCapacitor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TChouQi.class, new RenderForcilliumExtractor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TFangYingJi.class, new RenderProjector());

@@ -1,7 +1,7 @@
 package mffs.common;
 
 import icbm.api.IBlockFrequency;
-import mffs.common.card.ItemCardFrequency;
+import mffs.common.card.ItKaShengBuo;
 import mffs.common.tileentity.TShengBuo;
 import net.minecraft.item.ItemStack;
 
@@ -20,9 +20,9 @@ public class SlotFrequency extends SlotHelper
 
 		if (itemStack != null)
 		{
-			if (itemStack.getItem() instanceof ItemCardFrequency)
+			if (itemStack.getItem() instanceof ItKaShengBuo)
 			{
-				((ItemCardFrequency) itemStack.getItem()).setFrequency(((IBlockFrequency) this.tileEntity).getFrequency(), itemStack);
+				((ItKaShengBuo) itemStack.getItem()).setFrequency(((IBlockFrequency) this.tileEntity).getFrequency(), itemStack);
 			}
 		}
 	}

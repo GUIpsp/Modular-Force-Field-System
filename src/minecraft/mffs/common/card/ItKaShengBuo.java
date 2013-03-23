@@ -8,9 +8,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ItemCardFrequency extends ItKa implements IItemFrequency
+public class ItKaShengBuo extends ItKa implements IItemFrequency
 {
-	public ItemCardFrequency(int i)
+	public ItKaShengBuo(int i)
 	{
 		super(i, "cardFrequency");
 	}

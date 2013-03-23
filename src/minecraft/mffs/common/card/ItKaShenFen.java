@@ -10,14 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ItCardIdentification extends ItKa implements IIdentificationCard
+public class ItKaShenFen extends ItKa implements IIdentificationCard
 {
-	public ItCardIdentification(int i)
+	public ItKaShenFen(int i)
 	{
 		super(i, "cardIdentification");
 	}
 
-	public ItCardIdentification(int i, String name)
+	public ItKaShenFen(int i, String name)
 	{
 		super(i, name);
 	}
@@ -38,14 +38,14 @@ public class ItCardIdentification extends ItKa implements IIdentificationCard
 	@Override
 	public void setUsername(ItemStack itemStack, String username)
 	{
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.get(itemStack);
 		nbtTagCompound.setString("name", username);
 	}
 
 	@Override
 	public String getUsername(ItemStack itemStack)
 	{
-		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.getTAGfromItemstack(itemStack);
+		NBTTagCompound nbtTagCompound = NBTTagCompoundHelper.get(itemStack);
 
 		if (nbtTagCompound != null)
 		{

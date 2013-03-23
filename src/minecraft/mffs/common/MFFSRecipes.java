@@ -26,7 +26,6 @@ public class MFFSRecipes
 
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itemCardEmpty), new Object[] { new ItemStack(ZhuYao.itemCardPowerLink) });
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itemCardEmpty), new Object[] { new ItemStack(ZhuYao.itemCardID) });
-		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itemCardEmpty), new Object[] { new ItemStack(ZhuYao.itemCardSecurityLink) });
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itemCardEmpty), new Object[] { new ItemStack(ZhuYao.itemCardAccess) });
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itemCardEmpty), new Object[] { new ItemStack(ZhuYao.itemCardDataLink) });
 

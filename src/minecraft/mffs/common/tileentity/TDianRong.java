@@ -12,7 +12,7 @@ import mffs.api.IFortronCapacitor;
 import mffs.api.IFortronFrequency;
 import mffs.api.IFortronStorage;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItemCardFrequency;
+import mffs.common.card.ItKaShengBuo;
 import mffs.common.upgrade.ItemUpgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -337,7 +337,7 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 	{
 		if (slotID == 0)
 		{
-			return itemStack.getItem() instanceof ItemCardFrequency;
+			return itemStack.getItem() instanceof ItKaShengBuo;
 		}
 		else
 		{
