@@ -1,7 +1,6 @@
 package mffs.common.tileentity;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +16,6 @@ import mffs.common.card.ItKa;
 import mffs.common.card.ItKaWuXian;
 import mffs.common.module.IInteriorCheck;
 import mffs.common.module.IModule;
-import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleFusion;
 import mffs.common.module.ItemModuleJammer;
 import net.minecraft.block.Block;
@@ -546,9 +544,9 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public List<ItemStack> getModuleStacks()
+	public Set<ItemStack> getModuleStacks()
 	{
-		List<ItemStack> modules = new ArrayList();
+		Set<ItemStack> modules = new HashSet<ItemStack>();
 
 		for (int slotID = 1; slotID <= this.getSizeInventory() - 1; slotID++)
 		{
@@ -556,7 +554,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 
 			if (itemStack != null)
 			{
-				if (itemStack.getItem() instanceof ItemModule)
+				if (itemStack.getItem() instanceof IModule)
 				{
 					modules.add(itemStack);
 				}
@@ -567,9 +565,9 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public List<IModule> getModules()
+	public Set<IModule> getModules()
 	{
-		List<IModule> modules = new ArrayList();
+		Set<IModule> modules = new HashSet<IModule>();
 
 		for (int slotID = 1; slotID < this.getSizeInventory() - 1; slotID++)
 		{
@@ -577,9 +575,9 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 
 			if (itemStack != null)
 			{
-				if (itemStack.getItem() instanceof ItemModule)
+				if (itemStack.getItem() instanceof IModule)
 				{
-					modules.add((ItemModule) itemStack.getItem());
+					modules.add((IModule) itemStack.getItem());
 				}
 			}
 		}

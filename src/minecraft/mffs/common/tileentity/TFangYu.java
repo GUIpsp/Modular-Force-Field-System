@@ -7,16 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 import mffs.api.IDefenseStation;
+import mffs.api.IDefenseStationModule;
 import mffs.api.SecurityPermission;
-import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItKaShengBuo;
-import mffs.common.upgrade.ItemModuleScale;
+import mffs.common.module.IModule;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.INpc;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -48,16 +46,12 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 
 	}
 
-	private static final int FORTRON_CONSUMPTION = 2;
-
 	private static final int BAN_LIST_START = 4;
-	private static final int INVENTORY_START = 15;
 
 	/**
 	 * True if the current confiscation mode is for "banning selected items".
 	 */
 	private boolean isBanMode = true;
-	public ActionMode actionMode = ActionMode.WARN;
 
 	public TFangYu()
 	{
@@ -90,7 +84,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 			{
 				if (this.ticks % 10 == 0)
 				{
-					if (this.requestFortron(FORTRON_CONSUMPTION, true) > 0)
+					if (this.requestFortron(this.getFortronCost(), true) > 0)
 					{
 						this.scan();
 					}
@@ -110,7 +104,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
 		objects.add(this.isBanMode);
-		objects.add(this.actionMode.ordinal());
 		return objects;
 	}
 
@@ -122,11 +115,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 		if (packetID == 1)
 		{
 			this.isBanMode = dataStream.readBoolean();
-			this.actionMode = ActionMode.values()[dataStream.readInt()];
-		}
-		else if (packetID == 3)
-		{
-			this.actionMode = this.actionMode.toggle();
 		}
 		else if (packetID == 4)
 		{
@@ -155,10 +143,10 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	{
 		if ((getStackInSlot(2) != null) && (getStackInSlot(2).getItem() == ZhuYao.itemModuleScale))
 		{
-			return getActionRange() + (getStackInSlot(2).stackSize + 3);
+			return this.getActionRange() + (getStackInSlot(2).stackSize + 3);
 		}
 
-		return getActionRange() + 3;
+		return this.getActionRange() + 3;
 	}
 
 	public void scan()
@@ -268,174 +256,48 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 			}
 		}
 
-		/**
-		 * Based on the action mode of the defense station, apply an defensive action to the
-		 * specified living entity.
-		 */
-		switch (this.actionMode)
+		for (ItemStack itemStack : this.getModuleStacks())
 		{
-			case WARN:
+			IDefenseStationModule module = (IDefenseStationModule) itemStack.getItem();
+
+			if (module.onDefend(this, entityLiving) || entityLiving.isDead)
 			{
-				if (!hasPermission && entityLiving instanceof EntityPlayer)
-				{
-					((EntityPlayer) entityLiving).addChatMessage("[" + this.getInvName() + "] Leave this zone immediately. You have no right to enter.");
-				}
 				break;
 			}
-			case CONFISCATE:
-			{
-				Set<ItemStack> controlledStacks = new HashSet<ItemStack>();
-
-				for (int i = BAN_LIST_START; i < INVENTORY_START; i++)
-				{
-					if (getStackInSlot(i) != null)
-					{
-						controlledStacks.add(this.getStackInSlot(i));
-					}
-				}
-
-				int confiscationCount = 0;
-				IInventory inventory = null;
-
-				if (!hasPermission && entityLiving instanceof EntityPlayer)
-				{
-					EntityPlayer player = (EntityPlayer) entityLiving;
-					inventory = player.inventory;
-				}
-				else if (entityLiving instanceof IInventory)
-				{
-					inventory = (IInventory) entityLiving;
-				}
-
-				if (inventory != null)
-				{
-					for (int i = 0; i < inventory.getSizeInventory(); i++)
-					{
-						// The ItemStack currently being checked.
-						ItemStack checkStack = inventory.getStackInSlot(i);
-
-						if (checkStack != null)
-						{
-							boolean stacksMatch = false;
-
-							for (ItemStack itemStack : controlledStacks)
-							{
-								if (itemStack != null)
-								{
-									if (itemStack.isItemEqual(checkStack))
-									{
-										stacksMatch = true;
-										break;
-									}
-								}
-							}
-
-							if ((isBanMode() && stacksMatch) || (!isBanMode() && !stacksMatch))
-							{
-								mergeIntoInventory(this, inventory.getStackInSlot(i), true);
-								inventory.setInventorySlotContents(i, null);
-								confiscationCount++;
-								this.requestFortron(MFFSConfiguration.defenceStationSearchForceEnergy, false);
-							}
-						}
-					}
-
-					if (confiscationCount > 0 && entityLiving instanceof EntityPlayer)
-					{
-						((EntityPlayer) entityLiving).addChatMessage("[" + this.getInvName() + "] " + confiscationCount + " of your items has been confiscated.");
-					}
-				}
-
-				break;
-			}
-			case ASSASINATE:
-			{
-				if (!hasPermission && entityLiving instanceof EntityPlayer)
-				{
-					EntityPlayer player = (EntityPlayer) entityLiving;
-					player.addChatMessage("[" + this.getInvName() + "] Fairwell.");
-
-					for (int i = 0; i < player.inventory.getSizeInventory(); i++)
-					{
-						this.mergeIntoInventory(this, player.inventory.getStackInSlot(i), true);
-						player.inventory.setInventorySlotContents(i, null);
-					}
-
-					player.attackEntityFrom(ZhuYao.areaDefense, Integer.MAX_VALUE);
-					this.requestFortron(MFFSConfiguration.defenceStationKillForceEnergy, false);
-				}
-
-				break;
-			}
-			case ANTI_HOSTILE:
-			{
-				if (entityLiving instanceof IMob && !(entityLiving instanceof INpc))
-				{
-					entityLiving.attackEntityFrom(ZhuYao.areaDefense, Integer.MAX_VALUE);
-				}
-				break;
-			}
-			case ANTI_FRIENDLY:
-			{
-				if (!(entityLiving instanceof IMob && !(entityLiving instanceof INpc)))
-				{
-					entityLiving.attackEntityFrom(ZhuYao.areaDefense, Integer.MAX_VALUE);
-				}
-				break;
-			}
-			case ANTIBIOTIC:
-			{
-				if (!(entityLiving instanceof EntityPlayer))
-				{
-					entityLiving.attackEntityFrom(ZhuYao.areaDefense, Integer.MAX_VALUE);
-				}
-				break;
-			}
-
 		}
-
-		// TODO: CONSUME ENERGY
 	}
 
-	public boolean mergeIntoInventory(IInventory inventory, ItemStack itemStack, boolean loop)
+	@Override
+	public boolean mergeIntoInventory(ItemStack itemStack)
 	{
-		if (itemStack != null)
+		for (int dir = 0; dir < 5; dir++)
 		{
-			for (int i = INVENTORY_START; i < inventory.getSizeInventory(); i++)
+			ForgeDirection direction = ForgeDirection.getOrientation(dir);
+			TileEntity tileEntity = VectorHelper.getTileEntityFromSide(this.worldObj, new Vector3(this), direction);
+
+			if (tileEntity instanceof IInventory)
 			{
-				ItemStack checkStack = inventory.getStackInSlot(i);
+				IInventory inventory = (IInventory) tileEntity;
 
-				if (checkStack == null)
+				for (int i = 0; i < inventory.getSizeInventory(); i++)
 				{
-					inventory.setInventorySlotContents(i, itemStack);
-					return true;
-				}
-				else if (checkStack.isItemEqual(itemStack))
-				{
-					int freeSpace = checkStack.getMaxStackSize() - checkStack.stackSize;
+					ItemStack checkStack = inventory.getStackInSlot(i);
 
-					checkStack.stackSize += Math.min(itemStack.stackSize, freeSpace);
-					itemStack.stackSize -= freeSpace;
-
-					if (itemStack.stackSize <= 0)
+					if (checkStack == null)
 					{
-						itemStack = null;
+						inventory.setInventorySlotContents(i, itemStack);
 						return true;
 					}
-				}
-			}
-
-			if (loop)
-			{
-				for (int i = 0; i > 6; i++)
-				{
-					ForgeDirection direction = ForgeDirection.getOrientation(i);
-					TileEntity tileEntity = VectorHelper.getTileEntityFromSide(this.worldObj, new Vector3(this), direction);
-
-					if (tileEntity instanceof IInventory)
+					else if (checkStack.isItemEqual(itemStack))
 					{
-						if (this.mergeIntoInventory((IInventory) tileEntity, itemStack, false))
+						int freeSpace = checkStack.getMaxStackSize() - checkStack.stackSize;
+
+						checkStack.stackSize += Math.min(itemStack.stackSize, freeSpace);
+						itemStack.stackSize -= freeSpace;
+
+						if (itemStack.stackSize <= 0)
 						{
+							itemStack = null;
 							return true;
 						}
 					}
@@ -449,28 +311,145 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	@Override
 	public int getSizeInventory()
 	{
-		return 38;
+		return 2 + 9 * 3;
+	}
+
+	@Override
+	public int getFortronCost()
+	{
+		float cost = 2;
+
+		for (ItemStack itemStack : this.getModuleStacks())
+		{
+			if (itemStack != null)
+			{
+				cost += itemStack.stackSize * ((IModule) itemStack.getItem()).getFortronCost();
+			}
+		}
+
+		return Math.round(cost);
+	}
+
+	@Override
+	public Set<ItemStack> getFilteredItems()
+	{
+		Set<ItemStack> stacks = new HashSet<ItemStack>();
+
+		for (int i = BAN_LIST_START; i < this.getSizeInventory() - 1; i++)
+		{
+			if (this.getStackInSlot(i) != null)
+			{
+				stacks.add(this.getStackInSlot(i));
+			}
+		}
+		return stacks;
+	}
+
+	@Override
+	public boolean getFilterMode()
+	{
+		return this.isBanMode;
+	}
+
+	@Override
+	public ItemStack getModule(IModule module)
+	{
+		ItemStack returnStack = new ItemStack((Item) module, 0);
+
+		for (ItemStack comparedModule : getModuleStacks())
+		{
+			if (comparedModule.getItem() == module)
+			{
+				returnStack.stackSize += comparedModule.stackSize;
+			}
+		}
+
+		return returnStack;
+	}
+
+	@Override
+	public int getModuleCount(IModule module, int... slots)
+	{
+		int count = 0;
+
+		if (slots != null && slots.length > 0)
+		{
+			for (int slotID : slots)
+			{
+				if (this.getStackInSlot(slotID) != null)
+				{
+					if (this.getStackInSlot(slotID).getItem() == module)
+					{
+						count += this.getStackInSlot(slotID).stackSize;
+					}
+				}
+			}
+		}
+		else
+		{
+			for (ItemStack itemStack : getModuleStacks())
+			{
+				if (itemStack.getItem() == module)
+				{
+					count += itemStack.stackSize;
+				}
+			}
+		}
+
+		return count;
+	}
+
+	@Override
+	public Set<ItemStack> getModuleStacks()
+	{
+		Set<ItemStack> modules = new HashSet<ItemStack>();
+
+		for (int slotID = 2; slotID <= this.getSizeInventory() - 1; slotID++)
+		{
+			ItemStack itemStack = this.getStackInSlot(slotID);
+
+			if (itemStack != null)
+			{
+				if (itemStack.getItem() instanceof IDefenseStationModule)
+				{
+					modules.add(itemStack);
+				}
+			}
+		}
+
+		return modules;
+	}
+
+	@Override
+	public Set<IModule> getModules()
+	{
+		Set<IModule> modules = new HashSet<IModule>();
+
+		for (int slotID = 2; slotID < this.getSizeInventory() - 1; slotID++)
+		{
+			ItemStack itemStack = this.getStackInSlot(slotID);
+
+			if (itemStack != null)
+			{
+				if (itemStack.getItem() instanceof IModule)
+				{
+					modules.add((IModule) itemStack.getItem());
+				}
+			}
+		}
+
+		return modules;
 	}
 
 	@Override
 	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
-		switch (slotID)
-		{
-			case 0:
-				return itemStack.getItem() instanceof ItKaShengBuo;
-			case 2:
-				return itemStack.getItem() instanceof ItemModuleScale;
-			case 3:
-				return itemStack.getItem() instanceof ItemModuleScale;
-		}
-
 		if (slotID >= BAN_LIST_START)
 		{
 			return true;
 		}
 
-		return false;
+		return itemStack.getItem() instanceof IDefenseStationModule;
 	}
 
 	@Override
@@ -478,7 +457,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	{
 		super.readFromNBT(nbt);
 		this.isBanMode = nbt.getBoolean("isBanMode");
-		this.actionMode = ActionMode.values()[nbt.getInteger("actionMode")];
 	}
 
 	@Override
@@ -486,6 +464,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	{
 		super.writeToNBT(nbt);
 		nbt.setBoolean("isBanMode", this.isBanMode);
-		nbt.setInteger("actionMode", this.actionMode.ordinal());
 	}
+
 }

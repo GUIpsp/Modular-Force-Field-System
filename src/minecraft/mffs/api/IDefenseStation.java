@@ -1,6 +1,12 @@
 package mffs.api;
 
-public interface IDefenseStation
+import java.util.List;
+import java.util.Set;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
+public interface IDefenseStation extends IInventory, IFortronFrequency, IModuleAcceptor
 {
 
 	/**
@@ -16,4 +22,17 @@ public interface IDefenseStation
 	 * @return
 	 */
 	public int getActionRange();
+
+	public boolean mergeIntoInventory(ItemStack itemStack);
+
+	public Set<ItemStack> getFilteredItems();
+
+	/**
+	 * 
+	 * @return True if the filtering is on ban mode. False if it is on allow-only mode.
+	 */
+	public boolean getFilterMode();
+
+	int getFortronCost();
+
 }

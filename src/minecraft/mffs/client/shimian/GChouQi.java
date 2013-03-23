@@ -34,7 +34,7 @@ public class GChouQi extends GuiMFFS
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
-		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 3.5), 6, 4210752);
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.xSize / 2 - this.fontRenderer.getStringWidth(this.tileEntity.getInvName()) / 2, 6, 4210752);
 
 		this.drawTextWithTooltip("frequency", "%1:", 8, 30, x, y);
 		this.textFieldFrequency.drawTextBox();

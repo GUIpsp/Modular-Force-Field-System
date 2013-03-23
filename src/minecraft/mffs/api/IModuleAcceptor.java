@@ -1,0 +1,19 @@
+package mffs.api;
+
+import java.util.Set;
+
+import mffs.common.module.IModule;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeDirection;
+
+public interface IModuleAcceptor
+{
+	public ItemStack getModule(IModule module);
+
+	public int getModuleCount(IModule module, int... slots);
+
+	public Set<IModule> getModules();
+
+	public Set<ItemStack> getModuleStacks();
+
+}

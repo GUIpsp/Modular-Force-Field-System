@@ -42,7 +42,7 @@ public class GDianRong extends GuiMFFS
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
-		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.xSize / 2 - this.fontRenderer.getStringWidth(this.tileEntity.getInvName()) / 2, 6, 4210752);
 
 		GL11.glPushMatrix();
 		GL11.glRotatef(-90, 0, 0, 1);

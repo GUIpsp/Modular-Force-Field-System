@@ -1,14 +1,17 @@
 package mffs.client.shimian;
 
 import mffs.client.shimian.enniu.GuiButtonMFFS;
+import mffs.common.SlotHelper;
 import mffs.common.ZhuYao;
-import mffs.common.container.ContainerDefenseStation;
+import mffs.common.container.CFangYu;
 import mffs.common.tileentity.TFangYu;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
+import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.network.PacketManager;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -20,16 +23,14 @@ public class GFangYu extends GuiMFFS
 
 	public GFangYu(EntityPlayer player, TFangYu tileEntity)
 	{
-		super(new ContainerDefenseStation(player, tileEntity), tileEntity);
+		super(new CFangYu(player, tileEntity), tileEntity);
 		this.tileEntity = tileEntity;
-		this.xSize = 256;
-		this.ySize = 216;
 	}
 
 	@Override
 	public void initGui()
 	{
-		this.textFieldPos = new Vector2(33, 29);
+		this.textFieldPos = new Vector2(100, 91);
 		super.initGui();
 		this.buttonList.clear();
 		this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104));
@@ -56,90 +57,59 @@ public class GFangYu extends GuiMFFS
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
-		this.fontRenderer.drawString(this.tileEntity.getInvName(), 7, 9, 4210752);
-
-		this.drawTextWithTooltip("fortron", "%1: " + this.tileEntity.getFortronEnergy(), 90, 32, x, y);
-
-		switch (this.tileEntity.actionMode)
-		{
-
-			case WARN:
-				this.fontRenderer.drawString("Warn", 110, 55, 4210752);
-				this.fontRenderer.drawString(" send Info", 95, 85, 4210752);
-				this.fontRenderer.drawString(" to player ", 95, 95, 4210752);
-				this.fontRenderer.drawString(" without (SR)", 95, 105, 4210752);
-				this.fontRenderer.drawString(" Stay Right", 95, 115, 4210752);
-				break;
-			case ASSASINATE:
-				this.fontRenderer.drawString("Assasination", 110, 55, 4210752);
-
-				this.fontRenderer.drawString(" kill player", 95, 85, 4210752);
-				this.fontRenderer.drawString(" without (SR)", 95, 95, 4210752);
-				this.fontRenderer.drawString(" gathers his", 95, 105, 4210752);
-				this.fontRenderer.drawString(" equipment", 95, 115, 4210752);
-				break;
-			case CONFISCATE:
-				this.fontRenderer.drawString("Confiscate", 95, 55, 4210752);
-
-				this.fontRenderer.drawString("scans player", 95, 85, 4210752);
-				this.fontRenderer.drawString("without (AAI)", 95, 95, 4210752);
-				this.fontRenderer.drawString("and remove", 95, 105, 4210752);
-				this.fontRenderer.drawString("banned items", 95, 115, 4210752);
-				break;
-			case ANTIBIOTIC:
-				this.fontRenderer.drawString("NPC kill", 110, 55, 4210752);
-				this.fontRenderer.drawString("kill any NPC", 95, 85, 4210752);
-				this.fontRenderer.drawString("friendly or", 95, 95, 4210752);
-				this.fontRenderer.drawString("hostile", 95, 105, 4210752);
-				break;
-			case ANTI_HOSTILE:
-				this.fontRenderer.drawString("NPC kill", 110, 55, 4210752);
-
-				this.fontRenderer.drawString("kill only", 95, 85, 4210752);
-				this.fontRenderer.drawString("hostile NPCs", 95, 95, 4210752);
-				break;
-			case ANTI_FRIENDLY:
-				this.fontRenderer.drawString("NPC kill", 110, 55, 4210752);
-
-				this.fontRenderer.drawString("kill only", 95, 85, 4210752);
-				this.fontRenderer.drawString("friendly NPCs", 95, 95, 4210752);
-		}
-
-		this.fontRenderer.drawString("Action Desc:", 95, 73, 139);
-
-		this.fontRenderer.drawString("items", 205, 68, 2263842);
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.xSize / 2 - this.fontRenderer.getStringWidth(this.tileEntity.getInvName()) / 2, 6, 4210752);
 
 		if (!this.tileEntity.isBanMode())
 		{
-			this.fontRenderer.drawString("allowed", 200, 82, 2263842);
+			this.fontRenderer.drawString("Allowed", 200, 82, 2263842);
 		}
 		else
 		{
-			this.fontRenderer.drawString("banned", 200, 82, 16711680);
+			this.fontRenderer.drawString("Banned", 200, 82, 16711680);
 		}
 
-		this.fontRenderer.drawString("Warning", 35, 55, 139);
-		this.fontRenderer.drawString("Range: " + this.tileEntity.getWarningRange(), 12, 73, 4210752);
-
-		this.fontRenderer.drawString("Action", 35, 91, 15612731);
-		this.fontRenderer.drawString("Range: " + this.tileEntity.getActionRange(), 12, 111, 4210752);
-
+		this.drawTextWithTooltip("warn", "%1: " + this.tileEntity.getWarningRange(), 9, 25, x, y);
+		this.drawTextWithTooltip("action", "%1: " + this.tileEntity.getActionRange(), 9, 38, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 92, x, y);
 		this.textFieldFrequency.drawTextBox();
+
+		this.drawTextWithTooltip("fortron", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 110, x, y);
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
+	protected void drawGuiContainerBackgroundLayer(float var1, int x, int y)
 	{
-		int xSize = 256;
-		int ySize = 216;
-		this.mc.renderEngine.bindTexture(ZhuYao.GUI_DIRECTORY + "gui_defense_station.png");
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		super.drawGuiContainerBackgroundLayer(var1, x, y);
 
-		this.containerWidth = (this.width - this.xSize) / 2;
-		this.containerHeight = (this.height - this.ySize) / 2;
+		/**
+		 * Module Slots
+		 */
+		for (int var3 = 0; var3 < 2; var3++)
+		{
+			for (int var4 = 0; var4 < 4; var4++)
+			{
+				this.drawSlot(98 + var4 * 18, 30 + var3 * 18);
+			}
+		}
 
-		this.drawTexturedModalRect(this.containerWidth, this.containerHeight, 0, 0, xSize, ySize);
+		/**
+		 * Item Filter Slots
+		 */
+		for (int var4 = 0; var4 < 9; var4++)
+		{
+			this.drawSlot(8 + var4 * 18, 68);
+		}
+
+		/**
+		 * Frequency Card Slot
+		 */
+		this.drawSlot(75, 88);
+
+		/**
+		 * Fortron Bar
+		 */
+		this.drawForce(8, 120, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 	}
 
 }

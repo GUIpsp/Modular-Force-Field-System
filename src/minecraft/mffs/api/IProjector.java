@@ -10,7 +10,7 @@ import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.prefab.implement.IDisableable;
 import universalelectricity.prefab.implement.IRotatable;
 
-public abstract interface IProjector extends IInventory, IRotatable, IDisableable
+public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotatable, IDisableable, IFortronFrequency
 {
 	public static enum Slots
 	{
@@ -36,29 +36,21 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 
 	public ItemStack getModeStack();
 
-	public ItemStack getModule(IModule module);
-
-	public int getModuleCount(IModule module, int... slots);
-
-	public int getSidedModuleCount(IModule module, ForgeDirection... direction);
-
-	public List<IModule> getModules();
-
 	public void projectField();
 
 	public void destroyField();
-
-	public List<ItemStack> getModuleStacks();
-
-	/**
-	 * Gets the slot IDs based on the direction given.
-	 */
-	public int[] getSlotsBasedOnDirection(ForgeDirection direction);
 
 	/**
 	 * Gets the unspecified, direction-unspecific module slots on the left side of the GUI.
 	 */
 	public int[] getModuleSlots();
+
+	public int getSidedModuleCount(IModule module, ForgeDirection... direction);
+
+	/**
+	 * Gets the slot IDs based on the direction given.
+	 */
+	public int[] getSlotsBasedOnDirection(ForgeDirection direction);
 
 	/**
 	 * The amount of fortron being used every tick.
