@@ -24,15 +24,14 @@ runtime\bin\python\python_mcp runtime\reobfuscate.py %*
 
 ::ZIP-UP
 cd reobf\minecraft\
-7z a "..\..\builds\%FILE_NAME%" "\mffs\"
-7z a "..\..\builds\%FILE_NAME%" "\buildcraft\"
-7z a "..\..\builds\%FILE_NAME%" "\basiccomponents\"
-7z a "..\..\builds\%FILE_NAME%" "\dan200\"
-7z a "..\..\builds\%FILE_NAME%" "\ic2\"
-7z a "..\..\builds\%FILE_NAME%" "\icbm\"
-7z a "..\..\builds\%FILE_NAME%" "\org\"
-7z a "..\..\builds\%FILE_NAME%" "\thermalexpansion\"
-7z a "..\..\builds\%FILE_NAME%" "\universalelectricity\"
+7z a "..\..\builds\%FILE_NAME%" "mffs\"
+7z a "..\..\builds\%FILE_NAME%" "buildcraft\"
+7z a "..\..\builds\%FILE_NAME%" "dan200\"
+7z a "..\..\builds\%FILE_NAME%" "ic2\"
+7z a "..\..\builds\%FILE_NAME%" "icbm\"
+7z a "..\..\builds\%FILE_NAME%" "org\"
+7z a "..\..\builds\%FILE_NAME%" "thermalexpansion\"
+7z a "..\..\builds\%FILE_NAME%" "universalelectricity\"
 cd ..\..\
 cd resources\
 7z a "..\builds\%FILE_NAME%" "*"
