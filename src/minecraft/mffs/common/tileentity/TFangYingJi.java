@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import mffs.api.ForceFieldType;
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
-import mffs.common.block.BlockForceField.ForceFieldType;
 import mffs.common.card.ItemCard;
 import mffs.common.card.ItemCardInfinite;
 import mffs.common.module.IInteriorCheck;
@@ -38,11 +38,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TFangYingJi extends TileEntityFortron implements IProjector
 {
-	/**
-	 * The amount of fortron energy to consume per second.
-	 */
-	public static final int FORTRON_CONSUMPTION = 10;
-
 	private static final int MODULE_SLOT_ID = 5;
 
 	protected Stack fieldQueue = new Stack();
@@ -63,10 +58,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	private int[] focusmatrix = { 0, 0, 0, 0 };
 	private int forceFieldCamoblockID;
 	private int forceFieldCamoblockMeta;
-	private int blockCount;
-	private int accessType = 0;
-	private int linkPower = 0;
-	private int switchDelay = 0;
+	private int blockCount = 0;
 
 	public TFangYingJi()
 	{
@@ -104,7 +96,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 				}
 			}
 
-			if (this.isActive() && this.getMode() != null && this.requestFortron(FORTRON_CONSUMPTION, true) > 0)
+			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), true) > 0)
 			{
 				if (this.ticks % 10 == 0)
 				{
@@ -176,16 +168,6 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 		}
 	}
 
-	public int getAccessType()
-	{
-		return this.accessType;
-	}
-
-	public void setAccessType(int accesstyp)
-	{
-		this.accessType = accesstyp;
-	}
-
 	public int getForceFieldCamoblockMeta()
 	{
 		return this.forceFieldCamoblockMeta;
@@ -241,32 +223,17 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 		this.forcefieldblock_meta = ((short) ffmeta);
 	}
 
-	public int getLinkPower()
-	{
-		return this.linkPower;
-	}
-
-	public void setLinkPower(int linkPower)
-	{
-		this.linkPower = linkPower;
-	}
-
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
+	public int getFortronCost()
 	{
-		super.readFromNBT(nbttagcompound);
+		float cost = 2;
 
-		this.accessType = nbttagcompound.getInteger("accessType");
-		this.forcefieldblock_meta = nbttagcompound.getShort("forceFieldblockMeta");
-	}
+		for (IModule module : this.getModules())
+		{
+			cost += module.getFortronCost();
+		}
 
-	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
-		super.writeToNBT(nbttagcompound);
-
-		nbttagcompound.setInteger("accessType", this.accessType);
-		nbttagcompound.setShort("forceFieldblockMeta", this.forcefieldblock_meta);
+		return Math.round(cost);
 	}
 
 	@Override

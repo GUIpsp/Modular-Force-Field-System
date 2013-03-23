@@ -4,7 +4,7 @@ import mffs.common.tileentity.TAnQuan;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSecurityCenter extends BlockMFFSMachine
+public class BlockSecurityCenter extends BJiQi
 {
 	public BlockSecurityCenter(int i, int texture)
 	{

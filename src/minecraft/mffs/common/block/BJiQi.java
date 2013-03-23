@@ -22,11 +22,11 @@ import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BlockMFFSMachine extends BlockRotatable
+public abstract class BJiQi extends BlockRotatable
 {
 	private Icon iconOn, iconMachineOn, iconMachineOff;
 
-	public BlockMFFSMachine(int id, String name)
+	public BJiQi(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
 		this.setUnlocalizedName(ZhuYao.PREFIX + name);
@@ -110,8 +110,9 @@ public abstract class BlockMFFSMachine extends BlockRotatable
 		return true;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void func_94332_a(IconRegister par1IconRegister)
+	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.blockIcon = par1IconRegister.registerIcon(this.getUnlocalizedName2() + "_off");
 		this.iconOn = par1IconRegister.registerIcon(this.getUnlocalizedName2() + "_on");

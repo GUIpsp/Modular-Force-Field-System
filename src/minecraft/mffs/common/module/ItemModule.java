@@ -25,4 +25,11 @@ public abstract class ItemModule extends ItemMFFS implements IModule
 			info.addAll(ZhuYao.splitStringPerWord(tooltip, 5));
 		}
 	}
+
+	@Override
+	public float getFortronCost()
+	{
+		return 1;
+	}
+
 }

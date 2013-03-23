@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockProjector extends BlockMFFSMachine
+public class BlockProjector extends BJiQi
 {
 	public BlockProjector(int id)
 	{

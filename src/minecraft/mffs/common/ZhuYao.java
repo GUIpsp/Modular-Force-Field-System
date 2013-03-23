@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 import mffs.api.SecurityHelper;
 import mffs.api.SecurityPermission;
+import mffs.common.block.BLiQiang;
 import mffs.common.block.BlockControlSystem;
 import mffs.common.block.BlockDefenseStation;
-import mffs.common.block.BlockForceField;
 import mffs.common.block.BlockForcilliumExtractor;
 import mffs.common.block.BlockFortronCapacitor;
 import mffs.common.block.BlockFortronite;
@@ -37,7 +37,6 @@ import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.ItemModule;
 import mffs.common.module.ItemModuleAntibiotic;
 import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDefenseStation;
 import mffs.common.module.ItemModuleDisintegration;
 import mffs.common.module.ItemModuleFusion;
 import mffs.common.module.ItemModuleJammer;
@@ -172,7 +171,6 @@ public class ZhuYao
 	public static ItemModule itemModuleManipulator;
 	public static ItemModule itemModuleDisintegration;
 	public static ItemModule itemModuleAntibiotic;
-	public static ItemModule itemModuleDefenseeStation;
 	public static ItemModule itemModuleJammer;
 	public static ItemModule itemModuleCamouflage;
 	public static ItemModule itemModuleFusion;
@@ -242,7 +240,7 @@ public class ZhuYao
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.block_DefenseStation_ID);
 			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.block_Capacitor_ID);
 			blockProjector = new BlockProjector(MFFSConfiguration.block_Projector_ID);
-			blockForceField = new BlockForceField(MFFSConfiguration.block_Field_ID);
+			blockForceField = new BLiQiang(MFFSConfiguration.block_Field_ID);
 			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.block_SecurityStation_ID, 16);
 			blockControlSystem = new BlockControlSystem(MFFSConfiguration.block_ControlSystem);
 
@@ -266,7 +264,6 @@ public class ZhuYao
 			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.item_OptSponge_ID);
 			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.item_OptManipulator_ID);
 			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.item_OptBlockBreaker_ID);
-			itemModuleDefenseeStation = new ItemModuleDefenseStation(MFFSConfiguration.item_OptDefense_ID);
 			itemModuleAntibiotic = new ItemModuleAntibiotic(MFFSConfiguration.item_OptMobDefense_ID);
 			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.item_OptJammer_ID);
 			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.item_OptCamouflage_ID);
@@ -321,7 +318,6 @@ public class ZhuYao
 
 		MachineTypes.initialize();
 		ProjectorTypes.initialize();
-		ProjectorOptions.initialize();
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 

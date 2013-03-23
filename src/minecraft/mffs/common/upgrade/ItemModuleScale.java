@@ -8,4 +8,10 @@ public class ItemModuleScale extends ItemModule
 	{
 		super(i, "moduleScale");
 	}
+
+	@Override
+	public float getFortronCost()
+	{
+		return 5;
+	}
 }

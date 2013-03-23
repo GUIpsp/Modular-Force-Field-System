@@ -4,7 +4,7 @@ import mffs.common.tileentity.TKongZhi;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockControlSystem extends BlockMFFSMachine
+public class BlockControlSystem extends BJiQi
 {
 	public BlockControlSystem(int i)
 	{

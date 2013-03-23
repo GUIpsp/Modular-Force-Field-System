@@ -4,7 +4,7 @@ import mffs.common.tileentity.TDianRong;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockFortronCapacitor extends BlockMFFSMachine
+public class BlockFortronCapacitor extends BJiQi
 {
 	public BlockFortronCapacitor(int i)
 	{

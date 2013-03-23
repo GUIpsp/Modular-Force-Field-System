@@ -52,15 +52,8 @@ public class ItemModuleAntibiotic extends ItemModule
 				{
 					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ZhuYao.itemModuleTranslation) + 4))
 					{
-						if (projector.getLinkPower() < 10000)
-						{
-							break;
-						}
-						// if (projector.consumePower(10000, true))
-						{
-							entityLiving.attackEntityFrom(ZhuYao.fieldDefense, 10);
-							// projector.consumePower(10000, false);
-						}
+						entityLiving.attackEntityFrom(ZhuYao.fieldDefense, 10);
+
 					}
 				}
 			}

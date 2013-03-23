@@ -60,4 +60,11 @@ public abstract interface IProjector extends IInventory, IRotatable, IDisableabl
 	 */
 	public int[] getModuleSlots();
 
+	/**
+	 * The amount of fortron being used every tick.
+	 * 
+	 * @return
+	 */
+	public int getFortronCost();
+
 }

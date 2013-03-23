@@ -3,6 +3,7 @@ package mffs.common.block;
 import java.util.List;
 import java.util.Random;
 
+import mffs.api.ForceFieldType;
 import mffs.api.IForceFieldBlock;
 import mffs.client.render.RenderForceField;
 import mffs.common.MFFSConfiguration;
@@ -23,21 +24,9 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockForceField extends BlockMFFS implements IForceFieldBlock
+public class BLiQiang extends BBase implements IForceFieldBlock
 {
-	public enum ForceFieldType
-	{
-		Default(1), Camouflage(2), Zapper(3), Area(1), Containment(1);
-
-		int cost;
-
-		private ForceFieldType(int cost)
-		{
-			this.cost = cost;
-		}
-	}
-
-	public BlockForceField(int id)
+	public BLiQiang(int id)
 	{
 		super(id, "forceField", Material.glass);
 		this.setBlockUnbreakable();
