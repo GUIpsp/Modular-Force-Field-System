@@ -1,14 +1,7 @@
 package mffs.common.card;
 
-import java.util.List;
-
 import mffs.api.IItemFortronStorage;
-import mffs.api.IPowerLinkItem;
-import mffs.common.item.ItemMFFS;
-import mffs.common.tileentity.TileEntityMFFS;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class ItKaWuXian extends ItKa implements IItemFortronStorage
 {

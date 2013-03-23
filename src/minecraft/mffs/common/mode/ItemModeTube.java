@@ -3,10 +3,10 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.PointXYZ;
 import mffs.common.ZhuYao;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.tileentity.TileEntity;
+import universalelectricity.core.vector.Vector3;
 
 public class ItemModeTube extends ItemProjectorMode
 {
@@ -116,11 +116,11 @@ public class ItemModeTube extends ItemProjectorMode
 
 					if (((x1 == 0 - tpx_temp) || (x1 == tpx_temp) || (y1 == 0 - tpy_temp) || (y1 == tpy_temp) || (z1 == 0 - tpz_temp) || (z1 == tpz_temp)) && (((TFangYingJi) projector).yCoord + y1 >= 0))
 					{
-						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
+						ffLocs.add(new Vector3(x1, y1, z1));
 					}
 					else
 					{
-						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
+						ffInterior.add(new Vector3(x1, y1, z1));
 					}
 				}
 			}

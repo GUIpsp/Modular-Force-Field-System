@@ -2,8 +2,6 @@ package mffs.common.card;
 
 import java.util.List;
 
-import mffs.api.PointXYZ;
-import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

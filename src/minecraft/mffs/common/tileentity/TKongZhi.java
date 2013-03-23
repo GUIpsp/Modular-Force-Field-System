@@ -1,6 +1,5 @@
 package mffs.common.tileentity;
 
-import mffs.api.PointXYZ;
 import mffs.common.MachineTypes;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
@@ -244,16 +243,6 @@ public class TKongZhi extends TileEntityFortron implements ISidedInventory
 			if (!MachineTypes.fromTE(this.remote).getName().equalsIgnoreCase(getRemoteDeviceTyp()))
 			{
 				setRemoteDeviceTyp(MachineTypes.fromTE(this.remote).getName());
-			}
-
-			if ((PointXYZ.distance(getMachinePoint(), this.remote.getMachinePoint()) > 61.0D) && (getRemoteGUIinRange()))
-			{
-				setRemoteGUIinRange(false);
-			}
-
-			if ((PointXYZ.distance(getMachinePoint(), this.remote.getMachinePoint()) <= 61.0D) && (!getRemoteGUIinRange()))
-			{
-				setRemoteGUIinRange(true);
 			}
 
 		}

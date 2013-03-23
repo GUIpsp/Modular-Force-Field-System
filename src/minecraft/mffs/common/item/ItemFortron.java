@@ -2,17 +2,15 @@ package mffs.common.item;
 
 import java.util.List;
 
-import universalelectricity.core.electricity.ElectricityDisplay;
-import universalelectricity.core.electricity.ElectricityPack;
-import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
-import universalelectricity.core.item.ElectricItemHelper;
 import mffs.api.IItemFortronStorage;
-import mffs.common.NBTTagCompoundHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
+import universalelectricity.core.item.ElectricItemHelper;
 
 public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorage
 {

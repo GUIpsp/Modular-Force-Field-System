@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 import mffs.api.IStatusToggle;
-import mffs.api.PointXYZ;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
 import net.minecraft.entity.player.EntityPlayer;
@@ -287,12 +286,5 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	public void setDirection(World world, int x, int y, int z, ForgeDirection facingDirection)
 	{
 		this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, facingDirection.ordinal(), 3);
-	}
-
-	@Deprecated
-	public PointXYZ getMachinePoint()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

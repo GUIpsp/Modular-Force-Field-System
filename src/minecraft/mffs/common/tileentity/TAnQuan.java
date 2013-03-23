@@ -6,8 +6,8 @@ import mffs.common.MFFSConfiguration;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaShenFen;
-import mffs.common.card.ItKaShengBuo;
 import mffs.common.card.ItKaShenFenZhanShi;
+import mffs.common.card.ItKaShengBuo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

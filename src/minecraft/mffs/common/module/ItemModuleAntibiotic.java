@@ -2,9 +2,7 @@ package mffs.common.module;
 
 import java.util.List;
 
-import mffs.api.PointXYZ;
 import mffs.common.ZhuYao;
-import mffs.common.mode.ItemModeSphere;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityGhast;
@@ -51,11 +49,7 @@ public class ItemModuleAntibiotic extends ItemModule
 
 				if (((entityLiving instanceof EntityMob)) || ((entityLiving instanceof EntitySlime)) || ((entityLiving instanceof EntityGhast)))
 				{
-					if ((!(projector.getMode() instanceof ItemModeSphere)) || (PointXYZ.distance(new PointXYZ((int) entityLiving.posX, (int) entityLiving.posY, (int) entityLiving.posZ, world), projector.getMachinePoint()) <= projector.getModuleCount(ZhuYao.itemModuleTranslation) + 4))
-					{
-						entityLiving.attackEntityFrom(ZhuYao.fieldDefense, 10);
-
-					}
+					entityLiving.attackEntityFrom(ZhuYao.fieldDefense, 10);
 				}
 			}
 		}
