@@ -11,8 +11,23 @@ public class MFFSConfiguration
 	/**
 	 * Blocks
 	 */
-	public static int BLOCK_ID_PREFIX = 680;
-	public static int ITEM_ID_PREFIX = 11130;
+	public static final int BLOCK_ID_PREFIX = 680;
+	public static final int ITEM_ID_PREFIX = 11130;
+
+	private static int NEXT_BLOCK_ID = BLOCK_ID_PREFIX;
+	private static int NEXT_ITEM_ID = ITEM_ID_PREFIX;
+
+	public static int getNextBlockID()
+	{
+		NEXT_BLOCK_ID++;
+		return NEXT_BLOCK_ID;
+	}
+
+	public static int getNextItemID()
+	{
+		NEXT_ITEM_ID++;
+		return NEXT_ITEM_ID;
+	}
 
 	/**
 	 * Settings
