@@ -240,13 +240,10 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	{
 		if (machine != null)
 		{
-			// The max transfer rate.
-			final int suDu = 100;
-
 			if (joules > 0)
 			{
 				// Transfer energy to machine.
-				joules = Math.min(joules, suDu);
+				joules = Math.min(joules, this.getTransmissionRate());
 				int toBeInjected = machine.provideFortron(this.requestFortron(joules, false), false);
 				toBeInjected = this.requestFortron(machine.provideFortron(toBeInjected, true), true);
 
@@ -259,7 +256,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 			else
 			{
 				// Take energy from machine.
-				joules = Math.min(Math.abs(joules), suDu);
+				joules = Math.min(Math.abs(joules), this.getTransmissionRate());
 				int toBeEjected = this.provideFortron(machine.requestFortron(joules, false), false);
 				toBeEjected = machine.requestFortron(this.provideFortron(toBeEjected, true), true);
 
@@ -359,6 +356,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public int getTransmissionRate()
 	{
-		return 500 + 200 * this.getModuleCount(ZhuYao.itMSuDu);
+		return 200 + 50 * this.getModuleCount(ZhuYao.itMSuDu);
 	}
 }

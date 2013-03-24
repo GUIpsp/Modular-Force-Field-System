@@ -305,10 +305,12 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	{
 		if (!this.worldObj.isRemote)
 		{
+			int constructionCount = 0;
 			this.blockCount = 0;
+
 			for (Vector3 vector : this.calculatedField)
 			{
-				if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick)
+				if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick || constructionCount >= this.getConstructionSpeed())
 				{
 					break;
 				}
@@ -322,6 +324,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 						if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 						{
 							this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
+							constructionCount++;
 						}
 
 						this.forceFields.add(vector);
@@ -364,6 +367,12 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		}
 
 		return 0;
+	}
+
+	@Override
+	public int getConstructionSpeed()
+	{
+		return 100 + 20 * this.getModuleCount(ZhuYao.itMSuDu, this.getModuleSlots());
 	}
 
 	@Override

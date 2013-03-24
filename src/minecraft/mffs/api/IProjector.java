@@ -60,4 +60,11 @@ public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotat
 
 	public Set<Vector3> getCalculatedField();
 
+	/**
+	 * The speed in which a force field is constructed.
+	 * 
+	 * @return
+	 */
+	public int getConstructionSpeed();
+
 }
