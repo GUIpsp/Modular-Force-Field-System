@@ -47,14 +47,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	protected Set<Vector3> calculatedField = new HashSet();
 	protected Set<Vector3> fieldInterior = new HashSet();
 
-	private short forcefieldblock_meta = ((short) ForceFieldType.Default.ordinal());
-
-	private String forceFieldTextureIDs = "-76/-76/-76/-76/-76/-76";
-	private String forceFieldTextureFile = "/terrain.png";
-
-	private int[] focusmatrix = { 0, 0, 0, 0 };
-	private int forceFieldCamoblockID;
-	private int forceFieldCamoblockMeta;
 	private int blockCount = 0;
 
 	public TFangYingJi()
@@ -166,61 +158,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 			default:
 				return itemStack.getItem() instanceof IModule;
 		}
-	}
-
-	public int getForceFieldCamoblockMeta()
-	{
-		return this.forceFieldCamoblockMeta;
-	}
-
-	public void setForceFieldCamoblockMeta(int forcefieldCamoblockmeta)
-	{
-		this.forceFieldCamoblockMeta = forcefieldCamoblockmeta;
-	}
-
-	public int getForceFieldCamoblockID()
-	{
-		return this.forceFieldCamoblockID;
-	}
-
-	public void setForceFieldCamoblockID(int forcefieldCamoblockid)
-	{
-		this.forceFieldCamoblockID = forcefieldCamoblockid;
-	}
-
-	public String getForceFieldTextureFile()
-	{
-		return this.forceFieldTextureFile;
-	}
-
-	public void setForceFieldTextureFile(String forceFieldTexturfile)
-	{
-		this.forceFieldTextureFile = forceFieldTexturfile;
-	}
-
-	public String getForceFieldTextureID()
-	{
-		return this.forceFieldTextureIDs;
-	}
-
-	public void setForceFieldTextureID(String forceFieldTextureIDs)
-	{
-		this.forceFieldTextureIDs = forceFieldTextureIDs;
-	}
-
-	public int getBlockCounter()
-	{
-		return this.blockCount;
-	}
-
-	public int getforcefieldblock_meta()
-	{
-		return this.forcefieldblock_meta;
-	}
-
-	public void setforcefieldblock_meta(int ffmeta)
-	{
-		this.forcefieldblock_meta = ((short) ffmeta);
 	}
 
 	@Override
@@ -468,7 +405,8 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		return this.fieldInterior;
 	}
 
-	public Set<Vector3> getFieldQueue()
+	@Override
+	public Set<Vector3> getCalculatedField()
 	{
 		return this.calculatedField;
 	}

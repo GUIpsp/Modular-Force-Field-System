@@ -6,6 +6,7 @@ import mffs.api.IProjector;
 import mffs.common.ZhuYao;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 
 public class ItemModeTube extends ItemProjectorMode
@@ -16,115 +17,30 @@ public class ItemModeTube extends ItemProjectorMode
 	}
 
 	@Override
-	public void calculateField(IProjector projector, Set ffLocs, Set ffInterior)
+	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 translation, Vector3 posScale, Vector3 negScale)
 	{
-		int tpx = 0;
-		int tpy = 0;
-		int tpz = 0;
-		int x_offset_s = 0;
-		int y_offset_s = 0;
-		int z_offset_s = 0;
-		int x_offset_e = 0;
-		int y_offset_e = 0;
-		int z_offset_e = 0;
-
-		int scale = projector.getModuleCount(ZhuYao.itemModuleScale) + 2;
-		int translation = projector.getModuleCount(ZhuYao.itemModuleTranslation);
-
-		if ((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 0) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 1))
+		for (int x = -negScale.intX(); x <= posScale.intX(); x++)
 		{
-			tpy = translation;
-			tpx = scale;
-			tpz = scale;
-
-			y_offset_s = translation - translation;
-			if (projector.getModuleCount(ZhuYao.itemModuleManipulator) > 0)
+			for (int z = -negScale.intZ(); z <= posScale.intZ(); z++)
 			{
-				if (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 0)
+				for (int y = -negScale.intY(); y <= posScale.intY(); y++)
 				{
-					y_offset_e = translation;
-				}
-				if (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 1)
-				{
-					y_offset_s = translation;
-				}
-			}
-		}
-
-		if ((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 2) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 3))
-		{
-			tpy = scale;
-			tpz = translation;
-			tpx = scale;
-
-			z_offset_s = translation - translation;
-			if (projector.getModuleCount(ZhuYao.itemModuleManipulator) > 0)
-			{
-				if (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 2)
-				{
-					z_offset_e = translation;
-				}
-				if (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 3)
-				{
-					z_offset_s = translation;
-				}
-			}
-		}
-		if ((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 4) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 5))
-		{
-			tpy = scale;
-			tpz = scale;
-			tpx = translation;
-
-			x_offset_s = translation - translation;
-			if (projector.getModuleCount(ZhuYao.itemModuleManipulator) > 0)
-			{
-				if (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 4)
-				{
-					x_offset_e = translation;
-				}
-				if (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 5)
-				{
-					x_offset_s = translation;
-				}
-			}
-
-		}
-
-		for (int z1 = 0 - tpz + z_offset_s; z1 <= tpz - z_offset_e; z1++)
-		{
-			for (int x1 = 0 - tpx + x_offset_s; x1 <= tpx - x_offset_e; x1++)
-			{
-				for (int y1 = 0 - tpy + y_offset_s; y1 <= tpy - y_offset_e; y1++)
-				{
-					int tpx_temp = tpx;
-					int tpy_temp = tpy;
-					int tpz_temp = tpz;
-
-					if ((tpx == translation) && ((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 4) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 5)))
+					if (!(direction == ForgeDirection.UP || direction == ForgeDirection.DOWN) && (y == -negScale.intY() || y == posScale.intY()))
 					{
-						tpx_temp++;
-					}
-					if ((tpy == translation) && ((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 0) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 1)))
-					{
-						tpy_temp++;
-					}
-					if ((tpz == translation) && ((projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 2) || (projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord).ordinal() == 3)))
-					{
-						tpz_temp++;
+						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
 
-					if (((x1 == 0 - tpx_temp) || (x1 == tpx_temp) || (y1 == 0 - tpy_temp) || (y1 == tpy_temp) || (z1 == 0 - tpz_temp) || (z1 == tpz_temp)) && (((TFangYingJi) projector).yCoord + y1 >= 0))
+					if (!(direction == ForgeDirection.NORTH || direction == ForgeDirection.SOUTH) && (z == -negScale.intZ() || z == posScale.intZ()))
 					{
-						ffLocs.add(new Vector3(x1, y1, z1));
+						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
-					else
+					
+					if (!(direction == ForgeDirection.WEST || direction == ForgeDirection.EAST) && (x == -negScale.intX() || x == posScale.intX()))
 					{
-						ffInterior.add(new Vector3(x1, y1, z1));
+						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
 				}
 			}
 		}
 	}
-
 }

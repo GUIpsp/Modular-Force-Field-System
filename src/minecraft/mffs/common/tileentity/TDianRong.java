@@ -49,7 +49,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	public TDianRong()
 	{
 		this.fortronTank.setCapacity(500 * LiquidContainerRegistry.BUCKET_VOLUME);
-		this.startModuleIndex = 1;
+		this.startModuleIndex = 2;
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 				}
 			}
 
-			this.fortronTank.setCapacity(this.getModuleCount(ZhuYao.itMRongLiang) * 50 + 500 * LiquidContainerRegistry.BUCKET_VOLUME);
+			this.fortronTank.setCapacity((this.getModuleCount(ZhuYao.itMRongLiang) * 10 + 500) * LiquidContainerRegistry.BUCKET_VOLUME);
 
 			/**
 			 * Gets the card.
@@ -309,7 +309,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public int getSizeInventory()
 	{
-		return 4;
+		return 5;
 	}
 
 	@Override
@@ -359,6 +359,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public int getTransmissionRate()
 	{
-		return 100 + 20 * this.getModuleCount(ZhuYao.itMSuDu);
+		return 100 + 100 * this.getModuleCount(ZhuYao.itMSuDu);
 	}
 }

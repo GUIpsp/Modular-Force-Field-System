@@ -5,6 +5,5 @@ public class ItMSuDu extends ItM
 	public ItMSuDu(int i)
 	{
 		super(i, "moduleSpeed");
-		this.setMaxStackSize(16);
 	}
 }

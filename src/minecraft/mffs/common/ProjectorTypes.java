@@ -8,13 +8,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum ProjectorTypes
 {
-
 	wall(1, "Wall", "AA AA BB ", ZhuYao.itemModuleWall, true),
 	deflector(2, "Deflector", "AAAABAAAA", ZhuYao.itemModuleDeflector, true),
 	tube(3, "Tube", "AAA B AAA", ZhuYao.itemModuleTube, false),
 	cube(4, "Cube", "B B A B B", ZhuYao.itemModuleCube, false),
 	sphere(5, "Sphere", " B BAB B ", ZhuYao.itemModuleSphere, false),
-	containment(6, "Containment", "BBBBABBBB", ZhuYao.itemModuleContainment, false),
 	diagonallWall(8, "Diagonal Wall", "A A B A A", ZhuYao.itemModeDiagonalWall, true);
 
 	public String displayName;

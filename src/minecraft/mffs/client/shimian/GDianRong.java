@@ -28,14 +28,14 @@ public class GDianRong extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.textFieldPos = new Vector2(30, 76);
+		this.textFieldPos = new Vector2(50, 76);
 
 		super.initGui();
 
 		this.buttonList.clear();
 		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100,
 		// this, 0));
-		this.buttonList.add(new GuiButtonTransferMode(1, this.width / 2 - 5, this.height / 2 - 37, this, this.tileEntity));
+		this.buttonList.add(new GuiButtonTransferMode(1, this.width / 2 + 15, this.height / 2 - 37, this, this.tileEntity));
 
 	}
 
@@ -50,8 +50,8 @@ public class GDianRong extends GuiMFFS
 		GL11.glPopMatrix();
 
 		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 24, x, y);
-		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 36, x, y);
-		this.drawTextWithTooltip("transmissionRate", "%1: " + this.tileEntity.getTransmissionRate(), 8, 48, x, y);
+		this.drawTextWithTooltip("transmissionRate", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getTransmissionRate(), ElectricUnit.JOULES), 8, 36, x, y);
+		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 48, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
@@ -72,9 +72,10 @@ public class GDianRong extends GuiMFFS
 		this.drawSlot(153, 86);
 
 		/**
-		 * Frequency Card Slot
+		 * Frequency Card Slots
 		 */
 		this.drawSlot(8, 73);
+		this.drawSlot(26, 73);
 
 		this.drawForce(8, 115, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 	}

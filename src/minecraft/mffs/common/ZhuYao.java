@@ -25,7 +25,6 @@ import mffs.common.item.ItemFocusMatrix;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
-import mffs.common.mode.ItemModeContainment;
 import mffs.common.mode.ItemModeCube;
 import mffs.common.mode.ItemModeDeflector;
 import mffs.common.mode.ItemModeDiagonalWall;
@@ -188,7 +187,6 @@ public class ZhuYao
 	public static ItemProjectorMode itemModuleWall;
 	public static ItemProjectorMode itemModuleDeflector;
 	public static ItemProjectorMode itemModuleTube;
-	public static ItemProjectorMode itemModuleContainment;
 	public static ItemProjectorMode itemModeDiagonalWall;
 
 	public static OreGenBase fortroniteOreGeneration;
@@ -256,10 +254,12 @@ public class ZhuYao
 			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.getNextItemID());
 			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.getNextItemID());
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.getNextItemID());
-			itemModuleContainment = new ItemModeContainment(MFFSConfiguration.getNextItemID());
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.getNextItemID());
 			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.getNextItemID());
+			itMSuDu = new ItMSuDu(MFFSConfiguration.getNextItemID());
+			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
+			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());
 
 			itemModuleShock = new ItemModuleShock(MFFSConfiguration.getNextItemID());
 			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.getNextItemID());
@@ -284,10 +284,6 @@ public class ZhuYao
 
 			// TODO: MFFS REMOVE THIS
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
-
-			itMSuDu = new ItMSuDu(MFFSConfiguration.getNextItemID());
-			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
-			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());
 
 			/**
 			 * The Fortron Liquid

@@ -5,6 +5,7 @@ import java.util.Set;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IDisableable;
 import universalelectricity.prefab.implement.IRotatable;
 
@@ -56,5 +57,7 @@ public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotat
 	 * @return
 	 */
 	public int getFortronCost();
+
+	public Set<Vector3> getCalculatedField();
 
 }
