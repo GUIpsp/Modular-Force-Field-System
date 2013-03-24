@@ -3,11 +3,11 @@ package mffs.common.module.fangyu;
 import java.util.List;
 
 import mffs.api.IDefenseStationModule;
-import mffs.common.module.ItemModule;
+import mffs.common.module.ItM;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public abstract class ItMD extends ItemModule implements IDefenseStationModule
+public abstract class ItMD extends ItM implements IDefenseStationModule
 {
 	public ItMD(int id, String name)
 	{

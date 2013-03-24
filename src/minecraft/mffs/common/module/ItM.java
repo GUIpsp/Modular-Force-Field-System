@@ -8,9 +8,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import universalelectricity.prefab.TranslationHelper;
 
-public abstract class ItemModule extends ItemMFFS implements IModule
+public abstract class ItM extends ItemMFFS implements IModule
 {
-	public ItemModule(int id, String name)
+	public ItM(int id, String name)
 	{
 		super(id, name);
 	}

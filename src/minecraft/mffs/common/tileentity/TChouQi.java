@@ -7,6 +7,7 @@ import mffs.common.Fortron;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaShengBuo;
 import mffs.common.item.ItemForcillium;
+import mffs.common.module.IModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,7 +17,6 @@ import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.core.vector.VectorHelper;
-import universalelectricity.prefab.modifier.IModifier;
 import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
@@ -209,7 +209,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 		{
 			if (slotID >= 2 && slotID <= 4)
 			{
-				return itemStack.getItem() instanceof IModifier;
+				return itemStack.getItem() instanceof IModule;
 			}
 
 			switch (slotID)

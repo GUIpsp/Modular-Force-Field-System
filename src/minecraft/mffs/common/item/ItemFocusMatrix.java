@@ -1,6 +1,5 @@
-package mffs.common.upgrade;
+package mffs.common.item;
 
-import mffs.common.item.ItemMFFS;
 
 public class ItemFocusMatrix extends ItemMFFS
 {

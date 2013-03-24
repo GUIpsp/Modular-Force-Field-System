@@ -1,8 +1,7 @@
-package mffs.common.upgrade;
+package mffs.common.module;
 
-import mffs.common.module.ItemModule;
 
-public class ItemModuleScale extends ItemModule
+public class ItemModuleScale extends ItM
 {
 	public ItemModuleScale(int i)
 	{

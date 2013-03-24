@@ -1,12 +1,13 @@
-package mffs.common.module;
+package mffs.common.module.fangyingji;
 
 import java.util.Map;
 
+import mffs.common.module.ItM;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemModuleJammer extends ItemModule
+public class ItemModuleJammer extends ItM
 {
 	public ItemModuleJammer(int i)
 	{

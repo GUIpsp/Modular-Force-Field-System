@@ -1,4 +1,4 @@
-package mffs.common.module;
+package mffs.common.module.fangyingji;
 
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;

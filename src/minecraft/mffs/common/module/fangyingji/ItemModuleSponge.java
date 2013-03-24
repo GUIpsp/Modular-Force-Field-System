@@ -1,11 +1,12 @@
-package mffs.common.module;
+package mffs.common.module.fangyingji;
 
 import mffs.common.MFFSConfiguration;
+import mffs.common.module.ItM;
 import mffs.common.tileentity.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemModuleSponge extends ItemModule implements IInteriorCheck
+public class ItemModuleSponge extends ItM implements IInteriorCheck
 {
 	public ItemModuleSponge(int i)
 	{

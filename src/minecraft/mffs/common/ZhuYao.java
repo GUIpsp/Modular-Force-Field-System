@@ -21,6 +21,7 @@ import mffs.common.card.ItKaShenFen;
 import mffs.common.card.ItKaShenFenZhanShi;
 import mffs.common.card.ItKaShengBuo;
 import mffs.common.card.ItKaWuXian;
+import mffs.common.item.ItemFocusMatrix;
 import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
@@ -32,14 +33,19 @@ import mffs.common.mode.ItemModeSphere;
 import mffs.common.mode.ItemModeTube;
 import mffs.common.mode.ItemModeWall;
 import mffs.common.mode.ItemProjectorMode;
-import mffs.common.module.ItemModule;
-import mffs.common.module.ItemModuleCamoflage;
-import mffs.common.module.ItemModuleDisintegration;
-import mffs.common.module.ItemModuleFusion;
-import mffs.common.module.ItemModuleJammer;
-import mffs.common.module.ItemModuleManipulator;
-import mffs.common.module.ItemModuleShock;
-import mffs.common.module.ItemModuleSponge;
+import mffs.common.module.ItM;
+import mffs.common.module.ItMJuLi;
+import mffs.common.module.ItMRongLiang;
+import mffs.common.module.ItMSuDu;
+import mffs.common.module.ItemModuleScale;
+import mffs.common.module.ItemModuleTranslate;
+import mffs.common.module.fangyingji.ItemModuleCamoflage;
+import mffs.common.module.fangyingji.ItemModuleDisintegration;
+import mffs.common.module.fangyingji.ItemModuleFusion;
+import mffs.common.module.fangyingji.ItemModuleJammer;
+import mffs.common.module.fangyingji.ItemModuleManipulator;
+import mffs.common.module.fangyingji.ItemModuleShock;
+import mffs.common.module.fangyingji.ItemModuleSponge;
 import mffs.common.module.fangyu.ItMD;
 import mffs.common.module.fangyu.ItMDAntiFriendly;
 import mffs.common.module.fangyu.ItMDAntiHostile;
@@ -48,12 +54,6 @@ import mffs.common.module.fangyu.ItMDConfiscate;
 import mffs.common.module.fangyu.ItMDWarn;
 import mffs.common.tileentity.TLiChang;
 import mffs.common.tileentity.TileEntityMFFS;
-import mffs.common.upgrade.ItemFocusMatrix;
-import mffs.common.upgrade.ItemModuleScale;
-import mffs.common.upgrade.ItemModuleTranslate;
-import mffs.common.upgrade.ItemUpgradeCapacity;
-import mffs.common.upgrade.ItemUpgradeRange;
-import mffs.common.upgrade.ItemUpgradeSpeed;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -167,15 +167,15 @@ public class ZhuYao
 	/**
 	 * Modules
 	 */
-	public static ItemModule itemModuleShock;
-	public static ItemModule itemModuleSponge;
-	public static ItemModule itemModuleManipulator;
-	public static ItemModule itemModuleDisintegration;
-	public static ItemModule itemModuleJammer;
-	public static ItemModule itemModuleCamouflage;
-	public static ItemModule itemModuleFusion;
-	public static ItemModule itemModuleScale;
-	public static ItemModule itemModuleTranslation;
+	public static ItM itemModuleShock;
+	public static ItM itemModuleSponge;
+	public static ItM itemModuleManipulator;
+	public static ItM itemModuleDisintegration;
+	public static ItM itemModuleJammer;
+	public static ItM itemModuleCamouflage;
+	public static ItM itemModuleFusion;
+	public static ItM itemModuleScale;
+	public static ItM itemModuleTranslation;
 
 	/**
 	 * Defense Station Modules
@@ -288,9 +288,9 @@ public class ZhuYao
 			// TODO: MFFS REMOVE THIS
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
-			itemUpgradeSpeed = new ItemUpgradeSpeed(MFFSConfiguration.getNextItemID());
-			itemUpgradeRange = new ItemUpgradeRange(MFFSConfiguration.getNextItemID());
-			itemUpgradeCapacity = new ItemUpgradeCapacity(MFFSConfiguration.getNextItemID());
+			itemUpgradeSpeed = new ItMSuDu(MFFSConfiguration.getNextItemID());
+			itemUpgradeRange = new ItMJuLi(MFFSConfiguration.getNextItemID());
+			itemUpgradeCapacity = new ItMRongLiang(MFFSConfiguration.getNextItemID());
 
 			/**
 			 * The Fortron Liquid

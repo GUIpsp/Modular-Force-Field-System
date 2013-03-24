@@ -15,7 +15,7 @@ import mffs.api.IFortronStorage;
 import mffs.api.IItemFortronStorage;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaLian;
-import mffs.common.upgrade.ItemUpgrade;
+import mffs.common.module.IModule;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -352,7 +352,7 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 		}
 		else
 		{
-			return itemStack.getItem() instanceof ItemUpgrade;
+			return itemStack.getItem() instanceof IModule;
 		}
 	}
 
