@@ -94,8 +94,10 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 				}
 			}
 
-			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), true) > 0)
+			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) > 0)
 			{
+				this.requestFortron(this.getFortronCost(), true);
+				
 				if (this.ticks % 10 == 0)
 				{
 					this.projectField();

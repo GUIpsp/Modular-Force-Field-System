@@ -1,6 +1,6 @@
 package mffs.common.container;
 
-import mffs.common.SlotFrequency;
+import mffs.common.SlotCard;
 import mffs.common.SlotHelper;
 import mffs.common.tileentity.TFangYu;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +14,7 @@ public class CFangYu extends ContainerMFFS
 		/**
 		 * Frequency Card
 		 */
-		this.addSlotToContainer(new SlotFrequency(tileEntity, 0, 87, 89));
+		this.addSlotToContainer(new SlotCard(tileEntity, 0, 87, 89));
 		this.addSlotToContainer(new SlotHelper(tileEntity, 1, 69, 89));
 
 		/**

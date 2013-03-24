@@ -4,8 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mffs.api.FortronGrid;
+import mffs.api.ICard;
 import mffs.api.IFortronFrequency;
 import mffs.common.Fortron;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
@@ -164,5 +166,25 @@ public abstract class TileEntityFortron extends TShengBuo implements ITankContai
 	public int provideFortron(int joules, boolean doUse)
 	{
 		return this.fortronTank.fill(Fortron.getFortron(joules), doUse);
+	}
+
+	/**
+	 * Gets the frequency card that's in this machine.
+	 * 
+	 * @return
+	 */
+	public ItemStack getCard()
+	{
+		ItemStack itemStack = this.getStackInSlot(0);
+
+		if (itemStack != null)
+		{
+			if (itemStack.getItem() instanceof ICard)
+			{
+				return itemStack;
+			}
+		}
+
+		return null;
 	}
 }

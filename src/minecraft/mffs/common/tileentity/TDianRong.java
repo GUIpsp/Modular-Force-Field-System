@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 import mffs.api.FortronGrid;
+import mffs.api.ICard;
 import mffs.api.IFortronCapacitor;
 import mffs.api.IFortronFrequency;
 import mffs.api.IFortronStorage;
+import mffs.api.IItemFortronStorage;
 import mffs.common.ZhuYao;
-import mffs.common.card.ItKaShengBuo;
+import mffs.common.card.ItKaLian;
 import mffs.common.upgrade.ItemUpgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,6 +24,8 @@ import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.FMLLog;
 
 public class TDianRong extends TileEntityFortron implements IFortronStorage, IFortronCapacitor
 {
@@ -85,161 +89,202 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 				}
 			}
 
+			/**
+			 * Gets the card.
+			 */
+			ItemStack itemStack = this.getStackInSlot(0);
+			Vector3 linkPosition = null;
+
+			if (itemStack != null)
+			{
+				if (itemStack.getItem() instanceof IItemFortronStorage)
+				{
+					int fortron = ((IItemFortronStorage) itemStack.getItem()).getFortronEnergy(itemStack);
+					fortron = Math.max(fortron - this.provideFortron(fortron, true), 0);
+					((IItemFortronStorage) itemStack.getItem()).setFortronEnergy(fortron, itemStack);
+				}
+				else if (itemStack.getItem() instanceof ItKaLian)
+				{
+					linkPosition = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
+
+					if (linkPosition != null && !(linkPosition.getTileEntity(this.worldObj) instanceof IFortronFrequency))
+					{
+						linkPosition = null;
+					}
+				}
+			}
+
 			if (this.isActive() && this.ticks % 10 == 0)
 			{
-				Set<IFortronFrequency> machines = this.getLinkedDevices();
-
-				if (machines.size() > 1)
+				if (linkPosition != null)
 				{
-					/**
-					 * Check spread mode. Equal, Give All, Take All
-					 */
-					int totalFortron = 0;
-					int totalCapacity = 0;
+					IFortronFrequency machine = (IFortronFrequency) linkPosition.getTileEntity(this.worldObj);
 
-					HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
-
-					for (IFortronFrequency machine : machines)
+					if (this.transferMode == TransferMode.FILL)
 					{
-						if (machine != null)
-						{
-							totalFortron += machine.getFortronEnergy();
-							totalCapacity += machine.getFortronCapacity();
-						}
+						this.chuanBuo(machine, -this.getFortronCapacity());
 					}
-
-					if (totalFortron > 0 && totalCapacity > 0)
+					else
 					{
-						switch (this.transferMode)
-						{
-							case EQUALIZE:
-							{
-								for (IFortronFrequency machine : machines)
-								{
-									if (machine != null)
-									{
-										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-										int amountToSet = (int) (totalFortron * capacityPercentage);
+						this.chuanBuo(machine, this.getFortronEnergy());
+					}
+				}
+				else
+				{
+					Set<IFortronFrequency> machines = this.getLinkedDevices();
 
-										/**
-										 * Draw beam effect
-										 */
-										if (machine.getFortronEnergy() != amountToSet)
+					if (machines.size() > 1)
+					{
+						/**
+						 * Check spread mode. Equal, Give All, Take All
+						 */
+						int totalFortron = 0;
+						int totalCapacity = 0;
+
+						HashMap<IFortronFrequency, Double> distributionMap = new HashMap<IFortronFrequency, Double>();
+
+						for (IFortronFrequency machine : machines)
+						{
+							if (machine != null)
+							{
+								totalFortron += machine.getFortronEnergy();
+								totalCapacity += machine.getFortronCapacity();
+							}
+						}
+
+						if (totalFortron > 0 && totalCapacity > 0)
+						{
+							switch (this.transferMode)
+							{
+								case EQUALIZE:
+								{
+									for (IFortronFrequency machine : machines)
+									{
+										if (machine != null)
 										{
+											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+											int amountToSet = (int) (totalFortron * capacityPercentage);
+
+											/**
+											 * Draw beam effect
+											 */
+											if (machine.getFortronEnergy() != amountToSet)
+											{
+												if (this.worldObj.isRemote)
+												{
+													if (machine.getFortronEnergy() > amountToSet)
+													{
+														ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+													}
+													else
+													{
+														ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+													}
+												}
+
+												machine.setFortronEnergy(amountToSet);
+											}
+										}
+									}
+
+									break;
+								}
+								case DISTRIBUTE:
+								{
+									for (IFortronFrequency machine : machines)
+									{
+										if (machine != null)
+										{
+											int amountToSet = (int) (totalFortron / machines.size());
+											/**
+											 * Draw beam effect
+											 */
 											if (this.worldObj.isRemote)
 											{
 												if (machine.getFortronEnergy() > amountToSet)
 												{
-													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
 												}
 												else
 												{
-													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
 												}
 											}
 
 											machine.setFortronEnergy(amountToSet);
 										}
 									}
-								}
 
-								break;
-							}
-							case DISTRIBUTE:
-							{
-								for (IFortronFrequency machine : machines)
+									break;
+								}
+								case DRAIN:
 								{
-									if (machine != null)
+									int remainingFortron = totalFortron;
+
+									for (IFortronFrequency machine : machines)
 									{
-										int amountToSet = (int) (totalFortron / machines.size());
-										/**
-										 * Draw beam effect
-										 */
-										if (this.worldObj.isRemote)
+										if (machine != null)
 										{
-											if (machine.getFortronEnergy() > amountToSet)
+											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+											int amountToSet = (int) (totalFortron * capacityPercentage);
+											/**
+											 * Draw beam effect
+											 */
+											if (this.worldObj.isRemote)
 											{
-												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+												if (machine.getFortronEnergy() > amountToSet)
+												{
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+												}
+												else
+												{
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+												}
 											}
-											else
-											{
-												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
-											}
+
+											machine.setFortronEnergy(amountToSet);
+											remainingFortron -= amountToSet;
 										}
-
-										machine.setFortronEnergy(amountToSet);
 									}
+									break;
 								}
-
-								break;
-							}
-							case DRAIN:
-							{
-								int remainingFortron = totalFortron;
-
-								for (IFortronFrequency machine : machines)
+								case FILL:
 								{
-									if (machine != null)
+									/**
+									 * Take total fortron energy and consume it, then distribute the
+									 * rest.
+									 */
+									// Remove this capacitor from the list.
+									totalFortron -= this.getFortronEnergy();
+									totalCapacity -= this.getFortronCapacity();
+									int remainingFortron = totalFortron - this.provideFortron(totalFortron, true);
+
+									for (IFortronFrequency machine : machines)
 									{
-										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-										int amountToSet = (int) (totalFortron * capacityPercentage);
-										/**
-										 * Draw beam effect
-										 */
-										if (this.worldObj.isRemote)
+										if (machine != null && machine != this)
 										{
-											if (machine.getFortronEnergy() > amountToSet)
+											double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
+											int amountToSet = (int) (remainingFortron * capacityPercentage);
+											/**
+											 * Draw beam effect
+											 */
+											if (this.worldObj.isRemote)
 											{
-												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+												if (machine.getFortronEnergy() > amountToSet)
+												{
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+												}
+												else
+												{
+													ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+												}
 											}
-											else
-											{
-												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
-											}
+
+											machine.setFortronEnergy(amountToSet);
 										}
-
-										machine.setFortronEnergy(amountToSet);
-										remainingFortron -= amountToSet;
 									}
+									break;
 								}
-								break;
-							}
-							case FILL:
-							{
-								/**
-								 * Take total fortron energy and consume it, then distribute the
-								 * rest.
-								 */
-								// Remove this capacitor from the list.
-								totalFortron -= this.getFortronEnergy();
-								totalCapacity -= this.getFortronCapacity();
-								int remainingFortron = totalFortron - this.provideFortron(totalFortron, true);
-
-								for (IFortronFrequency machine : machines)
-								{
-									if (machine != null && machine != this)
-									{
-										double capacityPercentage = (double) machine.getFortronCapacity() / (double) totalCapacity;
-										int amountToSet = (int) (remainingFortron * capacityPercentage);
-										/**
-										 * Draw beam effect
-										 */
-										if (this.worldObj.isRemote)
-										{
-											if (machine.getFortronEnergy() > amountToSet)
-											{
-												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
-											}
-											else
-											{
-												ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
-											}
-										}
-
-										machine.setFortronEnergy(amountToSet);
-									}
-								}
-								break;
 							}
 						}
 					}
@@ -255,6 +300,45 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 			if (this.ticks % 4 == 0 && this.playersUsing > 0)
 			{
 				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
+			}
+		}
+	}
+
+	/**
+	 * Tries to transfer fortron to a specific machine from this capacitor.
+	 */
+	private void chuanBuo(IFortronFrequency machine, int joules)
+	{
+		if (machine != null)
+		{
+			// The max transfer rate.
+			final int suDu = 100;
+
+			if (joules > 0)
+			{
+				// Transfer energy to machine.
+				joules = Math.min(joules, suDu);
+				int toBeInjected = machine.provideFortron(this.requestFortron(joules, false), false);
+				toBeInjected = this.requestFortron(machine.provideFortron(toBeInjected, true), true);
+
+				// Draw Beam Effect
+				if (this.worldObj.isRemote && toBeInjected > 0)
+				{
+					ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+				}
+			}
+			else
+			{
+				// Take energy from machine.
+				joules = Math.min(Math.abs(joules), suDu);
+				int toBeEjected = this.provideFortron(machine.requestFortron(joules, false), false);
+				toBeEjected = machine.requestFortron(this.provideFortron(toBeEjected, true), true);
+
+				// Draw Beam Effect
+				if (this.worldObj.isRemote && toBeEjected > 0)
+				{
+					ZhuYao.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+				}
 			}
 		}
 	}
@@ -337,7 +421,7 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 	{
 		if (slotID == 0)
 		{
-			return itemStack.getItem() instanceof ItKaShengBuo;
+			return itemStack.getItem() instanceof ICard;
 		}
 		else
 		{

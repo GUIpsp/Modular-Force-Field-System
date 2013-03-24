@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
  * @author Calclavia
  * 
  */
-public interface IIdentificationCard
+public interface IIdentificationCard extends ICard
 {
 	public boolean hasPermission(ItemStack itemStack, SecurityPermission permission);
 

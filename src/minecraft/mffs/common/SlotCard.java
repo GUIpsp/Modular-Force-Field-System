@@ -5,13 +5,12 @@ import mffs.common.card.ItKaShengBuo;
 import mffs.common.tileentity.TShengBuo;
 import net.minecraft.item.ItemStack;
 
-public class SlotFrequency extends SlotHelper
+public class SlotCard extends SlotHelper
 {
-	public SlotFrequency(TShengBuo tileEntity, int id, int par4, int par5)
+	public SlotCard(TShengBuo tileEntity, int id, int par4, int par5)
 	{
 		super(tileEntity, id, par4, par5);
 	}
-
 	@Override
 	public void onSlotChanged()
 	{
