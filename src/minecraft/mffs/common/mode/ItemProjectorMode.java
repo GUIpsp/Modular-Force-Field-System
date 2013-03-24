@@ -2,6 +2,9 @@ package mffs.common.mode;
 
 import java.util.Set;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
@@ -19,6 +22,7 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 		this.setMaxStackSize(1);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void render(IProjector projector, double x, double y, double z, float f, long ticks)
 	{

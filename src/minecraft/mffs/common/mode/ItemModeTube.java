@@ -3,11 +3,14 @@ package mffs.common.mode;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.common.ZhuYao;
-import mffs.common.tileentity.TFangYingJi;
-import net.minecraft.tileentity.TileEntity;
+import mffs.client.model.MPlane;
 import net.minecraftforge.common.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import universalelectricity.core.vector.Vector3;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemModeTube extends ItemProjectorMode
 {
@@ -34,7 +37,7 @@ public class ItemModeTube extends ItemProjectorMode
 					{
 						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
-					
+
 					if (!(direction == ForgeDirection.WEST || direction == ForgeDirection.EAST) && (x == -negScale.intX() || x == posScale.intX()))
 					{
 						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
@@ -42,5 +45,22 @@ public class ItemModeTube extends ItemProjectorMode
 				}
 			}
 		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void render(IProjector projector, double x, double y, double z, float f, long ticks)
+	{
+		GL11.glScalef(0.5f, 0.5f, 0.5f);
+		GL11.glTranslatef(-0.5f, 0, 0);
+		MPlane.INSTNACE.render();
+		GL11.glTranslatef(1f, 0, 0);
+		MPlane.INSTNACE.render();
+		GL11.glTranslatef(-0.5f, 0f, 0);
+		GL11.glRotatef(90, 0, 1, 0);
+		GL11.glTranslatef(0.5f, 0f, 0f);
+		MPlane.INSTNACE.render();
+		GL11.glTranslatef(-1f, 0f, 0f);
+		MPlane.INSTNACE.render();
 	}
 }
