@@ -2,7 +2,7 @@ package mffs.client.shimian;
 
 import mffs.client.shimian.enniu.GuiButtonTransferMode;
 import mffs.common.ZhuYao;
-import mffs.common.container.ContainerFortronCapacitor;
+import mffs.common.container.CDianRong;
 import mffs.common.tileentity.TDianRong;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ public class GDianRong extends GuiMFFS
 
 	public GDianRong(EntityPlayer player, TDianRong tileentity)
 	{
-		super(new ContainerFortronCapacitor(player, tileentity), tileentity);
+		super(new CDianRong(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
 	}
 

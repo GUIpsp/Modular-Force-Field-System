@@ -5,10 +5,9 @@ import mffs.common.SlotHelper;
 import mffs.common.tileentity.TChouQi;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class ContainerForcilliumExtractor extends ContainerMFFS
+public class CChouQi extends ContainerMFFS
 {
-
-	public ContainerForcilliumExtractor(EntityPlayer player, TChouQi tileEntity)
+	public CChouQi(EntityPlayer player, TChouQi tileEntity)
 	{
 		super(tileEntity);
 

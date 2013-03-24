@@ -25,7 +25,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public class TDianRong extends TileEntityFortron implements IFortronStorage, IFortronCapacitor
+public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFortronCapacitor
 {
 	public enum TransferMode
 	{
@@ -50,6 +50,7 @@ public class TDianRong extends TileEntityFortron implements IFortronStorage, IFo
 	public TDianRong()
 	{
 		this.fortronTank.setCapacity(500 * LiquidContainerRegistry.BUCKET_VOLUME);
+		this.startModuleIndex = 1;
 	}
 
 	@Override

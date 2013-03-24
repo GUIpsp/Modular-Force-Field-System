@@ -157,16 +157,13 @@ public class ZhuYao
 	public static Item itKaShenFenZhanShi;
 	public static Item itKaWuXian;
 	public static Item itKaLian;
-	/**
-	 * Upgrades
-	 */
-	public static Item itemUpgradeSpeed;
-	public static Item itemUpgradeRange;
-	public static Item itemUpgradeCapacity;
 
 	/**
 	 * Modules
 	 */
+	public static ItM itemUpgradeSpeed;
+	public static ItM itMJuLi;
+	public static ItM itemUpgradeCapacity;
 	public static ItM itemModuleShock;
 	public static ItM itemModuleSponge;
 	public static ItM itemModuleManipulator;
@@ -239,7 +236,7 @@ public class ZhuYao
 		{
 			MFFSConfiguration.initialize();
 			MFFSConfiguration.CONFIGURATION.load();
-			
+
 			blockFortronite = new BlockFortronite(MFFSConfiguration.getNextBlockID(), "fortronite");
 			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.getNextBlockID());
 			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.getNextBlockID());
@@ -289,7 +286,7 @@ public class ZhuYao
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
 			itemUpgradeSpeed = new ItMSuDu(MFFSConfiguration.getNextItemID());
-			itemUpgradeRange = new ItMJuLi(MFFSConfiguration.getNextItemID());
+			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
 			itemUpgradeCapacity = new ItMRongLiang(MFFSConfiguration.getNextItemID());
 
 			/**

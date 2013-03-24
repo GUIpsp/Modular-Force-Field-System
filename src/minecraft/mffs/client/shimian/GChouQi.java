@@ -1,6 +1,6 @@
 package mffs.client.shimian;
 
-import mffs.common.container.ContainerForcilliumExtractor;
+import mffs.common.container.CChouQi;
 import mffs.common.tileentity.TChouQi;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +18,7 @@ public class GChouQi extends GuiMFFS
 
 	public GChouQi(EntityPlayer player, TChouQi tileentity)
 	{
-		super(new ContainerForcilliumExtractor(player, tileentity), tileentity);
+		super(new CChouQi(player, tileentity), tileentity);
 		this.tileEntity = tileentity;
 	}
 

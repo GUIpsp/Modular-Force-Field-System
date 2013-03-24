@@ -28,7 +28,7 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public class TFangYu extends TileEntityFortron implements IDefenseStation
+public class TFangYu extends TModuleAcceptor implements IDefenseStation
 {
 	public enum ActionMode
 	{
@@ -47,8 +47,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 
 	}
 
-	private static final int BAN_LIST_START = 8;
-
 	/**
 	 * True if the current confiscation mode is for "banning selected items".
 	 */
@@ -57,6 +55,8 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	public TFangYu()
 	{
 		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
+		this.startModuleIndex = 2;
+		this.endModuleIndex = 8;
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	@Override
 	public int getWarningRange()
 	{
-		return this.getModuleCount(ZhuYao.itemModuleTranslation) + this.getActionRange() + 3;
+		return this.getModuleCount(ZhuYao.itMJuLi) + this.getActionRange() + 3;
 	}
 
 	public void scan()
@@ -315,7 +315,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	{
 		Set<ItemStack> stacks = new HashSet<ItemStack>();
 
-		for (int i = BAN_LIST_START; i < this.getSizeInventory() - 1; i++)
+		for (int i = this.endModuleIndex; i < this.getSizeInventory() - 1; i++)
 		{
 			if (this.getStackInSlot(i) != null)
 			{
@@ -332,96 +332,6 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 	}
 
 	@Override
-	public ItemStack getModule(IModule module)
-	{
-		ItemStack returnStack = new ItemStack((Item) module, 0);
-
-		for (ItemStack comparedModule : getModuleStacks())
-		{
-			if (comparedModule.getItem() == module)
-			{
-				returnStack.stackSize += comparedModule.stackSize;
-			}
-		}
-
-		return returnStack;
-	}
-
-	@Override
-	public int getModuleCount(IModule module, int... slots)
-	{
-		int count = 0;
-
-		if (slots != null && slots.length > 0)
-		{
-			for (int slotID : slots)
-			{
-				if (this.getStackInSlot(slotID) != null)
-				{
-					if (this.getStackInSlot(slotID).getItem() == module)
-					{
-						count += this.getStackInSlot(slotID).stackSize;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (ItemStack itemStack : getModuleStacks())
-			{
-				if (itemStack.getItem() == module)
-				{
-					count += itemStack.stackSize;
-				}
-			}
-		}
-
-		return count;
-	}
-
-	@Override
-	public Set<ItemStack> getModuleStacks()
-	{
-		Set<ItemStack> modules = new HashSet<ItemStack>();
-
-		for (int slotID = 2; slotID < BAN_LIST_START; slotID++)
-		{
-			ItemStack itemStack = this.getStackInSlot(slotID);
-
-			if (itemStack != null)
-			{
-				if (itemStack.getItem() instanceof IModule)
-				{
-					modules.add(itemStack);
-				}
-			}
-		}
-
-		return modules;
-	}
-
-	@Override
-	public Set<IModule> getModules()
-	{
-		Set<IModule> modules = new HashSet<IModule>();
-
-		for (int slotID = 2; slotID < BAN_LIST_START; slotID++)
-		{
-			ItemStack itemStack = this.getStackInSlot(slotID);
-
-			if (itemStack != null)
-			{
-				if (itemStack.getItem() instanceof IModule)
-				{
-					modules.add((IModule) itemStack.getItem());
-				}
-			}
-		}
-
-		return modules;
-	}
-
-	@Override
 	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
 		if (slotID == 0 || slotID == 1)
@@ -429,7 +339,7 @@ public class TFangYu extends TileEntityFortron implements IDefenseStation
 			return itemStack.getItem() instanceof ItKa;
 		}
 
-		if (slotID >= BAN_LIST_START)
+		if (slotID >= this.endModuleIndex)
 		{
 			return true;
 		}

@@ -5,11 +5,11 @@ import mffs.common.SlotHelper;
 import mffs.common.tileentity.TDianRong;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class ContainerFortronCapacitor extends ContainerMFFS
+public class CDianRong extends ContainerMFFS
 {
 	private TDianRong tileEntity;
 
-	public ContainerFortronCapacitor(EntityPlayer player, TDianRong tileEntity)
+	public CDianRong(EntityPlayer player, TDianRong tileEntity)
 	{
 		super(tileEntity);
 		this.tileEntity = tileEntity;

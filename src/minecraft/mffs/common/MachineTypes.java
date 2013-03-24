@@ -9,8 +9,8 @@ import mffs.client.shimian.GFangYu;
 import mffs.common.container.CAnQuan;
 import mffs.common.container.CFangYingJi;
 import mffs.common.container.CFangYu;
-import mffs.common.container.ContainerForcilliumExtractor;
-import mffs.common.container.ContainerFortronCapacitor;
+import mffs.common.container.CChouQi;
+import mffs.common.container.CDianRong;
 import mffs.common.tileentity.TAnQuan;
 import mffs.common.tileentity.TChouQi;
 import mffs.common.tileentity.TDianRong;
@@ -26,8 +26,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public enum MachineTypes
 {
 	Projector(TFangYingJi.class, GFangYingQi.class, CFangYingJi.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TChouQi.class, GChouQi.class, ContainerForcilliumExtractor.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TDianRong.class, GDianRong.class, ContainerFortronCapacitor.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
+	Extractor(TChouQi.class, GChouQi.class, CChouQi.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
+	Capacitor(TDianRong.class, GDianRong.class, CDianRong.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
 	DefenceStation(TFangYu.class, GFangYu.class, CFangYu.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
 	SecurityStation(TAnQuan.class, GAnQuan.class, CAnQuan.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC");
 

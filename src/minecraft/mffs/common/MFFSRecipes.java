@@ -49,7 +49,7 @@ public class MFFSRecipes
 			MFFSRecipes.addRecipe("AAAAxAADA", 1, 1, null, ZhuYao.itemFortronCell);
 			MFFSRecipes.addRecipe(" E EBE E ", 4, 1, null, ZhuYao.itemUpgradeSpeed);
 			MFFSRecipes.addRecipe(" E ExE E ", 1, 1, null, ZhuYao.itemUpgradeCapacity);
-			MFFSRecipes.addRecipe("HHHEIEEDE", 1, 1, null, ZhuYao.itemUpgradeRange);
+			MFFSRecipes.addRecipe("HHHEIEEDE", 1, 1, null, ZhuYao.itMJuLi);
 			MFFSRecipes.addRecipe("AlAlilAlA", 64, 1, null, ZhuYao.itemFocusMatix);
 			MFFSRecipes.addRecipe("ooooCoooo", 1, 1, null, ZhuYao.itKaKong);
 		}
@@ -59,7 +59,7 @@ public class MFFSRecipes
 			MFFSRecipes.addRecipe("AAAAxAAHA", 1, 2, null, ZhuYao.itemFortronCell);
 			MFFSRecipes.addRecipe("C C G C C", 9, 2, null, ZhuYao.itemUpgradeSpeed);
 			MFFSRecipes.addRecipe(" C CxC C ", 1, 2, null, ZhuYao.itemUpgradeCapacity);
-			MFFSRecipes.addRecipe("NNNCICCEC", 1, 2, null, ZhuYao.itemUpgradeRange);
+			MFFSRecipes.addRecipe("NNNCICCEC", 1, 2, null, ZhuYao.itMJuLi);
 			MFFSRecipes.addRecipe("BlBlilBlB", 64, 2, null, ZhuYao.itemFocusMatix);
 			MFFSRecipes.addRecipe("ooooEoooo", 1, 2, null, ZhuYao.itKaKong);
 		}

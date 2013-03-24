@@ -34,7 +34,7 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TFangYingJi extends TileEntityFortron implements IProjector
+public class TFangYingJi extends TModuleAcceptor implements IProjector
 {
 	private static final int MODULE_SLOT_ID = 5;
 
@@ -61,6 +61,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	public TFangYingJi()
 	{
 		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
+		this.startModuleIndex = 1;
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) > 0)
 			{
 				this.requestFortron(this.getFortronCost(), true);
-				
+
 				if (this.ticks % 10 == 0)
 				{
 					this.projectField();
@@ -474,54 +475,6 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 	}
 
 	@Override
-	public ItemStack getModule(IModule module)
-	{
-		ItemStack returnStack = new ItemStack((Item) module, 0);
-
-		for (ItemStack comparedModule : getModuleStacks())
-		{
-			if (comparedModule.getItem() == module)
-			{
-				returnStack.stackSize += comparedModule.stackSize;
-			}
-		}
-
-		return returnStack;
-	}
-
-	@Override
-	public int getModuleCount(IModule module, int... slots)
-	{
-		int count = 0;
-
-		if (slots != null && slots.length > 0)
-		{
-			for (int slotID : slots)
-			{
-				if (this.getStackInSlot(slotID) != null)
-				{
-					if (this.getStackInSlot(slotID).getItem() == module)
-					{
-						count += this.getStackInSlot(slotID).stackSize;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (ItemStack itemStack : getModuleStacks())
-			{
-				if (itemStack.getItem() == module)
-				{
-					count += itemStack.stackSize;
-				}
-			}
-		}
-
-		return count;
-	}
-
-	@Override
 	public int getSidedModuleCount(IModule module, ForgeDirection... direction)
 	{
 		int count = 0;
@@ -543,48 +496,6 @@ public class TFangYingJi extends TileEntityFortron implements IProjector
 		}
 
 		return count;
-	}
-
-	@Override
-	public Set<ItemStack> getModuleStacks()
-	{
-		Set<ItemStack> modules = new HashSet<ItemStack>();
-
-		for (int slotID = 1; slotID <= this.getSizeInventory() - 1; slotID++)
-		{
-			ItemStack itemStack = this.getStackInSlot(slotID);
-
-			if (itemStack != null)
-			{
-				if (itemStack.getItem() instanceof IModule)
-				{
-					modules.add(itemStack);
-				}
-			}
-		}
-
-		return modules;
-	}
-
-	@Override
-	public Set<IModule> getModules()
-	{
-		Set<IModule> modules = new HashSet<IModule>();
-
-		for (int slotID = 1; slotID < this.getSizeInventory() - 1; slotID++)
-		{
-			ItemStack itemStack = this.getStackInSlot(slotID);
-
-			if (itemStack != null)
-			{
-				if (itemStack.getItem() instanceof IModule)
-				{
-					modules.add((IModule) itemStack.getItem());
-				}
-			}
-		}
-
-		return modules;
 	}
 
 	@Override
