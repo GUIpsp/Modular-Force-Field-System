@@ -132,7 +132,14 @@ public class GuiButtonMFFS extends GuiButton
 		{
 			if (this.isPointInRegion(this.xPosition, this.yPosition, this.width, this.height, x, y))
 			{
+				String title = TranslationHelper.getLocal("gui." + this.displayString + ".name");
+
 				this.mainGui.tooltip = TranslationHelper.getLocal("gui." + this.displayString + ".tooltip");
+
+				if (title != null && title.length() > 0)
+				{
+					this.mainGui.tooltip = title + ": " + this.mainGui.tooltip;
+				}
 			}
 		}
 	}

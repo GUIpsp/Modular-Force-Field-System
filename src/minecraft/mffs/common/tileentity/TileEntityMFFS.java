@@ -5,7 +5,6 @@ import ic2.api.IWrenchable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import mffs.api.IStatusToggle;
 import mffs.common.MFFSConfiguration;
@@ -47,26 +46,9 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	 * Is the machine being switched on or is it off?
 	 */
 	protected boolean switchValue = false;
-
 	protected int maxSwitchMode = 3;
 
-	protected Random random = new Random();
 	protected Ticket chunkTicket;
-
-	public int getPercentageCapacity()
-	{
-		return 0;
-	}
-
-	public boolean hasPowerSource()
-	{
-		return false;
-	}
-
-	public TAnQuan getLinkedSecurityStation()
-	{
-		return null;
-	}
 
 	public List getPacketUpdate()
 	{

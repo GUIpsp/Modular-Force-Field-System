@@ -3,6 +3,8 @@ package mffs.common.module.fangyu;
 import java.util.Set;
 
 import mffs.api.IDefenseStation;
+import mffs.api.ISecurityCenter;
+import mffs.api.SecurityPermission;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -23,10 +25,15 @@ public class ItMDConfiscate extends ItMD
 		int confiscationCount = 0;
 		IInventory inventory = null;
 
-		boolean hasPermission = false;
-
-		if (!hasPermission && entityLiving instanceof EntityPlayer)
+		if (entityLiving instanceof EntityPlayer)
 		{
+			ISecurityCenter securityStation = defenseStation.getLinkedSecurityCenter();
+
+			if (securityStation != null && securityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityPermission.BYPASS_DEFENSE_STATION))
+			{
+				return false;
+			}
+			
 			EntityPlayer player = (EntityPlayer) entityLiving;
 			inventory = player.inventory;
 		}

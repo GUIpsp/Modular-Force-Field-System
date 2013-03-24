@@ -5,13 +5,17 @@ import java.util.List;
 import mffs.api.IIdentificationCard;
 import mffs.api.SecurityPermission;
 import mffs.common.NBTTagCompoundHelper;
+import mffs.common.ZhuYao;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import universalelectricity.prefab.TranslationHelper;
 
 public class ItKaShenFen extends ItKa implements IIdentificationCard
 {
+	private static final String NBT_PREFIX = "mffs_permission_";
+
 	public ItKaShenFen(int i)
 	{
 		super(i, "cardIdentification");
@@ -25,7 +29,33 @@ public class ItKaShenFen extends ItKa implements IIdentificationCard
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean b)
 	{
-		info.add("Owner: " + this.getUsername(itemStack));
+		if (this.getUsername(itemStack) != null)
+		{
+			info.add("Username: " + this.getUsername(itemStack));
+		}
+		else
+		{
+			info.add("Unspecified");
+		}
+
+		String tooltip = "";
+
+		for (SecurityPermission permission : SecurityPermission.values())
+		{
+			if (this.hasPermission(itemStack, permission))
+			{
+				if (permission != SecurityPermission.values()[0])
+				{
+					tooltip += ", ";
+				}
+
+				tooltip += "\u00a72" + TranslationHelper.getLocal("gui." + permission.name + ".name");
+			}
+		}
+		if (tooltip != null && tooltip.length() > 0)
+		{
+			info.addAll(ZhuYao.splitStringPerWord(tooltip, 5));
+		}
 	}
 
 	@Override
@@ -49,29 +79,35 @@ public class ItKaShenFen extends ItKa implements IIdentificationCard
 
 		if (nbtTagCompound != null)
 		{
-			return nbtTagCompound.getString("name");
+			if (nbtTagCompound.getString("name") != "")
+			{
+				return nbtTagCompound.getString("name");
+			}
 		}
 
-		return "Unknown";
+		return null;
 	}
 
 	@Override
 	public boolean hasPermission(ItemStack itemStack, SecurityPermission permission)
 	{
-		return false;
+		NBTTagCompound nbt = NBTTagCompoundHelper.get(itemStack);
+		return nbt.getBoolean(NBT_PREFIX + permission.ordinal());
 	}
 
 	@Override
 	public boolean addPermission(ItemStack itemStack, SecurityPermission permission)
 	{
-		// TODO Auto-generated method stub
+		NBTTagCompound nbt = NBTTagCompoundHelper.get(itemStack);
+		nbt.setBoolean(NBT_PREFIX + permission.ordinal(), true);
 		return false;
 	}
 
 	@Override
 	public boolean removePermission(ItemStack itemStack, SecurityPermission permission)
 	{
-		// TODO Auto-generated method stub
+		NBTTagCompound nbt = NBTTagCompoundHelper.get(itemStack);
+		nbt.setBoolean(NBT_PREFIX + permission.ordinal(), false);
 		return false;
 	}
 }

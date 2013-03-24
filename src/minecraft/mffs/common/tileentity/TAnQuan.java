@@ -1,12 +1,11 @@
 package mffs.common.tileentity;
 
+import mffs.api.IIdentificationCard;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
 import mffs.common.MFFSConfiguration;
-import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaShenFen;
-import mffs.common.card.ItKaShenFenZhanShi;
 import mffs.common.card.ItKaShengBuo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -45,7 +44,16 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			if (this.getManipulatingCard() != null)
 			{
-				ZhuYao.itKaShenFen.addPermission(this.getManipulatingCard(), SecurityPermission.values()[dataStream.readInt()]);
+				SecurityPermission permission = SecurityPermission.values()[dataStream.readInt()];
+
+				if (!ZhuYao.itKaShenFen.hasPermission(this.getManipulatingCard(), permission))
+				{
+					ZhuYao.itKaShenFen.addPermission(this.getManipulatingCard(), permission);
+				}
+				else
+				{
+					ZhuYao.itKaShenFen.removePermission(this.getManipulatingCard(), permission);
+				}
 			}
 		}
 	}
@@ -83,22 +91,17 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		// Check if ID card is in this inventory.
 		for (int i = 0; i < this.getSizeInventory(); i++)
 		{
-			if ((getStackInSlot(i) != null) && (getStackInSlot(i).getItem() == ZhuYao.itKaShenFen))
+			ItemStack itemStack = this.getStackInSlot(i);
+
+			if (itemStack != null && itemStack.getItem() instanceof IIdentificationCard)
 			{
-				String username_invtory = NBTTagCompoundHelper.get(getStackInSlot(i)).getString("name");
-
-				ItKaShenFen Card = (ItKaShenFen) getStackInSlot(i).getItem();
-
-				if (username_invtory.equals(username))
+				if (username.equalsIgnoreCase(((IIdentificationCard) itemStack.getItem()).getUsername(itemStack)))
 				{
-					if (ZhuYao.itKaShenFen.hasPermission(this.getStackInSlot(i), permission))
+					if (((IIdentificationCard) itemStack.getItem()).hasPermission(itemStack, permission))
 					{
 						return true;
 					}
-
-					return false;
 				}
-
 			}
 		}
 
@@ -109,24 +112,22 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++)
 			{
-				ItemStack stack = entityPlayer.inventory.getStackInSlot(i);
+				ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-				if (stack != null)
+				if (itemStack != null && itemStack.getItem() instanceof IIdentificationCard)
 				{
-					if (stack.getItem() instanceof ItKaShenFenZhanShi)
-					{/*
-					 * if (ItemCardTemporaryID.getvalidity(stack) > 0) { } else {
-					 * player.sendChatToPlayer
-					 * ("[Security Station] expired validity <Access license>"); ItemStack Card =
-					 * new ItemStack(ZhuYao.itemCardEmpty, 1); slot.putStack(Card); //
-					 * NetworkHandlerServer.syncClientPlayerinventorySlot(player, slot, // Card); }
-					 */
+					if (username.equalsIgnoreCase(((IIdentificationCard) itemStack.getItem()).getUsername(itemStack)))
+					{
+						if (((IIdentificationCard) itemStack.getItem()).hasPermission(itemStack, permission))
+						{
+							return true;
+						}
 					}
 				}
 			}
 		}
 
-		return this.getOwner().equals(username);
+		return username.equalsIgnoreCase(this.getOwner());
 	}
 
 	@Override

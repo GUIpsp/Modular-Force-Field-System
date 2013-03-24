@@ -44,10 +44,18 @@ public class ItKaLian extends ItKa
 	}
 
 	@Override
-	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10)
 	{
-		this.setLink(itemStack, new Vector3(x, y, z));
-		player.addChatMessage("Linked card to position: " + x + ", " + y + ", " + z);
+		if (!world.isRemote)
+		{
+			Vector3 vector = new Vector3(x, y, z);
+			this.setLink(itemStack, vector);
+			
+			if (Block.blocksList[vector.getBlockID(world)] != null)
+			{
+				player.addChatMessage("Linked card to position: " + x + ", " + y + ", " + z + " with block: " + Block.blocksList[vector.getBlockID(world)].getLocalizedName());
+			}
+		}
 
 		return true;
 	}

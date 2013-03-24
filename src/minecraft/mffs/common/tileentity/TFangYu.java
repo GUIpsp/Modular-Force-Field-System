@@ -8,9 +8,11 @@ import java.util.Set;
 import mffs.api.IDefenseStation;
 import mffs.api.IDefenseStationModule;
 import mffs.api.IModule;
+import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKa;
+import mffs.common.card.ItKaLian;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -144,7 +146,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	{
 		try
 		{
-			TAnQuan securityStation = this.getLinkedSecurityStation();
+			ISecurityCenter securityStation = this.getLinkedSecurityCenter();
 
 			int xmininfo = this.xCoord - getWarningRange();
 			int xmaxinfo = this.xCoord + getWarningRange() + 1;
@@ -174,10 +176,9 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 					{
 						boolean isGranted = false;
 
-						if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.DEFENSE_STATION_STAY))
+						if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.BYPASS_DEFENSE_STATION))
 						{
 							isGranted = true;
-							// TODO: CHECK MFFS NOTIFICATION SETTING < MODE 3
 						}
 
 						if (!isGranted)
@@ -222,11 +223,11 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 		{
 			EntityPlayer player = (EntityPlayer) entityLiving;
 
-			TAnQuan securityStation = getLinkedSecurityStation();
+			ISecurityCenter securityStation = this.getLinkedSecurityCenter();
 
-			if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.DEFENSE_STATION_STAY))
+			if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.BYPASS_DEFENSE_STATION))
 			{
-				hasPermission = true;
+				return;
 			}
 		}
 
@@ -358,6 +359,27 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	{
 		super.writeToNBT(nbt);
 		nbt.setBoolean("isBanMode", this.isBanMode);
+	}
+
+	@Override
+	public ISecurityCenter getLinkedSecurityCenter()
+	{
+		for (int i = 0; i <= 1; i++)
+		{
+			ItemStack itemStack = this.getStackInSlot(i);
+
+			if (itemStack != null && itemStack.getItem() instanceof ItKaLian)
+			{
+				Vector3 linkPos = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
+
+				if (linkPos != null && linkPos.getTileEntity(this.worldObj) instanceof TAnQuan)
+				{
+					return (TAnQuan) linkPos.getTileEntity(this.worldObj);
+				}
+			}
+		}
+
+		return null;
 	}
 
 }

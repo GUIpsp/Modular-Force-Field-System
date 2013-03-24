@@ -38,6 +38,8 @@ public interface IDefenseStation extends IInventory, IFortronFrequency, IModuleA
 	 */
 	public boolean getFilterMode();
 
-	int getFortronCost();
+	public int getFortronCost();
+
+	public ISecurityCenter getLinkedSecurityCenter();
 
 }

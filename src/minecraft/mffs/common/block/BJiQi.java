@@ -3,6 +3,7 @@ package mffs.common.block;
 import mffs.common.MFFSConfiguration;
 import mffs.common.MFFSCreativeTab;
 import mffs.common.ZhuYao;
+import mffs.common.card.ItKaLian;
 import mffs.common.multitool.ItemMultitool;
 import mffs.common.tileentity.TileEntityMFFS;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -44,9 +45,17 @@ public abstract class BJiQi extends BlockRotatable
 			TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(x, y, z);
 			ItemStack equippedItem = entityPlayer.getCurrentEquippedItem();
 
-			if (equippedItem != null && (equippedItem.getItem() instanceof ItemMultitool || equippedItem.getItem() instanceof IToolWrench))
+			if (equippedItem != null)
 			{
-				return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
+				if (equippedItem.getItem() instanceof ItKaLian)
+				{
+					return false;
+				}
+
+				if ((equippedItem.getItem() instanceof ItemMultitool || equippedItem.getItem() instanceof IToolWrench))
+				{
+					return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
+				}
 			}
 
 			if (!world.isRemote)

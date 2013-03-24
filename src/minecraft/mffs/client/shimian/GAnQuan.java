@@ -57,18 +57,21 @@ public class GAnQuan extends GuiMFFS
 		{
 			if (this.tileEntity.getManipulatingCard() != null)
 			{
-				for (int i = 0; i < this.buttonList.size(); i++)
+				if (ZhuYao.itKaShenFen.getUsername(this.tileEntity.getManipulatingCard()) != null)
 				{
-					GuiButtonMFFS button = (GuiButtonMFFS) this.buttonList.get(i);
-					button.drawButton = true;
+					for (int i = 0; i < this.buttonList.size(); i++)
+					{
+						GuiButtonMFFS button = (GuiButtonMFFS) this.buttonList.get(i);
+						button.drawButton = true;
 
-					if (this.tileEntity.isAccessGranted(ZhuYao.itKaShenFen.getUsername(this.tileEntity.getManipulatingCard()), SecurityPermission.values()[i]))
-					{
-						button.stuck = true;
-					}
-					else
-					{
-						button.stuck = false;
+						if (ZhuYao.itKaShenFen.hasPermission(this.tileEntity.getManipulatingCard(), SecurityPermission.values()[i]))
+						{
+							button.stuck = true;
+						}
+						else
+						{
+							button.stuck = false;
+						}
 					}
 				}
 			}
@@ -88,7 +91,6 @@ public class GAnQuan extends GuiMFFS
 		this.textFieldFrequency.drawTextBox();
 
 		this.drawTextWithTooltip("master", 28, 90 + (this.fontRenderer.FONT_HEIGHT / 2), x, y);
-
 		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
