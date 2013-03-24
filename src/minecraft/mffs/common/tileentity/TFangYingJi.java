@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import mffs.api.ForceFieldType;
 import mffs.api.IModule;
 import mffs.api.IProjector;
 import mffs.api.IProjectorMode;

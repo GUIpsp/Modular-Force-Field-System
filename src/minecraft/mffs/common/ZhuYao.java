@@ -26,16 +26,14 @@ import mffs.common.item.ItemForcillium;
 import mffs.common.item.ItemFortronCell;
 import mffs.common.item.ItemMFFS;
 import mffs.common.mode.ItemModeCube;
-import mffs.common.mode.ItemModeDeflector;
-import mffs.common.mode.ItemModeDiagonalWall;
 import mffs.common.mode.ItemModeSphere;
 import mffs.common.mode.ItemModeTube;
-import mffs.common.mode.ItemModeWall;
 import mffs.common.mode.ItemProjectorMode;
 import mffs.common.module.ItM;
 import mffs.common.module.ItMJuLi;
 import mffs.common.module.ItMRongLiang;
 import mffs.common.module.ItMSuDu;
+import mffs.common.module.ItemModuleRotation;
 import mffs.common.module.ItemModuleScale;
 import mffs.common.module.ItemModuleTranslate;
 import mffs.common.module.fangyingji.ItemModuleCamoflage;
@@ -172,6 +170,7 @@ public class ZhuYao
 	public static ItM itemModuleFusion;
 	public static ItM itemModuleScale;
 	public static ItM itemModuleTranslation;
+	public static ItM itemModuleRotation;
 
 	/**
 	 * Defense Station Modules
@@ -184,10 +183,7 @@ public class ZhuYao
 	 */
 	public static ItemProjectorMode itemModuleSphere;
 	public static ItemProjectorMode itemModuleCube;
-	public static ItemProjectorMode itemModuleWall;
-	public static ItemProjectorMode itemModuleDeflector;
 	public static ItemProjectorMode itemModuleTube;
-	public static ItemProjectorMode itemModeDiagonalWall;
 
 	public static OreGenBase fortroniteOreGeneration;
 
@@ -248,15 +244,14 @@ public class ZhuYao
 
 			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.getNextItemID());
 
+			// Modes
 			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.getNextItemID());
 			itemModuleCube = new ItemModeCube(MFFSConfiguration.getNextItemID());
-			itemModuleWall = new ItemModeWall(MFFSConfiguration.getNextItemID());
-			itemModeDiagonalWall = new ItemModeDiagonalWall(MFFSConfiguration.getNextItemID());
-			itemModuleDeflector = new ItemModeDeflector(MFFSConfiguration.getNextItemID());
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.getNextItemID());
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.getNextItemID());
 			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.getNextItemID());
+			itemModuleRotation = new ItemModuleRotation(MFFSConfiguration.getNextItemID());
 			itMSuDu = new ItMSuDu(MFFSConfiguration.getNextItemID());
 			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
 			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());

@@ -8,25 +8,20 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum ProjectorTypes
 {
-	wall(1, "Wall", "AA AA BB ", ZhuYao.itemModuleWall, true),
-	deflector(2, "Deflector", "AAAABAAAA", ZhuYao.itemModuleDeflector, true),
-	tube(3, "Tube", "AAA B AAA", ZhuYao.itemModuleTube, false),
-	cube(4, "Cube", "B B A B B", ZhuYao.itemModuleCube, false),
-	sphere(5, "Sphere", " B BAB B ", ZhuYao.itemModuleSphere, false),
-	diagonallWall(8, "Diagonal Wall", "A A B A A", ZhuYao.itemModeDiagonalWall, true);
+	tube("Tube", "AAA B AAA", ZhuYao.itemModuleTube, false),
+	cube("Cube", "B B A B B", ZhuYao.itemModuleCube, false),
+	sphere("Sphere", " B BAB B ", ZhuYao.itemModuleSphere, false);
 
 	public String displayName;
 	public String recipe;
 	public Item item;
-	public int ProTyp;
 	public boolean blockDropper;
 
-	private ProjectorTypes(int ProTyp, String dispNm, String recipe, Item item, boolean Blockdropper)
+	private ProjectorTypes(String dispNm, String recipe, Item item, boolean Blockdropper)
 	{
 		this.displayName = dispNm;
 		this.recipe = recipe;
 		this.item = item;
-		this.ProTyp = ProTyp;
 		this.blockDropper = Blockdropper;
 	}
 

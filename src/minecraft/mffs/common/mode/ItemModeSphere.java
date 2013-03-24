@@ -5,13 +5,11 @@ import java.util.Set;
 import mffs.api.IProjector;
 import mffs.client.model.ModelCube;
 import mffs.common.ZhuYao;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.core.vector.VectorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

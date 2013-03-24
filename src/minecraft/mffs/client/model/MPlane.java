@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class MPlane extends ModelBase
 {
-	public static/* final */MPlane INSTNACE = new MPlane();
+	public static final MPlane INSTNACE = new MPlane();
 	private ModelRenderer cube;
 
 	public MPlane()
