@@ -24,6 +24,7 @@ public interface IDefenseStation extends IInventory, IFortronFrequency, IModuleA
 
 	/**
 	 * Merges an item into the defense station's safe keeping inventory.
+	 * 
 	 * @param itemStack
 	 * @return True if kept, false if dropped.
 	 */

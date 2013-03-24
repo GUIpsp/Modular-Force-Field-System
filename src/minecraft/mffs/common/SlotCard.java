@@ -11,6 +11,7 @@ public class SlotCard extends SlotHelper
 	{
 		super(tileEntity, id, par4, par5);
 	}
+
 	@Override
 	public void onSlotChanged()
 	{

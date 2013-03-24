@@ -100,7 +100,7 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 			fontRenderer.drawString("Capacity: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
 			fontRenderer.drawString(String.valueOf(topview.getFortronEnergy()).concat(" % "), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getFortronEnergy()).concat(" % ")), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Range: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
-			fontRenderer.drawString(String.valueOf(topview.getTransmitRange()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getTransmitRange())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
+			fontRenderer.drawString(String.valueOf(topview.getTransmissionRange()), offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(String.valueOf(topview.getTransmissionRange())), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Linked Device: ", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);
 			// fontRenderer.drawString(String.valueOf(topview.getLinkedProjector()), offsetX +
 			// realWidth / 2 - offsetX -

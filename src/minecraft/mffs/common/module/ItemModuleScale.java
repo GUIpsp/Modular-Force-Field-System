@@ -1,6 +1,5 @@
 package mffs.common.module;
 
-
 public class ItemModuleScale extends ItM
 {
 	public ItemModuleScale(int i)

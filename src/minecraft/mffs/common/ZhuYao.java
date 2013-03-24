@@ -161,9 +161,9 @@ public class ZhuYao
 	/**
 	 * Modules
 	 */
-	public static ItM itemUpgradeSpeed;
+	public static ItM itMSuDu;
 	public static ItM itMJuLi;
-	public static ItM itemUpgradeCapacity;
+	public static ItM itMRongLiang;
 	public static ItM itemModuleShock;
 	public static ItM itemModuleSponge;
 	public static ItM itemModuleManipulator;
@@ -285,9 +285,9 @@ public class ZhuYao
 			// TODO: MFFS REMOVE THIS
 			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
-			itemUpgradeSpeed = new ItMSuDu(MFFSConfiguration.getNextItemID());
+			itMSuDu = new ItMSuDu(MFFSConfiguration.getNextItemID());
 			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
-			itemUpgradeCapacity = new ItMRongLiang(MFFSConfiguration.getNextItemID());
+			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());
 
 			/**
 			 * The Fortron Liquid

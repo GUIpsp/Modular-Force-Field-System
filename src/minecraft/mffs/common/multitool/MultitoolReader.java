@@ -45,7 +45,7 @@ public class MultitoolReader implements IMultiTool
 			TDianRong tile = (TDianRong) world.getBlockTileEntity(x, y, z);
 			player.sendChatToPlayer("[Multi-Tool] Fortron Capacitor:");
 			player.sendChatToPlayer("Capacity: " + String.valueOf(tile.getFortronEnergy()).concat(" % "));
-			player.sendChatToPlayer("Range: " + String.valueOf(tile.getTransmitRange()));
+			player.sendChatToPlayer("Range: " + String.valueOf(tile.getTransmissionRange()));
 			player.sendChatToPlayer("Linked Devices: ");
 		}
 

@@ -19,7 +19,6 @@ import mffs.common.module.fangyingji.IInteriorCheck;
 import mffs.common.module.fangyingji.ItemModuleFusion;
 import mffs.common.module.fangyingji.ItemModuleJammer;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

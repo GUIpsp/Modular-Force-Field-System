@@ -1,6 +1,5 @@
 package mffs.common.module.fangyu;
 
-import cpw.mods.fml.common.FMLLog;
 import mffs.api.IDefenseStation;
 import mffs.common.ZhuYao;
 import net.minecraft.entity.EntityLiving;

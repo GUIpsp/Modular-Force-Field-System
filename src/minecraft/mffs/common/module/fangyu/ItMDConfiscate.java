@@ -74,7 +74,7 @@ public class ItMDConfiscate extends ItMD
 
 			defenseStation.requestFortron(confiscationCount, true);
 		}
-		
+
 		return false;
 	}
 }

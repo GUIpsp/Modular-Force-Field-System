@@ -44,7 +44,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 
 	}
 
-	private int transmissionRange = 20;
 	private TransferMode transferMode = TransferMode.EQUALIZE;
 
 	public TDianRong()
@@ -87,6 +86,8 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 					}
 				}
 			}
+
+			this.fortronTank.setCapacity(this.getModuleCount(ZhuYao.itMRongLiang) * 50 + 500 * LiquidContainerRegistry.BUCKET_VOLUME);
 
 			/**
 			 * Gets the card.
@@ -280,7 +281,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
 		objects.add(this.transferMode.ordinal());
-		objects.add(this.transmissionRange);
 		return objects;
 	}
 
@@ -292,7 +292,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 		if (packetID == 1)
 		{
 			this.transferMode = TransferMode.values()[dataStream.readInt()];
-			this.transmissionRange = dataStream.readInt();
 		}
 		else if (packetID == 3)
 		{
@@ -305,17 +304,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	{
 		RadarRegistry.unregister(this);
 		super.invalidate();
-	}
-
-	public void setTransmitRange(int transmitRange)
-	{
-		this.transmissionRange = transmitRange;
-		PacketManager.sendPacketToClients(getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
-	}
-
-	public int getTransmitRange()
-	{
-		return this.transmissionRange;
 	}
 
 	@Override
@@ -341,7 +329,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public Set<IFortronFrequency> getLinkedDevices()
 	{
-		return FortronGrid.INSTANCE.get(this.worldObj, new Vector3(this), this.transmissionRange, this.getFrequency());
+		return FortronGrid.INSTANCE.get(this.worldObj, new Vector3(this), this.getTransmissionRange(), this.getFrequency());
 	}
 
 	@Override
@@ -362,4 +350,15 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 		return this.transferMode;
 	}
 
+	@Override
+	public int getTransmissionRange()
+	{
+		return 15 + this.getModuleCount(ZhuYao.itMJuLi);
+	}
+
+	@Override
+	public int getTransmissionRate()
+	{
+		return 100 + 20 * this.getModuleCount(ZhuYao.itMSuDu);
+	}
 }

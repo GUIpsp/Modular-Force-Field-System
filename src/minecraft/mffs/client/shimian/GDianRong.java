@@ -51,7 +51,8 @@ public class GDianRong extends GuiMFFS
 
 		// TODO: Might not work multiplayer
 		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 30, x, y);
-		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmitRange(), 8, 45, x, y);
+		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 45, x, y);
+		this.drawTextWithTooltip("transmissionRate", "%1: " + this.tileEntity.getTransmissionRate(), 8, 45, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);

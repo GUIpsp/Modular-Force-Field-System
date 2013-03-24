@@ -79,7 +79,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 							 */
 							if (getStackInSlot(3) != null)
 							{
-								if (this.getStackInSlot(3).itemID == ZhuYao.itemUpgradeSpeed.itemID)
+								if (this.getStackInSlot(3).itemID == ZhuYao.itMSuDu.itemID)
 								{
 									runTime /= 2;
 								}
