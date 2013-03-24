@@ -1,5 +1,6 @@
 package mffs.common.mode;
 
+import java.awt.geom.AffineTransform;
 import java.util.Set;
 
 import mffs.api.IProjector;
@@ -28,6 +29,10 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 
 	}
 
+	/**
+	 * Calculates all base translation and rotational values. Then left the specific mode denote the
+	 * shape of the field.
+	 */
 	@Override
 	public void calculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior)
 	{
@@ -43,6 +48,7 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 		int yScaleNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
 		int overAllIncrease = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getModuleSlots());
+
 		zScaleNeg += overAllIncrease;
 		zScalePos += overAllIncrease;
 
@@ -66,6 +72,22 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 		Vector3 negScale = new Vector3(xScaleNeg, yScaleNeg, zScaleNeg);
 
 		this.doCalculateField(projector, blockDef, blockInterior, direction, translation, posScale, negScale);
+
+		int horizontalRotation = projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST))) - projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST))) + projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH))) - projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int verticleRotation = projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(ForgeDirection.UP)) - projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+
+		for (Vector3 point : blockDef)
+		{
+			double[] pt = { point.x, point.z };
+			AffineTransform.getRotateInstance(Math.toRadians(horizontalRotation), translation.x, translation.z).transform(pt, 0, pt, 0, 1);
+
+			double[] pt2 = { point.x, point.y };
+			AffineTransform.getRotateInstance(Math.toRadians(verticleRotation), translation.x, translation.y).transform(pt2, 0, pt2, 0, 1);
+
+			point.x = pt[0];
+			point.z = pt[1];
+			point.y = pt2[1];
+		}
 	}
 
 	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 translation, Vector3 posScale, Vector3 negScale)

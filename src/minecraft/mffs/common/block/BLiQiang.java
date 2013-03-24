@@ -155,21 +155,7 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double d, double d1, double d2)
 	{
 		// TODO: DO SOMETHING
-
 		return Integer.MAX_VALUE;
-	}
-
-	@Override
-	public void randomDisplayTick(World world, int i, int j, int k, Random random)
-	{
-		if ((MFFSConfiguration.advancedParticles) && (world.getBlockMetadata(i, j, k) == ForceFieldType.Zapper.ordinal()))
-		{
-			double d = i + Math.random() + 0.2D;
-			double d1 = j + Math.random() + 0.2D;
-			double d2 = k + Math.random() + 0.2D;
-
-			world.spawnParticle("townaura", d, d1, d2, 0.0D, 0.0D, 0.0D);
-		}
 	}
 
 	@Override
@@ -192,7 +178,7 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	@Override
 	public void weakenForceField(World world, int x, int y, int z)
 	{
-		if (MFFSConfiguration.influencedbyothermods)
+		if (MFFSConfiguration.influencedByOtherMods)
 		{
 			world.setBlock(x, y, z, 0, 0, 2);
 		}

@@ -359,6 +359,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public int getTransmissionRate()
 	{
-		return 100 + 100 * this.getModuleCount(ZhuYao.itMSuDu);
+		return 500 + 200 * this.getModuleCount(ZhuYao.itMSuDu);
 	}
 }

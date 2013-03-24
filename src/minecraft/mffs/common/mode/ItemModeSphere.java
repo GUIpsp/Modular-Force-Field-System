@@ -32,11 +32,11 @@ public class ItemModeSphere extends ItemProjectorMode
 			yDown = 0;
 		}
 
-		for (int x = -radius; x <= radius; x++)
+		for (float x = -negScale.intX(); x <= posScale.intX(); x += 0.5f)
 		{
-			for (int z = -radius; z <= radius; z++)
+			for (float z = -negScale.intZ(); z <= posScale.intZ(); z += 0.5f)
 			{
-				for (int y = -yDown; y <= radius; y++)
+				for (float y = -negScale.intY(); y <= posScale.intY(); y += 0.5f)
 				{
 					Vector3 checkPosition = new Vector3(x, y, z);
 					double distance = Vector3.distance(new Vector3(), checkPosition);

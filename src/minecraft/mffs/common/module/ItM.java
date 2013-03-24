@@ -30,7 +30,7 @@ public abstract class ItM extends ItemMFFS implements IModule
 	@Override
 	public float getFortronCost()
 	{
-		return 0.2f;
+		return 0.5f;
 	}
 
 }

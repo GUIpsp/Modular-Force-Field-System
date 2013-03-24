@@ -85,7 +85,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 				}
 			}
 
-			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) > 0)
+			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) >= this.getFortronCost())
 			{
 				this.requestFortron(this.getFortronCost(), true);
 

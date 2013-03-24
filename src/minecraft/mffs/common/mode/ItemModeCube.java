@@ -22,11 +22,11 @@ public class ItemModeCube extends ItemProjectorMode
 	@Override
 	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 center, Vector3 posScale, Vector3 negScale)
 	{
-		for (int x = -negScale.intX(); x <= posScale.intX(); x++)
+		for (float x = -negScale.intX(); x <= posScale.intX(); x += 0.5f)
 		{
-			for (int z = -negScale.intZ(); z <= posScale.intZ(); z++)
+			for (float z = -negScale.intZ(); z <= posScale.intZ(); z += 0.5f)
 			{
-				for (int y = -negScale.intY(); y <= posScale.intY(); y++)
+				for (float y = -negScale.intY(); y <= posScale.intY(); y += 0.5f)
 				{
 					if (y == -negScale.intY() || y == posScale.intY() || x == -negScale.intX() || x == posScale.intX() || z == -negScale.intZ() || z == posScale.intZ())
 					{

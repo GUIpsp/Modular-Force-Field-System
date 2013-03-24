@@ -43,7 +43,7 @@ public class MFFSConfiguration
 	public static int forcefieldtransportcost;
 	public static int maxForceFieldPerTick;
 	public static boolean forcefieldremoveonlywaterandlava;
-	public static boolean influencedbyothermods;
+	public static boolean influencedByOtherMods;
 	public static boolean adventureMap;
 	public static int ForcilliumWorkCylce;
 	public static int forceciumCellWorkCycle;
@@ -94,7 +94,7 @@ public class MFFSConfiguration
 
 		Property influencedByOther = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "influencedbyothermods", true);
 		influencedByOther.comment = "Should MFFS be influenced by other mods? e.g. ICBM's EMP";
-		influencedbyothermods = Boolean.valueOf(influencedByOther.getBoolean(true));
+		influencedByOtherMods = Boolean.valueOf(influencedByOther.getBoolean(true));
 
 		Property ffRemoveWaterLavaOnly = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldremoveonlywaterandlava", false);
 		ffRemoveWaterLavaOnly.comment = "Should forcefields only remove water and lava when sponge is enabled?";
