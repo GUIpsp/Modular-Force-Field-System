@@ -29,6 +29,11 @@ public class GuiButtonMFFS extends GuiButton
 		this.mainGui = mainGui;
 	}
 
+	public GuiButtonMFFS(int id, int x, int y, Vector2 offset, GuiMFFS mainGui)
+	{
+		this(id, x, y, offset, mainGui, "");
+	}
+
 	public GuiButtonMFFS(int id, int x, int y, Vector2 offset)
 	{
 		this(id, x, y, offset, null, "");

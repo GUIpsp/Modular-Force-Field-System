@@ -35,7 +35,7 @@ public class GDianRong extends GuiMFFS
 		this.buttonList.clear();
 		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100,
 		// this, 0));
-		this.buttonList.add(new GuiButtonTransferMode(1, this.width / 2 + 5, this.height / 2 - 37, this.tileEntity));
+		this.buttonList.add(new GuiButtonTransferMode(1, this.width / 2 - 5, this.height / 2 - 37, this, this.tileEntity));
 
 	}
 
