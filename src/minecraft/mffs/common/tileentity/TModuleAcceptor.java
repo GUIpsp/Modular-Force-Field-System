@@ -3,8 +3,8 @@ package mffs.common.tileentity;
 import java.util.HashSet;
 import java.util.Set;
 
+import mffs.api.IModule;
 import mffs.api.IModuleAcceptor;
-import mffs.common.module.IModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

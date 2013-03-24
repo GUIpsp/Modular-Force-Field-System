@@ -2,6 +2,7 @@ package mffs.common.module;
 
 import java.util.List;
 
+import mffs.api.IModule;
 import mffs.common.ZhuYao;
 import mffs.common.item.ItemMFFS;
 import net.minecraft.entity.player.EntityPlayer;

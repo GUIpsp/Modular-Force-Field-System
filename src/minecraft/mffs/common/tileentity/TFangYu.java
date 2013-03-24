@@ -7,10 +7,10 @@ import java.util.Set;
 
 import mffs.api.IDefenseStation;
 import mffs.api.IDefenseStationModule;
+import mffs.api.IModule;
 import mffs.api.SecurityPermission;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKa;
-import mffs.common.module.IModule;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

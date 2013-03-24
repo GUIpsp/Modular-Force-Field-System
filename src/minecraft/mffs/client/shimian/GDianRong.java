@@ -49,10 +49,9 @@ public class GDianRong extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		// TODO: Might not work multiplayer
-		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 30, x, y);
-		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 45, x, y);
-		this.drawTextWithTooltip("transmissionRate", "%1: " + this.tileEntity.getTransmissionRate(), 8, 45, x, y);
+		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 24, x, y);
+		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 36, x, y);
+		this.drawTextWithTooltip("transmissionRate", "%1: " + this.tileEntity.getTransmissionRate(), 8, 48, x, y);
 		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
 		this.textFieldFrequency.drawTextBox();
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);

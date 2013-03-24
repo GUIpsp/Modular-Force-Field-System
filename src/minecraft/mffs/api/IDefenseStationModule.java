@@ -1,6 +1,5 @@
 package mffs.api;
 
-import mffs.common.module.IModule;
 import net.minecraft.entity.EntityLiving;
 
 public interface IDefenseStationModule extends IModule

@@ -1,4 +1,4 @@
-package mffs.common.module;
+package mffs.api;
 
 public interface IModule
 {

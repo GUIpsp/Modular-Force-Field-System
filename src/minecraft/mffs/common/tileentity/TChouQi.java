@@ -3,11 +3,11 @@ package mffs.common.tileentity;
 import java.util.LinkedList;
 import java.util.List;
 
+import mffs.api.IModule;
 import mffs.common.Fortron;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaShengBuo;
 import mffs.common.item.ItemForcillium;
-import mffs.common.module.IModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

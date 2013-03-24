@@ -2,7 +2,6 @@ package mffs.api;
 
 import java.util.Set;
 
-import mffs.common.module.IModule;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeDirection;

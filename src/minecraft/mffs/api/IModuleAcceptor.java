@@ -2,7 +2,6 @@ package mffs.api;
 
 import java.util.Set;
 
-import mffs.common.module.IModule;
 import net.minecraft.item.ItemStack;
 
 public interface IModuleAcceptor
