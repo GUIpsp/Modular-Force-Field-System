@@ -2,6 +2,8 @@ package mffs.api;
 
 import java.util.Set;
 
+import mffs.api.fortron.IFortronFrequency;
+import mffs.api.modules.IModuleAcceptor;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 

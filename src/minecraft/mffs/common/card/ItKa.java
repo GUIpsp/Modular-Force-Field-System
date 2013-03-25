@@ -1,6 +1,6 @@
 package mffs.common.card;
 
-import mffs.api.ICard;
+import mffs.api.card.ICard;
 import mffs.common.item.ItemMFFS;
 
 public abstract class ItKa extends ItemMFFS implements ICard

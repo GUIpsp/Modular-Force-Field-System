@@ -3,7 +3,7 @@ package mffs.common.tileentity;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.api.IModule;
+import mffs.api.modules.IModule;
 import mffs.common.Fortron;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaShengBuo;

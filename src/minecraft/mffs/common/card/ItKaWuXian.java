@@ -1,6 +1,6 @@
 package mffs.common.card;
 
-import mffs.api.IItemFortronStorage;
+import mffs.api.fortron.IItemFortronStorage;
 import net.minecraft.item.ItemStack;
 
 public class ItKaWuXian extends ItKa implements IItemFortronStorage

@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import mffs.api.IDefenseStation;
-import mffs.api.IDefenseStationModule;
-import mffs.api.IModule;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
+import mffs.api.modules.IDefenseStationModule;
+import mffs.api.modules.IModule;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKa;
 import mffs.common.card.ItKaLian;

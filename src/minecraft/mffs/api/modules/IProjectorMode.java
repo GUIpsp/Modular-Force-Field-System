@@ -1,6 +1,8 @@
-package mffs.api;
+package mffs.api.modules;
 
 import java.util.Set;
+
+import mffs.api.IProjector;
 
 import universalelectricity.core.vector.Vector3;
 

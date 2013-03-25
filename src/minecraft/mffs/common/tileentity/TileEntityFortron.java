@@ -3,9 +3,9 @@ package mffs.common.tileentity;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.api.FortronGrid;
-import mffs.api.ICard;
-import mffs.api.IFortronFrequency;
+import mffs.api.card.ICard;
+import mffs.api.fortron.FortronGrid;
+import mffs.api.fortron.IFortronFrequency;
 import mffs.common.Fortron;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

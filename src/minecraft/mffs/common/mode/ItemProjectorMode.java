@@ -4,7 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.util.Set;
 
 import mffs.api.IProjector;
-import mffs.api.IProjectorMode;
+import mffs.api.modules.IProjectorMode;
 import mffs.common.ZhuYao;
 import mffs.common.item.ItemMFFS;
 import net.minecraft.tileentity.TileEntity;

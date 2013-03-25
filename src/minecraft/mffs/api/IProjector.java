@@ -2,6 +2,10 @@ package mffs.api;
 
 import java.util.Set;
 
+import mffs.api.fortron.IFortronFrequency;
+import mffs.api.modules.IModule;
+import mffs.api.modules.IModuleAcceptor;
+import mffs.api.modules.IProjectorMode;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeDirection;

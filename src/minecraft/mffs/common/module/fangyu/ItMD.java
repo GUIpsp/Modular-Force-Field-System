@@ -2,7 +2,7 @@ package mffs.common.module.fangyu;
 
 import java.util.List;
 
-import mffs.api.IDefenseStationModule;
+import mffs.api.modules.IDefenseStationModule;
 import mffs.common.module.ItM;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

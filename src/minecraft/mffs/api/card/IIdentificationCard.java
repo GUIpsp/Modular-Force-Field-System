@@ -1,5 +1,6 @@
-package mffs.api;
+package mffs.api.card;
 
+import mffs.api.SecurityPermission;
 import net.minecraft.item.ItemStack;
 
 /**

@@ -2,8 +2,8 @@ package mffs.common.card;
 
 import java.util.List;
 
-import mffs.api.IIdentificationCard;
 import mffs.api.SecurityPermission;
+import mffs.api.card.IIdentificationCard;
 import mffs.common.NBTTagCompoundHelper;
 import mffs.common.ZhuYao;
 import net.minecraft.entity.player.EntityPlayer;

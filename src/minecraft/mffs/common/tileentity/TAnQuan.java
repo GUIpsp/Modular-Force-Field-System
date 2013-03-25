@@ -1,8 +1,8 @@
 package mffs.common.tileentity;
 
-import mffs.api.IIdentificationCard;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
+import mffs.api.card.IIdentificationCard;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKaShenFen;

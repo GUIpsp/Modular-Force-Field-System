@@ -1,6 +1,6 @@
 package mffs.common;
 
-import mffs.api.IProjectorMode;
+import mffs.api.modules.IProjectorMode;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

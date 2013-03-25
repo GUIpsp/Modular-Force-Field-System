@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import mffs.api.IModule;
 import mffs.api.IProjector;
-import mffs.api.IProjectorMode;
+import mffs.api.modules.IModule;
+import mffs.api.modules.IProjectorMode;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
 import mffs.common.card.ItKa;
