@@ -94,7 +94,7 @@ public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
 			fontRenderer.drawString("Process:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString((int) (100 - ((float) tileEntity.processTime / (float) tileEntity.REQUIRED_TIME) * 100) + "%", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.processTime / tileEntity.REQUIRED_TIME + " % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			fontRenderer.drawString((int) (100 - ((float) tileEntity.processTime / (float) TChouQi.REQUIRED_TIME) * 100) + "%", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.processTime / TChouQi.REQUIRED_TIME + " % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Fortrons:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString(tileEntity.getFortronEnergy() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.getFortronEnergy() + ""), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Capacity:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);

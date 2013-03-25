@@ -49,7 +49,7 @@ public class GAnQuan extends GuiMFFS
 	@Override
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
-		this.fontRenderer.drawString(this.tileEntity.getInvName(), (int) (this.ySize / 2 - this.tileEntity.getInvName().length() * 4), 6, 4210752);
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.ySize / 2 - this.tileEntity.getInvName().length() * 4, 6, 4210752);
 
 		this.drawTextWithTooltip("rights", "%1", 85, 22, x, y, 0);
 

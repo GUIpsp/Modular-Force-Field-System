@@ -67,7 +67,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 
 				if (this.canUse())
 				{
-					if (this.wattsReceived >= this.WATTAGE)
+					if (this.wattsReceived >= TChouQi.WATTAGE)
 					{
 						if (this.processTime == 0)
 						{

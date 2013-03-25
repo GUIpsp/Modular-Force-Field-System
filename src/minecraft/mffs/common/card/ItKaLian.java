@@ -50,7 +50,7 @@ public class ItKaLian extends ItKa
 		{
 			Vector3 vector = new Vector3(x, y, z);
 			this.setLink(itemStack, vector);
-			
+
 			if (Block.blocksList[vector.getBlockID(world)] != null)
 			{
 				player.addChatMessage("Linked card to position: " + x + ", " + y + ", " + z + " with block: " + Block.blocksList[vector.getBlockID(world)].getLocalizedName());

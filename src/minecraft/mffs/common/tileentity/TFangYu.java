@@ -39,11 +39,11 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 		{
 			int newOrdinal = this.ordinal() + 1;
 
-			if (newOrdinal >= this.values().length)
+			if (newOrdinal >= ActionMode.values().length)
 			{
 				newOrdinal = 0;
 			}
-			return this.values()[newOrdinal];
+			return ActionMode.values()[newOrdinal];
 		}
 
 	}

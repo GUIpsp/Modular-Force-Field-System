@@ -44,7 +44,7 @@ public class GChouQi extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		this.drawTextWithTooltip("progress", "%1: " + (int) (100 - ((float) this.tileEntity.processTime / (float) this.tileEntity.REQUIRED_TIME) * 100) + "%", 8, 70, x, y);
+		this.drawTextWithTooltip("progress", "%1: " + (int) (100 - ((float) this.tileEntity.processTime / (float) TChouQi.REQUIRED_TIME) * 100) + "%", 8, 70, x, y);
 		this.drawTextWithTooltip("fortron", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES), 8, 105, x, y);
 
 		super.drawGuiContainerForegroundLayer(x, y);
@@ -71,7 +71,7 @@ public class GChouQi extends GuiMFFS
 		 * Focillium Input
 		 */
 		this.drawSlot(8, 82);
-		this.drawBar(30, 84, (float) this.tileEntity.processTime / (float) this.tileEntity.REQUIRED_TIME);
+		this.drawBar(30, 84, (float) this.tileEntity.processTime / (float) TChouQi.REQUIRED_TIME);
 
 		/**
 		 * Force Power Bar

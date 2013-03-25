@@ -27,11 +27,13 @@ public class ItemMultitool extends ItemMFFS
 		ToolRegistry.appendMode(new MultitoolReader());
 	}
 
+	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
 	{
 		return ToolRegistry.getMode(stack.getItemDamage()).onLeftClickEntity(stack, player, entity);
 	}
 
+	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		return ToolRegistry.getMode(stack.getItemDamage()).onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);

@@ -47,7 +47,7 @@ public class ForceFieldBlockStack
 
 	public int getGenratorID()
 	{
-		ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
+		ForceFieldBlock ffblock = this.blocks.peek();
 		if (ffblock != null)
 		{
 			return ffblock.Generator_Id;
@@ -57,7 +57,7 @@ public class ForceFieldBlockStack
 
 	public int getProjectorID()
 	{
-		ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
+		ForceFieldBlock ffblock = this.blocks.peek();
 		if (ffblock != null)
 		{
 			return ffblock.Projektor_ID;
@@ -67,7 +67,7 @@ public class ForceFieldBlockStack
 
 	public int getTyp()
 	{
-		ForceFieldBlock ffblock = (ForceFieldBlock) this.blocks.peek();
+		ForceFieldBlock ffblock = this.blocks.peek();
 		if (ffblock != null)
 		{
 			return ffblock.typ;
@@ -92,7 +92,7 @@ public class ForceFieldBlockStack
 
 	public ForceFieldBlock get()
 	{
-		return (ForceFieldBlock) this.blocks.peek();
+		return this.blocks.peek();
 	}
 
 	public void add(int Generator_Id, int Projektor_ID, int typ)

@@ -75,7 +75,7 @@ public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorag
 		/**
 		 * Sets the damage as a percentage to render the bar properly.
 		 */
-		itemStack.setItemDamage((int) (100 - (stored / getFortronCapacity(itemStack)) * 100));
+		itemStack.setItemDamage(100 - (stored / getFortronCapacity(itemStack)) * 100);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorag
 		/**
 		 * Sets the damage as a percentage to render the bar properly.
 		 */
-		itemStack.setItemDamage((int) (100 - (stored / getFortronCapacity(itemStack)) * 100));
+		itemStack.setItemDamage(100 - (stored / getFortronCapacity(itemStack)) * 100);
 		return stored;
 	}
 

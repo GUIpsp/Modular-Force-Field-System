@@ -88,6 +88,7 @@ public class FXBeam extends EntityFX
 		this.updated = true;
 	}
 
+	@Override
 	public void onUpdate()
 	{
 		this.prevPosX = this.posX;
@@ -149,20 +150,21 @@ public class FXBeam extends EntityFX
 		this.rotationspeed = rotationspeed;
 	}
 
+	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		tessellator.draw();
 
 		GL11.glPushMatrix();
 		float var9 = 1.0F;
-		float slide = (float) this.worldObj.getTotalWorldTime();
-		float rot = (float) (this.worldObj.provider.getWorldTime() % (360 / this.rotationspeed) * this.rotationspeed) + this.rotationspeed * f;
+		float slide = this.worldObj.getTotalWorldTime();
+		float rot = this.worldObj.provider.getWorldTime() % (360 / this.rotationspeed) * this.rotationspeed + this.rotationspeed * f;
 
 		float size = 1.0F;
 		if (this.pulse)
 		{
 			size = Math.min(this.particleAge / 4.0F, 1.0F);
-			size = (float) (this.prevSize + (size - this.prevSize) * f);
+			size = this.prevSize + (size - this.prevSize) * f;
 		}
 
 		float op = 0.5F;
@@ -192,8 +194,8 @@ public class FXBeam extends EntityFX
 		float zz = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - interpPosZ);
 		GL11.glTranslated(xx, yy, zz);
 
-		float ry = (float) (this.prevYaw + (this.rotYaw - this.prevYaw) * f);
-		float rp = (float) (this.prevPitch + (this.rotPitch - this.prevPitch) * f);
+		float ry = this.prevYaw + (this.rotYaw - this.prevYaw) * f;
+		float rp = this.prevPitch + (this.rotPitch - this.prevPitch) * f;
 		GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
 		GL11.glRotatef(180.0F + ry, 0.0F, 0.0F, -1.0F);
 		GL11.glRotatef(rp, 1.0F, 0.0F, 0.0F);

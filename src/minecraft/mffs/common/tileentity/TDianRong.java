@@ -35,11 +35,11 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 		{
 			int newOrdinal = this.ordinal() + 1;
 
-			if (newOrdinal >= this.values().length)
+			if (newOrdinal >= TransferMode.values().length)
 			{
 				newOrdinal = 0;
 			}
-			return this.values()[newOrdinal];
+			return TransferMode.values()[newOrdinal];
 		}
 
 	}
@@ -170,7 +170,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 								{
 									if (machine != null)
 									{
-										int amountToSet = (int) (totalFortron / machines.size());
+										int amountToSet = totalFortron / machines.size();
 										this.chuanBuo(machine, amountToSet - machine.getFortronEnergy());
 									}
 								}

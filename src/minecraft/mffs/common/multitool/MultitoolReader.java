@@ -36,7 +36,7 @@ public class MultitoolReader implements IMultiTool
 		{
 			TChouQi tile = (TChouQi) world.getBlockTileEntity(x, y, z);
 			player.sendChatToPlayer("[Multi-Tool] Forcillium Extractor:");
-			player.sendChatToPlayer("Process: " + (int) (100 - ((float) tile.processTime / (float) tile.REQUIRED_TIME) * 100) + "%");
+			player.sendChatToPlayer("Process: " + (int) (100 - ((float) tile.processTime / (float) TChouQi.REQUIRED_TIME) * 100) + "%");
 			player.sendChatToPlayer("Fortrons: " + tile.getFortronEnergy());
 			player.sendChatToPlayer("Capacity: " + tile.getFortronCapacity());
 		}

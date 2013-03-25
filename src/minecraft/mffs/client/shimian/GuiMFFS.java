@@ -2,6 +2,7 @@ package mffs.client.shimian;
 
 import icbm.api.IBlockFrequency;
 import mffs.common.ZhuYao;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -330,7 +331,7 @@ public class GuiMFFS extends GuiContainer
 
 	public void drawTooltip(int x, int y, String... toolTips)
 	{
-		if (!this.isShiftKeyDown())
+		if (!GuiScreen.isShiftKeyDown())
 		{
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			RenderHelper.disableStandardItemLighting();
@@ -345,7 +346,7 @@ public class GuiMFFS extends GuiContainer
 
 				for (var6 = 0; var6 < toolTips.length; ++var6)
 				{
-					var7 = this.fontRenderer.getStringWidth((String) toolTips[var6]);
+					var7 = this.fontRenderer.getStringWidth(toolTips[var6]);
 
 					if (var7 > var5)
 					{

@@ -33,7 +33,7 @@ public class ItMDConfiscate extends ItMD
 			{
 				return false;
 			}
-			
+
 			EntityPlayer player = (EntityPlayer) entityLiving;
 			inventory = player.inventory;
 		}

@@ -1,7 +1,5 @@
 package mffs.common.tileentity;
 
-import ic2.api.IWrenchable;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,6 @@ import mffs.api.IStatusToggle;
 import mffs.common.MFFSConfiguration;
 import mffs.common.ZhuYao;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -29,7 +26,7 @@ import universalelectricity.prefab.tile.TileEntityDisableable;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IWrenchable, IStatusToggle, IRotatable
+public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IStatusToggle, IRotatable
 {
 	/**
 	 * Is the machine active and working?
@@ -187,36 +184,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side)
-	{
-		return true;
-	}
-
-	@Override
-	public short getFacing()
-	{
-		return (short) this.getDirection(this.worldObj, this.xCoord, this.yCoord, this.zCoord).ordinal();
-	}
-
-	@Override
-	public void setFacing(short facing)
-	{
-		this.setDirection(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.getOrientation(facing));
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer)
-	{
-		return false;
-	}
-
-	@Override
-	public float getWrenchDropRate()
-	{
-		return 1.0F;
-	}
-
 	public void forceChunkLoading(ForgeChunkManager.Ticket ticket)
 	{
 		if (this.chunkTicket == null)
@@ -253,12 +220,6 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		ForgeChunkManager.releaseTicket(this.chunkTicket);
 		super.invalidate();
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer)
-	{
-		return null;
 	}
 
 	/**
