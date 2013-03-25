@@ -14,7 +14,7 @@ public class ContainerMFFS extends Container
 	public ContainerMFFS(IInventory inventory)
 	{
 		this.inventory = inventory;
-		this.slotCount = inventory.getSizeInventory() - 1;
+		this.slotCount = inventory.getSizeInventory();
 		this.inventory.openChest();
 	}
 
@@ -48,67 +48,73 @@ public class ContainerMFFS extends Container
 	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par1)
 	{
 		ItemStack var2 = null;
-		Slot var3 = (Slot) this.inventorySlots.get(par1);
-
-		if (var3 != null && var3.getHasStack())
+		try
 		{
-			ItemStack itemStack = var3.getStack();
-			var2 = itemStack.copy();
+			Slot var3 = (Slot) this.inventorySlots.get(par1);
 
-			if (par1 >= this.slotCount)
+			if (var3 != null && var3.getHasStack())
 			{
-				boolean didTry = false;
+				ItemStack itemStack = var3.getStack();
+				var2 = itemStack.copy();
 
-				for (int i = 0; i < this.slotCount; i++)
+				if (par1 >= this.slotCount)
 				{
-					if (this.getSlot(i).isItemValid(itemStack))
-					{
-						didTry = true;
+					// PLayer Inventory, Try to place into slot.
+					boolean didTry = false;
 
-						if (!this.mergeItemStack(itemStack, i, i + 1, false))
+					for (int i = 0; i < this.slotCount; i++)
+					{
+						if (this.getSlot(i).isItemValid(itemStack))
 						{
-							break;
-							// return null;
+							didTry = true;
+
+							if (!this.mergeItemStack(itemStack, i, i + 1, false))
+							{
+							}
+
 						}
-
 					}
-				}
 
-				if (!didTry)
-				{
-					if (par1 < 27 + this.slotCount)
+					if (!didTry)
 					{
-						if (!this.mergeItemStack(itemStack, 27 + this.slotCount, 36 + this.slotCount, false))
+						if (par1 < 27 + this.slotCount)
+						{
+							if (!this.mergeItemStack(itemStack, 27 + this.slotCount, 36 + this.slotCount, false))
+							{
+								return null;
+							}
+						}
+						else if (par1 >= 27 + this.slotCount && par1 < 36 + this.slotCount && !this.mergeItemStack(itemStack, slotCount, 27 + slotCount, false))
 						{
 							return null;
 						}
 					}
-					else if (par1 >= 27 + this.slotCount && par1 < 36 + this.slotCount && !this.mergeItemStack(itemStack, slotCount, 27 + slotCount, false))
-					{
-						return null;
-					}
 				}
-			}
-			else if (!this.mergeItemStack(itemStack, this.slotCount, 36 + this.slotCount, false))
-			{
-				return null;
-			}
+				else if (!this.mergeItemStack(itemStack, this.slotCount, 36 + this.slotCount, false))
+				{
+					return null;
+				}
 
-			if (itemStack.stackSize == 0)
-			{
-				var3.putStack((ItemStack) null);
-			}
-			else
-			{
-				var3.onSlotChanged();
-			}
+				if (itemStack.stackSize == 0)
+				{
+					var3.putStack((ItemStack) null);
+				}
+				else
+				{
+					var3.onSlotChanged();
+				}
 
-			if (itemStack.stackSize == var2.stackSize)
-			{
-				return null;
-			}
+				if (itemStack.stackSize == var2.stackSize)
+				{
+					return null;
+				}
 
-			var3.onPickupFromSlot(par1EntityPlayer, itemStack);
+				var3.onPickupFromSlot(par1EntityPlayer, itemStack);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 
 		return var2;

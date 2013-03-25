@@ -1,9 +1,6 @@
 package mffs.jiqi.t;
 
-import java.io.IOException;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -19,22 +16,18 @@ import mffs.it.muo.fangyingji.ItemModuleFusion;
 import mffs.it.muo.fangyingji.ItemModuleJammer;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
-
-import com.google.common.io.ByteArrayDataInput;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TFangYingJi extends TModuleAcceptor implements IProjector
 {
-	private static final int MODULE_SLOT_ID = 5;
+	private static final int MODULE_SLOT_ID = 2;
 
 	protected Stack fieldQueue = new Stack();
 
@@ -106,56 +99,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 			{
 				PacketManager.sendPacketToClients(super.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
 			}
-		}
-	}
-
-	@Override
-	public List getPacketUpdate()
-	{
-		List objects = new LinkedList();
-		objects.addAll(super.getPacketUpdate());
-		NBTTagCompound nbt = new NBTTagCompound();
-		this.writeToNBT(nbt);
-		objects.add(nbt);
-		return objects;
-	}
-
-	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
-	{
-		final boolean prevActivate = this.isActive();
-
-		super.onReceivePacket(packetID, dataStream);
-
-		if (packetID == 1 && this.worldObj.isRemote)
-		{
-			if (prevActivate != this.isActive())
-			{
-				this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
-			}
-
-			try
-			{
-				this.readFromNBT(PacketManager.readNBTTagCompound(dataStream));
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
-	{
-		switch (slotID)
-		{
-			case 0:
-				return itemStack.getItem() instanceof ItKa || itemStack.getItem() instanceof ItKaWuXian;
-			case 5:
-				return itemStack.getItem() instanceof IProjectorMode;
-			default:
-				return itemStack.getItem() instanceof IModule;
 		}
 	}
 
@@ -306,11 +249,10 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		if (!this.worldObj.isRemote)
 		{
 			int constructionCount = 0;
-			this.blockCount = 0;
 
 			for (Vector3 vector : this.calculatedField)
 			{
-				if (this.blockCount >= MFFSConfiguration.maxForceFieldPerTick || constructionCount >= this.getConstructionSpeed())
+				if (constructionCount >= this.getConstructionSpeed())
 				{
 					break;
 				}
@@ -328,7 +270,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 						}
 
 						this.forceFields.add(vector);
-						this.blockCount++;
 					}
 				}
 			}
@@ -359,16 +300,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		super.invalidate();
 	}
 
-	public int fortronRequest()
-	{
-		if (!this.calculatedField.isEmpty())
-		{
-			return this.calculatedField.size() * MFFSConfiguration.forceFieldBlockCost;
-		}
-
-		return 0;
-	}
-
 	@Override
 	public int getConstructionSpeed()
 	{
@@ -378,7 +309,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	@Override
 	public int getSizeInventory()
 	{
-		return 1 + 1 + 2 * 6 + 2;
+		return 3 + 18;
 	}
 
 	@Override
@@ -396,6 +327,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	public ItemStack getModeStack()
 	{
 		ItemStack itemStack = this.getStackInSlot(MODULE_SLOT_ID);
+
 		if (itemStack != null)
 		{
 			if (itemStack.getItem() instanceof IProjectorMode)
@@ -451,24 +383,40 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 			default:
 				return new int[] {};
 			case UP:
-				return new int[] { 10, 11 };
+				return new int[] { 3, 11 };
 			case DOWN:
-				return new int[] { 12, 13 };
+				return new int[] { 6, 14 };
 			case NORTH:
-				return new int[] { 7, 8 };
+				return new int[] { 8, 10 };
 			case SOUTH:
-				return new int[] { 1, 2 };
+				return new int[] { 7, 9 };
 			case WEST:
-				return new int[] { 3, 4 };
+				return new int[] { 12, 13 };
 			case EAST:
-				return new int[] { 5, 6 };
+				return new int[] { 4, 5 };
 		}
 	}
 
 	@Override
 	public int[] getModuleSlots()
 	{
-		return new int[] { 14, 15 };
+		return new int[] { 15, 16, 17, 18, 19, 20 };
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
+	{
+		switch (slotID)
+		{
+			case 0:
+				return itemStack.getItem() instanceof ItKa;
+			case 1:
+				return itemStack.getItem() instanceof ItKa;
+			case MODULE_SLOT_ID:
+				return itemStack.getItem() instanceof IProjectorMode;
+			default:
+				return itemStack.getItem() instanceof IModule;
+		}
 	}
 
 	@Override

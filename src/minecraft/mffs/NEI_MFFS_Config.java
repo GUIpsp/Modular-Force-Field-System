@@ -9,7 +9,6 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	@Override
 	public void loadConfig()
 	{
-		API.hideItem(ZhuYao.itemMultiTool.itemID);
 		API.hideItem(ZhuYao.blockForceField.blockID);
 
 		MultiItemRange blocks = new MultiItemRange();

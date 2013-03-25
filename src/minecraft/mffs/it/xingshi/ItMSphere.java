@@ -13,9 +13,9 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemModeSphere extends ItemProjectorMode
+public class ItMSphere extends ItemProjectorMode
 {
-	public ItemModeSphere(int i)
+	public ItMSphere(int i)
 	{
 		super(i, "modeSphere");
 	}
@@ -32,20 +32,18 @@ public class ItemModeSphere extends ItemProjectorMode
 			yDown = 0;
 		}
 
-		for (float x = -negScale.intX(); x <= posScale.intX(); x += 0.5f)
-		{
-			for (float z = -negScale.intZ(); z <= posScale.intZ(); z += 0.5f)
-			{
-				for (float y = -negScale.intY(); y <= posScale.intY(); y += 0.5f)
-				{
-					Vector3 checkPosition = new Vector3(x, y, z);
-					double distance = Vector3.distance(new Vector3(), checkPosition);
+		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius / 2));
 
-					if (distance <= radius && distance > radius - 1)
-					{
-						blockDef.add(Vector3.add(center, checkPosition));
-					}
-				}
+		for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
+		{
+			for (int theta_n = 0; theta_n < steps; theta_n++)
+			{
+				double phi = Math.PI * 2 / steps * phi_n;
+				double theta = Math.PI / steps * theta_n;
+
+				Vector3 vector = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi));
+				vector.multiply(radius);
+				blockDef.add(Vector3.add(center, vector));
 			}
 		}
 	}
@@ -58,8 +56,7 @@ public class ItemModeSphere extends ItemProjectorMode
 		GL11.glScalef(scale, scale, scale);
 
 		int radius = 6;
-
-		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius));
+		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius / 2));
 
 		for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
 		{

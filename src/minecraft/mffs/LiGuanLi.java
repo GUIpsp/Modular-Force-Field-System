@@ -73,10 +73,6 @@ public class LiGuanLi
 				set.add(tileEntity);
 			}
 		}
-
-		// System.out.println(world.isRemote + "------: " + set.size() + " vs " +
-		// frequencyGrid.size());
-
 		return set;
 
 	}

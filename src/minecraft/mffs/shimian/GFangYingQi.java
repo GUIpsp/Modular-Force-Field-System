@@ -20,7 +20,7 @@ public class GFangYingQi extends GuiMFFS
 	@Override
 	public void initGui()
 	{
-		this.textFieldPos = new Vector2(100, 91);
+		this.textFieldPos = new Vector2(48, 91);
 		super.initGui();
 	}
 
@@ -28,8 +28,8 @@ public class GFangYingQi extends GuiMFFS
 	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.xSize / 2 - this.fontRenderer.getStringWidth(this.tileEntity.getInvName()) / 2, 6, 4210752);
-		this.drawTextWithTooltip("matrix", 32, 25, x, y);
-		this.drawTextWithTooltip("frequency", "%1:", 8, 92, x, y);
+		this.drawTextWithTooltip("matrix", 32, 20, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 76, x, y);
 		this.textFieldFrequency.drawTextBox();
 
 		this.drawTextWithTooltip("fortron", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 110, x, y);
@@ -42,51 +42,74 @@ public class GFangYingQi extends GuiMFFS
 	{
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 
-		/**
-		 * Frequency Card Slot
-		 */
-		this.drawSlot(75, 88);
+		// Frequency Card Slot
+		this.drawSlot(9, 88);
+		this.drawSlot(9 + 18, 88);
 
 		/**
 		 * Matrix Slots
 		 */
 
 		// Mode
-		this.drawSlot(18 + 90, 18 + 25, SlotType.NONE, 1f, 0.4f, 0.4f);
+		this.drawSlot(117, 44, SlotType.NONE, 1f, 0.4f, 0.4f);
 
-		// Up
-		this.drawSlot(18 + 80, 20, SlotType.ARR_UP);
-		this.drawSlot(18 + 100, 20, SlotType.ARR_UP);
+		// Directional Modules
+		for (int xSlot = 0; xSlot < 4; xSlot++)
+		{
+			for (int ySlot = 0; ySlot < 4; ySlot++)
+			{
+				if (!(xSlot == 1 && ySlot == 1) && !(xSlot == 2 && ySlot == 2) && !(xSlot == 1 && ySlot == 2) && !(xSlot == 2 && ySlot == 1))
+				{
+					SlotType type = SlotType.NONE;
 
-		// Left
-		this.drawSlot(18 + 60, 35, SlotType.ARR_LEFT);
-		this.drawSlot(18 + 60, 55, SlotType.ARR_LEFT);
+					if (xSlot == 0 && ySlot == 0)
+					{
+						type = SlotType.ARR_UP_LEFT;
+					}
+					else if (xSlot == 0 && ySlot == 3)
+					{
+						type = SlotType.ARR_DOWN_LEFT;
+					}
+					else if (xSlot == 3 && ySlot == 0)
+					{
+						type = SlotType.ARR_UP_RIGHT;
+					}
+					else if (xSlot == 3 && ySlot == 3)
+					{
+						type = SlotType.ARR_DOWN_RIGHT;
+					}
+					else if (ySlot == 0)
+					{
+						type = SlotType.ARR_UP;
+					}
+					else if (ySlot == 3)
+					{
+						type = SlotType.ARR_DOWN;
+					}
+					else if (xSlot == 0)
+					{
+						type = SlotType.ARR_LEFT;
+					}
+					else if (xSlot == 3)
+					{
+						type = SlotType.ARR_RIGHT;
+					}
 
-		// Right
-		this.drawSlot(138, 35, SlotType.ARR_RIGHT);
-		this.drawSlot(138, 55, SlotType.ARR_RIGHT);
+					this.drawSlot(90 + 18 * xSlot, 17 + 18 * ySlot, type);
+				}
+			}
+		}
 
-		// Down
-		this.drawSlot(18 + 80, 66, SlotType.ARR_DOWN);
-		this.drawSlot(18 + 100, 66, SlotType.ARR_DOWN);
+		// Upgrades
+		for (int xSlot = 0; xSlot < 3; xSlot++)
+		{
+			for (int ySlot = 0; ySlot < 2; ySlot++)
+			{
+				this.drawSlot(18 + 18 * xSlot, 35 + 18 * ySlot);
+			}
+		}
 
-		/**
-		 * Up and Down
-		 */
-		this.drawSlot(55, 40, SlotType.ARR_UP);
-		this.drawSlot(55, 60, SlotType.ARR_DOWN);
-		this.drawSlot(37, 40, SlotType.ARR_UP);
-		this.drawSlot(37, 60, SlotType.ARR_DOWN);
-
-		/**
-		 * Upgrades
-		 */
-		this.drawSlot(17, 40);
-		this.drawSlot(17, 60);
-
-		/**
-		 * Fortron Bar
-		 */
+		// Fortron Bar
 		this.drawForce(8, 120, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
 	}
 }

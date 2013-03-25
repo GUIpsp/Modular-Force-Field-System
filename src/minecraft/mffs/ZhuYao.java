@@ -39,7 +39,7 @@ import mffs.it.muo.fangyu.ItMDAntiPersonnel;
 import mffs.it.muo.fangyu.ItMDConfiscate;
 import mffs.it.muo.fangyu.ItMDWarn;
 import mffs.it.xingshi.ItemModeCube;
-import mffs.it.xingshi.ItemModeSphere;
+import mffs.it.xingshi.ItMSphere;
 import mffs.it.xingshi.ItemModeTube;
 import mffs.it.xingshi.ItemProjectorMode;
 import mffs.jiqi.BLiQiang;
@@ -246,7 +246,7 @@ public class ZhuYao
 			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.getNextItemID());
 
 			// Modes
-			itemModuleSphere = new ItemModeSphere(MFFSConfiguration.getNextItemID());
+			itemModuleSphere = new ItMSphere(MFFSConfiguration.getNextItemID());
 			itemModuleCube = new ItemModeCube(MFFSConfiguration.getNextItemID());
 			itemModuleTube = new ItemModeTube(MFFSConfiguration.getNextItemID());
 

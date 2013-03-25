@@ -24,7 +24,8 @@ public class GuiMFFS extends GuiContainer
 {
 	public enum SlotType
 	{
-		NONE, BATTERY, LIQUID, ARR_UP, ARR_DOWN, ARR_LEFT, ARR_RIGHT
+		NONE, BATTERY, LIQUID, ARR_UP, ARR_DOWN, ARR_LEFT, ARR_RIGHT, ARR_UP_RIGHT, ARR_UP_LEFT,
+		ARR_DOWN_LEFT, ARR_DOWN_RIGHT
 	}
 
 	public static final int METER_HEIGHT = 49;
@@ -171,6 +172,7 @@ public class GuiMFFS extends GuiContainer
 		y += 1;
 		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 
+		// drawTexturedModelRectFromIcon
 		// GL11.glEnable(GL11.GL_BLEND);
 		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, itemStack, x, y);
@@ -211,33 +213,23 @@ public class GuiMFFS extends GuiContainer
 
 		this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 0, 18, 18);
 
-		switch (type)
+		if (type != SlotType.NONE)
 		{
-			default:
-				break;
-			case BATTERY:
-			{
-				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18, 18, 18);
-				break;
-			}
-			case LIQUID:
-			{
-				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 2, 18, 18);
-				break;
-			}
-			case ARR_UP:
-				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 5, 18, 18);
-				break;
-			case ARR_DOWN:
-				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 6, 18, 18);
-				break;
-			case ARR_LEFT:
-				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 7, 18, 18);
-				break;
-			case ARR_RIGHT:
-				this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 8, 18, 18);
-				break;
+			this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * type.ordinal(), 18, 18);
 		}
+
+		/*
+		 * switch (type) { default: break; case BATTERY:
+		 * this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18, 18,
+		 * 18); break; case LIQUID: this.drawTexturedModalRect(this.containerWidth + x,
+		 * this.containerHeight + y, 0, 18 * 2, 18, 18); break; case ARR_UP:
+		 * this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 5,
+		 * 18, 18); break; case ARR_DOWN: this.drawTexturedModalRect(this.containerWidth + x,
+		 * this.containerHeight + y, 0, 18 * 6, 18, 18); break; case ARR_LEFT:
+		 * this.drawTexturedModalRect(this.containerWidth + x, this.containerHeight + y, 0, 18 * 7,
+		 * 18, 18); break; case ARR_RIGHT: this.drawTexturedModalRect(this.containerWidth + x,
+		 * this.containerHeight + y, 0, 18 * 8, 18, 18); break; }
+		 */
 	}
 
 	protected void drawSlot(int x, int y, SlotType type)
@@ -399,38 +391,6 @@ public class GuiMFFS extends GuiContainer
 				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			}
 		}
-	}
-
-	public void drawPatch(String texture, int x, int y, int width, int height)
-	{
-		if (width >= 16 && height >= 16)
-		{
-			int patch = this.mc.renderEngine.getTexture(texture);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, patch);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawTexturedModalRect(x, y, 0, 0, 8, 8);
-			this.drawTexturedModalRect(x + width - 8, y, 9, 0, 8, 8);
-			this.drawTexturedModalRect(x, y + height - 8, 0, 9, 8, 8);
-			this.drawTexturedModalRect(x + width - 8, y + height - 8, 9, 9, 8, 8);
-			for (int var1 = 8; var1 < width - 8; var1++)
-			{
-				this.drawTexturedModalRect(x + var1, y, 8, 0, 1, 8);
-				this.drawTexturedModalRect(x + var1, y + height - 8, 8, 9, 1, 8);
-			}
-			for (int var1 = 8; var1 < height - 8; var1++)
-			{
-				this.drawTexturedModalRect(x, y + var1, 0, 8, 8, 1);
-				this.drawTexturedModalRect(x + width - 8, y + var1, 9, 8, 8, 1);
-			}
-			for (int var1 = 8; var1 < width - 8; var1++)
-			{
-				for (int var2 = 8; var2 < height - 8; var2++)
-				{
-					this.drawTexturedModalRect(x + var1, y + var2, 9, 9, 1, 1);
-				}
-			}
-		}
-
 	}
 
 	protected void displayGauge(int x, int y, int line, int col, int scale, LiquidStack liquidStack)

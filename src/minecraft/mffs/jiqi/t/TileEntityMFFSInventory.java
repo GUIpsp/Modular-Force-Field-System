@@ -1,10 +1,17 @@
 package mffs.jiqi.t;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import universalelectricity.prefab.network.PacketManager;
+
+import com.google.common.io.ByteArrayDataInput;
 
 /**
  * All TileEntities that have an inventory should extend this.
@@ -23,6 +30,37 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	 * The amount of players using the inventory.
 	 */
 	protected int playersUsing = 0;
+
+	@Override
+	public List getPacketUpdate()
+	{
+		List objects = new LinkedList();
+		objects.addAll(super.getPacketUpdate());
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		objects.add(nbt);
+		return objects;
+	}
+
+	@Override
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	{
+		final boolean prevActivate = this.isActive();
+
+		super.onReceivePacket(packetID, dataStream);
+
+		if (packetID == 1 && this.worldObj.isRemote)
+		{
+			try
+			{
+				this.readFromNBT(PacketManager.readNBTTagCompound(dataStream));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Inventory Methods
