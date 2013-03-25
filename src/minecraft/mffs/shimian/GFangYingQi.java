@@ -1,0 +1,92 @@
+package mffs.shimian;
+
+import mffs.jiqi.t.TFangYingJi;
+import mffs.rongqi.CFangYingJi;
+import net.minecraft.entity.player.EntityPlayer;
+import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
+import universalelectricity.core.vector.Vector2;
+
+public class GFangYingQi extends GuiMFFS
+{
+	private TFangYingJi tileEntity;
+
+	public GFangYingQi(EntityPlayer player, TFangYingJi tileEntity)
+	{
+		super(new CFangYingJi(player, tileEntity), tileEntity);
+		this.tileEntity = tileEntity;
+	}
+
+	@Override
+	public void initGui()
+	{
+		this.textFieldPos = new Vector2(100, 91);
+		super.initGui();
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y)
+	{
+		this.fontRenderer.drawString(this.tileEntity.getInvName(), this.xSize / 2 - this.fontRenderer.getStringWidth(this.tileEntity.getInvName()) / 2, 6, 4210752);
+		this.drawTextWithTooltip("matrix", 32, 25, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 92, x, y);
+		this.textFieldFrequency.drawTextBox();
+
+		this.drawTextWithTooltip("fortron", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 110, x, y);
+		this.fontRenderer.drawString("\u00a74-" + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronCost(), ElectricUnit.JOULES), 120, 121, 4210752);
+		super.drawGuiContainerForegroundLayer(x, y);
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
+	{
+		super.drawGuiContainerBackgroundLayer(f, x, y);
+
+		/**
+		 * Frequency Card Slot
+		 */
+		this.drawSlot(75, 88);
+
+		/**
+		 * Matrix Slots
+		 */
+
+		// Mode
+		this.drawSlot(18 + 90, 18 + 25, SlotType.NONE, 1f, 0.4f, 0.4f);
+
+		// Up
+		this.drawSlot(18 + 80, 20, SlotType.ARR_UP);
+		this.drawSlot(18 + 100, 20, SlotType.ARR_UP);
+
+		// Left
+		this.drawSlot(18 + 60, 35, SlotType.ARR_LEFT);
+		this.drawSlot(18 + 60, 55, SlotType.ARR_LEFT);
+
+		// Right
+		this.drawSlot(138, 35, SlotType.ARR_RIGHT);
+		this.drawSlot(138, 55, SlotType.ARR_RIGHT);
+
+		// Down
+		this.drawSlot(18 + 80, 66, SlotType.ARR_DOWN);
+		this.drawSlot(18 + 100, 66, SlotType.ARR_DOWN);
+
+		/**
+		 * Up and Down
+		 */
+		this.drawSlot(55, 40, SlotType.ARR_UP);
+		this.drawSlot(55, 60, SlotType.ARR_DOWN);
+		this.drawSlot(37, 40, SlotType.ARR_UP);
+		this.drawSlot(37, 60, SlotType.ARR_DOWN);
+
+		/**
+		 * Upgrades
+		 */
+		this.drawSlot(17, 40);
+		this.drawSlot(17, 60);
+
+		/**
+		 * Fortron Bar
+		 */
+		this.drawForce(8, 120, Math.min((float) this.tileEntity.getFortronEnergy() / (float) this.tileEntity.getFortronCapacity(), 1));
+	}
+}
