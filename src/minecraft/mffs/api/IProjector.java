@@ -15,20 +15,7 @@ import universalelectricity.prefab.implement.IRotatable;
 
 public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotatable, IDisableable, IFortronFrequency
 {
-	public static enum Slots
-	{
-
-		Linkcard(0), TypeMod(1), Option1(2), Option2(3), Option3(4), Distance(5), Strength(6),
-		FocusUp(7), FocusDown(8), FocusRight(9), FocusLeft(10), Centerslot(11), SecCard(12);
-		public int slot;
-
-		private Slots(int num)
-		{
-			this.slot = num;
-		}
-	}
-
-	public Set getInteriorPoints();
+	public Set<Vector3> getInteriorPoints();
 
 	public boolean isActive();
 
@@ -70,5 +57,7 @@ public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotat
 	 * @return
 	 */
 	public int getConstructionSpeed();
+
+	ISecurityCenter getLinkedSecurityCenter();
 
 }

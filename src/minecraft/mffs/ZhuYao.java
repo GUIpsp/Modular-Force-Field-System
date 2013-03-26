@@ -49,7 +49,7 @@ import mffs.jiqi.BlockFortronCapacitor;
 import mffs.jiqi.BlockFortronite;
 import mffs.jiqi.BlockProjector;
 import mffs.jiqi.BlockSecurityCenter;
-import mffs.jiqi.t.TLiChang;
+import mffs.jiqi.t.TLiQiang;
 import mffs.jiqi.t.TileEntityMFFS;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -311,7 +311,7 @@ public class ZhuYao
 
 		GameRegistry.registerBlock(blockFortronite, "MFFSFortonite");
 		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
-		GameRegistry.registerTileEntity(TLiChang.class, "MFFSForceField");
+		GameRegistry.registerTileEntity(TLiQiang.class, "MFFSForceField");
 
 		MachineTypes.initialize();
 

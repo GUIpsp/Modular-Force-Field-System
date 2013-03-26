@@ -60,7 +60,7 @@ public class ItKaShenFen extends ItKa implements IIdentificationCard
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World par2World, EntityPlayer entityPlayer)
 	{
-		setUsername(itemStack, entityPlayer.username);
+		this.setUsername(itemStack, entityPlayer.username);
 		return itemStack;
 	}
 

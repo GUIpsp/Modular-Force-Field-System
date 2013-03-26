@@ -10,8 +10,7 @@ public interface IModuleAcceptor
 
 	public int getModuleCount(IModule module, int... slots);
 
-	public Set<IModule> getModules();
-
 	public Set<ItemStack> getModuleStacks();
 
+	public Set<IModule> getModules(int... slots);
 }

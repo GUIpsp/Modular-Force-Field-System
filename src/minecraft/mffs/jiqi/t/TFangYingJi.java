@@ -2,18 +2,15 @@ package mffs.jiqi.t;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
-import mffs.MFFSConfiguration;
 import mffs.ZhuYao;
 import mffs.api.IProjector;
+import mffs.api.ISecurityCenter;
 import mffs.api.modules.IModule;
 import mffs.api.modules.IProjectorMode;
 import mffs.it.ka.ItKa;
-import mffs.it.ka.ItKaWuXian;
+import mffs.it.ka.ItKaLian;
 import mffs.it.muo.fangyingji.IInteriorCheck;
-import mffs.it.muo.fangyingji.ItemModuleFusion;
-import mffs.it.muo.fangyingji.ItemModuleJammer;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,15 +26,13 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 {
 	private static final int MODULE_SLOT_ID = 2;
 
-	protected Stack fieldQueue = new Stack();
-
 	/**
 	 * A set containing all positions of all force field blocks.
 	 */
 	protected Set<Vector3> forceFields = new HashSet();
 
 	protected Set<Vector3> calculatedField = new HashSet();
-	protected Set<Vector3> fieldInterior = new HashSet();
+	protected Set<Vector3> calculatedFieldInterior = new HashSet();
 
 	private int blockCount = 0;
 
@@ -136,31 +131,12 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		}
 	}
 
-	private void updateForceFieldTexture()
-	{
-		if ((isActive()) && (this.getModuleCount(ZhuYao.itemModuleCamouflage) > 0))
-		{
-			for (Vector3 vector : this.calculatedField)
-			{
-				if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
-				{
-					TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
-
-					if ((tileEntity != null) && ((tileEntity instanceof TLiChang)))
-					{
-						((TLiChang) tileEntity).updateTexture();
-					}
-				}
-			}
-		}
-	}
-
 	private boolean calculateForceField()
 	{
 		if (!this.worldObj.isRemote)
 		{
 			this.calculatedField.clear();
-			this.fieldInterior.clear();
+			this.calculatedFieldInterior.clear();
 
 			if (this.getMode() != null)
 			{
@@ -175,10 +151,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 					if (fieldPoint.intY() < this.worldObj.getHeight())
 					{
-						if (forceFieldDefine(fieldPoint))
-						{
-							this.calculatedField.add(fieldPoint);
-						}
+						this.calculatedField.add(fieldPoint);
 					}
 				}
 
@@ -190,7 +163,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 						if (calculateBlock(fieldPoint))
 						{
-							this.fieldInterior.add(fieldPoint);
+							this.calculatedFieldInterior.add(fieldPoint);
 						}
 						else
 						{
@@ -216,27 +189,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 				((IInteriorCheck) opt).checkInteriorBlock(pnt, this.worldObj, this);
 			}
 		}
-		return true;
-	}
-
-	public boolean forceFieldDefine(Vector3 vector)
-	{
-		for (IModule opt : getModules())
-		{
-			if (((opt instanceof ItemModuleJammer)) && (((ItemModuleJammer) opt).checkJammerinfluence(vector, this.worldObj, this)))
-			{
-				return false;
-			}
-
-			if (((opt instanceof ItemModuleFusion)) && (((ItemModuleFusion) opt).checkFieldFusioninfluence(vector, this.worldObj, this)))
-			{
-				return true;
-			}
-
-		}
-
-		this.fieldQueue.push(Integer.valueOf(vector.hashCode()));
-
 		return true;
 	}
 
@@ -266,6 +218,19 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 						if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 						{
 							this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
+
+							TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
+
+							if (tileEntity instanceof TLiQiang)
+							{
+								((TLiQiang) tileEntity).setZhuYao(this);
+							}
+
+							for (IModule module : this.getModules(this.getModuleSlots()))
+							{
+								module.onProject(this, vector);
+							}
+
 							constructionCount++;
 						}
 
@@ -342,7 +307,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	@Override
 	public Set<Vector3> getInteriorPoints()
 	{
-		return this.fieldInterior;
+		return this.calculatedFieldInterior;
 	}
 
 	@Override
@@ -406,17 +371,41 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	@Override
 	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
-		switch (slotID)
+		if (slotID == 0 || slotID == 1)
 		{
-			case 0:
-				return itemStack.getItem() instanceof ItKa;
-			case 1:
-				return itemStack.getItem() instanceof ItKa;
-			case MODULE_SLOT_ID:
-				return itemStack.getItem() instanceof IProjectorMode;
-			default:
-				return itemStack.getItem() instanceof IModule;
+			return itemStack.getItem() instanceof ItKa;
 		}
+		else if (slotID == MODULE_SLOT_ID)
+		{
+			return itemStack.getItem() instanceof IProjectorMode;
+		}
+		else if (slotID >= 15)
+		{
+			return true;
+		}
+
+		return itemStack.getItem() instanceof IModule;
+	}
+
+	@Override
+	public ISecurityCenter getLinkedSecurityCenter()
+	{
+		for (int i = 0; i <= 1; i++)
+		{
+			ItemStack itemStack = this.getStackInSlot(i);
+
+			if (itemStack != null && itemStack.getItem() instanceof ItKaLian)
+			{
+				Vector3 linkPos = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
+
+				if (linkPos != null && linkPos.getTileEntity(this.worldObj) instanceof TAnQuan)
+				{
+					return (TAnQuan) linkPos.getTileEntity(this.worldObj);
+				}
+			}
+		}
+
+		return null;
 	}
 
 	@Override
@@ -430,4 +419,5 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	{
 		return this.ticks;
 	}
+
 }
