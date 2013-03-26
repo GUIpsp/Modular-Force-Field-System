@@ -14,7 +14,6 @@ import mffs.api.fortron.IFortronFrequency;
 import mffs.api.modules.IDefenseStationModule;
 import mffs.api.modules.IModule;
 import mffs.it.ka.ItKa;
-import mffs.it.ka.ItKaLian;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

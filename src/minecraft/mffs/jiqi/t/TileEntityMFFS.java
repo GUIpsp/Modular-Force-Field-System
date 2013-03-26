@@ -175,7 +175,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 
 	public boolean isActive()
 	{
-		return this.isActive;
+		return this.isActive || this.switchValue;
 	}
 
 	public void setActive(boolean flag)

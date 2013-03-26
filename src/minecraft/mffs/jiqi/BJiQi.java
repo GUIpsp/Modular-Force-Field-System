@@ -5,6 +5,7 @@ import mffs.MFFSCreativeTab;
 import mffs.ZhuYao;
 import mffs.it.gongju.ItemMultitool;
 import mffs.it.ka.ItKaLian;
+import mffs.jiqi.t.TAnQuan;
 import mffs.jiqi.t.TileEntityMFFS;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -55,6 +56,17 @@ public abstract class BJiQi extends BlockRotatable
 				if ((equippedItem.getItem() instanceof ItemMultitool || equippedItem.getItem() instanceof IToolWrench))
 				{
 					return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
+				}
+			}
+
+			if (tileEntity instanceof TAnQuan)
+			{
+				if (((TAnQuan) tileEntity).getOwner() != null)
+				{
+					if (!((TAnQuan) tileEntity).getOwner().equalsIgnoreCase(entityPlayer.username))
+					{
+						return false;
+					}
 				}
 			}
 

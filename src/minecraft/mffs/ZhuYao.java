@@ -62,6 +62,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.OrderedLoadingCallback;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -362,56 +363,61 @@ public class ZhuYao
 	}
 
 	/**
-	 * Prevent protected GUIs from opening.
+	 * Prevent protected blocks from being interacted with.
 	 * 
 	 * @param evt
 	 */
 	@ForgeSubscribe
 	public void playerInteractEvent(PlayerInteractEvent evt)
 	{
-		if (evt.action == Action.RIGHT_CLICK_BLOCK)
+		if (evt.action == Action.RIGHT_CLICK_BLOCK || evt.action == Action.LEFT_CLICK_BLOCK)
 		{
-			TileEntity tileEntity = evt.entityPlayer.worldObj.getBlockTileEntity(evt.x, evt.y, evt.z);
+			IDefenseStation defenseStation = TFangYu.getNearestDefenseStation(evt.entityPlayer.worldObj, new Vector3(evt.x, evt.y, evt.z));
 
-			if (tileEntity != null)
+			if (defenseStation != null && !evt.entityPlayer.capabilities.isCreativeMode)
 			{
-				IDefenseStation defenseStation = TFangYu.getNearestDefenseStation(evt.entityPlayer.worldObj, new Vector3(evt.x, evt.y, evt.z));
-
-				if (defenseStation != null)
+				if (defenseStation.isActive())
 				{
-					if(defenseStation.isActive()){
 					boolean hasPermission = true;
+					TileEntity tileEntity = evt.entityPlayer.worldObj.getBlockTileEntity(evt.x, evt.y, evt.z);
 
-					if (defenseStation.getModuleCount(ZhuYao.itMDBA) > 0)
+					if (tileEntity != null && evt.action == Action.RIGHT_CLICK_BLOCK)
 					{
-						hasPermission = false;
-
-						if (defenseStation.getSecurityCenter() != null)
+						if (defenseStation.getModuleCount(ZhuYao.itMDBA) > 0)
 						{
-							if (defenseStation.getSecurityCenter().isAccessGranted(evt.entityPlayer.username, SecurityPermission.BLOCK_ACCESS))
+							hasPermission = false;
+
+							if (defenseStation.getSecurityCenter() != null)
 							{
-								hasPermission = true;
+								if (defenseStation.getSecurityCenter().isAccessGranted(evt.entityPlayer.username, SecurityPermission.BLOCK_ACCESS))
+								{
+									hasPermission = true;
+								}
 							}
 						}
+
 					}
 					else if (defenseStation.getModuleCount(ZhuYao.itMDBPA) > 0)
 					{
-						hasPermission = false;
-
-						if (defenseStation.getSecurityCenter() != null)
+						if (new Vector3(evt.x, evt.y, evt.z).modifyPositionFromSide(ForgeDirection.getOrientation(evt.face)).getBlockID(evt.entityPlayer.worldObj) <= 0)
 						{
-							if (defenseStation.getSecurityCenter().isAccessGranted(evt.entityPlayer.username, SecurityPermission.BLOCK_PLACE_ACCESS))
+							hasPermission = false;
+
+							if (defenseStation.getSecurityCenter() != null)
 							{
-								hasPermission = true;
+								if (defenseStation.getSecurityCenter().isAccessGranted(evt.entityPlayer.username, SecurityPermission.BLOCK_PLACE_ACCESS))
+								{
+									hasPermission = true;
+								}
 							}
 						}
 					}
 
 					if (!hasPermission)
 					{
-						evt.entityPlayer.sendChatToPlayer("You have no permission to do that!");
+						evt.entityPlayer.sendChatToPlayer("[" + ZhuYao.blockDefenceStation.getLocalizedName() + "] You have no permission to do that!");
 						evt.setCanceled(true);
-					}}
+					}
 				}
 			}
 		}
