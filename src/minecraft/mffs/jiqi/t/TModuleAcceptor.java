@@ -62,19 +62,36 @@ public abstract class TModuleAcceptor extends TileEntityFortron implements IModu
 	}
 
 	@Override
-	public Set<ItemStack> getModuleStacks()
+	public Set<ItemStack> getModuleStacks(int... slots)
 	{
 		Set<ItemStack> modules = new HashSet<ItemStack>();
-
-		for (int slotID = startModuleIndex; slotID <= endModuleIndex; slotID++)
+		if (slots == null || slots.length <= 0)
 		{
-			ItemStack itemStack = this.getStackInSlot(slotID);
-
-			if (itemStack != null)
+			for (int slotID = startModuleIndex; slotID <= endModuleIndex; slotID++)
 			{
-				if (itemStack.getItem() instanceof IModule)
+				ItemStack itemStack = this.getStackInSlot(slotID);
+
+				if (itemStack != null)
 				{
-					modules.add(itemStack);
+					if (itemStack.getItem() instanceof IModule)
+					{
+						modules.add(itemStack);
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int slotID : slots)
+			{
+				ItemStack itemStack = this.getStackInSlot(slotID);
+
+				if (itemStack != null)
+				{
+					if (itemStack.getItem() instanceof IModule)
+					{
+						modules.add(itemStack);
+					}
 				}
 			}
 		}

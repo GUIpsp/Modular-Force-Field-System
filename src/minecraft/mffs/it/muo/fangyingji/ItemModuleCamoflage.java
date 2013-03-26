@@ -39,4 +39,10 @@ public class ItemModuleCamoflage extends ItM
 			}
 		}
 	}
+
+	@Override
+	public float getFortronCost()
+	{
+		return 1.5f;
+	}
 }

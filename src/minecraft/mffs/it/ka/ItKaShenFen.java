@@ -4,14 +4,14 @@ import java.util.List;
 
 import mffs.ZhuYao;
 import mffs.api.SecurityPermission;
-import mffs.api.card.IIdentificationCard;
+import mffs.api.card.ICardIdentification;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.prefab.TranslationHelper;
 
-public class ItKaShenFen extends ItKa implements IIdentificationCard
+public class ItKaShenFen extends ItKa implements ICardIdentification
 {
 	private static final String NBT_PREFIX = "mffs_permission_";
 

@@ -223,7 +223,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 							if (tileEntity instanceof TLiQiang)
 							{
-								((TLiQiang) tileEntity).setZhuYao(this);
+								((TLiQiang) tileEntity).setZhuYao(new Vector3(this));
 							}
 
 							for (IModule module : this.getModules(this.getModuleSlots()))
@@ -388,24 +388,12 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	}
 
 	@Override
-	public ISecurityCenter getLinkedSecurityCenter()
+	public Set<ItemStack> getCards()
 	{
-		for (int i = 0; i <= 1; i++)
-		{
-			ItemStack itemStack = this.getStackInSlot(i);
-
-			if (itemStack != null && itemStack.getItem() instanceof ItKaLian)
-			{
-				Vector3 linkPos = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
-
-				if (linkPos != null && linkPos.getTileEntity(this.worldObj) instanceof TAnQuan)
-				{
-					return (TAnQuan) linkPos.getTileEntity(this.worldObj);
-				}
-			}
-		}
-
-		return null;
+		Set<ItemStack> cards = new HashSet<ItemStack>();
+		cards.add(super.getCard());
+		cards.add(this.getStackInSlot(1));
+		return cards;
 	}
 
 	@Override

@@ -14,11 +14,11 @@ public class ItemModuleShock extends ItM
 	}
 
 	@Override
-	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity)
+	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity, net.minecraft.item.ItemStack moduleStack)
 	{
 		if (entity instanceof EntityLiving)
 		{
-			entity.attackEntityFrom(ZhuYao.fieldShock, 10);
+			entity.attackEntityFrom(ZhuYao.fieldShock, moduleStack.stackSize);
 		}
 
 		return false;

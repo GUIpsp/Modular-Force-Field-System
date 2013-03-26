@@ -27,7 +27,12 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		return PacketManager.getPacket(ZhuYao.CHANNEL, this, this.bHaoMa, this.bMD);
+		if (this.getZhuYao() != null)
+		{
+			return PacketManager.getPacket(ZhuYao.CHANNEL, this, this.bHaoMa, this.bMD, this.zhuYao.intX(), this.zhuYao.intY(), this.zhuYao.intZ());
+		}
+
+		return null;
 	}
 
 	@Override
@@ -36,6 +41,7 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 		try
 		{
 			this.setFangGe(dataStream.readInt(), dataStream.readInt());
+			this.setZhuYao(new Vector3(dataStream.readInt(), dataStream.readInt(), dataStream.readInt()));
 			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 		}
 		catch (Exception e)
@@ -68,9 +74,9 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 		return this.bMD;
 	}
 
-	public void setZhuYao(TFangYingJi fangYingJi)
+	public void setZhuYao(Vector3 position)
 	{
-		this.zhuYao = new Vector3(fangYingJi);
+		this.zhuYao = position;
 	}
 
 	public TFangYingJi getZhuYao()
@@ -83,7 +89,11 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 			}
 		}
 
-		this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, 0);
+		if (!this.worldObj.isRemote)
+		{
+			this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, 0);
+		}
+
 		return null;
 	}
 

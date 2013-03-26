@@ -65,9 +65,9 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 		{
 			if (((TLiQiang) tileEntity).getZhuYao() != null)
 			{
-				for (IModule module : ((TLiQiang) tileEntity).getZhuYao().getModules(((TLiQiang) tileEntity).getZhuYao().getModuleSlots()))
+				for (ItemStack moduleStack : ((TLiQiang) tileEntity).getZhuYao().getModuleStacks(((TLiQiang) tileEntity).getZhuYao().getModuleSlots()))
 				{
-					if (module.onCollideWithForceField(world, x, y, z, entityPlayer))
+					if (((IModule) moduleStack.getItem()).onCollideWithForceField(world, x, y, z, entityPlayer, moduleStack))
 					{
 						return;
 					}
@@ -85,7 +85,7 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 		{
 			if (((TLiQiang) tileEntity).getZhuYao() != null)
 			{
-				ISecurityCenter securityCenter = ((TLiQiang) tileEntity).getZhuYao().getLinkedSecurityCenter();
+				ISecurityCenter securityCenter = ((TLiQiang) tileEntity).getZhuYao().getSecurityCenter();
 
 				List<EntityPlayer> entities = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.9, z + 1));
 
@@ -131,9 +131,9 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 		{
 			if (((TLiQiang) tileEntity).getZhuYao() != null)
 			{
-				for (IModule module : ((TLiQiang) tileEntity).getZhuYao().getModules(((TLiQiang) tileEntity).getZhuYao().getModuleSlots()))
+				for (ItemStack moduleStack : ((TLiQiang) tileEntity).getZhuYao().getModuleStacks(((TLiQiang) tileEntity).getZhuYao().getModuleSlots()))
 				{
-					if (module.onCollideWithForceField(world, x, y, z, entity))
+					if (((IModule) moduleStack.getItem()).onCollideWithForceField(world, x, y, z, entity, moduleStack))
 					{
 						return;
 					}

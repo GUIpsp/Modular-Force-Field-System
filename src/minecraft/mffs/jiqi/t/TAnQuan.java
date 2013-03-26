@@ -4,7 +4,7 @@ import mffs.MFFSConfiguration;
 import mffs.ZhuYao;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
-import mffs.api.card.IIdentificationCard;
+import mffs.api.card.ICardIdentification;
 import mffs.it.ka.ItKaShenFen;
 import mffs.it.ka.ItKaShengBuo;
 import net.minecraft.entity.player.EntityPlayer;
@@ -93,11 +93,11 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 		{
 			ItemStack itemStack = this.getStackInSlot(i);
 
-			if (itemStack != null && itemStack.getItem() instanceof IIdentificationCard)
+			if (itemStack != null && itemStack.getItem() instanceof ICardIdentification)
 			{
-				if (username.equalsIgnoreCase(((IIdentificationCard) itemStack.getItem()).getUsername(itemStack)))
+				if (username.equalsIgnoreCase(((ICardIdentification) itemStack.getItem()).getUsername(itemStack)))
 				{
-					if (((IIdentificationCard) itemStack.getItem()).hasPermission(itemStack, permission))
+					if (((ICardIdentification) itemStack.getItem()).hasPermission(itemStack, permission))
 					{
 						return true;
 					}
@@ -105,7 +105,7 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 			}
 		}
 
-		// Check Temporary Card
+		// Check Card in Player Inventory
 		EntityPlayer entityPlayer = this.worldObj.getPlayerEntityByName(username);
 
 		if (entityPlayer != null)
@@ -114,11 +114,11 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 			{
 				ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
 
-				if (itemStack != null && itemStack.getItem() instanceof IIdentificationCard)
+				if (itemStack != null && itemStack.getItem() instanceof ICardIdentification)
 				{
-					if (username.equalsIgnoreCase(((IIdentificationCard) itemStack.getItem()).getUsername(itemStack)))
+					if (username.equalsIgnoreCase(((ICardIdentification) itemStack.getItem()).getUsername(itemStack)))
 					{
-						if (((IIdentificationCard) itemStack.getItem()).hasPermission(itemStack, permission))
+						if (((ICardIdentification) itemStack.getItem()).hasPermission(itemStack, permission))
 						{
 							return true;
 						}

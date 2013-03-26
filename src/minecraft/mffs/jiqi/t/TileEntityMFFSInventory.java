@@ -1,8 +1,10 @@
 package mffs.jiqi.t;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -195,6 +197,13 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 		{
 			this.getStackInSlot(slot).stackSize++;
 		}
+	}
+
+	public Set<ItemStack> getCards()
+	{
+		Set<ItemStack> cards = new HashSet<ItemStack>();
+		cards.add(this.getStackInSlot(0));
+		return cards;
 	}
 
 	@Override

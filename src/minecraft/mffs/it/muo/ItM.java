@@ -38,7 +38,7 @@ public abstract class ItM extends ItemMFFS implements IModule
 	}
 
 	@Override
-	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity)
+	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity, ItemStack moduleStack)
 	{
 		return false;
 	}

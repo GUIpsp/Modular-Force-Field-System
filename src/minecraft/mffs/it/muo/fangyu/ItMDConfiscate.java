@@ -27,7 +27,7 @@ public class ItMDConfiscate extends ItMD
 
 		if (entityLiving instanceof EntityPlayer)
 		{
-			ISecurityCenter securityStation = defenseStation.getLinkedSecurityCenter();
+			ISecurityCenter securityStation = defenseStation.getSecurityCenter();
 
 			if (securityStation != null && securityStation.isAccessGranted(((EntityPlayer) entityLiving).username, SecurityPermission.BYPASS_DEFENSE_STATION))
 			{

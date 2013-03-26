@@ -58,6 +58,6 @@ public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotat
 	 */
 	public int getConstructionSpeed();
 
-	ISecurityCenter getLinkedSecurityCenter();
+	ISecurityCenter getSecurityCenter();
 
 }

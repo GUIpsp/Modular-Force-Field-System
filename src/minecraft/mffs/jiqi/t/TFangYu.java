@@ -146,7 +146,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	{
 		try
 		{
-			ISecurityCenter securityStation = this.getLinkedSecurityCenter();
+			ISecurityCenter securityStation = this.getSecurityCenter();
 
 			int xmininfo = this.xCoord - getWarningRange();
 			int xmaxinfo = this.xCoord + getWarningRange() + 1;
@@ -223,7 +223,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 		{
 			EntityPlayer player = (EntityPlayer) entityLiving;
 
-			ISecurityCenter securityStation = this.getLinkedSecurityCenter();
+			ISecurityCenter securityStation = this.getSecurityCenter();
 
 			if (securityStation != null && securityStation.isAccessGranted(player.username, SecurityPermission.BYPASS_DEFENSE_STATION))
 			{
@@ -348,6 +348,15 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	}
 
 	@Override
+	public Set<ItemStack> getCards()
+	{
+		Set<ItemStack> cards = new HashSet<ItemStack>();
+		cards.add(super.getCard());
+		cards.add(this.getStackInSlot(1));
+		return cards;
+	}
+
+	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
@@ -360,26 +369,4 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 		super.writeToNBT(nbt);
 		nbt.setBoolean("isBanMode", this.isBanMode);
 	}
-
-	@Override
-	public ISecurityCenter getLinkedSecurityCenter()
-	{
-		for (int i = 0; i <= 1; i++)
-		{
-			ItemStack itemStack = this.getStackInSlot(i);
-
-			if (itemStack != null && itemStack.getItem() instanceof ItKaLian)
-			{
-				Vector3 linkPos = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
-
-				if (linkPos != null && linkPos.getTileEntity(this.worldObj) instanceof TAnQuan)
-				{
-					return (TAnQuan) linkPos.getTileEntity(this.worldObj);
-				}
-			}
-		}
-
-		return null;
-	}
-
 }

@@ -1,9 +1,10 @@
 package mffs.api.modules;
 
+import mffs.api.IProjector;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
-import mffs.api.IProjector;
 
 public interface IModule
 {
@@ -28,5 +29,5 @@ public interface IModule
 	 * 
 	 * @return True to stop the default process of entity collision.
 	 */
-	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity);
+	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity, ItemStack moduleStack);
 }
