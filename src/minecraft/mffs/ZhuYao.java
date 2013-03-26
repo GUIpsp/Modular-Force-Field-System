@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mffs.api.SecurityHelper;
+import mffs.api.IDefenseStation;
 import mffs.api.SecurityPermission;
 import mffs.it.ItemFocusMatrix;
 import mffs.it.ItemForcillium;
@@ -38,8 +38,8 @@ import mffs.it.muo.fangyu.ItMDAntiHostile;
 import mffs.it.muo.fangyu.ItMDAntiPersonnel;
 import mffs.it.muo.fangyu.ItMDConfiscate;
 import mffs.it.muo.fangyu.ItMDWarn;
-import mffs.it.xingshi.ItemModeCube;
 import mffs.it.xingshi.ItMSphere;
+import mffs.it.xingshi.ItemModeCube;
 import mffs.it.xingshi.ItemModeTube;
 import mffs.it.xingshi.ItemProjectorMode;
 import mffs.jiqi.BLiQiang;
@@ -49,6 +49,7 @@ import mffs.jiqi.BlockFortronCapacitor;
 import mffs.jiqi.BlockFortronite;
 import mffs.jiqi.BlockProjector;
 import mffs.jiqi.BlockSecurityCenter;
+import mffs.jiqi.t.TFangYu;
 import mffs.jiqi.t.TLiQiang;
 import mffs.jiqi.t.TileEntityMFFS;
 import net.minecraft.block.Block;
@@ -177,7 +178,7 @@ public class ZhuYao
 	 * Defense Station Modules
 	 */
 	public static ItMD itemModuleAntiHostile, itemModuleAntiFriendly, itemModuleAntiPersonnel,
-			itemModuleConfiscate, itemModuleWarn;
+			itemModuleConfiscate, itemModuleWarn, itMDBA, itMDBPA;
 
 	/**
 	 * Modes
@@ -270,6 +271,8 @@ public class ZhuYao
 			itemModuleAntiPersonnel = new ItMDAntiPersonnel(MFFSConfiguration.getNextItemID());
 			itemModuleConfiscate = new ItMDConfiscate(MFFSConfiguration.getNextItemID());
 			itemModuleWarn = new ItMDWarn(MFFSConfiguration.getNextItemID());
+			itMDBA = new ItMD(MFFSConfiguration.getNextItemID(), "moduleBlockAccess");
+			itMDBPA = new ItMD(MFFSConfiguration.getNextItemID(), "moduleBlockPlaceAccess");
 
 			itKaKong = new ItKaKong(MFFSConfiguration.getNextItemID());
 			itKaShengBuo = new ItKaShengBuo(MFFSConfiguration.getNextItemID());
@@ -277,9 +280,6 @@ public class ZhuYao
 			itKaShenFen = new ItKaShenFen(MFFSConfiguration.getNextItemID());
 			itKaShenFenZhanShi = new ItKaShenFenZhanShi(MFFSConfiguration.getNextItemID());
 			itKaLian = new ItKaLian(MFFSConfiguration.getNextItemID());
-
-			// TODO: MFFS REMOVE THIS
-			// itemMultiTool = new ItemMultitool(MFFSConfiguration.item_MultiTool_ID);
 
 			/**
 			 * The Fortron Liquid
@@ -375,10 +375,43 @@ public class ZhuYao
 
 			if (tileEntity != null)
 			{
-				if (SecurityHelper.isAccessGranted(evt.entityPlayer, evt.entityPlayer.worldObj, new Vector3(tileEntity), SecurityPermission.BLOCK_ACCESS))
+				IDefenseStation defenseStation = TFangYu.getNearestDefenseStation(evt.entityPlayer.worldObj, new Vector3(evt.x, evt.y, evt.z));
+
+				if (defenseStation != null)
 				{
-					evt.entityPlayer.sendChatToPlayer("You have no permission to interact with this block!");
-					evt.setCanceled(true);
+					if(defenseStation.isActive()){
+					boolean hasPermission = true;
+
+					if (defenseStation.getModuleCount(ZhuYao.itMDBA) > 0)
+					{
+						hasPermission = false;
+
+						if (defenseStation.getSecurityCenter() != null)
+						{
+							if (defenseStation.getSecurityCenter().isAccessGranted(evt.entityPlayer.username, SecurityPermission.BLOCK_ACCESS))
+							{
+								hasPermission = true;
+							}
+						}
+					}
+					else if (defenseStation.getModuleCount(ZhuYao.itMDBPA) > 0)
+					{
+						hasPermission = false;
+
+						if (defenseStation.getSecurityCenter() != null)
+						{
+							if (defenseStation.getSecurityCenter().isAccessGranted(evt.entityPlayer.username, SecurityPermission.BLOCK_PLACE_ACCESS))
+							{
+								hasPermission = true;
+							}
+						}
+					}
+
+					if (!hasPermission)
+					{
+						evt.entityPlayer.sendChatToPlayer("You have no permission to do that!");
+						evt.setCanceled(true);
+					}}
 				}
 			}
 		}

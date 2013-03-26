@@ -1,14 +1,23 @@
 package mffs.jiqi.t;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import mffs.LiGuanLi;
 import mffs.MFFSConfiguration;
 import mffs.ZhuYao;
+import mffs.api.IDefenseStation;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
 import mffs.api.card.ICardIdentification;
+import mffs.api.fortron.IFortronFrequency;
 import mffs.it.ka.ItKaShenFen;
 import mffs.it.ka.ItKaShengBuo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 
 import com.google.common.io.ByteArrayDataInput;
 
@@ -105,28 +114,6 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 			}
 		}
 
-		// Check Card in Player Inventory
-		EntityPlayer entityPlayer = this.worldObj.getPlayerEntityByName(username);
-
-		if (entityPlayer != null)
-		{
-			for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++)
-			{
-				ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
-
-				if (itemStack != null && itemStack.getItem() instanceof ICardIdentification)
-				{
-					if (username.equalsIgnoreCase(((ICardIdentification) itemStack.getItem()).getUsername(itemStack)))
-					{
-						if (((ICardIdentification) itemStack.getItem()).hasPermission(itemStack, permission))
-						{
-							return true;
-						}
-					}
-				}
-			}
-		}
-
 		return username.equalsIgnoreCase(this.getOwner());
 	}
 
@@ -163,5 +150,13 @@ public class TAnQuan extends TShengBuo implements ISecurityCenter
 	public ItemStack getManipulatingCard()
 	{
 		return this.getStackInSlot(1);
+	}
+
+	@Override
+	public List<ISecurityCenter> getSecurityCenters()
+	{
+		List<ISecurityCenter> securityCenters = new ArrayList<ISecurityCenter>();
+		securityCenters.add(this);
+		return securityCenters;
 	}
 }

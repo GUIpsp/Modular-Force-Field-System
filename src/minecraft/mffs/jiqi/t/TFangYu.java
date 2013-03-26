@@ -5,10 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import mffs.LiGuanLi;
 import mffs.ZhuYao;
 import mffs.api.IDefenseStation;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
+import mffs.api.fortron.IFortronFrequency;
 import mffs.api.modules.IDefenseStationModule;
 import mffs.api.modules.IModule;
 import mffs.it.ka.ItKa;
@@ -21,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
@@ -368,5 +371,23 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	{
 		super.writeToNBT(nbt);
 		nbt.setBoolean("isBanMode", this.isBanMode);
+	}
+
+	public static IDefenseStation getNearestDefenseStation(World world, Vector3 position)
+	{
+		for (IFortronFrequency frequencyTile : LiGuanLi.INSTANCE.get())
+		{
+			if (((TileEntity) frequencyTile).worldObj == world && frequencyTile instanceof IDefenseStation)
+			{
+				IDefenseStation defenseStation = (IDefenseStation) frequencyTile;
+
+				if (position.distanceTo(new Vector3((TileEntity) defenseStation)) <= defenseStation.getActionRange())
+				{
+					return defenseStation;
+				}
+			}
+		}
+
+		return null;
 	}
 }

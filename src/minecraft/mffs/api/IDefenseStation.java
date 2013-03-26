@@ -44,4 +44,8 @@ public interface IDefenseStation extends IInventory, IFortronFrequency, IModuleA
 
 	public ISecurityCenter getSecurityCenter();
 
+	/**
+	 * @return Is the defense station currently active?
+	 */
+	public boolean isActive();
 }
