@@ -12,9 +12,9 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemModeTube extends ItemProjectorMode
+public class ItMTube extends ItemProjectorMode
 {
-	public ItemModeTube(int i)
+	public ItMTube(int i)
 	{
 		super(i, "modeTube");
 	}

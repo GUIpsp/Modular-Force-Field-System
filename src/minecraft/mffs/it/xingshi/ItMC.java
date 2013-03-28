@@ -12,9 +12,9 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemModeCube extends ItemProjectorMode
+public class ItMC extends ItemProjectorMode
 {
-	public ItemModeCube(int i)
+	public ItMC(int i)
 	{
 		super(i, "modeCube");
 	}

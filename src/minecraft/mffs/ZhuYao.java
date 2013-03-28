@@ -39,8 +39,8 @@ import mffs.it.muo.fangyu.ItMDAntiPersonnel;
 import mffs.it.muo.fangyu.ItMDConfiscate;
 import mffs.it.muo.fangyu.ItMDWarn;
 import mffs.it.xingshi.ItMSphere;
-import mffs.it.xingshi.ItemModeCube;
-import mffs.it.xingshi.ItemModeTube;
+import mffs.it.xingshi.ItMC;
+import mffs.it.xingshi.ItMTube;
 import mffs.it.xingshi.ItemProjectorMode;
 import mffs.jiqi.BLiQiang;
 import mffs.jiqi.BlockDefenseStation;
@@ -249,8 +249,8 @@ public class ZhuYao
 
 			// Modes
 			itemModuleSphere = new ItMSphere(MFFSConfiguration.getNextItemID());
-			itemModuleCube = new ItemModeCube(MFFSConfiguration.getNextItemID());
-			itemModuleTube = new ItemModeTube(MFFSConfiguration.getNextItemID());
+			itemModuleCube = new ItMC(MFFSConfiguration.getNextItemID());
+			itemModuleTube = new ItMTube(MFFSConfiguration.getNextItemID());
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.getNextItemID());
 			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.getNextItemID());

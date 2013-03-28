@@ -3,6 +3,7 @@ package mffs.shimian;
 import icbm.api.IBlockFrequency;
 import mffs.ZhuYao;
 import mffs.shimian.enniu.GEnNiu;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -56,7 +57,7 @@ public class GuiMFFS extends GuiContainer
 		super.initGui();
 		this.buttonList.clear();
 		this.buttonList.add(new GEnNiu(0, this.width / 2 - 81, this.height / 2 - 104));
-		
+
 		Keyboard.enableRepeatEvents(true);
 
 		if (this.frequencyTile != null)
@@ -105,9 +106,21 @@ public class GuiMFFS extends GuiContainer
 	}
 
 	@Override
+	protected void actionPerformed(GuiButton guibutton)
+	{
+		super.actionPerformed(guibutton);
+
+		if (this.frequencyTile != null)
+		{
+			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.frequencyTile, 3));
+		}
+	}
+
+	@Override
 	public void updateScreen()
 	{
 		super.updateScreen();
+
 		if (this.textFieldFrequency != null)
 		{
 			if (!this.textFieldFrequency.isFocused())
