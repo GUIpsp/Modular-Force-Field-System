@@ -52,10 +52,10 @@ public class ItMSphere extends ItemProjectorMode
 	@Override
 	public void render(IProjector projector, double x1, double y1, double z1, float f, long ticks)
 	{
-		float scale = 0.06f;
+		float scale = 0.2f;
 		GL11.glScalef(scale, scale, scale);
 
-		int radius = 6;
+		float radius = 1.5f;
 		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius / 2));
 
 		for (int phi_n = 0; phi_n < 2 * steps; phi_n++)

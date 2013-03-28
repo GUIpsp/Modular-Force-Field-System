@@ -28,8 +28,6 @@ public class GFangYu extends GuiMFFS
 	{
 		this.textFieldPos = new Vector2(110, 91);
 		super.initGui();
-		this.buttonList.clear();
-		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 107, this.height / 2 - 104));
 		this.buttonList.add(new GEnNiu(1, this.width / 2 - 80, this.height / 2 - 60));
 	}
 

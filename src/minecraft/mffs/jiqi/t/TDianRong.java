@@ -332,7 +332,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
 	{
-		if (slotID == 0)
+		if (slotID == 0 || slotID == 1)
 		{
 			return itemStack.getItem() instanceof ICard;
 		}

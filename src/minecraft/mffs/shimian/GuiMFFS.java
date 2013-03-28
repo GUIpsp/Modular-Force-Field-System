@@ -2,6 +2,7 @@ package mffs.shimian;
 
 import icbm.api.IBlockFrequency;
 import mffs.ZhuYao;
+import mffs.shimian.enniu.GEnNiu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -53,6 +54,9 @@ public class GuiMFFS extends GuiContainer
 	public void initGui()
 	{
 		super.initGui();
+		this.buttonList.clear();
+		this.buttonList.add(new GEnNiu(0, this.width / 2 - 81, this.height / 2 - 104));
+		
 		Keyboard.enableRepeatEvents(true);
 
 		if (this.frequencyTile != null)

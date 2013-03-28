@@ -3,6 +3,7 @@ package mffs.shimian;
 import mffs.ZhuYao;
 import mffs.jiqi.t.TDianRong;
 import mffs.rongqi.CDianRong;
+import mffs.shimian.enniu.GEnNiu;
 import mffs.shimian.enniu.GEnNiuTransferMode;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,10 +32,6 @@ public class GDianRong extends GuiMFFS
 		this.textFieldPos = new Vector2(50, 76);
 
 		super.initGui();
-
-		this.buttonList.clear();
-		// this.buttonList.add(new GuiButtonMFFS(0, this.width / 2 + 65, this.height / 2 - 100,
-		// this, 0));
 		this.buttonList.add(new GEnNiuTransferMode(1, this.width / 2 + 15, this.height / 2 - 37, this, this.tileEntity));
 
 	}
@@ -49,10 +46,10 @@ public class GDianRong extends GuiMFFS
 		this.drawTextWithTooltip("upgrade", -95, 140, x, y);
 		GL11.glPopMatrix();
 
-		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 24, x, y);
-		this.drawTextWithTooltip("transmissionRate", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getTransmissionRate(), ElectricUnit.JOULES), 8, 36, x, y);
-		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 48, x, y);
-		this.drawTextWithTooltip("frequency", "%1:", 8, 60, x, y);
+		this.drawTextWithTooltip("linkedDevice", "%1: " + this.tileEntity.getLinkedDevices().size(), 8, 26, x, y);
+		this.drawTextWithTooltip("transmissionRate", "%1: " + ElectricityDisplay.getDisplayShort(this.tileEntity.getTransmissionRate(), ElectricUnit.JOULES), 8, 38, x, y);
+		this.drawTextWithTooltip("range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 50, x, y);
+		this.drawTextWithTooltip("frequency", "%1:", 8, 62, x, y);
 		this.textFieldFrequency.drawTextBox();
 		this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
 		this.fontRenderer.drawString(ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronEnergy(), ElectricUnit.JOULES) + "/" + ElectricityDisplay.getDisplayShort(this.tileEntity.getFortronCapacity(), ElectricUnit.JOULES), 8, 105, 4210752);

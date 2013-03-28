@@ -183,7 +183,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 							isGranted = true;
 						}
 
-						if (!isGranted)
+						if (!isGranted && this.worldObj.rand.nextInt(3) == 0)
 						{
 							player.addChatMessage("[" + this.getInvName() + "] Warning! You are in scanning range!");
 							player.attackEntityFrom(ZhuYao.areaDefense, 1);
