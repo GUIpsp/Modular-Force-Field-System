@@ -23,6 +23,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import universalelectricity.prefab.potion.CustomPotionEffect;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
