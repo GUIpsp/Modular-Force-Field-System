@@ -20,7 +20,6 @@ import universalelectricity.core.vector.Vector3;
  */
 public class FXBeam extends EntityFX
 {
-	boolean updated = false;
 	double movX = 0.0D;
 	double movY = 0.0D;
 	double movZ = 0.0D;
@@ -31,15 +30,10 @@ public class FXBeam extends EntityFX
 	private float prevYaw = 0.0F;
 	private float prevPitch = 0.0F;
 	private Vector3 target = new Vector3();
-
-	private float endMod = 1.0F;
-
+	private float endModifier = 1.0F;
 	private boolean reverse = false;
-
 	private boolean pulse = true;
-
-	private int rotationspeed = 5;
-
+	private int rotationSpeed = 20;
 	private float prevSize = 0.0F;
 
 	public FXBeam(World par1World, Vector3 position, Vector3 target, float red, float green, float blue, int age)
@@ -71,21 +65,15 @@ public class FXBeam extends EntityFX
 		 */
 		EntityLiving renderentity = Minecraft.getMinecraft().renderViewEntity;
 		int visibleDistance = 50;
-		if (!Minecraft.getMinecraft().gameSettings.fancyGraphics)
-			visibleDistance = 25;
-		if (renderentity.getDistance(this.posX, this.posY, this.posZ) > visibleDistance)
-			this.particleMaxAge = 0;
-	}
 
-	public void updateBeam(double xs, double ys, double zs, Vector3 newTarget)
-	{
-		this.movX = xs;
-		this.movY = ys;
-		this.movZ = zs;
-		this.target = newTarget;
-		while (this.particleMaxAge - this.particleAge < 4)
-			this.particleMaxAge += 1;
-		this.updated = true;
+		if (!Minecraft.getMinecraft().gameSettings.fancyGraphics)
+		{
+			visibleDistance = 25;
+		}
+		if (renderentity.getDistance(this.posX, this.posY, this.posZ) > visibleDistance)
+		{
+			this.particleMaxAge = 0;
+		}
 	}
 
 	@Override
@@ -94,14 +82,6 @@ public class FXBeam extends EntityFX
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
-
-		if (this.updated)
-		{
-			this.posX = this.movX;
-			this.posY = this.movY;
-			this.posZ = this.movZ;
-			this.updated = false;
-		}
 
 		this.prevYaw = this.rotYaw;
 		this.prevPitch = this.rotPitch;
@@ -130,26 +110,6 @@ public class FXBeam extends EntityFX
 		this.particleBlue = b;
 	}
 
-	public void setEndMod(float endMod)
-	{
-		this.endMod = endMod;
-	}
-
-	public void setReverse(boolean reverse)
-	{
-		this.reverse = reverse;
-	}
-
-	public void setPulse(boolean pulse)
-	{
-		this.pulse = pulse;
-	}
-
-	public void setRotationspeed(int rotationspeed)
-	{
-		this.rotationspeed = rotationspeed;
-	}
-
 	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
 	{
@@ -158,7 +118,7 @@ public class FXBeam extends EntityFX
 		GL11.glPushMatrix();
 		float var9 = 1.0F;
 		float slide = this.worldObj.getTotalWorldTime();
-		float rot = this.worldObj.provider.getWorldTime() % (360 / this.rotationspeed) * this.rotationspeed + this.rotationspeed * f;
+		float rot = this.worldObj.provider.getWorldTime() % (360 / this.rotationSpeed) * this.rotationSpeed + this.rotationSpeed * f;
 
 		float size = 1.0F;
 		if (this.pulse)
@@ -202,8 +162,8 @@ public class FXBeam extends EntityFX
 
 		double var44 = -0.15D * size;
 		double var17 = 0.15D * size;
-		double var44b = -0.15D * size * this.endMod;
-		double var17b = 0.15D * size * this.endMod;
+		double var44b = -0.15D * size * this.endModifier;
+		double var17b = 0.15D * size * this.endModifier;
 
 		GL11.glRotatef(rot, 0.0F, 1.0F, 0.0F);
 		for (int t = 0; t < 3; t++)

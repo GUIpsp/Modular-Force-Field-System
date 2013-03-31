@@ -2,15 +2,23 @@ package mffs.it;
 
 import java.util.List;
 
+import mffs.ZhuYao;
+import mffs.api.fortron.IFortronCapacitor;
+import mffs.api.fortron.IFortronStorage;
 import mffs.api.fortron.IItemFortronStorage;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.item.ElectricItemHelper;
+import universalelectricity.core.vector.Vector3;
 
 public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorage
 {
@@ -54,6 +62,37 @@ public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorag
 		itemStack = ElectricItemHelper.getUncharged(itemStack);
 	}
 
+	@Override
+	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
+	{
+		if (entity instanceof EntityLiving)
+		{
+			if (entity.isSneaking())
+			{
+				if (this.getFortronCapacity(itemStack) - this.getFortronEnergy(itemStack) > 0)
+				{
+					MovingObjectPosition mop = ((EntityLiving) entity).rayTrace(10, 1);
+
+					if (mop != null)
+					{
+						TileEntity tileEntity = new Vector3(mop).getTileEntity(world);
+
+						if (tileEntity instanceof IFortronCapacitor)
+						{
+							int received = ((IFortronStorage) tileEntity).provideFortron(this.getFortronCapacity(itemStack) - this.getFortronEnergy(itemStack), true);
+							this.setFortronEnergy(this.getFortronCapacity(itemStack) + received, itemStack);
+
+							if (world.isRemote)
+							{
+								ZhuYao.proxy.renderBeam(world, new Vector3(tileEntity).add(0.5), new Vector3(entity).add(new Vector3(0, entity.getEyeHeight(), 0)), 0.6f, 0.6f, 1, 20);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * This function sets the electricity. Do not directly call this function. Try to use
 	 * onReceiveElectricity or onUseElectricity instead.
@@ -75,7 +114,7 @@ public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorag
 		/**
 		 * Sets the damage as a percentage to render the bar properly.
 		 */
-		itemStack.setItemDamage(100 - (stored / this.getFortronCapacity(itemStack)) * 100);
+		itemStack.setItemDamage((int) (100 - ((float) stored / (float) this.getFortronCapacity(itemStack)) * 100));
 	}
 
 	/**
@@ -96,7 +135,7 @@ public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorag
 		/**
 		 * Sets the damage as a percentage to render the bar properly.
 		 */
-		itemStack.setItemDamage(100 - (stored / getFortronCapacity(itemStack)) * 100);
+		itemStack.setItemDamage((int) (100 - ((float) stored / (float) this.getFortronCapacity(itemStack)) * 100));
 		return stored;
 	}
 

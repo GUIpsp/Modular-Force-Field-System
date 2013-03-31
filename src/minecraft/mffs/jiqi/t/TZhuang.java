@@ -129,7 +129,7 @@ public abstract class TZhuang extends TMFFS implements IInventory
 			return false;
 		}
 
-		return entityplayer.getDistance(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+		return true;
 	}
 
 	@Override

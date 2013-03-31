@@ -8,8 +8,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 
@@ -23,6 +23,8 @@ public class ItYaoKong extends ItemFortron implements ILink
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean b)
 	{
+		super.addInformation(itemStack, player, list, b);
+
 		Vector3 position = this.getLink(itemStack);
 
 		if (position != null)
@@ -48,12 +50,14 @@ public class ItYaoKong extends ItemFortron implements ILink
 			if (!world.isRemote)
 			{
 				Vector3 vector = new Vector3(x, y, z);
+
 				this.setLink(itemStack, vector);
 
 				if (Block.blocksList[vector.getBlockID(world)] != null)
 				{
 					entityPlayer.addChatMessage("Linked remote to position: " + x + ", " + y + ", " + z + " with block: " + Block.blocksList[vector.getBlockID(world)].getLocalizedName());
 				}
+
 			}
 
 			return true;
@@ -67,30 +71,45 @@ public class ItYaoKong extends ItemFortron implements ILink
 	{
 		if (!entityPlayer.isSneaking())
 		{
-			try
+			Vector3 position = this.getLink(itemStack);
+
+			if (position != null)
 			{
-				Vector3 position = this.getLink(itemStack);
+				int blockId = position.getBlockID(world);
 
-				if (position != null)
+				if (Block.blocksList[blockId] != null)
 				{
-					int blockId = position.getBlockID(world);
+					int requiredEnergy = (int) Vector3.distance(new Vector3(entityPlayer), position) * (LiquidContainerRegistry.BUCKET_VOLUME / 10);
 
-					if (Block.blocksList[blockId] != null)
+					if (this.getFortronEnergy(itemStack) >= requiredEnergy)
 					{
-						Block.blocksList[blockId].onBlockActivated(world, position.intX(), position.intY(), position.intZ(), entityPlayer, 0, 0, 0, 0);
+						Chunk chunk = world.getChunkFromBlockCoords(position.intX(), position.intZ());
 
-						if (!world.isRemote)
+						if (chunk != null && chunk.isChunkLoaded)
 						{
-							ZhuYao.proxy.renderBeam(world, new Vector3(entityPlayer).add(new Vector3(0, entityPlayer.getEyeHeight(), 0)), position, 0.6f, 0.6f, 1, 20);
-						}
+							try
+							{
+								Block.blocksList[blockId].onBlockActivated(world, position.intX(), position.intY(), position.intZ(), entityPlayer, 0, 0, 0, 0);
 
-						this.setFortronEnergy(this.getFortronEnergy(itemStack) - LiquidContainerRegistry.BUCKET_VOLUME / 2, itemStack);
+								if (!world.isRemote)
+								{
+									ZhuYao.proxy.renderBeam(world, new Vector3(entityPlayer).add(new Vector3(0, entityPlayer.getEyeHeight(), 0)), position.add(0.5), 0.6f, 0.6f, 1, 20);
+								}
+
+								this.setFortronEnergy(this.getFortronEnergy(itemStack) - requiredEnergy, itemStack);
+
+							}
+							catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+						}
+					}
+					else if (world.isRemote)
+					{
+						entityPlayer.addChatMessage("Require " + requiredEnergy + " joules of fortron.");
 					}
 				}
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
 			}
 		}
 
@@ -100,7 +119,7 @@ public class ItYaoKong extends ItemFortron implements ILink
 	@Override
 	public int getFortronCapacity(ItemStack itemStack)
 	{
-		return 25 * LiquidContainerRegistry.BUCKET_VOLUME;
+		return 100 * LiquidContainerRegistry.BUCKET_VOLUME;
 	}
 
 	@Override
