@@ -1,5 +1,6 @@
 package mffs.jiqi.t;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import mffs.Li;
 import mffs.LiGuanLi;
 import mffs.api.card.ICard;
 import mffs.api.fortron.IFortronFrequency;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
@@ -24,7 +26,7 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public abstract class TileEntityFortron extends TShengBuo implements ITankContainer, IFortronFrequency
+public abstract class TFortron extends TShengBuo implements ITankContainer, IFortronFrequency
 {
 	protected LiquidTank fortronTank = new LiquidTank(Li.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
 
@@ -55,11 +57,11 @@ public abstract class TileEntityFortron extends TShengBuo implements ITankContai
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
 		super.onReceivePacket(packetID, dataStream);
 
-		if (packetID == 1)
+		if (packetID == TPacketType.DESCRIPTION.ordinal())
 		{
 			this.fortronTank.setLiquid(Li.getFortron(dataStream.readInt()));
 		}

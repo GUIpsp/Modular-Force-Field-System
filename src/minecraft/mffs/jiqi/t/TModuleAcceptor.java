@@ -8,7 +8,7 @@ import mffs.api.modules.IModuleAcceptor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public abstract class TModuleAcceptor extends TileEntityFortron implements IModuleAcceptor
+public abstract class TModuleAcceptor extends TFortron implements IModuleAcceptor
 {
 	public int startModuleIndex = 0;
 	public int endModuleIndex = this.getSizeInventory() - 1;

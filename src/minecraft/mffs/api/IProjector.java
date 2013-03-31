@@ -13,7 +13,13 @@ import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IDisableable;
 import universalelectricity.prefab.implement.IRotatable;
 
-public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotatable, IDisableable, IFortronFrequency
+/**
+ * Also extends IDisableable, IFortronFrequency
+ * 
+ * @author Calclavia
+ * 
+ */
+public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotatable
 {
 	public Set<Vector3> getInteriorPoints();
 

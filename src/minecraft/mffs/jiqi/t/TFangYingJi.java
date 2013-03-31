@@ -16,6 +16,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.implement.IRedstoneReceptor;
 import universalelectricity.prefab.network.PacketManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -55,22 +56,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 		if (!this.worldObj.isRemote)
 		{
-			if (this.isPoweredByRedstone())
-			{
-				if (!this.isActive())
-				{
-					this.calculateForceField();
-					this.setActive(true);
-				}
-			}
-			else
-			{
-				if (this.isActive())
-				{
-					this.setActive(false);
-				}
-			}
-
 			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) >= this.getFortronCost())
 			{
 				this.requestFortron(this.getFortronCost(), true);
@@ -123,7 +108,11 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	{
 		super.setActive(flag);
 
-		if (!this.isActive())
+		if (this.isActive())
+		{
+			this.calculateForceField();
+		}
+		else
 		{
 			this.destroyField();
 		}
@@ -405,5 +394,4 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	{
 		return this.ticks;
 	}
-
 }

@@ -7,7 +7,6 @@ import ic2.api.energy.tile.IEnergySink;
 
 import java.util.EnumSet;
 
-import mffs.MFFSConfiguration;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,24 +15,9 @@ import universalelectricity.core.block.IConnector;
 import universalelectricity.core.block.IVoltage;
 import universalelectricity.core.electricity.ElectricityNetworkHelper;
 import universalelectricity.core.electricity.ElectricityPack;
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerFramework;
 
-public abstract class TileEntityMFFSElectrical extends TileEntityFortron implements IConnector, IVoltage, IPowerReceptor, IEnergySink
+public abstract class TDian extends TFortron implements IConnector, IVoltage, IEnergySink
 {
-	protected IPowerProvider powerProvider;
-
-	public TileEntityMFFSElectrical()
-	{
-		if (MFFSConfiguration.MODULE_BUILDCRAFT)
-		{
-			this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
-			// this.powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5D), (int)
-			// (getMaxWorkEnergy() / 2.5D), (int) (getMaxWorkEnergy() / 2.5D));
-		}
-	}
-
 	/**
 	 * The amount of watts received this tick. This variable should be deducted when used.
 	 */
@@ -194,36 +178,5 @@ public abstract class TileEntityMFFSElectrical extends TileEntityFortron impleme
 	public int getMaxSafeInput()
 	{
 		return 2048;
-	}
-
-	/**
-	 * Buildcraft Methods
-	 */
-
-	@Override
-	public void setPowerProvider(IPowerProvider provider)
-	{
-		this.powerProvider = provider;
-	}
-
-	@Override
-	public IPowerProvider getPowerProvider()
-	{
-		return this.powerProvider;
-	}
-
-	@Override
-	public void doWork()
-	{
-	}
-
-	@Override
-	public int powerRequest()
-	{
-		// double workEnergyinMJ = getWorkEnergy() / 2.5D;
-		// double MaxWorkEnergyinMj = getMaxWorkEnergy() / 2.5D;
-
-		// return (int) Math.round(MaxWorkEnergyinMj - workEnergyinMJ);
-		return 0;
 	}
 }

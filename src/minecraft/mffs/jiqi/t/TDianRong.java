@@ -2,6 +2,7 @@ package mffs.jiqi.t;
 
 import icbm.api.RadarRegistry;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,24 +70,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 			/**
 			 * Transmit Fortrons in frequency network, evenly distributing them.
 			 */
-			if (!this.worldObj.isRemote)
-			{
-				if (this.isPoweredByRedstone())
-				{
-					if (!this.isActive())
-					{
-						this.setActive(true);
-					}
-				}
-				else
-				{
-					if (this.isActive())
-					{
-						this.setActive(false);
-					}
-				}
-			}
-
 			this.fortronTank.setCapacity((this.getModuleCount(ZhuYao.itMRongLiang) * 10 + 500) * LiquidContainerRegistry.BUCKET_VOLUME);
 
 			/**
@@ -282,15 +265,15 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
 		super.onReceivePacket(packetID, dataStream);
 
-		if (packetID == 1)
+		if (packetID == TPacketType.DESCRIPTION.ordinal())
 		{
 			this.transferMode = TransferMode.values()[dataStream.readInt()];
 		}
-		else if (packetID == 3)
+		else if (packetID == TPacketType.TOGGLE_MODE.ordinal())
 		{
 			this.transferMode = this.transferMode.toggle();
 		}

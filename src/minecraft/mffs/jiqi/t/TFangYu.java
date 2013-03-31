@@ -1,5 +1,6 @@
 package mffs.jiqi.t;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ import mffs.api.fortron.IFortronFrequency;
 import mffs.api.modules.IDefenseStationModule;
 import mffs.api.modules.IModule;
 import mffs.it.ka.ItKa;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -69,21 +71,6 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 
 		if (!this.worldObj.isRemote)
 		{
-			if (this.isPoweredByRedstone())
-			{
-				if (!this.isActive())
-				{
-					this.setActive(true);
-				}
-			}
-			else
-			{
-				if (this.isActive())
-				{
-					this.setActive(false);
-				}
-			}
-
 			if (this.isActive() || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ZhuYao.itKaWuXian.itemID))
 			{
 				if (this.ticks % 10 == 0)
@@ -113,15 +100,15 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
 		super.onReceivePacket(packetID, dataStream);
 
-		if (packetID == 1)
+		if (packetID == TPacketType.DESCRIPTION.ordinal())
 		{
 			this.isBanMode = dataStream.readBoolean();
 		}
-		else if (packetID == 3)
+		else if (packetID == TPacketType.TOGGLE_MODE.ordinal())
 		{
 			this.isBanMode = !this.isBanMode;
 		}

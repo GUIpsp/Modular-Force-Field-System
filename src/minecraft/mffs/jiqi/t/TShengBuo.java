@@ -2,6 +2,7 @@ package mffs.jiqi.t;
 
 import icbm.api.IBlockFrequency;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,7 @@ import mffs.LiGuanLi;
 import mffs.api.ISecurityCenter;
 import mffs.api.card.ICardLink;
 import mffs.api.fortron.IFortronFrequency;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,7 +19,7 @@ import universalelectricity.core.vector.Vector3;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public abstract class TShengBuo extends TileEntityMFFSInventory implements IBlockFrequency
+public abstract class TShengBuo extends TZhuang implements IBlockFrequency
 {
 	private int frequency;
 
@@ -31,15 +33,15 @@ public abstract class TShengBuo extends TileEntityMFFSInventory implements IBloc
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
 		super.onReceivePacket(packetID, dataStream);
 
-		if (packetID == 1)
+		if (packetID == TPacketType.DESCRIPTION.ordinal())
 		{
 			this.setFrequency(dataStream.readInt());
 		}
-		else if (packetID == 2)
+		else if (packetID == TPacketType.FREQUENCY.ordinal())
 		{
 			this.setFrequency(dataStream.readInt());
 		}

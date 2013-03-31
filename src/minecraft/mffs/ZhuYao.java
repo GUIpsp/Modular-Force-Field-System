@@ -43,15 +43,15 @@ import mffs.it.xingshi.ItMC;
 import mffs.it.xingshi.ItMTube;
 import mffs.it.xingshi.ItemProjectorMode;
 import mffs.jiqi.BLiQiang;
-import mffs.jiqi.BlockDefenseStation;
-import mffs.jiqi.BlockForcilliumExtractor;
-import mffs.jiqi.BlockFortronCapacitor;
-import mffs.jiqi.BlockFortronite;
-import mffs.jiqi.BlockProjector;
-import mffs.jiqi.BlockSecurityCenter;
+import mffs.jiqi.BAnQuan;
+import mffs.jiqi.BChouQi;
+import mffs.jiqi.BDianRong;
+import mffs.jiqi.BFortronite;
+import mffs.jiqi.BFangYingJi;
+import mffs.jiqi.BFangYu;
 import mffs.jiqi.t.TFangYu;
 import mffs.jiqi.t.TLiQiang;
-import mffs.jiqi.t.TileEntityMFFS;
+import mffs.jiqi.t.TMFFS;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -225,7 +225,7 @@ public class ZhuYao
 		}
 
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(proxy);
+		MinecraftForge.EVENT_BUS.register(this.proxy);
 
 		Modstats.instance().getReporter().registerMod(this);
 
@@ -234,13 +234,13 @@ public class ZhuYao
 			MFFSConfiguration.initialize();
 			MFFSConfiguration.CONFIGURATION.load();
 
-			blockFortronite = new BlockFortronite(MFFSConfiguration.getNextBlockID(), "fortronite");
-			blockExtractor = new BlockForcilliumExtractor(MFFSConfiguration.getNextBlockID());
-			blockDefenceStation = new BlockDefenseStation(MFFSConfiguration.getNextBlockID());
-			blockCapacitor = new BlockFortronCapacitor(MFFSConfiguration.getNextBlockID());
-			blockProjector = new BlockProjector(MFFSConfiguration.getNextBlockID());
+			blockFortronite = new BFortronite(MFFSConfiguration.getNextBlockID(), "fortronite");
+			blockExtractor = new BChouQi(MFFSConfiguration.getNextBlockID());
+			blockDefenceStation = new BAnQuan(MFFSConfiguration.getNextBlockID());
+			blockCapacitor = new BDianRong(MFFSConfiguration.getNextBlockID());
+			blockProjector = new BFangYingJi(MFFSConfiguration.getNextBlockID());
 			blockForceField = new BLiQiang(MFFSConfiguration.getNextBlockID());
-			blockSecurityStation = new BlockSecurityCenter(MFFSConfiguration.getNextBlockID());
+			blockSecurityStation = new BFangYu(MFFSConfiguration.getNextBlockID());
 
 			itemForcillium = new ItemForcillium(MFFSConfiguration.getNextItemID());
 			itemFortronCell = new ItemFortronCell(MFFSConfiguration.getNextItemID());
@@ -450,9 +450,9 @@ public class ZhuYao
 				int z = ticket.getModData().getInteger("zCoord");
 				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				if (tileEntity instanceof TileEntityMFFS)
+				if (tileEntity instanceof TMFFS)
 				{
-					((TileEntityMFFS) tileEntity).forceChunkLoading(ticket);
+					((TMFFS) tileEntity).forceChunkLoading(ticket);
 				}
 			}
 		}
@@ -470,7 +470,7 @@ public class ZhuYao
 
 				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-				if (tileEntity instanceof TileEntityMFFS)
+				if (tileEntity instanceof TMFFS)
 				{
 					validTickets.add(ticket);
 				}

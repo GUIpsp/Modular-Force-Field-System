@@ -8,9 +8,9 @@ import mffs.ZhuYao;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockFortronite extends Block
+public class BFortronite extends Block
 {
-	public BlockFortronite(int id, String name)
+	public BFortronite(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), Material.rock);
 		this.setUnlocalizedName(ZhuYao.PREFIX + name);

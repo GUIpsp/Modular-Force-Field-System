@@ -2,6 +2,7 @@ package mffs.shimian;
 
 import mffs.ZhuYao;
 import mffs.jiqi.t.TDianRong;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import mffs.rongqi.CDianRong;
 import mffs.shimian.enniu.GEnNiu;
 import mffs.shimian.enniu.GEnNiuTransferMode;
@@ -30,7 +31,6 @@ public class GDianRong extends GuiMFFS
 	public void initGui()
 	{
 		this.textFieldPos = new Vector2(50, 76);
-
 		super.initGui();
 		this.buttonList.add(new GEnNiuTransferMode(1, this.width / 2 + 15, this.height / 2 - 37, this, this.tileEntity));
 
@@ -81,6 +81,10 @@ public class GDianRong extends GuiMFFS
 	protected void actionPerformed(GuiButton guibutton)
 	{
 		super.actionPerformed(guibutton);
-		PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.tileEntity, 3));
+
+		if (guibutton.id == 1)
+		{
+			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.tileEntity, TPacketType.TOGGLE_MODE.ordinal()));
+		}
 	}
 }

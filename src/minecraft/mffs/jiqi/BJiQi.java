@@ -3,10 +3,9 @@ package mffs.jiqi;
 import mffs.MFFSConfiguration;
 import mffs.MFFSCreativeTab;
 import mffs.ZhuYao;
-import mffs.it.gongju.ItemMultitool;
 import mffs.it.ka.ItKaLian;
 import mffs.jiqi.t.TAnQuan;
-import mffs.jiqi.t.TileEntityMFFS;
+import mffs.jiqi.t.TMFFS;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -20,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.block.BlockRotatable;
-import buildcraft.api.tools.IToolWrench;
+import universalelectricity.prefab.implement.IRedstoneReceptor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,7 +42,7 @@ public abstract class BJiQi extends BlockRotatable
 	{
 		if (!world.isRemote)
 		{
-			TileEntityMFFS tileEntity = (TileEntityMFFS) world.getBlockTileEntity(x, y, z);
+			TMFFS tileEntity = (TMFFS) world.getBlockTileEntity(x, y, z);
 			ItemStack equippedItem = entityPlayer.getCurrentEquippedItem();
 
 			if (equippedItem != null)
@@ -51,11 +50,6 @@ public abstract class BJiQi extends BlockRotatable
 				if (equippedItem.getItem() instanceof ItKaLian)
 				{
 					return false;
-				}
-
-				if ((equippedItem.getItem() instanceof ItemMultitool || equippedItem.getItem() instanceof IToolWrench))
-				{
-					return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
 				}
 			}
 
@@ -84,9 +78,9 @@ public abstract class BJiQi extends BlockRotatable
 	{
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 
-		if (tile instanceof TileEntityMFFS)
+		if (tile instanceof TMFFS)
 		{
-			TileEntityMFFS tileEntity = (TileEntityMFFS) tile;
+			TMFFS tileEntity = (TMFFS) tile;
 			int side = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
 			int height = Math.round(entityliving.rotationPitch);
 
@@ -118,6 +112,12 @@ public abstract class BJiQi extends BlockRotatable
 	}
 
 	@Override
+	public boolean onSneakMachineActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
+	{
+		return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
+	}
+
+	@Override
 	public boolean onUseWrench(World world, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float hitX, float hitY, float hitZ)
 	{
 		this.setDirection(world, x, y, z, ForgeDirection.getOrientation(ForgeDirection.ROTATION_MATRIX[0][this.getDirection(world, x, y, z).ordinal()]));
@@ -132,6 +132,27 @@ public abstract class BJiQi extends BlockRotatable
 	}
 
 	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, int blockID)
+	{
+		if (!world.isRemote)
+		{
+			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+
+			if (tileEntity instanceof IRedstoneReceptor)
+			{
+				if (world.isBlockIndirectlyGettingPowered(x, y, z))
+				{
+					((IRedstoneReceptor) tileEntity).onPowerOn();
+				}
+				else
+				{
+					((IRedstoneReceptor) tileEntity).onPowerOff();
+				}
+			}
+		}
+	}
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
@@ -142,13 +163,14 @@ public abstract class BJiQi extends BlockRotatable
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public Icon getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
 	{
 		TileEntity t = iBlockAccess.getBlockTileEntity(x, y, z);
 
-		if (t instanceof TileEntityMFFS)
+		if (t instanceof TMFFS)
 		{
-			TileEntityMFFS tileEntity = (TileEntityMFFS) t;
+			TMFFS tileEntity = (TMFFS) t;
 
 			ForgeDirection blockfacing = ForgeDirection.getOrientation(side);
 			ForgeDirection facingDirection = tileEntity.getDirection(null, x, y, z);
@@ -177,10 +199,10 @@ public abstract class BJiQi extends BlockRotatable
 	@Override
 	public float getExplosionResistance(Entity entity, World world, int i, int j, int k, double d, double d1, double d2)
 	{
-		if ((world.getBlockTileEntity(i, j, k) instanceof TileEntityMFFS))
+		if ((world.getBlockTileEntity(i, j, k) instanceof TMFFS))
 		{
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
-			if (((TileEntityMFFS) tileentity).isActive())
+			if (((TMFFS) tileentity).isActive())
 			{
 				return 999.0F;
 			}

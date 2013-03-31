@@ -1,19 +1,20 @@
 package mffs.jiqi;
 
-import mffs.jiqi.t.TAnQuan;
+import mffs.jiqi.t.TChouQi;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSecurityCenter extends BJiQi
+public class BChouQi extends BJiQi
 {
-	public BlockSecurityCenter(int i)
+
+	public BChouQi(int i)
 	{
-		super(i, "securityCenter");
+		super(i, "forcilliumExtractor");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TAnQuan();
+		return new TChouQi();
 	}
 }

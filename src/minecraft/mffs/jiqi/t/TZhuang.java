@@ -1,11 +1,14 @@
 package mffs.jiqi.t;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import mffs.ZhuYao;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -15,13 +18,15 @@ import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
+
 /**
  * All TileEntities that have an inventory should extend this.
  * 
  * @author Calclavia
  * 
  */
-public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements IInventory
+public abstract class TZhuang extends TMFFS implements IInventory
 {
 	/**
 	 * The inventory of the TileEntity.
@@ -36,7 +41,7 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	@Override
 	public List getPacketUpdate()
 	{
-		List objects = new LinkedList();
+		List objects = new ArrayList();
 		objects.addAll(super.getPacketUpdate());
 		NBTTagCompound nbt = new NBTTagCompound();
 		this.writeToNBT(nbt);
@@ -45,23 +50,24 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
-		final boolean prevActivate = this.isActive();
-
 		super.onReceivePacket(packetID, dataStream);
 
-		if (packetID == 1 && this.worldObj.isRemote)
+		if (this.worldObj.isRemote)
 		{
-			try
+			if (packetID == TPacketType.DESCRIPTION.ordinal() || packetID == TPacketType.INVENTORY.ordinal())
 			{
 				this.readFromNBT(PacketManager.readNBTTagCompound(dataStream));
 			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
 		}
+	}
+
+	public void sendInventoryToClients()
+	{
+		NBTTagCompound nbt = new NBTTagCompound();
+		this.writeToNBT(nbt);
+		PacketManager.sendPacketToClients(PacketManager.getPacket(ZhuYao.CHANNEL, this, TPacketType.INVENTORY.ordinal(), nbt));
 	}
 
 	/**
@@ -210,8 +216,10 @@ public abstract class TileEntityMFFSInventory extends TileEntityMFFS implements 
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
+
 		NBTTagList nbtTagList = nbttagcompound.getTagList("Items");
 		this.inventory = new ItemStack[this.getSizeInventory()];
+
 		for (int i = 0; i < nbtTagList.tagCount(); i++)
 		{
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbtTagList.tagAt(i);

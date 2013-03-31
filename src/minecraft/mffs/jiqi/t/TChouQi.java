@@ -1,5 +1,6 @@
 package mffs.jiqi.t;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public class TChouQi extends TileEntityMFFSElectrical
+public class TChouQi extends TDian
 {
 	/**
 	 * The amount of watts this machine uses.
@@ -177,7 +178,7 @@ public class TChouQi extends TileEntityMFFSElectrical
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
 		super.onReceivePacket(packetID, dataStream);
 		if (packetID == 1)

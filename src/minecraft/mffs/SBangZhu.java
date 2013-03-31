@@ -1,14 +1,14 @@
 package mffs;
 
-import mffs.jiqi.t.TileEntityMFFSInventory;
+import mffs.jiqi.t.TZhuang;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SBangZhu extends Slot
 {
-	protected TileEntityMFFSInventory tileEntity;
+	protected TZhuang tileEntity;
 
-	public SBangZhu(TileEntityMFFSInventory tileEntity, int id, int par4, int par5)
+	public SBangZhu(TZhuang tileEntity, int id, int par4, int par5)
 	{
 		super(tileEntity, id, par4, par5);
 		this.tileEntity = tileEntity;

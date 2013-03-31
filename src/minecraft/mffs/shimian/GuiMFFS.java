@@ -2,6 +2,7 @@ package mffs.shimian;
 
 import icbm.api.IBlockFrequency;
 import mffs.ZhuYao;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import mffs.shimian.enniu.GEnNiu;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -110,9 +111,9 @@ public class GuiMFFS extends GuiContainer
 	{
 		super.actionPerformed(guibutton);
 
-		if (this.frequencyTile != null)
+		if (this.frequencyTile != null && guibutton.id == 0)
 		{
-			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.frequencyTile, 3));
+			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, (TileEntity) this.frequencyTile, TPacketType.TOGGLE_ACTIVATION.ordinal()));
 		}
 	}
 

@@ -1,19 +1,19 @@
 package mffs.jiqi;
 
-import mffs.jiqi.t.TFangYu;
+import mffs.jiqi.t.TAnQuan;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockDefenseStation extends BJiQi
+public class BFangYu extends BJiQi
 {
-	public BlockDefenseStation(int i)
+	public BFangYu(int i)
 	{
-		super(i, "defenseStation");
+		super(i, "securityCenter");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TFangYu();
+		return new TAnQuan();
 	}
 }

@@ -2,6 +2,7 @@ package mffs.shimian;
 
 import mffs.ZhuYao;
 import mffs.jiqi.t.TFangYu;
+import mffs.jiqi.t.TMFFS.TPacketType;
 import mffs.rongqi.CFangYu;
 import mffs.shimian.enniu.GEnNiu;
 import net.minecraft.client.gui.GuiButton;
@@ -36,11 +37,9 @@ public class GFangYu extends GuiMFFS
 	{
 		super.actionPerformed(guiButton);
 
-		switch (guiButton.id)
+		if (guiButton.id == 1)
 		{
-			case 1:
-				PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.tileEntity, 3));
-				break;
+			PacketDispatcher.sendPacketToServer(PacketManager.getPacket(ZhuYao.CHANNEL, this.tileEntity, TPacketType.TOGGLE_MODE.ordinal()));
 		}
 	}
 

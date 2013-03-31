@@ -1,19 +1,19 @@
 package mffs.jiqi;
 
-import mffs.jiqi.t.TDianRong;
+import mffs.jiqi.t.TFangYu;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockFortronCapacitor extends BJiQi
+public class BAnQuan extends BJiQi
 {
-	public BlockFortronCapacitor(int i)
+	public BAnQuan(int i)
 	{
-		super(i, "fortronCapacitor");
+		super(i, "defenseStation");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
-		return new TDianRong();
+		return new TFangYu();
 	}
 }

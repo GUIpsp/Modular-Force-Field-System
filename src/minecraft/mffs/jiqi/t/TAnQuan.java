@@ -1,5 +1,6 @@
 package mffs.jiqi.t;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,28 +18,22 @@ import com.google.common.io.ByteArrayDataInput;
 public class TAnQuan extends TShengBuo implements ISecurityCenter
 {
 	@Override
-	public void updateEntity()
+	public boolean canUpdate()
 	{
-		super.updateEntity();
+		return false;
+	}
 
-		if (!this.worldObj.isRemote)
+	@Override
+	public void setActive(boolean flag)
+	{
+		if (this.getOwner() != null || !flag)
 		{
-			if (this.ticks % 10 == 0)
-			{
-				if (this.getOwner() != null)
-				{
-					this.setActive(true);
-				}
-				else
-				{
-					this.setActive(true);
-				}
-			}
+			super.setActive(flag);
 		}
 	}
 
 	@Override
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
 		super.onReceivePacket(packetID, dataStream);
 

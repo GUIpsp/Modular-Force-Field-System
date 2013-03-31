@@ -5,9 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockProjector extends BJiQi
+public class BFangYingJi extends BJiQi
 {
-	public BlockProjector(int id)
+	public BFangYingJi(int id)
 	{
 		super(id, "projector");
 	}

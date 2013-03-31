@@ -1,12 +1,13 @@
 package mffs.jiqi.t;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import mffs.MFFSConfiguration;
 import mffs.ZhuYao;
-import mffs.api.IStatusToggle;
+import mffs.api.IActivatable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.implement.IRedstoneReceptor;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
 import universalelectricity.prefab.network.PacketManager;
@@ -26,34 +28,25 @@ import universalelectricity.prefab.tile.TileEntityDisableable;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public abstract class TileEntityMFFS extends TileEntityDisableable implements IPacketReceiver, IStatusToggle, IRotatable
+public abstract class TMFFS extends TileEntityDisableable implements IPacketReceiver, IRotatable, IActivatable, IRedstoneReceptor
 {
+	public enum TPacketType
+	{
+		NONE, DESCRIPTION, FREQUENCY, TOGGLE_ACTIVATION, TOGGLE_MODE, INVENTORY;
+	}
+
 	/**
 	 * Is the machine active and working?
 	 */
 	private boolean isActive = false;
-
-	/**
-	 * The switch mode determines the mode in which the machine is switched to. Used for determining
-	 * if the machine is accepting "X" type of events for turning on.
-	 */
-	protected short switchMode = 0;
-
-	/**
-	 * Is the machine being switched on or is it off?
-	 */
-	protected boolean switchValue = false;
-	protected int maxSwitchMode = 3;
 
 	protected Ticket chunkTicket;
 
 	public List getPacketUpdate()
 	{
 		List objects = new ArrayList();
-		objects.add(1);
+		objects.add(TPacketType.DESCRIPTION.ordinal());
 		objects.add(this.isActive);
-		objects.add(this.switchMode);
-		objects.add(this.switchValue);
 		return objects;
 	}
 
@@ -79,20 +72,24 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 
 	/**
 	 * Inherit this function to receive packets. Make sure this function is supered.
+	 * 
+	 * @throws IOException
 	 */
-	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream)
+	public void onReceivePacket(int packetID, ByteArrayDataInput dataStream) throws IOException
 	{
-		if (packetID == 1)
+		if (packetID == TPacketType.DESCRIPTION.ordinal())
 		{
 			boolean prevActive = this.isActive;
 			this.isActive = dataStream.readBoolean();
-			this.switchMode = dataStream.readShort();
-			this.switchValue = dataStream.readBoolean();
 
 			if (prevActive != this.isActive)
 			{
 				this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 			}
+		}
+		else if (packetID == TPacketType.TOGGLE_ACTIVATION.ordinal())
+		{
+			this.toggleActive();
 		}
 	}
 
@@ -106,19 +103,7 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 			this.registerChunkLoading();
 		}
 
-		PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
-	}
-
-	public void toogleSwitchMode()
-	{
-		if (getStatusMode() >= this.maxSwitchMode)
-		{
-			this.switchMode = 0;
-		}
-		else
-		{
-			this.switchMode = ((short) (this.switchMode + 1));
-		}
+		PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj);
 	}
 
 	public boolean isPoweredByRedstone()
@@ -127,40 +112,10 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	}
 
 	@Override
-	public short getStatusMode()
-	{
-		return this.switchMode;
-	}
-
-	@Override
-	public boolean getStatusValue()
-	{
-		return this.switchValue;
-	}
-
-	@Override
-	public boolean canToggle()
-	{
-		if (getStatusMode() == 2)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public void onToggle()
-	{
-		this.switchValue = !this.switchValue;
-	}
-
-	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
 		this.isActive = nbttagcompound.getBoolean("isActive");
-		this.switchValue = nbttagcompound.getBoolean("switchValue");
-		this.switchMode = nbttagcompound.getShort("switchMode");
 	}
 
 	@Override
@@ -168,20 +123,33 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		super.writeToNBT(nbttagcompound);
 
-		nbttagcompound.setShort("switchMode", this.switchMode);
 		nbttagcompound.setBoolean("isActive", this.isActive);
-		nbttagcompound.setBoolean("switchValue", this.switchValue);
 	}
 
+	@Override
 	public boolean isActive()
 	{
-		return this.isActive || this.switchValue;
+		return this.isActive;
 	}
 
+	@Override
 	public void setActive(boolean flag)
 	{
 		this.isActive = flag;
 		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+	}
+
+	@Override
+	public void toggleActive()
+	{
+		if (this.isActive())
+		{
+			this.setActive(false);
+		}
+		else
+		{
+			this.setActive(true);
+		}
 	}
 
 	public void forceChunkLoading(ForgeChunkManager.Ticket ticket)
@@ -236,4 +204,17 @@ public abstract class TileEntityMFFS extends TileEntityDisableable implements IP
 	{
 		this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, facingDirection.ordinal(), 3);
 	}
+
+	@Override
+	public void onPowerOn()
+	{
+		this.setActive(true);
+	}
+
+	@Override
+	public void onPowerOff()
+	{
+		this.setActive(false);
+	}
+
 }

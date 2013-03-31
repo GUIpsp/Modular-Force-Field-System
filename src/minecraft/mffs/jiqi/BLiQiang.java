@@ -17,13 +17,13 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import universalelectricity.prefab.potion.CustomPotionEffect;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -143,8 +143,8 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 		if (entity instanceof EntityLiving)
 		{
-			((EntityLiving) entity).addPotionEffect(new CustomPotionEffect(Potion.confusion.id, 1, 3));
-			((EntityLiving) entity).addPotionEffect(new CustomPotionEffect(Potion.moveSlowdown.id, 1, 3));
+			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 4 * 20, 1));
+			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 1));
 		}
 	}
 
