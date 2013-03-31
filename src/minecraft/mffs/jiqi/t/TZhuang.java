@@ -33,11 +33,6 @@ public abstract class TZhuang extends TMFFS implements IInventory
 	 */
 	protected ItemStack[] inventory = new ItemStack[this.getSizeInventory()];
 
-	/**
-	 * The amount of players using the inventory.
-	 */
-	protected int playersUsing = 0;
-
 	@Override
 	public List getPacketUpdate()
 	{
@@ -119,13 +114,11 @@ public abstract class TZhuang extends TMFFS implements IInventory
 	@Override
 	public void openChest()
 	{
-		this.playersUsing++;
 	}
 
 	@Override
 	public void closeChest()
 	{
-		this.playersUsing--;
 	}
 
 	@Override

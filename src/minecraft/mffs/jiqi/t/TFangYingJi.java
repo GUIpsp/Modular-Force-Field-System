@@ -70,13 +70,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 				this.destroyField();
 			}
 
-			/**
-			 * Packet Update for Client only when GUI is open.
-			 */
-			if (this.ticks % 4 == 0 && this.playersUsing > 0)
-			{
-				PacketManager.sendPacketToClients(super.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
-			}
 		}
 	}
 

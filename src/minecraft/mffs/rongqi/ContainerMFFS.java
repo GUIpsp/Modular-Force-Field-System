@@ -1,5 +1,6 @@
 package mffs.rongqi;
 
+import mffs.jiqi.t.TMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -15,17 +16,24 @@ public class ContainerMFFS extends Container
 	{
 		this.inventory = inventory;
 		this.slotCount = inventory.getSizeInventory();
-		this.inventory.openChest();
 	}
 
 	@Override
-	public void onCraftGuiClosed(EntityPlayer par1EntityPlayer)
+	public void onCraftGuiClosed(EntityPlayer player)
 	{
-		this.inventory.closeChest();
+		if (this.inventory instanceof TMFFS)
+		{
+			((TMFFS) this.inventory).playersUsing.remove(player);
+		}
 	}
 
 	public void addPlayerInventory(EntityPlayer player)
 	{
+		if (this.inventory instanceof TMFFS)
+		{
+			((TMFFS) this.inventory).playersUsing.add(player);
+		}
+
 		for (int var3 = 0; var3 < 3; var3++)
 		{
 			for (int var4 = 0; var4 < 9; var4++)

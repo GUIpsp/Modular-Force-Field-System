@@ -24,6 +24,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -141,10 +142,13 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 			}
 		}
 
-		if (entity instanceof EntityLiving)
+		if (new Vector3(entity).distanceTo(new Vector3(x, y, z).add(0.4)) < 0.5)
 		{
-			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 4 * 20, 1));
-			((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 1));
+			if (entity instanceof EntityLiving)
+			{
+				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 4 * 20, 1));
+				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 1));
+			}
 		}
 	}
 

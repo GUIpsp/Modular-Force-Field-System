@@ -9,7 +9,7 @@ import java.util.List;
 
 import mffs.LiGuanLi;
 import mffs.api.ISecurityCenter;
-import mffs.api.card.ICardLink;
+import mffs.api.card.ILink;
 import mffs.api.fortron.IFortronFrequency;
 import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
@@ -100,9 +100,9 @@ public abstract class TShengBuo extends TZhuang implements IBlockFrequency
 		 */
 		for (ItemStack itemStack : this.getCards())
 		{
-			if (itemStack != null && itemStack.getItem() instanceof ICardLink)
+			if (itemStack != null && itemStack.getItem() instanceof ILink)
 			{
-				Vector3 linkPos = ((ICardLink) itemStack.getItem()).getLink(itemStack);
+				Vector3 linkPos = ((ILink) itemStack.getItem()).getLink(itemStack);
 
 				TileEntity tileEntity = linkPos.getTileEntity(this.worldObj);
 

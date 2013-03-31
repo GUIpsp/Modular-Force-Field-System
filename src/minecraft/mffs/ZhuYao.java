@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import mffs.api.IDefenseStation;
 import mffs.api.SecurityPermission;
+import mffs.it.ItYaoKong;
 import mffs.it.ItemFocusMatrix;
 import mffs.it.ItemForcillium;
 import mffs.it.ItemFortronCell;
@@ -142,11 +143,7 @@ public class ZhuYao
 	public static Item itemCompactForcicium;
 	public static Item itemDepletedForcicium;
 	public static Item itemFocusMatix;
-
-	/**
-	 * Multitool
-	 */
-	public static Item itemMultiTool;
+	public static Item itYaoKong;
 
 	/**
 	 * Cards
@@ -258,6 +255,7 @@ public class ZhuYao
 			itMSuDu = new ItMSuDu(MFFSConfiguration.getNextItemID());
 			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
 			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());
+			itYaoKong = new ItYaoKong(MFFSConfiguration.getNextItemID());
 
 			itemModuleShock = new ItemModuleShock(MFFSConfiguration.getNextItemID());
 			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.getNextItemID());

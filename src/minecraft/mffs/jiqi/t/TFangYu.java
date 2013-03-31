@@ -82,11 +82,6 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 					}
 				}
 			}
-
-			if (this.playersUsing > 0)
-			{
-				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 12);
-			}
 		}
 	}
 

@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRedstoneReceptor;
 import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.network.IPacketReceiver;
@@ -27,6 +26,9 @@ import universalelectricity.prefab.network.PacketManager;
 import universalelectricity.prefab.tile.TileEntityDisableable;
 
 import com.google.common.io.ByteArrayDataInput;
+
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public abstract class TMFFS extends TileEntityDisableable implements IPacketReceiver, IRotatable, IActivatable, IRedstoneReceptor
 {
@@ -41,6 +43,10 @@ public abstract class TMFFS extends TileEntityDisableable implements IPacketRece
 	private boolean isActive = false;
 
 	protected Ticket chunkTicket;
+	/**
+	 * The amount of players using the inventory.
+	 */
+	public final List<EntityPlayer> playersUsing = new ArrayList<EntityPlayer>();
 
 	public List getPacketUpdate()
 	{
@@ -48,6 +54,23 @@ public abstract class TMFFS extends TileEntityDisableable implements IPacketRece
 		objects.add(TPacketType.DESCRIPTION.ordinal());
 		objects.add(this.isActive);
 		return objects;
+	}
+
+	@Override
+	public void updateEntity()
+	{
+		super.updateEntity();
+
+		/**
+		 * Packet Update for Client only when GUI is open.
+		 */
+		if (this.ticks % 4 == 0 && this.playersUsing.size() > 0)
+		{
+			for (EntityPlayer player : this.playersUsing)
+			{
+				PacketDispatcher.sendPacketToPlayer(this.getDescriptionPacket(), (Player) player);
+			}
+		}
 	}
 
 	@Override

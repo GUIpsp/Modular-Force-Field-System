@@ -203,17 +203,6 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 				}
 			}
 		}
-
-		if (!this.worldObj.isRemote)
-		{
-			/**
-			 * Packet Update for Client only when GUI is open.
-			 */
-			if (this.ticks % 4 == 0 && this.playersUsing > 0)
-			{
-				PacketManager.sendPacketToClients(this.getDescriptionPacket(), this.worldObj, new Vector3(this), 15);
-			}
-		}
 	}
 
 	/**

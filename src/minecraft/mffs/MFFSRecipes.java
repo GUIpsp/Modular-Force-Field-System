@@ -22,7 +22,7 @@ public class MFFSRecipes
 		// MFFSRecipes.addRecipe("uuuuiuuuu", 1, 0, null, ZhuYao.itemPowerCrystal);
 		MFFSRecipes.addRecipe("vvvvvvvvv", 1, 0, null, ZhuYao.itemModuleTranslation);
 		MFFSRecipes.addRecipe("vvv   vvv", 1, 0, null, ZhuYao.itemModuleScale);
-		MFFSRecipes.addRecipe("  A EA  A", 1, 0, null, ZhuYao.itemMultiTool);
+		MFFSRecipes.addRecipe("  A EA  A", 1, 0, null, ZhuYao.itYaoKong);
 
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itKaKong), new Object[] { new ItemStack(ZhuYao.itKaShengBuo) });
 		CraftingManager.getInstance().addShapelessRecipe(new ItemStack(ZhuYao.itKaKong), new Object[] { new ItemStack(ZhuYao.itKaShenFen) });

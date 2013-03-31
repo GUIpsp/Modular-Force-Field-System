@@ -3,7 +3,7 @@ package mffs.it.ka;
 import java.util.List;
 
 import mffs.ZhuYao;
-import mffs.api.card.ICardLink;
+import mffs.api.card.ILink;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ import universalelectricity.core.vector.Vector3;
  * @author Calclavia
  * 
  */
-public class ItKaLian extends ItKa implements ICardLink
+public class ItKaLian extends ItKa implements ILink
 {
 	public ItKaLian(int id)
 	{
