@@ -42,7 +42,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	public void initiate()
 	{
 		super.initiate();
-
 		this.calculateForceField();
 		this.destroyField();
 
@@ -178,7 +177,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-					if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
+					if (this.getModuleCount(ZhuYao.itemModuleDisintegration) > 0 || block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
 					{
 						boolean canProject = true;
 
@@ -234,7 +233,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		{
 			try
 			{
-
 				for (Vector3 vector : this.calculatedField)
 				{
 					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
