@@ -12,15 +12,15 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItMC extends ItemProjectorMode
+public class ItMFang extends ItemProjectorMode
 {
-	public ItMC(int i)
+	public ItMFang(int i)
 	{
 		super(i, "modeCube");
 	}
 
 	@Override
-	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 center, Vector3 posScale, Vector3 negScale)
+	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 translation, Vector3 posScale, Vector3 negScale)
 	{
 		for (float x = -negScale.intX(); x <= posScale.intX(); x += 0.5f)
 		{
@@ -30,7 +30,11 @@ public class ItMC extends ItemProjectorMode
 				{
 					if (y == -negScale.intY() || y == posScale.intY() || x == -negScale.intX() || x == posScale.intX() || z == -negScale.intZ() || z == posScale.intZ())
 					{
-						blockDef.add(Vector3.add(center, new Vector3(x, y, z)));
+						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
+					}
+					else
+					{
+						blockInterior.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
 				}
 			}

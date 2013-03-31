@@ -21,7 +21,6 @@ import universalelectricity.prefab.implement.IRotatable;
  */
 public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotatable
 {
-	public Set<Vector3> getInteriorPoints();
 
 	public boolean isActive();
 
@@ -56,6 +55,8 @@ public abstract interface IProjector extends IInventory, IModuleAcceptor, IRotat
 	public int getFortronCost();
 
 	public Set<Vector3> getCalculatedField();
+
+	public Set<Vector3> getInteriorPoints();
 
 	/**
 	 * The speed in which a force field is constructed.

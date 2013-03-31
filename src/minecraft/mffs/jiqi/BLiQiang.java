@@ -36,7 +36,6 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 		this.setBlockUnbreakable();
 		this.setResistance(999.0F);
 		this.setCreativeTab(null);
-		this.setTickRandomly(true);
 	}
 
 	@Override
@@ -56,6 +55,28 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	{
 		return false;
 	}
+
+	@Override
+	public int quantityDropped(Random random)
+	{
+		return 0;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getRenderBlockPass()
+	{
+		return 1;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
+        return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+    }
+
 
 	@Override
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer entityPlayer)
@@ -153,12 +174,6 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	}
 
 	@Override
-	public int quantityDropped(Random random)
-	{
-		return 0;
-	}
-
-	@Override
 	public Icon getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side)
 	{
 		TileEntity tileEntity = iBlockAccess.getBlockTileEntity(x, y, z);
@@ -176,14 +191,6 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 			}
 		}
 		return this.getBlockTextureFromSideAndMetadata(side, iBlockAccess.getBlockMetadata(x, y, z));
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-	{
-		int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
-		return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
 	}
 
 	@Override
@@ -211,13 +218,6 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{
 		return null;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getRenderBlockPass()
-	{
-		return 1;
 	}
 
 	@Override

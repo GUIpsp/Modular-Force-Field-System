@@ -1,12 +1,13 @@
 package mffs.it.muo.fangyingji;
 
 import mffs.MFFSConfiguration;
+import mffs.api.IProjector;
 import mffs.it.muo.ItM;
 import mffs.jiqi.t.TFangYingJi;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItemModuleSponge extends ItM implements IInteriorCheck
+public class ItemModuleSponge extends ItM
 {
 	public ItemModuleSponge(int i)
 	{
@@ -14,8 +15,8 @@ public class ItemModuleSponge extends ItM implements IInteriorCheck
 	}
 
 	@Override
-	public void checkInteriorBlock(Vector3 position, World world, TFangYingJi Projector)
-	{
+	public void onProject(IProjector projector, Vector3 position)
+	{/*
 		if (world.getBlockMaterial(position.intX(), position.intY(), position.intZ()).isLiquid())
 		{
 			if (!MFFSConfiguration.forcefieldremoveonlywaterandlava)
@@ -26,6 +27,6 @@ public class ItemModuleSponge extends ItM implements IInteriorCheck
 			{
 				world.setBlock(position.intX(), position.intY(), position.intZ(), 0, 0, 2);
 			}
-		}
+		}*/
 	}
 }

@@ -40,7 +40,7 @@ import mffs.it.muo.fangyu.ItMDAntiPersonnel;
 import mffs.it.muo.fangyu.ItMDConfiscate;
 import mffs.it.muo.fangyu.ItMDWarn;
 import mffs.it.xingshi.ItMSphere;
-import mffs.it.xingshi.ItMC;
+import mffs.it.xingshi.ItMFang;
 import mffs.it.xingshi.ItMTube;
 import mffs.it.xingshi.ItemProjectorMode;
 import mffs.jiqi.BLiQiang;
@@ -158,19 +158,10 @@ public class ZhuYao
 	/**
 	 * Modules
 	 */
-	public static ItM itMSuDu;
-	public static ItM itMJuLi;
-	public static ItM itMRongLiang;
-	public static ItM itemModuleShock;
-	public static ItM itemModuleSponge;
-	public static ItM itemModuleManipulator;
-	public static ItM itemModuleDisintegration;
-	public static ItM itemModuleJammer;
-	public static ItM itemModuleCamouflage;
-	public static ItM itemModuleFusion;
-	public static ItM itemModuleScale;
-	public static ItM itemModuleTranslation;
-	public static ItM itemModuleRotation;
+	public static ItM itMSuDu, itMJuLi, itMRongLiang, itemModuleShock, itemModuleSponge,
+			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer,
+			itemModuleCamouflage, itemModuleFusion, itemModuleScale, itemModuleTranslation,
+			itemModuleRotation, itMGlow;
 
 	/**
 	 * Defense Station Modules
@@ -246,7 +237,7 @@ public class ZhuYao
 
 			// Modes
 			itemModuleSphere = new ItMSphere(MFFSConfiguration.getNextItemID());
-			itemModuleCube = new ItMC(MFFSConfiguration.getNextItemID());
+			itemModuleCube = new ItMFang(MFFSConfiguration.getNextItemID());
 			itemModuleTube = new ItMTube(MFFSConfiguration.getNextItemID());
 
 			itemModuleScale = new ItemModuleScale(MFFSConfiguration.getNextItemID());
@@ -264,6 +255,7 @@ public class ZhuYao
 			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.getNextItemID());
 			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.getNextItemID());
 			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.getNextItemID());
+			itMGlow = new ItM(MFFSConfiguration.getNextItemID(), "moduleGlow");
 
 			itemModuleAntiFriendly = new ItMDAntiFriendly(MFFSConfiguration.getNextItemID());
 			itemModuleAntiHostile = new ItMDAntiHostile(MFFSConfiguration.getNextItemID());

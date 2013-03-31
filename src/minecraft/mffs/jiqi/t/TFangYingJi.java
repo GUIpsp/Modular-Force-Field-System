@@ -8,7 +8,6 @@ import mffs.api.IProjector;
 import mffs.api.modules.IModule;
 import mffs.api.modules.IProjectorMode;
 import mffs.it.ka.ItKa;
-import mffs.it.muo.fangyingji.IInteriorCheck;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -16,8 +15,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.implement.IRedstoneReceptor;
-import universalelectricity.prefab.network.PacketManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,8 +27,8 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	 */
 	protected Set<Vector3> forceFields = new HashSet();
 
-	protected Set<Vector3> calculatedField = new HashSet();
-	protected Set<Vector3> calculatedFieldInterior = new HashSet();
+	protected final Set<Vector3> calculatedField = new HashSet<Vector3>();
+	protected final Set<Vector3> calculatedFieldInterior = new HashSet<Vector3>();
 
 	private int blockCount = 0;
 
@@ -45,8 +42,10 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	public void initiate()
 	{
 		super.initiate();
+
 		this.calculateForceField();
 		this.destroyField();
+
 	}
 
 	@Override
@@ -92,8 +91,14 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	@Override
 	public void onInventoryChanged()
 	{
+		final boolean active = this.isActive();
 		this.setActive(false);
 		this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+
+		if (active)
+		{
+			this.setActive(true);
+		}
 	}
 
 	@Override
@@ -121,9 +126,9 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 			if (this.getMode() != null)
 			{
 				Set<Vector3> blockDef = new HashSet();
-				Set<Vector3> blockInterior = new HashSet();
+				Set<Vector3> blockInter = new HashSet();
 
-				this.getMode().calculateField(this, blockDef, blockInterior);
+				this.getMode().calculateField(this, blockDef, blockInter);
 
 				for (Vector3 vector : blockDef)
 				{
@@ -135,22 +140,14 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 					}
 				}
 
-				for (Vector3 vector : blockInterior)
+				for (Vector3 vector : blockInter)
 				{
-					if (vector.intY() + this.yCoord < this.worldObj.getHeight())
+					Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
+
+					if (fieldPoint.intY() < this.worldObj.getHeight())
 					{
-						Vector3 fieldPoint = Vector3.add(new Vector3(this), vector);
-
-						if (calculateBlock(fieldPoint))
-						{
-							this.calculatedFieldInterior.add(fieldPoint);
-						}
-						else
-						{
-							return false;
-						}
+						this.calculatedFieldInterior.add(fieldPoint);
 					}
-
 				}
 
 				return true;
@@ -158,18 +155,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		}
 
 		return false;
-	}
-
-	public boolean calculateBlock(Vector3 pnt)
-	{
-		for (IModule opt : this.getModules())
-		{
-			if (opt instanceof IInteriorCheck)
-			{
-				((IInteriorCheck) opt).checkInteriorBlock(pnt, this.worldObj, this);
-			}
-		}
-		return true;
 	}
 
 	/**
@@ -182,41 +167,62 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		{
 			int constructionCount = 0;
 
-			for (Vector3 vector : this.calculatedField)
+			try
 			{
-				if (constructionCount >= this.getConstructionSpeed())
+				for (Vector3 vector : this.calculatedField)
 				{
-					break;
-				}
-
-				Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
-
-				if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
-				{
-					if (block != ZhuYao.blockForceField)
+					if (constructionCount >= this.getConstructionSpeed())
 					{
-						if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
+						break;
+					}
+
+					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+
+					if (block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
+					{
+						boolean canProject = true;
+
+						for (IModule module : this.getModules(this.getModuleSlots()))
 						{
-							this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
-
-							TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
-
-							if (tileEntity instanceof TLiQiang)
+							if (!module.canProject(this, vector.clone()))
 							{
-								((TLiQiang) tileEntity).setZhuYao(new Vector3(this));
+								canProject = false;
+								break;
 							}
-
-							for (IModule module : this.getModules(this.getModuleSlots()))
-							{
-								module.onProject(this, vector);
-							}
-
-							constructionCount++;
 						}
 
-						this.forceFields.add(vector);
+						if (canProject)
+						{
+							if (block != ZhuYao.blockForceField)
+							{
+								if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
+								{
+									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
+
+									TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
+
+									if (tileEntity instanceof TLiQiang)
+									{
+										((TLiQiang) tileEntity).setZhuYao(new Vector3(this));
+									}
+
+									for (IModule module : this.getModules(this.getModuleSlots()))
+									{
+										module.onProject(this, vector.clone());
+									}
+
+									constructionCount++;
+								}
+
+								this.forceFields.add(vector);
+							}
+						}
 					}
 				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
 			}
 		}
 	}
@@ -226,16 +232,27 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	{
 		if (!this.worldObj.isRemote)
 		{
-			for (Vector3 vector : this.calculatedField)
+			try
 			{
-				Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-				if (block == ZhuYao.blockForceField)
+				for (Vector3 vector : this.calculatedField)
 				{
-					this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
+					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+
+					if (block == ZhuYao.blockForceField)
+					{
+						this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
+					}
 				}
 			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
+
+		this.calculatedField.clear();
+		this.calculatedFieldInterior.clear();
 	}
 
 	@Override

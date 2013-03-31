@@ -87,6 +87,21 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 			point.x = pt[0];
 			point.z = pt[1];
 			point.y = pt2[1];
+			point = point.round();
+		}
+
+		for (Vector3 point : blockInterior)
+		{
+			double[] pt = { point.x, point.z };
+			AffineTransform.getRotateInstance(Math.toRadians(horizontalRotation), translation.x, translation.z).transform(pt, 0, pt, 0, 1);
+
+			double[] pt2 = { point.x, point.y };
+			AffineTransform.getRotateInstance(Math.toRadians(verticleRotation), translation.x, translation.y).transform(pt2, 0, pt2, 0, 1);
+
+			point.x = pt[0];
+			point.z = pt[1];
+			point.y = pt2[1];
+			point = point.round();
 		}
 	}
 

@@ -34,16 +34,26 @@ public class ItMSphere extends ItemProjectorMode
 
 		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius / 2));
 
-		for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
+		for (int i = 0; i <= radius; i++)
 		{
-			for (int theta_n = 0; theta_n < steps; theta_n++)
+			for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
 			{
-				double phi = Math.PI * 2 / steps * phi_n;
-				double theta = Math.PI / steps * theta_n;
+				for (int theta_n = 0; theta_n < steps; theta_n++)
+				{
+					double phi = Math.PI * 2 / steps * phi_n;
+					double theta = Math.PI / steps * theta_n;
 
-				Vector3 vector = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi));
-				vector.multiply(radius);
-				blockDef.add(Vector3.add(center, vector));
+					Vector3 point = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi)).multiply(i);
+
+					if (i == radius)
+					{
+						blockDef.add(Vector3.add(center, point));
+					}
+					else
+					{
+						blockInterior.add(Vector3.add(center, point));
+					}
+				}
 			}
 		}
 	}

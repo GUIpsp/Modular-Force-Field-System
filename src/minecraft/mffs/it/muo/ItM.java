@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.TranslationHelper;
 
-public abstract class ItM extends ItemMFFS implements IModule
+public class ItM extends ItemMFFS implements IModule
 {
 	public ItM(int id, String name)
 	{
@@ -38,6 +38,12 @@ public abstract class ItM extends ItemMFFS implements IModule
 	}
 
 	@Override
+	public boolean canProject(IProjector projector, Vector3 position)
+	{
+		return true;
+	}
+
+	@Override
 	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity, ItemStack moduleStack)
 	{
 		return false;
@@ -48,5 +54,4 @@ public abstract class ItM extends ItemMFFS implements IModule
 	{
 		return 0.5f;
 	}
-
 }

@@ -31,17 +31,22 @@ public class ItMTube extends ItemProjectorMode
 					if (!(direction == ForgeDirection.UP || direction == ForgeDirection.DOWN) && (y == -negScale.intY() || y == posScale.intY()))
 					{
 						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
+						continue;
 					}
 
 					if (!(direction == ForgeDirection.NORTH || direction == ForgeDirection.SOUTH) && (z == -negScale.intZ() || z == posScale.intZ()))
 					{
 						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
+						continue;
 					}
 
 					if (!(direction == ForgeDirection.WEST || direction == ForgeDirection.EAST) && (x == -negScale.intX() || x == posScale.intX()))
 					{
 						blockDef.add(Vector3.add(translation, new Vector3(x, y, z)));
+						continue;
 					}
+
+					blockInterior.add(Vector3.add(translation, new Vector3(x, y, z)));
 				}
 			}
 		}
