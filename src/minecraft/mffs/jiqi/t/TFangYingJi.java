@@ -52,22 +52,22 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	{
 		super.updateEntity();
 
-		if (!this.worldObj.isRemote)
+		if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) >= this.getFortronCost())
 		{
-			if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) >= this.getFortronCost())
+			this.requestFortron(this.getFortronCost(), true);
+			
+			if (!this.worldObj.isRemote)
 			{
-				this.requestFortron(this.getFortronCost(), true);
-
 				if (this.ticks % 10 == 0)
 				{
 					this.projectField();
 				}
 			}
-			else
-			{
-				this.destroyField();
-			}
+		}
+		else if (!this.worldObj.isRemote)
 
+		{
+			this.destroyField();
 		}
 	}
 

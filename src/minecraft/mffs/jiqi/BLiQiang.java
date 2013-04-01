@@ -4,17 +4,20 @@ import java.util.List;
 import java.util.Random;
 
 import mffs.MFFSConfiguration;
+import mffs.ZhuYao;
 import mffs.api.IForceFieldBlock;
 import mffs.api.IProjector;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
 import mffs.api.modules.IModule;
+import mffs.jiqi.t.TFangYingJi;
 import mffs.jiqi.t.TLiQiang;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -71,12 +74,11 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 	@Override
 	@SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-    {
-        int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
-        return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
-    }
-
+	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+	{
+		int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
+		return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+	}
 
 	@Override
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer entityPlayer)
@@ -180,17 +182,50 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 		if (tileEntity instanceof TLiQiang)
 		{
-			int haoMa = ((TLiQiang) tileEntity).getHaoMa();
+			TileEntity zhuYao = ((TLiQiang) tileEntity).getZhuYao();
 
-			Block block = Block.blocksList[haoMa];
-
-			if (block != null)
+			if (zhuYao instanceof TFangYingJi)
 			{
-				int mD = ((TLiQiang) tileEntity).getMD();
-				return block.getBlockTextureFromSideAndMetadata(side, mD);
+				for (int i : ((TFangYingJi) zhuYao).getModuleSlots())
+				{
+					ItemStack checkStack = ((TFangYingJi) zhuYao).getStackInSlot(i);
+
+					if (checkStack != null)
+					{
+						if (checkStack.getItem() instanceof ItemBlock)
+						{
+							Block block = Block.blocksList[((ItemBlock) checkStack.getItem()).getBlockID()];
+
+							if (block != null)
+							{
+								Icon icon = block.getBlockTextureFromSideAndMetadata(side, checkStack.getItemDamage());
+
+								if (icon != null)
+								{
+									return icon;
+								}
+							}
+						}
+					}
+				}
 			}
+
 		}
+
 		return this.getBlockTextureFromSideAndMetadata(side, iBlockAccess.getBlockMetadata(x, y, z));
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess iBlockAccess, int x, int y, int z)
+	{
+		IProjector zhuYao = this.getProjector(iBlockAccess, x, y, z);
+
+		if (zhuYao instanceof IProjector)
+		{
+			return ((IProjector) zhuYao).getModuleCount(ZhuYao.itMGuang);
+		}
+
+		return super.getLightValue(iBlockAccess, x, y, z);
 	}
 
 	@Override
@@ -221,9 +256,9 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	}
 
 	@Override
-	public IProjector getProjector(World world, int x, int y, int z)
+	public IProjector getProjector(IBlockAccess iBlockAccess, int x, int y, int z)
 	{
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = iBlockAccess.getBlockTileEntity(x, y, z);
 
 		if (tileEntity instanceof TLiQiang)
 		{

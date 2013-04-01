@@ -17,30 +17,6 @@ public class ItemModuleCamoflage extends ItM
 	}
 
 	@Override
-	public void onProject(IProjector projector, Vector3 position)
-	{
-		for (int i : projector.getModuleSlots())
-		{
-			ItemStack checkStack = projector.getStackInSlot(i);
-
-			if (checkStack != null)
-			{
-				if (checkStack.getItem() instanceof ItemBlock)
-				{
-					TileEntity tileEntity = position.getTileEntity(((TileEntity) projector).worldObj);
-
-					if (tileEntity instanceof TLiQiang)
-					{
-						((TLiQiang) tileEntity).setFangGe(checkStack.itemID, checkStack.getItemDamage());
-					}
-
-					return;
-				}
-			}
-		}
-	}
-
-	@Override
 	public float getFortronCost()
 	{
 		return 1.5f;

@@ -161,7 +161,7 @@ public class ZhuYao
 	public static ItM itMSuDu, itMJuLi, itMRongLiang, itemModuleShock, itemModuleSponge,
 			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer,
 			itemModuleCamouflage, itemModuleFusion, itemModuleScale, itemModuleTranslation,
-			itemModuleRotation, itMGlow;
+			itemModuleRotation, itMGuang;
 
 	/**
 	 * Defense Station Modules
@@ -255,7 +255,7 @@ public class ZhuYao
 			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.getNextItemID());
 			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.getNextItemID());
 			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.getNextItemID());
-			itMGlow = new ItM(MFFSConfiguration.getNextItemID(), "moduleGlow");
+			itMGuang = new ItM(MFFSConfiguration.getNextItemID(), "moduleGlow");
 
 			itemModuleAntiFriendly = new ItMDAntiFriendly(MFFSConfiguration.getNextItemID());
 			itemModuleAntiHostile = new ItMDAntiHostile(MFFSConfiguration.getNextItemID());

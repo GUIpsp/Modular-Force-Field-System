@@ -75,24 +75,26 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 			/**
 			 * Gets the card.
 			 */
-			ItemStack itemStack = this.getStackInSlot(0);
 			Vector3 linkPosition = null;
 
-			if (itemStack != null)
+			for (ItemStack itemStack : this.getCards())
 			{
-				if (itemStack.getItem() instanceof IItemFortronStorage)
+				if (itemStack != null)
 				{
-					int fortron = ((IItemFortronStorage) itemStack.getItem()).getFortronEnergy(itemStack);
-					fortron = Math.max(fortron - this.provideFortron(fortron, true), 0);
-					((IItemFortronStorage) itemStack.getItem()).setFortronEnergy(fortron, itemStack);
-				}
-				else if (itemStack.getItem() instanceof ItKaLian)
-				{
-					linkPosition = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
-
-					if (linkPosition != null && !(linkPosition.getTileEntity(this.worldObj) instanceof IFortronFrequency))
+					if (itemStack.getItem() instanceof IItemFortronStorage)
 					{
-						linkPosition = null;
+						int fortron = ((IItemFortronStorage) itemStack.getItem()).getFortronEnergy(itemStack);
+						fortron = Math.max(fortron - this.provideFortron(fortron, true), 0);
+						((IItemFortronStorage) itemStack.getItem()).setFortronEnergy(fortron, itemStack);
+					}
+					else if (itemStack.getItem() instanceof ItKaLian)
+					{
+						linkPosition = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
+
+						if (linkPosition != null && !(linkPosition.getTileEntity(this.worldObj) instanceof IFortronFrequency))
+						{
+							linkPosition = null;
+						}
 					}
 				}
 			}
@@ -312,6 +314,15 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 		{
 			return itemStack.getItem() instanceof IModule;
 		}
+	}
+
+	@Override
+	public Set<ItemStack> getCards()
+	{
+		Set<ItemStack> cards = new HashSet<ItemStack>();
+		cards.add(super.getCard());
+		cards.add(this.getStackInSlot(1));
+		return cards;
 	}
 
 	public TransferMode getTransferMode()
