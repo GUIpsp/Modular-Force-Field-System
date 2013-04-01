@@ -8,7 +8,7 @@ import mffs.jiqi.t.TFangYingJi;
 import mffs.quanran.FXBeam;
 import mffs.quanran.RenderForcilliumExtractor;
 import mffs.quanran.RenderFortronCapacitor;
-import mffs.quanran.RenderProjector;
+import mffs.quanran.RFangYingJi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -30,7 +30,7 @@ public class PGuKe extends PGongTong
 	{
 		ClientRegistry.bindTileEntitySpecialRenderer(TDianRong.class, new RenderFortronCapacitor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TChouQi.class, new RenderForcilliumExtractor());
-		ClientRegistry.bindTileEntitySpecialRenderer(TFangYingJi.class, new RenderProjector());
+		ClientRegistry.bindTileEntitySpecialRenderer(TFangYingJi.class, new RFangYingJi());
 	}
 
 	@Override

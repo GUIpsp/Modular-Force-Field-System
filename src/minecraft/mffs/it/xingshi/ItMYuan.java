@@ -62,7 +62,7 @@ public class ItMYuan extends ItemProjectorMode
 	@Override
 	public void render(IProjector projector, double x1, double y1, double z1, float f, long ticks)
 	{
-		float scale = 0.2f;
+		float scale = 0.15f;
 		GL11.glScalef(scale, scale, scale);
 
 		float radius = 1.5f;
