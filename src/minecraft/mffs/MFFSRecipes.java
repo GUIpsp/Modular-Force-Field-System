@@ -62,11 +62,11 @@ public class MFFSRecipes
 		 */
 		// -- General Items --
 		// Focus Matrix
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itFocusMatix, 4), "RMR", "MDM", "RMR", 'M', metalIngotID, 'D', Item.diamond, 'R', Item.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itFocusMatix, 5), "RMR", "MDM", "RMR", 'M', metalIngotID, 'D', Item.diamond, 'R', Item.redstone));
 		// Fortronite
 		GameRegistry.addSmelting(ZhuYao.blockFortronite.blockID, new ItemStack(ZhuYao.itemForcillium, 4), 0.5F);
 		// Forcillium
-		FurnaceRecipes.smelting().addSmelting(Item.dyePowder.itemID, 4, new ItemStack(ZhuYao.itemForcillium, 4), 0.5F);
+		FurnaceRecipes.smelting().addSmelting(Item.dyePowder.itemID, 2, new ItemStack(ZhuYao.itemForcillium, 4), 0.5F);
 
 		if (MFFSConfiguration.MODULE_THERMAL_EXPANSION)
 		{
@@ -76,13 +76,13 @@ public class MFFSRecipes
 		// Fortron Cell
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itFortronCell), " F ", "FBF", " F ", 'B', batteryID, 'F', ZhuYao.itFocusMatix));
 		// Remote
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itFortronCell), "WWW", "MCM", "MCM", 'W', wireID, 'C', ZhuYao.itFortronCell, 'M', metalIngotID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itYaoKong), "WWW", "MCM", "MCM", 'W', wireID, 'C', ZhuYao.itFortronCell, 'M', metalIngotID));
 
 		// -- Machines --
 		// Capacitor
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bDianRong), "MFM", "FCF", "MFM", 'D', Item.diamond, 'C', ZhuYao.itFortronCell, 'F', ZhuYao.itFocusMatix, 'M', metalIngotID));
 		// Projector
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bFangYingJi), " D ", "FFF", "MCM", 'C', ZhuYao.itFortronCell, 'F', ZhuYao.itFocusMatix, 'M', metalIngotID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bFangYingJi), " D ", "FFF", "MCM", 'D', Item.diamond, 'C', ZhuYao.itFortronCell, 'F', ZhuYao.itFocusMatix, 'M', metalIngotID));
 		// Defense Station
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bFangYu), "SSS", "FFF", "FEF", 'S', ZhuYao.itMDian, 'E', Block.enderChest, 'F', ZhuYao.itFocusMatix));
 		// Forcillium Extractor
@@ -110,24 +110,24 @@ public class MFFSRecipes
 
 		// -- Modules --
 		// -- -- General -- --
-		// Speed TODO: FIX THIS
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMSuDu), "FPF", 'F', ZhuYao.itFocusMatix, 'P', Item.potion));
+		// Speed
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMSuDu), "F", "R", "F", 'F', ZhuYao.itFocusMatix, 'R', Item.redstone));
 		// Range
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMJuLi), "FRF", 'F', ZhuYao.itFocusMatix, 'R', Item.redstone));
 		// Capacity
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMRongLiang, 2), "FCF", 'C', ZhuYao.itFortronCell));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMRongLiang, 2), "FCF", 'F', ZhuYao.itFocusMatix, 'C', ZhuYao.itFortronCell));
 		// Shock
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDian), "FWF", 'W', wireID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDian), "FWF", 'F', ZhuYao.itFocusMatix, 'W', wireID));
 		// Sponge
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleSponge), "FWF", 'W', Item.bucketWater));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleSponge), "BBB", "BFB", "BBB", 'F', ZhuYao.itFocusMatix, 'B', Item.bucketWater));
 		// Disintegration
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleDisintegration), " W ", "FBF", " W ", 'W', wireID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleDisintegration), " W ", "FBF", " W ", 'F', ZhuYao.itFocusMatix, 'W', wireID, 'B', batteryID));
 		// Manipulator
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleManipulator), "F", " ", "F", 'F', ZhuYao.itFocusMatix));
 		// Jammer
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleJammer), "F", "W", "F", 'F', ZhuYao.itFocusMatix, 'W', wireID));
 		// Camouflage
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleCamouflage), "WFW", "FWF", "WFW", 'F', ZhuYao.itFocusMatix, 'W', Block.cloth));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleCamouflage), "WFW", "FWF", "WFW", 'F', ZhuYao.itFocusMatix, 'W', new ItemStack(Block.cloth, 1, -1)));
 		// Fusion
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleFusion), "FJF", 'F', ZhuYao.itFocusMatix, 'J', ZhuYao.itemModuleJammer));
 		// Scale
@@ -142,11 +142,11 @@ public class MFFSRecipes
 		// Anti-Hostile
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiHostile), " R ", "GFB", " S ", 'F', ZhuYao.itFocusMatix, 'G', Item.gunpowder, 'R', Item.rottenFlesh, 'B', Item.bone, 'S', Item.ghastTear));
 		// Anti-Friendly
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiFriendly), " R ", "GFB", " S ", 'F', ZhuYao.itFocusMatix, 'G', Item.porkCooked, 'R', Block.cloth, 'B', Item.leather, 'S', Item.slimeBall));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiFriendly), " R ", "GFB", " S ", 'F', ZhuYao.itFocusMatix, 'G', Item.porkCooked, 'R', new ItemStack(Block.cloth, 1, -1), 'B', Item.leather, 'S', Item.slimeBall));
 		// Anti-Personnel
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiPersonnel), "BFG", 'F', ZhuYao.itFocusMatix, 'B', ZhuYao.itemModuleAntiHostile, 'G', ZhuYao.itemModuleAntiFriendly));
 		// Confiscate
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleConfiscate), "PEP", "EFE", "PEP", 'F', ZhuYao.itFocusMatix, 'E', Item.eyeOfEnder, "P", Item.enderPearl));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleConfiscate), "PEP", "EFE", "PEP", 'F', ZhuYao.itFocusMatix, 'E', Item.eyeOfEnder, 'P', Item.enderPearl));
 		// Warn
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleWarn), "NFN", 'F', ZhuYao.itFocusMatix, 'N', Block.music));
 		// Block Access

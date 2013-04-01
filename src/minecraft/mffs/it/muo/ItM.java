@@ -34,6 +34,12 @@ public class ItM extends ItB implements IModule
 	}
 
 	@Override
+	public boolean onCalculate(IProjector projector, Vector3 position)
+	{
+		return true;
+	}
+
+	@Override
 	public void onProject(IProjector projector, Vector3 position)
 	{
 

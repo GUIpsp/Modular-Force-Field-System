@@ -25,11 +25,12 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	/**
 	 * A set containing all positions of all force field blocks.
 	 */
-	protected Set<Vector3> forceFields = new HashSet();
+	protected final Set<Vector3> forceFields = new HashSet();
 
 	protected final Set<Vector3> calculatedField = new HashSet<Vector3>();
 	protected final Set<Vector3> calculatedFieldInterior = new HashSet<Vector3>();
 
+	private boolean isCalculated = false;
 	private int blockCount = 0;
 
 	public TFangYingJi()
@@ -60,12 +61,16 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 			{
 				if (this.ticks % 10 == 0)
 				{
+					if (!this.isCalculated)
+					{
+						this.calculateForceField();
+					}
+
 					this.projectField();
 				}
 			}
 		}
 		else if (!this.worldObj.isRemote)
-
 		{
 			this.destroyField();
 		}
@@ -115,7 +120,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		}
 	}
 
-	private boolean calculateForceField()
+	private void calculateForceField()
 	{
 		if (!this.worldObj.isRemote)
 		{
@@ -135,7 +140,21 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 					if (fieldPoint.intY() < this.worldObj.getHeight())
 					{
-						this.calculatedField.add(fieldPoint);
+						boolean canCalculate = true;
+
+						for (IModule module : this.getModules(this.getModuleSlots()))
+						{
+							if (!module.onCalculate(this, fieldPoint))
+							{
+								canCalculate = false;
+								break;
+							}
+						}
+
+						if (canCalculate)
+						{
+							this.calculatedField.add(fieldPoint);
+						}
 					}
 				}
 
@@ -149,11 +168,9 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 					}
 				}
 
-				return true;
+				this.isCalculated = true;
 			}
 		}
-
-		return false;
 	}
 
 	/**
@@ -162,9 +179,10 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	@Override
 	public void projectField()
 	{
-		if (!this.worldObj.isRemote)
+		if (!this.worldObj.isRemote && this.isCalculated)
 		{
 			int constructionCount = 0;
+			this.forceFields.clear();
 
 			try
 			{
@@ -251,6 +269,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 		this.calculatedField.clear();
 		this.calculatedFieldInterior.clear();
+		this.isCalculated = false;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ import mffs.it.muo.fangyingji.ItMWeiZhuang;
 import mffs.it.muo.fangyingji.ItemModuleDisintegration;
 import mffs.it.muo.fangyingji.ItemModuleFusion;
 import mffs.it.muo.fangyingji.ItemModuleJammer;
-import mffs.it.muo.fangyingji.ItemModuleManipulator;
+import mffs.it.muo.fangyingji.ItMManipulator;
 import mffs.it.muo.fangyingji.ItemModuleShock;
 import mffs.it.muo.fangyingji.ItemModuleSponge;
 import mffs.it.muo.fangyu.ItMD;
@@ -162,7 +162,7 @@ public class ZhuYao
 	public static ItemProjectorMode itMYuan;
 	public static ItemProjectorMode itMFang;
 	public static ItemProjectorMode itMGuan;
-	
+
 	/**
 	 * Modules
 	 */
@@ -249,7 +249,7 @@ public class ZhuYao
 
 			itMDian = new ItemModuleShock(MFFSConfiguration.getNextItemID());
 			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.getNextItemID());
-			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.getNextItemID());
+			itemModuleManipulator = new ItMManipulator(MFFSConfiguration.getNextItemID());
 			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.getNextItemID());
 			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.getNextItemID());
 			itemModuleCamouflage = new ItMWeiZhuang(MFFSConfiguration.getNextItemID());
@@ -360,6 +360,15 @@ public class ZhuYao
 	{
 		if (evt.action == Action.RIGHT_CLICK_BLOCK || evt.action == Action.LEFT_CLICK_BLOCK)
 		{
+			/**
+			 * Disable block breaking of force fields.
+			 */
+			if (evt.action == Action.LEFT_CLICK_BLOCK && evt.entityPlayer.worldObj.getBlockId(evt.x, evt.y, evt.z) == bLiQiang.blockID)
+			{
+				evt.setCanceled(true);
+				return;
+			}
+
 			IDefenseStation defenseStation = TFangYu.getNearestDefenseStation(evt.entityPlayer.worldObj, new Vector3(evt.x, evt.y, evt.z));
 
 			if (defenseStation != null && !evt.entityPlayer.capabilities.isCreativeMode)

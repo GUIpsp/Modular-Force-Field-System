@@ -20,7 +20,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
-import universalelectricity.prefab.TranslationHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum MachineTypes
@@ -77,6 +76,8 @@ public enum MachineTypes
 	{
 		for (MachineTypes machine : values())
 		{
+			GameRegistry.registerBlock(machine.block, machine.block.getUnlocalizedName());
+			GameRegistry.registerTileEntity(machine.tileEntity, machine.block.getUnlocalizedName());
 			ExplosionWhitelist.addWhitelistedBlock(machine.block);
 		}
 	}

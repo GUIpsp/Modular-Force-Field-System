@@ -33,4 +33,11 @@ public interface IModule
 	 */
 	public boolean onCollideWithForceField(World world, int x, int y, int z, Entity entity, ItemStack moduleStack);
 
+	/**
+	 * Called in this module when it is being calculated by the projector.
+	 * 
+	 * @return False if to prevent this position from being added to the projection que.
+	 */
+	boolean onCalculate(IProjector projector, Vector3 position);
+
 }
