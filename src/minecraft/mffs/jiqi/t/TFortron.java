@@ -8,7 +8,6 @@ import mffs.Li;
 import mffs.LiGuanLi;
 import mffs.api.card.ICard;
 import mffs.api.fortron.IFortronFrequency;
-import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;

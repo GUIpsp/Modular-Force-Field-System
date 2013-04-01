@@ -36,12 +36,12 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		upgrades.add(ZhuYao.itemModuleCamouflage);
 		upgrades.add(ZhuYao.itemModuleFusion);
 
-		upgrades.add(ZhuYao.itemModuleScale);
-		upgrades.add(ZhuYao.itemModuleTranslation);
+		upgrades.add(ZhuYao.itMDaXiao);
+		upgrades.add(ZhuYao.itMDong);
 
-		modules.add(ZhuYao.itemModuleSphere);
-		modules.add(ZhuYao.itemModuleCube);
-		modules.add(ZhuYao.itemModuleTube);
+		modules.add(ZhuYao.itMYuan);
+		modules.add(ZhuYao.itMFang);
+		modules.add(ZhuYao.itMGuan);
 
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);

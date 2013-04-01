@@ -1,8 +1,8 @@
 package mffs.it.muo;
 
-public class ItemModuleRotation extends ItM
+public class ItMZhuan extends ItM
 {
-	public ItemModuleRotation(int id)
+	public ItMZhuan(int id)
 	{
 		super(id, "moduleRotation");
 	}

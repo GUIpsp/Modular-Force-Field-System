@@ -4,7 +4,6 @@ import mffs.ZhuYao;
 import mffs.jiqi.t.TDianRong;
 import mffs.jiqi.t.TMFFS.TPacketType;
 import mffs.rongqi.CDianRong;
-import mffs.shimian.enniu.GEnNiu;
 import mffs.shimian.enniu.GEnNiuTransferMode;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;

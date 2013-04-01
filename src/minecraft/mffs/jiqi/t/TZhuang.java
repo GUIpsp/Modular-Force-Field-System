@@ -3,12 +3,10 @@ package mffs.jiqi.t;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import mffs.ZhuYao;
-import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -17,8 +15,6 @@ import net.minecraft.nbt.NBTTagList;
 import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
-
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 /**
  * All TileEntities that have an inventory should extend this.

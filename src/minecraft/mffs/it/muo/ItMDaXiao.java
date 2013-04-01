@@ -1,8 +1,8 @@
 package mffs.it.muo;
 
-public class ItemModuleScale extends ItM
+public class ItMDaXiao extends ItM
 {
-	public ItemModuleScale(int i)
+	public ItMDaXiao(int i)
 	{
 		super(i, "moduleScale");
 	}

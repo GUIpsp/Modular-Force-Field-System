@@ -77,7 +77,7 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 				return (TFangYingJi) this.zhuYao.getTileEntity(this.worldObj);
 			}
 		}
-		
+
 		return null;
 	}
 

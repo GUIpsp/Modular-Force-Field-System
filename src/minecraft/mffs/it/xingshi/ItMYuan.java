@@ -13,9 +13,9 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItMSphere extends ItemProjectorMode
+public class ItMYuan extends ItemProjectorMode
 {
-	public ItMSphere(int i)
+	public ItMYuan(int i)
 	{
 		super(i, "modeSphere");
 	}
@@ -23,7 +23,7 @@ public class ItMSphere extends ItemProjectorMode
 	@Override
 	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 center, Vector3 posScale, Vector3 negScale)
 	{
-		int radius = projector.getModuleCount(ZhuYao.itemModuleScale, 14, 15) + 4;
+		int radius = projector.getModuleCount(ZhuYao.itMDaXiao, 14, 15) + 4;
 
 		int yDown = radius;
 

@@ -210,8 +210,6 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 										module.onProject(this, vector.clone());
 									}
 
-//									this.worldObj.updateAllLightTypes(this.xCoord, this.yCoord, this.zCoord);
-
 									constructionCount++;
 								}
 

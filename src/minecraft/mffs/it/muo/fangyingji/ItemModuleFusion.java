@@ -1,14 +1,11 @@
 package mffs.it.muo.fangyingji;
 
-import java.util.Map;
 import java.util.Set;
 
 import mffs.LiGuanLi;
 import mffs.api.IProjector;
 import mffs.api.fortron.IFortronFrequency;
 import mffs.it.muo.ItM;
-import mffs.jiqi.t.TFangYingJi;
-import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
 public class ItemModuleFusion extends ItM

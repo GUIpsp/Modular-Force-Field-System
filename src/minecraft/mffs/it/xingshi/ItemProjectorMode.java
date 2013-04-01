@@ -6,7 +6,7 @@ import java.util.Set;
 import mffs.ZhuYao;
 import mffs.api.IProjector;
 import mffs.api.modules.IProjectorMode;
-import mffs.it.ItemMFFS;
+import mffs.it.ItB;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
@@ -14,7 +14,7 @@ import universalelectricity.core.vector.VectorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMode
+public abstract class ItemProjectorMode extends ItB implements IProjectorMode
 {
 	public ItemProjectorMode(int i, String name)
 	{
@@ -38,16 +38,16 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 	{
 		ForgeDirection direction = projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord);
 
-		int zScaleNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zScalePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+		int zScaleNeg = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zScalePos = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
-		int xScaleNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xScalePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xScaleNeg = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xScalePos = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yScalePos = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yScaleNeg = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yScalePos = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yScaleNeg = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
-		int overAllIncrease = projector.getModuleCount(ZhuYao.itemModuleScale, projector.getModuleSlots());
+		int overAllIncrease = projector.getModuleCount(ZhuYao.itMDaXiao, projector.getModuleSlots());
 
 		zScaleNeg += overAllIncrease;
 		zScalePos += overAllIncrease;
@@ -58,14 +58,14 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 		yScalePos += overAllIncrease;
 		yScaleNeg += overAllIncrease;
 
-		int zTranslationNeg = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zTranslationPos = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+		int zTranslationNeg = projector.getModuleCount(ZhuYao.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zTranslationPos = projector.getModuleCount(ZhuYao.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
-		int xTranslationNeg = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xTranslationPos = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xTranslationNeg = projector.getModuleCount(ZhuYao.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xTranslationPos = projector.getModuleCount(ZhuYao.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yTranslationPos = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yTranslationNeg = projector.getModuleCount(ZhuYao.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yTranslationPos = projector.getModuleCount(ZhuYao.itMDong, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yTranslationNeg = projector.getModuleCount(ZhuYao.itMDong, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
 		Vector3 translation = new Vector3(xTranslationPos - xTranslationNeg, yTranslationPos - yTranslationNeg, zTranslationPos - zTranslationNeg);
 		Vector3 posScale = new Vector3(xScalePos, yScalePos, zScalePos);
@@ -73,8 +73,8 @@ public abstract class ItemProjectorMode extends ItemMFFS implements IProjectorMo
 
 		this.doCalculateField(projector, blockDef, blockInterior, direction, translation, posScale, negScale);
 
-		int horizontalRotation = projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST))) - projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST))) + projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH))) - projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int verticleRotation = projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(ForgeDirection.UP)) - projector.getModuleCount(ZhuYao.itemModuleRotation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int horizontalRotation = projector.getModuleCount(ZhuYao.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST))) - projector.getModuleCount(ZhuYao.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST))) + projector.getModuleCount(ZhuYao.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH))) - projector.getModuleCount(ZhuYao.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int verticleRotation = projector.getModuleCount(ZhuYao.itMZhuan, projector.getSlotsBasedOnDirection(ForgeDirection.UP)) - projector.getModuleCount(ZhuYao.itMZhuan, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
 		for (Vector3 point : blockDef)
 		{

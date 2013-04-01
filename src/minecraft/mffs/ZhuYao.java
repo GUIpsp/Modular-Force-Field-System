@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 
 import mffs.api.IDefenseStation;
 import mffs.api.SecurityPermission;
+import mffs.it.ItB;
+import mffs.it.ItFocusMatrix;
 import mffs.it.ItYaoKong;
-import mffs.it.ItemFocusMatrix;
 import mffs.it.ItemForcillium;
 import mffs.it.ItemFortronCell;
-import mffs.it.ItemMFFS;
 import mffs.it.ka.ItKaKong;
 import mffs.it.ka.ItKaLian;
 import mffs.it.ka.ItKaShenFen;
@@ -20,13 +20,13 @@ import mffs.it.ka.ItKaShenFenZhanShi;
 import mffs.it.ka.ItKaShengBuo;
 import mffs.it.ka.ItKaWuXian;
 import mffs.it.muo.ItM;
+import mffs.it.muo.ItMDaXiao;
+import mffs.it.muo.ItMDong;
 import mffs.it.muo.ItMJuLi;
 import mffs.it.muo.ItMRongLiang;
 import mffs.it.muo.ItMSuDu;
-import mffs.it.muo.ItemModuleRotation;
-import mffs.it.muo.ItemModuleScale;
-import mffs.it.muo.ItemModuleTranslate;
-import mffs.it.muo.fangyingji.ItemModuleCamoflage;
+import mffs.it.muo.ItMZhuan;
+import mffs.it.muo.fangyingji.ItMWeiZhuang;
 import mffs.it.muo.fangyingji.ItemModuleDisintegration;
 import mffs.it.muo.fangyingji.ItemModuleFusion;
 import mffs.it.muo.fangyingji.ItemModuleJammer;
@@ -39,17 +39,17 @@ import mffs.it.muo.fangyu.ItMDAntiHostile;
 import mffs.it.muo.fangyu.ItMDAntiPersonnel;
 import mffs.it.muo.fangyu.ItMDConfiscate;
 import mffs.it.muo.fangyu.ItMDWarn;
-import mffs.it.xingshi.ItMSphere;
 import mffs.it.xingshi.ItMFang;
-import mffs.it.xingshi.ItMTube;
+import mffs.it.xingshi.ItMGuan;
+import mffs.it.xingshi.ItMYuan;
 import mffs.it.xingshi.ItemProjectorMode;
-import mffs.jiqi.BLiQiang;
 import mffs.jiqi.BAnQuan;
 import mffs.jiqi.BChouQi;
 import mffs.jiqi.BDianRong;
-import mffs.jiqi.BFortronite;
 import mffs.jiqi.BFangYingJi;
 import mffs.jiqi.BFangYu;
+import mffs.jiqi.BFortronite;
+import mffs.jiqi.BLiQiang;
 import mffs.jiqi.t.TFangYu;
 import mffs.jiqi.t.TLiQiang;
 import mffs.jiqi.t.TMFFS;
@@ -160,8 +160,7 @@ public class ZhuYao
 	 */
 	public static ItM itMSuDu, itMJuLi, itMRongLiang, itemModuleShock, itemModuleSponge,
 			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer,
-			itemModuleCamouflage, itemModuleFusion, itemModuleScale, itemModuleTranslation,
-			itemModuleRotation, itMGuang;
+			itemModuleCamouflage, itemModuleFusion, itMDaXiao, itMDong, itMZhuan, itMGuang;
 
 	/**
 	 * Defense Station Modules
@@ -172,9 +171,9 @@ public class ZhuYao
 	/**
 	 * Modes
 	 */
-	public static ItemProjectorMode itemModuleSphere;
-	public static ItemProjectorMode itemModuleCube;
-	public static ItemProjectorMode itemModuleTube;
+	public static ItemProjectorMode itMYuan;
+	public static ItemProjectorMode itMFang;
+	public static ItemProjectorMode itMGuan;
 
 	public static OreGenBase fortroniteOreGeneration;
 
@@ -213,7 +212,7 @@ public class ZhuYao
 		}
 
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(this.proxy);
+		MinecraftForge.EVENT_BUS.register(ZhuYao.proxy);
 
 		Modstats.instance().getReporter().registerMod(this);
 
@@ -233,16 +232,18 @@ public class ZhuYao
 			itemForcillium = new ItemForcillium(MFFSConfiguration.getNextItemID());
 			itemFortronCell = new ItemFortronCell(MFFSConfiguration.getNextItemID());
 
-			itemFocusMatix = new ItemFocusMatrix(MFFSConfiguration.getNextItemID());
+			itemFocusMatix = new ItFocusMatrix(MFFSConfiguration.getNextItemID());
 
 			// Modes
-			itemModuleSphere = new ItMSphere(MFFSConfiguration.getNextItemID());
-			itemModuleCube = new ItMFang(MFFSConfiguration.getNextItemID());
-			itemModuleTube = new ItMTube(MFFSConfiguration.getNextItemID());
+			itMYuan = new ItMYuan(MFFSConfiguration.getNextItemID());
+			itMFang = new ItMFang(MFFSConfiguration.getNextItemID());
+			itMGuan = new ItMGuan(MFFSConfiguration.getNextItemID());
 
-			itemModuleScale = new ItemModuleScale(MFFSConfiguration.getNextItemID());
-			itemModuleTranslation = new ItemModuleTranslate(MFFSConfiguration.getNextItemID());
-			itemModuleRotation = new ItemModuleRotation(MFFSConfiguration.getNextItemID());
+			// Modules
+			itMDaXiao = new ItMDaXiao(MFFSConfiguration.getNextItemID());
+			itMDong = new ItMDong(MFFSConfiguration.getNextItemID());
+			itMZhuan = new ItMZhuan(MFFSConfiguration.getNextItemID());
+
 			itMSuDu = new ItMSuDu(MFFSConfiguration.getNextItemID());
 			itMJuLi = new ItMJuLi(MFFSConfiguration.getNextItemID());
 			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());
@@ -253,9 +254,9 @@ public class ZhuYao
 			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.getNextItemID());
 			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.getNextItemID());
 			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.getNextItemID());
-			itemModuleCamouflage = new ItemModuleCamoflage(MFFSConfiguration.getNextItemID());
+			itemModuleCamouflage = new ItMWeiZhuang(MFFSConfiguration.getNextItemID());
 			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.getNextItemID());
-			itMGuang = new ItM(MFFSConfiguration.getNextItemID(), "moduleGlow");
+			itMGuang = new ItM(MFFSConfiguration.getNextItemID(), "moduleGlow").setCost(0.1f);
 
 			itemModuleAntiFriendly = new ItMDAntiFriendly(MFFSConfiguration.getNextItemID());
 			itemModuleAntiHostile = new ItMDAntiHostile(MFFSConfiguration.getNextItemID());
@@ -275,7 +276,7 @@ public class ZhuYao
 			/**
 			 * The Fortron Liquid
 			 */
-			itemFortron = new ItemMFFS(MFFSConfiguration.getNextItemID(), "fortron").setCreativeTab(null);
+			itemFortron = new ItB(MFFSConfiguration.getNextItemID(), "fortron").setCreativeTab(null);
 			Li.LIQUID_FORTRON = LiquidDictionary.getOrCreateLiquid("Fortron", new LiquidStack(itemFortron, 0));
 
 			fortroniteOreGeneration = new OreGenReplaceStone("Fortronite", "oreFortronite", new ItemStack(blockFortronite), 80, 17, 4);
@@ -305,6 +306,10 @@ public class ZhuYao
 		GameRegistry.registerTileEntity(TLiQiang.class, "MFFSForceField");
 
 		MachineTypes.initialize();
+
+		/**
+		 * Add Recipes
+		 */
 
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 

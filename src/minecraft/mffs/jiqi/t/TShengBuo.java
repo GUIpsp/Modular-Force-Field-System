@@ -11,7 +11,6 @@ import mffs.LiGuanLi;
 import mffs.api.ISecurityCenter;
 import mffs.api.card.ILink;
 import mffs.api.fortron.IFortronFrequency;
-import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -108,7 +107,7 @@ public abstract class TShengBuo extends TZhuang implements IBlockFrequency
 
 				if (linkPos != null && tileEntity instanceof ISecurityCenter)
 				{
-					if (!securityCenters.contains((ISecurityCenter) tileEntity))
+					if (!securityCenters.contains(tileEntity))
 					{
 						securityCenters.add((ISecurityCenter) tileEntity);
 					}
@@ -120,7 +119,7 @@ public abstract class TShengBuo extends TZhuang implements IBlockFrequency
 		{
 			if (tileEntity instanceof ISecurityCenter)
 			{
-				if (!securityCenters.contains((ISecurityCenter) tileEntity))
+				if (!securityCenters.contains(tileEntity))
 				{
 					securityCenters.add((ISecurityCenter) tileEntity);
 				}

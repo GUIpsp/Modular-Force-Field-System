@@ -15,7 +15,6 @@ import mffs.api.fortron.IFortronFrequency;
 import mffs.api.modules.IDefenseStationModule;
 import mffs.api.modules.IModule;
 import mffs.it.ka.ItKa;
-import mffs.jiqi.t.TMFFS.TPacketType;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +28,6 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.core.vector.VectorHelper;
-import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
@@ -117,7 +115,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 	@Override
 	public int getActionRange()
 	{
-		return this.getModuleCount(ZhuYao.itemModuleScale);
+		return this.getModuleCount(ZhuYao.itMDaXiao);
 	}
 
 	@Override

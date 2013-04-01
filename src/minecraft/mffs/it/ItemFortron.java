@@ -20,7 +20,7 @@ import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.item.ElectricItemHelper;
 import universalelectricity.core.vector.Vector3;
 
-public abstract class ItemFortron extends ItemMFFS implements IItemFortronStorage
+public abstract class ItemFortron extends ItB implements IItemFortronStorage
 {
 	public ItemFortron(int id, String name)
 	{

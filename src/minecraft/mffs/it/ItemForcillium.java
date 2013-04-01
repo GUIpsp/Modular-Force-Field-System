@@ -1,6 +1,6 @@
 package mffs.it;
 
-public class ItemForcillium extends ItemMFFS
+public class ItemForcillium extends ItB
 {
 	public ItemForcillium(int i)
 	{

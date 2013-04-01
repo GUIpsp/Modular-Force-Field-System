@@ -1,9 +1,9 @@
 package mffs.it.ka;
 
 import mffs.api.card.ICard;
-import mffs.it.ItemMFFS;
+import mffs.it.ItB;
 
-public abstract class ItKa extends ItemMFFS implements ICard
+public abstract class ItKa extends ItB implements ICard
 {
 	public ItKa(int id, String name)
 	{

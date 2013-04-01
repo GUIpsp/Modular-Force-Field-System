@@ -5,7 +5,7 @@ import java.util.List;
 import mffs.ZhuYao;
 import mffs.api.IProjector;
 import mffs.api.modules.IModule;
-import mffs.it.ItemMFFS;
+import mffs.it.ItB;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,8 +13,10 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.TranslationHelper;
 
-public class ItM extends ItemMFFS implements IModule
+public class ItM extends ItB implements IModule
 {
+	private float fortronCost = 0.5f;
+
 	public ItM(int id, String name)
 	{
 		super(id, name);
@@ -49,9 +51,15 @@ public class ItM extends ItemMFFS implements IModule
 		return false;
 	}
 
+	public ItM setCost(float cost)
+	{
+		this.fortronCost = cost;
+		return this;
+	}
+
 	@Override
 	public float getFortronCost()
 	{
-		return 0.5f;
+		return fortronCost;
 	}
 }

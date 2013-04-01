@@ -103,32 +103,27 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-
-		if (tileEntity instanceof TLiQiang)
+		if (this.getProjector(world, x, y, z) != null)
 		{
-			if (((TLiQiang) tileEntity).getZhuYao() != null)
+			ISecurityCenter securityCenter = this.getProjector(world, x, y, z).getSecurityCenter();
+
+			List<EntityPlayer> entities = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.9, z + 1));
+
+			for (EntityPlayer entityPlayer : entities)
 			{
-				ISecurityCenter securityCenter = ((TLiQiang) tileEntity).getZhuYao().getSecurityCenter();
-
-				List<EntityPlayer> entities = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.9, z + 1));
-
-				for (EntityPlayer entityPlayer : entities)
+				if (entityPlayer != null)
 				{
-					if (entityPlayer != null)
+					if (entityPlayer.isSneaking())
 					{
-						if (entityPlayer.isSneaking())
+						if (entityPlayer.capabilities.isCreativeMode)
 						{
-							if (entityPlayer.capabilities.isCreativeMode)
+							return null;
+						}
+						else if (securityCenter != null)
+						{
+							if (securityCenter.isAccessGranted(entityPlayer.username, SecurityPermission.FORCE_FIELD_WARP))
 							{
 								return null;
-							}
-							else if (securityCenter != null)
-							{
-								if (securityCenter.isAccessGranted(entityPlayer.username, SecurityPermission.FORCE_FIELD_WARP))
-								{
-									return null;
-								}
 							}
 						}
 					}
@@ -167,10 +162,47 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 		if (new Vector3(entity).distanceTo(new Vector3(x, y, z).add(0.4)) < 0.5)
 		{
-			if (entity instanceof EntityLiving && world.isRemote)
+			if (entity instanceof EntityLiving && !world.isRemote)
 			{
 				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 4 * 20, 3));
 				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 1));
+
+				boolean hasPermission = false;
+
+				if (this.getProjector(world, x, y, z) != null)
+				{
+					ISecurityCenter securityCenter = this.getProjector(world, x, y, z).getSecurityCenter();
+
+					List<EntityPlayer> entities = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.9, z + 1));
+
+					for (EntityPlayer entityPlayer : entities)
+					{
+						if (entityPlayer != null)
+						{
+							if (entityPlayer.isSneaking())
+							{
+								if (entityPlayer.capabilities.isCreativeMode)
+								{
+									hasPermission = true;
+									break;
+
+								}
+								else if (securityCenter != null)
+								{
+									if (securityCenter.isAccessGranted(entityPlayer.username, SecurityPermission.FORCE_FIELD_WARP))
+									{
+										hasPermission = true;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if (!hasPermission)
+				{
+					entity.attackEntityFrom(ZhuYao.fieldShock, Integer.MAX_VALUE);
+				}
 			}
 		}
 	}
@@ -235,7 +267,7 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 				if (zhuYao instanceof IProjector)
 				{
-					return (int) (((float) ((IProjector) zhuYao).getModuleCount(ZhuYao.itMGuang) / 64) * 15f);
+					return (int) (((float) Math.min(zhuYao.getModuleCount(ZhuYao.itMGuang), 64) / 64) * 15f);
 				}
 			}
 		}

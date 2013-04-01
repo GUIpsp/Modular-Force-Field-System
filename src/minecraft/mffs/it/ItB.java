@@ -5,9 +5,9 @@ import mffs.MFFSCreativeTab;
 import mffs.ZhuYao;
 import net.minecraft.item.Item;
 
-public class ItemMFFS extends Item
+public class ItB extends Item
 {
-	public ItemMFFS(int id, String name)
+	public ItB(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getItem(name, id).getInt(id));
 		this.setUnlocalizedName(ZhuYao.PREFIX + name);
