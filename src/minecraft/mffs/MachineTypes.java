@@ -25,11 +25,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum MachineTypes
 {
-	Projector(TFangYingJi.class, GFangYingQi.class, CFangYingJi.class, ZhuYao.blockProjector, "KyKyFyKJK", "ByByKyBaB"),
-	Extractor(TChouQi.class, GChouQi.class, CChouQi.class, ZhuYao.blockExtractor, " C xFx G ", " E xKx J "),
-	Capacitor(TDianRong.class, GDianRong.class, CDianRong.class, ZhuYao.blockCapacitor, "xJxCFCxJx", "xaxEKExax"),
-	DefenceStation(TFangYu.class, GFangYu.class, CFangYu.class, ZhuYao.blockDefenceStation, " J aFa E ", " a EKE C "),
-	SecurityStation(TAnQuan.class, GAnQuan.class, CAnQuan.class, ZhuYao.blockSecurityStation, "KCKCFCKJK", "CECEKECaC");
+	Projector(TFangYingJi.class, GFangYingQi.class, CFangYingJi.class, ZhuYao.bFangYingJi, "KyKyFyKJK", "ByByKyBaB"),
+	Extractor(TChouQi.class, GChouQi.class, CChouQi.class, ZhuYao.bChouQi, " C xFx G ", " E xKx J "),
+	Capacitor(TDianRong.class, GDianRong.class, CDianRong.class, ZhuYao.bDianRong, "xJxCFCxJx", "xaxEKExax"),
+	DefenceStation(TFangYu.class, GFangYu.class, CFangYu.class, ZhuYao.bFangYu, " J aFa E ", " a EKE C "),
+	SecurityStation(TAnQuan.class, GAnQuan.class, CAnQuan.class, ZhuYao.bAnQuan, "KCKCFCKJK", "CECEKECaC");
 
 	public Class<? extends TileEntity> tileEntity;
 	public Class<? extends GuiScreen> gui;
@@ -43,15 +43,9 @@ public enum MachineTypes
 		this.tileEntity = tileEntity;
 		this.gui = gui;
 		this.container = container;
-
 		this.recipe_ic = recipeic;
 		this.recipe_ue = recipeue;
 		this.block = block;
-	}
-
-	public String getName()
-	{
-		return TranslationHelper.getLocal(this.block.getUnlocalizedName() + ".name");
 	}
 
 	public static MachineTypes get(String name)
@@ -67,11 +61,11 @@ public enum MachineTypes
 		return null;
 	}
 
-	public static MachineTypes fromTE(TileEntity tem)
+	public static MachineTypes get(TileEntity tile)
 	{
 		for (MachineTypes mach : values())
 		{
-			if (mach.tileEntity.isInstance(tem))
+			if (mach.tileEntity.isInstance(tile))
 			{
 				return mach;
 			}
@@ -81,18 +75,9 @@ public enum MachineTypes
 
 	public static void initialize()
 	{
-		for (MachineTypes mach : values())
+		for (MachineTypes machine : values())
 		{
-			GameRegistry.registerBlock(mach.block, mach.block.getUnlocalizedName());
-			GameRegistry.registerTileEntity(mach.tileEntity, mach.block.getUnlocalizedName());
-
-			if (MFFSConfiguration.MODULE_IC2)
-				MFFSRecipes.addRecipe(mach.recipe_ic, 1, 1, mach.block, null);
-
-			if (MFFSConfiguration.MODULE_UE)
-				MFFSRecipes.addRecipe(mach.recipe_ue, 1, 2, mach.block, null);
-
-			ExplosionWhitelist.addWhitelistedBlock(mach.block);
+			ExplosionWhitelist.addWhitelistedBlock(machine.block);
 		}
 	}
 }

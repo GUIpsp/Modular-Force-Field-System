@@ -71,6 +71,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
@@ -123,42 +124,49 @@ public class ZhuYao
 	public static final String GUI_BUTTON = GUI_DIRECTORY + "gui_button.png";
 
 	/**
-	 * Machines
+	 * Machines/Blocks
 	 */
-	public static Block blockCapacitor;
-	public static Block blockProjector;
-	public static Block blockDefenceStation;
-	public static Block blockForceField;
-	public static Block blockExtractor;
 	public static Block blockFortronite;
-	public static Block blockSecurityStation;
+	public static Block bLiQiang;
+
+	public static Block bDianRong;
+	public static Block bFangYingJi;
+	public static Block bFangYu;
+	public static Block bChouQi;
+	public static Block bAnQuan;
 
 	/**
-	 * Fortron related items
+	 * General Items
 	 */
 	public static Item itemFortron;
-	public static Item itemFortronCell;
+
+	public static Item itFocusMatix;
+	public static Item itFortronCell;
 	public static Item itemForcillium;
-	public static Item itemPowerCrystal;
-	public static Item itemCompactForcicium;
-	public static Item itemDepletedForcicium;
-	public static Item itemFocusMatix;
 	public static Item itYaoKong;
 
 	/**
 	 * Cards
 	 */
+	public static Item itKaWuXian;
+
 	public static Item itKaKong;
 	public static Item itKaShengBuo;
 	public static ItKaShenFen itKaShenFen;
 	public static Item itKaShenFenZhanShi;
-	public static Item itKaWuXian;
 	public static Item itKaLian;
 
 	/**
+	 * Modes
+	 */
+	public static ItemProjectorMode itMYuan;
+	public static ItemProjectorMode itMFang;
+	public static ItemProjectorMode itMGuan;
+	
+	/**
 	 * Modules
 	 */
-	public static ItM itMSuDu, itMJuLi, itMRongLiang, itemModuleShock, itemModuleSponge,
+	public static ItM itMSuDu, itMJuLi, itMRongLiang, itMDian, itemModuleSponge,
 			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer,
 			itemModuleCamouflage, itemModuleFusion, itMDaXiao, itMDong, itMZhuan, itMGuang;
 
@@ -167,13 +175,6 @@ public class ZhuYao
 	 */
 	public static ItMD itemModuleAntiHostile, itemModuleAntiFriendly, itemModuleAntiPersonnel,
 			itemModuleConfiscate, itemModuleWarn, itMDBA, itMDBPA;
-
-	/**
-	 * Modes
-	 */
-	public static ItemProjectorMode itMYuan;
-	public static ItemProjectorMode itMFang;
-	public static ItemProjectorMode itMGuan;
 
 	public static OreGenBase fortroniteOreGeneration;
 
@@ -193,6 +194,8 @@ public class ZhuYao
 	{
 		LOGGER.setParent(FMLLog.getLogger());
 		MinecraftForge.EVENT_BUS.register(this);
+		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
+		Modstats.instance().getReporter().registerMod(this);
 
 		if (initiateModule("IC2"))
 		{
@@ -211,28 +214,23 @@ public class ZhuYao
 			MFFSConfiguration.MODULE_THERMAL_EXPANSION = true;
 		}
 
-		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(ZhuYao.proxy);
-
-		Modstats.instance().getReporter().registerMod(this);
-
 		try
 		{
 			MFFSConfiguration.initialize();
 			MFFSConfiguration.CONFIGURATION.load();
 
 			blockFortronite = new BFortronite(MFFSConfiguration.getNextBlockID(), "fortronite");
-			blockExtractor = new BChouQi(MFFSConfiguration.getNextBlockID());
-			blockDefenceStation = new BAnQuan(MFFSConfiguration.getNextBlockID());
-			blockCapacitor = new BDianRong(MFFSConfiguration.getNextBlockID());
-			blockProjector = new BFangYingJi(MFFSConfiguration.getNextBlockID());
-			blockForceField = new BLiQiang(MFFSConfiguration.getNextBlockID());
-			blockSecurityStation = new BFangYu(MFFSConfiguration.getNextBlockID());
+			bChouQi = new BChouQi(MFFSConfiguration.getNextBlockID());
+			bFangYu = new BAnQuan(MFFSConfiguration.getNextBlockID());
+			bDianRong = new BDianRong(MFFSConfiguration.getNextBlockID());
+			bFangYingJi = new BFangYingJi(MFFSConfiguration.getNextBlockID());
+			bLiQiang = new BLiQiang(MFFSConfiguration.getNextBlockID());
+			bAnQuan = new BFangYu(MFFSConfiguration.getNextBlockID());
 
 			itemForcillium = new ItemForcillium(MFFSConfiguration.getNextItemID());
-			itemFortronCell = new ItemFortronCell(MFFSConfiguration.getNextItemID());
+			itFortronCell = new ItemFortronCell(MFFSConfiguration.getNextItemID());
 
-			itemFocusMatix = new ItFocusMatrix(MFFSConfiguration.getNextItemID());
+			itFocusMatix = new ItFocusMatrix(MFFSConfiguration.getNextItemID());
 
 			// Modes
 			itMYuan = new ItMYuan(MFFSConfiguration.getNextItemID());
@@ -249,7 +247,7 @@ public class ZhuYao
 			itMRongLiang = new ItMRongLiang(MFFSConfiguration.getNextItemID());
 			itYaoKong = new ItYaoKong(MFFSConfiguration.getNextItemID());
 
-			itemModuleShock = new ItemModuleShock(MFFSConfiguration.getNextItemID());
+			itMDian = new ItemModuleShock(MFFSConfiguration.getNextItemID());
 			itemModuleSponge = new ItemModuleSponge(MFFSConfiguration.getNextItemID());
 			itemModuleManipulator = new ItemModuleManipulator(MFFSConfiguration.getNextItemID());
 			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.getNextItemID());
@@ -302,16 +300,10 @@ public class ZhuYao
 		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "yuyan/", new String[] { "en_US" }));
 
 		GameRegistry.registerBlock(blockFortronite, "MFFSFortonite");
-		GameRegistry.registerBlock(blockForceField, "MFFSForceField");
+		GameRegistry.registerBlock(bLiQiang, "MFFSForceField");
 		GameRegistry.registerTileEntity(TLiQiang.class, "MFFSForceField");
 
 		MachineTypes.initialize();
-
-		/**
-		 * Add Recipes
-		 */
-
-		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
 		proxy.init();
 	}
@@ -319,8 +311,11 @@ public class ZhuYao
 	@PostInit
 	public void postInit(FMLPostInitializationEvent evt)
 	{
+		/**
+		 * Add Recipes
+		 */
 		MFFSRecipes.init();
-		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkloadCallback());
+		ForgeChunkManager.setForcedChunkLoadingCallback(this, new ChunkloadCallback());
 	}
 
 	public boolean initiateModule(String modname)
@@ -359,8 +354,6 @@ public class ZhuYao
 
 	/**
 	 * Prevent protected blocks from being interacted with.
-	 * 
-	 * @param evt
 	 */
 	@ForgeSubscribe
 	public void playerInteractEvent(PlayerInteractEvent evt)
@@ -410,7 +403,7 @@ public class ZhuYao
 
 					if (!hasPermission)
 					{
-						evt.entityPlayer.sendChatToPlayer("[" + ZhuYao.blockDefenceStation.getLocalizedName() + "] You have no permission to do that!");
+						evt.entityPlayer.sendChatToPlayer("[" + ZhuYao.bFangYu.getLocalizedName() + "] You have no permission to do that!");
 						evt.setCanceled(true);
 					}
 				}
@@ -418,6 +411,12 @@ public class ZhuYao
 		}
 	}
 
+	/**
+	 * Gets a compound from an itemStack.
+	 * 
+	 * @param itemStack
+	 * @return
+	 */
 	public static NBTTagCompound getNBTTagCompound(ItemStack itemStack)
 	{
 		if (itemStack != null)

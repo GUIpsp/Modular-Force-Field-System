@@ -16,6 +16,6 @@ public class MFFSCreativeTab extends CreativeTabs
 	@Override
 	public ItemStack getIconItemStack()
 	{
-		return new ItemStack(ZhuYao.blockCapacitor);
+		return new ItemStack(ZhuYao.bDianRong);
 	}
 }

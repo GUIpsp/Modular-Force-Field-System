@@ -177,7 +177,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-					if (this.getModuleCount(ZhuYao.itemModuleDisintegration) > 0 || block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.blockForceField)
+					if (this.getModuleCount(ZhuYao.itemModuleDisintegration) > 0 || block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ZhuYao.bLiQiang)
 					{
 						boolean canProject = true;
 
@@ -192,11 +192,11 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 
 						if (canProject)
 						{
-							if (block != ZhuYao.blockForceField)
+							if (block != ZhuYao.bLiQiang)
 							{
 								if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 								{
-									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 2);
+									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.bLiQiang.blockID, 0, 2);
 
 									TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 
@@ -237,7 +237,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 				{
 					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-					if (block == ZhuYao.blockForceField)
+					if (block == ZhuYao.bLiQiang)
 					{
 						this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
 					}

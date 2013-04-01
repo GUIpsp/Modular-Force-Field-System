@@ -17,23 +17,6 @@ public class PGongTong implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-
-		if (tileEntity != null)
-		{
-			MachineTypes machType = MachineTypes.fromTE(tileEntity);
-
-			try
-			{
-				Constructor mkGui = machType.gui.getConstructor(new Class[] { EntityPlayer.class, machType.tileEntity });
-				return mkGui.newInstance(player, machType.tileEntity.cast(tileEntity));
-			}
-			catch (Exception e)
-			{
-				ZhuYao.LOGGER.severe("Failed to open GUI");
-				e.printStackTrace();
-			}
-		}
 		return null;
 	}
 
@@ -44,7 +27,7 @@ public class PGongTong implements IGuiHandler
 
 		if (tileEntity != null)
 		{
-			MachineTypes machineType = MachineTypes.fromTE(tileEntity);
+			MachineTypes machineType = MachineTypes.get(tileEntity);
 
 			try
 			{

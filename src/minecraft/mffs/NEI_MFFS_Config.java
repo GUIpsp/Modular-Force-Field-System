@@ -9,26 +9,26 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	@Override
 	public void loadConfig()
 	{
-		API.hideItem(ZhuYao.blockForceField.blockID);
+		API.hideItem(ZhuYao.bLiQiang.blockID);
 
 		MultiItemRange blocks = new MultiItemRange();
 		MultiItemRange items = new MultiItemRange();
 		MultiItemRange upgrades = new MultiItemRange();
 		MultiItemRange modules = new MultiItemRange();
 
-		blocks.add(ZhuYao.blockExtractor);
-		blocks.add(ZhuYao.blockDefenceStation);
-		blocks.add(ZhuYao.blockSecurityStation);
-		blocks.add(ZhuYao.blockCapacitor);
-		blocks.add(ZhuYao.blockProjector);
+		blocks.add(ZhuYao.bChouQi);
+		blocks.add(ZhuYao.bFangYu);
+		blocks.add(ZhuYao.bAnQuan);
+		blocks.add(ZhuYao.bDianRong);
+		blocks.add(ZhuYao.bFangYingJi);
 		blocks.add(ZhuYao.blockFortronite);
 
 		// items.add(ZhuYao.itemMultiTool); items.add(ZhuYao.itemCardEmpty);
 		items.add(ZhuYao.itemForcillium);
-		items.add(ZhuYao.itemFortronCell);
-		items.add(ZhuYao.itemFocusMatix);
+		items.add(ZhuYao.itFortronCell);
+		items.add(ZhuYao.itFocusMatix);
 
-		upgrades.add(ZhuYao.itemModuleShock);
+		upgrades.add(ZhuYao.itMDian);
 		upgrades.add(ZhuYao.itemModuleSponge);
 		upgrades.add(ZhuYao.itemModuleManipulator);
 		upgrades.add(ZhuYao.itemModuleDisintegration);

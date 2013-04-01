@@ -77,6 +77,7 @@ public class TChouQi extends TDian
 							 * Speed upgrade will reduce the time required. TODO: Add more upgrade
 							 * ability.
 							 */
+							// TODO: Get upgrades to work better.
 							if (getStackInSlot(3) != null)
 							{
 								if (this.getStackInSlot(3).itemID == ZhuYao.itMSuDu.itemID)
@@ -210,7 +211,7 @@ public class TChouQi extends TDian
 			switch (slotID)
 			{
 				case 0:
-					return itemStack.getItem() instanceof ItemForcillium || itemStack.isItemEqual(new ItemStack(Item.dyePowder, 1, 4));
+					return itemStack.getItem() instanceof ItemForcillium;
 				case 1:
 					return itemStack.getItem() instanceof ItKaShengBuo;
 			}
