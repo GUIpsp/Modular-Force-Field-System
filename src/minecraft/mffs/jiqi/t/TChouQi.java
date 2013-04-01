@@ -9,7 +9,6 @@ import mffs.ZhuYao;
 import mffs.api.modules.IModule;
 import mffs.it.ItemForcillium;
 import mffs.it.ka.ItKaShengBuo;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

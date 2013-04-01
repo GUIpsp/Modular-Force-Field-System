@@ -1,5 +1,6 @@
 package mffs.jiqi;
 
+import icbm.api.ICamouflageMaterial;
 import mffs.MFFSConfiguration;
 import mffs.MFFSCreativeTab;
 import mffs.ZhuYao;
@@ -23,7 +24,7 @@ import universalelectricity.prefab.implement.IRedstoneReceptor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class BJiQi extends BlockRotatable
+public abstract class BJiQi extends BlockRotatable implements ICamouflageMaterial
 {
 	private Icon iconOn, iconMachineOn, iconMachineOff;
 

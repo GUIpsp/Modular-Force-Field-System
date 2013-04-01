@@ -27,11 +27,11 @@ import mffs.it.muo.ItMRongLiang;
 import mffs.it.muo.ItMSuDu;
 import mffs.it.muo.ItMZhenDing;
 import mffs.it.muo.ItMZhuan;
+import mffs.it.muo.fangyingji.ItMManipulator;
 import mffs.it.muo.fangyingji.ItMWeiZhuang;
 import mffs.it.muo.fangyingji.ItemModuleDisintegration;
 import mffs.it.muo.fangyingji.ItemModuleFusion;
 import mffs.it.muo.fangyingji.ItemModuleJammer;
-import mffs.it.muo.fangyingji.ItMManipulator;
 import mffs.it.muo.fangyingji.ItemModuleShock;
 import mffs.it.muo.fangyingji.ItemModuleSponge;
 import mffs.it.muo.fangyu.ItMD;
@@ -72,7 +72,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.modstats.ModstatInfo;
 import org.modstats.Modstats;
@@ -168,9 +167,8 @@ public class ZhuYao
 	 * Modules
 	 */
 	public static ItM itMSuDu, itMJuLi, itMRongLiang, itMDian, itemModuleSponge,
-			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer,
-			itWeiZhuang, itemModuleFusion, itMDaXiao, itMDong, itMZhuan, itMGuang,
-			itMZhenDing;
+			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer, itWeiZhuang,
+			itemModuleFusion, itMDaXiao, itMDong, itMZhuan, itMGuang, itMZhenDing;
 
 	/**
 	 * Defense Station Modules
@@ -196,7 +194,7 @@ public class ZhuYao
 	{
 		LOGGER.setParent(FMLLog.getLogger());
 		MinecraftForge.EVENT_BUS.register(this);
-		NetworkRegistry.instance().registerGuiHandler(this, this.proxy);
+		NetworkRegistry.instance().registerGuiHandler(this, ZhuYao.proxy);
 		Modstats.instance().getReporter().registerMod(this);
 
 		if (initiateModule("IC2"))
@@ -295,6 +293,8 @@ public class ZhuYao
 		{
 			MFFSConfiguration.CONFIGURATION.save();
 		}
+
+		proxy.preInit();
 	}
 
 	@Init

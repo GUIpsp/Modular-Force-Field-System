@@ -10,6 +10,11 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 public class PGongTong implements IGuiHandler
 {
+	public void preInit()
+	{
+
+	}
+
 	public void init()
 	{
 	}
@@ -53,4 +58,5 @@ public class PGongTong implements IGuiHandler
 	{
 
 	}
+
 }

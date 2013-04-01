@@ -69,6 +69,11 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 					this.projectField();
 				}
 			}
+
+			if (this.ticks % (2 * 20) == 0)
+			{
+				this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "mffs.field", 1f, (1 - this.worldObj.rand.nextFloat() * 0.1f));
+			}
 		}
 		else if (!this.worldObj.isRemote)
 		{

@@ -12,12 +12,19 @@ import mffs.quanran.RenderProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 
 public class PGuKe extends PGongTong
 {
+	@Override
+	public void preInit()
+	{
+		MinecraftForge.EVENT_BUS.register(ShengYin.INSTANCE);
+	}
+
 	@Override
 	public void init()
 	{
