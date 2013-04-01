@@ -127,7 +127,7 @@ public class MFFSRecipes
 		// Jammer
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleJammer), "F", "W", "F", 'F', ZhuYao.itFocusMatix, 'W', wireID));
 		// Camouflage
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleCamouflage), "WFW", "FWF", "WFW", 'F', ZhuYao.itFocusMatix, 'W', new ItemStack(Block.cloth, 1, -1)));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itWeiZhuang), "WFW", "FWF", "WFW", 'F', ZhuYao.itFocusMatix, 'W', new ItemStack(Block.cloth, 1, -1)));
 		// Fusion
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleFusion), "FJF", 'F', ZhuYao.itFocusMatix, 'J', ZhuYao.itemModuleJammer));
 		// Scale
@@ -138,6 +138,8 @@ public class MFFSRecipes
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMZhuan), "F  ", " F ", "  F", 'F', ZhuYao.itFocusMatix));
 		// Glow
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMGuang, 4), "GGG", "GFG", "GGG", 'F', ZhuYao.itFocusMatix, 'G', Block.glowStone));
+		// Stabilizer
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMZhenDing), "FFF", "PSA", "FFF", 'F', ZhuYao.itFocusMatix, 'P', Item.pickaxeDiamond, 'S', Item.shovelDiamond, 'A', Item.axeDiamond));
 		// -- -- Defense Station -- --
 		// Anti-Hostile
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiHostile), " R ", "GFB", " S ", 'F', ZhuYao.itFocusMatix, 'G', Item.gunpowder, 'R', Item.rottenFlesh, 'B', Item.bone, 'S', Item.ghastTear));

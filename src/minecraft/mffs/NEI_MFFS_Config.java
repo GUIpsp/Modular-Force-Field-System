@@ -33,7 +33,7 @@ public class NEI_MFFS_Config implements IConfigureNEI
 		upgrades.add(ZhuYao.itemModuleManipulator);
 		upgrades.add(ZhuYao.itemModuleDisintegration);
 		upgrades.add(ZhuYao.itemModuleJammer);
-		upgrades.add(ZhuYao.itemModuleCamouflage);
+		upgrades.add(ZhuYao.itWeiZhuang);
 		upgrades.add(ZhuYao.itemModuleFusion);
 
 		upgrades.add(ZhuYao.itMDaXiao);

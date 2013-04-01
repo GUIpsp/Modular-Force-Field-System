@@ -5,11 +5,8 @@ public class ItMSuDu extends ItM
 	public ItMSuDu(int i)
 	{
 		super(i, "moduleSpeed");
+		this.setCost(0.2f);
+
 	}
 
-	@Override
-	public float getFortronCost()
-	{
-		return 0.2f;
-	}
 }

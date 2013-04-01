@@ -218,31 +218,34 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 			if (zhuYao instanceof TFangYingJi)
 			{
-				for (int i : ((TFangYingJi) zhuYao).getModuleSlots())
+				if (((TFangYingJi) zhuYao).getModuleCount(ZhuYao.itWeiZhuang) > 0)
 				{
-					ItemStack checkStack = ((TFangYingJi) zhuYao).getStackInSlot(i);
-
-					if (checkStack != null)
+					for (int i : ((TFangYingJi) zhuYao).getModuleSlots())
 					{
-						if (checkStack.getItem() instanceof ItemBlock)
+						ItemStack checkStack = ((TFangYingJi) zhuYao).getStackInSlot(i);
+
+						if (checkStack != null)
 						{
-							try
+							if (checkStack.getItem() instanceof ItemBlock)
 							{
-								Block block = Block.blocksList[((ItemBlock) checkStack.getItem()).getBlockID()];
-
-								if (block != null)
+								try
 								{
-									Icon icon = block.getBlockTextureFromSideAndMetadata(side, checkStack.getItemDamage());
+									Block block = Block.blocksList[((ItemBlock) checkStack.getItem()).getBlockID()];
 
-									if (icon != null)
+									if (block != null)
 									{
-										return icon;
+										Icon icon = block.getBlockTextureFromSideAndMetadata(side, checkStack.getItemDamage());
+
+										if (icon != null)
+										{
+											return icon;
+										}
 									}
 								}
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
+								catch (Exception e)
+								{
+									e.printStackTrace();
+								}
 							}
 						}
 					}

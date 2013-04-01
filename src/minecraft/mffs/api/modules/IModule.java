@@ -10,19 +10,29 @@ public interface IModule
 {
 
 	/**
-	 * The amount of fortron this module consumes per tick.
+	 * The amount of Fortron this module consumes per tick.
 	 * 
 	 * @return
 	 */
-	public float getFortronCost();
+	public float getFortronCost(int amplifier);
+
+	/**
+	 * Called when the projector is projecting a field.
+	 * 
+	 * @param projector
+	 * @return True to stop projecting.
+	 */
+	boolean onProject(IProjector projector);
 
 	/**
 	 * Called right after the projector creates a force field block.
 	 * 
 	 * @param projector
 	 * @param position
+	 * @return True to cancel projection action.
 	 */
-	public void onProject(IProjector projector, Vector3 position);
+
+	public boolean onProject(IProjector projector, Vector3 position);
 
 	public boolean canProject(IProjector projector, Vector3 position);
 

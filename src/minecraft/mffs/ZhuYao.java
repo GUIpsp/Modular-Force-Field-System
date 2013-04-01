@@ -25,6 +25,7 @@ import mffs.it.muo.ItMDong;
 import mffs.it.muo.ItMJuLi;
 import mffs.it.muo.ItMRongLiang;
 import mffs.it.muo.ItMSuDu;
+import mffs.it.muo.ItMZhenDing;
 import mffs.it.muo.ItMZhuan;
 import mffs.it.muo.fangyingji.ItMWeiZhuang;
 import mffs.it.muo.fangyingji.ItemModuleDisintegration;
@@ -168,7 +169,8 @@ public class ZhuYao
 	 */
 	public static ItM itMSuDu, itMJuLi, itMRongLiang, itMDian, itemModuleSponge,
 			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer,
-			itemModuleCamouflage, itemModuleFusion, itMDaXiao, itMDong, itMZhuan, itMGuang;
+			itWeiZhuang, itemModuleFusion, itMDaXiao, itMDong, itMZhuan, itMGuang,
+			itMZhenDing;
 
 	/**
 	 * Defense Station Modules
@@ -252,9 +254,10 @@ public class ZhuYao
 			itemModuleManipulator = new ItMManipulator(MFFSConfiguration.getNextItemID());
 			itemModuleDisintegration = new ItemModuleDisintegration(MFFSConfiguration.getNextItemID());
 			itemModuleJammer = new ItemModuleJammer(MFFSConfiguration.getNextItemID());
-			itemModuleCamouflage = new ItMWeiZhuang(MFFSConfiguration.getNextItemID());
+			itWeiZhuang = new ItMWeiZhuang(MFFSConfiguration.getNextItemID());
 			itemModuleFusion = new ItemModuleFusion(MFFSConfiguration.getNextItemID());
 			itMGuang = new ItM(MFFSConfiguration.getNextItemID(), "moduleGlow").setCost(0.1f);
+			itMZhenDing = new ItMZhenDing(MFFSConfiguration.getNextItemID());
 
 			itemModuleAntiFriendly = new ItMDAntiFriendly(MFFSConfiguration.getNextItemID());
 			itemModuleAntiHostile = new ItMDAntiHostile(MFFSConfiguration.getNextItemID());

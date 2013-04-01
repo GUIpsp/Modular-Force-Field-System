@@ -2,6 +2,10 @@ package mffs.it.muo.fangyingji;
 
 import mffs.api.IProjector;
 import mffs.it.muo.ItM;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFluid;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
 public class ItemModuleSponge extends ItM
@@ -12,16 +16,24 @@ public class ItemModuleSponge extends ItM
 	}
 
 	@Override
-	public void onProject(IProjector projector, Vector3 position)
-	{/*
-	 * if (world.getBlockMaterial(position.intX(), position.intY(), position.intZ()).isLiquid()) {
-	 * if (!MFFSConfiguration.forcefieldremoveonlywaterandlava) { world.setBlock(position.intX(),
-	 * position.intY(), position.intZ(), 0, 0, 2); } else if ((world.getBlockId(position.intX(),
-	 * position.intY(), position.intZ()) == 8) || (world.getBlockId(position.intX(),
-	 * position.intY(), position.intZ()) == 9) || (world.getBlockId(position.intX(),
-	 * position.intY(), position.intZ()) == 10) || (world.getBlockId(position.intX(),
-	 * position.intY(), position.intZ()) == 11)) { world.setBlock(position.intX(), position.intY(),
-	 * position.intZ(), 0, 0, 2); } }
-	 */
+	public boolean onProject(IProjector projector)
+	{
+		World world = ((TileEntity) projector).worldObj;
+
+		for (Vector3 points : projector.getInteriorPoints())
+		{
+			if (Block.blocksList[points.getBlockID(world)] instanceof BlockFluid)
+			{
+				points.setBlock(world, 0);
+			}
+		}
+
+		return super.onProject(projector);
+	}
+
+	@Override
+	public float getFortronCost(int amplifier)
+	{
+		return super.getFortronCost(amplifier) * Math.max(Math.min((amplifier / 500), 1000), 1);
 	}
 }

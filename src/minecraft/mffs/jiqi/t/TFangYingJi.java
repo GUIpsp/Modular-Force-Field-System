@@ -85,7 +85,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		{
 			if (itemStack != null)
 			{
-				cost += itemStack.stackSize * ((IModule) itemStack.getItem()).getFortronCost();
+				cost += itemStack.stackSize * ((IModule) itemStack.getItem()).getFortronCost(this.getCalculatedField().size());
 			}
 		}
 
@@ -184,6 +184,14 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 			int constructionCount = 0;
 			this.forceFields.clear();
 
+			for (IModule module : this.getModules(this.getModuleSlots()))
+			{
+				if (module.onProject(this))
+				{
+					return;
+				}
+			}
+
 			try
 			{
 				for (Vector3 vector : this.calculatedField)
@@ -223,15 +231,25 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 										((TLiQiang) tileEntity).setZhuYao(new Vector3(this));
 									}
 
+									boolean cancel = false;
+
 									for (IModule module : this.getModules(this.getModuleSlots()))
 									{
-										module.onProject(this, vector.clone());
+										if (module.onProject(this, vector.clone()))
+										{
+											cancel = true;
+										}
 									}
 
+									this.forceFields.add(vector);
 									constructionCount++;
+
+									if (cancel)
+									{
+										break;
+									}
 								}
 
-								this.forceFields.add(vector);
 							}
 						}
 					}

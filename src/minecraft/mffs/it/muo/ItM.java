@@ -40,9 +40,15 @@ public class ItM extends ItB implements IModule
 	}
 
 	@Override
-	public void onProject(IProjector projector, Vector3 position)
+	public boolean onProject(IProjector projector)
 	{
+		return false;
+	}
 
+	@Override
+	public boolean onProject(IProjector projector, Vector3 position)
+	{
+		return false;
 	}
 
 	@Override
@@ -64,7 +70,7 @@ public class ItM extends ItB implements IModule
 	}
 
 	@Override
-	public float getFortronCost()
+	public float getFortronCost(int amplifier)
 	{
 		return fortronCost;
 	}

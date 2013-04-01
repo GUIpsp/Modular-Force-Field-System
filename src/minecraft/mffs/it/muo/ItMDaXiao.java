@@ -5,11 +5,8 @@ public class ItMDaXiao extends ItM
 	public ItMDaXiao(int i)
 	{
 		super(i, "moduleScale");
+		this.setCost(1.2f);
+
 	}
 
-	@Override
-	public float getFortronCost()
-	{
-		return 1.2f;
-	}
 }

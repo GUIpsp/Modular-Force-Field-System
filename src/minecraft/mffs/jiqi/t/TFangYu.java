@@ -285,7 +285,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 		{
 			if (itemStack != null)
 			{
-				cost += itemStack.stackSize * ((IModule) itemStack.getItem()).getFortronCost();
+				cost += itemStack.stackSize * ((IModule) itemStack.getItem()).getFortronCost(this.getActionRange());
 			}
 		}
 

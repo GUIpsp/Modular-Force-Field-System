@@ -8,11 +8,7 @@ public class ItMWeiZhuang extends ItM
 	{
 		super(i, "moduleCamouflage");
 		this.setMaxDamage(1);
-	}
+		this.setCost(1.5f);
 
-	@Override
-	public float getFortronCost()
-	{
-		return 1.5f;
 	}
 }
