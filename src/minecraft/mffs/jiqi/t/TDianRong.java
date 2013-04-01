@@ -22,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.network.PacketManager;
 
 import com.google.common.io.ByteArrayDataInput;
 
@@ -75,41 +74,35 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 			/**
 			 * Gets the card.
 			 */
-			Vector3 linkPosition = null;
-
-			for (ItemStack itemStack : this.getCards())
-			{
-				if (itemStack != null)
-				{
-					if (itemStack.getItem() instanceof IItemFortronStorage)
-					{
-						int fortron = ((IItemFortronStorage) itemStack.getItem()).getFortronEnergy(itemStack);
-						fortron = Math.max(fortron - this.provideFortron(fortron, true), 0);
-						((IItemFortronStorage) itemStack.getItem()).setFortronEnergy(fortron, itemStack);
-					}
-					else if (itemStack.getItem() instanceof ItKaLian)
-					{
-						linkPosition = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
-
-						if (linkPosition != null && !(linkPosition.getTileEntity(this.worldObj) instanceof IFortronFrequency))
-						{
-							linkPosition = null;
-						}
-					}
-				}
-			}
-
 			if (this.isActive() && this.ticks % 10 == 0)
 			{
 				Set<IFortronFrequency> machines = new HashSet<IFortronFrequency>();
 
-				if (linkPosition != null)
+				for (ItemStack itemStack : this.getCards())
 				{
-					IFortronFrequency machine = (IFortronFrequency) linkPosition.getTileEntity(this.worldObj);
-					machines.add(this);
-					machines.add(machine);
+					if (itemStack != null)
+					{
+						if (itemStack.getItem() instanceof IItemFortronStorage)
+						{
+							int fortron = ((IItemFortronStorage) itemStack.getItem()).getFortronEnergy(itemStack);
+							fortron = Math.max(fortron - this.provideFortron(fortron, true), 0);
+							((IItemFortronStorage) itemStack.getItem()).setFortronEnergy(fortron, itemStack);
+						}
+						else if (itemStack.getItem() instanceof ItKaLian)
+						{
+							Vector3 linkPosition = ((ItKaLian) itemStack.getItem()).getLink(itemStack);
+
+							if (linkPosition != null && linkPosition.getTileEntity(this.worldObj) instanceof IFortronFrequency)
+							{
+								machines.add(this);
+								machines.add((IFortronFrequency) linkPosition.getTileEntity(this.worldObj));
+							}
+
+						}
+					}
 				}
-				else
+
+				if (machines.size() < 1)
 				{
 					machines = this.getLinkedDevices();
 				}

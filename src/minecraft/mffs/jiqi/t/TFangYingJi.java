@@ -55,7 +55,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 		if (this.isActive() && this.getMode() != null && this.requestFortron(this.getFortronCost(), false) >= this.getFortronCost())
 		{
 			this.requestFortron(this.getFortronCost(), true);
-			
+
 			if (!this.worldObj.isRemote)
 			{
 				if (this.ticks % 10 == 0)
@@ -196,7 +196,7 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 							{
 								if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 								{
-									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 3);
+									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ZhuYao.blockForceField.blockID, 0, 2);
 
 									TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 
@@ -209,6 +209,8 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 									{
 										module.onProject(this, vector.clone());
 									}
+
+//									this.worldObj.updateAllLightTypes(this.xCoord, this.yCoord, this.zCoord);
 
 									constructionCount++;
 								}

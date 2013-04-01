@@ -15,7 +15,6 @@ import com.google.common.io.ByteArrayDataInput;
 
 public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 {
-	private int bHaoMa, bMD = 0;
 	private Vector3 zhuYao = null;
 
 	@Override
@@ -29,7 +28,7 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 	{
 		if (this.getZhuYao() != null)
 		{
-			return PacketManager.getPacket(ZhuYao.CHANNEL, this, this.bHaoMa, this.bMD, this.zhuYao.intX(), this.zhuYao.intY(), this.zhuYao.intZ());
+			return PacketManager.getPacket(ZhuYao.CHANNEL, this, this.zhuYao.intX(), this.zhuYao.intY(), this.zhuYao.intZ());
 		}
 
 		return null;
@@ -40,7 +39,6 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 	{
 		try
 		{
-			this.setFangGe(dataStream.readInt(), dataStream.readInt());
 			this.setZhuYao(new Vector3(dataStream.readInt(), dataStream.readInt(), dataStream.readInt()));
 			this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
 		}
@@ -50,30 +48,6 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 		}
 	}
 
-	public void setFangGe(int blockID, int metadata)
-	{
-		if (this.bHaoMa != blockID || this.bMD != metadata)
-		{
-			this.bHaoMa = Math.max(blockID, 0);
-			this.bMD = Math.max(metadata, 0);
-
-			if (!this.worldObj.isRemote)
-			{
-				PacketManager.sendPacketToClients(this.getDescriptionPacket());
-			}
-		}
-	}
-
-	public int getHaoMa()
-	{
-		return this.bHaoMa;
-	}
-
-	public int getMD()
-	{
-		return this.bMD;
-	}
-
 	public void setZhuYao(Vector3 position)
 	{
 		this.zhuYao = position;
@@ -81,12 +55,9 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 
 	public TFangYingJi getZhuYao()
 	{
-		if (this.zhuYao != null)
+		if (this.getZhuYaoSafe() != null)
 		{
-			if (this.zhuYao.getTileEntity(this.worldObj) instanceof TFangYingJi)
-			{
-				return (TFangYingJi) this.zhuYao.getTileEntity(this.worldObj);
-			}
+			return getZhuYaoSafe();
 		}
 
 		if (!this.worldObj.isRemote)
@@ -97,13 +68,23 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 		return null;
 	}
 
+	public TFangYingJi getZhuYaoSafe()
+	{
+		if (this.zhuYao != null)
+		{
+			if (this.zhuYao.getTileEntity(this.worldObj) instanceof TFangYingJi)
+			{
+				return (TFangYingJi) this.zhuYao.getTileEntity(this.worldObj);
+			}
+		}
+		
+		return null;
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-
-		this.bHaoMa = nbt.getInteger("bHaoMa");
-		this.bMD = nbt.getInteger("bMD");
 		this.zhuYao = Vector3.readFromNBT(nbt.getCompoundTag("zhuYao"));
 
 	}
@@ -115,9 +96,6 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-
-		nbt.setInteger("bHaoMa", this.bHaoMa);
-		nbt.setInteger("bMD", this.bMD);
 
 		if (this.getZhuYao() != null)
 		{

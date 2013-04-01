@@ -167,7 +167,7 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 
 		if (new Vector3(entity).distanceTo(new Vector3(x, y, z).add(0.4)) < 0.5)
 		{
-			if (entity instanceof EntityLiving)
+			if (entity instanceof EntityLiving && world.isRemote)
 			{
 				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.confusion.id, 4 * 20, 3));
 				((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 1));
@@ -194,16 +194,23 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 					{
 						if (checkStack.getItem() instanceof ItemBlock)
 						{
-							Block block = Block.blocksList[((ItemBlock) checkStack.getItem()).getBlockID()];
-
-							if (block != null)
+							try
 							{
-								Icon icon = block.getBlockTextureFromSideAndMetadata(side, checkStack.getItemDamage());
+								Block block = Block.blocksList[((ItemBlock) checkStack.getItem()).getBlockID()];
 
-								if (icon != null)
+								if (block != null)
 								{
-									return icon;
+									Icon icon = block.getBlockTextureFromSideAndMetadata(side, checkStack.getItemDamage());
+
+									if (icon != null)
+									{
+										return icon;
+									}
 								}
+							}
+							catch (Exception e)
+							{
+								e.printStackTrace();
 							}
 						}
 					}
@@ -218,11 +225,23 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	@Override
 	public int getLightValue(IBlockAccess iBlockAccess, int x, int y, int z)
 	{
-		IProjector zhuYao = this.getProjector(iBlockAccess, x, y, z);
-
-		if (zhuYao instanceof IProjector)
+		try
 		{
-			return ((IProjector) zhuYao).getModuleCount(ZhuYao.itMGuang);
+			TileEntity tileEntity = iBlockAccess.getBlockTileEntity(x, y, z);
+
+			if (tileEntity instanceof TLiQiang)
+			{
+				IProjector zhuYao = ((TLiQiang) tileEntity).getZhuYaoSafe();
+
+				if (zhuYao instanceof IProjector)
+				{
+					return (int) (((float) ((IProjector) zhuYao).getModuleCount(ZhuYao.itMGuang) / 64) * 15f);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 
 		return super.getLightValue(iBlockAccess, x, y, z);

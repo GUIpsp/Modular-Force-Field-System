@@ -16,6 +16,8 @@ public class ItemModuleFusion extends ItM
 	public ItemModuleFusion(int i)
 	{
 		super(i, "moduleFusion");
+		this.setMaxStackSize(1);
+
 	}
 
 	@Override
