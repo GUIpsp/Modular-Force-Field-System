@@ -14,3 +14,4 @@ x MFFS_v3.0.0.16.jar MFFS_v3.0.0.16_api.zip
 x MFFS_v3.0.0.17.jar MFFS_v3.0.0.17_api.zip
 x MFFS_v3.0.0.18.jar MFFS_v3.0.0.18_api.zip
 @ MFFS_v3.0.0.19.jar MFFS_v3.0.0.19_api.zip
+x MFFS_v3.0.0.20.jar MFFS_v3.0.0.20_api.zip
