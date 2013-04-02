@@ -33,6 +33,8 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 	private boolean isCalculated = false;
 	private int blockCount = 0;
 
+	public int animation = 0;
+
 	public TFangYingJi()
 	{
 		this.fortronTank.setCapacity(20 * LiquidContainerRegistry.BUCKET_VOLUME);
@@ -67,6 +69,13 @@ public class TFangYingJi extends TModuleAcceptor implements IProjector
 					}
 
 					this.projectField();
+				}
+			}
+			else
+			{
+				if (this.isActive())
+				{
+					this.animation++;
 				}
 			}
 

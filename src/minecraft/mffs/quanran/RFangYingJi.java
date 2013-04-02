@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -15,6 +14,8 @@ import org.lwjgl.opengl.GL11;
 
 public class RFangYingJi extends TileEntitySpecialRenderer
 {
+	public static final String TEXTURE_NAME = "projector_on.png";
+	public static final String TEXTURE_NAME2 = "projector_off.png";
 	public static final MFangYingJi MODEL = new MFangYingJi();
 
 	@Override
@@ -29,9 +30,20 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 			 */
 			GL11.glPushMatrix();
 			GL11.glTranslated(x + 0.5, y + 1.5, z + 0.5);
-			this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + tileEntity.getBlockType().getUnlocalizedName2() + ".png");
+
+			if (tileEntity.isActive())
+			{
+				this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + TEXTURE_NAME);
+			}
+			else
+			{
+				this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + TEXTURE_NAME2);
+			}
+
 			GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-			MODEL.render(0.0625F);
+
+			MODEL.render(tileEntity.animation, 0.0625F);
+
 			GL11.glPopMatrix();
 
 			if (tileEntity.getMode() != null)
@@ -85,7 +97,7 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 				 * Render Hologram
 				 */
 				GL11.glPushMatrix();
-				GL11.glTranslated(x + 0.5, y + 1.4, z + 0.5);
+				GL11.glTranslated(x + 0.5, y + 1.35, z + 0.5);
 				this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + "force_cube.png");
 
 				// Enable Blending
@@ -99,7 +111,7 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 
 				GL11.glPushMatrix();
 				GL11.glColor4f(1, 1, 1, (float) Math.sin((double) tileEntity.getTicks() / 10) / 2 + 1);
-				GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(tileEntity.getTicks() * 3)) / 6, 0);
+				GL11.glTranslatef(0, (float) Math.sin(Math.toRadians(tileEntity.getTicks() * 3)) / 7, 0);
 				GL11.glRotatef(tileEntity.getTicks() * 4, 0, 1, 0);
 				GL11.glRotatef(36f + tileEntity.getTicks() * 4, 0, 1, 1);
 				tileEntity.getMode().render(tileEntity, x, y, z, f, tileEntity.getTicks());

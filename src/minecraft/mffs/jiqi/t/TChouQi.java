@@ -60,7 +60,6 @@ public class TChouQi extends TDian
 					{
 						// TODO:Finish this.
 						// ((TileEntityFortronCapacitor)tileEntity)
-
 					}
 				}
 

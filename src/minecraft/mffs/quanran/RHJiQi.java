@@ -26,10 +26,10 @@ public class RHJiQi implements ISimpleBlockRenderingHandler
 		if (modelID == ID && block instanceof BFangYingJi)
 		{
 			GL11.glPushMatrix();
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, FMLClientHandler.instance().getClient().renderEngine.getTexture(ZhuYao.MODEL_DIRECTORY + block.getUnlocalizedName2() + ".png"));
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, FMLClientHandler.instance().getClient().renderEngine.getTexture(ZhuYao.MODEL_DIRECTORY + RFangYingJi.TEXTURE_NAME));
 			GL11.glTranslated(0.5, 1.5, 0.5);
 			GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-			RFangYingJi.MODEL.render(0.0625F);
+			RFangYingJi.MODEL.render(0, 0.0625F);
 			GL11.glPopMatrix();
 		}
 		else
