@@ -9,6 +9,7 @@ import mffs.api.IForceFieldBlock;
 import mffs.api.IProjector;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
+import mffs.api.fortron.IFortronStorage;
 import mffs.api.modules.IModule;
 import mffs.jiqi.t.TFangYingJi;
 import mffs.jiqi.t.TLiQiang;
@@ -295,10 +296,17 @@ public class BLiQiang extends BBase implements IForceFieldBlock
 	}
 
 	@Override
-	public void weakenForceField(World world, int x, int y, int z)
+	public void weakenForceField(World world, int x, int y, int z, int joules)
 	{
 		if (MFFSConfiguration.influencedByOtherMods)
 		{
+			IProjector projector = this.getProjector(world, x, y, z);
+
+			if (projector != null)
+			{
+				((IFortronStorage) projector).provideFortron(joules, true);
+			}
+
 			world.setBlock(x, y, z, 0, 0, 3);
 		}
 	}

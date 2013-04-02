@@ -1,13 +1,13 @@
 package mffs.quanran;
 
-import java.util.Random;
-
 import mffs.ZhuYao;
 import mffs.jiqi.t.TFangYingJi;
 import mffs.quanran.muoxing.MFangYingJi;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -44,6 +44,11 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 				RenderHelper.disableStandardItemLighting();
 				GL11.glPushMatrix();
 				GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
+
+				double xDifference = Minecraft.getMinecraft().thePlayer.posX - (tileEntity.xCoord + 0.5);
+				double zDifference = Minecraft.getMinecraft().thePlayer.posZ - (tileEntity.zCoord + 0.5);
+				float rotatation = (float) Math.toDegrees(Math.atan2(zDifference, xDifference));
+				GL11.glRotatef(-rotatation + 27, 0.0F, 1.0F, 0.0F);
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
 				GL11.glShadeModel(GL11.GL_SMOOTH);
 				GL11.glEnable(GL11.GL_BLEND);

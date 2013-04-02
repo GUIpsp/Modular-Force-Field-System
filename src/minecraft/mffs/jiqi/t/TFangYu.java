@@ -354,7 +354,7 @@ public class TFangYu extends TModuleAcceptor implements IDefenseStation
 
 	public static IDefenseStation getNearestDefenseStation(World world, Vector3 position)
 	{
-		for (IFortronFrequency frequencyTile : LiGuanLi.INSTANCE.get())
+		for (IFortronFrequency frequencyTile : LiGuanLi.instance().get())
 		{
 			if (((TileEntity) frequencyTile).worldObj == world && frequencyTile instanceof IDefenseStation)
 			{

@@ -7,6 +7,7 @@ import mffs.ZhuYao;
 import mffs.it.ka.ItKaLian;
 import mffs.jiqi.t.TAnQuan;
 import mffs.jiqi.t.TMFFS;
+import mffs.quanran.RHJiQi;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -211,5 +212,12 @@ public abstract class BJiQi extends BlockRotatable implements ICamouflageMateria
 		}
 
 		return 100.0F;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getRenderType()
+	{
+		return RHJiQi.ID;
 	}
 }

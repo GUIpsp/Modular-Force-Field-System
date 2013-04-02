@@ -20,7 +20,7 @@ public class ItemModuleFusion extends ItM
 	@Override
 	public boolean canProject(IProjector projector, Vector3 position)
 	{
-		Set<IFortronFrequency> machines = LiGuanLi.INSTANCE.get(((IFortronFrequency) projector).getFrequency());
+		Set<IFortronFrequency> machines = LiGuanLi.instance().get(((IFortronFrequency) projector).getFrequency());
 
 		for (IFortronFrequency machine : machines)
 		{

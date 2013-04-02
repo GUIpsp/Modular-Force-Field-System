@@ -25,6 +25,8 @@ import universalelectricity.core.vector.Vector3;
 
 import com.google.common.io.ByteArrayDataInput;
 
+import cpw.mods.fml.common.FMLLog;
+
 public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFortronCapacitor
 {
 	public enum TransferMode
@@ -293,7 +295,7 @@ public class TDianRong extends TModuleAcceptor implements IFortronStorage, IFort
 	@Override
 	public Set<IFortronFrequency> getLinkedDevices()
 	{
-		return LiGuanLi.INSTANCE.get(this.worldObj, new Vector3(this), this.getTransmissionRange(), this.getFrequency());
+		return LiGuanLi.instance().get(this.worldObj, new Vector3(this), this.getTransmissionRange(), this.getFrequency());
 	}
 
 	@Override

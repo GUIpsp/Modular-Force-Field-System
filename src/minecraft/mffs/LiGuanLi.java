@@ -1,12 +1,15 @@
 package mffs;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import mffs.api.fortron.IFortronFrequency;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * A grid MFFS uses to search for machines with frequencies that can be linked and spread Fortron
@@ -17,21 +20,21 @@ import universalelectricity.core.vector.Vector3;
  */
 public class LiGuanLi
 {
-	public static LiGuanLi INSTANCE = new LiGuanLi();
+	private static LiGuanLi CLIENT_INSTANCE = new LiGuanLi();
+	private static LiGuanLi SERVER_INSTANCE = new LiGuanLi();
 
 	private final Set<IFortronFrequency> frequencyGrid = new HashSet<IFortronFrequency>();
 
 	public void register(IFortronFrequency tileEntity)
 	{
-		if (!((TileEntity) tileEntity).worldObj.isRemote)
-		{
-			this.frequencyGrid.add(tileEntity);
-		}
+		this.cleanUp();
+		this.frequencyGrid.add(tileEntity);
 	}
 
 	public void unregister(IFortronFrequency tileEntity)
 	{
 		this.frequencyGrid.remove(tileEntity);
+		this.cleanUp();
 	}
 
 	public Set<IFortronFrequency> get()
@@ -62,6 +65,41 @@ public class LiGuanLi
 		return set;
 	}
 
+	public void cleanUp()
+	{
+		try
+		{
+			Iterator<IFortronFrequency> it = this.frequencyGrid.iterator();
+
+			while (it.hasNext())
+			{
+				IFortronFrequency frequency = it.next();
+
+				if (frequency == null)
+				{
+					it.remove();
+					continue;
+				}
+
+				if (((TileEntity) frequency).isInvalid())
+				{
+					it.remove();
+					continue;
+				}
+
+				if (((TileEntity) frequency).worldObj.getBlockTileEntity(((TileEntity) frequency).xCoord, ((TileEntity) frequency).yCoord, ((TileEntity) frequency).zCoord) != ((TileEntity) frequency))
+				{
+					it.remove();
+					continue;
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public Set<IFortronFrequency> get(World world, Vector3 position, int radius, int frequency)
 	{
 		Set<IFortronFrequency> set = new HashSet<IFortronFrequency>();
@@ -75,5 +113,15 @@ public class LiGuanLi
 		}
 		return set;
 
+	}
+
+	public static LiGuanLi instance()
+	{
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+		{
+			return SERVER_INSTANCE;
+		}
+
+		return CLIENT_INSTANCE;
 	}
 }

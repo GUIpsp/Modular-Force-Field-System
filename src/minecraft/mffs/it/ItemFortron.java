@@ -62,37 +62,6 @@ public abstract class ItemFortron extends ItB implements IItemFortronStorage
 		itemStack = ElectricItemHelper.getUncharged(itemStack);
 	}
 
-	@Override
-	public void onUpdate(ItemStack itemStack, World world, Entity entity, int par4, boolean par5)
-	{
-		if (entity instanceof EntityLiving)
-		{
-			if (entity.isSneaking())
-			{
-				if (this.getFortronCapacity(itemStack) - this.getFortronEnergy(itemStack) > 0)
-				{
-					MovingObjectPosition mop = ((EntityLiving) entity).rayTrace(10, 1);
-
-					if (mop != null)
-					{
-						TileEntity tileEntity = new Vector3(mop).getTileEntity(world);
-
-						if (tileEntity instanceof IFortronCapacitor)
-						{
-							int received = ((IFortronStorage) tileEntity).provideFortron(this.getFortronCapacity(itemStack) - this.getFortronEnergy(itemStack), true);
-							this.setFortronEnergy(this.getFortronCapacity(itemStack) + received, itemStack);
-
-							if (world.isRemote)
-							{
-								ZhuYao.proxy.renderBeam(world, new Vector3(tileEntity).add(0.5), new Vector3(entity).add(new Vector3(0, entity.getEyeHeight(), 0)), 0.6f, 0.6f, 1, 20);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
 	/**
 	 * This function sets the electricity. Do not directly call this function. Try to use
 	 * onReceiveElectricity or onUseElectricity instead.

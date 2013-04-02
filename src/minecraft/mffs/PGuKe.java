@@ -6,9 +6,15 @@ import mffs.jiqi.t.TChouQi;
 import mffs.jiqi.t.TDianRong;
 import mffs.jiqi.t.TFangYingJi;
 import mffs.quanran.FXBeam;
+import mffs.quanran.RFangYingJi;
+import mffs.quanran.RHJiQi;
 import mffs.quanran.RenderForcilliumExtractor;
 import mffs.quanran.RenderFortronCapacitor;
-import mffs.quanran.RFangYingJi;
+import mffs.shimian.GAnQuan;
+import mffs.shimian.GChouQi;
+import mffs.shimian.GDianRong;
+import mffs.shimian.GFangYingQi;
+import mffs.shimian.GFangYu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -16,18 +22,26 @@ import net.minecraftforge.common.MinecraftForge;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class PGuKe extends PGongTong
 {
 	@Override
 	public void preInit()
 	{
+		super.preInit();
 		MinecraftForge.EVENT_BUS.register(ShengYin.INSTANCE);
+		JiQi.fangYingJi.gui = GFangYingQi.class;
+		JiQi.chouQi.gui = GChouQi.class;
+		JiQi.dianRong.gui = GDianRong.class;
+		JiQi.fangYu.gui = GFangYu.class;
+		JiQi.anQuan.gui = GAnQuan.class;
 	}
 
 	@Override
 	public void init()
 	{
+		RenderingRegistry.registerBlockHandler(new RHJiQi());
 		ClientRegistry.bindTileEntitySpecialRenderer(TDianRong.class, new RenderFortronCapacitor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TChouQi.class, new RenderForcilliumExtractor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TFangYingJi.class, new RFangYingJi());
@@ -46,7 +60,7 @@ public class PGuKe extends PGongTong
 
 		if (tileEntity != null)
 		{
-			MachineTypes machType = MachineTypes.get(tileEntity);
+			JiQi machType = JiQi.get(tileEntity);
 
 			try
 			{

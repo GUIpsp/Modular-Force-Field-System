@@ -100,7 +100,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = ZhuYao.ID, name = ZhuYao.NAME, version = ZhuYao.VERSION, dependencies = "after:ThermalExpansion")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { ZhuYao.CHANNEL }, packetHandler = PacketManager.class, connectionHandler = ConnectionHandler.class)
+@NetworkMod(clientSideRequired = true, channels = { ZhuYao.CHANNEL }, packetHandler = PacketManager.class)
 @ModstatInfo(prefix = "mffs")
 public class ZhuYao
 {
@@ -300,13 +300,12 @@ public class ZhuYao
 	@Init
 	public void load(FMLInitializationEvent evt)
 	{
-		System.out.println(NAME + " has loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "yuyan/", new String[] { "en_US" }));
-
+		LOGGER.fine("Language(s) Loaded: " + TranslationHelper.loadLanguages(RESOURCE_DIRECTORY + "yuyan/", new String[] { "en_US" }));
 		GameRegistry.registerBlock(blockFortronite, "MFFSFortonite");
 		GameRegistry.registerBlock(bLiQiang, "MFFSForceField");
 		GameRegistry.registerTileEntity(TLiQiang.class, "MFFSForceField");
 
-		MachineTypes.initialize();
+		JiQi.initialize();
 
 		proxy.init();
 	}

@@ -2,6 +2,16 @@ package mffs;
 
 import java.lang.reflect.Constructor;
 
+import mffs.jiqi.t.TAnQuan;
+import mffs.jiqi.t.TChouQi;
+import mffs.jiqi.t.TDianRong;
+import mffs.jiqi.t.TFangYingJi;
+import mffs.jiqi.t.TFangYu;
+import mffs.rongqi.CAnQuan;
+import mffs.rongqi.CChouQi;
+import mffs.rongqi.CDianRong;
+import mffs.rongqi.CFangYingJi;
+import mffs.rongqi.CFangYu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -12,7 +22,11 @@ public class PGongTong implements IGuiHandler
 {
 	public void preInit()
 	{
-
+		JiQi.fangYingJi = new JiQi(0, ZhuYao.bFangYingJi, TFangYingJi.class, CFangYingJi.class);
+		JiQi.chouQi = new JiQi(1, ZhuYao.bChouQi, TChouQi.class, CChouQi.class);
+		JiQi.dianRong = new JiQi(2, ZhuYao.bDianRong, TDianRong.class, CDianRong.class);
+		JiQi.fangYu = new JiQi(3, ZhuYao.bFangYu, TFangYu.class, CFangYu.class);
+		JiQi.anQuan = new JiQi(4, ZhuYao.bAnQuan, TAnQuan.class, CAnQuan.class);
 	}
 
 	public void init()
@@ -32,7 +46,7 @@ public class PGongTong implements IGuiHandler
 
 		if (tileEntity != null)
 		{
-			MachineTypes machineType = MachineTypes.get(tileEntity);
+			JiQi machineType = JiQi.get(tileEntity);
 
 			try
 			{

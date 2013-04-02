@@ -32,14 +32,14 @@ public abstract class TFortron extends TShengBuo implements ITankContainer, IFor
 	@Override
 	public void initiate()
 	{
-		LiGuanLi.INSTANCE.register(this);
+		LiGuanLi.instance().register(this);
 		super.initiate();
 	}
 
 	@Override
 	public void invalidate()
 	{
-		LiGuanLi.INSTANCE.unregister(this);
+		LiGuanLi.instance().unregister(this);
 		super.invalidate();
 	}
 

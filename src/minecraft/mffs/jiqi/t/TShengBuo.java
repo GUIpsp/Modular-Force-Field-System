@@ -115,7 +115,7 @@ public abstract class TShengBuo extends TZhuang implements IBlockFrequency
 			}
 		}
 
-		for (IFortronFrequency tileEntity : LiGuanLi.INSTANCE.get(this.getFrequency()))
+		for (IFortronFrequency tileEntity : LiGuanLi.instance().get(this.getFrequency()))
 		{
 			if (tileEntity instanceof ISecurityCenter)
 			{
