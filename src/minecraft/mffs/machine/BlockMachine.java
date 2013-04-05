@@ -7,7 +7,7 @@ import mffs.ModularForceFieldSystem;
 import mffs.item.card.ItemCardLink;
 import mffs.machine.tile.TileMFFS;
 import mffs.machine.tile.TileSecurityStation;
-import mffs.render.RHJiQi;
+import mffs.render.RenderBlockHandler;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -218,6 +218,6 @@ public abstract class BlockMachine extends BlockRotatable implements ICamouflage
 	@Override
 	public int getRenderType()
 	{
-		return RHJiQi.ID;
+		return RenderBlockHandler.ID;
 	}
 }

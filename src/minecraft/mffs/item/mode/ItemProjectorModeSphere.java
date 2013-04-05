@@ -23,14 +23,38 @@ public class ItemProjectorModeSphere extends ItemProjectorMode
 	@Override
 	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 center, Vector3 posScale, Vector3 negScale)
 	{
+		boolean requireInterior = projector.getModuleCount(ModularForceFieldSystem.itemModuleFusion) > 0;
 		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale);
 
 		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius / 2));
 
-		// for (int i = 0; i <= radius; i++)
+		if (requireInterior)
 		{
-			int i = radius;
+			for (int i = 0; i <= radius; i++)
+			{
+				for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
+				{
+					for (int theta_n = 0; theta_n < steps; theta_n++)
+					{
+						double phi = Math.PI * 2 / steps * phi_n;
+						double theta = Math.PI / steps * theta_n;
 
+						Vector3 point = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi)).multiply(i);
+
+						if (i == radius)
+						{
+							blockDef.add(Vector3.add(center, point));
+						}
+						else
+						{
+							blockInterior.add(Vector3.add(center, point));
+						}
+					}
+				}
+			}
+		}
+		else
+		{
 			for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
 			{
 				for (int theta_n = 0; theta_n < steps; theta_n++)
@@ -38,19 +62,12 @@ public class ItemProjectorModeSphere extends ItemProjectorMode
 					double phi = Math.PI * 2 / steps * phi_n;
 					double theta = Math.PI / steps * theta_n;
 
-					Vector3 point = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi)).multiply(i);
-
-					if (i == radius)
-					{
-						blockDef.add(Vector3.add(center, point));
-					}
-					else
-					{
-						//blockInterior.add(Vector3.add(center, point));
-					}
+					Vector3 point = new Vector3(Math.sin(theta) * Math.cos(phi), Math.cos(theta), Math.sin(theta) * Math.sin(phi)).multiply(radius);
+					blockDef.add(Vector3.add(center, point));
 				}
 			}
 		}
+
 	}
 
 	@SideOnly(Side.CLIENT)

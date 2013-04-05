@@ -40,7 +40,7 @@ public class ItemModule extends ItemBase implements IModule
 	}
 
 	@Override
-	public boolean onProject(IProjector projector)
+	public boolean onProject(IProjector projector, Set<Vector3> fields)
 	{
 		return false;
 	}
@@ -49,12 +49,6 @@ public class ItemModule extends ItemBase implements IModule
 	public boolean onProject(IProjector projector, Vector3 position)
 	{
 		return false;
-	}
-
-	@Override
-	public boolean canProject(IProjector projector, Vector3 position)
-	{
-		return true;
 	}
 
 	@Override

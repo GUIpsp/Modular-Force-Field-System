@@ -166,7 +166,8 @@ public class ModularForceFieldSystem
 	 */
 	public static ItemModule itMSuDu, itMJuLi, itMRongLiang, itMDian, itemModuleSponge,
 			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer, itWeiZhuang,
-			itemModuleFusion, itemModuleScale, itemModuleTranslation, itemModuleRotation, itMGuang, itMZhenDing;
+			itemModuleFusion, itemModuleScale, itemModuleTranslation, itemModuleRotation, itMGuang,
+			itMZhenDing;
 
 	/**
 	 * Defense Station Modules

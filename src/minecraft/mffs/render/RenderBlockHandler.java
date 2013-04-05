@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RHJiQi implements ISimpleBlockRenderingHandler
+public class RenderBlockHandler implements ISimpleBlockRenderingHandler
 {
 	public static final int ID = RenderingRegistry.getNextAvailableRenderId();
 

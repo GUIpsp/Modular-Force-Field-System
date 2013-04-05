@@ -24,7 +24,7 @@ public interface IModule
 	 * @param projector
 	 * @return True to stop projecting.
 	 */
-	boolean onProject(IProjector projector);
+	boolean onProject(IProjector projector, Set<Vector3> field);
 
 	/**
 	 * Called right after the projector creates a force field block.
@@ -35,8 +35,6 @@ public interface IModule
 	 */
 
 	public boolean onProject(IProjector projector, Vector3 position);
-
-	public boolean canProject(IProjector projector, Vector3 position);
 
 	/**
 	 * Called when an entity collides with a force field block.

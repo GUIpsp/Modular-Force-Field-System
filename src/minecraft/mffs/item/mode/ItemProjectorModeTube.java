@@ -2,6 +2,7 @@ package mffs.item.mode;
 
 import java.util.Set;
 
+import mffs.ModularForceFieldSystem;
 import mffs.api.IProjector;
 import mffs.muoxing.MPlane;
 import net.minecraftforge.common.ForgeDirection;
@@ -22,6 +23,8 @@ public class ItemProjectorModeTube extends ItemProjectorMode
 	@Override
 	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 translation, Vector3 posScale, Vector3 negScale)
 	{
+		boolean requireInterior = projector.getModuleCount(ModularForceFieldSystem.itemModuleFusion) > 0;
+
 		for (float x = -negScale.intX(); x <= posScale.intX(); x += 0.5f)
 		{
 			for (float z = -negScale.intZ(); z <= posScale.intZ(); z += 0.5f)
@@ -46,7 +49,8 @@ public class ItemProjectorModeTube extends ItemProjectorMode
 						continue;
 					}
 
-					blockInterior.add(Vector3.add(translation, new Vector3(x, y, z)));
+					if (requireInterior)
+						blockInterior.add(Vector3.add(translation, new Vector3(x, y, z)));
 				}
 			}
 		}

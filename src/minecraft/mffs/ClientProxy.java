@@ -11,10 +11,10 @@ import mffs.machine.tile.TileCapacitor;
 import mffs.machine.tile.TileExtractor;
 import mffs.machine.tile.TileProjector;
 import mffs.render.FXBeam;
-import mffs.render.RenderProjector;
-import mffs.render.RHJiQi;
+import mffs.render.RenderBlockHandler;
 import mffs.render.RenderForcilliumExtractor;
 import mffs.render.RenderFortronCapacitor;
+import mffs.render.RenderProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -41,7 +41,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void init()
 	{
-		RenderingRegistry.registerBlockHandler(new RHJiQi());
+		RenderingRegistry.registerBlockHandler(new RenderBlockHandler());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCapacitor.class, new RenderFortronCapacitor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileExtractor.class, new RenderForcilliumExtractor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileProjector.class, new RenderProjector());

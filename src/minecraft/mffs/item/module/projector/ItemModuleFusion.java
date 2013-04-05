@@ -1,5 +1,6 @@
 package mffs.item.module.projector;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import mffs.FortronGrid;
@@ -18,7 +19,7 @@ public class ItemModuleFusion extends ItemModule
 	}
 
 	@Override
-	public boolean canProject(IProjector projector, Vector3 position)
+	public void onCalculate(IProjector projector, Set<Vector3> fieldDefinition, Set<Vector3> fieldInterior)
 	{
 		Set<IFortronFrequency> machines = FortronGrid.instance().get(((IFortronFrequency) projector).getFrequency());
 
@@ -26,13 +27,18 @@ public class ItemModuleFusion extends ItemModule
 		{
 			if (machine instanceof IProjector && machine != projector)
 			{
-				if (((IProjector) machine).getInteriorPoints().contains(position))
+				Iterator<Vector3> it = fieldDefinition.iterator();
+
+				while (it.hasNext())
 				{
-					return false;
+					Vector3 position = it.next();
+
+					if (((IProjector) machine).getInteriorPoints().contains(position))
+					{
+						it.remove();
+					}
 				}
 			}
 		}
-
-		return true;
 	}
 }

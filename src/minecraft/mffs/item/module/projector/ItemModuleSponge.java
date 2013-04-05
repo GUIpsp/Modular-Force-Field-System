@@ -1,5 +1,7 @@
 package mffs.item.module.projector;
 
+import java.util.Set;
+
 import mffs.api.IProjector;
 import mffs.item.module.ItemModule;
 import net.minecraft.block.Block;
@@ -16,7 +18,7 @@ public class ItemModuleSponge extends ItemModule
 	}
 
 	@Override
-	public boolean onProject(IProjector projector)
+	public boolean onProject(IProjector projector, Set<Vector3> fields)
 	{
 		World world = ((TileEntity) projector).worldObj;
 
@@ -28,7 +30,7 @@ public class ItemModuleSponge extends ItemModule
 			}
 		}
 
-		return super.onProject(projector);
+		return super.onProject(projector, fields);
 	}
 
 	@Override

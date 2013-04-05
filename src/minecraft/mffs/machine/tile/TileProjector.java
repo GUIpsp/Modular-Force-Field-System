@@ -78,7 +78,7 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 			{
 				if (this.isActive())
 				{
-					this.animation++;
+					this.animation += this.getFortronCost() / 3;
 				}
 			}
 
@@ -128,7 +128,20 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 		{
 			if (this.getMode() != null)
 			{
+				this.calculatedField.clear();
+				this.calculatedFieldInterior.clear();
+
 				this.getMode().calculateField(this, this.calculatedField, this.calculatedFieldInterior);
+
+				for (Vector3 position : this.calculatedField)
+				{
+					position.add(new Vector3(this));
+				}
+				
+				for (Vector3 position : this.calculatedFieldInterior)
+				{
+					position.add(new Vector3(this));
+				}
 
 				for (IModule module : this.getModules(this.getModuleSlots()))
 				{
@@ -152,19 +165,22 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 			int constructionSpeed = Math.min(this.getConstructionSpeed(), MFFSConfiguration.MAX_FORCE_FIELDS_PER_TICK);
 			this.forceFields.clear();
 
+			HashSet<Vector3> fieldToBeProjected = new HashSet<Vector3>();
+			fieldToBeProjected.addAll(this.calculatedField);
+
 			for (IModule module : this.getModules(this.getModuleSlots()))
 			{
-				if (module.onProject(this))
+				if (module.onProject(this, fieldToBeProjected))
 				{
 					return;
 				}
 			}
 
-			Iterator<Vector3> it = this.calculatedField.iterator();
+			Iterator<Vector3> it = fieldToBeProjected.iterator();
 
 			while (it.hasNext())
 			{
-				Vector3 vector = it.next().clone().add(new Vector3(this));
+				Vector3 vector = it.next();
 
 				if (constructionCount > constructionSpeed)
 				{
@@ -175,54 +191,39 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 
 				if (this.getModuleCount(ModularForceFieldSystem.itemModuleDisintegration) > 0 || block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ModularForceFieldSystem.blockForcefield)
 				{
-					boolean canProject = true;
-
-					for (IModule module : this.getModules(this.getModuleSlots()))
+					if (block != ModularForceFieldSystem.blockForcefield)
 					{
-						if (!module.canProject(this, vector.clone()))
+						if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 						{
-							canProject = false;
-							break;
-						}
-					}
+							this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForcefield.blockID, 0, 2);
 
-					if (canProject)
-					{
-						if (block != ModularForceFieldSystem.blockForcefield)
-						{
-							if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
+							// Sets the controlling projector of the force field block to
+							// this one.
+
+							TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
+
+							if (tileEntity instanceof TLiQiang)
 							{
-								this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForcefield.blockID, 0, 2);
+								((TLiQiang) tileEntity).setZhuYao(new Vector3(this));
+							}
 
-								// Sets the controlling projector of the force field block to
-								// this one.
+							boolean cancel = false;
 
-								TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
-
-								if (tileEntity instanceof TLiQiang)
+							for (IModule module : this.getModules(this.getModuleSlots()))
+							{
+								if (module.onProject(this, vector.clone()))
 								{
-									((TLiQiang) tileEntity).setZhuYao(new Vector3(this));
-								}
-
-								boolean cancel = false;
-
-								for (IModule module : this.getModules(this.getModuleSlots()))
-								{
-									if (module.onProject(this, vector.clone()))
-									{
-										cancel = true;
-									}
-								}
-
-								this.forceFields.add(vector);
-								constructionCount++;
-
-								if (cancel)
-								{
-									break;
+									cancel = true;
 								}
 							}
 
+							this.forceFields.add(vector);
+							constructionCount++;
+
+							if (cancel)
+							{
+								break;
+							}
 						}
 					}
 				}
@@ -242,7 +243,7 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 
 			while (it.hasNext())
 			{
-				Vector3 vector = it.next().clone().add(new Vector3(this));
+				Vector3 vector = it.next();
 				Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
 				if (block == ModularForceFieldSystem.blockForcefield)

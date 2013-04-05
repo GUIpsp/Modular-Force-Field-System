@@ -13,6 +13,7 @@ public class ItemForcillium extends ItemBase
 		this.setMaxStackSize(64);
 	}
 
+	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer entityPlayer, List par3List, boolean par4)
 	{
 		if (entityPlayer != null)
