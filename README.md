@@ -1,6 +1,9 @@
 ## Modular Force Field System
 MFFS adds advanced security systems, force fields, force energy, and more to Minecraft. The mod is currently being developed by Calclavia, and was originally developed by Thunderdark.
 
+### Download
+The mod can be downloaded at: http://universalelectricity.com/?m=mffs&p=downloads#downloads
+
 ### Developement
 **Project Leader** - Calclavia
 **Original Developer** - ThunderDark

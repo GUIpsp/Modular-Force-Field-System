@@ -1,6 +1,7 @@
 package mffs.machine.tile;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import mffs.ModularForceFieldSystem;
@@ -283,13 +284,19 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 		{
 			try
 			{
-				for (Vector3 vector : this.calculatedField)
+				synchronized (this.calculatedField)
 				{
-					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+					Iterator<Vector3> it = this.calculatedField.iterator();
 
-					if (block == ModularForceFieldSystem.blockForcefield)
+					while (it.hasNext())
 					{
-						this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
+						Vector3 vector = it.next();
+						Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
+
+						if (block == ModularForceFieldSystem.blockForcefield)
+						{
+							this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
+						}
 					}
 				}
 			}
