@@ -15,11 +15,19 @@ Please submit a pull request if you would be willing to translate this mod into 
 Join *#universalelectricity* on EsperNet. Remember to follow the rules and respect others as with any other channel.
 
 ### License
+In short, you are allowed to:
+
+* Redistribute
+* Modify
+* Derive Code
+
+from this mod given you give permission to the original author(s).
+
 This intellectual property is licensed under the following copyright:
-Minecraft Mod Public License
+Modular Force Field System Public License (Modified MMPL)
 ============================
 
-Version 1.0.1
+Version 1.0.0
 
 0. Definitions
 --------------
@@ -73,7 +81,7 @@ decompiled version or the original source code, and to modify it.
 
 The user has the rights to derive code from this mod, that is to say to
 write code that extends or instanciate the mod classes or interfaces, refer to
-its objects, or calls its functions given that credit is given to the original author(s). This code is known as "derived" code, and 
+its objects, or calls its functions. This code is known as "derived" code, and 
 can be licensed under a license different from this mod.
 
 6. Distribution of original or modified copy rights
@@ -88,12 +96,12 @@ include:
    - any copy of a portion of its binary source files
 
 The user is allowed to redistribute this mod partially, in totality, or 
-included in a distribution.
+included in a distribution given that credit is given to the original author(s).
 
 When distributing binary files, the user must provide means to obtain its 
 entire set of sources or modified sources at no costs.
 
-All distributions of this mod must remain licensed under the MMPL.
+All distributions of this mod must remain licensed under MMPL.
 
 All dependencies that this mod have on other mods or classes must be licensed
 under conditions comparable to this version of MMPL, with the exception of the
