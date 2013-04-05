@@ -46,12 +46,6 @@ public class BlockProjector extends BlockMachine
 	}
 
 	@Override
-	public int getRenderType()
-	{
-		return -1;
-	}
-
-	@Override
 	public int getLightValue(IBlockAccess iBlockAccess, int x, int y, int z)
 	{
 		TileProjector tileEntity = (TileProjector) iBlockAccess.getBlockTileEntity(x, y, z);
