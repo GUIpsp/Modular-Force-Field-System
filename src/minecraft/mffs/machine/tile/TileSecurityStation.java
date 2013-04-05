@@ -75,7 +75,7 @@ public class TileSecurityStation extends TileFrequency implements ISecurityCente
 			return true;
 		}
 
-		String[] ops = MFFSConfiguration.administrators.split(";");
+		String[] ops = MFFSConfiguration.ADMINISTRATORS.split(";");
 
 		for (int i = 0; i <= ops.length - 1; i++)
 		{

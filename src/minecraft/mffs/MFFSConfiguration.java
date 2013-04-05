@@ -32,27 +32,14 @@ public class MFFSConfiguration
 	/**
 	 * Settings
 	 */
+	public static int MAX_FORCE_FIELDS_PER_TICK = 1000000;
 	public static int MAX_FORCE_FIELD_SCALE = 150;
-	public static int graphicStyle;
-	public static boolean chunckLoader = true;
-	public static boolean defenseStationNPCNotification;
-	public static boolean advancedParticles;
-	public static boolean uumatterEnabled;
-	public static int forceFieldBlockCost;
-	public static int forcefieldblockcreatemodifier;
-	public static int forcefieldblockzappermodifier;
-	public static int forcefieldtransportcost;
-	public static int maxForceFieldPerTick;
-	public static boolean forcefieldremoveonlywaterandlava;
-	public static boolean influencedByOtherMods;
-	public static boolean adventureMap;
-	public static int ForcilliumWorkCylce;
-	public static int forceciumCellWorkCycle;
-	public static int ExtractorPassForceEnergyGenerate;
-	public static int defenceStationKillForceEnergy;
-	public static int defenceStationSearchForceEnergy;
-	public static int DefenceStationScannForceEnergy;
-	public static String administrators;
+	public static boolean LOAD_CHUNKS = true;
+	public static boolean MOD_INFLUENCE = true;
+	public static int DEFENSE_STATION_KILL_ENERGY = 1000;
+	public static int DEFENSE_STATION_SEARCH_ENERGY = 100;
+	public static int DEFENSE_STATION_SCAN_ENERGY = 10;
+	public static String ADMINISTRATORS = "";
 
 	/**
 	 * Compatibility Modules
@@ -69,85 +56,36 @@ public class MFFSConfiguration
 	{
 		CONFIGURATION.load();
 
-		Property prop_graphicstyle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Max Force Field Scale", MAX_FORCE_FIELD_SCALE);
-		MAX_FORCE_FIELD_SCALE = prop_graphicstyle.getInt(MAX_FORCE_FIELD_SCALE);
+		Property fieldScale = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Max Force Field Scale", MAX_FORCE_FIELD_SCALE);
+		MAX_FORCE_FIELD_SCALE = fieldScale.getInt(MAX_FORCE_FIELD_SCALE);
 
-		Property chunckloader_prop = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Chunkloader", true);
+		Property chunckloader_prop = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Chunkloader", LOAD_CHUNKS);
 		chunckloader_prop.comment = "Set this to false to turn off the MFFS Chunkloading abilities.";
-		chunckLoader = chunckloader_prop.getBoolean(true);
+		LOAD_CHUNKS = chunckloader_prop.getBoolean(LOAD_CHUNKS);
 
-		Property DefSationNPCScannoti = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationNPCScannnotification", false);
-		DefSationNPCScannoti.comment = "Set this to true to turn off the Defence Station notification that it is in NPC Mode.";
-		defenseStationNPCNotification = DefSationNPCScannoti.getBoolean(false);
-
-		Property zapperParticles = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "renderZapperParticles", true);
-		zapperParticles.comment = "Set this to false to turn off the small smoke particles present around Touch Damage enabled Force Fields.";
-		advancedParticles = zapperParticles.getBoolean(true);
-
-		Property uumatterForciciumprop = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "uumatterForcicium", true);
-		uumatterForciciumprop.comment = "Adds IC2 UU-Matter Recipes for Forcillium.";
-		uumatterEnabled = uumatterForciciumprop.getBoolean(true);
-
-		Property adminList = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceFieldMaster", "nobody");
+		Property adminList = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Administrators", ADMINISTRATORS);
 		adminList.comment = "Add users to this list to give them admin permissions, split by a semicolon.";
-		administrators = adminList.getString();
+		ADMINISTRATORS = adminList.getString();
 
-		Property influencedByOther = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "influencedbyothermods", true);
+		Property influencedByOther = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Mod Influence", MOD_INFLUENCE);
 		influencedByOther.comment = "Should MFFS be influenced by other mods? e.g. ICBM's EMP";
-		influencedByOtherMods = Boolean.valueOf(influencedByOther.getBoolean(true));
+		MOD_INFLUENCE = Boolean.valueOf(influencedByOther.getBoolean(true));
 
-		Property ffRemoveWaterLavaOnly = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldremoveonlywaterandlava", false);
-		ffRemoveWaterLavaOnly.comment = "Should forcefields only remove water and lava when sponge is enabled?";
-		forcefieldremoveonlywaterandlava = Boolean.valueOf(ffRemoveWaterLavaOnly.getBoolean(false));
-
-		Property feTransportCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldtransportcost", 10000);
-		feTransportCost.comment = "How much FE should it cost to transport through a field?";
-		forcefieldtransportcost = feTransportCost.getInt(10000);
-
-		Property feFieldBlockCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockcost", 1);
-		feFieldBlockCost.comment = "How much upkeep FE cost a default Force Field Block per second?";
-		forceFieldBlockCost = feFieldBlockCost.getInt(1);
-
-		Property BlockCreateMod = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockcreatemodifier", 10);
-		BlockCreateMod.comment = "Energy needed to create a Force Field Block (forcefieldblockcost*forcefieldblockcreatemodifier).";
-		forcefieldblockcreatemodifier = BlockCreateMod.getInt(10);
-
-		Property ffZapperMod = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldblockzappermodifier", 2);
-		ffZapperMod.comment = "Energy needed for the multiplier used when the zapper option is enabled.";
-		forcefieldblockzappermodifier = ffZapperMod.getInt(2);
-
-		Property maxFFGenPerTick = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldmaxblockpeerTick", 5000);
+		Property maxFFGenPerTick = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forcefieldmaxblockpeerTick", MAX_FORCE_FIELDS_PER_TICK);
 		maxFFGenPerTick.comment = "How many field blocks can be generated per tick?";
-		maxForceFieldPerTick = maxFFGenPerTick.getInt(5000);
+		MAX_FORCE_FIELDS_PER_TICK = maxFFGenPerTick.getInt(MAX_FORCE_FIELDS_PER_TICK);
 
-		Property fcWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ForceciumWorkCylce", 250);
-		fcWorkCycle.comment = "Forcillium Work Cycle used inside a Extractor.";
-		ForcilliumWorkCylce = fcWorkCycle.getInt(250);
-
-		Property fcCellWorkCycle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "forceciumCellWorkCycle", 230);
-		fcCellWorkCycle.comment = "Forcecium Cell Work Cycle used inside a Extractor.";
-		forceciumCellWorkCycle = fcCellWorkCycle.getInt(230);
-
-		Property extractorPassFEGen = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "ExtractorPassForceEnergyGenerate", 12000);
-		extractorPassFEGen.comment = "How much Force Energy should generate per Work Cycle?";
-		ExtractorPassForceEnergyGenerate = extractorPassFEGen.getInt(12000);
-		ExtractorPassForceEnergyGenerate = ExtractorPassForceEnergyGenerate / 4000 * 4000;
-
-		Property defStationKillCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationKillForceEnergy", 10000);
+		Property defStationKillCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Defence Station Kill Fortron", DEFENSE_STATION_KILL_ENERGY);
 		defStationKillCost.comment = "How much FE does the Area Defense Station need when killing someone?";
-		defenceStationKillForceEnergy = defStationKillCost.getInt(10000);
+		DEFENSE_STATION_KILL_ENERGY = defStationKillCost.getInt(DEFENSE_STATION_KILL_ENERGY);
 
-		Property defStationSearchCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationSearchForceEnergy", 1000);
+		Property defStationSearchCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Defence Station Search Fortron", DEFENSE_STATION_SEARCH_ENERGY);
 		defStationSearchCost.comment = "How much FE does the Area Defense Station need when searching someone for banned items?";
-		defenceStationSearchForceEnergy = defStationSearchCost.getInt(1000);
+		DEFENSE_STATION_SEARCH_ENERGY = defStationSearchCost.getInt(DEFENSE_STATION_SEARCH_ENERGY);
 
-		Property defStationScannCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "DefenceStationScannForceEnergy", 10);
+		Property defStationScannCost = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Defence Station Scan Fortron", DEFENSE_STATION_SCAN_ENERGY);
 		defStationScannCost.comment = "How much FE does the Area Defense Station need when scanning for targets? (amount * range / tick)";
-		DefenceStationScannForceEnergy = defStationScannCost.getInt(10);
-
-		Property Adventuremap = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "adventureMap", false);
-		Adventuremap.comment = "Set MFFS to Adventure Map Mode Extractor, requires no Forcillium and Force Fields have no click damage.";
-		adventureMap = Boolean.valueOf(Adventuremap.getBoolean(false));
+		DEFENSE_STATION_SCAN_ENERGY = defStationScannCost.getInt(DEFENSE_STATION_SCAN_ENERGY);
 		CONFIGURATION.save();
 	}
 

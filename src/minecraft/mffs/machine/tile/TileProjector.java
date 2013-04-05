@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import mffs.MFFSConfiguration;
 import mffs.ModularForceFieldSystem;
 import mffs.api.IProjector;
 import mffs.api.modules.IModule;
@@ -148,7 +149,7 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 		if (!this.worldObj.isRemote && this.isCalculated)
 		{
 			int constructionCount = 0;
-			int constructionSpeed = this.getConstructionSpeed();
+			int constructionSpeed = Math.min(this.getConstructionSpeed(), MFFSConfiguration.MAX_FORCE_FIELDS_PER_TICK);
 			this.forceFields.clear();
 
 			for (IModule module : this.getModules(this.getModuleSlots()))

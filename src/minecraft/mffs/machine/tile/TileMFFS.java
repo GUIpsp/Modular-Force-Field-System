@@ -121,7 +121,7 @@ public abstract class TileMFFS extends TileEntityDisableable implements IPacketR
 	{
 		super.initiate();
 
-		if (MFFSConfiguration.chunckLoader)
+		if (MFFSConfiguration.LOAD_CHUNKS)
 		{
 			this.registerChunkLoading();
 		}

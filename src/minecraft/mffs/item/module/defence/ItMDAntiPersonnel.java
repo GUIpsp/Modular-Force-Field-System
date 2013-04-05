@@ -30,7 +30,7 @@ public class ItMDAntiPersonnel extends ItMD
 			}
 
 			player.attackEntityFrom(ModularForceFieldSystem.areaDefense, Integer.MAX_VALUE);
-			defenseStation.requestFortron(MFFSConfiguration.defenceStationKillForceEnergy, false);
+			defenseStation.requestFortron(MFFSConfiguration.DEFENSE_STATION_KILL_ENERGY, false);
 		}
 		return false;
 	}

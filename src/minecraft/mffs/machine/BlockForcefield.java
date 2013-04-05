@@ -298,7 +298,7 @@ public class BlockForcefield extends BlockBase implements IForceFieldBlock
 	@Override
 	public void weakenForceField(World world, int x, int y, int z, int joules)
 	{
-		if (MFFSConfiguration.influencedByOtherMods)
+		if (MFFSConfiguration.MOD_INFLUENCE)
 		{
 			IProjector projector = this.getProjector(world, x, y, z);
 
