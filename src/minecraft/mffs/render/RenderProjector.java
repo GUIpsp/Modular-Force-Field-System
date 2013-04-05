@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-public class RFangYingJi extends TileEntitySpecialRenderer
+public class RenderProjector extends TileEntitySpecialRenderer
 {
 	public static final String TEXTURE_NAME = "projector_on.png";
 	public static final String TEXTURE_NAME2 = "projector_off.png";

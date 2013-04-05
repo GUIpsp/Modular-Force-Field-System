@@ -11,6 +11,7 @@ public class BlockProjector extends BlockMachine
 	public BlockProjector(int id)
 	{
 		super(id, "projector");
+		this.setBlockBounds(0, 0, 0, 1, 0.8f, 1);
 	}
 
 	@Override

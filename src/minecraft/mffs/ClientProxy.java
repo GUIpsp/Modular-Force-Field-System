@@ -11,7 +11,7 @@ import mffs.machine.tile.TileCapacitor;
 import mffs.machine.tile.TileExtractor;
 import mffs.machine.tile.TileProjector;
 import mffs.render.FXBeam;
-import mffs.render.RFangYingJi;
+import mffs.render.RenderProjector;
 import mffs.render.RHJiQi;
 import mffs.render.RenderForcilliumExtractor;
 import mffs.render.RenderFortronCapacitor;
@@ -44,7 +44,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(new RHJiQi());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCapacitor.class, new RenderFortronCapacitor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileExtractor.class, new RenderForcilliumExtractor());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileProjector.class, new RFangYingJi());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileProjector.class, new RenderProjector());
 	}
 
 	@Override
