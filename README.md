@@ -5,10 +5,6 @@ MFFS adds advanced security systems, force fields, force energy, and more to Min
 **Project Leader** - Calclavia
 **Original Developer** - ThunderDark
 
-#### Contrinbutors
-* Samrg472
-* TheMike
-
 ### Translations
 Please submit a pull request if you would be willing to translate this mod into another language.
 
