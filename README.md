@@ -3,8 +3,9 @@ MFFS adds advanced security systems, force fields, force energy, and more to Min
 
 ### Developement
 **Project Leader** - Calclavia
+**Original Developer** - ThunderDark
 
-#### Secondary Developers
+#### Contrinbutors
 * Samrg472
 * TheMike
 
