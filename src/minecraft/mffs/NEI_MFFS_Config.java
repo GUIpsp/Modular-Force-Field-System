@@ -9,39 +9,39 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	@Override
 	public void loadConfig()
 	{
-		API.hideItem(ZhuYao.bLiQiang.blockID);
+		API.hideItem(ModularForceFieldSystem.bLiQiang.blockID);
 
 		MultiItemRange blocks = new MultiItemRange();
 		MultiItemRange items = new MultiItemRange();
 		MultiItemRange upgrades = new MultiItemRange();
 		MultiItemRange modules = new MultiItemRange();
 
-		blocks.add(ZhuYao.bChouQi);
-		blocks.add(ZhuYao.bFangYu);
-		blocks.add(ZhuYao.bAnQuan);
-		blocks.add(ZhuYao.bDianRong);
-		blocks.add(ZhuYao.bFangYingJi);
-		blocks.add(ZhuYao.blockFortronite);
+		blocks.add(ModularForceFieldSystem.bChouQi);
+		blocks.add(ModularForceFieldSystem.bFangYu);
+		blocks.add(ModularForceFieldSystem.bAnQuan);
+		blocks.add(ModularForceFieldSystem.bDianRong);
+		blocks.add(ModularForceFieldSystem.bFangYingJi);
+		blocks.add(ModularForceFieldSystem.blockFortronite);
 
 		// items.add(ZhuYao.itemMultiTool); items.add(ZhuYao.itemCardEmpty);
-		items.add(ZhuYao.itemForcillium);
-		items.add(ZhuYao.itFortronCell);
-		items.add(ZhuYao.itFocusMatix);
+		items.add(ModularForceFieldSystem.itemForcillium);
+		items.add(ModularForceFieldSystem.itFortronCell);
+		items.add(ModularForceFieldSystem.itFocusMatix);
 
-		upgrades.add(ZhuYao.itMDian);
-		upgrades.add(ZhuYao.itemModuleSponge);
-		upgrades.add(ZhuYao.itemModuleManipulator);
-		upgrades.add(ZhuYao.itemModuleDisintegration);
-		upgrades.add(ZhuYao.itemModuleJammer);
-		upgrades.add(ZhuYao.itWeiZhuang);
-		upgrades.add(ZhuYao.itemModuleFusion);
+		upgrades.add(ModularForceFieldSystem.itMDian);
+		upgrades.add(ModularForceFieldSystem.itemModuleSponge);
+		upgrades.add(ModularForceFieldSystem.itemModuleManipulator);
+		upgrades.add(ModularForceFieldSystem.itemModuleDisintegration);
+		upgrades.add(ModularForceFieldSystem.itemModuleJammer);
+		upgrades.add(ModularForceFieldSystem.itWeiZhuang);
+		upgrades.add(ModularForceFieldSystem.itemModuleFusion);
 
-		upgrades.add(ZhuYao.itMDaXiao);
-		upgrades.add(ZhuYao.itMDong);
+		upgrades.add(ModularForceFieldSystem.itMDaXiao);
+		upgrades.add(ModularForceFieldSystem.itMDong);
 
-		modules.add(ZhuYao.itMYuan);
-		modules.add(ZhuYao.itMFang);
-		modules.add(ZhuYao.itMGuan);
+		modules.add(ModularForceFieldSystem.itMYuan);
+		modules.add(ModularForceFieldSystem.itMFang);
+		modules.add(ModularForceFieldSystem.itMGuan);
 
 		API.addSetRange("MFFS.Items.Upgrades", upgrades);
 		API.addSetRange("MFFS.Items.Modules", modules);
@@ -52,12 +52,12 @@ public class NEI_MFFS_Config implements IConfigureNEI
 	@Override
 	public String getName()
 	{
-		return ZhuYao.NAME;
+		return ModularForceFieldSystem.NAME;
 	}
 
 	@Override
 	public String getVersion()
 	{
-		return ZhuYao.VERSION;
+		return ModularForceFieldSystem.VERSION;
 	}
 }

@@ -1,7 +1,7 @@
 package mffs.quanran;
 
-import mffs.ZhuYao;
-import mffs.jiqi.BFangYingJi;
+import mffs.ModularForceFieldSystem;
+import mffs.machine.BlockProjector;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,10 +23,10 @@ public class RHJiQi implements ISimpleBlockRenderingHandler
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
 	{
-		if (modelID == ID && block instanceof BFangYingJi)
+		if (modelID == ID && block instanceof BlockProjector)
 		{
 			GL11.glPushMatrix();
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, FMLClientHandler.instance().getClient().renderEngine.getTexture(ZhuYao.MODEL_DIRECTORY + RFangYingJi.TEXTURE_NAME));
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, FMLClientHandler.instance().getClient().renderEngine.getTexture(ModularForceFieldSystem.MODEL_DIRECTORY + RFangYingJi.TEXTURE_NAME));
 			GL11.glTranslated(0.5, 1.5, 0.5);
 			GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
 			RFangYingJi.MODEL.render(0, 0.0625F);
@@ -73,7 +73,7 @@ public class RHJiQi implements ISimpleBlockRenderingHandler
 	@Override
 	public boolean renderWorldBlock(IBlockAccess iBlockAccess, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
 	{
-		if (!(block instanceof BFangYingJi))
+		if (!(block instanceof BlockProjector))
 		{
 			renderer.renderStandardBlock(block, x, y, z);
 		}

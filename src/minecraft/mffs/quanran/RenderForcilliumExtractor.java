@@ -1,6 +1,6 @@
 package mffs.quanran;
 
-import mffs.jiqi.t.TChouQi;
+import mffs.machine.tile.TileExtractor;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -13,9 +13,9 @@ public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)
 	{
-		if (t instanceof TChouQi)
+		if (t instanceof TileExtractor)
 		{
-			TChouQi tileEntity = (TChouQi) t;
+			TileExtractor tileEntity = (TileExtractor) t;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);
@@ -94,7 +94,7 @@ public class RenderForcilliumExtractor extends TileEntitySpecialRenderer
 			GL11.glDisable(2896);
 			fontRenderer.drawString(header, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + -2 * lineHeight, 1);
 			fontRenderer.drawString("Process:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 0 * lineHeight, 1);
-			fontRenderer.drawString((int) (100 - ((float) tileEntity.processTime / (float) TChouQi.REQUIRED_TIME) * 100) + "%", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.processTime / TChouQi.REQUIRED_TIME + " % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
+			fontRenderer.drawString((int) (100 - ((float) tileEntity.processTime / (float) TileExtractor.REQUIRED_TIME) * 100) + "%", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.processTime / TileExtractor.REQUIRED_TIME + " % "), offsetY - realHeight / 2 - 0 * lineHeight, 1);
 			fontRenderer.drawString("Fortrons:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString(tileEntity.getFortronEnergy() + "", offsetX + realWidth / 2 - offsetX - fontRenderer.getStringWidth(tileEntity.getFortronEnergy() + ""), offsetY - realHeight / 2 + 1 * lineHeight, 1);
 			fontRenderer.drawString("Capacity:", offsetX - realWidth / 2, 1 + offsetY - realHeight / 2 + 2 * lineHeight, 1);

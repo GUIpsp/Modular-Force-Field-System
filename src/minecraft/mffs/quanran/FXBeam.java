@@ -1,6 +1,6 @@
 package mffs.quanran;
 
-import mffs.ZhuYao;
+import mffs.ModularForceFieldSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -133,7 +133,7 @@ public class FXBeam extends EntityFX
 			op = 0.5F - (4 - (this.particleMaxAge - this.particleAge)) * 0.1F;
 		}
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(ZhuYao.BLOCK_DIRECTORY + "fortron.png");
+		Minecraft.getMinecraft().renderEngine.bindTexture(ModularForceFieldSystem.BLOCK_DIRECTORY + "fortron.png");
 
 		GL11.glTexParameterf(3553, 10242, 10497.0F);
 		GL11.glTexParameterf(3553, 10243, 10497.0F);
