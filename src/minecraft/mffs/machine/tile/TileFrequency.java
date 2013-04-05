@@ -17,7 +17,7 @@ import universalelectricity.core.vector.Vector3;
 
 import com.google.common.io.ByteArrayDataInput;
 
-public abstract class TileFrequency extends TileEntity implements IBlockFrequency
+public abstract class TileFrequency extends TileInventory implements IBlockFrequency
 {
 	private int frequency;
 
@@ -102,7 +102,7 @@ public abstract class TileFrequency extends TileEntity implements IBlockFrequenc
 			{
 				Vector3 linkPos = ((ILink) itemStack.getItem()).getLink(itemStack);
 
-				TileEntity tileEntity = (TileEntity) linkPos.getTileEntity(this.worldObj);
+				TileInventory tileEntity = (TileInventory) linkPos.getTileEntity(this.worldObj);
 
 				if (linkPos != null && tileEntity instanceof ISecurityCenter)
 				{

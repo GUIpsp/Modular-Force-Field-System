@@ -22,7 +22,7 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public abstract class TileEntity extends TileMFFS implements IInventory
+public abstract class TileInventory extends TileMFFS implements IInventory
 {
 	/**
 	 * The inventory of the TileEntity.

@@ -1,14 +1,14 @@
 package mffs;
 
-import mffs.machine.tile.TileEntity;
+import mffs.machine.tile.TileInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SlotHelper extends Slot
 {
-	protected TileEntity tileEntity;
+	protected TileInventory tileEntity;
 
-	public SlotHelper(TileEntity tileEntity, int id, int par4, int par5)
+	public SlotHelper(TileInventory tileEntity, int id, int par4, int par5)
 	{
 		super(tileEntity, id, par4, par5);
 		this.tileEntity = tileEntity;

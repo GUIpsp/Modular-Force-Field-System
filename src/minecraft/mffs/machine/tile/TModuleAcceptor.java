@@ -3,8 +3,10 @@ package mffs.machine.tile;
 import java.util.HashSet;
 import java.util.Set;
 
+import mffs.MFFSConfiguration;
 import mffs.api.modules.IModule;
 import mffs.api.modules.IModuleAcceptor;
+import mffs.item.module.ItemModuleScale;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -58,6 +60,11 @@ public abstract class TModuleAcceptor extends TileFortron implements IModuleAcce
 			}
 		}
 
+		if (module instanceof ItemModuleScale)
+		{
+			return Math.min(MFFSConfiguration.MAX_FORCE_FIELD_SCALE, count);
+		}
+
 		return count;
 	}
 
@@ -65,6 +72,7 @@ public abstract class TModuleAcceptor extends TileFortron implements IModuleAcce
 	public Set<ItemStack> getModuleStacks(int... slots)
 	{
 		Set<ItemStack> modules = new HashSet<ItemStack>();
+
 		if (slots == null || slots.length <= 0)
 		{
 			for (int slotID = startModuleIndex; slotID <= endModuleIndex; slotID++)

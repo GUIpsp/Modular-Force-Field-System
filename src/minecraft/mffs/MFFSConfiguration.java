@@ -32,6 +32,7 @@ public class MFFSConfiguration
 	/**
 	 * Settings
 	 */
+	public static int MAX_FORCE_FIELD_SCALE = 150;
 	public static int graphicStyle;
 	public static boolean chunckLoader = true;
 	public static boolean defenseStationNPCNotification;
@@ -68,9 +69,8 @@ public class MFFSConfiguration
 	{
 		CONFIGURATION.load();
 
-		Property prop_graphicstyle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "GraphicStyle", 1);
-		prop_graphicstyle.comment = "Graphical style. 1 : UE Style, 2 : IC2 Style.";
-		graphicStyle = prop_graphicstyle.getInt(1);
+		Property prop_graphicstyle = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Max Force Field Scale", MAX_FORCE_FIELD_SCALE);
+		MAX_FORCE_FIELD_SCALE = prop_graphicstyle.getInt(MAX_FORCE_FIELD_SCALE);
 
 		Property chunckloader_prop = CONFIGURATION.get(Configuration.CATEGORY_GENERAL, "Chunkloader", true);
 		chunckloader_prop.comment = "Set this to false to turn off the MFFS Chunkloading abilities.";

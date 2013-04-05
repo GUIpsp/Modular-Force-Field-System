@@ -215,7 +215,7 @@ public class TileCapacitor extends TModuleAcceptor implements IFortronStorage, I
 				// Draw Beam Effect
 				if (this.worldObj.isRemote && toBeInjected > 0)
 				{
-					ModularForceFieldSystem.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileEntity) machine), 0.5), 0.6f, 0.6f, 1, 20);
+					ModularForceFieldSystem.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3(this), 0.5), Vector3.add(new Vector3((TileInventory) machine), 0.5), 0.6f, 0.6f, 1, 20);
 				}
 			}
 			else
@@ -228,7 +228,7 @@ public class TileCapacitor extends TModuleAcceptor implements IFortronStorage, I
 				// Draw Beam Effect
 				if (this.worldObj.isRemote && toBeEjected > 0)
 				{
-					ModularForceFieldSystem.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileEntity) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
+					ModularForceFieldSystem.proxy.renderBeam(this.worldObj, Vector3.add(new Vector3((TileInventory) machine), 0.5), Vector3.add(new Vector3(this), 0.5), 0.6f, 0.6f, 1, 20);
 				}
 			}
 		}
