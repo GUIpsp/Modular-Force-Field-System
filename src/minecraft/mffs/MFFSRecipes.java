@@ -131,11 +131,11 @@ public class MFFSRecipes
 		// Fusion
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleFusion), "FJF", 'F', ModularForceFieldSystem.itemFocusMatix, 'J', ModularForceFieldSystem.itemModuleJammer));
 		// Scale
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMDaXiao), "FRF", 'F', ModularForceFieldSystem.itemFocusMatix, 'R', ModularForceFieldSystem.itMJuLi));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleScale), "FRF", 'F', ModularForceFieldSystem.itemFocusMatix, 'R', ModularForceFieldSystem.itMJuLi));
 		// Translate
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleTranslation), "FSF", 'F', ModularForceFieldSystem.itemFocusMatix, 'S', ModularForceFieldSystem.itMSuDu));
 		// Rotate
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMZhuan), "F  ", " F ", "  F", 'F', ModularForceFieldSystem.itemFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleRotation), "F  ", " F ", "  F", 'F', ModularForceFieldSystem.itemFocusMatix));
 		// Glow
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMGuang, 4), "GGG", "GFG", "GGG", 'F', ModularForceFieldSystem.itemFocusMatix, 'G', Block.glowStone));
 		// Stabilizer

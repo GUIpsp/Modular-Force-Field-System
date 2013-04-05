@@ -34,7 +34,7 @@ public class ItemProjectorModeCube extends ItemProjectorMode
 					}
 					else
 					{
-						blockInterior.add(Vector3.add(translation, new Vector3(x, y, z)));
+						// blockInterior.add(Vector3.add(translation, new Vector3(x, y, z)));
 					}
 				}
 			}

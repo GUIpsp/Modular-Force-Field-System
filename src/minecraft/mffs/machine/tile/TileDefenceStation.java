@@ -115,7 +115,7 @@ public class TileDefenceStation extends TModuleAcceptor implements IDefenseStati
 	@Override
 	public int getActionRange()
 	{
-		return this.getModuleCount(ModularForceFieldSystem.itMDaXiao);
+		return this.getModuleCount(ModularForceFieldSystem.itemModuleScale);
 	}
 
 	@Override

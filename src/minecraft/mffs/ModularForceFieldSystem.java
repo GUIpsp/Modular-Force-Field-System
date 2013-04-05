@@ -166,7 +166,7 @@ public class ModularForceFieldSystem
 	 */
 	public static ItemModule itMSuDu, itMJuLi, itMRongLiang, itMDian, itemModuleSponge,
 			itemModuleManipulator, itemModuleDisintegration, itemModuleJammer, itWeiZhuang,
-			itemModuleFusion, itMDaXiao, itemModuleTranslation, itMZhuan, itMGuang, itMZhenDing;
+			itemModuleFusion, itemModuleScale, itemModuleTranslation, itemModuleRotation, itMGuang, itMZhenDing;
 
 	/**
 	 * Defense Station Modules
@@ -236,9 +236,9 @@ public class ModularForceFieldSystem
 			itemModeTube = new ItemProjectorModeTube(MFFSConfiguration.getNextItemID());
 
 			// Modules
-			itMDaXiao = new ItemModuleScale(MFFSConfiguration.getNextItemID());
+			itemModuleScale = new ItemModuleScale(MFFSConfiguration.getNextItemID());
 			itemModuleTranslation = new ItemModuleTranslation(MFFSConfiguration.getNextItemID());
-			itMZhuan = new ItemRotation(MFFSConfiguration.getNextItemID());
+			itemModuleRotation = new ItemRotation(MFFSConfiguration.getNextItemID());
 
 			itMSuDu = new ItemModuleSpeed(MFFSConfiguration.getNextItemID());
 			itMJuLi = new ItemModuleRange(MFFSConfiguration.getNextItemID());

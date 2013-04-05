@@ -38,16 +38,16 @@ public abstract class ItemProjectorMode extends ItemBase implements IProjectorMo
 	{
 		ForgeDirection direction = projector.getDirection(((TileEntity) projector).worldObj, ((TileEntity) projector).xCoord, ((TileEntity) projector).yCoord, ((TileEntity) projector).zCoord);
 
-		int zScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zScalePos = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+		int zScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
-		int xScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xScalePos = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yScalePos = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yScalePos = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yScaleNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
-		int overAllIncrease = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, projector.getModuleSlots());
+		int overAllIncrease = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale, projector.getModuleSlots());
 
 		zScaleNeg += overAllIncrease;
 		zScalePos += overAllIncrease;
@@ -73,35 +73,38 @@ public abstract class ItemProjectorMode extends ItemBase implements IProjectorMo
 
 		this.doCalculateField(projector, blockDef, blockInterior, direction, translation, posScale, negScale);
 
-		int horizontalRotation = projector.getModuleCount(ModularForceFieldSystem.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST))) - projector.getModuleCount(ModularForceFieldSystem.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST))) + projector.getModuleCount(ModularForceFieldSystem.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH))) - projector.getModuleCount(ModularForceFieldSystem.itMZhuan, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int verticleRotation = projector.getModuleCount(ModularForceFieldSystem.itMZhuan, projector.getSlotsBasedOnDirection(ForgeDirection.UP)) - projector.getModuleCount(ModularForceFieldSystem.itMZhuan, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int horizontalRotation = projector.getModuleCount(ModularForceFieldSystem.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST))) - projector.getModuleCount(ModularForceFieldSystem.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST))) + projector.getModuleCount(ModularForceFieldSystem.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH))) - projector.getModuleCount(ModularForceFieldSystem.itemModuleRotation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int verticleRotation = projector.getModuleCount(ModularForceFieldSystem.itemModuleRotation, projector.getSlotsBasedOnDirection(ForgeDirection.UP)) - projector.getModuleCount(ModularForceFieldSystem.itemModuleRotation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
-		for (Vector3 point : blockDef)
+		if (horizontalRotation != 0 || verticleRotation != 0)
 		{
-			double[] pt = { point.x, point.z };
-			AffineTransform.getRotateInstance(Math.toRadians(horizontalRotation), translation.x, translation.z).transform(pt, 0, pt, 0, 1);
+			for (Vector3 point : blockDef)
+			{
+				double[] pt = { point.x, point.z };
+				AffineTransform.getRotateInstance(Math.toRadians(horizontalRotation), translation.x, translation.z).transform(pt, 0, pt, 0, 1);
 
-			double[] pt2 = { point.x, point.y };
-			AffineTransform.getRotateInstance(Math.toRadians(verticleRotation), translation.x, translation.y).transform(pt2, 0, pt2, 0, 1);
+				double[] pt2 = { point.x, point.y };
+				AffineTransform.getRotateInstance(Math.toRadians(verticleRotation), translation.x, translation.y).transform(pt2, 0, pt2, 0, 1);
 
-			point.x = pt[0];
-			point.z = pt[1];
-			point.y = pt2[1];
-			point = point.round();
-		}
+				point.x = pt[0];
+				point.z = pt[1];
+				point.y = pt2[1];
+				point = point.round();
+			}
 
-		for (Vector3 point : blockInterior)
-		{
-			double[] pt = { point.x, point.z };
-			AffineTransform.getRotateInstance(Math.toRadians(horizontalRotation), translation.x, translation.z).transform(pt, 0, pt, 0, 1);
+			for (Vector3 point : blockInterior)
+			{
+				double[] pt = { point.x, point.z };
+				AffineTransform.getRotateInstance(Math.toRadians(horizontalRotation), translation.x, translation.z).transform(pt, 0, pt, 0, 1);
 
-			double[] pt2 = { point.x, point.y };
-			AffineTransform.getRotateInstance(Math.toRadians(verticleRotation), translation.x, translation.y).transform(pt2, 0, pt2, 0, 1);
+				double[] pt2 = { point.x, point.y };
+				AffineTransform.getRotateInstance(Math.toRadians(verticleRotation), translation.x, translation.y).transform(pt2, 0, pt2, 0, 1);
 
-			point.x = pt[0];
-			point.z = pt[1];
-			point.y = pt2[1];
-			point = point.round();
+				point.x = pt[0];
+				point.z = pt[1];
+				point.y = pt2[1];
+				point = point.round();
+			}
 		}
 	}
 

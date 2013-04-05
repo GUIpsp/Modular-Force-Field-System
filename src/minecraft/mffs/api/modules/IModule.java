@@ -1,5 +1,7 @@
 package mffs.api.modules;
 
+import java.util.Set;
+
 import mffs.api.IProjector;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -48,6 +50,6 @@ public interface IModule
 	 * 
 	 * @return False if to prevent this position from being added to the projection que.
 	 */
-	boolean onCalculate(IProjector projector, Vector3 position);
+	public void onCalculate(IProjector projector, Set<Vector3> fieldDefinition, Set<Vector3> fieldInterior);
 
 }

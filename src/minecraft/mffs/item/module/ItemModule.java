@@ -1,6 +1,7 @@
 package mffs.item.module;
 
 import java.util.List;
+import java.util.Set;
 
 import mffs.ModularForceFieldSystem;
 import mffs.api.IProjector;
@@ -34,9 +35,8 @@ public class ItemModule extends ItemBase implements IModule
 	}
 
 	@Override
-	public boolean onCalculate(IProjector projector, Vector3 position)
+	public void onCalculate(IProjector projector, Set<Vector3> position, Set<Vector3> fieldDefinition)
 	{
-		return true;
 	}
 
 	@Override

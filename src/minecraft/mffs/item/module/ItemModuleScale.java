@@ -6,7 +6,5 @@ public class ItemModuleScale extends ItemModule
 	{
 		super(i, "moduleScale");
 		this.setCost(1.2f);
-
 	}
-
 }

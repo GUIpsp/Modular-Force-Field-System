@@ -23,19 +23,14 @@ public class ItemProjectorModeSphere extends ItemProjectorMode
 	@Override
 	public void doCalculateField(IProjector projector, Set<Vector3> blockDef, Set<Vector3> blockInterior, ForgeDirection direction, Vector3 center, Vector3 posScale, Vector3 negScale)
 	{
-		int radius = projector.getModuleCount(ModularForceFieldSystem.itMDaXiao, 14, 15) + 4;
-
-		int yDown = radius;
-
-		if (projector.getModuleCount(ModularForceFieldSystem.itemModuleManipulator) > 0)
-		{
-			yDown = 0;
-		}
+		int radius = projector.getModuleCount(ModularForceFieldSystem.itemModuleScale);
 
 		int steps = (int) Math.ceil(Math.PI / Math.atan(1.0D / radius / 2));
 
-		for (int i = 0; i <= radius; i++)
+		// for (int i = 0; i <= radius; i++)
 		{
+			int i = radius;
+
 			for (int phi_n = 0; phi_n < 2 * steps; phi_n++)
 			{
 				for (int theta_n = 0; theta_n < steps; theta_n++)
@@ -51,7 +46,7 @@ public class ItemProjectorModeSphere extends ItemProjectorMode
 					}
 					else
 					{
-						blockInterior.add(Vector3.add(center, point));
+						//blockInterior.add(Vector3.add(center, point));
 					}
 				}
 			}

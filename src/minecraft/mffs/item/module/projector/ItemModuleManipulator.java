@@ -1,5 +1,8 @@
 package mffs.item.module.projector;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import mffs.api.IProjector;
 import mffs.item.module.ItemModule;
 import net.minecraft.tileentity.TileEntity;
@@ -13,14 +16,18 @@ public class ItemModuleManipulator extends ItemModule
 	}
 
 	@Override
-	public boolean onCalculate(IProjector projector, Vector3 position)
+	public void onCalculate(IProjector projector, Set<Vector3> definition, Set<Vector3> interior)
 	{
-		if (position.y < ((TileEntity) projector).yCoord)
+		Iterator<Vector3> it = definition.iterator();
+
+		while (it.hasNext())
 		{
-			return false;
+			Vector3 position = it.next();
+
+			if (position.y < ((TileEntity) projector).yCoord)
+			{
+				it.remove();
+			}
 		}
-
-		return true;
 	}
-
 }
