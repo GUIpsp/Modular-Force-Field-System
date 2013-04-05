@@ -194,5 +194,7 @@ public class FXBeam extends EntityFX
 
 		tessellator.startDrawingQuads();
 		this.prevSize = size;
+
+		Minecraft.getMinecraft().renderEngine.bindTexture("/particles.png");
 	}
 }
