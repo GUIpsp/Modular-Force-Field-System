@@ -10,7 +10,7 @@ MFFS adds advanced security systems, force fields, force energy, and more to Min
 
 ### License
 This intellectual property is licensed under the following copyright:
-GNU v3 License: http://opensource.org/licenses/gpl-license
+BSD v3 License: http://opensource.org/licenses/BSD-3-Clause
 
 ### Translations
 Please submit a pull request if you would be willing to translate this mod into another language.
