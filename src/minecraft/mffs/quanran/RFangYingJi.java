@@ -1,7 +1,7 @@
 package mffs.quanran;
 
-import mffs.ZhuYao;
-import mffs.jiqi.t.TFangYingJi;
+import mffs.ModularForceFieldSystem;
+import mffs.machine.tile.TileProjector;
 import mffs.quanran.muoxing.MFangYingJi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -21,9 +21,9 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)
 	{
-		if (t instanceof TFangYingJi)
+		if (t instanceof TileProjector)
 		{
-			TFangYingJi tileEntity = (TFangYingJi) t;
+			TileProjector tileEntity = (TileProjector) t;
 
 			/**
 			 * Render Model
@@ -33,11 +33,11 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 
 			if (tileEntity.isActive())
 			{
-				this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + TEXTURE_NAME);
+				this.bindTextureByName(ModularForceFieldSystem.MODEL_DIRECTORY + TEXTURE_NAME);
 			}
 			else
 			{
-				this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + TEXTURE_NAME2);
+				this.bindTextureByName(ModularForceFieldSystem.MODEL_DIRECTORY + TEXTURE_NAME2);
 			}
 
 			GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
@@ -98,7 +98,7 @@ public class RFangYingJi extends TileEntitySpecialRenderer
 				 */
 				GL11.glPushMatrix();
 				GL11.glTranslated(x + 0.5, y + 1.35, z + 0.5);
-				this.bindTextureByName(ZhuYao.MODEL_DIRECTORY + "force_cube.png");
+				this.bindTextureByName(ModularForceFieldSystem.MODEL_DIRECTORY + "force_cube.png");
 
 				// Enable Blending
 				GL11.glShadeModel(GL11.GL_SMOOTH);

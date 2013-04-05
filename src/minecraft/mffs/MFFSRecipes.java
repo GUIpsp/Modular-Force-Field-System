@@ -62,99 +62,99 @@ public class MFFSRecipes
 		 */
 		// -- General Items --
 		// Focus Matrix
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itFocusMatix, 5), "RMR", "MDM", "RMR", 'M', metalIngotID, 'D', Item.diamond, 'R', Item.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemFocusMatix, 5), "RMR", "MDM", "RMR", 'M', metalIngotID, 'D', Item.diamond, 'R', Item.redstone));
 		// Fortronite
-		GameRegistry.addSmelting(ZhuYao.blockFortronite.blockID, new ItemStack(ZhuYao.itemForcillium, 4), 0.5F);
+		GameRegistry.addSmelting(ModularForceFieldSystem.blockFortronite.blockID, new ItemStack(ModularForceFieldSystem.itemForcillium, 4), 0.5F);
 		// Forcillium
-		FurnaceRecipes.smelting().addSmelting(Item.dyePowder.itemID, 2, new ItemStack(ZhuYao.itemForcillium, 4), 0.5F);
+		FurnaceRecipes.smelting().addSmelting(Item.dyePowder.itemID, 2, new ItemStack(ModularForceFieldSystem.itemForcillium, 4), 0.5F);
 
 		if (MFFSConfiguration.MODULE_THERMAL_EXPANSION)
 		{
-			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(ZhuYao.blockFortronite), new ItemStack(ZhuYao.itemForcillium, 8), true);
-			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(Item.dyePowder, 4), new ItemStack(ZhuYao.itemForcillium, 8), true);
+			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(ModularForceFieldSystem.blockFortronite), new ItemStack(ModularForceFieldSystem.itemForcillium, 8), true);
+			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(Item.dyePowder, 4), new ItemStack(ModularForceFieldSystem.itemForcillium, 8), true);
 		}
 		// Fortron Cell
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itFortronCell), " F ", "FBF", " F ", 'B', batteryID, 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemFortronCell), " F ", "FBF", " F ", 'B', batteryID, 'F', ModularForceFieldSystem.itemFocusMatix));
 		// Remote
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itYaoKong), "WWW", "MCM", "MCM", 'W', wireID, 'C', ZhuYao.itFortronCell, 'M', metalIngotID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemRemote), "WWW", "MCM", "MCM", 'W', wireID, 'C', ModularForceFieldSystem.itemFortronCell, 'M', metalIngotID));
 
 		// -- Machines --
 		// Capacitor
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bDianRong), "MFM", "FCF", "MFM", 'D', Item.diamond, 'C', ZhuYao.itFortronCell, 'F', ZhuYao.itFocusMatix, 'M', metalIngotID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.blockCapacitor), "MFM", "FCF", "MFM", 'D', Item.diamond, 'C', ModularForceFieldSystem.itemFortronCell, 'F', ModularForceFieldSystem.itemFocusMatix, 'M', metalIngotID));
 		// Projector
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bFangYingJi), " D ", "FFF", "MCM", 'D', Item.diamond, 'C', ZhuYao.itFortronCell, 'F', ZhuYao.itFocusMatix, 'M', metalIngotID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.blockProjector), " D ", "FFF", "MCM", 'D', Item.diamond, 'C', ModularForceFieldSystem.itemFortronCell, 'F', ModularForceFieldSystem.itemFocusMatix, 'M', metalIngotID));
 		// Defense Station
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bFangYu), "SSS", "FFF", "FEF", 'S', ZhuYao.itMDian, 'E', Block.enderChest, 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.blockDefenceStation), "SSS", "FFF", "FEF", 'S', ModularForceFieldSystem.itMDian, 'E', Block.enderChest, 'F', ModularForceFieldSystem.itemFocusMatix));
 		// Forcillium Extractor
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bChouQi), "M M", "MFM", "MCM", 'C', ZhuYao.itFortronCell, 'M', metalIngotID, 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.blockExtractor), "M M", "MFM", "MCM", 'C', ModularForceFieldSystem.itemFortronCell, 'M', metalIngotID, 'F', ModularForceFieldSystem.itemFocusMatix));
 		// Security Center
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.bAnQuan), "FMF", "MCM", "FMF", 'C', ZhuYao.itKaKong, 'M', metalIngotID, 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.blockSecurityStation), "FMF", "MCM", "FMF", 'C', ModularForceFieldSystem.itemCardEmpty, 'M', metalIngotID, 'F', ModularForceFieldSystem.itemFocusMatix));
 
 		// -- Cards --
 		// Blank
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itKaKong), "PPP", "PMP", "PPP", 'P', Item.paper, 'M', metalIngotID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemCardEmpty), "PPP", "PMP", "PPP", 'P', Item.paper, 'M', metalIngotID));
 		// Link
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itKaLian), "BWB", 'B', ZhuYao.itKaKong, 'W', wireID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemCardLink), "BWB", 'B', ModularForceFieldSystem.itemCardEmpty, 'W', wireID));
 		// Frequency
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itKaShengBuo), "WBW", 'B', ZhuYao.itKaKong, 'W', wireID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemCardFrequency), "WBW", 'B', ModularForceFieldSystem.itemCardEmpty, 'W', wireID));
 		// ID
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itKaShenFen), "RBR", 'B', ZhuYao.itKaKong, 'R', Item.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemCardID), "RBR", 'B', ModularForceFieldSystem.itemCardEmpty, 'R', Item.redstone));
 		// Temporary ID
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itKaShenFenZhanShi), "RBR", 'B', ZhuYao.itKaShenFen, 'R', Item.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemCardTemporary), "RBR", 'B', ModularForceFieldSystem.itemCardID, 'R', Item.redstone));
 
 		// -- Modes --
 		// Temporary ID
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMYuan), " F ", "FFF", " F ", 'F', ZhuYao.itFocusMatix));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMFang), "FFF", "FFF", "FFF", 'F', ZhuYao.itFocusMatix));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMGuan), "FFF", "   ", "FFF", 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModeSphere), " F ", "FFF", " F ", 'F', ModularForceFieldSystem.itemFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModeCube), "FFF", "FFF", "FFF", 'F', ModularForceFieldSystem.itemFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModeTube), "FFF", "   ", "FFF", 'F', ModularForceFieldSystem.itemFocusMatix));
 
 		// -- Modules --
 		// -- -- General -- --
 		// Speed
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMSuDu), "F", "R", "F", 'F', ZhuYao.itFocusMatix, 'R', Item.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMSuDu), "F", "R", "F", 'F', ModularForceFieldSystem.itemFocusMatix, 'R', Item.redstone));
 		// Range
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMJuLi), "FRF", 'F', ZhuYao.itFocusMatix, 'R', Item.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMJuLi), "FRF", 'F', ModularForceFieldSystem.itemFocusMatix, 'R', Item.redstone));
 		// Capacity
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMRongLiang, 2), "FCF", 'F', ZhuYao.itFocusMatix, 'C', ZhuYao.itFortronCell));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMRongLiang, 2), "FCF", 'F', ModularForceFieldSystem.itemFocusMatix, 'C', ModularForceFieldSystem.itemFortronCell));
 		// Shock
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDian), "FWF", 'F', ZhuYao.itFocusMatix, 'W', wireID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMDian), "FWF", 'F', ModularForceFieldSystem.itemFocusMatix, 'W', wireID));
 		// Sponge
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleSponge), "BBB", "BFB", "BBB", 'F', ZhuYao.itFocusMatix, 'B', Item.bucketWater));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleSponge), "BBB", "BFB", "BBB", 'F', ModularForceFieldSystem.itemFocusMatix, 'B', Item.bucketWater));
 		// Disintegration
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleDisintegration), " W ", "FBF", " W ", 'F', ZhuYao.itFocusMatix, 'W', wireID, 'B', batteryID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleDisintegration), " W ", "FBF", " W ", 'F', ModularForceFieldSystem.itemFocusMatix, 'W', wireID, 'B', batteryID));
 		// Manipulator
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleManipulator), "F", " ", "F", 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleManipulator), "F", " ", "F", 'F', ModularForceFieldSystem.itemFocusMatix));
 		// Jammer
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleJammer), "F", "W", "F", 'F', ZhuYao.itFocusMatix, 'W', wireID));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleJammer), "F", "W", "F", 'F', ModularForceFieldSystem.itemFocusMatix, 'W', wireID));
 		// Camouflage
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itWeiZhuang), "WFW", "FWF", "WFW", 'F', ZhuYao.itFocusMatix, 'W', new ItemStack(Block.cloth, 1, -1)));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itWeiZhuang), "WFW", "FWF", "WFW", 'F', ModularForceFieldSystem.itemFocusMatix, 'W', new ItemStack(Block.cloth, 1, -1)));
 		// Fusion
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleFusion), "FJF", 'F', ZhuYao.itFocusMatix, 'J', ZhuYao.itemModuleJammer));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleFusion), "FJF", 'F', ModularForceFieldSystem.itemFocusMatix, 'J', ModularForceFieldSystem.itemModuleJammer));
 		// Scale
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDaXiao), "FRF", 'F', ZhuYao.itFocusMatix, 'R', ZhuYao.itMJuLi));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMDaXiao), "FRF", 'F', ModularForceFieldSystem.itemFocusMatix, 'R', ModularForceFieldSystem.itMJuLi));
 		// Translate
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDong), "FSF", 'F', ZhuYao.itFocusMatix, 'S', ZhuYao.itMSuDu));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleTranslation), "FSF", 'F', ModularForceFieldSystem.itemFocusMatix, 'S', ModularForceFieldSystem.itMSuDu));
 		// Rotate
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMZhuan), "F  ", " F ", "  F", 'F', ZhuYao.itFocusMatix));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMZhuan), "F  ", " F ", "  F", 'F', ModularForceFieldSystem.itemFocusMatix));
 		// Glow
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMGuang, 4), "GGG", "GFG", "GGG", 'F', ZhuYao.itFocusMatix, 'G', Block.glowStone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMGuang, 4), "GGG", "GFG", "GGG", 'F', ModularForceFieldSystem.itemFocusMatix, 'G', Block.glowStone));
 		// Stabilizer
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMZhenDing), "FFF", "PSA", "FFF", 'F', ZhuYao.itFocusMatix, 'P', Item.pickaxeDiamond, 'S', Item.shovelDiamond, 'A', Item.axeDiamond));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMZhenDing), "FFF", "PSA", "FFF", 'F', ModularForceFieldSystem.itemFocusMatix, 'P', Item.pickaxeDiamond, 'S', Item.shovelDiamond, 'A', Item.axeDiamond));
 		// -- -- Defense Station -- --
 		// Anti-Hostile
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiHostile), " R ", "GFB", " S ", 'F', ZhuYao.itFocusMatix, 'G', Item.gunpowder, 'R', Item.rottenFlesh, 'B', Item.bone, 'S', Item.ghastTear));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleAntiHostile), " R ", "GFB", " S ", 'F', ModularForceFieldSystem.itemFocusMatix, 'G', Item.gunpowder, 'R', Item.rottenFlesh, 'B', Item.bone, 'S', Item.ghastTear));
 		// Anti-Friendly
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiFriendly), " R ", "GFB", " S ", 'F', ZhuYao.itFocusMatix, 'G', Item.porkCooked, 'R', new ItemStack(Block.cloth, 1, -1), 'B', Item.leather, 'S', Item.slimeBall));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleAntiFriendly), " R ", "GFB", " S ", 'F', ModularForceFieldSystem.itemFocusMatix, 'G', Item.porkCooked, 'R', new ItemStack(Block.cloth, 1, -1), 'B', Item.leather, 'S', Item.slimeBall));
 		// Anti-Personnel
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleAntiPersonnel), "BFG", 'F', ZhuYao.itFocusMatix, 'B', ZhuYao.itemModuleAntiHostile, 'G', ZhuYao.itemModuleAntiFriendly));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleAntiPersonnel), "BFG", 'F', ModularForceFieldSystem.itemFocusMatix, 'B', ModularForceFieldSystem.itemModuleAntiHostile, 'G', ModularForceFieldSystem.itemModuleAntiFriendly));
 		// Confiscate
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleConfiscate), "PEP", "EFE", "PEP", 'F', ZhuYao.itFocusMatix, 'E', Item.eyeOfEnder, 'P', Item.enderPearl));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleConfiscate), "PEP", "EFE", "PEP", 'F', ModularForceFieldSystem.itemFocusMatix, 'E', Item.eyeOfEnder, 'P', Item.enderPearl));
 		// Warn
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itemModuleWarn), "NFN", 'F', ZhuYao.itFocusMatix, 'N', Block.music));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itemModuleWarn), "NFN", 'F', ModularForceFieldSystem.itemFocusMatix, 'N', Block.music));
 		// Block Access
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDBA), " C ", "BFB", " C ", 'F', ZhuYao.itFocusMatix, 'B', Block.blockSteel, 'C', Block.chest));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMDBA), " C ", "BFB", " C ", 'F', ModularForceFieldSystem.itemFocusMatix, 'B', Block.blockSteel, 'C', Block.chest));
 		// Block Place
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ZhuYao.itMDBPA), " G ", "GFG", " G ", 'F', ZhuYao.itMDBA, 'G', Block.blockGold));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularForceFieldSystem.itMDBPA), " G ", "GFG", " G ", 'F', ModularForceFieldSystem.itMDBA, 'G', Block.blockGold));
 	}
 
 	public static boolean registerItemStacksToDictionary(String name, List<ItemStack> itemStacks)

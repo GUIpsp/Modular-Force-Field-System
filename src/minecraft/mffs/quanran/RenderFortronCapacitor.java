@@ -1,6 +1,6 @@
 package mffs.quanran;
 
-import mffs.jiqi.t.TDianRong;
+import mffs.machine.tile.TileCapacitor;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -12,9 +12,9 @@ public class RenderFortronCapacitor extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f)
 	{
-		if ((tileEntity instanceof TDianRong))
+		if ((tileEntity instanceof TileCapacitor))
 		{
-			TDianRong topview = (TDianRong) tileEntity;
+			TileCapacitor topview = (TileCapacitor) tileEntity;
 			GL11.glPushMatrix();
 			GL11.glPolygonOffset(-10.0F, -10.0F);
 			GL11.glEnable(32823);

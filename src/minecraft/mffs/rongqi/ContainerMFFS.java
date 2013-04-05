@@ -1,6 +1,6 @@
 package mffs.rongqi;
 
-import mffs.jiqi.t.TMFFS;
+import mffs.machine.tile.TileMFFS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -21,17 +21,17 @@ public class ContainerMFFS extends Container
 	@Override
 	public void onCraftGuiClosed(EntityPlayer player)
 	{
-		if (this.inventory instanceof TMFFS)
+		if (this.inventory instanceof TileMFFS)
 		{
-			((TMFFS) this.inventory).playersUsing.remove(player);
+			((TileMFFS) this.inventory).playersUsing.remove(player);
 		}
 	}
 
 	public void addPlayerInventory(EntityPlayer player)
 	{
-		if (this.inventory instanceof TMFFS)
+		if (this.inventory instanceof TileMFFS)
 		{
-			((TMFFS) this.inventory).playersUsing.add(player);
+			((TileMFFS) this.inventory).playersUsing.add(player);
 		}
 
 		for (int var3 = 0; var3 < 3; var3++)
