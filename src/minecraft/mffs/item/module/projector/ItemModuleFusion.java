@@ -2,7 +2,7 @@ package mffs.item.module.projector;
 
 import java.util.Set;
 
-import mffs.ForceGrid;
+import mffs.FortronGrid;
 import mffs.api.IProjector;
 import mffs.api.fortron.IFortronFrequency;
 import mffs.item.module.ItemModule;
@@ -20,7 +20,7 @@ public class ItemModuleFusion extends ItemModule
 	@Override
 	public boolean canProject(IProjector projector, Vector3 position)
 	{
-		Set<IFortronFrequency> machines = ForceGrid.instance().get(((IFortronFrequency) projector).getFrequency());
+		Set<IFortronFrequency> machines = FortronGrid.instance().get(((IFortronFrequency) projector).getFrequency());
 
 		for (IFortronFrequency machine : machines)
 		{

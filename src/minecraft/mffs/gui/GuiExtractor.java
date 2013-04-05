@@ -1,7 +1,7 @@
 package mffs.gui;
 
+import mffs.container.ContainerExtractor;
 import mffs.machine.tile.TileExtractor;
-import mffs.rongqi.ContainerExtractor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 

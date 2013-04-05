@@ -1,7 +1,7 @@
 package mffs.gui;
 
+import mffs.container.ContainerProjector;
 import mffs.machine.tile.TileProjector;
-import mffs.rongqi.ContainerProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;

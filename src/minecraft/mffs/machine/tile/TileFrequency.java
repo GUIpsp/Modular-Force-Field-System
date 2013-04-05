@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.ForceGrid;
+import mffs.FortronGrid;
 import mffs.api.ISecurityCenter;
 import mffs.api.card.ILink;
 import mffs.api.fortron.IFortronFrequency;
-import mffs.machine.tile.TileMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import universalelectricity.core.vector.Vector3;
@@ -115,7 +114,7 @@ public abstract class TileFrequency extends TileEntity implements IBlockFrequenc
 			}
 		}
 
-		for (IFortronFrequency tileEntity : ForceGrid.instance().get(this.getFrequency()))
+		for (IFortronFrequency tileEntity : FortronGrid.instance().get(this.getFrequency()))
 		{
 			if (tileEntity instanceof ISecurityCenter)
 			{

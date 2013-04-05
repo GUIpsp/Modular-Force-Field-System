@@ -1,10 +1,9 @@
 package mffs.item.card;
 
 import mffs.api.fortron.IItemFortronStorage;
-import mffs.it.ka.ItKa;
 import net.minecraft.item.ItemStack;
 
-public class ItemCardInfinite extends ItKa implements IItemFortronStorage
+public class ItemCardInfinite extends ItemCard implements IItemFortronStorage
 {
 	public ItemCardInfinite(int id)
 	{

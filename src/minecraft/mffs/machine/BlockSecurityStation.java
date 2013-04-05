@@ -1,11 +1,10 @@
 package mffs.machine;
 
-import mffs.jiqi.BJiQi;
 import mffs.machine.tile.TileDefenceStation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSecurityStation extends BJiQi
+public class BlockSecurityStation extends BlockMachine
 {
 	public BlockSecurityStation(int i)
 	{

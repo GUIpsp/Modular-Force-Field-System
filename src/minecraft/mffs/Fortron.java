@@ -9,13 +9,13 @@ import net.minecraftforge.liquids.LiquidTank;
  * @author Calclavia
  * 
  */
-public class Force
+public class Fortron
 {
 	public static LiquidStack LIQUID_FORTRON;
 
 	public static LiquidStack getFortron(int amount)
 	{
-		LiquidStack stack = Force.LIQUID_FORTRON.copy();
+		LiquidStack stack = Fortron.LIQUID_FORTRON.copy();
 		stack.amount = amount;
 		return stack;
 	}

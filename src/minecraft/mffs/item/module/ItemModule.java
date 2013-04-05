@@ -5,7 +5,6 @@ import java.util.List;
 import mffs.ModularForceFieldSystem;
 import mffs.api.IProjector;
 import mffs.api.modules.IModule;
-import mffs.it.muo.ItM;
 import mffs.item.ItemBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

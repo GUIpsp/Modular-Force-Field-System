@@ -4,7 +4,6 @@ import java.util.List;
 
 import mffs.ModularForceFieldSystem;
 import mffs.api.card.ILink;
-import mffs.it.ka.ItKa;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,7 @@ import universalelectricity.core.vector.Vector3;
  * @author Calclavia
  * 
  */
-public class ItemCardLink extends ItKa implements ILink
+public class ItemCardLink extends ItemCard implements ILink
 {
 	public ItemCardLink(int id)
 	{

@@ -4,17 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.item.ItemStack;
-
 import mffs.MFFSConfiguration;
 import mffs.ModularForceFieldSystem;
 import mffs.api.ISecurityCenter;
 import mffs.api.SecurityPermission;
 import mffs.api.card.ICardIdentification;
-import mffs.item.card.ItemCardID;
 import mffs.item.card.ItemCardFrequency;
-
-
+import mffs.item.card.ItemCardID;
+import net.minecraft.item.ItemStack;
 
 import com.google.common.io.ByteArrayDataInput;
 
@@ -46,13 +43,13 @@ public class TileSecurityStation extends TileFrequency implements ISecurityCente
 			{
 				SecurityPermission permission = SecurityPermission.values()[dataStream.readInt()];
 
-				if (!ModularForceFieldSystem.itKaShenFen.hasPermission(this.getManipulatingCard(), permission))
+				if (!ModularForceFieldSystem.itemCardID.hasPermission(this.getManipulatingCard(), permission))
 				{
-					ModularForceFieldSystem.itKaShenFen.addPermission(this.getManipulatingCard(), permission);
+					ModularForceFieldSystem.itemCardID.addPermission(this.getManipulatingCard(), permission);
 				}
 				else
 				{
-					ModularForceFieldSystem.itKaShenFen.removePermission(this.getManipulatingCard(), permission);
+					ModularForceFieldSystem.itemCardID.removePermission(this.getManipulatingCard(), permission);
 				}
 			}
 		}

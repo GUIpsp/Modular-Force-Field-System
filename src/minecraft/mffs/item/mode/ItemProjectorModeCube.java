@@ -2,19 +2,15 @@ package mffs.item.mode;
 
 import java.util.Set;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import net.minecraftforge.common.ForgeDirection;
-
-import universalelectricity.core.vector.Vector3;
-
 import mffs.api.IProjector;
 import mffs.muoxing.ModelCube;
+import net.minecraftforge.common.ForgeDirection;
 
+import org.lwjgl.opengl.GL11;
 
+import universalelectricity.core.vector.Vector3;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemProjectorModeCube extends ItemProjectorMode
 {

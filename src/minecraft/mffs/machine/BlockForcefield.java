@@ -3,11 +3,16 @@ package mffs.machine;
 import java.util.List;
 import java.util.Random;
 
-import universalelectricity.core.vector.Vector3;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
+import mffs.MFFSConfiguration;
+import mffs.ModularForceFieldSystem;
+import mffs.api.IForceFieldBlock;
+import mffs.api.IProjector;
+import mffs.api.ISecurityCenter;
+import mffs.api.SecurityPermission;
+import mffs.api.fortron.IFortronStorage;
+import mffs.api.modules.IModule;
+import mffs.machine.tile.TLiQiang;
+import mffs.machine.tile.TileProjector;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -23,18 +28,9 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import mffs.MFFSConfiguration;
-import mffs.ModularForceFieldSystem;
-import mffs.api.IForceFieldBlock;
-import mffs.api.IProjector;
-import mffs.api.ISecurityCenter;
-import mffs.api.SecurityPermission;
-import mffs.api.fortron.IFortronStorage;
-import mffs.api.modules.IModule;
-import mffs.machine.tile.TileProjector;
-import mffs.machine.tile.TLiQiang;
-
-
+import universalelectricity.core.vector.Vector3;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockForcefield extends BlockBase implements IForceFieldBlock
 {

@@ -3,7 +3,6 @@ package mffs.item.module.defence;
 import mffs.MFFSConfiguration;
 import mffs.ModularForceFieldSystem;
 import mffs.api.IDefenseStation;
-import mffs.it.muo.fangyu.ItMD;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 

@@ -18,10 +18,10 @@ import cpw.mods.fml.relauncher.Side;
  * @author Calclavia
  * 
  */
-public class ForceGrid
+public class FortronGrid
 {
-	private static ForceGrid CLIENT_INSTANCE = new ForceGrid();
-	private static ForceGrid SERVER_INSTANCE = new ForceGrid();
+	private static FortronGrid CLIENT_INSTANCE = new FortronGrid();
+	private static FortronGrid SERVER_INSTANCE = new FortronGrid();
 
 	private final Set<IFortronFrequency> frequencyGrid = new HashSet<IFortronFrequency>();
 
@@ -115,7 +115,7 @@ public class ForceGrid
 
 	}
 
-	public static ForceGrid instance()
+	public static FortronGrid instance()
 	{
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{

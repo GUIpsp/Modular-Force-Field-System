@@ -1,21 +1,20 @@
 package mffs.gui;
 
-import org.lwjgl.opengl.GL11;
+import mffs.ModularForceFieldSystem;
+import mffs.container.ContainerCapacitor;
+import mffs.gui.button.GuiButtonPressTransferMode;
+import mffs.machine.tile.TileCapacitor;
+import mffs.machine.tile.TileMFFS.TPacketType;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
+import org.lwjgl.opengl.GL11;
 
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.network.PacketManager;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
-import mffs.ModularForceFieldSystem;
-import mffs.gui.button.GuiButtonPressTransferMode;
-import mffs.machine.tile.TileCapacitor;
-import mffs.machine.tile.TileMFFS.TPacketType;
-import mffs.rongqi.ContainerCapacitor;
-
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class GuiCapacitor extends GuiMFFS
 {

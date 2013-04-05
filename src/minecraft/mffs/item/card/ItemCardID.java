@@ -5,14 +5,13 @@ import java.util.List;
 import mffs.ModularForceFieldSystem;
 import mffs.api.SecurityPermission;
 import mffs.api.card.ICardIdentification;
-import mffs.it.ka.ItKa;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.prefab.TranslationHelper;
 
-public class ItemCardID extends ItKa implements ICardIdentification
+public class ItemCardID extends ItemCard implements ICardIdentification
 {
 	private static final String NBT_PREFIX = "mffs_permission_";
 

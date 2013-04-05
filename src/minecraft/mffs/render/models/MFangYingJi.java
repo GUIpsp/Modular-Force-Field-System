@@ -1,4 +1,4 @@
-package mffs.quanran.muoxing;
+package mffs.render.models;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

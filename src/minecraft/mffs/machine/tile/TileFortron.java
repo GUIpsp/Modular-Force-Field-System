@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.Force;
-import mffs.ForceGrid;
+import mffs.Fortron;
+import mffs.FortronGrid;
 import mffs.api.card.ICard;
 import mffs.api.fortron.IFortronFrequency;
-import mffs.jiqi.t.TShengBuo;
-import mffs.machine.tile.TileMFFS.TPacketType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
@@ -27,21 +25,21 @@ import com.google.common.io.ByteArrayDataInput;
  * @author Calclavia
  * 
  */
-public abstract class TileFortron extends TShengBuo implements ITankContainer, IFortronFrequency
+public abstract class TileFortron extends TileFrequency implements ITankContainer, IFortronFrequency
 {
-	protected LiquidTank fortronTank = new LiquidTank(Force.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
+	protected LiquidTank fortronTank = new LiquidTank(Fortron.LIQUID_FORTRON.copy(), LiquidContainerRegistry.BUCKET_VOLUME, this);
 
 	@Override
 	public void initiate()
 	{
-		ForceGrid.instance().register(this);
+		FortronGrid.instance().register(this);
 		super.initiate();
 	}
 
 	@Override
 	public void invalidate()
 	{
-		ForceGrid.instance().unregister(this);
+		FortronGrid.instance().unregister(this);
 		super.invalidate();
 	}
 
@@ -53,7 +51,7 @@ public abstract class TileFortron extends TShengBuo implements ITankContainer, I
 	{
 		List objects = new LinkedList();
 		objects.addAll(super.getPacketUpdate());
-		objects.add(Force.getAmount(this.fortronTank.getLiquid()));
+		objects.add(Fortron.getAmount(this.fortronTank.getLiquid()));
 		return objects;
 	}
 
@@ -64,7 +62,7 @@ public abstract class TileFortron extends TShengBuo implements ITankContainer, I
 
 		if (packetID == TPacketType.DESCRIPTION.ordinal())
 		{
-			this.fortronTank.setLiquid(Force.getFortron(dataStream.readInt()));
+			this.fortronTank.setLiquid(Fortron.getFortron(dataStream.readInt()));
 		}
 	}
 
@@ -98,7 +96,7 @@ public abstract class TileFortron extends TShengBuo implements ITankContainer, I
 	@Override
 	public int fill(ForgeDirection from, LiquidStack resource, boolean doFill)
 	{
-		if (resource.isLiquidEqual(Force.LIQUID_FORTRON))
+		if (resource.isLiquidEqual(Fortron.LIQUID_FORTRON))
 		{
 			return this.fortronTank.fill(resource, doFill);
 		}
@@ -133,7 +131,7 @@ public abstract class TileFortron extends TShengBuo implements ITankContainer, I
 	@Override
 	public ILiquidTank getTank(ForgeDirection direction, LiquidStack type)
 	{
-		if (type.isLiquidEqual(Force.LIQUID_FORTRON))
+		if (type.isLiquidEqual(Fortron.LIQUID_FORTRON))
 		{
 			return this.fortronTank;
 		}
@@ -144,13 +142,13 @@ public abstract class TileFortron extends TShengBuo implements ITankContainer, I
 	@Override
 	public void setFortronEnergy(int joules)
 	{
-		this.fortronTank.setLiquid(Force.getFortron(joules));
+		this.fortronTank.setLiquid(Fortron.getFortron(joules));
 	}
 
 	@Override
 	public int getFortronEnergy()
 	{
-		return Force.getAmount(this.fortronTank);
+		return Fortron.getAmount(this.fortronTank);
 	}
 
 	@Override
@@ -162,13 +160,13 @@ public abstract class TileFortron extends TShengBuo implements ITankContainer, I
 	@Override
 	public int requestFortron(int joules, boolean doUse)
 	{
-		return Force.getAmount(this.fortronTank.drain(joules, doUse));
+		return Fortron.getAmount(this.fortronTank.drain(joules, doUse));
 	}
 
 	@Override
 	public int provideFortron(int joules, boolean doUse)
 	{
-		return this.fortronTank.fill(Force.getFortron(joules), doUse);
+		return this.fortronTank.fill(Fortron.getFortron(joules), doUse);
 	}
 
 	/**

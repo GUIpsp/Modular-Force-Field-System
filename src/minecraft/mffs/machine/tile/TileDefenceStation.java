@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import mffs.ForceGrid;
+import mffs.FortronGrid;
 import mffs.ModularForceFieldSystem;
 import mffs.api.IDefenseStation;
 import mffs.api.ISecurityCenter;
@@ -15,8 +15,6 @@ import mffs.api.fortron.IFortronFrequency;
 import mffs.api.modules.IDefenseStationModule;
 import mffs.api.modules.IModule;
 import mffs.item.card.ItemCard;
-import mffs.machine.tile.TModuleAcceptor;
-import mffs.machine.tile.TileMFFS.TPacketType;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,7 +69,7 @@ public class TileDefenceStation extends TModuleAcceptor implements IDefenseStati
 
 		if (!this.worldObj.isRemote)
 		{
-			if (this.isActive() || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ModularForceFieldSystem.itKaWuXian.itemID))
+			if (this.isActive() || (this.getStackInSlot(0) != null && this.getStackInSlot(0).itemID == ModularForceFieldSystem.itemCardInfinite.itemID))
 			{
 				if (this.ticks % 10 == 0)
 				{
@@ -356,7 +354,7 @@ public class TileDefenceStation extends TModuleAcceptor implements IDefenseStati
 
 	public static IDefenseStation getNearestDefenseStation(World world, Vector3 position)
 	{
-		for (IFortronFrequency frequencyTile : ForceGrid.instance().get())
+		for (IFortronFrequency frequencyTile : FortronGrid.instance().get())
 		{
 			if (((TileEntity) frequencyTile).worldObj == world && frequencyTile instanceof IDefenseStation)
 			{

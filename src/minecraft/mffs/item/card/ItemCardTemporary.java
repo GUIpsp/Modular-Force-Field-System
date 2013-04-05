@@ -1,8 +1,6 @@
 package mffs.item.card;
 
-import mffs.it.ka.ItKaShenFen;
-
-public class ItemCardTemporary extends ItKaShenFen
+public class ItemCardTemporary extends ItemCardID
 {
 	public ItemCardTemporary(int i)
 	{

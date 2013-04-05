@@ -2,16 +2,16 @@ package mffs;
 
 import java.lang.reflect.Constructor;
 
-import mffs.machine.tile.TileSecurityStation;
-import mffs.machine.tile.TileExtractor;
+import mffs.container.ContainerCapacitor;
+import mffs.container.ContainerDefenceStation;
+import mffs.container.ContainerExtractor;
+import mffs.container.ContainerProjector;
+import mffs.container.ContainerSecurityStation;
 import mffs.machine.tile.TileCapacitor;
-import mffs.machine.tile.TileProjector;
 import mffs.machine.tile.TileDefenceStation;
-import mffs.rongqi.ContainerSecurityStation;
-import mffs.rongqi.ContainerExtractor;
-import mffs.rongqi.ContainerCapacitor;
-import mffs.rongqi.ContainerProjector;
-import mffs.rongqi.ContainerDefenceStation;
+import mffs.machine.tile.TileExtractor;
+import mffs.machine.tile.TileProjector;
+import mffs.machine.tile.TileSecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -22,7 +22,7 @@ public class CommonProxy implements IGuiHandler
 {
 	public void preInit()
 	{
-		BlockMachine.projector = new BlockMachine(0, ModularForceFieldSystem.blockProjecter, TileProjector.class, ContainerProjector.class);
+		BlockMachine.projector = new BlockMachine(0, ModularForceFieldSystem.blockProjector, TileProjector.class, ContainerProjector.class);
 		BlockMachine.extractor = new BlockMachine(1, ModularForceFieldSystem.blockExtractor, TileExtractor.class, ContainerExtractor.class);
 		BlockMachine.capacitor = new BlockMachine(2, ModularForceFieldSystem.blockCapacitor, TileCapacitor.class, ContainerCapacitor.class);
 		BlockMachine.defenceStation = new BlockMachine(3, ModularForceFieldSystem.blockDefenceStation, TileDefenceStation.class, ContainerDefenceStation.class);

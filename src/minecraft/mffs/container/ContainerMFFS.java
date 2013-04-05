@@ -1,4 +1,4 @@
-package mffs.rongqi;
+package mffs.container;
 
 import mffs.machine.tile.TileMFFS;
 import net.minecraft.entity.player.EntityPlayer;

@@ -4,7 +4,6 @@ import java.util.List;
 
 import mffs.ModularForceFieldSystem;
 import mffs.api.card.ILink;
-import mffs.it.ItemFortron;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

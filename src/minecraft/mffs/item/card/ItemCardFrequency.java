@@ -4,12 +4,11 @@ import icbm.api.IItemFrequency;
 
 import java.util.List;
 
-import mffs.it.ka.ItKa;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ItemCardFrequency extends ItKa implements IItemFrequency
+public class ItemCardFrequency extends ItemCard implements IItemFrequency
 {
 	public ItemCardFrequency(int i)
 	{

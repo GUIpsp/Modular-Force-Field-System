@@ -1,6 +1,6 @@
 package mffs.machine.tile;
 
-
+import icbm.api.RadarRegistry;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -8,13 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import universalelectricity.core.vector.Vector3;
-
-import icbm.api.RadarRegistry;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.liquids.LiquidContainerRegistry;
-import mffs.ForceGrid;
+import mffs.FortronGrid;
 import mffs.ModularForceFieldSystem;
 import mffs.api.card.ICard;
 import mffs.api.fortron.IFortronCapacitor;
@@ -22,12 +16,13 @@ import mffs.api.fortron.IFortronFrequency;
 import mffs.api.fortron.IFortronStorage;
 import mffs.api.fortron.IItemFortronStorage;
 import mffs.api.modules.IModule;
-import mffs.machine.tile.TileMFFS.TPacketType;
 import mffs.item.card.ItemCardLink;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
+import universalelectricity.core.vector.Vector3;
 
 import com.google.common.io.ByteArrayDataInput;
-
-import cpw.mods.fml.common.FMLLog;
 
 public class TileCapacitor extends TModuleAcceptor implements IFortronStorage, IFortronCapacitor
 {
@@ -296,7 +291,7 @@ public class TileCapacitor extends TModuleAcceptor implements IFortronStorage, I
 	@Override
 	public Set<IFortronFrequency> getLinkedDevices()
 	{
-		return ForceGrid.instance().get(this.worldObj, new Vector3(this), this.getTransmissionRange(), this.getFrequency());
+		return FortronGrid.instance().get(this.worldObj, new Vector3(this), this.getTransmissionRange(), this.getFrequency());
 	}
 
 	@Override

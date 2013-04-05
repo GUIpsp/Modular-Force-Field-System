@@ -1,8 +1,6 @@
 package mffs.item.card;
 
-import mffs.it.ka.ItKa;
-
-public class ItemCardEmpty extends ItKa
+public class ItemCardEmpty extends ItemCard
 {
 	public ItemCardEmpty(int i)
 	{

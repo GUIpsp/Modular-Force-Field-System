@@ -3,25 +3,20 @@ package mffs.machine.tile;
 import java.util.HashSet;
 import java.util.Set;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.liquids.LiquidContainerRegistry;
-
 import mffs.ModularForceFieldSystem;
 import mffs.api.IProjector;
 import mffs.api.modules.IModule;
 import mffs.api.modules.IProjectorMode;
 import mffs.item.card.ItemCard;
-
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
 import universalelectricity.core.vector.Vector3;
-
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileProjector extends TModuleAcceptor implements IProjector
 {
@@ -222,7 +217,7 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 
 					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-					if (this.getModuleCount(ModularForceFieldSystem.itemModuleDisintegration) > 0 || block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ModularForceFieldSystem.bLiQiang)
+					if (this.getModuleCount(ModularForceFieldSystem.itemModuleDisintegration) > 0 || block == null || block.blockMaterial.isLiquid() || block == Block.snow || block == Block.vine || block == Block.tallGrass || block == Block.deadBush || block.isBlockReplaceable(this.worldObj, vector.intX(), vector.intY(), vector.intZ()) || block == ModularForceFieldSystem.blockForcefield)
 					{
 						boolean canProject = true;
 
@@ -237,11 +232,11 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 
 						if (canProject)
 						{
-							if (block != ModularForceFieldSystem.bLiQiang)
+							if (block != ModularForceFieldSystem.blockForcefield)
 							{
 								if (this.worldObj.getChunkFromBlockCoords(vector.intX(), vector.intZ()).isChunkLoaded)
 								{
-									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.bLiQiang.blockID, 0, 2);
+									this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), ModularForceFieldSystem.blockForcefield.blockID, 0, 2);
 
 									TileEntity tileEntity = this.worldObj.getBlockTileEntity(vector.intX(), vector.intY(), vector.intZ());
 
@@ -292,7 +287,7 @@ public class TileProjector extends TModuleAcceptor implements IProjector
 				{
 					Block block = Block.blocksList[vector.getBlockID(this.worldObj)];
 
-					if (block == ModularForceFieldSystem.bLiQiang)
+					if (block == ModularForceFieldSystem.blockForcefield)
 					{
 						this.worldObj.setBlock(vector.intX(), vector.intY(), vector.intZ(), 0, 0, 3);
 					}

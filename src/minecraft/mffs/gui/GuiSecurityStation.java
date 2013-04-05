@@ -4,9 +4,9 @@ import java.util.List;
 
 import mffs.ModularForceFieldSystem;
 import mffs.api.SecurityPermission;
+import mffs.container.ContainerSecurityStation;
 import mffs.gui.button.GuiButtonPress;
 import mffs.machine.tile.TileSecurityStation;
-import mffs.rongqi.ContainerSecurityStation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.vector.Vector2;
@@ -57,14 +57,14 @@ public class GuiSecurityStation extends GuiMFFS
 		{
 			if (this.tileEntity.getManipulatingCard() != null)
 			{
-				if (ModularForceFieldSystem.itKaShenFen.getUsername(this.tileEntity.getManipulatingCard()) != null)
+				if (ModularForceFieldSystem.itemCardID.getUsername(this.tileEntity.getManipulatingCard()) != null)
 				{
 					for (int i = 0; i < this.buttonList.size(); i++)
 					{
 						GuiButtonPress button = (GuiButtonPress) this.buttonList.get(i);
 						button.drawButton = true;
 
-						if (ModularForceFieldSystem.itKaShenFen.hasPermission(this.tileEntity.getManipulatingCard(), SecurityPermission.values()[i]))
+						if (ModularForceFieldSystem.itemCardID.hasPermission(this.tileEntity.getManipulatingCard(), SecurityPermission.values()[i]))
 						{
 							button.stuck = true;
 						}

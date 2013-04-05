@@ -1,6 +1,5 @@
 package mffs.item;
 
-import mffs.it.ItemFortron;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 

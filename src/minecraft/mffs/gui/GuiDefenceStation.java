@@ -1,10 +1,10 @@
 package mffs.gui;
 
 import mffs.ModularForceFieldSystem;
+import mffs.container.ContainerDefenceStation;
 import mffs.gui.button.GuiButtonPress;
 import mffs.machine.tile.TileDefenceStation;
 import mffs.machine.tile.TileMFFS.TPacketType;
-import mffs.rongqi.ContainerDefenceStation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import universalelectricity.core.electricity.ElectricityDisplay;

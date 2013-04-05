@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import mffs.Li;
-import mffs.ZhuYao;
+import mffs.Fortron;
+import mffs.ModularForceFieldSystem;
 import mffs.api.modules.IModule;
-import mffs.it.ItemForcillium;
+import mffs.item.ItemForcillium;
 import mffs.item.card.ItemCardFrequency;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -78,7 +78,7 @@ public class TileExtractor extends TileElectric
 							// TODO: Get upgrades to work better.
 							if (getStackInSlot(3) != null)
 							{
-								if (this.getStackInSlot(3).itemID == ZhuYao.itMSuDu.itemID)
+								if (this.getStackInSlot(3).itemID == ModularForceFieldSystem.itMSuDu.itemID)
 								{
 									runTime /= 2;
 								}
@@ -142,7 +142,7 @@ public class TileExtractor extends TileElectric
 		{
 			if (this.isStackValidForSlot(0, this.getStackInSlot(0)))
 			{
-				return Li.getAmount(this.fortronTank) < this.fortronTank.getCapacity();
+				return Fortron.getAmount(this.fortronTank) < this.fortronTank.getCapacity();
 			}
 		}
 
@@ -153,7 +153,7 @@ public class TileExtractor extends TileElectric
 	{
 		if (this.canUse())
 		{
-			this.fortronTank.fill(Li.getFortron(1250 + this.worldObj.rand.nextInt(1000)), true);
+			this.fortronTank.fill(Fortron.getFortron(1250 + this.worldObj.rand.nextInt(1000)), true);
 			this.decrStackSize(0, 1);
 		}
 	}

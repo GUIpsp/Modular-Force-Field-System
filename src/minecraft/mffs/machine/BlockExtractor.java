@@ -1,11 +1,10 @@
 package mffs.machine;
 
-import mffs.jiqi.BJiQi;
 import mffs.machine.tile.TileExtractor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockExtractor extends BJiQi
+public class BlockExtractor extends BlockMachine
 {
 
 	public BlockExtractor(int i)

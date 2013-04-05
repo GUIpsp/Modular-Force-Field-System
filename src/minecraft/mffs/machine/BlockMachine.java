@@ -1,14 +1,13 @@
 package mffs.machine;
 
-
 import icbm.api.ICamouflageMaterial;
 import mffs.MFFSConfiguration;
 import mffs.MFFSCreativeTab;
-import mffs.ZhuYao;
+import mffs.ModularForceFieldSystem;
 import mffs.item.card.ItemCardLink;
-import mffs.machine.tile.TileSecurityStation;
 import mffs.machine.tile.TileMFFS;
-import mffs.quanran.RHJiQi;
+import mffs.machine.tile.TileSecurityStation;
+import mffs.render.RHJiQi;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -33,7 +32,7 @@ public abstract class BlockMachine extends BlockRotatable implements ICamouflage
 	public BlockMachine(int id, String name)
 	{
 		super(MFFSConfiguration.CONFIGURATION.getBlock(name, id).getInt(id), UniversalElectricity.machine);
-		this.setUnlocalizedName(ZhuYao.PREFIX + name);
+		this.setUnlocalizedName(ModularForceFieldSystem.PREFIX + name);
 		this.setBlockUnbreakable();
 		this.setResistance(100.0F);
 		this.setStepSound(soundMetalFootstep);
@@ -69,7 +68,7 @@ public abstract class BlockMachine extends BlockRotatable implements ICamouflage
 
 			if (!world.isRemote)
 			{
-				entityPlayer.openGui(ZhuYao.instance, 0, world, x, y, z);
+				entityPlayer.openGui(ModularForceFieldSystem.instance, 0, world, x, y, z);
 			}
 		}
 
@@ -161,8 +160,8 @@ public abstract class BlockMachine extends BlockRotatable implements ICamouflage
 	{
 		this.blockIcon = par1IconRegister.registerIcon(this.getUnlocalizedName2() + "_off");
 		this.iconOn = par1IconRegister.registerIcon(this.getUnlocalizedName2() + "_on");
-		this.iconMachineOn = par1IconRegister.registerIcon(ZhuYao.PREFIX + "machine_on");
-		this.iconMachineOff = par1IconRegister.registerIcon(ZhuYao.PREFIX + "machine_off");
+		this.iconMachineOn = par1IconRegister.registerIcon(ModularForceFieldSystem.PREFIX + "machine_on");
+		this.iconMachineOff = par1IconRegister.registerIcon(ModularForceFieldSystem.PREFIX + "machine_off");
 	}
 
 	@Override

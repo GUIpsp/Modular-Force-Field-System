@@ -2,23 +2,15 @@ package mffs.item;
 
 import java.util.List;
 
-import mffs.ModularForceFieldSystem;
-import mffs.api.fortron.IFortronCapacitor;
-import mffs.api.fortron.IFortronStorage;
 import mffs.api.fortron.IItemFortronStorage;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.item.ElectricItemHelper;
-import universalelectricity.core.vector.Vector3;
 
 public abstract class ItemFortron extends ItemBase implements IItemFortronStorage
 {

@@ -1,7 +1,6 @@
 package mffs.machine.tile;
 
-import mffs.ZhuYao;
-import mffs.jiqi.t.TFangYingJi;
+import mffs.ModularForceFieldSystem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -29,7 +28,7 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 	{
 		if (this.getZhuYao() != null)
 		{
-			return PacketManager.getPacket(ZhuYao.CHANNEL, this, this.zhuYao.intX(), this.zhuYao.intY(), this.zhuYao.intZ());
+			return PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, this, this.zhuYao.intX(), this.zhuYao.intY(), this.zhuYao.intZ());
 		}
 
 		return null;
@@ -54,7 +53,7 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 		this.zhuYao = position;
 	}
 
-	public TFangYingJi getZhuYao()
+	public TileProjector getZhuYao()
 	{
 		if (this.getZhuYaoSafe() != null)
 		{
@@ -69,13 +68,13 @@ public class TLiQiang extends TileEntityAdvanced implements IPacketReceiver
 		return null;
 	}
 
-	public TFangYingJi getZhuYaoSafe()
+	public TileProjector getZhuYaoSafe()
 	{
 		if (this.zhuYao != null)
 		{
-			if (this.zhuYao.getTileEntity(this.worldObj) instanceof TFangYingJi)
+			if (this.zhuYao.getTileEntity(this.worldObj) instanceof TileProjector)
 			{
-				return (TFangYingJi) this.zhuYao.getTileEntity(this.worldObj);
+				return (TileProjector) this.zhuYao.getTileEntity(this.worldObj);
 			}
 		}
 

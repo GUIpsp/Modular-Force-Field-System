@@ -58,14 +58,14 @@ public abstract class ItemProjectorMode extends ItemBase implements IProjectorMo
 		yScalePos += overAllIncrease;
 		yScaleNeg += overAllIncrease;
 
-		int zTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
-		int zTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
+		int zTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.NORTH)));
+		int zTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.SOUTH)));
 
-		int xTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
-		int xTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itMDong, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
+		int xTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.WEST)));
+		int xTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(VectorHelper.getOrientationFromSide(direction, ForgeDirection.EAST)));
 
-		int yTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itMDong, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
-		int yTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itMDong, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
+		int yTranslationPos = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.UP));
+		int yTranslationNeg = projector.getModuleCount(ModularForceFieldSystem.itemModuleTranslation, projector.getSlotsBasedOnDirection(ForgeDirection.DOWN));
 
 		Vector3 translation = new Vector3(xTranslationPos - xTranslationNeg, yTranslationPos - yTranslationNeg, zTranslationPos - zTranslationNeg);
 		Vector3 posScale = new Vector3(xScalePos, yScalePos, zScalePos);

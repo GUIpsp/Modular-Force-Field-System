@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import mffs.ZhuYao;
+import mffs.ModularForceFieldSystem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -58,7 +58,7 @@ public abstract class TileEntity extends TileMFFS implements IInventory
 	{
 		NBTTagCompound nbt = new NBTTagCompound();
 		this.writeToNBT(nbt);
-		PacketManager.sendPacketToClients(PacketManager.getPacket(ZhuYao.CHANNEL, this, TPacketType.INVENTORY.ordinal(), nbt));
+		PacketManager.sendPacketToClients(PacketManager.getPacket(ModularForceFieldSystem.CHANNEL, this, TPacketType.INVENTORY.ordinal(), nbt));
 	}
 
 	/**

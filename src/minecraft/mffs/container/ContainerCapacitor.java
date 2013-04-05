@@ -1,10 +1,9 @@
-package mffs.rongqi;
+package mffs.container;
 
-import net.minecraft.entity.player.EntityPlayer;
+import mffs.SlotHelper;
 import mffs.item.card.SlotCard;
 import mffs.machine.tile.TileCapacitor;
-
-
+import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerCapacitor extends ContainerMFFS
 {
