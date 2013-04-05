@@ -16,6 +16,7 @@ Please submit a pull request if you would be willing to translate this mod into 
 Join *#universalelectricity* on EsperNet. Remember to follow the rules and respect others as with any other channel.
 
 ### License
+This is the license of MFFS 3.0 and or above. MFFS 2.0 is licensed under GPL v3.0.
 In short, you are allowed to:
 
 * Redistribute
