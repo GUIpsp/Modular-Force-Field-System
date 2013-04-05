@@ -22,7 +22,7 @@ In short, you are allowed to:
 * Modify
 * Derive Code
 
-from this mod given you give permission to the original author(s).
+this mod given you give credits to the original author(s).
 
 This intellectual property is licensed under the following copyright:
 Modular Force Field System Public License (Modified MMPL)
